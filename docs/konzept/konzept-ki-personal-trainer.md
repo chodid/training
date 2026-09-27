@@ -19,6 +19,7 @@ hinweis_version: Keine Versionsnummer im Konzept; Versionierung erfolgt in der U
   2. das separate Prüfprotokoll `docs/pruefung/pruefprotokoll.md` (Struktur in Abschnitt 16),
   3. Changelog und Dokumentation des Repos.
 - **Trainingsfachliche Arbeit** (Wissensbasis, Trainerregeln, Athletenprofil, Blockpläne) findet im claude.ai-Projekt „Personal Training & Trainingsdokumentation" statt, nicht in der Code-Instanz.
+- **Rollenverteilung (Modelle):** Konzeptarbeit (dieses Dokument, Entscheidungen, AP-Zuschnitt) und Design-Mockups (AP-01a, D-37) übernimmt das Modell **Fable**; Codearbeit, Tests, Deployment und Pull Requests übernimmt die **Code-Instanz**. Die Code-Instanz ändert Konzeptentscheidungen nicht selbst, sondern meldet Befunde über `probleme_loesungen`.
 - Regel für Entscheidungen: Alles, was in Abschnitt 4 als `entschieden` steht, ist nicht mehr zu diskutieren. Alles unter Abschnitt 5 (`offen`) ist vor Umsetzung des betroffenen AP zu klären.
 
 # 1. Aufgabenstellung
@@ -74,7 +75,7 @@ Ein einzelner Athlet (= Betreiber des Systems). Kein Mehrbenutzerbetrieb.
 |---|---|---|---|
 | K1 | Garmin-Uhr + Garmin Connect | Athlet | Aufzeichnung aller Aktivitäten; Anzeige geplanter Ausdauer-Workouts; Schlaf/HRV/Ruhepuls |
 | K2 | Intervals.icu | Drittanbieter | Hub für Ausdauer: empfängt Aktivitäten und Wellness von Garmin; hält geplante Ausdauereinheiten (Kalender); überträgt geplante Workouts an Garmin Connect (Vorschau eine Woche) |
-| K3 | PHP-Server (Lima-City) | Eigenes Hosting | Webseite (mobil), MySQL-Datenbank, Intervals.icu-Client, MCP-Endpunkt, OAuth-Server |
+| K3 | PHP-Server (Lima-City) | Eigenes Hosting | Webseite (mobil und Tablet), MySQL-Datenbank, Intervals.icu-Client, MCP-Endpunkt, OAuth-Server |
 | K4 | claude.ai-Projekt | Anthropic | Trainer-Instanz: Planung, Anpassung, Begründung; Zugriff auf K3 über Custom Connector (MCP) |
 | K5 | Projekt-Wissen (Dateien im Projekt) | Anthropic | Wissenskarten (Literatur), Trainerregeln, Athletenprofil, Blockpläne |
 | K6 | Projekt-Memory | Anthropic | Nur stabile, nicht gesundheitsbezogene Fakten (Ziele, Ausrüstung, Präferenzen) |
@@ -117,7 +118,8 @@ flowchart LR
 | Branding-Dokument | K7 Repo (docs/branding/) | D-19 |
 | Blockplan, Begründungen, Trainerregeln, Wissenskarten | K7 Repo + K5 Projekt-Wissen | Textdokumente |
 | Athletenprofil (Ziele, Zeitbudget, Ausrüstung, Einschränkungen) | K7 Repo (docs/athlet/) + K5 | Nicht in K6 Memory |
-| OAuth-Clients/Tokens, Audit-Log der MCP-Schreibzugriffe | K3 MySQL | |
+| OAuth-Clients, Auth-Codes, Refresh-Tokens (gehasht), Web-Sessions, Audit-Log der MCP-Schreibzugriffe | K3 MySQL | Access-Tokens sind signierte JWT und werden nicht gespeichert (D-32); Web-Session in `web_session` (D-33) |
+| MCP-Sitzungsdateien des SDK (nur für Clients älterer Protokollrevisionen) | K3 Dateisystem `<Ordner>/var/` | Außerhalb Docroot, vom Deployment nicht berührt (D-17) |
 
 # 4. Entscheidungen (entschieden)
 
@@ -126,9 +128,9 @@ flowchart LR
 | D-01 | Zielarchitektur ist Ausbaustufe 3: eigene Web-App mit Datenbank plus MCP-Server, Intervals.icu als Hub für Ausdauer und Garmin. | Intervals.icu modelliert Kraft/Klettern nur als Textnotiz; strukturierte Nicht-Ausdauer-Einheiten und einheitliches Feedback brauchen eigene DB. | 2026-09-27 |
 | D-02 | Intervals.icu ist die einzige Verbindung zu Garmin (Aktivitäten, Wellness, Workout-Push). | Strava und Garmin-API ausgeschlossen (N1–N3); Intervals.icu bietet API mit persönlichem Key und direkten Garmin-Sync. | 2026-09-27 |
 | D-03 | Server in PHP auf bestehendem Webhosting (Lima-City); MCP über Streamable HTTP im stateless-Modus (Protokollrevision 2026-07-28), kein Dauerprozess. | Aktuelle MCP-Revision ist sitzungslos, jeder POST ein abgeschlossener JSON-RPC-Austausch; passt zu PHP/Apache. | 2026-09-27 |
-| D-04 | MCP-SDK: `logiscape/mcp-sdk-php` (Erstwahl); offizielles PHP-SDK als Alternative, falls logiscape Blocker zeigt. | logiscape ist explizit für PHP/Apache/cPanel-Hosting gebaut, hohe Konformanz, bringt OAuth-2.1-Bausteine mit. Offizielles SDK ist noch experimentell. | 2026-09-27 |
-| D-05 | Authentifizierung claude.ai ↔ MCP: OAuth 2.1 (Single-User-Implementierung: Metadaten, Dynamic Client Registration, Authorize mit Webseiten-Login, Token mit PKCE, Bearer-Prüfung). | claude.ai-Custom-Connectors unterstützen ausschließlich OAuth, keine eigenen Header. OAuth ist zudem für Gesundheitsdaten und Schreibzugriff das angemessene Verfahren. | 2026-09-27 |
-| D-06 | Fallback bis OAuth-Flow stabil: Claude Desktop (oder Claude Code) mit statischem Bearer-Token-Header gegen denselben MCP-Endpunkt. | Bekannte Flakiness des claude.ai-OAuth-Handshakes; Desktop/Code erlauben Header. Fallback ist nicht mobil. | 2026-09-27 |
+| D-04 | MCP-SDK: `logiscape/mcp-sdk-php` (Erstwahl); offizielles PHP-SDK als Alternative, falls logiscape Blocker zeigt. Präzisierung (Befund 2026-09-27, geprüft an v2.0.1): Das SDK liefert nur die **Resource-Server-Seite** von OAuth 2.1 – Bearer-Prüfung über `TokenValidatorInterface` (mitgeliefert `JwtTokenValidator` für HS256/RS256 mit iss/aud/exp-Prüfung, eigene Validatoren möglich), Auslieferung von `/.well-known/oauth-protected-resource`, 401 mit `WWW-Authenticate: Bearer resource_metadata=...`. Es enthält **keinen Autorisierungsserver** (Metadaten nach RFC 8414, Dynamic Client Registration, Authorize, Token). Der Autorisierungsserver wird in AP-01 selbst gebaut (D-32, D-36). | logiscape ist explizit für PHP/Apache/Shared-Hosting gebaut, hohe Konformanz; die Resource-Server-Bausteine (Validator, Metadaten, 401) werden genutzt, die Autorisierungsserver-Seite ist für einen Einzelnutzer überschaubar (vier Endpunkte, vier Tabellen). Offizielles SDK ist noch experimentell. | 2026-09-27 |
+| D-05 | Authentifizierung claude.ai ↔ MCP: OAuth 2.1 (Single-User-Implementierung: Metadaten, Dynamic Client Registration, Authorize mit Webseiten-Login, Token mit PKCE, Bearer-Prüfung). Konkretisierung: Token-Format D-32, Login D-33, Client-Registrierung und Freigabe D-36. | claude.ai-Custom-Connectors unterstützen ausschließlich OAuth, keine eigenen Header. OAuth ist zudem für Gesundheitsdaten und Schreibzugriff das angemessene Verfahren. | 2026-09-27 |
+| D-06 | Fallback bis OAuth-Flow stabil: Claude Desktop (oder Claude Code) mit statischem Bearer-Token-Header gegen denselben MCP-Endpunkt. Konkretisierung: Das statische Token steht in `.env` als `MCP_STATIC_TOKEN` und wird nur akzeptiert, wenn zusätzlich `MCP_STATIC_TOKEN_ENABLED=true` gesetzt ist (Standard: nicht gesetzt = aus). Die Prüfung erfolgt im selben Validator-Pfad vor der JWT-Prüfung (D-32); ein akzeptiertes statisches Token gilt mit vollem Scope. | Bekannte Flakiness des claude.ai-OAuth-Handshakes; Desktop/Code erlauben Header. Fallback ist nicht mobil. Eigenes Aktivierungsflag verhindert, dass ein vergessenes Token dauerhaft eine zweite Tür offenhält. | 2026-09-27 |
 | D-07 | Ausdauereinheiten werden in den Intervals.icu-Kalender geschrieben und erscheinen auf der Uhr; alle anderen Einheiten leben auf der Webseite. | Nutzeranforderung; Garmin-Push für strukturierte Kraft-Workouts ist unklar und nicht nötig. | 2026-09-27 |
 | D-08 | Die Webseite zeigt eine Wochenansicht für alle Einheiten inkl. Ausdauer (serverseitig aus Intervals.icu geladen) und nimmt Feedback für alle Einheiten auf. | Ein Eingabeort; vermeidet doppelte Erfassung. | 2026-09-27 |
 | D-09 | Phase 1: Live-Proxy auf Intervals.icu (kein Cron-Spiegel). Cron-Spiegel nach MySQL optional in AP-09. | Vermeidet Sync-Logik; Rate-Limit (10 req/s) ist unkritisch. Spiegel nur bei Backup-/Performance-Bedarf. | 2026-09-27 |
@@ -139,9 +141,9 @@ flowchart LR
 | D-14 | Gesundheitsbezogene Daten (Schmerz, Verletzungen, Einschränkungen) werden ausschließlich in K3 (MySQL) und K7/K5 (Profil-Dokument) gehalten, nie im Projekt-Memory (K6). | Datensparsamkeit; Memory hält nur stabile, nicht sensible Fakten. | 2026-09-27 |
 | D-15 | Athletenprofil ist ein Dokument (docs/athlet/profil.md), kein DB-Objekt (Phase 1). | Geringer Aufwand, im Chat direkt lesbar; DB-Abbildung bei Bedarf in AP-09. | 2026-09-27 |
 | D-16 | Tägliches Check-in auf der Webseite mit genau drei Feldern: `recovery_1_5`, `soreness_1_5`, `pain_flag` (bei ja → Schmerzereignis). Keine separate Schlafqualität. Fehlende Einträge gelten als fehlend; MCP meldet Abdeckungsquote. | Subjektive Marker sind sensitiver als objektive (V-06); Schmerz hat keinen objektiven Ersatz; minimaler Umfang sichert Compliance. Bestätigt durch Athlet. | 2026-09-27 |
-| D-17 | Deployment: GitHub-Repo ist Quelle; ein GitHub-Actions-Workflow baut (`composer install --no-dev`) und überträgt `server/` per FTPS (explizit, Port 21) in den Subdomain-Ordner auf dem Webspace. Kein Klartext-FTP. Layout auf dem Server: Subdomain-Ordner = Inhalt von `server/` (`src/`, `vendor/`, `migrations/`, …), Document Root = `<Ordner>/public`, `.env` direkt in `<Ordner>/`, Backups in `<Ordner>/backups/`; nur `public/` ist per HTTP erreichbar. `.env` und `backups/` werden nie überschrieben oder gelöscht. Migrationen werden nach dem Upload über einen geschützten Endpunkt vom Workflow ausgelöst (Secret in GitHub Actions). Optional zweiter Workflow für eine Staging-Subdomain. | Kein SSH/Composer auf dem Server vorausgesetzt; reproduzierbarer Build; Nutzeranforderung „GitHub + FTP-Push". | 2026-09-27 |
+| D-17 | Deployment: GitHub-Repo ist Quelle; ein GitHub-Actions-Workflow baut (`composer install --no-dev`) und überträgt `server/` per FTPS (explizit, Port 21) in den Subdomain-Ordner auf dem Webspace. Kein Klartext-FTP. Layout auf dem Server: Subdomain-Ordner = Inhalt von `server/` (`src/`, `vendor/`, `migrations/`, …), Document Root = `<Ordner>/public`, `.env` direkt in `<Ordner>/`, Backups in `<Ordner>/backups/`, Laufzeitdaten (z. B. MCP-Sitzungsdateien des SDK für Clients älterer Protokollrevisionen) in `<Ordner>/var/`; nur `public/` ist per HTTP erreichbar. `.env`, `backups/` und `var/` werden vom Deployment nie überschrieben oder gelöscht. Migrationen werden nach dem Upload über einen geschützten Endpunkt vom Workflow ausgelöst (Secret in GitHub Actions). Optional zweiter Workflow für eine Staging-Subdomain. | Kein SSH/Composer auf dem Server vorausgesetzt; reproduzierbarer Build; Nutzeranforderung „GitHub + FTP-Push". | 2026-09-27 |
 | D-18 | Backup betrifft nur die Datenbank (Code und Dokumente liegen in GitHub). Mechanik: SQL-Dump per PHP (Schema + Daten, portabel) → gzip → Verschlüsselung mit Passwort. Format OpenSSL-kompatibel (AES-256-CBC, PBKDF2 mit dokumentierter Iterationszahl, `Salted__`-Header), damit die Datei ohne eigenes Werkzeug per `openssl enc -d` entschlüsselbar ist. Auslöser: (a) manuell als Download auf der Webseite (nur eingeloggt); (b) zeitgesteuert per E-Mail (Lima-City-Cronjob ruft einen geschützten Endpunkt auf, Intervall konfigurierbar, Standard wöchentlich); (c) automatisch vor jeder Migration (in `backups/` außerhalb Docroot, Rotation der letzten 5). Backup-Passwort liegt in `.env`. Restore-Anleitung im README; Restore-Test Pflicht in AP-10. | Nutzeranforderung; DB ist klein (KB bis wenige MB), E-Mail-Anhang unkritisch; Standardformat sichert Wiederherstellbarkeit auf jedem Rechner. Tradeoff: symmetrisches Passwort auf dem Server bedeutet, dass ein Serverkompromiss auch das Backup-Passwort preisgibt – da der Server die DB ohnehin hält, entsteht kein zusätzlicher Verlust. Asymmetrische Variante (Public Key auf dem Server) optional in AP-09. CBC ohne Authentifizierung: Integrität wird über die gzip-Prüfsumme nach dem Entschlüsseln erkannt. | 2026-09-27 |
-| D-19 | Das Branding-Dokument wird im Repo unter `docs/branding/` abgelegt und gilt für AP-04 (Webseite). Das Konzept benötigt es nicht; die Code-Instanz liest es vor AP-04. | Gestaltung ist Umsetzungsdetail, keine Konzeptentscheidung. | 2026-09-27 |
+| D-19 | Das Branding-Dokument wird im Repo unter `docs/branding/` abgelegt und gilt für **alle** Webseiten-Screens ab AP-01 (S0 Setup, S1 Login, S7 Freigabe) über AP-04 (S2–S5) bis AP-09 (S6). Es enthält die Gestaltungsvorgaben des Athleten und die Mockups aus AP-01a (D-37); alle Screens sind **mobil- und tabletfreundlich** (responsive, Touch-Bedienung, Hoch- und Querformat). Die Code-Instanz liest es vor Beginn von AP-01. | Gestaltung ist Umsetzungsdetail, keine Konzeptentscheidung; da bereits AP-01 sichtbare Seiten baut, muss die Vorgabe vorher vorliegen. | 2026-09-27 |
 | D-20 | Update-Mechanik: Schemaänderungen ausschließlich als nummerierte Migrationsdateien in `server/migrations/` (SQL oder PHP), Tabelle `schema_version` hält den Stand. Der Code trägt eine `APP_SCHEMA_VERSION`; bei jedem Request prüft die App, ob Code- und DB-Stand übereinstimmen – bei Abweichung wird eine „Update erforderlich"-Seite angezeigt und jeder Schreibzugriff (Web und MCP) blockiert, bis migriert ist. Migration wird ausgelöst (a) vom Deploy-Workflow über den geschützten Endpunkt (D-17) oder (b) manuell über eine Schaltfläche nach Login. Ablauf jeder Migration: Wartungsflag setzen → Pre-Migration-Dump (D-18 c) → Migrationen der Reihe nach, `schema_version` nach jeder einzelnen Migration fortschreiben → Wartungsflag lösen. MySQL beendet Transaktionen bei DDL (`CREATE`/`ALTER`) implizit; daher: ein fachlicher Schritt pro Migrationsdatei, Datenänderungen in Transaktionen, Schemaänderungen ohne; bricht eine Migration ab, bleibt `schema_version` auf der letzten erfolgreichen. Kein automatisches Rollback: Rückweg = vorheriger Git-Tag deployen + Pre-Migration-Dump einspielen. | Verhindert Code/Schema-Mismatch nach einem FTP-Upload, dessen Migrationsaufruf fehlschlug; Dump vor Migration ist der einzige zuverlässige Rückweg. Down-Migrationen sind Aufwand ohne Nutzen für ein Einzelnutzer-System. | 2026-09-27 |
 | D-21 | Englischsprachige Literatur ist der deutschsprachigen gleichgestellt; Auswahl nach Eignung, nicht nach Sprache. | Die maßgeblichen Konsenspapiere und Praxisbücher (Klettern, Bergausdauer) sind englischsprachig. | 2026-09-27 |
 | D-22 | Evidenzhierarchie für Regelquellen: Consensus Statements / Position Stands / systematische Reviews > wissenschaftliche Lehrbücher > Praxisliteratur. Lehrbücher liefern Grundlagen und Begriffe; Regeln in `docs/regeln/` stützen sich vorrangig auf Paper. | Klassische Standardwerke mischen empirische Befunde mit tradierten Modellen (Superkompensation, klassische Periodisierung); Paper sind per DOI/PMID prüfbar, oft Open Access und kurz (Tokenbudget 13.1). | 2026-09-27 |
@@ -154,6 +156,12 @@ flowchart LR
 | D-29 | Calisthenics ist Teil von T2. Übungskatalog mit Progressionsleitern aus L-T2-04 (Low, Overcoming Gravity, 2. Aufl. 2016), abgelegt als Abschnitt `uebungskatalog_calisthenics` in der T2-Sammeldatei, nicht als eigene Karte; Konfidenz niedrig (Praxiswissen). Dosierung (Sätze, Nähe zum Muskelversagen, Frequenz, Volumen) ausschließlich aus dem Kernset D-28. Ausgeschlossen: Wade, Convict Conditioning. | Kein wissenschaftliches Standardwerk zu Calisthenics; Progression über Hebelvarianten praktisch nicht untersucht. Belastungsprinzipien gelten unabhängig vom Widerstand (ACSM 2026 schließt Körpergewicht/Band/Heimtraining ein). Direkte Studien L-T2-08 bis L-T2-10 (per PubMed geprüft). Convict Conditioning: anonymer Autor, unbelegte Behauptungen. | 2026-09-27 |
 | D-30 | Zugübungen mit Körpergewicht (Klimmzug-Varianten, Front Lever u. ä.) werden unter T3 geplant (`session.type = klettern`, Block `zugkraft`). Calisthenics unter T2 umfasst Druckübungen, Beine und Rumpf. | Starke Überschneidung mit Kletter-Zugkraft; nur bei Zuordnung zu T3 greifen die Sequenzierungsregeln (Abschnitt 14 Kap. 2). | 2026-09-27 |
 | D-31 | Einheitliches Evidenzschema für alle Literaturblöcke: Stufe A = Paper/Konsens (konfidenz hoch), B = wissenschaftliche Lehrbücher (mittel), C = Praxisquellen (niedrig). Stufe C darf in Wissenskarten als Übungs-/Ideenfundus und mit Kennzeichnung zitiert werden, aber nie allein einen Belastungsparameter (Dosierung, Progression, Schwelle) begründen. Volltexte (Open Access und gekaufte PDFs) dürfen im privaten Repo unter `docs/literatur/` liegen, nie im Projektwissen; einzelne Dateien < 100 MB (GitHub-Grenze), große Bücher als Kapitel-PDFs. Evidenzkern T3 gemäß E6 übernommen (L-T3-01, -02, -03, -06, -08; -09 optional). Klettermedizin: englische Ausgabe 2022 (L-T3-06) bevorzugt, deutsche 2020 (L-T3-07) als Alternative. | Vereinheitlicht D-22, D-25, D-29 und die T3-Vorschläge E3–E6; bestätigt durch Athlet (Q-07, Q-08). | 2026-09-27 |
+| D-32 | Token-Format OAuth (AP-01). **Access-Token** = JWT, signiert mit HS256, Laufzeit 1 h, Secret aus `.env` (`OAUTH_JWT_SECRET`, Pflicht, ≥ 32 Zeichen). Claims: `iss` (= `APP_URL`), `aud` (= `APP_URL` + `/mcp`), `sub` (Benutzer-ID), `client_id`, `scope`, `iat`, `exp`, `jti`. Prüfung am `/mcp`-Endpunkt über den SDK-`JwtTokenValidator` (iss/aud/exp); Access-Tokens werden nicht in der DB gespeichert. **Refresh-Token** = zufälliger Wert (≥ 32 Byte), nur gehasht in `oauth_token` abgelegt, widerrufbar, **Rotation bei jeder Nutzung** (altes Token wird als benutzt markiert, neues ausgegeben, gleiche `family_id`); Wiederverwendung eines bereits rotierten Refresh-Tokens widerruft die **gesamte Token-Familie**. Tabelle `oauth_token` hält damit nur Refresh-Tokens (Feld `type` bleibt für Erweiterbarkeit). | Der SDK-Validator kann JWT direkt prüfen, ohne DB-Zugriff pro Request; HS256 genügt, da Aussteller und Prüfer derselbe Server sind. Rotation mit Familien-Widerruf ist die OAuth-2.1-Empfehlung gegen gestohlene Refresh-Tokens. **Tradeoff:** Ein Widerruf wirkt für bereits ausgegebene Access-Tokens erst nach deren Ablauf (≤ 1 h), weil sie nicht gegen die DB geprüft werden – für einen Einzelnutzer akzeptiert; im Notfall wird `OAUTH_JWT_SECRET` gewechselt, was alle Access-Tokens sofort ungültig macht. | 2026-09-27 |
+| D-33 | Login der Webseite (Q-05): **Passwort** mit langer Session (**30 Tage**, gleitend über `last_seen_at`). Die Session liegt in der eigenen Tabelle `web_session` (`token_hash`, `user_id`, `csrf_secret`, `created_at`, `last_seen_at`, `expires_at`), das Session-Token im Cookie (`HttpOnly`, `Secure`, `SameSite=Lax`), in der DB nur gehasht. Schutz gegen Raten: `user.failed_logins` und `user.locked_until` – nach wiederholten Fehlversuchen (Richtwert 5) wird das Konto zeitlich gesperrt (Richtwert 15 min, steigend). Passwort-Hash mit `password_hash()` (Argon2id, sonst bcrypt). Passkey (WebAuthn) optional in AP-09. Der Login wird bereits in AP-01 gebaut, weil `/oauth/authorize` ihn voraussetzt. | PHP-Standardsessions auf Shared Hosting leben nicht zuverlässig 30 Tage (Garbage Collection, Sitzungsverzeichnis des Hosters); eigene Tabelle macht Laufzeit und Widerruf kontrollierbar. Passkey ist Komfort, kein Sicherheitsgewinn, solange nur ein Gerät angemeldet wird. | 2026-09-27 |
+| D-34 | Erstes Passwort: einmalige Seite `/setup`, nur aktiv, **solange kein Benutzer existiert**; verlangt das `MIGRATION_SECRET` aus `.env` und legt den einzigen Benutzer (Login, Passwort, Zeitzone) an. Sobald ein Benutzer existiert, antwortet `/setup` dauerhaft mit 404; ein Zurücksetzen erfolgt nur über die Datenbank (Benutzer löschen). | Kein Seed-Passwort im Repo oder in Migrationen; das ohnehin vorhandene Deploy-Secret beweist Betreiberrechte. Einzelnutzer (N8): kein Einladungs- oder Registrierungsfluss nötig. | 2026-09-27 |
+| D-35 | Die Tabellen `user`, `web_session`, `oauth_client`, `oauth_auth_code`, `oauth_token` werden in **AP-01** als Migrationen angelegt (vorgezogen aus AP-03). AP-03 legt nur noch die Trainingstabellen an (`training_block`, `training_week`, `session`, `session_execution`, `pain_event`, `checkin`, `audit_log`, optional `ext_cache`). | AP-01 braucht Login und OAuth-Persistenz produktiv; Q-05 ist entschieden (D-33), damit entfällt die frühere Wartebedingung für AP-03. | 2026-09-27 |
+| D-36 | Dynamic Client Registration (`/oauth/register`) ist **offen** (jeder Client darf sich registrieren, RFC 7591, ohne Vorab-Secret). Schutz liegt im Authorize-Schritt: Login (D-33) und eine **ausdrückliche Freigabeseite**, die Client-Name und Redirect-Host anzeigt und eine Bestätigung verlangt; ohne Bestätigung kein Code. Regeln: Redirect-URIs nur `https://` oder `http://localhost` bzw. `http://127.0.0.1` (exakter Vergleich gegen die registrierte URI); **PKCE mit `S256` Pflicht** (`plain` abgelehnt); Autorisierungscodes 10 min gültig, einmalig, gehasht gespeichert; unbenutzte Client-Registrierungen dürfen nach 30 Tagen aufgeräumt werden. | claude.ai registriert seinen Client selbst und erwartet offene DCR; eine Registrierung allein verschafft keinen Zugriff, weil jeder Zugriff die Freigabe des angemeldeten Athleten braucht. Localhost-Ausnahme für Claude Desktop/Code und lokale Tests. | 2026-09-27 |
+| D-37 | **Design-Mockups vor AP-01** (eigenes Vorpaket AP-01a, Fable): Mockups aller Screens – S0 Setup, S1 Login, S2 Woche, S3 Einheit, S4 Check-in, S5 Schmerz, S7 OAuth-Freigabe – mobil- und tabletfreundlich, auf Grundlage der Gestaltungsvorgaben des Athleten (werden noch geliefert). Ergebnis ist das Branding-Dokument unter `docs/branding/` (D-19); Abnahme durch den Athleten ist Voraussetzung für AP-01. | Bereits AP-01 baut drei sichtbare Seiten (Setup, Login, Freigabe); eine spätere Umgestaltung wäre doppelte Arbeit. Die Code-Instanz setzt Mockups um, entwirft sie aber nicht (Rollenverteilung Abschnitt 0). | 2026-09-27 |
 
 # 5. Offene Fragen und Verifikationen
 
@@ -165,7 +173,7 @@ flowchart LR
 | Q-02 | Feedback zu Ausdauereinheiten zusätzlich zurück nach Intervals.icu schreiben (RPE/Feel/Kommentar auf der Aktivität)? | Optional in AP-09; Nutzen: Intervals.icu-Charts vollständig. Kosten: Feld-Semantik abgleichen (V-03). | offen |
 | Q-03 | Sichtbarkeit der Aktivitäten in Intervals.icu | Auf privat stellen. | offen |
 | Q-04 | Repo-Name und Lizenz | Repo `chodid/training`, privat, keine Lizenz. | entschieden (2026-09-27) |
-| Q-05 | Login-Verfahren Webseite: Passwort oder Passkey (WebAuthn) | Passwort + lange Session in Phase 1; Passkey optional AP-09. | offen |
+| Q-05 | Login-Verfahren Webseite: Passwort oder Passkey (WebAuthn) | Passwort + lange Session (30 Tage, eigene Tabelle `web_session`) in Phase 1; Passkey optional AP-09. | entschieden → D-33 (2026-09-27) |
 | Q-06 | Welche Literatur ist bereits vorhanden (PDF/ePub/Print)? | Antwort: keine. Auswahl, Priorisierung und Beschaffung vollständig in AP-06; Kandidatenliste 13.2 ist Ausgangspunkt, nicht Vorgabe. | beantwortet |
 | Q-07 | Einheitliches Evidenzschema über alle Blöcke: Block T3 schlägt Stufen A/B/C vor (E3) und will Stufe C ohne Begründungsfunktion (E4); Block T1 führt Praxisquellen mit `konfidenz: niedrig` in Karten (D-25); Block T2 nutzt eine Stufe-C-Quelle als Übungskatalog mit Dosierung aus Stufe A (D-29). | Vereinheitlichen als D-31: A = Paper/Konsens (konfidenz hoch), B = wissenschaftliche Lehrbücher (mittel), C = Praxisquellen (niedrig). Stufe C darf in Karten als Übungs-/Ideenfundus und mit Kennzeichnung zitiert werden, aber nie allein einen Belastungsparameter (Dosierung, Progression, Schwelle) begründen. Damit sind D-25, D-29 und E4 deckungsgleich. Ebenso E5: Open-Access-Volltexte (nur CC BY) dürfen im privaten Repo unter `docs/literatur/` liegen, nie im Projektwissen (D-12, Budget 13.1). E6 (Evidenzkern T3) übernehmen. | entschieden → D-31 |
 | Q-08 | Klettermedizin: deutsche (L-T3-07, 2020) oder englische Ausgabe (L-T3-06, 2022)? Nur eine wird beschafft. | Englische Ausgabe (neuer, ISBN/DOI verifiziert, Springer-Kapitel-PDFs); deutsche nur, wenn Sprache im Alltag wichtiger ist als Aktualität. | entschieden → D-31: 2022 bevorzugt, 2020 als Alternative |
@@ -205,20 +213,21 @@ Ad-hoc-Anpassung unter der Woche: Athlet meldet sich im Chat; Claude ruft `get_w
 
 # 7. Datenmodell (Entitäten, konzeptionell)
 
-Feldtypen sind konzeptionell; die konkrete Migration entsteht in AP-03.
+Feldtypen sind konzeptionell. Die konkreten Migrationen entstehen in zwei Schritten: Benutzer-, Session- und OAuth-Tabellen in AP-01 (D-35), Trainingstabellen in AP-03.
 
 | entitaet | felder (auszug) | bemerkung |
 |---|---|---|
-| `user` | id, login, password_hash, tz, created_at | genau ein Datensatz |
+| `user` | id, login, password_hash, tz, failed_logins, locked_until(null), created_at | genau ein Datensatz; Anlage über `/setup` (D-34); Sperre nach Fehlversuchen (D-33); AP-01 |
+| `web_session` | token_hash, user_id, csrf_secret, created_at, last_seen_at, expires_at | 30-Tage-Session der Webseite (D-33); Token nur gehasht; AP-01 |
 | `training_block` | id, name, start_date, end_date, goal_events_json, phase_notes, status(`geplant`,`aktiv`,`abgeschlossen`), doc_ref | doc_ref → docs/plaene/ |
 | `training_week` | id, block_id, week_start(Mo), focus, coach_notes, status(`entwurf`,`bestaetigt`,`abgeschlossen`), created_by(`mcp`,`web`), created_at | |
 | `session` | id, week_id, date, type(`ausdauer`,`kraft`,`klettern`,`haltung`,`mobilitaet`,`ruhe`), title, priority(`A`,`B`,`C`), planned_duration_min, intervals_event_id(null), plan_json, coach_rationale, status(`geplant`,`erledigt`,`teilweise`,`ausgelassen`,`verschoben`), sort_order | plan_json-Schema in 7.1 |
 | `session_execution` | id, session_id, performed_at, duration_min, actual_json, rpe_cr10(0–10), srpe_load(=rpe×min, berechnet), feel_1_5, deviation_reason(`zeit`,`ermuedung`,`schmerz`,`wetter`,`sonstiges`,null), notes, source(`web`,`intervals`) | genau eine pro Session |
 | `pain_event` | id, date, session_id(null), location(enum 7.2), side(`L`,`R`,`beide`,`na`), intensity_0_10, timing(`waehrend`,`danach`,`naechster_morgen`,`ruhe`), notes | mehrere pro Tag möglich |
 | `checkin` | id, date(unique), recovery_1_5, soreness_1_5, pain_flag(bool), notes | D-16 |
-| `oauth_client` | client_id, client_name, redirect_uris_json, created_at | DCR |
-| `oauth_auth_code` | code_hash, client_id, code_challenge, method, redirect_uri, scope, expires_at, used | PKCE |
-| `oauth_token` | token_hash, type(`access`,`refresh`), client_id, scope, expires_at, revoked | Tokens nur gehasht |
+| `oauth_client` | client_id, client_name, redirect_uris_json, created_at, last_used_at | offene DCR (D-36); Redirect-URIs nur https bzw. localhost; AP-01 |
+| `oauth_auth_code` | code_hash, client_id, user_id, code_challenge, method(`S256`), redirect_uri, scope, expires_at, used | PKCE S256 Pflicht; 10 min, einmalig (D-36); AP-01 |
+| `oauth_token` | token_hash, type(`refresh`; `access` reserviert), client_id, user_id, family_id, scope, expires_at, used_at(null), revoked | Hält nur Refresh-Tokens, gehasht; Access-Tokens sind JWT ohne DB-Eintrag (D-32); `family_id` für Rotation und Familien-Widerruf; AP-01 |
 | `audit_log` | id, ts, actor(`mcp`,`web`,`cron`), action, entity, entity_id, payload_hash, summary | alle Schreibzugriffe |
 | `ext_cache` (optional) | cache_key, payload_json, fetched_at | Kurzcache Intervals.icu (z. B. 5 min) |
 
@@ -265,10 +274,11 @@ ausdauer:
 
 ## 8.1 Endpunkt und Transport
 
-- Pfad: `/mcp` (Streamable HTTP, stateless; GET/DELETE → 405).
-- Auth: Bearer (OAuth 2.1, D-05); ohne Token → 401 mit `WWW-Authenticate: Bearer resource_metadata=...`.
-- Metadaten: `/.well-known/oauth-protected-resource`, `/.well-known/oauth-authorization-server`; Endpunkte `/oauth/register`, `/oauth/authorize`, `/oauth/token`.
-- Fallback (D-06): derselbe Endpunkt akzeptiert zusätzlich ein statisches Token aus der Konfiguration (nur wenn Konfig-Flag gesetzt).
+- Pfad: `/mcp` (Streamable HTTP, stateless; GET/DELETE → 405). Für Clients älterer Protokollrevisionen legt das SDK Sitzungsdateien an; Ablage in `<Ordner>/var/` außerhalb des Docroots (D-17).
+- Auth: Bearer (OAuth 2.1, D-05). Access-Token ist ein JWT HS256 (D-32), geprüft über den SDK-`JwtTokenValidator` (iss = `APP_URL`, aud = `APP_URL` + `/mcp`, exp); ohne oder mit ungültigem Token → 401 mit `WWW-Authenticate: Bearer resource_metadata=...` (vom SDK erzeugt).
+- Aus dem SDK (Resource-Server-Seite, D-04): Bearer-Prüfung, `/.well-known/oauth-protected-resource`, 401-Antwort.
+- Selbst gebaut (Autorisierungsserver, D-04, D-36): `/.well-known/oauth-authorization-server` (RFC 8414), `/oauth/register` (offene DCR), `/oauth/authorize` (Login D-33 + Freigabeseite S7), `/oauth/token` (Code-Einlösung mit PKCE S256, Refresh mit Rotation D-32).
+- Fallback (D-06): derselbe Endpunkt akzeptiert zusätzlich das statische Token `MCP_STATIC_TOKEN` aus `.env`, aber nur wenn `MCP_STATIC_TOKEN_ENABLED=true`.
 
 ## 8.2 Tools (konzeptionell)
 
@@ -302,18 +312,24 @@ Enum-Werte und Skalen in Antworten immer mit Einheit/Skala kennzeichnen (z. B. `
 - Rate-Limit 10 req/s pro IP: unkritisch; optionaler Kurzcache (`ext_cache`).
 - Privatsphäre: Aktivitäten auf privat (Q-03).
 
-# 10. Webseite (mobil)
+# 10. Webseite (mobil und Tablet)
 
 Technik: serverseitig gerenderte PHP-Seiten, responsive, minimales JS (Formulare ohne Reload optional), Web-App-Manifest für „Zum Startbildschirm", kein Offline-Modus in Phase 1.
 
+Anforderung Gestaltung: Alle Screens sind **mobil- und tabletfreundlich** (Smartphone hochkant als Primärfall; Tablet hoch und quer ohne Layoutbrüche; Touch-Ziele, lesbare Schrift, keine horizontalen Scrollbereiche). Gestaltung nach Branding-Dokument und Mockups (D-19, D-37, AP-01a).
+
 | screen | inhalt | felder/aktionen |
 |---|---|---|
-| S1 Login | Passwort (Q-05), lange Session | |
+| S0 Setup (einmalig) | Anlage des einzigen Benutzers, nur solange kein Benutzer existiert (D-34) | `MIGRATION_SECRET`, Login, Passwort (2×), Zeitzone |
+| S1 Login | Passwort (D-33), Session 30 Tage; Hinweis bei gesperrtem Konto | Login, Passwort; Abmelden (widerruft die Web-Session) |
 | S2 Woche | 7 Tage, je Tag Einheiten (Typ-Icon, Titel, Dauer, Status); heutiger Tag hervorgehoben; Check-in-Status pro Tag; Navigation ±Woche; Wochensumme sRPE | Einheit öffnen; Check-in öffnen |
 | S3 Einheit | Plan (Übungen/Blöcke mit Soll), Ist-Eingabe pro Übung (vorbelegt mit Soll), Feedback-Block | RPE 0–10; Feel 1–5; Schmerz ja/nein → Ort, Seite, Stärke, Timing; Abweichungsgrund; Notiz; Status setzen (erledigt/teilweise/ausgelassen/verschoben); bei Ausdauer: verknüpfte Intervals.icu-Aktivität anzeigen |
 | S4 Check-in | Tagesformular, ≤ 10 s | Erholung 1–5, Muskelkater 1–5, Schmerz ja/nein (→ S5-Kurzform), Notiz optional |
 | S5 Schmerz | Kurzformular | Ort (Enum 7.2), Seite, 0–10, Timing, Notiz |
 | S6 Verlauf (optional, AP-09) | Schmerz je Ort über 8 Wochen; sRPE-Wochenlast je Typ | |
+| S7 OAuth-Freigabe | Freigabeseite im Authorize-Schritt (D-36): zeigt Client-Name, Redirect-Host und angeforderten Scope | Freigeben / Ablehnen |
+
+Screens S0, S1 und S7 entstehen in AP-01, S2–S5 in AP-04, S6 in AP-09; Mockups für alle in AP-01a.
 
 # 11. Feedback- und Check-in-Definitionen
 
@@ -334,12 +350,13 @@ Regeln für fehlende Daten:
 # 12. Sicherheit und Datenschutz
 
 1. HTTPS (Zertifikat über Lima-City; TLS endet am vorgeschalteten Proxy, der auch auf HTTPS umleitet); HSTS.
-1a. Auf dem Webspace ist `open_basedir` nicht gesetzt: PHP-Skripte anderer Websites desselben Lima-City-Accounts können `.env` und `backups/` lesen. Hinnehmbar, solange im Account keine fremde oder veraltete Software läuft; Backups sind zusätzlich verschlüsselt. Zusätzlich sperrt eine `.htaccess` im Subdomain-Ordner jeden HTTP-Zugriff, falls der Document Root versehentlich auf den Ordner selbst zeigt.
-2. Secrets (Intervals.icu-Key, statisches Fallback-Token, OAuth-Signaturschlüssel) außerhalb des Docroots, nie im Repo.
-3. OAuth 2.1 Single-User: Authorize nur nach Webseiten-Login; Access-Tokens kurzlebig, Refresh-Tokens widerrufbar; Tokens nur gehasht gespeichert.
+1a. Auf dem Webspace ist `open_basedir` nicht gesetzt: PHP-Skripte anderer Websites desselben Lima-City-Accounts können `.env`, `backups/` und `var/` lesen. Hinnehmbar, solange im Account keine fremde oder veraltete Software läuft; Backups sind zusätzlich verschlüsselt. Zusätzlich sperrt eine `.htaccess` im Subdomain-Ordner jeden HTTP-Zugriff, falls der Document Root versehentlich auf den Ordner selbst zeigt.
+2. Secrets ausschließlich in `.env` außerhalb des Docroots, nie im Repo: Intervals.icu-Key, `OAUTH_JWT_SECRET` (Pflicht, ≥ 32 Zeichen, D-32), `MCP_STATIC_TOKEN` mit `MCP_STATIC_TOKEN_ENABLED` (D-06), `MIGRATION_SECRET` (D-17, D-34), Backup-Passwort (D-18).
+3. OAuth 2.1 Single-User: Authorize nur nach Webseiten-Login und ausdrücklicher Freigabe (D-36); Access-Tokens = JWT HS256, 1 h, ohne DB-Eintrag; Refresh-Tokens zufällig, nur gehasht, rotierend, Familien-Widerruf bei Wiederverwendung (D-32); PKCE S256 Pflicht, Codes 10 min einmalig, Redirect-URIs nur https bzw. localhost (D-36). Tradeoff: Widerruf greift für laufende Access-Tokens erst nach Ablauf (≤ 1 h); Notbremse ist der Wechsel von `OAUTH_JWT_SECRET`.
+3a. Webseiten-Login (D-33): Passwort-Hash per `password_hash()`; Session 30 Tage in `web_session`, Cookie `HttpOnly`/`Secure`/`SameSite=Lax`, CSRF-Schutz über `csrf_secret` je Session; Kontosperre nach wiederholten Fehlversuchen (`failed_logins`, `locked_until`). Erstanlage nur über `/setup` mit `MIGRATION_SECRET`, danach dauerhaft gesperrt (D-34).
 4. Audit-Log für alle Schreibzugriffe über MCP und Web.
 5. Backups gemäß D-18: verschlüsselte Dumps (manuell, per E-Mail, vor Migrationen); Backup-Passwort nur in `.env`; Pre-Migration-Dumps außerhalb des Docroots, nicht per HTTP erreichbar; Restore-Test in AP-10.
-5a. Deployment gemäß D-17: FTPS/SFTP-Zugangsdaten und Migrations-Secret nur als GitHub-Actions-Secrets; Workflow überschreibt weder `.env` noch Daten-/Backup-Verzeichnisse.
+5a. Deployment gemäß D-17: FTPS/SFTP-Zugangsdaten und Migrations-Secret nur als GitHub-Actions-Secrets; Workflow überschreibt weder `.env` noch `backups/` noch `var/` (Ausschlussliste ab AP-01 um `var/` ergänzt).
 5b. Updates gemäß D-20: Schreibsperre bei Code/Schema-Abweichung; Migrationen nur nach erfolgreichem Pre-Migration-Dump.
 6. Datenklassifikation: Schmerz-/Verletzungsdaten = sensibel → nur K3 und Profil-Dokument (D-14); Projekt-Memory hält keine Gesundheitsdaten.
 7. Intervals.icu: Datenschutzeinstellungen prüfen; Bewusstsein, dass ein Drittanbieter Aktivitäts- und Wellness-Daten hält (bewusste Entscheidung D-02).
@@ -955,9 +972,9 @@ Vorgesehene Kapitel:
 
 # 15. Arbeitspakete
 
-Reihenfolge Code-Instanz: AP-00 → AP-01 → AP-02 → AP-03 → AP-04 → AP-10 → AP-05 → AP-09.
+Reihenfolge Code-Instanz: AP-00 → **AP-01a (Fable, Vorarbeit)** → AP-01 → AP-02 → AP-03 → AP-04 → AP-10 → AP-05 → AP-09.
 Parallel im Projekt-Chat: AP-06 → AP-07 → AP-08. Training kann mit AP-06 bis AP-08 und Plan-als-Dokument (Übergangslösung) starten, bevor der Code fertig ist.
-Hinweis zur Nummerierung: AP-10 wurde nachträglich eingefügt und steht bewusst vor AP-05, weil Migrationen und Backups produktiv sein müssen, bevor Claude über MCP schreibt.
+Hinweis zur Nummerierung: AP-10 wurde nachträglich eingefügt und steht bewusst vor AP-05, weil Migrationen und Backups produktiv sein müssen, bevor Claude über MCP schreibt. AP-01a wurde nachträglich als eigenes Vorpaket eingefügt (D-37), weil es von einem anderen Modell (Fable) bearbeitet und vom Athleten abgenommen wird und damit einen eigenen Statusblock braucht; AP-01 hängt davon ab.
 
 Statusblock je AP (von der Code-Instanz zu pflegen):
 ```yaml
@@ -1010,18 +1027,43 @@ probleme_loesungen:
     loesung: vorsorglich Weitergabe per RewriteRule in public/.htaccess, Request liest auch REDIRECT_HTTP_AUTHORIZATION
 ```
 
-## AP-01 MCP-Minimalserver mit OAuth (Risikotest)
+## AP-01a Design-Mockups (Fable, Vorarbeit)
 
-- **Ziel:** Nachweis, dass claude.ai (Web und Mobile) den PHP-MCP-Server über OAuth 2.1 erreicht, bevor Trainingslogik gebaut wird.
-- **Umfang:** logiscape-SDK einbinden; `/mcp` stateless; ein Dummy-Tool `ping` (gibt Zeitstempel zurück); OAuth-Metadaten, DCR, Authorize (mit einfachem Login), Token (PKCE), Bearer-Prüfung; statisches Fallback-Token per Konfig-Flag; Custom Connector in claude.ai einrichten (V-05); Fallback über Claude Desktop testen.
-- **Abhängigkeiten:** AP-00.
-- **Abnahmekriterien:** `ping` aus dem Projekt-Chat (Web) und aus der Mobile-App aufrufbar; Token-Refresh nach Ablauf funktioniert; Anfrage ohne Token → 401 mit korrekten Metadaten; Fallback über Desktop funktioniert.
+- **Ziel:** Gestaltungsgrundlage für alle Webseiten-Screens, bevor die erste sichtbare Seite gebaut wird (D-37).
+- **Umfang:** Gestaltungsvorgaben des Athleten entgegennehmen (Farben, Schrift, Tonalität, ggf. Logo – werden noch geliefert); Mockups für S0 Setup, S1 Login, S2 Woche, S3 Einheit, S4 Check-in, S5 Schmerz, S7 OAuth-Freigabe, je in Smartphone-Hochformat und Tablet-Ansicht; Zustände Fehler/gesperrt/leer, wo relevant; Ergebnis als Branding-Dokument `docs/branding/` (Vorgaben, Komponenten, Mockups, Umsetzungshinweise für die Code-Instanz) gemäß D-19.
+- **Abhängigkeiten:** Gestaltungsvorgaben des Athleten liegen vor.
+- **Abnahmekriterien:** Athlet hat die Mockups bestätigt; Branding-Dokument liegt im Repo; jeder Screen aus Abschnitt 10 ist abgedeckt; Tablet- und Smartphone-Ansicht vorhanden.
 - **Status:**
 ```yaml
 status: offen
 begonnen: null
 abgeschlossen: null
 probleme_loesungen: []
+```
+
+## AP-01 MCP-Minimalserver mit OAuth (Risikotest)
+
+- **Ziel:** Nachweis, dass claude.ai (Web und Mobile) den PHP-MCP-Server über OAuth 2.1 erreicht, bevor Trainingslogik gebaut wird.
+- **Umfang:**
+  1. logiscape-SDK einbinden; `/mcp` stateless; ein Dummy-Tool `ping` (gibt Zeitstempel zurück); SDK-Sitzungsdateien nach `<Ordner>/var/`; Deploy-Ausschlussliste (AP-00-Workflow) um `var/` ergänzen (D-17).
+  2. Migrationen für `user`, `web_session`, `oauth_client`, `oauth_auth_code`, `oauth_token` (D-35, Abschnitt 7).
+  3. Seite `/setup` (S0) zur Erstanlage des Benutzers mit `MIGRATION_SECRET` (D-34); Login S1 mit 30-Tage-Session, CSRF-Schutz, Kontosperre nach Fehlversuchen, Abmelden (D-33).
+  4. Autorisierungsserver selbst bauen (D-04, D-36): `/.well-known/oauth-authorization-server`, `/oauth/register` (offene DCR, Redirect-URI-Regeln), `/oauth/authorize` (Login + Freigabeseite S7), `/oauth/token` (PKCE S256, Codes 10 min einmalig; Refresh mit Rotation und Familien-Widerruf).
+  5. Access-Token als JWT HS256 (1 h, Claims gemäß D-32) ausstellen; Bearer-Prüfung am `/mcp` über den SDK-`JwtTokenValidator`; `/.well-known/oauth-protected-resource` und 401 aus dem SDK.
+  6. Statisches Fallback-Token `MCP_STATIC_TOKEN`, nur bei `MCP_STATIC_TOKEN_ENABLED=true` (D-06).
+  7. Neue `.env`-Schlüssel dokumentieren (README, `.env.example`): `OAUTH_JWT_SECRET` (Pflicht, ≥ 32 Zeichen; Start verweigert, wenn kürzer oder fehlend), `MCP_STATIC_TOKEN` (optional), `MCP_STATIC_TOKEN_ENABLED` (optional, Standard aus).
+  8. Gestaltung von S0, S1, S7 nach `docs/branding/` (AP-01a); Custom Connector in claude.ai einrichten (V-05); Fallback über Claude Desktop testen.
+- **Abhängigkeiten:** AP-00; AP-01a (Branding-Dokument abgenommen).
+- **Abnahmekriterien:** `/setup` legt genau einen Benutzer an und ist danach gesperrt (404); Login funktioniert, Session überlebt einen Browser-Neustart, fünf Fehlversuche sperren zeitlich; `ping` aus dem Projekt-Chat (Web) und aus der Mobile-App aufrufbar, jeweils nach Freigabe auf S7; Token-Refresh nach Ablauf funktioniert, Wiederverwendung eines rotierten Refresh-Tokens widerruft die Familie (Test); Anfrage ohne Token → 401 mit korrekten Metadaten; abgelaufenes oder fremd signiertes JWT → 401; Redirect-URI mit `http://` außer localhost wird bei Registrierung abgelehnt; PKCE `plain` wird abgelehnt; Fallback über Desktop funktioniert nur bei gesetztem Flag; S0/S1/S7 auf Smartphone und Tablet nutzbar; `.env` und `var/` überleben ein Deployment.
+- **Status:**
+```yaml
+status: offen
+begonnen: null
+abgeschlossen: null
+probleme_loesungen:
+  - datum: 2026-09-27
+    was: Vorbereitung – logiscape/mcp-sdk-php v2.0.1 geprüft. Das SDK enthält nur die Resource-Server-Seite von OAuth 2.1 (TokenValidatorInterface mit JwtTokenValidator HS256/RS256 inkl. iss/aud/exp-Prüfung, /.well-known/oauth-protected-resource, 401 mit WWW-Authenticate resource_metadata), aber keinen Autorisierungsserver (RFC-8414-Metadaten, DCR, Authorize, Token). Für Clients älterer Protokollrevisionen legt es Sitzungsdateien an.
+    loesung: D-04 präzisiert, Autorisierungsserver wird in AP-01 selbst gebaut (D-32, D-36); Access-Token als JWT HS256, damit der SDK-Validator direkt genutzt werden kann; Sitzungsdateien nach var/ außerhalb Docroot (D-17); Auth-Tabellen aus AP-03 vorgezogen (D-35); Login und Erstanlage festgelegt (D-33, D-34)
 ```
 
 ## AP-02 Intervals.icu-Anbindung
@@ -1040,9 +1082,9 @@ probleme_loesungen: []
 
 ## AP-03 Datenmodell
 
-- **Ziel:** MySQL-Schema gemäß Abschnitt 7, Migrationen, Enum-Seeds.
-- **Umfang:** Migrationen für alle Entitäten; JSON-Schemata für `plan_json`/`actual_json` als Validierungsgrundlage; ER-Diagramm in `docs/`.
-- **Abhängigkeiten:** AP-00. Q-05 muss entschieden sein.
+- **Ziel:** MySQL-Schema der Trainingsdaten gemäß Abschnitt 7, Migrationen, Enum-Seeds.
+- **Umfang:** Migrationen für die Trainingstabellen `training_block`, `training_week`, `session`, `session_execution`, `pain_event`, `checkin`, `audit_log`, optional `ext_cache` (Benutzer-, Session- und OAuth-Tabellen sind bereits in AP-01 angelegt, D-35); JSON-Schemata für `plan_json`/`actual_json` als Validierungsgrundlage; ER-Diagramm aller Tabellen (inkl. der aus AP-01) in `docs/`.
+- **Abhängigkeiten:** AP-00, AP-01 (Migrationsreihenfolge). Q-05 ist entschieden (D-33).
 - **Abnahmekriterien:** Migrationen idempotent; Beispiel-Woche mit allen Session-Typen einfügbar; JSON-Validierung lehnt fehlerhafte Pläne ab.
 - **Status:**
 ```yaml
@@ -1054,10 +1096,10 @@ probleme_loesungen: []
 
 ## AP-04 Webseite
 
-- **Ziel:** Screens S1–S5 gemäß Abschnitt 10, mobil nutzbar.
-- **Umfang:** Gestaltung nach `docs/branding/` (D-19, vor Beginn lesen); Login; Wochenansicht inkl. Ausdauereinheiten aus Intervals.icu; Einheit mit Ist-Eingabe und Feedback; Check-in; Schmerz-Kurzformular; Bereich „Einstellungen" nach Login (Platzhalter für Backup/Update aus AP-10); Web-App-Manifest.
-- **Abhängigkeiten:** AP-02, AP-03; Branding-Dokument im Repo vorhanden.
-- **Abnahmekriterien:** Auf dem Smartphone: Woche sehen, Krafteinheit mit Ist-Werten abschließen, Feedback und Schmerzereignis erfassen, Check-in in ≤ 10 s; alles in DB nachvollziehbar; Ausdauereinheit der Woche mit verknüpfter Aktivität sichtbar.
+- **Ziel:** Screens S2–S5 gemäß Abschnitt 10, mobil und auf dem Tablet nutzbar (S0, S1, S7 stammen aus AP-01).
+- **Umfang:** Gestaltung nach `docs/branding/` (D-19, AP-01a); Login aus AP-01 (D-33) einbinden; Wochenansicht inkl. Ausdauereinheiten aus Intervals.icu; Einheit mit Ist-Eingabe und Feedback; Check-in; Schmerz-Kurzformular; Bereich „Einstellungen" nach Login (Platzhalter für Backup/Update aus AP-10); Web-App-Manifest.
+- **Abhängigkeiten:** AP-01, AP-02, AP-03; Branding-Dokument im Repo vorhanden (AP-01a).
+- **Abnahmekriterien:** Auf dem Smartphone und auf dem Tablet: Woche sehen, Krafteinheit mit Ist-Werten abschließen, Feedback und Schmerzereignis erfassen, Check-in in ≤ 10 s; alles in DB nachvollziehbar; Ausdauereinheit der Woche mit verknüpfter Aktivität sichtbar.
 - **Status:**
 ```yaml
 status: offen
@@ -1179,7 +1221,7 @@ probleme_loesungen: []
 ## AP-09 Betrieb und Optionen
 
 - **Ziel:** Betriebsreife und optionale Erweiterungen nach Praxiserfahrung.
-- **Umfang (jeweils einzeln zu entscheiden):** Asymmetrische Backup-Verschlüsselung (Public Key auf dem Server) statt Passwort; JSON-Export aller Daten für Portabilität; Cron-Spiegel Intervals.icu → MySQL (D-09); Feedback-Rückschreiben nach Intervals.icu (Q-02); Verlauf-Screen S6; Passkey-Login (Q-05); Athletenprofil als DB-Objekt; Offline-Fähigkeit der Webseite.
+- **Umfang (jeweils einzeln zu entscheiden):** Asymmetrische Backup-Verschlüsselung (Public Key auf dem Server) statt Passwort; JSON-Export aller Daten für Portabilität; Cron-Spiegel Intervals.icu → MySQL (D-09); Feedback-Rückschreiben nach Intervals.icu (Q-02); Verlauf-Screen S6; Passkey-Login (D-33); Athletenprofil als DB-Objekt; Offline-Fähigkeit der Webseite.
 - **Abhängigkeiten:** AP-05.
 - **Status:**
 ```yaml
@@ -1193,7 +1235,7 @@ probleme_loesungen: []
 
 - **Ziel:** Verschlüsselte DB-Backups (manuell, per E-Mail, vor Migrationen) und sichere Schema-Updates gemäß D-18 und D-20.
 - **Umfang:**
-  1. Dump-Modul: SQL-Dump per PHP (Schema + Daten, alle Tabellen inkl. `schema_version` und `audit_log`; OAuth-Tokens ausgenommen), gzip.
+  1. Dump-Modul: SQL-Dump per PHP (Schema + Daten, alle Tabellen inkl. `schema_version` und `audit_log`; `oauth_token`, `oauth_auth_code` und `web_session` ausgenommen – nach einem Restore wird neu angemeldet und der Connector neu freigegeben), gzip.
   2. Verschlüsselungsmodul: OpenSSL-kompatibel (AES-256-CBC, PBKDF2, Iterationszahl als Konstante dokumentiert, `Salted__`-Header); Passwort aus `.env`; Dateiname mit Zeitstempel und Schema-Version.
   3. Download: Schaltfläche in „Einstellungen" (nur eingeloggt), liefert die verschlüsselte Datei.
   4. E-Mail-Versand: geschützter Endpunkt, aufgerufen von einem Lima-City-Cronjob (V-10: keine PHP-CLI), Empfängeradresse und Intervall in `.env`, Versand mit Anhang; Fehler werden geloggt und beim nächsten Login angezeigt.
@@ -1243,3 +1285,4 @@ noch_zu_pruefen:
 | 2026-09-27 | AP-00 umgesetzt (Code-Stand 0.1.0), Status `in_arbeit` bis zur Abnahme auf dem Server; Probleme/Lösungen im AP-00-Block. |
 | 2026-09-27 | AP-00 Korrektur (Code-Stand 0.1.1): FTP-Benutzer ist auf den Subdomain-Ordner beschränkt, `FTP_SERVER_DIR` = `/`. |
 | 2026-09-27 | AP-00 abgenommen (Prüfprotokoll), Status `erledigt`. |
+| 2026-09-27 | Vorbereitung AP-01 (Befund SDK v2.0.1 und Entscheidungen des Athleten). D-04 präzisiert: SDK liefert nur die Resource-Server-Seite, Autorisierungsserver wird selbst gebaut. Neu: D-32 Token-Format (JWT HS256 1 h, Refresh-Rotation mit Familien-Widerruf), D-33 Login Passwort + 30-Tage-Session in `web_session` (Q-05 entschieden), D-34 Erstanlage über `/setup` mit `MIGRATION_SECRET`, D-35 Auth-Tabellen in AP-01 vorgezogen, D-36 offene DCR mit Freigabeseite/PKCE S256/Redirect-Regeln, D-37 Design-Mockups vor AP-01. D-06 konkretisiert (`MCP_STATIC_TOKEN`, `MCP_STATIC_TOKEN_ENABLED`), D-17 um `var/` ergänzt, D-19 auf alle Screens ab AP-01 und Tablet erweitert. Abschnitt 0 Rollenverteilung (Fable/Code-Instanz); 3.3, 7 (`web_session`, `user.failed_logins/locked_until`, `oauth_token` nur Refresh), 8.1, 10 (S0, S7, Tablet), 12 (2, 3, 3a) angepasst. Neues Vorpaket AP-01a Design-Mockups als eigenes AP statt Voraussetzung in AP-01, weil es ein anderes Modell bearbeitet und der Athlet es separat abnimmt (eigener Statusblock). AP-01 Umfang/Abnahme erweitert, AP-03 nur noch Trainingstabellen, AP-04/AP-09/AP-10 Querverweise. |
