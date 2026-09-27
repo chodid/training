@@ -12,7 +12,7 @@ use Training\Http\Response;
 
 final class App
 {
-    public const VERSION = '0.1.0';
+    public const VERSION = '0.1.1';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
     public const SCHEMA_VERSION = 1;
