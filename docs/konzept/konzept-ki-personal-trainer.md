@@ -1041,7 +1041,10 @@ abgeschlossen: null
 probleme_loesungen:
   - datum: 2026-09-27
     was: Gestaltungsvorgaben des Athleten geliefert (Chadid Design-System aus Claude Design)
-    loesung: Abgelegt unter docs/branding/chadid-design-system/ (Tokens, Richtlinien, Logo, Schriften lokal, SKILL.md); Quelldateien (uploads) bewusst nicht übernommen; keine UI-Komponenten. Grundlage für die Mockups durch Fable. Offen – Mockups S0–S5, S7 und Abnahme.
+    loesung: Abgelegt unter docs/branding/chadid-design-system/ (Tokens, Richtlinien, Logo, Schriften lokal, SKILL.md); Quelldateien (uploads) bewusst nicht übernommen; keine UI-Komponenten. Grundlage für die Mockups durch Fable.
+  - datum: 2026-09-27
+    was: Mockups erstellt (Fable) – S0, S1 (normal, Fehler, gesperrt), S2 (inkl. leer), S3 (Kraft, Ausdauer, Klettern mit Schmerz), S4 (inkl. Schmerz), S5, S6, S7, Einstellungen (inkl. Update erforderlich) als HTML unter docs/branding/mockups/, Übersicht index.html, Screenshots Smartphone/Desktop, Branding-Dokument docs/branding/branding.md
+    loesung: In Rücksprache mit dem Athleten festgelegt (branding.md B-01 bis B-07) – Umfang inkl. S6 und Einstellungen; zusätzlich zu Smartphone/Tablet eine Desktop-Ansicht (Seitenleiste); App-Kennung Lama-Kopf + „Training“; nur helles Farbschema; Icons als lokales Sprite; Diagramme in einer Farbe als kleine Vielfache. Offen – Abnahme durch den Athleten, danach D-19 um Desktop und Abschnitt 10 um „Einstellungen“ ergänzen.
 ```
 
 ## AP-01 MCP-Minimalserver mit OAuth (Risikotest)
@@ -1292,3 +1295,4 @@ noch_zu_pruefen:
 | 2026-09-27 | D-33 Sperrwerte vom Athleten bestätigt: Sperre nach 10 Fehlversuchen für 5 min, Verdopplung bei weiteren Fehlversuchen bis max. 24 h, Rücksetzung des Zählers bei erfolgreichem Login (ersetzt die Richtwerte 5 Versuche / 15 min). Angepasst: D-33, Abschnitt 7 (`user`), 12.3a, AP-01 Abnahmekriterien. |
 | 2026-09-27 | Abschnitt 0 präzisiert (Rücksprache mit dem Athleten): Konzepterstellung durch Fable; Code-Instanz darf bestehende Konzepte in Rücksprache ändern und ergänzen. |
 | 2026-09-27 | AP-01a begonnen: Gestaltungsvorgaben (Chadid Design-System) unter `docs/branding/chadid-design-system/` abgelegt; Status AP-01a `in_arbeit`. |
+| 2026-09-27 | AP-01a: Mockups aller Screens (S0–S7 und Einstellungen) sowie Branding-Dokument `docs/branding/branding.md` erstellt; Entscheidungen B-01 bis B-07 dort dokumentiert (u. a. Desktop-Ansicht zusätzlich zu Smartphone/Tablet). Abnahme offen. |

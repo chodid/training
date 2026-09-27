@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Einrichtung – Training</title>
+<link rel="icon" href="../chadid-design-system/assets/logo/lama-symbol-kopf.svg">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+</head>
+<body class="auth">
+<!-- S0 Setup: nur erreichbar, solange kein Benutzer existiert (D-34). Danach 404. -->
+<form class="auth-card stack-lg" action="#" onsubmit="return false">
+  <div class="auth-brand">
+    <img src="../chadid-design-system/assets/logo/lama-symbol-kopf.svg" alt="">
+    <div class="name">Training</div>
+    <div class="sub">Einmalige Einrichtung</div>
+  </div>
+
+  <div class="stack">
+    <h1 style="font:var(--type-h3)">Benutzer anlegen</h1>
+    <p class="muted small">Diese Seite legt den einzigen Benutzer an. Danach ist sie nicht mehr erreichbar. Das Deploy-Secret aus der <span class="mono">.env</span> bestätigt, dass Du der Betreiber bist.</p>
+  </div>
+
+  <div class="field">
+    <label for="secret">Deploy-Secret</label>
+    <input class="input mono" id="secret" type="password" autocomplete="off" placeholder="MIGRATION_SECRET">
+    <div class="hint">Steht in der <span class="mono">.env</span> auf dem Server.</div>
+  </div>
+
+  <div class="field">
+    <label for="login">Anmeldename</label>
+    <input class="input" id="login" type="text" autocomplete="username" value="philipp">
+  </div>
+
+  <div class="field">
+    <label for="pw1">Passwort</label>
+    <input class="input" id="pw1" type="password" autocomplete="new-password">
+    <div class="hint">Mindestens 12 Zeichen. Ein Passwort-Manager ist die einfachste Wahl.</div>
+  </div>
+
+  <div class="field">
+    <label for="pw2">Passwort wiederholen</label>
+    <input class="input" id="pw2" type="password" autocomplete="new-password">
+  </div>
+
+  <div class="field">
+    <label for="tz">Zeitzone</label>
+    <div class="select-wrap">
+      <select class="select" id="tz">
+        <option>Europe/Berlin</option>
+        <option>Europe/Vienna</option>
+        <option>Europe/Zurich</option>
+        <option>UTC</option>
+      </select>
+      <svg class="ic"><use href="#i-chevron-right"/></svg>
+    </div>
+  </div>
+
+  <button class="btn btn-primary btn-block" type="submit">Benutzer anlegen</button>
+
+  <div class="auth-foot">training.gen-em.org</div>
+</form>
+</body>
+</html>

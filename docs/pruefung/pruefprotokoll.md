@@ -90,9 +90,17 @@ geprueft:
     wie: automatisiert (grep)
     ergebnis: ok – Google Fonts nur noch in explorations/Typografie.dc.html (Schriftvergleich, dokumentiert)
     datum: 2026-09-27
+  - was: Mockups (13 Seiten/Zustände) in 390, 834, 1112 und 1280 px – horizontaler Überlauf, fehlende Ressourcen, Konsolenfehler
+    wie: automatisiert (Chromium/Playwright, Screenshots in docs/branding/mockups/screenshots/)
+    ergebnis: ok nach Korrekturen (Icon-Laden unter file://, Kennzahl-Umbruch, 7-Spalten-Woche erst ab 1280 px, Segmentwahl im Zweispaltenlayout)
+    datum: 2026-09-27
+  - was: Sichtprüfung Smartphone und Desktop aller Screens
+    wie: manuell (Fable, anhand der Screenshots)
+    ergebnis: ok
+    datum: 2026-09-27
 noch_zu_pruefen:
-  - was: Mockups S0 Setup, S1 Login, S2 Woche, S3 Einheit, S4 Check-in, S5 Schmerz, S7 Freigabe (Smartphone und Tablet)
-    wie: Erstellung durch Fable, Sichtprüfung und Abnahme durch Athlet
+  - was: Abnahme der Mockups (Smartphone, Tablet, Desktop) und des Branding-Dokuments
+    wie: Sichtprüfung durch Athlet (docs/branding/mockups/index.html oder screenshots/)
   - was: Word-Vorlage mit installierten variablen TTF (Source Sans 3)
     wie: manuell durch Athlet (Brief.docx öffnen, Schriftersetzung prüfen)
 ```

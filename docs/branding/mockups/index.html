@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mockups AP-01a – Training</title>
+<link rel="icon" href="../chadid-design-system/assets/logo/lama-symbol-kopf.svg">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+<style>
+  /* Übersicht: jeder Screen in vier Geräterahmen. Rahmen sind skalierte iframes der echten Mockup-Seiten. */
+  body{padding:var(--space-6) var(--space-4)}
+  .wrap{max-width:1400px;margin:0 auto}
+  .intro{display:grid;gap:var(--space-2);margin-bottom:var(--space-8)}
+  .intro h1{font:var(--type-h1)}
+  .toc{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-2)}
+  .toc a{font:var(--type-body-sm);text-decoration:none;padding:6px 10px;border:var(--border-default);border-radius:var(--radius-full);background:var(--bg-surface);color:var(--text-brand)}
+  .toc a:hover{border-color:var(--focus-ring)}
+  .screen{margin-bottom:var(--space-12)}
+  .screen h2{font:var(--type-h3);margin-bottom:var(--space-1)}
+  .screen .desc{color:var(--text-tertiary);font:var(--type-body-sm);margin-bottom:var(--space-4);max-width:70ch}
+  .frames{display:flex;flex-wrap:wrap;gap:var(--space-6);align-items:flex-start}
+  .frame{display:grid;gap:6px}
+  .frame .cap{font:var(--type-label);text-transform:uppercase;letter-spacing:var(--tracking-label);color:var(--text-tertiary)}
+  .frame .cap a{color:var(--text-brand);text-decoration:none;text-transform:none;letter-spacing:0;margin-left:6px;font-weight:400}
+  .device{position:relative;overflow:hidden;border:var(--border-default);border-radius:var(--radius-xl);background:var(--bg-surface);box-shadow:var(--shadow-card)}
+  .device iframe{position:absolute;top:0;left:0;border:0;transform-origin:0 0;background:var(--bg-page)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="intro">
+    <div class="label">AP-01a · Design-Mockups</div>
+    <h1>Trainings-Web-App</h1>
+    <p class="muted">Jede Seite ist eine eigene HTML-Datei auf Basis des Chadid Design-Systems und hier in vier Größen eingebettet: Smartphone 390 × 844, Tablet hoch 834 × 1112, Tablet quer 1112 × 834, Desktop 1280 × 800. Öffne eine Seite direkt, um Touch-Ziele, Hover und Zustände auszuprobieren. Beschreibung der Bausteine und Umsetzungshinweise in <span class="mono">../branding.md</span>.</p>
+    <div class="toc" id="toc"></div>
+  </div>
+  <div id="screens"></div>
+</div>
+<script>
+  const screens=[
+    {id:'s0',title:'S0 Setup',file:'s0-setup.html',desc:'Einmalige Erstanlage des Benutzers mit Deploy-Secret (D-34). Keine Navigation, eine Karte. Nach der Anlage antwortet die Seite mit 404.'},
+    {id:'s1',title:'S1 Login',file:'s1-login.html',desc:'Passwort-Login, Sitzung 30 Tage (D-33).'},
+    {id:'s1f',title:'S1 Login · Fehler',file:'s1-login.html?state=fehler',desc:'Falsche Eingabe: Fehlerhinweis mit verbleibenden Versuchen. Feld bleibt gefüllt.'},
+    {id:'s1g',title:'S1 Login · gesperrt',file:'s1-login.html?state=gesperrt',desc:'Nach zehn Fehlversuchen: Sperrhinweis mit Uhrzeit, Passwortfeld ausgeblendet.'},
+    {id:'s7',title:'S7 OAuth-Freigabe',file:'s7-freigabe.html',desc:'Freigabeseite im Authorize-Schritt (D-36): Client-Name, Redirect-Host, Scope in Klartext. Freigeben ist die Primäraktion, Ablehnen sekundär.'},
+    {id:'s2',title:'S2 Woche',file:'s2-woche.html',desc:'Sieben Tage mit Einheiten (Typ-Icon, Titel, Dauer, Priorität, Status), heutiger Tag mit Orange-Punkt und Pflaume-Rahmen, Check-in-Status je Tag, ±Woche, Wochensumme sRPE. Auf dem Desktop sieben Spalten.'},
+    {id:'s2l',title:'S2 Woche · leer',file:'s2-woche.html?state=leer',desc:'Noch kein Plan: Leerzustand mit Erklärung und Weg zum Check-in.'},
+    {id:'s3k',title:'S3 Einheit · Kraft',file:'s3-einheit.html?typ=kraft',desc:'Plan mit Soll je Übung, Ist-Felder vorbelegt, Rückmeldung (RPE, Gefühl, Schmerz, Abweichung, Notiz, Status). Auf dem Desktop Plan links, Rückmeldung rechts.'},
+    {id:'s3a',title:'S3 Einheit · Ausdauer',file:'s3-einheit.html?typ=ausdauer',desc:'Workout-Text für Intervals.icu, verknüpfte Aktivität mit Kennzahlen und Zeit in Zonen.'},
+    {id:'s3c',title:'S3 Einheit · Klettern mit Schmerz',file:'s3-einheit.html?typ=klettern&schmerz=ja',desc:'Blöcke mit Spezifität; Schmerz „Ja“ klappt die S5-Kurzform ein.'},
+    {id:'s4',title:'S4 Check-in',file:'s4-checkin.html',desc:'Drei Felder (D-16), jede Stufe ein Touch-Ziel. Darunter die Woche als Kontrolle.'},
+    {id:'s4p',title:'S4 Check-in · Schmerz ja',file:'s4-checkin.html?schmerz=ja',desc:'Schmerz „Ja“ öffnet die Kurzform mit Ort, Seite, Stärke, Zeitpunkt.'},
+    {id:'s5',title:'S5 Schmerz',file:'s5-schmerz.html',desc:'Vollständiges Kurzformular mit optionaler Zuordnung zur Einheit; Warnhinweis bei wiederholter Meldung.'},
+    {id:'s6',title:'S6 Verlauf',file:'s6-verlauf.html',desc:'Kennzahlen, sRPE je Bereich als kleine Vielfache auf einer gemeinsamen Achse, Schmerz je Ort als Raster mit Pflaume-Stufen, vollständige Tabelle.'},
+    {id:'s8',title:'Einstellungen',file:'s8-einstellungen.html',desc:'Konto, Backup, Update, Verbindungen (AP-04, AP-10).'},
+    {id:'s8u',title:'Einstellungen · Update erforderlich',file:'s8-einstellungen.html?state=update',desc:'Schema-Abweichung (D-20): Warnung, Schreibsperre, Migrations-Schaltfläche aktiv.'},
+  ];
+  const devices=[
+    {name:'Smartphone',w:390,h:844,s:0.5},
+    {name:'Tablet hoch',w:834,h:1112,s:0.36},
+    {name:'Tablet quer',w:1112,h:834,s:0.36},
+    {name:'Desktop',w:1280,h:800,s:0.36},
+  ];
+  const toc=document.getElementById('toc'),root=document.getElementById('screens');
+  for(const sc of screens){
+    toc.insertAdjacentHTML('beforeend',`<a href="#${sc.id}">${sc.title}</a>`);
+    const frames=devices.map(d=>`<div class="frame"><div class="cap">${d.name} ${d.w}×${d.h}</div>
+      <div class="device" style="width:${Math.round(d.w*d.s)}px;height:${Math.round(d.h*d.s)}px">
+        <iframe loading="lazy" title="${sc.title} – ${d.name}" src="${sc.file}" width="${d.w}" height="${d.h}" style="transform:scale(${d.s})"></iframe></div></div>`).join('');
+    root.insertAdjacentHTML('beforeend',`<section class="screen" id="${sc.id}"><h2>${sc.title} <a class="small" href="${sc.file}" style="font-weight:400;margin-left:8px">öffnen</a></h2><p class="desc">${sc.desc}</p><div class="frames">${frames}</div></section>`);
+  }
+</script>
+</body>
+</html>

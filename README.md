@@ -21,7 +21,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | `docs/regeln/` | Trainerregeln (Abschnitt 14) | AP-07 |
 | `docs/athlet/` | Athletenprofil (D-15) | AP-08 |
 | `docs/plaene/` | Blockpläne | AP-08 |
-| `docs/branding/` | Branding-Dokument (D-19); Gestaltungsvorgaben in `chadid-design-system/` (Einstieg `readme.md`, `SKILL.md`) | AP-01a |
+| `docs/branding/` | Branding-Dokument `branding.md` (D-19), Gestaltungsvorgaben in `chadid-design-system/` (Einstieg `readme.md`, `SKILL.md`), Mockups in `mockups/` (Einstieg `index.html`) | AP-01a |
 
 ## Server-Layout (Lima-City, D-17)
 
