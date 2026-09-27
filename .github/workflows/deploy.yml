@@ -8,6 +8,7 @@
 #   Secrets:   FTP_USERNAME, FTP_PASSWORD, MIGRATION_SECRET
 #   Variablen: FTP_SERVER, FTP_PORT (optional, Standard 21), FTP_SERVER_DIR, APP_URL
 #   FTP_SERVER darf alternativ als Secret angelegt sein (Variable hat Vorrang).
+#   FTP_SERVER_DIR ist relativ zum FTP-Login: "/", wenn der FTP-Benutzer nur den Subdomain-Ordner sieht.
 
 name: Test und Deploy
 
@@ -108,9 +109,6 @@ jobs:
             echo "::error::Im Environment 'production' fehlen:$missing"
             exit 1
           fi
-          case "$FTP_SERVER_DIR" in
-            /|./|"") echo "::error::FTP_SERVER_DIR darf nicht das Wurzelverzeichnis sein"; exit 1 ;;
-          esac
           echo "server_dir=${FTP_SERVER_DIR%/}/" >> "$GITHUB_OUTPUT"
           echo "app_url=${APP_URL%/}" >> "$GITHUB_OUTPUT"
 

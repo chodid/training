@@ -4,6 +4,11 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.1.1] – 2026-09-27
+
+### Behoben
+- Deploy-Workflow lehnte `FTP_SERVER_DIR=/` ab. Bei Lima-City ist der FTP-Benutzer auf den Subdomain-Ordner beschränkt, `/` ist dort das richtige Ziel. Die Prüfung wurde entfernt; der Upload löscht ohnehin nur Dateien, die er selbst hochgeladen hat.
+
 ## [0.1.0] – 2026-09-27
 
 AP-00 Grundgerüst und Deployment.
