@@ -6,6 +6,10 @@
 - Immer eine Empfehlung abgeben: empfohlene Option zuerst, mit „(Empfehlung)" markiert, und kurz begründen.
 - Keine eigenen Annahmen bei Unklarheiten; größere Aufgaben vor der Umsetzung zusammenfassen und bestätigen lassen.
 
+## Rollenverteilung (Modelle)
+- Konzeptarbeit (Konzeptdokument, Entscheidungen, AP-Zuschnitt) und Design-Mockups erstellt das Modell **Fable** (in Claude Code als Subagent mit `model: fable`).
+- Codearbeit, Tests, Deployment und PRs übernimmt die Code-Instanz.
+
 ## Codearbeit
 - Maßgeblich: `docs/konzept/konzept-ki-personal-trainer.md`. Arbeitspakete (AP) in der dort festgelegten Reihenfolge.
 - Nach jedem AP bzw. jeder Änderung: Version in `server/src/App.php` hochstufen, `CHANGELOG.md`, README und Konzept (Statusblock, `probleme_loesungen`, Änderungsprotokoll) nachziehen, `docs/pruefung/pruefprotokoll.md` aktualisieren; Dokumente auf Konsistenz prüfen.
