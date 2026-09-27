@@ -16,7 +16,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | `docs/konzept/` | Konzeptdokument | – |
 | `docs/pruefung/` | Prüfprotokoll (Abschnitt 16) | alle |
 | `docs/wissen/` | Wissenskarten (Sammeldateien, 13.1) | AP-06 |
-| `docs/literatur/` | Nur Open-Access-Volltexte mit CC BY (D-31) | AP-06 |
+| `docs/literatur/` | Literatur-Volltexte als PDF, Open Access und gekauft (D-31); nie ins Projektwissen | AP-06 |
 | `docs/regeln/` | Trainerregeln (Abschnitt 14) | AP-07 |
 | `docs/athlet/` | Athletenprofil (D-15) | AP-08 |
 | `docs/plaene/` | Blockpläne | AP-08 |

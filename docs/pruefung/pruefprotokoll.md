@@ -11,7 +11,15 @@ Struktur je AP gemäß Konzept Abschnitt 16. Wird nach jedem abgeschlossenen AP 
 
 ```yaml
 ap: AP-00
-geprueft: []
+geprueft:
+  - was: V-08 PHP-Anforderung des MCP-SDK (logiscape/mcp-sdk-php v2.0.1)
+    wie: automatisiert (Packagist-Metadaten)
+    ergebnis: ok (PHP >= 8.1, ext-curl, ext-json; Server PHP 8.4 vorgesehen)
+    datum: 2026-09-27
+  - was: V-10 Hosting-Funktionen
+    wie: Angaben des Athleten
+    ergebnis: offen (FTPS ja, SMTP ja, keine PHP-CLI-Aufgaben aber URL-Aufruf, OpenSSL unbestätigt, Anhang-Limit unbekannt)
+    datum: 2026-09-27
 noch_zu_pruefen:
   - was: Push auf main führt ohne manuelle Schritte zu lauffähigem Stand auf dem Server
     wie: manuell (Push, Health-Endpunkt aufrufen)
@@ -23,10 +31,10 @@ noch_zu_pruefen:
     wie: manuell (curl ohne/mit falschem Secret)
   - was: .env überlebt ein Deployment
     wie: manuell (Wert in .env setzen, deployen, prüfen)
-  - was: V-08 PHP-Version und Composer
-    wie: Plesk-Oberfläche, Angaben des Athleten
-  - was: V-10 FTPS/SFTP, PHP-CLI, SMTP mit Anhang, OpenSSL-Erweiterung
-    wie: Plesk-Oberfläche, Angaben des Athleten
+  - was: PHP-Erweiterungen auf dem Server (curl, json, openssl, pdo_mysql, zlib)
+    wie: Health-Endpunkt nach erstem Deployment
+  - was: SMTP-Anhang-Größenlimit
+    wie: Plesk-Mailkonto prüfen bzw. Testversand in AP-10
 ```
 
 ## AP-06 Wissensbasis (übernommen aus Konzept)
