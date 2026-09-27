@@ -74,9 +74,11 @@ abstract class AppTestCase extends TestCase
         file_put_contents($this->baseDir . '/.env', implode("\n", $lines) . "\n");
     }
 
+    protected ?\Training\Intervals\HttpTransport $intervalsTransport = null;
+
     protected function app(): App
     {
-        return new App($this->baseDir, $this->clock, new LoginThrottle());
+        return new App($this->baseDir, $this->clock, new LoginThrottle(), $this->intervalsTransport);
     }
 
     /**

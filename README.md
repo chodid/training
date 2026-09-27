@@ -9,7 +9,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | Pfad | Inhalt | Arbeitspaket |
 |---|---|---|
 | `server/public/` | Document Root (einziger per HTTP erreichbarer Ordner), `index.php` als einziger Einstieg; `css/training.css` (Ergänzungen); `assets/` wird gebaut (siehe unten) | AP-00, AP-01 |
-| `server/src/` | PHP-Quellcode (Namespace `Training\`): `Auth/` Login und Session, `OAuth/` Autorisierungsserver, `Mcp/` MCP-Endpunkt, `View/` Seiten | AP-00 ff. |
+| `server/src/` | PHP-Quellcode (Namespace `Training\`): `Auth/` Login und Session, `OAuth/` Autorisierungsserver, `Mcp/` MCP-Endpunkt, `Intervals/` Intervals.icu-Client, `View/` Seiten | AP-00 ff. |
 | `server/templates/` | Seitenvorlagen (S0 Setup, S1 Login, S7 Freigabe) nach `docs/branding/` | AP-01 |
 | `server/bin/build-assets.php` | Kopiert Design-System, `app.css`, Icons und Logo aus `docs/branding/` nach `server/public/assets/` | AP-01 |
 | `server/config/` | Konfiguration ohne Secrets (derzeit leer) | – |
@@ -38,7 +38,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 └── .ftp-deploy-sync-state.json  ← Statusdatei des Upload-Schritts
 ```
 
-## Endpunkte (Stand AP-01)
+## Endpunkte (Stand AP-02)
 
 | Methode | Pfad | Zweck |
 |---|---|---|
@@ -48,6 +48,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | GET/POST | `/setup` | S0: legt den einzigen Benutzer an (verlangt `MIGRATION_SECRET`, D-34). Sobald ein Benutzer existiert: `404`. |
 | GET/POST | `/login` | S1: Anmeldung, Session 30 Tage gleitend. Nach 10 Fehlversuchen 5 min Sperre, jeder weitere Fehlversuch verdoppelt bis 24 h (D-33). |
 | POST | `/logout` | Abmelden (mit CSRF-Token) |
+| GET/POST | `/intervals` | Verbindungstest Intervals.icu (nur nach Login): Athlet, Aktivitäten/Wellness 7 Tage, Events 14 Tage; Test-Event anlegen, ändern, löschen |
 | GET | `/.well-known/oauth-authorization-server` | OAuth-Metadaten (RFC 8414); auch unter `…/mcp` |
 | GET | `/.well-known/oauth-protected-resource` | Resource-Metadaten aus dem SDK; auch unter `…/mcp` |
 | POST | `/oauth/register` | Offene Client-Registrierung (RFC 7591); Redirect-URIs nur `https://` oder `http://localhost` |
@@ -94,6 +95,7 @@ Pull Requests durchlaufen nur die Tests.
 
 - **claude.ai (Web und Mobile-App):** Einstellungen → Connectors → Custom Connector hinzufügen, URL `https://training.gen-em.org/mcp`, keine Client-ID/Secret eintragen (Claude registriert sich selbst). Beim Verbinden öffnet sich die Anmeldung, danach die Freigabeseite: „Freigeben“ wählen. Der Connector steht dann auch in der Mobile-App zur Verfügung.
 - **Claude Desktop / Claude Code (Fallback, D-06):** in der `.env` `MCP_STATIC_TOKEN` (z. B. `openssl rand -hex 32`) und `MCP_STATIC_TOKEN_ENABLED=true` setzen; im Client den Server `https://training.gen-em.org/mcp` mit Header `Authorization: Bearer <MCP_STATIC_TOKEN>` eintragen. Nach dem Test `MCP_STATIC_TOKEN_ENABLED` wieder auf `false` setzen.
+- **Intervals.icu (AP-02):** In Intervals.icu Garmin verbinden (Aktivitäten, Wellness, „Upload planned workouts“), Aktivitäten auf privat stellen (Q-03). Unter Einstellungen → Developer Settings API-Key erzeugen und Athleten-ID (z. B. `i12345`) ablesen; beide als `INTERVALS_API_KEY` und `INTERVALS_ATHLETE_ID` in die `.env`. Danach `https://training.gen-em.org/intervals` öffnen: zeigt Aktivitäten und Wellness der letzten 7 Tage und legt auf Knopfdruck ein Test-Event für morgen an.
 - **Notbremse:** `OAUTH_JWT_SECRET` wechseln macht alle Access-Tokens sofort ungültig; Refresh-Tokens lassen sich in der Tabelle `oauth_token` (`revoked = 1`) sperren.
 
 ## Entwicklung

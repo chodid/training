@@ -161,6 +161,40 @@ noch_zu_pruefen:
     wie: manuell (curl.exe -si -X POST https://training.gen-em.org/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{}}") → 401 und www-authenticate mit resource_metadata
 ```
 
+## AP-02 Intervals.icu-Anbindung
+
+```yaml
+ap: AP-02
+geprueft:
+  - was: Client – Basic-Auth API_KEY:<key>, URL und Query (oldest/newest, category), Events anlegen/ändern/löschen mit JSON-Körper, Liste/Objekt-Prüfung der Antworten, Fehler 401/403 mit Hinweis und ohne Key in der Meldung, eine Wiederholung bei 429 (Retry-After), zweiter 429 → Fehler, Datumsformat, ungültige Athleten-ID
+    wie: automatisiert (PHPUnit, simulierter Transport)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Seite /intervals – nur nach Login; ohne Konfiguration Hinweis; mit Konfiguration Athlet, Aktivitäten, Wellness, Events; Test-Event anlegen (external_id), ändern, löschen; CSRF-Pflicht; API-Fehler als Meldung (502); /health intervals konfiguriert/nicht_konfiguriert
+    wie: automatisiert (PHPUnit gegen MariaDB, simulierter Transport)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Erreichbarkeit der echten API und Dokumentation aus der Code-Umgebung
+    wie: curl / Web-Abruf
+    ergebnis: fehler – intervals.icu durch Netzwerkrichtlinie gesperrt; Endpunkte aus Sekundärquelle (V-04 vorläufig)
+    datum: 2026-09-27
+noch_zu_pruefen:
+  - was: Intervals.icu-Konto – Garmin-Verknüpfung (Aktivitäten, Wellness, geplante Workouts hochladen) aktiv, Aktivitäten privat (Q-03)
+    wie: manuell durch Athlet in Intervals.icu (Einstellungen)
+  - was: INTERVALS_API_KEY und INTERVALS_ATHLETE_ID in der .env; /health zeigt intervals konfiguriert
+    wie: manuell durch Athlet (FTP, Browser)
+  - was: Aktivitäten und Wellness der letzten 7 Tage abrufbar (Abnahmekriterium, bestätigt V-04)
+    wie: manuell – /intervals öffnen, Werte mit Intervals.icu vergleichen (HRV, Ruhepuls, Schlaf, Aktivitäten)
+  - was: Test-Event erscheint auf der Uhr mit korrekten Zielen (V-01, V-12)
+    wie: manuell – /intervals → „Test-Event anlegen“, Garmin Connect synchronisieren, auf der Uhr Training für morgen öffnen: 10 min Z1, 3 × (3 min Z3, 2 min Z1), 5 min Z1 als HF-Ziele; Zonengrenzen auf der Uhr mit Intervals.icu vergleichen
+  - was: Ändern und Löschen werden auf der Uhr nachgezogen (V-02)
+    wie: manuell – „Test-Event ändern“ (Name mit „(geändert)“), synchronisieren, prüfen; „Test-Event löschen“, synchronisieren, prüfen; Zeitverzug notieren
+  - was: V-03 Feldsemantik icu_rpe (Skala) und feel (Richtung 1–5)
+    wie: manuell – nach einer Aktivität RPE und Feel in Intervals.icu setzen, in /intervals ablesen und mit der Eingabe vergleichen
+  - was: V-09 Kraftaktivität von der Uhr (Typ, Dauer, HF)
+    wie: manuell – Krafttraining auf der Uhr aufzeichnen, in /intervals Typ und Dauer ablesen
+```
+
 ## AP-06 Wissensbasis (übernommen aus Konzept)
 
 ```yaml

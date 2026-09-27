@@ -186,7 +186,7 @@ flowchart LR
 | V-01 | Intervals.icu-Workout-Textsyntax für strukturierte Ausdauer-Einheiten (Schritte mit HF-Zone bzw. Pace-Ziel); Verhalten beim Push auf die konkrete Uhr; Einschränkung „mehrere Zieltypen pro Schritt". Design-Regel vorläufig: ein Zieltyp pro Schritt. | AP-02 | offen |
 | V-02 | Zeitpunkt/Umfang des Intervals.icu→Garmin-Pushes (Vorschau eine Woche; wann muss der Plan spätestens geschrieben sein). | AP-02 | offen |
 | V-03 | Semantik der Intervals.icu-Felder `icu_rpe` (Skala) und `feel` (Richtung der 1–5-Skala) sowie verfügbare Wellness-Felder für dieses Konto über die API. | AP-02 | offen |
-| V-04 | Endpunkte/Parameter für Events (GET/POST/PUT/DELETE), Aktivitäten (Zeitraum), Wellness (Zeitraum) anhand der aktuellen API-Dokumentation. | AP-02 | offen |
+| V-04 | Endpunkte/Parameter für Events (GET/POST/PUT/DELETE), Aktivitäten (Zeitraum), Wellness (Zeitraum) anhand der aktuellen API-Dokumentation. Stand 2026-09-27 (vorläufig, Sekundärquelle Client-Quellcode, da intervals.icu aus der Code-Umgebung gesperrt): Basis `https://intervals.icu/api/v1`, Basic-Auth `API_KEY:<key>`, `/athlete/{id}/events` (GET mit `oldest`/`newest`, POST), `/athlete/{id}/events/{eventId}` (PUT, DELETE), `/athlete/{id}/activities` und `/athlete/{id}/wellness` (GET mit `oldest`/`newest`); Event-Felder `category` WORKOUT, `type`, `name`, `start_date_local`, `description`, `external_id`. Bestätigung über `/intervals` auf dem Server. | AP-02 | in Arbeit |
 | V-05 | OAuth-Flow claude.ai (Web und Mobile) gegen PHP-Server: DCR, Callback-URLs (`claude.ai/api/mcp/auth_callback`, ggf. `claude.com/...`), Token-Refresh. Stand 2026-09-27: Ablauf lokal automatisiert geprüft (DCR, Authorize, PKCE, Token, Refresh-Rotation, `/mcp` mit JWT) und mit dem SDK-Client in beiden Protokoll-Epochen; beide Callback-Hosts sind als https-URIs zulässig. Test gegen claude.ai steht aus. | AP-01 | in Arbeit |
 | V-06 | Referenz Saw AE, Main LC, Gastin PB. Monitoring the athlete training response: subjective self-reported measures trump commonly used objective measures. Br J Sports Med 2016 – DOI und Kernaussage über PubMed-Connector prüfen. | AP-06 | offen |
 | V-07 | Schmerzmonitoring-Modell für Sehnenbelastung (Silbernagel/Thomeé 2007) als Grundlage der Schmerzregeln – Quelle und Schwellenwerte prüfen. | AP-07 | offen |
@@ -1118,10 +1118,24 @@ probleme_loesungen:
 - **Abnahmekriterien:** Test-Event erscheint auf der Uhr mit korrekten Zielen; Aktivitäten und Wellness der letzten 7 Tage per Client abrufbar; Event löschen/ändern wird auf der Uhr nachgezogen.
 - **Status:**
 ```yaml
-status: offen
-begonnen: null
+status: in_arbeit         # Code-Stand 0.3.0: Client und Verbindungstest fertig, Tests mit simulierter API grün; Prüfung gegen die echte API, Kontoeinstellungen und Uhr offen
+begonnen: 2026-09-27
 abgeschlossen: null
-probleme_loesungen: []
+umsetzung:
+  - Client server/src/Intervals/IntervalsClient.php – Basis https://intervals.icu/api/v1, Basic-Auth API_KEY:<key>; GET /athlete/{id}, GET/POST /athlete/{id}/events, PUT/DELETE /athlete/{id}/events/{eventId}, GET /athlete/{id}/activities, GET /athlete/{id}/wellness (Query oldest/newest YYYY-MM-DD)
+  - eine Wiederholung bei 429/5xx; Fehlermeldungen ohne Key; kein Kurzcache (ext_cache optional in AP-03, bei Bedarf)
+  - Seite /intervals (nach Login) als Werkzeug für die Abnahme, da auf dem Hosting keine PHP-CLI verfügbar ist (V-10); wandert mit AP-04 nach S8 „Verbindungen“
+  - .env INTERVALS_API_KEY, INTERVALS_ATHLETE_ID optional; /health meldet nur den Konfigurationsstand
+probleme_loesungen:
+  - datum: 2026-09-27
+    was: Die Code-Umgebung erreicht intervals.icu nicht (Netzwerkrichtlinie), weder API noch Dokumentation/Forum; V-01, V-03, V-04 lassen sich hier nicht am Original prüfen
+    loesung: Endpunkte und Auth aus dem Quellcode eines öffentlichen Intervals.icu-Clients (github.com/mvilanova/intervals-mcp-server) abgeleitet und in V-04 als vorläufig markiert; Client gegen simulierte Antworten getestet; Bestätigung erfolgt über /intervals auf dem Server (Athlet, Aktivitäten, Wellness, Test-Event)
+  - datum: 2026-09-27
+    was: Workout-Textsyntax (V-01) nicht am Original prüfbar
+    loesung: Test-Event nutzt die bekannte Form „- 10m Z1 HR“, Wiederholungsblock „Hauptteil 3x“, ein Zieltyp pro Schritt; ob Schritte und HF-Zonen korrekt auf der Uhr ankommen, prüft der Athlet (Abnahmekriterium)
+  - datum: 2026-09-27
+    was: Pflicht oder optional für die Intervals-Schlüssel in .env?
+    loesung: optional – fehlende Schlüssel dürfen Deployment und Health nicht blockieren, solange die Anbindung noch nicht genutzt wird; /health zeigt den Stand, /intervals erklärt die Einrichtung
 ```
 
 ## AP-03 Datenmodell
@@ -1336,3 +1350,4 @@ noch_zu_pruefen:
 | 2026-09-27 | AP-01a: Mockups aller Screens (S0–S7 und Einstellungen) sowie Branding-Dokument `docs/branding/branding.md` erstellt; Entscheidungen B-01 bis B-07 dort dokumentiert (u. a. Desktop-Ansicht zusätzlich zu Smartphone/Tablet). Abnahme offen. |
 | 2026-09-27 | AP-01a abgenommen (Athlet). D-19 um Desktop-Ansicht ergänzt; Abschnitt 10 um S8 Einstellungen ergänzt (AP-04, Backup/Update aus AP-10). AP-01a `erledigt`. |
 | 2026-09-27 | AP-01 umgesetzt (Code-Stand 0.2.0), Status `in_arbeit` bis zur Abnahme auf dem Server und mit claude.ai. Befunde im AP-01-Block (SDK-Einbindung über HttpServerRunner, Sitzungsdateien nur mit gültigem Token, Scope-Namen, Client-Authentifizierung `none`, Assets-Build, CSP). Neu: Q-09 Laufzeit Refresh-Token (vorläufig 90 Tage). 8.1 um Scopes und Pfad-Suffix-Metadaten ergänzt; V-05 in Arbeit. |
+| 2026-09-27 | AP-02 umgesetzt (Code-Stand 0.3.0), Status `in_arbeit`: Intervals.icu-Client und Verbindungstest `/intervals`. V-04 vorläufig aus Sekundärquelle (intervals.icu aus der Code-Umgebung nicht erreichbar); Befunde im AP-02-Block. |

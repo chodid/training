@@ -37,7 +37,7 @@ final class WebController
                 'type' => 'success',
                 'icon' => 'circle-check',
                 'title' => 'Angemeldet.',
-                'text' => 'Claude verbindest Du als Connector mit der Adresse ' . rtrim((string) $this->app->config()->get('APP_URL'), '/') . '/mcp. Wochenansicht, Einheiten und Check-in folgen.',
+                'text' => 'Claude verbindest Du als Connector mit der Adresse ' . rtrim((string) $this->app->config()->get('APP_URL'), '/') . '/mcp. Verbindung zu Intervals.icu prüfen unter /intervals. Wochenansicht, Einheiten und Check-in folgen.',
             ],
             'login' => $session->login,
             'csrf' => $session->csrfToken(),

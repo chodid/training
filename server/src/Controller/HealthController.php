@@ -7,6 +7,7 @@ namespace Training\Controller;
 use Training\App;
 use Training\ConfigException;
 use Training\Http\Response;
+use Training\Intervals\IntervalsClient;
 use Training\Migration\Migrator;
 
 /**
@@ -54,6 +55,11 @@ final class HealthController
         }
         $checks['var'] = is_dir($var) && is_writable($var) ? 'ok' : 'nicht_beschreibbar';
         $ok = $ok && $checks['var'] === 'ok';
+
+        // Intervals.icu (AP-02): nur Konfiguration, kein Netzwerkaufruf; Fehlen macht Health nicht rot.
+        if ($checks['config'] === 'ok') {
+            $checks['intervals'] = IntervalsClient::isConfigured($this->app->config()) ? 'konfiguriert' : 'nicht_konfiguriert';
+        }
 
         $schema = ['code' => App::SCHEMA_VERSION, 'db' => null, 'status' => 'unbekannt'];
         if ($checks['config'] === 'ok') {

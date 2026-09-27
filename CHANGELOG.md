@@ -4,6 +4,19 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.3.0] – 2026-09-27
+
+AP-02 Intervals.icu-Anbindung (Client fertig; Prüfung gegen die echte API und auf der Uhr steht aus).
+
+### Hinzugefügt
+- `Training\Intervals\IntervalsClient`: HTTP Basic (`API_KEY:<key>`), Athlet, Events lesen/anlegen/ändern/löschen, Aktivitäten und Wellness nach Zeitraum; eine Wiederholung bei HTTP 429/5xx (Retry-After, max. 5 s); Fehlermeldungen mit Hinweis, ohne Key. Transport austauschbar (curl im Betrieb, simuliert in Tests).
+- `/intervals` (nur nach Login): Verbindungstest mit Athlet, Aktivitäten und Wellness der letzten 7 Tage, Events der nächsten 14 Tage; Test-Event (Laufeinheit mit HF-Zonen, `external_id` `training-app-test`) anlegen, ändern und löschen für die Abnahme auf der Uhr.
+- `.env`: `INTERVALS_API_KEY`, `INTERVALS_ATHLETE_ID` (optional); `/health` meldet `intervals: konfiguriert | nicht_konfiguriert`, ohne Netzwerkaufruf und ohne Health rot zu machen.
+- Tests: Client (Auth, Query, CRUD, Fehler, Retry, Eingaben) und Seite `/intervals` mit simuliertem Intervals.icu.
+
+### Dokumentation
+- README (Einrichtung Intervals.icu, Endpunkt `/intervals`), Konzept (AP-02 `in_arbeit`, Befunde, V-04 vorläufig), Prüfprotokoll AP-02.
+
 ## [0.2.0] – 2026-09-27
 
 AP-01 MCP-Minimalserver mit OAuth (Code fertig; Abnahme auf dem Server und mit claude.ai steht aus).

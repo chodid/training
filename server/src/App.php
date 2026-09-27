@@ -9,6 +9,7 @@ use Training\Auth\LoginThrottle;
 use Training\Auth\SessionManager;
 use Training\Auth\UserRepository;
 use Training\Controller\HealthController;
+use Training\Controller\IntervalsController;
 use Training\Controller\MigrateController;
 use Training\Controller\OAuthController;
 use Training\Controller\WebController;
@@ -20,7 +21,7 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.2.0';
+    public const VERSION = '0.3.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
     public const SCHEMA_VERSION = 6;
@@ -37,6 +38,8 @@ final class App
         public readonly string $baseDir,
         ?Clock $clock = null,
         private readonly LoginThrottle $loginThrottle = new LoginThrottle(),
+        /** Nur für Tests: Ersatz für den HTTP-Transport zu Intervals.icu */
+        private readonly ?\Training\Intervals\HttpTransport $intervalsTransport = null,
     ) {
         $this->clock = $clock ?? new SystemClock();
     }
@@ -69,6 +72,7 @@ final class App
             '/setup' => ['GET' => fn (): Response => $web()->setup($request), 'POST' => fn (): Response => $web()->setup($request)],
             '/login' => ['GET' => fn (): Response => $web()->login($request), 'POST' => fn (): Response => $web()->login($request)],
             '/logout' => ['POST' => fn (): Response => $web()->logout($request)],
+            '/intervals' => ['GET' => fn (): Response => (new IntervalsController($this, $this->intervalsTransport))->handle($request), 'POST' => fn (): Response => (new IntervalsController($this, $this->intervalsTransport))->handle($request)],
             '/.well-known/oauth-authorization-server' => ['GET' => fn (): Response => $oauth()->metadata(), 'OPTIONS' => $preflight],
             '/.well-known/oauth-authorization-server/mcp' => ['GET' => fn (): Response => $oauth()->metadata(), 'OPTIONS' => $preflight],
             '/.well-known/oauth-protected-resource' => ['GET' => $mcpWithCors, 'OPTIONS' => $preflight],
