@@ -7,6 +7,7 @@
 # Benötigt im GitHub-Environment "production":
 #   Secrets:   FTP_USERNAME, FTP_PASSWORD, MIGRATION_SECRET
 #   Variablen: FTP_SERVER, FTP_PORT (optional, Standard 21), FTP_SERVER_DIR, APP_URL
+#   FTP_SERVER darf alternativ als Secret angelegt sein (Variable hat Vorrang).
 
 name: Test und Deploy
 
@@ -89,7 +90,7 @@ jobs:
       - name: Konfiguration prüfen
         id: cfg
         env:
-          FTP_SERVER: ${{ vars.FTP_SERVER }}
+          FTP_SERVER: ${{ vars.FTP_SERVER || secrets.FTP_SERVER }}
           FTP_SERVER_DIR: ${{ vars.FTP_SERVER_DIR }}
           APP_URL: ${{ vars.APP_URL }}
           HAS_USER: ${{ secrets.FTP_USERNAME != '' }}
@@ -118,7 +119,7 @@ jobs:
       - name: Upload per FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
-          server: ${{ vars.FTP_SERVER }}
+          server: ${{ vars.FTP_SERVER || secrets.FTP_SERVER }}
           port: ${{ vars.FTP_PORT || 21 }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}

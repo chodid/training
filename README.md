@@ -61,7 +61,7 @@ Settings → Environments → `production` anlegen und befüllen:
 | Secret | `FTP_USERNAME` | FTP-Benutzer |
 | Secret | `FTP_PASSWORD` | FTP-Passwort |
 | Secret | `MIGRATION_SECRET` | identisch mit dem Wert in `.env` |
-| Variable | `FTP_SERVER` | FTP-Hostname (muss zum FTPS-Zertifikat passen) |
+| Variable | `FTP_SERVER` | FTP-Hostname (muss zum FTPS-Zertifikat passen); alternativ als Secret |
 | Variable | `FTP_PORT` | `21` (optional, Standard 21) |
 | Variable | `FTP_SERVER_DIR` | `/training.jennym.org/` |
 | Variable | `APP_URL` | `https://training.gen-em.org` |
