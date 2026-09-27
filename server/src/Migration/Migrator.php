@@ -31,8 +31,12 @@ final class Migrator
      */
     public static function available(string $directory): array
     {
+        $files = is_dir($directory) ? scandir($directory) : false;
+        if ($files === false) {
+            throw new MigrationException('Migrationsordner nicht lesbar: ' . $directory);
+        }
         $migrations = [];
-        foreach (scandir($directory) ?: [] as $file) {
+        foreach ($files as $file) {
             if ($file[0] === '.') {
                 continue;
             }

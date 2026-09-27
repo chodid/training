@@ -37,6 +37,12 @@ final class MigrationFilesTest extends TestCase
         Migrator::available($dir);
     }
 
+    public function testMissingDirectoryIsRejected(): void
+    {
+        $this->expectException(MigrationException::class);
+        Migrator::available(sys_get_temp_dir() . '/gibt-es-nicht-' . bin2hex(random_bytes(4)));
+    }
+
     /** @param list<string> $files */
     private function tempDir(array $files): string
     {
