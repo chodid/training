@@ -2,7 +2,8 @@
 titel: Branding-Dokument – Trainings-Web-App
 bezug: docs/konzept/konzept-ki-personal-trainer.md (D-19, D-37, Abschnitt 10), AP-01a
 dokumentstand: 2026-09-27
-status: entwurf (Abnahme durch den Athleten offen)
+status: abgenommen
+abgenommen_am: 2026-09-27
 erstellt_von: Fable (Design-Mockups, Rollenverteilung Abschnitt 0)
 ---
 
@@ -47,7 +48,7 @@ Ablage: `docs/branding/mockups/`. Jede Seite ist eine eigenständige HTML-Datei,
 | S4 Check-in | `s4-checkin.html` | `?schmerz=ja` | AP-04 |
 | S5 Schmerz | `s5-schmerz.html` | – | AP-04 |
 | S6 Verlauf | `s6-verlauf.html` | – | AP-09 |
-| Einstellungen | `s8-einstellungen.html` | `?state=update` | AP-04 (Backup/Update AP-10) |
+| S8 Einstellungen | `s8-einstellungen.html` | `?state=update` | AP-04 (Backup/Update AP-10) |
 
 Die Beispieldaten (Block 2 „Grundlage Herbst“, KW 39, Athlet „philipp“) sind erfunden und zeigen typische Fälle: erledigte Einheit ohne Feedback, teilweise erledigte Krafteinheit, verschobene Ausdauereinheit, Ruhetag, wiederholte Schmerzmeldung an einer Stelle.
 
@@ -124,10 +125,10 @@ Typ-Icons: Ausdauer `run`, Kraft `barbell`, Klettern `mountain`, Haltung `yoga`,
 
 Abnahmekriterien (AP-01a): Athlet hat die Mockups bestätigt; Branding-Dokument liegt im Repo; jeder Screen aus Abschnitt 10 ist abgedeckt; Tablet- und Smartphone-Ansicht (und Desktop) vorhanden.
 
-Offen:
-- Abnahme durch den Athleten (Sichtprüfung `mockups/index.html` oder `screenshots/`).
-- Konzept: D-19 um Desktop ergänzen, Screen-Tabelle in Abschnitt 10 um „Einstellungen“ ergänzen (Rücksprache erfolgt am 2026-09-27, Eintrag durch Code-Instanz oder Fable bei Abnahme).
-- Word-Vorlage mit variablen TTF prüfen (aus dem Ablegen des Design-Systems, unabhängig von den Mockups).
+Abgenommen durch den Athleten am 2026-09-27. Konzept ergänzt: D-19 (Desktop), Abschnitt 10 (S8 Einstellungen).
+
+Offen (unabhängig von den Mockups):
+- Word-Vorlage mit variablen TTF prüfen (aus dem Ablegen des Design-Systems).
 
 ## 9. Prüfung
 
@@ -136,4 +137,4 @@ Offen:
 | Alle 13 Seiten/Zustände in 390, 834, 1112 und 1280 px gerendert | automatisiert (Chromium/Playwright, Screenshots in `mockups/screenshots/`) | kein horizontaler Überlauf, keine fehlenden Ressourcen | 2026-09-27 |
 | Schriften laden lokal | automatisiert (`document.fonts`) | ok | 2026-09-27 |
 | Sichtprüfung Smartphone/Desktop | manuell (Fable) | Befunde behoben: Kennzahl-Umbruch auf Smartphone, 7-Spalten-Woche unter 1280 px zu eng (jetzt zwei Spalten), Segmentwahl im Zweispaltenlayout | 2026-09-27 |
-| Sichtprüfung und Abnahme | manuell durch Athlet | offen | – |
+| Sichtprüfung und Abnahme | manuell durch Athlet | abgenommen | 2026-09-27 |

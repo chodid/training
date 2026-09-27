@@ -98,9 +98,11 @@ geprueft:
     wie: manuell (Fable, anhand der Screenshots)
     ergebnis: ok
     datum: 2026-09-27
-noch_zu_pruefen:
   - was: Abnahme der Mockups (Smartphone, Tablet, Desktop) und des Branding-Dokuments
-    wie: Sichtprüfung durch Athlet (docs/branding/mockups/index.html oder screenshots/)
+    wie: Sichtprüfung durch Athlet
+    ergebnis: abgenommen
+    datum: 2026-09-27
+noch_zu_pruefen:
   - was: Word-Vorlage mit installierten variablen TTF (Source Sans 3)
     wie: manuell durch Athlet (Brief.docx öffnen, Schriftersetzung prüfen)
 ```
