@@ -333,7 +333,7 @@ Regeln für fehlende Daten:
 
 # 12. Sicherheit und Datenschutz
 
-1. HTTPS (Zertifikat über Lima-City); HSTS.
+1. HTTPS (Zertifikat über Lima-City; TLS endet am vorgeschalteten Proxy, der auch auf HTTPS umleitet); HSTS.
 1a. Auf dem Webspace ist `open_basedir` nicht gesetzt: PHP-Skripte anderer Websites desselben Lima-City-Accounts können `.env` und `backups/` lesen. Hinnehmbar, solange im Account keine fremde oder veraltete Software läuft; Backups sind zusätzlich verschlüsselt. Zusätzlich sperrt eine `.htaccess` im Subdomain-Ordner jeden HTTP-Zugriff, falls der Document Root versehentlich auf den Ordner selbst zeigt.
 2. Secrets (Intervals.icu-Key, statisches Fallback-Token, OAuth-Signaturschlüssel) außerhalb des Docroots, nie im Repo.
 3. OAuth 2.1 Single-User: Authorize nur nach Webseiten-Login; Access-Tokens kurzlebig, Refresh-Tokens widerrufbar; Tokens nur gehasht gespeichert.
@@ -975,9 +975,9 @@ probleme_loesungen: []
 - **Abnahmekriterien:** Push auf `main` führt zu lauffähigem Stand auf dem Server ohne manuelle Schritte; Health-Endpunkt über HTTPS erreichbar; Secrets nicht im Repo; Migrations-Endpunkt lehnt Aufrufe ohne Secret ab; `.env` überlebt ein Deployment.
 - **Status:**
 ```yaml
-status: in_arbeit        # Code fertig (0.1.1), Abnahme auf dem Server durch den Athleten offen
+status: erledigt         # Code-Stand 0.1.1, alle Abnahmekriterien erfüllt (Prüfprotokoll)
 begonnen: 2026-09-27
-abgeschlossen: null
+abgeschlossen: 2026-09-27
 umsetzung:
   - Endpunkte: GET /health, POST /admin/migrate (Header X-Migration-Secret), GET / (Platzhalter)
   - Konfiguration: .env im Subdomain-Ordner; Pflichtwerte APP_URL, DB_HOST, DB_NAME, DB_USER, DB_PASSWORD, MIGRATION_SECRET
@@ -1002,6 +1002,9 @@ probleme_loesungen:
   - datum: 2026-09-27
     was: Erstes Deployment auf main rot – Workflow-Schutzprüfung verbot FTP_SERVER_DIR "/"; der FTP-Benutzer ist aber auf den Subdomain-Ordner beschränkt, "/" ist dort korrekt
     loesung: Prüfung entfernt (FTP-Deploy-Action löscht nur selbst hochgeladene Dateien), README präzisiert; Version 0.1.1
+  - datum: 2026-09-27
+    was: Lima-City schaltet einen Proxy (openresty) vor Apache; TLS und HTTP→HTTPS-Weiterleitung erfolgen dort, inkl. eigenem HSTS-Header (includeSubDomains; preload)
+    loesung: keine Änderung nötig; Weiterleitung in public/.htaccess bleibt als Rückfallebene, PHP erkennt HTTPS korrekt (HSTS gesetzt)
   - datum: 2026-09-27
     was: Apache reicht den Authorization-Header bei PHP als CGI/FPM oft nicht durch (relevant für Bearer-Token in AP-01)
     loesung: vorsorglich Weitergabe per RewriteRule in public/.htaccess, Request liest auch REDIRECT_HTTP_AUTHORIZATION
@@ -1239,3 +1242,4 @@ noch_zu_pruefen:
 | 2026-09-27 | Servertest AP-00: Hosting ist Lima-City, nicht Plesk → alle Plesk-Bezüge ersetzt (1.4, K3, D-03, D-17, D-18, V-08, V-10, 12, AP-00, AP-10). Layout in D-17 festgeschrieben (Docroot `public/`, `.env` und `backups/` im Subdomain-Ordner). D-20 präzisiert (MySQL-DDL ohne Transaktion, `schema_version` je Migration). 12.1a neu (`open_basedir` leer). V-08 erledigt, V-10 bis auf Anhang-Limit erledigt. FTP-Ordner heißt `/training.jennym.org`, Subdomain ist `training.gen-em.org`. |
 | 2026-09-27 | AP-00 umgesetzt (Code-Stand 0.1.0), Status `in_arbeit` bis zur Abnahme auf dem Server; Probleme/Lösungen im AP-00-Block. |
 | 2026-09-27 | AP-00 Korrektur (Code-Stand 0.1.1): FTP-Benutzer ist auf den Subdomain-Ordner beschränkt, `FTP_SERVER_DIR` = `/`. |
+| 2026-09-27 | AP-00 abgenommen (Prüfprotokoll), Status `erledigt`. |
