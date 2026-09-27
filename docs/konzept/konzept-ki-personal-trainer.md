@@ -19,7 +19,7 @@ hinweis_version: Keine Versionsnummer im Konzept; Versionierung erfolgt in der U
   2. das separate Prüfprotokoll `docs/pruefung/pruefprotokoll.md` (Struktur in Abschnitt 16),
   3. Changelog und Dokumentation des Repos.
 - **Trainingsfachliche Arbeit** (Wissensbasis, Trainerregeln, Athletenprofil, Blockpläne) findet im claude.ai-Projekt „Personal Training & Trainingsdokumentation" statt, nicht in der Code-Instanz.
-- **Rollenverteilung (Modelle):** Konzeptarbeit (dieses Dokument, Entscheidungen, AP-Zuschnitt) und Design-Mockups (AP-01a, D-37) (Erstellung) übernimmt das Modell **Fable**; Codearbeit, Tests, Deployment und Pull Requests übernimmt die **Code-Instanz**. Konzepterstellung (neue Konzepte, neue AP, grundlegender Zuschnitt) ist Aufgabe von Fable; die Code-Instanz darf bestehende Konzepte **in Rücksprache mit dem Athleten** ändern und ergänzen (z. B. bestätigte Entscheidungen eintragen, Befunde aus der Umsetzung nachziehen) und dokumentiert Befunde in `probleme_loesungen`.
+- **Rollenverteilung (Modelle):** Konzepterstellung (neue Konzepte, Entscheidungsvorlagen, neue AP, grundlegender Zuschnitt) und Design-Mockups (AP-01a, D-37) übernimmt das Modell **Fable**; Codearbeit, Tests, Deployment und Pull Requests übernimmt die **Code-Instanz**. Die Code-Instanz darf bestehende Konzepte **in Rücksprache mit dem Athleten** ändern und ergänzen (z. B. bestätigte Entscheidungen eintragen, Befunde aus der Umsetzung nachziehen) und dokumentiert Befunde in `probleme_loesungen`.
 - Regel für Entscheidungen: Alles, was in Abschnitt 4 als `entschieden` steht, ist nicht mehr zu diskutieren. Alles unter Abschnitt 5 (`offen`) ist vor Umsetzung des betroffenen AP zu klären.
 
 # 1. Aufgabenstellung
