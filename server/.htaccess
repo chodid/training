@@ -1,0 +1,3 @@
+# Schutz für den Subdomain-Ordner: Nur public/ ist Document Root.
+# Zeigt der Document Root versehentlich auf diesen Ordner, bleibt alles gesperrt (Konzept 12.1a).
+Require all denied

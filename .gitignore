@@ -6,11 +6,16 @@
 # Composer-Abhängigkeiten (Build im Deploy-Workflow, D-17)
 server/vendor/
 
-# Backups / Dumps (D-18)
-*.sql
+# Backups / Dumps (D-18) – Migrationen in server/migrations/ gehören ins Repo
+server/backups/
 *.sql.gz
 *.sql.gz.enc
+*.sql
+!server/migrations/*.sql
 
 # System
 .DS_Store
 Thumbs.db
+
+# PHPUnit
+server/.phpunit.cache/
