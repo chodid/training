@@ -40,23 +40,39 @@ geprueft:
     wie: automatisiert (YAML-Parser)
     ergebnis: ok
     datum: 2026-09-27
-noch_zu_pruefen:
-  - was: CI-Job test läuft grün (MySQL 8.4)
-    wie: GitHub Actions am Pull Request
-  - was: Push auf main führt ohne manuelle Schritte zu lauffähigem Stand (Upload, Migration, Health-Check grün)
-    wie: GitHub Actions nach Merge; Workflow-Log prüfen
-  - was: Health-Endpunkt über HTTPS erreichbar, status ok, schema aktuell
-    wie: manuell (Browser https://training.gen-em.org/health)
-  - was: HTTP wird auf HTTPS umgeleitet, HSTS-Header gesetzt
-    wie: manuell (http://training.gen-em.org/health aufrufen; Header in Browser-Entwicklertools)
-  - was: Migrations-Endpunkt lehnt Aufrufe ohne/mit falschem Secret ab
-    wie: manuell (curl -X POST https://training.gen-em.org/admin/migrate → 401; mit falschem Header → 403)
-  - was: .env und Subdomain-Ordner nicht per HTTP erreichbar
-    wie: manuell (https://training.gen-em.org/../.env bzw. /.env → 404, kein Inhalt)
+  - was: CI-Job test (PHPUnit inkl. Migrationen gegen MySQL 8.4)
+    wie: automatisiert (GitHub Actions, PR #2/#3)
+    ergebnis: ok (erster Lauf rot – Migrationsdatei durch .gitignore ausgeschlossen, behoben)
+    datum: 2026-09-27
+  - was: Push auf main führt ohne manuelle Schritte zu lauffähigem Stand (Upload, Migration, Health-Check)
+    wie: GitHub Actions nach Merge PR #3
+    ergebnis: ok (erster Deploy-Lauf rot – Schutzprüfung verbot FTP_SERVER_DIR "/", behoben in 0.1.1)
+    datum: 2026-09-27
+  - was: /health über HTTPS
+    wie: manuell durch Athlet (Browser)
+    ergebnis: ok – status ok, app_version 0.1.1, PHP 8.4.25, alle Erweiterungen, config/database ok, Schema code 1 = db 1
+    datum: 2026-09-27
   - was: .env überlebt ein Deployment
-    wie: manuell (zweiten Push auf main, danach /health weiterhin ok)
+    wie: Deployment mit vorhandener .env, danach /health config ok
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Migrations-Endpunkt lehnt Aufrufe ohne/mit falschem Secret ab
+    wie: manuell (curl.exe POST ohne Header / mit falschem Header)
+    ergebnis: ok – 401 "Header X-Migration-Secret fehlt.", 403 "Secret ungültig."
+    datum: 2026-09-27
+  - was: HTTP → HTTPS, HSTS, nosniff
+    wie: manuell (curl.exe -sI)
+    ergebnis: ok – 301 auf https (bereits durch vorgeschalteten Lima-City-Proxy openresty, der selbst HSTS includeSubDomains; preload setzt); HTTPS-Antwort mit strict-transport-security, x-content-type-options nosniff, referrer-policy, cache-control no-store
+    datum: 2026-09-27
+  - was: .env nicht per HTTP abrufbar
+    wie: manuell (Browser /.env)
+    ergebnis: ok – JSON-Fehler 404, kein Inhalt
+    datum: 2026-09-27
   - was: Secrets nicht im Repo
-    wie: automatisiert (GitHub Secret Scanning) + Durchsicht
+    wie: automatisiert (git grep über gesamte Historie von main)
+    ergebnis: ok – nur Platzhalter in Tests
+    datum: 2026-09-27
+noch_zu_pruefen:
   - was: SMTP-Anhang-Größenlimit
     wie: Testversand in AP-10
 ```
