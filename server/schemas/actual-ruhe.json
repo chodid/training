@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://training.gen-em.org/schemas/actual-ruhe.json",
+  "title": "actual_json ruhe: leer oder nur Notiz – Ist-Werte, fehlende Felder = wie geplant",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 1000
+    }
+  }
+}

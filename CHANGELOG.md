@@ -4,6 +4,21 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.4.0] – 2026-09-27
+
+AP-03 Datenmodell.
+
+### Hinzugefügt
+- Migrationen `0007`–`0014`: `training_block`, `training_week`, `session`, `session_execution` (mit berechneter Spalte `srpe_load`), `pain_event`, `checkin`, `audit_log`, `ext_cache`; Aufzählungen als `ENUM`, Wertebereiche als `CHECK`, Eindeutigkeit (Woche je Montag, eine Durchführung je Einheit, ein Check-in je Tag); `App::SCHEMA_VERSION` = 14.
+- JSON-Schemata (Draft 2020-12) für `plan_json` und `actual_json` je Typ in `server/schemas/`; `Training\Plan\PlanValidator` (Bibliothek `opis/json-schema`).
+- Beispielwoche mit allen Einheitentypen (`server/tests/fixtures/beispielwoche.json`); Tests für Validator, Constraints, berechnete Last und Löschverhalten.
+
+### Geändert
+- Datenbankverbindung im strikten SQL-Modus (`STRICT_ALL_TABLES`, `NO_ZERO_DATE` u. a.) und mit Zeitzone UTC, unabhängig von der Voreinstellung des Hosters.
+
+### Dokumentation
+- `docs/konzept/datenmodell.md` mit ER-Diagramm (Mermaid) aller Tabellen und Umsetzungsdetails; Konzept (AP-03, Abschnitt 7/7.1, Q-10), Prüfprotokoll AP-03, README.
+
 ## [0.3.0] – 2026-09-27
 
 AP-02 Intervals.icu-Anbindung (Client fertig; Prüfung gegen die echte API und auf der Uhr steht aus).

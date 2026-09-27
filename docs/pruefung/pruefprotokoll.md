@@ -195,6 +195,44 @@ noch_zu_pruefen:
     wie: manuell – Krafttraining auf der Uhr aufzeichnen, in /intervals Typ und Dauer ablesen
 ```
 
+## AP-03 Datenmodell
+
+```yaml
+ap: AP-03
+geprueft:
+  - was: Migrationen 0001–0014 von leer, zweiter Lauf ohne Änderung (idempotent), alle Tabellen vorhanden
+    wie: automatisiert (PHPUnit gegen MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Beispielwoche mit allen sechs Einheitentypen (kraft, ausdauer, klettern, haltung, mobilitaet, ruhe) validiert und eingefügt; JSON bleibt erhalten, Ruhetag ohne Plan
+    wie: automatisiert (Fixture beispielwoche.json)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: JSON-Validierung lehnt fehlerhafte Pläne ab (leere Übungsliste, Sätze 0, reps als Zahl, unbekanntes Feld, falscher Griff/Blocktyp/Zieltyp, fehlender Workout-Text, Ruhetag mit Übungen, unbekannter Typ, kein Objekt); actual_json erlaubt Teilangaben, lehnt falsche Typen ab
+    wie: automatisiert (PHPUnit)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Datenbank weist ab – ungültige ENUM-Werte (Ort, Seite, Typ, Status), Bereiche (RPE 11, Feel 0, Erholung 6, Schmerz 11), zweites Check-in am selben Tag, zweite Durchführung je Einheit, Schreiben von srpe_load, Enddatum vor Startdatum, ungültiges JSON; srpe_load = 6 × 55 = 330
+    wie: automatisiert (PHPUnit gegen MariaDB 10.11, strikter Modus)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Löschen – Woche entfernt Einheiten und Durchführungen, Schmerzereignis bleibt (session_id NULL), Block mit Wochen nicht löschbar
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: ER-Diagramm rendert
+    wie: automatisiert (Mermaid 11 im Browser)
+    ergebnis: ok
+    datum: 2026-09-27
+noch_zu_pruefen:
+  - was: Migrationen und Constraints gegen MySQL 8.4 (CHECK, berechnete Spalte, JSON)
+    wie: automatisiert (CI-Job test im Pull Request)
+  - was: Migration auf dem Server 6 → 14, /health schema code 14 = db 14
+    wie: Deployment nach Merge, /health im Browser
+  - was: Q-10 plan_json für mobilitaet/ruhe
+    wie: Entscheidung Athlet
+```
+
 ## AP-06 Wissensbasis (übernommen aus Konzept)
 
 ```yaml

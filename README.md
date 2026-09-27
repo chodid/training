@@ -14,9 +14,10 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | `server/bin/build-assets.php` | Kopiert Design-System, `app.css`, Icons und Logo aus `docs/branding/` nach `server/public/assets/` | AP-01 |
 | `server/config/` | Konfiguration ohne Secrets (derzeit leer) | – |
 | `server/migrations/` | Nummerierte Migrationen (D-20) | AP-00, AP-01, AP-03 |
+| `server/schemas/` | JSON-Schemata für `plan_json`/`actual_json` je Einheitentyp (Konzept 7.1) | AP-03 |
 | `server/tests/` | PHPUnit-Tests (Unit und Integration gegen MySQL) | AP-00 ff. |
 | `.github/workflows/deploy.yml` | Test und Deployment (D-17) | AP-00 |
-| `docs/konzept/` | Konzeptdokument | – |
+| `docs/konzept/` | Konzeptdokument; `datenmodell.md` mit ER-Diagramm | – , AP-03 |
 | `docs/pruefung/` | Prüfprotokoll (Konzept Abschnitt 16) | alle |
 | `docs/wissen/` | Wissenskarten (Sammeldateien, 13.1) | AP-06 |
 | `docs/literatur/` | Literatur-Volltexte als PDF, Open Access und gekauft (D-31); nie ins Projektwissen | AP-06 |

@@ -178,6 +178,7 @@ flowchart LR
 | Q-07 | Einheitliches Evidenzschema über alle Blöcke: Block T3 schlägt Stufen A/B/C vor (E3) und will Stufe C ohne Begründungsfunktion (E4); Block T1 führt Praxisquellen mit `konfidenz: niedrig` in Karten (D-25); Block T2 nutzt eine Stufe-C-Quelle als Übungskatalog mit Dosierung aus Stufe A (D-29). | Vereinheitlichen als D-31: A = Paper/Konsens (konfidenz hoch), B = wissenschaftliche Lehrbücher (mittel), C = Praxisquellen (niedrig). Stufe C darf in Karten als Übungs-/Ideenfundus und mit Kennzeichnung zitiert werden, aber nie allein einen Belastungsparameter (Dosierung, Progression, Schwelle) begründen. Damit sind D-25, D-29 und E4 deckungsgleich. Ebenso E5: Open-Access-Volltexte (nur CC BY) dürfen im privaten Repo unter `docs/literatur/` liegen, nie im Projektwissen (D-12, Budget 13.1). E6 (Evidenzkern T3) übernehmen. | entschieden → D-31 |
 | Q-08 | Klettermedizin: deutsche (L-T3-07, 2020) oder englische Ausgabe (L-T3-06, 2022)? Nur eine wird beschafft. | Englische Ausgabe (neuer, ISBN/DOI verifiziert, Springer-Kapitel-PDFs); deutsche nur, wenn Sprache im Alltag wichtiger ist als Aktualität. | entschieden → D-31: 2022 bevorzugt, 2020 als Alternative |
 | Q-09 | Laufzeit der Refresh-Tokens (D-32 legt keine fest). Jede Rotation beginnt die Laufzeit neu; nach Ablauf muss der Connector in Claude neu verbunden werden (Login + Freigabe). | 90 Tage: bei regelmäßiger Nutzung (wöchentlicher Zyklus) nie ein erneuter Login, ein verlorenes Gerät verliert den Zugang spätestens nach 90 Tagen ohne Nutzung. Kürzer (30 Tage) nur, wenn Pausen > 30 Tage einen neuen Login rechtfertigen. | offen (vorläufig 90 Tage umgesetzt, Code-Stand 0.2.0) |
+| Q-10 | `plan_json` für `mobilitaet` und `ruhe` (Abschnitt 7.1 definiert nur kraft/haltung, klettern, ausdauer). | `mobilitaet` wie kraft/haltung (Übungsliste mit Sätzen/Wiederholungen bzw. Haltezeit „30s“); `ruhe` ohne Plan, höchstens Notiz. Passt zu den Mockups (S3) und hält die Webseite einfach. | offen (vorläufig so umgesetzt, Code-Stand 0.4.0) |
 
 ## 5.2 Zu verifizieren (vor/in dem jeweiligen AP)
 
@@ -214,7 +215,7 @@ Ad-hoc-Anpassung unter der Woche: Athlet meldet sich im Chat; Claude ruft `get_w
 
 # 7. Datenmodell (Entitäten, konzeptionell)
 
-Feldtypen sind konzeptionell. Die konkreten Migrationen entstehen in zwei Schritten: Benutzer-, Session- und OAuth-Tabellen in AP-01 (D-35), Trainingstabellen in AP-03.
+Feldtypen sind konzeptionell. Die konkreten Migrationen entstehen in zwei Schritten: Benutzer-, Session- und OAuth-Tabellen in AP-01 (D-35), Trainingstabellen in AP-03. Umgesetztes Schema mit ER-Diagramm: `docs/konzept/datenmodell.md`.
 
 | entitaet | felder (auszug) | bemerkung |
 |---|---|---|
@@ -266,6 +267,8 @@ ausdauer:
 ```
 
 `actual_json` spiegelt die Struktur von `plan_json` mit Ist-Werten; leere Felder = wie geplant.
+
+Zuordnung der übrigen Typen (vorläufig, Q-10): `mobilitaet` nutzt das Schema `kraft_oder_haltung`; `ruhe` hat kein `plan_json` (leer oder nur `notes`). Umsetzung als JSON-Schema in `server/schemas/` (AP-03).
 
 ## 7.2 Enum `pain_event.location`
 
@@ -1146,10 +1149,32 @@ probleme_loesungen:
 - **Abnahmekriterien:** Migrationen idempotent; Beispiel-Woche mit allen Session-Typen einfügbar; JSON-Validierung lehnt fehlerhafte Pläne ab.
 - **Status:**
 ```yaml
-status: offen
-begonnen: null
+status: in_arbeit         # Code-Stand 0.4.0, alle Abnahmekriterien lokal automatisiert erfüllt (MariaDB 10.11); offen: CI gegen MySQL 8.4, Migration auf dem Server, Q-10
+begonnen: 2026-09-27
 abgeschlossen: null
-probleme_loesungen: []
+umsetzung:
+  - Migrationen 0007–0014, App::SCHEMA_VERSION = 14; ER-Diagramm docs/konzept/datenmodell.md
+  - Schemata server/schemas/plan-*.json, actual-*.json; Validator Training\Plan\PlanValidator (opis/json-schema)
+  - Beispielwoche server/tests/fixtures/beispielwoche.json (alle sechs Typen)
+probleme_loesungen:
+  - datum: 2026-09-27
+    was: „Enum-Seeds“ im Ziel nicht näher bestimmt (eigene Wertetabellen oder Aufzählungen im Schema?)
+    loesung: Aufzählungen als ENUM-Spalten mit den Werten aus Abschnitt 7 und 7.2; keine Seed-Tabellen nötig. Neue Werte brauchen eine Migration (bewusst: Claude und Webseite sollen nur bekannte Werte schreiben)
+  - datum: 2026-09-27
+    was: Ohne strikten SQL-Modus speichert MySQL ungültige ENUM-Werte als Leerstring und schneidet Texte still ab; Voreinstellung bei Lima-City unbekannt
+    loesung: Verbindung setzt sql_mode STRICT_ALL_TABLES u. a. und time_zone +00:00 selbst (Database::connect); Tests prüfen die Ablehnung
+  - datum: 2026-09-27
+    was: Abschnitt 7.1 definiert kein plan_json für mobilitaet und ruhe
+    loesung: vorläufig mobilitaet = Schema kraft_oder_haltung, ruhe = leer oder nur notes; als Q-10 dem Athleten vorgelegt
+  - datum: 2026-09-27
+    was: srpe_load „berechnet, nie manuell“ (Abschnitt 11)
+    loesung: berechnete Spalte (STORED) rpe_cr10 × duration_min; Schreiben wird von der Datenbank abgewiesen (Test)
+  - datum: 2026-09-27
+    was: Löschverhalten nicht festgelegt
+    loesung: Woche → Einheiten → Durchführung kaskadierend (für replace_existing in write_week_plan, AP-05); Schmerzereignisse bleiben mit session_id NULL erhalten (Schmerzverlauf darf nicht verloren gehen); Block mit Wochen nicht löschbar
+  - datum: 2026-09-27
+    was: Ergänzungen gegenüber Abschnitt 7
+    loesung: created_at/updated_at je Tabelle, optionales notes auf oberster Ebene je plan_json, Plausibilitätsgrenzen in den Schemata (keine Trainingsregeln); in datenmodell.md dokumentiert
 ```
 
 ## AP-04 Webseite
@@ -1351,3 +1376,4 @@ noch_zu_pruefen:
 | 2026-09-27 | AP-01a abgenommen (Athlet). D-19 um Desktop-Ansicht ergänzt; Abschnitt 10 um S8 Einstellungen ergänzt (AP-04, Backup/Update aus AP-10). AP-01a `erledigt`. |
 | 2026-09-27 | AP-01 umgesetzt (Code-Stand 0.2.0), Status `in_arbeit` bis zur Abnahme auf dem Server und mit claude.ai. Befunde im AP-01-Block (SDK-Einbindung über HttpServerRunner, Sitzungsdateien nur mit gültigem Token, Scope-Namen, Client-Authentifizierung `none`, Assets-Build, CSP). Neu: Q-09 Laufzeit Refresh-Token (vorläufig 90 Tage). 8.1 um Scopes und Pfad-Suffix-Metadaten ergänzt; V-05 in Arbeit. |
 | 2026-09-27 | AP-02 umgesetzt (Code-Stand 0.3.0), Status `in_arbeit`: Intervals.icu-Client und Verbindungstest `/intervals`. V-04 vorläufig aus Sekundärquelle (intervals.icu aus der Code-Umgebung nicht erreichbar); Befunde im AP-02-Block. |
+| 2026-09-27 | AP-03 umgesetzt (Code-Stand 0.4.0), Status `in_arbeit` bis CI gegen MySQL 8.4 und Migration auf dem Server. Neu: `docs/konzept/datenmodell.md` (ER-Diagramm), Q-10 (plan_json für mobilitaet/ruhe, vorläufig umgesetzt), Verweise in Abschnitt 7 und 7.1. |

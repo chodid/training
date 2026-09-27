@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://training.gen-em.org/schemas/actual-ausdauer.json",
+  "title": "actual_json ausdauer (Konzept 7.1) – Ist-Werte, fehlende Felder = wie geplant",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "intervals_workout_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000,
+      "description": "Intervals.icu-Syntax (V-01), ein Zieltyp pro Schritt"
+    },
+    "target_type": {
+      "enum": [
+        "hf_zone",
+        "pace",
+        "rpe"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 1000
+    }
+  }
+}
