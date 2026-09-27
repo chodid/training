@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="stylesheet" href="../../styles.css"><script src="./doc-page.js"></script><style>doc-page:not(:defined){visibility:hidden}body{margin:0;font-family:var(--font-body);color:var(--text-primary)}a{color:var(--link)}a:hover{color:var(--link-hover)}p{margin:0 0 11pt;orphans:3;widows:3}</style></helmet>
+<doc-page size="a4" margin="0" data-screen-label="Brief DIN 5008">
+  <div slot="header" style="position:relative;height:45mm;box-sizing:border-box">
+    <div style="position:absolute;left:0;top:105mm;width:5mm;height:0;border-top:0.3pt solid #999"></div>
+    <div style="position:absolute;left:0;top:148.5mm;width:8mm;height:0;border-top:0.3pt solid #999"></div>
+    <div style="position:absolute;left:0;top:210mm;width:5mm;height:0;border-top:0.3pt solid #999"></div>
+    <div style="position:absolute;left:25mm;right:20mm;top:14mm;text-align:center">
+      <div style="font-family:var(--font-display);font-size:24pt;line-height:1;color:var(--plum-600)">Philipp Chadid<span style="color:var(--orange-500)">.</span></div>
+      <div style="height:0;border-top:0.5pt solid var(--orange-500);margin:4mm 0 1.5mm"></div>
+      <div style="font-size:8.5pt;line-height:1;color:var(--text-tertiary)">Musterweg 4, 10115 Berlin <span style="color:var(--orange-500)">&nbsp;·&nbsp;</span> +49 30 000 000 <span style="color:var(--orange-500)">&nbsp;·&nbsp;</span> philipp@chadid.net</div>
+    </div>
+  </div>
+
+  <div style="padding:0 20mm 0 25mm;font-size:11pt;line-height:1.5">
+    <div style="height:40mm;display:grid;grid-template-columns:85mm 1fr;gap:10mm;align-content:start">
+      <div>
+        <div style="font-size:7pt;color:var(--text-tertiary);border-bottom:0.5pt solid var(--border-strong);padding-bottom:1mm;margin-bottom:3mm;height:4mm;box-sizing:content-box">Philipp Chadid · Musterweg 4 · 10115 Berlin</div>
+        <div style="line-height:1.35">Anna Berger<br>Klinik für Notfallmedizin<br>Musterstraße 12<br>10115 Berlin</div>
+      </div>
+      <div style="font-size:10pt;color:var(--text-secondary);padding-top:8mm;text-align:right">Berlin, 12. Mai 2026</div>
+    </div>
+
+    <div style="font-family:var(--font-display);font-size:15pt;line-height:1.2;color:var(--text-primary);margin:8mm 0 8mm">Schulungskonzept Notfallsimulation, Runde 2</div>
+
+    <p>Hallo Anna,</p>
+    <p>vielen Dank für dein ausführliches Feedback zur ersten Runde. Ich habe die Fallbeispiele überarbeitet und die Zeitfenster angepasst. Die zweite Runde konzentriert sich auf drei Punkte:</p>
+    <p><b>1. Primärcheck zuerst.</b> ABCDE vor jeder Differenzialdiagnose, auch wenn die Verdachtsdiagnose auf der Hand liegt.</p>
+    <p><b>2. Laut denken.</b> Das Team hört mit und korrigiert. In Runde 1 wurden Fehler dadurch im Schnitt 40 Sekunden früher erkannt.</p>
+    <p><b>3. Debriefing.</b> Fünf Minuten nach jedem Durchlauf, strukturiert nach dem gleichen Schema.</p>
+    <p><b>Kurz gesagt:</b> Runde 2 wird kürzer, dafür mit mehr Wiederholung.</p>
+    <p>Die Termine findest du im Anhang. Sag mir bitte bis zum 20. Mai Bescheid, ob die Räume 2.14 und 2.16 verfügbar sind.</p>
+    <p style="margin-top:8mm">Beste Grüße</p>
+    <div style="height:14mm"></div>
+    <p style="font-weight:600">Philipp Chadid</p>
+    <p style="font-size:9pt;color:var(--text-tertiary);margin-top:8mm"><b style="color:var(--text-secondary)">Anlage</b><br>Terminplan Runde 2</p>
+  </div>
+
+  <div slot="footer" style="padding:0 20mm 10mm 25mm;text-align:right;font-size:8pt;color:var(--text-tertiary)">Seite 1 von 1</div>
+</doc-page>
+</x-dc>
+</body>
+</html>

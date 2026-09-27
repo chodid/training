@@ -77,6 +77,26 @@ noch_zu_pruefen:
     wie: Testversand in AP-10
 ```
 
+## AP-01a Design-Mockups
+
+```yaml
+ap: AP-01a
+geprueft:
+  - was: Schriften lokal eingebunden (tokens/fonts.css, fonts/*.ttf)
+    wie: automatisiert (Chromium, document.fonts auf guidelines/type-display, type-body, type-mono)
+    ergebnis: ok – Young Serif, Source Sans 3 (normal, kursiv), Source Code Pro geladen
+    datum: 2026-09-27
+  - was: Keine Verweise auf entfernte Quelldateien (uploads/) und kein Google-Fonts-Import in styles.css-Closure
+    wie: automatisiert (grep)
+    ergebnis: ok – Google Fonts nur noch in explorations/Typografie.dc.html (Schriftvergleich, dokumentiert)
+    datum: 2026-09-27
+noch_zu_pruefen:
+  - was: Mockups S0 Setup, S1 Login, S2 Woche, S3 Einheit, S4 Check-in, S5 Schmerz, S7 Freigabe (Smartphone und Tablet)
+    wie: Erstellung durch Fable, Sichtprüfung und Abnahme durch Athlet
+  - was: Word-Vorlage mit installierten variablen TTF (Source Sans 3)
+    wie: manuell durch Athlet (Brief.docx öffnen, Schriftersetzung prüfen)
+```
+
 ## AP-06 Wissensbasis (übernommen aus Konzept)
 
 ```yaml

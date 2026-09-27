@@ -1,0 +1,96 @@
+:root{
+  /* Pflaume (Primär) – Anker 300/500 vom Nutzer gewählt */
+  --plum-50:  oklch(0.97 0.010 310);
+  --plum-100: oklch(0.94 0.020 310);
+  --plum-200: oklch(0.88 0.040 310);
+  --plum-300: oklch(0.80 0.060 310);
+  --plum-400: oklch(0.69 0.085 310);
+  --plum-500: oklch(0.58 0.100 310);
+  --plum-600: oklch(0.48 0.105 310);
+  --plum-700: oklch(0.40 0.095 310);
+  --plum-800: oklch(0.30 0.060 310);
+  --plum-900: oklch(0.22 0.040 310);
+
+  /* Orange (Akzent) */
+  --orange-50:  oklch(0.97 0.020 50);
+  --orange-100: oklch(0.95 0.040 50);
+  --orange-200: oklch(0.90 0.080 50);
+  --orange-300: oklch(0.84 0.110 50);
+  --orange-400: oklch(0.78 0.145 47);
+  --orange-500: oklch(0.72 0.170 45);
+  --orange-600: oklch(0.62 0.180 40);
+  --orange-700: oklch(0.52 0.150 40);
+  --orange-800: oklch(0.45 0.120 40);
+  --orange-900: oklch(0.34 0.085 40);
+
+  /* Neutral – warm-violett getönt, nie reines Weiß/Schwarz am Bildschirm */
+  --neutral-0:   #fdfcfb;
+  --neutral-50:  #faf8f5;
+  --neutral-100: #f6f3f0;
+  --neutral-200: #ece7e6;
+  --neutral-300: #e6dfe2;
+  --neutral-400: #cfc6cc;
+  --neutral-500: #a89ea6;
+  --neutral-600: #77707a;
+  --neutral-700: #5c5360;
+  --neutral-800: #3a333d;
+  --neutral-900: #26212a;
+
+  /* Status – warm getönt (1c); Warnung gelb, Fehler kühles Rot: nie mit Marken-Orange verwechselbar */
+  --success-500: oklch(0.58 0.11 140);
+  --success-100: oklch(0.94 0.04 140);
+  --success-700: oklch(0.38 0.09 140);
+  --error-500:   oklch(0.55 0.17 15);
+  --error-100:   oklch(0.94 0.03 15);
+  --error-700:   oklch(0.40 0.14 15);
+  --warning-500: oklch(0.80 0.13 80);
+  --warning-100: oklch(0.96 0.05 82);
+  --warning-700: oklch(0.45 0.09 72);
+  --info-500:    oklch(0.58 0.09 210);
+  --info-100:    oklch(0.94 0.03 210);
+  --info-700:    oklch(0.40 0.07 210);
+
+  --status-success: var(--success-500); --status-success-bg: var(--success-100); --status-success-text: var(--success-700);
+  --status-error:   var(--error-500);   --status-error-bg:   var(--error-100);   --status-error-text:   var(--error-700);
+  --status-warning: var(--warning-500); --status-warning-bg: var(--warning-100); --status-warning-text: var(--warning-700);
+  --status-info:    var(--info-500);    --status-info-bg:    var(--info-100);    --status-info-text:    var(--info-700);
+  --action-danger:  var(--error-500);
+  --action-danger-hover: var(--error-700);
+
+  /* Semantische Aliase – Bildschirm */
+  --bg-page:        var(--neutral-100);
+  --bg-surface:     var(--neutral-50);
+  --bg-surface-raised: var(--neutral-0);
+  --bg-subtle:      var(--plum-100);
+  --bg-inverse:     var(--plum-800);
+  --bg-accent-soft: var(--orange-100);
+
+  --text-primary:   var(--neutral-900);
+  --text-secondary: var(--neutral-700);
+  --text-tertiary:  var(--neutral-600);
+  --text-brand:     var(--plum-600);
+  --text-accent:    var(--orange-700);
+  --text-on-brand:  #fdfcfb;
+  --text-on-inverse:#f4eff2;
+  --text-on-inverse-muted: var(--plum-300);
+
+  --border-subtle:  var(--neutral-300);
+  --border-strong:  var(--neutral-400);
+  --border-brand:   var(--plum-600);
+
+  --action-primary:        var(--plum-600);
+  --action-primary-hover:  var(--plum-700);
+  --action-primary-active: var(--plum-800);
+  --action-accent:         var(--orange-500);
+  --action-accent-hover:   var(--orange-600);
+  --link:                  var(--plum-600);
+  --link-hover:            var(--plum-800);
+  --focus-ring:            var(--orange-500);
+  --marker:                var(--orange-500);
+}
+@media print{
+  :root{
+    --bg-page:#fff; --bg-surface:#fff; --bg-surface-raised:#fff;
+    --text-primary:#000; --text-secondary:#333; --text-tertiary:#555;
+  }
+}
