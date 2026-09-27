@@ -6,6 +6,8 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ### Dokumentation
 - AP-00 abgenommen: Prüfprotokoll mit Servertests ergänzt, Konzept-Status `erledigt`, Hinweis auf vorgeschalteten Lima-City-Proxy.
+- Konzept: Entscheidungen zu AP-01 (D-32 bis D-37: JWT-Access-Token mit Refresh-Rotation, Passwort-Login mit 30-Tage-Session, Setup-Seite, Auth-Tabellen in AP-01, offene Client-Registrierung mit Freigabeseite, Design-Mockups als AP-01a); D-04 präzisiert (SDK ohne Autorisierungsserver); Rollenverteilung Fable/Code-Instanz.
+- `CLAUDE.md` mit Arbeitsweise (Rückfragen mit Auswahl und Empfehlung, Rollenverteilung).
 
 ## [0.1.1] – 2026-09-27
 
