@@ -107,6 +107,60 @@ noch_zu_pruefen:
     wie: manuell durch Athlet (Brief.docx öffnen, Schriftersetzung prüfen)
 ```
 
+## AP-01 MCP-Minimalserver mit OAuth
+
+```yaml
+ap: AP-01
+geprueft:
+  - was: Unit-Tests – Sperrstufen (10 Fehlversuche → 5 min, Verdopplung, max. 24 h, verkürzte Zeitbasis), Redirect-URI-Regeln (https, localhost/127.0.0.1/[::1], kein http sonst, kein Fragment/Userinfo), PKCE S256 (RFC-7636-Beispiel), Scope-Vergabe, JWT gegen SDK-JwtTokenValidator (Claims, abgelaufen, fremd signiert, falsche Audience, ohne exp), statisches Token nur mit Flag, Rücksprungziele ohne Open Redirect, Pflichtwert OAUTH_JWT_SECRET ≥ 32 Zeichen
+    wie: automatisiert (PHPUnit, lokal PHP 8.4)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Integrationstests Web – /setup legt genau einen Benutzer an und ist danach 404 (auch POST); falsches Secret, fehlendes CSRF-Token, kurzes Passwort abgelehnt; Passwort als Argon2id-Hash; Session-Cookie HttpOnly/Secure/SameSite=Lax/30 Tage, Token nur gehasht in der DB; Session überlebt "Browser-Neustart", gleitend 20+20 Tage, abgelaufen nach 31 Tagen ohne Nutzung; Abmelden nur mit CSRF-Token; 10 Fehlversuche → 5 min (auch richtiges Passwort während Sperre abgewiesen, nicht gezählt) → 10 → 20 min; Erfolg setzt Zähler und Sperre zurück; Sperre max. 24 h; falscher Anmeldename zählt; Sicherheitsheader (CSP, X-Frame-Options)
+    wie: automatisiert (PHPUnit gegen lokale MariaDB 10.11, simulierte Uhr)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Integrationstests OAuth/MCP – Metadaten (RFC 8414, Protected Resource, jeweils mit Suffix /mcp); Registrierung lehnt http:// außer localhost ab; Authorize ohne Login → Login mit Rücksprung → Freigabeseite S7 (Client-Name, Redirect-Host, Scope) → Code mit state und iss; Freigabe ohne CSRF → 403; Ablehnen → access_denied; PKCE plain und fehlende Challenge → invalid_request; unbekannter Client / nicht registrierte Redirect-URI → Fehlerseite ohne Weiterleitung; Code einmalig (auch nach falschem Verifier verbraucht), nach 10 min abgelaufen; Token-Antwort (Bearer, 3600 s, Scope); /mcp mit JWT: initialize + ping; Refresh rotiert; Wiederverwendung des alten Refresh-Tokens widerruft die Familie; /mcp ohne Token → 401 mit resource_metadata, abgelaufenes/fremd signiertes JWT → 401, keine Sitzungsdatei ohne gültiges Token; statisches Token ohne Flag / mit false → 401, mit true → ping; GET /mcp → 405
+    wie: automatisiert (PHPUnit gegen lokale MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: MCP mit echtem Client (logiscape-SDK-Client) gegen lokalen Server, Protokoll-Epochen 2026-07-28 (zustandslos) und 2025-11-25 (Handshake) – tools/list, ping
+    wie: manuell (PHP-Built-in-Server, statisches Token)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: S0, S1 (normal, Fehler, gesperrt), S7 und Startseite in 390, 834 und 1280 px – horizontaler Überlauf, Schriften, fehlende Ressourcen; Sichtvergleich mit den Mockups
+    wie: automatisiert (Chromium/Playwright) + Sichtprüfung der Screenshots (Code-Instanz)
+    ergebnis: ok – kein Überlauf, Young Serif/Source Sans 3/Source Code Pro lokal geladen, Darstellung entspricht den Mockups bis auf die in branding.md Abschnitt 8 dokumentierten Abweichungen
+    datum: 2026-09-27
+  - was: Session überlebt Browser-Neustart (gespeicherte Cookies in neuem Browser-Kontext)
+    wie: automatisiert (Playwright, lokal)
+    ergebnis: ok – Startseite 200 mit Anmeldung, Cookie 30 Tage, HttpOnly, SameSite=Lax
+    datum: 2026-09-27
+  - was: HTTP-Header lokal – Set-Cookie, CSP, X-Frame-Options, CORS-Preflight 204, Schriften als font/ttf
+    wie: manuell (curl)
+    ergebnis: ok
+    datum: 2026-09-27
+noch_zu_pruefen:
+  - was: CI-Job test (PHPUnit inkl. neuer Integrationstests gegen MySQL 8.4)
+    wie: automatisiert (GitHub Actions im Pull Request)
+  - was: Deployment von 0.2.0 – vorher OAUTH_JWT_SECRET in die .env auf dem Server eintragen; danach /health status ok, schema code 6 = db 6, var ok; .env und var/ überleben ein zweites Deployment
+    wie: Merge auf main, /health im Browser, zweites Deployment (z. B. "Run workflow") und erneut /health
+  - was: /setup legt den Benutzer an und ist danach gesperrt (404)
+    wie: manuell durch Athlet im Browser (Smartphone), danach /setup erneut aufrufen
+  - was: Login auf Smartphone und Tablet nutzbar; Session überlebt Neustart des Browsers
+    wie: manuell durch Athlet (anmelden, Browser/App schließen, erneut öffnen)
+  - was: ping aus dem Projekt-Chat (Web) nach Freigabe auf S7 (V-05)
+    wie: manuell durch Athlet – claude.ai → Connector https://training.gen-em.org/mcp hinzufügen, verbinden, anmelden, freigeben; im Chat "ping aufrufen"
+  - was: ping aus der Mobile-App (V-05)
+    wie: manuell durch Athlet – Claude-App, Connector aktiv, "ping aufrufen"
+  - was: Token-Refresh nach Ablauf mit claude.ai (V-05)
+    wie: manuell durch Athlet – nach mehr als 1 h erneut ping aufrufen; Erwartung ohne neuen Login
+  - was: Fallback über Claude Desktop funktioniert nur mit gesetztem Flag
+    wie: manuell durch Athlet – MCP_STATIC_TOKEN setzen, Flag false → Fehler 401; Flag true → ping; danach Flag wieder false
+  - was: Anfrage ohne Token gegen den Server → 401 mit Metadaten
+    wie: manuell (curl.exe -si -X POST https://training.gen-em.org/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{}}") → 401 und www-authenticate mit resource_metadata
+```
+
 ## AP-06 Wissensbasis (übernommen aus Konzept)
 
 ```yaml

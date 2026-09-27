@@ -177,6 +177,7 @@ flowchart LR
 | Q-06 | Welche Literatur ist bereits vorhanden (PDF/ePub/Print)? | Antwort: keine. Auswahl, Priorisierung und Beschaffung vollständig in AP-06; Kandidatenliste 13.2 ist Ausgangspunkt, nicht Vorgabe. | beantwortet |
 | Q-07 | Einheitliches Evidenzschema über alle Blöcke: Block T3 schlägt Stufen A/B/C vor (E3) und will Stufe C ohne Begründungsfunktion (E4); Block T1 führt Praxisquellen mit `konfidenz: niedrig` in Karten (D-25); Block T2 nutzt eine Stufe-C-Quelle als Übungskatalog mit Dosierung aus Stufe A (D-29). | Vereinheitlichen als D-31: A = Paper/Konsens (konfidenz hoch), B = wissenschaftliche Lehrbücher (mittel), C = Praxisquellen (niedrig). Stufe C darf in Karten als Übungs-/Ideenfundus und mit Kennzeichnung zitiert werden, aber nie allein einen Belastungsparameter (Dosierung, Progression, Schwelle) begründen. Damit sind D-25, D-29 und E4 deckungsgleich. Ebenso E5: Open-Access-Volltexte (nur CC BY) dürfen im privaten Repo unter `docs/literatur/` liegen, nie im Projektwissen (D-12, Budget 13.1). E6 (Evidenzkern T3) übernehmen. | entschieden → D-31 |
 | Q-08 | Klettermedizin: deutsche (L-T3-07, 2020) oder englische Ausgabe (L-T3-06, 2022)? Nur eine wird beschafft. | Englische Ausgabe (neuer, ISBN/DOI verifiziert, Springer-Kapitel-PDFs); deutsche nur, wenn Sprache im Alltag wichtiger ist als Aktualität. | entschieden → D-31: 2022 bevorzugt, 2020 als Alternative |
+| Q-09 | Laufzeit der Refresh-Tokens (D-32 legt keine fest). Jede Rotation beginnt die Laufzeit neu; nach Ablauf muss der Connector in Claude neu verbunden werden (Login + Freigabe). | 90 Tage: bei regelmäßiger Nutzung (wöchentlicher Zyklus) nie ein erneuter Login, ein verlorenes Gerät verliert den Zugang spätestens nach 90 Tagen ohne Nutzung. Kürzer (30 Tage) nur, wenn Pausen > 30 Tage einen neuen Login rechtfertigen. | offen (vorläufig 90 Tage umgesetzt, Code-Stand 0.2.0) |
 
 ## 5.2 Zu verifizieren (vor/in dem jeweiligen AP)
 
@@ -186,7 +187,7 @@ flowchart LR
 | V-02 | Zeitpunkt/Umfang des Intervals.icu→Garmin-Pushes (Vorschau eine Woche; wann muss der Plan spätestens geschrieben sein). | AP-02 | offen |
 | V-03 | Semantik der Intervals.icu-Felder `icu_rpe` (Skala) und `feel` (Richtung der 1–5-Skala) sowie verfügbare Wellness-Felder für dieses Konto über die API. | AP-02 | offen |
 | V-04 | Endpunkte/Parameter für Events (GET/POST/PUT/DELETE), Aktivitäten (Zeitraum), Wellness (Zeitraum) anhand der aktuellen API-Dokumentation. | AP-02 | offen |
-| V-05 | OAuth-Flow claude.ai (Web und Mobile) gegen PHP-Server: DCR, Callback-URLs (`claude.ai/api/mcp/auth_callback`, ggf. `claude.com/...`), Token-Refresh. | AP-01 | offen |
+| V-05 | OAuth-Flow claude.ai (Web und Mobile) gegen PHP-Server: DCR, Callback-URLs (`claude.ai/api/mcp/auth_callback`, ggf. `claude.com/...`), Token-Refresh. Stand 2026-09-27: Ablauf lokal automatisiert geprüft (DCR, Authorize, PKCE, Token, Refresh-Rotation, `/mcp` mit JWT) und mit dem SDK-Client in beiden Protokoll-Epochen; beide Callback-Hosts sind als https-URIs zulässig. Test gegen claude.ai steht aus. | AP-01 | in Arbeit |
 | V-06 | Referenz Saw AE, Main LC, Gastin PB. Monitoring the athlete training response: subjective self-reported measures trump commonly used objective measures. Br J Sports Med 2016 – DOI und Kernaussage über PubMed-Connector prüfen. | AP-06 | offen |
 | V-07 | Schmerzmonitoring-Modell für Sehnenbelastung (Silbernagel/Thomeé 2007) als Grundlage der Schmerzregeln – Quelle und Schwellenwerte prüfen. | AP-07 | offen |
 | V-08 | PHP-Version auf dem Hosting vs. Anforderungen des SDK; Composer-Verfügbarkeit. Ergebnis: Test auf dem Server 2026-09-27: PHP 8.4.25, Apache 2.4, Erweiterungen curl, json, openssl, pdo_mysql, zlib, mbstring aktiv; logiscape/mcp-sdk-php v2.0.1 verlangt PHP ≥ 8.1, ext-curl, ext-json (Packagist, 2026-09-27). Composer auf dem Server nicht nötig (Build in GitHub Actions, D-17). Health-Endpunkt prüft die Erweiterungen laufend. | AP-00 | erledigt 2026-09-27 |
@@ -279,6 +280,7 @@ ausdauer:
 - Aus dem SDK (Resource-Server-Seite, D-04): Bearer-Prüfung, `/.well-known/oauth-protected-resource`, 401-Antwort.
 - Selbst gebaut (Autorisierungsserver, D-04, D-36): `/.well-known/oauth-authorization-server` (RFC 8414), `/oauth/register` (offene DCR), `/oauth/authorize` (Login D-33 + Freigabeseite S7), `/oauth/token` (Code-Einlösung mit PKCE S256, Refresh mit Rotation D-32).
 - Fallback (D-06): derselbe Endpunkt akzeptiert zusätzlich das statische Token `MCP_STATIC_TOKEN` aus `.env`, aber nur wenn `MCP_STATIC_TOKEN_ENABLED=true`.
+- Scopes: `training:read`, `training:write` (AP-01); Metadaten zusätzlich unter dem Pfad-Suffix `/mcp` (`/.well-known/oauth-authorization-server/mcp`, `/.well-known/oauth-protected-resource/mcp`) für Clients, die nach RFC 9728/8414 pfadbezogen suchen.
 
 ## 8.2 Tools (konzeptionell)
 
@@ -1064,13 +1066,48 @@ probleme_loesungen:
 - **Abnahmekriterien:** `/setup` legt genau einen Benutzer an und ist danach gesperrt (404); Login funktioniert, Session überlebt einen Browser-Neustart; zehn Fehlversuche sperren 5 Minuten, weitere Fehlversuche verdoppeln die Sperre (Test mit verkürzter Zeitbasis), erfolgreicher Login setzt den Zähler zurück; `ping` aus dem Projekt-Chat (Web) und aus der Mobile-App aufrufbar, jeweils nach Freigabe auf S7; Token-Refresh nach Ablauf funktioniert, Wiederverwendung eines rotierten Refresh-Tokens widerruft die Familie (Test); Anfrage ohne Token → 401 mit korrekten Metadaten; abgelaufenes oder fremd signiertes JWT → 401; Redirect-URI mit `http://` außer localhost wird bei Registrierung abgelehnt; PKCE `plain` wird abgelehnt; Fallback über Desktop funktioniert nur bei gesetztem Flag; S0/S1/S7 auf Smartphone und Tablet nutzbar; `.env` und `var/` überleben ein Deployment.
 - **Status:**
 ```yaml
-status: offen
-begonnen: null
+status: in_arbeit         # Code-Stand 0.2.0 fertig, automatisierte Tests grün; Abnahme auf dem Server und mit claude.ai offen (Prüfprotokoll)
+begonnen: 2026-09-27
 abgeschlossen: null
+umsetzung:
+  - Endpunkte: /setup (S0), /login (S1), /logout, / (Startseite), /.well-known/oauth-authorization-server[/mcp], /.well-known/oauth-protected-resource[/mcp], /oauth/register, /oauth/authorize (S7), /oauth/token, /mcp (Tool ping)
+  - Migrationen 0002–0006 (user, web_session, oauth_client, oauth_auth_code, oauth_token), App::SCHEMA_VERSION = 6
+  - .env: OAUTH_JWT_SECRET (Pflicht, ≥ 32 Zeichen), MCP_STATIC_TOKEN, MCP_STATIC_TOKEN_ENABLED (Standard aus)
+  - Scopes training:read, training:write (Bezeichnungen aus Mockup S7); ohne Angabe beide
+  - Laufzeiten: Access-Token 1 h, Code 10 min, Refresh-Token vorläufig 90 Tage je Rotation (Q-09), Web-Session 30 Tage gleitend (Verlängerung höchstens stündlich)
+  - Deploy: var/** und bin/** vom Upload ausgeschlossen; Assets aus docs/branding/ per server/bin/build-assets.php in CI gebaut
+  - Tests: 68 (Unit + Integration gegen MariaDB 10.11 lokal, MySQL 8.4 in CI); zusätzlich lokal SDK-Client in beiden Protokoll-Epochen (2026-07-28 zustandslos, 2025-11-25 mit Handshake) und Browser-Durchlauf S0/S1/S7 in 390/834/1280 px
 probleme_loesungen:
   - datum: 2026-09-27
     was: Vorbereitung – logiscape/mcp-sdk-php v2.0.1 geprüft. Das SDK enthält nur die Resource-Server-Seite von OAuth 2.1 (TokenValidatorInterface mit JwtTokenValidator HS256/RS256 inkl. iss/aud/exp-Prüfung, /.well-known/oauth-protected-resource, 401 mit WWW-Authenticate resource_metadata), aber keinen Autorisierungsserver (RFC-8414-Metadaten, DCR, Authorize, Token). Für Clients älterer Protokollrevisionen legt es Sitzungsdateien an.
     loesung: D-04 präzisiert, Autorisierungsserver wird in AP-01 selbst gebaut (D-32, D-36); Access-Token als JWT HS256, damit der SDK-Validator direkt genutzt werden kann; Sitzungsdateien nach var/ außerhalb Docroot (D-17); Auth-Tabellen aus AP-03 vorgezogen (D-35); Login und Erstanlage festgelegt (D-33, D-34)
+  - datum: 2026-09-27
+    was: McpServer::runHttp() schreibt Header und Body direkt (SAPI) und liest die Globals; passt nicht zum eigenen Router und ist so nicht testbar
+    loesung: HttpServerRunner des SDK direkt mit BufferedIo betreiben (McpEndpoint), Request → HttpMessage → Response übersetzen; Host und Schema für die resource_metadata-URL aus APP_URL statt aus Proxy-Headern
+  - datum: 2026-09-27
+    was: Das SDK legt für Clients älterer Protokollrevisionen eine Sitzungsdatei an, bevor es das Token prüft – unauthentifizierte Anfragen hätten var/ füllen können
+    loesung: Token vorab mit demselben Validator prüfen; ohne gültiges Token nutzt das SDK nur einen flüchtigen Speicher (die 401-Antwort erzeugt weiterhin das SDK), Mcp-Session-Id wird dann nicht ausgegeben; Sitzungsdateien älter als ein Tag werden gelegentlich gelöscht (Test)
+  - datum: 2026-09-27
+    was: D-32 legt keine Laufzeit für Refresh-Tokens fest
+    loesung: vorläufig 90 Tage, jede Rotation beginnt neu (bei regelmäßiger Nutzung kein erneuter Login); als Q-09 dem Athleten zur Bestätigung vorgelegt
+  - datum: 2026-09-27
+    was: Scope-Namen waren im Konzept nicht festgelegt; Clients fordern teils eigene Scopes an
+    loesung: training:read und training:write aus Mockup S7 übernommen; unbekannte Scopes werden ignoriert statt abgelehnt, ohne bekannte Angabe werden beide vergeben (verhindert Abbruch bei Clients mit Standardwerten); geprüft wird am /mcp derzeit nur aud/iss/exp, eine Scope-Prüfung je Tool folgt mit AP-05
+  - datum: 2026-09-27
+    was: Clients können bei der Registrierung eine andere Client-Authentifizierung als "none" wünschen
+    loesung: Alle Clients sind öffentlich; die Registrierungsantwort meldet immer token_endpoint_auth_method "none" (RFC 7591 erlaubt die Abweichung), ein trotzdem gesendetes Secret wird ignoriert; Schutz über PKCE S256
+  - datum: 2026-09-27
+    was: Fehlversuche mit falschem Anmeldenamen – zählen oder nicht?
+    loesung: zählen gegen den einzigen Benutzer (Einzelnutzer, keine Unterscheidung nach außen sichtbar); während einer Sperre wird weder geprüft noch gezählt, damit die Sperre nicht durch weitere Versuche verlängert wird
+  - datum: 2026-09-27
+    was: Branding-Hinweis 7.1 (Assets nach public/assets übernehmen) – Kopie im Repo hätte Schriften und Icons doppelt gehalten
+    loesung: Build-Schritt server/bin/build-assets.php in CI und Deploy; public/assets/ ist nicht im Repo, einzige Quelle bleibt docs/branding/
+  - datum: 2026-09-27
+    was: Content-Security-Policy ohne Inline-Styles/-Skripte vs. Inline-Styles und icons.js in den Mockups
+    loesung: Ergänzungsklassen in server/public/css/training.css; Icons serverseitig inline aus public/assets/icons (kein JavaScript nötig); Abweichungen im Branding-Dokument Abschnitt 8 nachgetragen
+  - datum: 2026-09-27
+    was: POST /mcp mit ungültigem JSON-Körper antwortet ohne Token mit 400 statt 401 (Reihenfolge im SDK)
+    loesung: hingenommen – kein Datenabfluss, gültige JSON-RPC-Anfragen ohne Token erhalten 401 mit Metadaten (Test)
 ```
 
 ## AP-02 Intervals.icu-Anbindung
@@ -1298,3 +1335,4 @@ noch_zu_pruefen:
 | 2026-09-27 | AP-01a begonnen: Gestaltungsvorgaben (Chadid Design-System) unter `docs/branding/chadid-design-system/` abgelegt; Status AP-01a `in_arbeit`. |
 | 2026-09-27 | AP-01a: Mockups aller Screens (S0–S7 und Einstellungen) sowie Branding-Dokument `docs/branding/branding.md` erstellt; Entscheidungen B-01 bis B-07 dort dokumentiert (u. a. Desktop-Ansicht zusätzlich zu Smartphone/Tablet). Abnahme offen. |
 | 2026-09-27 | AP-01a abgenommen (Athlet). D-19 um Desktop-Ansicht ergänzt; Abschnitt 10 um S8 Einstellungen ergänzt (AP-04, Backup/Update aus AP-10). AP-01a `erledigt`. |
+| 2026-09-27 | AP-01 umgesetzt (Code-Stand 0.2.0), Status `in_arbeit` bis zur Abnahme auf dem Server und mit claude.ai. Befunde im AP-01-Block (SDK-Einbindung über HttpServerRunner, Sitzungsdateien nur mit gültigem Token, Scope-Namen, Client-Authentifizierung `none`, Assets-Build, CSP). Neu: Q-09 Laufzeit Refresh-Token (vorläufig 90 Tage). 8.1 um Scopes und Pfad-Suffix-Metadaten ergänzt; V-05 in Arbeit. |

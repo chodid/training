@@ -97,6 +97,7 @@ final class AppTest extends TestCase
             'DB_USER=x',
             'DB_PASSWORD=x',
             'MIGRATION_SECRET=' . $secret,
+            'OAUTH_JWT_SECRET=' . str_repeat('j', 32),
         ]));
     }
 }

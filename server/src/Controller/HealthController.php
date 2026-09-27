@@ -48,6 +48,13 @@ final class HealthController
             $ok = false;
         }
 
+        $var = $this->app->varDir();
+        if (!is_dir($var)) {
+            @mkdir($var, 0750, true);
+        }
+        $checks['var'] = is_dir($var) && is_writable($var) ? 'ok' : 'nicht_beschreibbar';
+        $ok = $ok && $checks['var'] === 'ok';
+
         $schema = ['code' => App::SCHEMA_VERSION, 'db' => null, 'status' => 'unbekannt'];
         if ($checks['config'] === 'ok') {
             try {

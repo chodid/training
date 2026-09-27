@@ -4,7 +4,30 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.2.0] – 2026-09-27
+
+AP-01 MCP-Minimalserver mit OAuth (Code fertig; Abnahme auf dem Server und mit claude.ai steht aus).
+
+### Hinzugefügt
+- MCP-Endpunkt `/mcp` über `logiscape/mcp-sdk-php` (v2.0.x): Streamable HTTP ohne SSE, zustandslos für Clients der Revision 2026-07-28, Sitzungsdateien für ältere Revisionen in `var/mcp_sessions/` (außerhalb des Docroots, Dateien älter als ein Tag werden aufgeräumt). Dummy-Tool `ping` (Serverzeit, Code-Stand).
+- Bearer-Prüfung am `/mcp` über den SDK-`JwtTokenValidator` (iss, aud, exp; zusätzlich `exp` Pflicht); 401 mit `WWW-Authenticate: Bearer resource_metadata=…` aus dem SDK; `/.well-known/oauth-protected-resource` (auch mit Suffix `/mcp`).
+- Statisches Fallback-Token `MCP_STATIC_TOKEN`, nur aktiv mit `MCP_STATIC_TOKEN_ENABLED=true` (D-06).
+- Eigener OAuth-2.1-Autorisierungsserver (D-32, D-36): `/.well-known/oauth-authorization-server` (RFC 8414, auch mit Suffix `/mcp`), `/oauth/register` (offene Dynamic Client Registration, nur `https://` bzw. `http://localhost`/`127.0.0.1`/`[::1]` als Redirect-URI), `/oauth/authorize` (Login + Freigabeseite S7, Ablehnen möglich), `/oauth/token` (PKCE S256 Pflicht, Codes 10 min einmalig; Access-Token als JWT HS256 1 h; Refresh-Token mit Rotation und Familien-Widerruf bei Wiederverwendung). Scopes `training:read` und `training:write`.
+- Webseite: `/setup` (S0, einmalige Anlage des einzigen Benutzers mit `MIGRATION_SECRET`, danach 404), `/login` (S1, Passwort mit Argon2id, 30-Tage-Session gleitend, Kontosperre nach 10 Fehlversuchen für 5 min mit Verdopplung bis 24 h), `/logout`, Startseite nach Login. Gestaltung nach `docs/branding/` (Smartphone, Tablet, Desktop).
+- Migrationen `0002`–`0006`: `user`, `web_session`, `oauth_client`, `oauth_auth_code`, `oauth_token` (D-35); `App::SCHEMA_VERSION` = 6.
+- CSRF-Schutz: Double-Submit-Cookie für Setup und Login, Session-gebundenes Token für Abmelden und Freigabe.
+- Sicherheitsheader für HTML-Seiten (Content-Security-Policy ohne Inline-Skripte/-Styles, `frame-ancestors 'none'`, `X-Frame-Options: DENY`, `no-store`); CORS für Metadaten, Registrierung, Token und `/mcp` (ohne Cookies).
+- `server/bin/build-assets.php`: übernimmt Design-System, `app.css`, Icons und Logo aus `docs/branding/` nach `server/public/assets/` (Build-Schritt in CI und Deploy, nicht im Repo).
+- `/health` prüft zusätzlich, ob `var/` beschreibbar ist.
+- Tests: Unit-Tests (Sperrstufen, Redirect-Regeln, PKCE nach RFC-7636-Beispiel, JWT gegen SDK-Validator, statisches Token, Rücksprungziele) und Integrationstests für Setup, Login/Sperre/Session sowie den vollständigen OAuth- und MCP-Ablauf.
+
+### Geändert
+- Neuer Pflichtwert `OAUTH_JWT_SECRET` in `.env` (mindestens 32 Zeichen); fehlt er oder ist er zu kurz, meldet `/health` `config` als fehlend und die App startet nicht. **Vor dem Deployment in die `.env` auf dem Server eintragen.**
+- Deploy-Workflow: `var/**` und `bin/**` vom Upload ausgeschlossen, Assets-Build in Test- und Deploy-Job, Syntaxprüfung auch für `templates/` und `bin/`.
+- `Request` liest Query, Formularfelder, Cookies und Rohdaten; `Response` kann Cookies setzen, HTML ausliefern und weiterleiten.
+
 ### Dokumentation
+- AP-01: README (Endpunkte, neue `.env`-Schlüssel, Ersteinrichtung, Connector in claude.ai und Claude Desktop), Konzept (Status AP-01, Befunde, offene Frage Q-09 Laufzeit Refresh-Token), Prüfprotokoll AP-01, Branding-Dokument Abschnitt 8 (Abweichungen von den Mockups).
 - AP-01a: Design-Mockups aller Webseiten-Screens (S0 Setup, S1 Login mit Fehler/gesperrt, S2 Woche inkl. leer, S3 Einheit für Kraft/Ausdauer/Klettern, S4 Check-in, S5 Schmerz, S6 Verlauf, S7 Freigabe, Einstellungen inkl. „Update erforderlich“) als HTML unter `docs/branding/mockups/` mit Übersicht `index.html`, Bausteinen `app.css`, lokalem Icon-Sprite (Tabler, MIT) und Screenshots; Branding-Dokument `docs/branding/branding.md` (Vorgaben, Bausteine, Layout, Entscheidungen B-01–B-07, Umsetzungshinweise). Vom Athleten abgenommen; Konzept D-19 (Desktop-Ansicht) und Abschnitt 10 (S8 Einstellungen) ergänzt, AP-01a `erledigt`.
 - AP-01a begonnen: Gestaltungsvorgaben als Chadid Design-System unter `docs/branding/chadid-design-system/` (Farb-, Schrift- und Abstands-Tokens, Richtlinien-Karten, Lama-Logo, Briefvorlage, `SKILL.md`). Schriften (Young Serif, Source Sans 3, Source Code Pro, SIL OFL) lokal in `fonts/` statt über Google Fonts. Grundlage für die Mockups (Fable).
 - AP-00 abgenommen: Prüfprotokoll mit Servertests ergänzt, Konzept-Status `erledigt`, Hinweis auf vorgeschalteten Lima-City-Proxy.

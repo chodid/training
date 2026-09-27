@@ -1,0 +1,8 @@
+/* Ergänzungen zu assets/app.css (Branding AP-01a) für die serverseitigen Seiten.
+   Ersetzt Inline-Styles der Mockups, weil die Content-Security-Policy keine Inline-Styles erlaubt. */
+.h-card{font:var(--type-h3)}
+.center{text-align:center}
+.gap-6{gap:6px}
+.mt-8{margin-top:8px}
+.ic-brand{color:var(--plum-600)}
+.btn .ic{margin-right:var(--space-2)}

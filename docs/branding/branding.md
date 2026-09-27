@@ -127,6 +127,19 @@ Abnahmekriterien (AP-01a): Athlet hat die Mockups bestätigt; Branding-Dokument 
 
 Abgenommen durch den Athleten am 2026-09-27. Konzept ergänzt: D-19 (Desktop), Abschnitt 10 (S8 Einstellungen).
 
+Abweichungen in der Umsetzung (nach Hinweis 7.10):
+
+| screen | abweichung | grund | ap / datum |
+|---|---|---|---|
+| alle | Icons serverseitig als Inline-SVG aus `public/assets/icons/` statt über `icons.js` (B-05 bleibt: lokal, kein CDN, keine CSS-Maske) | Seiten funktionieren ohne JavaScript; Content-Security-Policy erlaubt keine Inline-Skripte | AP-01, 2026-09-27 |
+| alle | Inline-Styles der Mockups als Klassen in `server/public/css/training.css` (`h-card`, `center`, `gap-6`, `mt-8`, `ic-brand`) | Content-Security-Policy ohne `unsafe-inline` | AP-01, 2026-09-27 |
+| S1 | Kein Knopf „Passwort anzeigen“ | braucht JavaScript; Passwort-Manager und Browser bieten die Funktion | AP-01, 2026-09-27 |
+| S1 gesperrt | Statt „Anmelden“ ein Sekundärknopf „Erneut versuchen“ (lädt die Seite neu) | ohne Passwortfeld ist Anmelden nicht möglich | AP-01, 2026-09-27 |
+| S7 | Hinweistext „Prüfe, ob Du die Verbindung gerade selbst eingerichtet hast. Die Freigabe gilt, bis sie widerrufen wird.“ statt Audit-Log/Einstellungen | Audit-Log (AP-03/AP-05) und Einstellungen (AP-04) gibt es noch nicht; Text wird mit AP-04 wieder angeglichen | AP-01, 2026-09-27 |
+| S7 | Fußzeile ohne Link „Abmelden“ | Abmelden braucht ein Formular mit CSRF-Token; auf der Freigabeseite reicht „Ablehnen“ | AP-01, 2026-09-27 |
+| S7 | Zugriffsliste nach Scope gruppiert (erst Lesen, dann Schreiben) | ergibt sich aus der Scope-Zuordnung | AP-01, 2026-09-27 |
+| Startseite | Übergangsseite nach dem Login (Hinweis mit Connector-Adresse, Abmelden) im Auth-Layout | Seitenrahmen mit Navigation kommt mit AP-04 | AP-01, 2026-09-27 |
+
 Offen (unabhängig von den Mockups):
 - Word-Vorlage mit variablen TTF prüfen (aus dem Ablegen des Design-Systems).
 

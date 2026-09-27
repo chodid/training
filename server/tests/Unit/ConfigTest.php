@@ -43,11 +43,36 @@ final class ConfigTest extends TestCase
             Config::fromFile($file);
             self::fail('ConfigException erwartet');
         } catch (ConfigException $e) {
-            self::assertSame(['DB_HOST', 'DB_NAME', 'DB_USER', 'MIGRATION_SECRET'], $e->missingKeys);
+            self::assertSame(['DB_HOST', 'DB_NAME', 'DB_USER', 'MIGRATION_SECRET', 'OAUTH_JWT_SECRET'], $e->missingKeys);
             self::assertStringNotContainsString('geheim', $e->getMessage());
         } finally {
             unlink($file);
         }
+    }
+
+    public function testShortJwtSecretIsRejected(): void
+    {
+        $file = tempnam(sys_get_temp_dir(), 'env');
+        file_put_contents($file, "APP_URL=https://example.org\nDB_HOST=h\nDB_NAME=n\nDB_USER=u\nDB_PASSWORD=p\nMIGRATION_SECRET=m\nOAUTH_JWT_SECRET=" . str_repeat('x', 31) . "\n");
+        try {
+            Config::fromFile($file);
+            self::fail('ConfigException erwartet');
+        } catch (ConfigException $e) {
+            self::assertSame(['OAUTH_JWT_SECRET'], $e->missingKeys);
+            self::assertStringNotContainsString('xxxx', $e->getMessage());
+        } finally {
+            unlink($file);
+        }
+    }
+
+    public function testBoolFlag(): void
+    {
+        $config = Config::fromArray(['A' => 'true', 'B' => 'false', 'C' => '1', 'D' => 'TRUE']);
+        self::assertTrue($config->bool('A'));
+        self::assertFalse($config->bool('B'));
+        self::assertTrue($config->bool('C'));
+        self::assertTrue($config->bool('D'));
+        self::assertFalse($config->bool('X'));
     }
 
     public function testGetTreatsEmptyAsDefault(): void
