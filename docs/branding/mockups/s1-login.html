@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Anmelden – Training</title>
+<link rel="icon" href="../chadid-design-system/assets/logo/lama-symbol-kopf.svg">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+<style>
+  /* Zustände über ?state=fehler | gesperrt (nur für das Mockup) */
+  [data-state]{display:none}
+  body.st-fehler [data-state="fehler"],body.st-gesperrt [data-state="gesperrt"]{display:flex}
+  body.st-gesperrt .field.pw{display:none}
+</style>
+</head>
+<body class="auth">
+<!-- S1 Login: Passwort, Session 30 Tage (D-33). Zustände: normal, Fehler, gesperrt. -->
+<form class="auth-card stack-lg" action="#" onsubmit="return false">
+  <div class="auth-brand">
+    <img src="../chadid-design-system/assets/logo/lama-symbol-kopf.svg" alt="">
+    <div class="name">Training</div>
+  </div>
+
+  <div class="alert alert-error" data-state="fehler">
+    <svg class="ic"><use href="#i-alert-circle"/></svg>
+    <div><b>Anmeldung fehlgeschlagen.</b> <span class="body">Bitte Anmeldename und Passwort prüfen. Noch 7 Versuche, dann wird das Konto vorübergehend gesperrt.</span></div>
+  </div>
+
+  <div class="alert alert-warning" data-state="gesperrt">
+    <svg class="ic"><use href="#i-lock"/></svg>
+    <div><b>Konto vorübergehend gesperrt.</b> <span class="body">Zu viele Fehlversuche. Nächster Versuch möglich um <span class="mono">14:23 Uhr</span> (in 4 Minuten). Jeder weitere Fehlversuch verdoppelt die Sperrdauer.</span></div>
+  </div>
+
+  <div class="field">
+    <label for="login">Anmeldename</label>
+    <input class="input" id="login" type="text" autocomplete="username" value="philipp">
+  </div>
+
+  <div class="field pw">
+    <label for="pw">Passwort</label>
+    <div style="position:relative">
+      <input class="input" id="pw" type="password" autocomplete="current-password" style="padding-right:48px">
+      <button class="btn btn-icon" type="button" aria-label="Passwort anzeigen" style="position:absolute;right:2px;top:2px;min-height:40px;min-width:40px"><svg class="ic"><use href="#i-eye"/></svg></button>
+    </div>
+  </div>
+
+  <button class="btn btn-primary btn-block" type="submit">Anmelden</button>
+  <p class="hint" style="text-align:center">Angemeldet bleiben für 30 Tage auf diesem Gerät.</p>
+
+  <div class="auth-foot">training.gen-em.org</div>
+</form>
+<script>
+  const s=new URLSearchParams(location.search).get('state');if(s)document.body.classList.add('st-'+s);
+</script>
+</body>
+</html>

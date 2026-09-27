@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Check-in – Training</title>
+<link rel="icon" href="../chadid-design-system/assets/logo/lama-symbol-kopf.svg">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+</head>
+<body class="app">
+<header class="topbar">
+  <a class="brand" href="s2-woche.html"><img src="../chadid-design-system/assets/logo/lama-symbol-kopf.svg" alt=""><span>Training</span></a>
+  <h1 class="hide-mobile">Check-in</h1>
+</header>
+
+<nav class="nav" aria-label="Hauptnavigation">
+  <a class="nav-brand" href="s2-woche.html"><img src="../chadid-design-system/assets/logo/lama-symbol-kopf.svg" alt=""><span class="brand"><span>Training</span></span></a>
+  <a href="s2-woche.html"><svg class="ic"><use href="#i-calendar-week"/></svg>Woche</a>
+  <a href="s4-checkin.html" aria-current="page"><svg class="ic"><use href="#i-checkup-list"/></svg>Check-in</a>
+  <a href="s6-verlauf.html"><svg class="ic"><use href="#i-chart-line"/></svg>Verlauf</a>
+  <a href="s8-einstellungen.html"><svg class="ic"><use href="#i-settings"/></svg>Einstellungen</a>
+  <div class="nav-foot">philipp · Block 2, Woche 6</div>
+</nav>
+
+<main class="main">
+  <!-- S4 Check-in: drei Felder (D-16), ≤ 10 s. Schmerz ja → S5-Kurzform klappt auf. -->
+  <div class="page-head">
+    <div class="eyebrow">Donnerstag, 24.09.2026</div>
+    <h1>Wie geht es Dir heute?</h1>
+    <p class="muted small">Drei Angaben, dann ist der Tag erfasst. Fehlende Tage zählen als fehlend, nicht als beschwerdefrei.</p>
+  </div>
+
+  <form class="stack-lg" action="#" onsubmit="return false">
+    <section class="card stack-lg">
+      <div class="field">
+        <div class="field-label">Erholt und leistungsbereit</div>
+        <div class="scale" role="radiogroup" aria-label="Erholung">
+          <label><input type="radio" name="rec" value="1"><span>1</span></label>
+          <label><input type="radio" name="rec" value="2" checked><span>2</span></label>
+          <label><input type="radio" name="rec" value="3"><span>3</span></label>
+          <label><input type="radio" name="rec" value="4"><span>4</span></label>
+          <label><input type="radio" name="rec" value="5"><span>5</span></label>
+        </div>
+        <div class="scale-ends"><span>1 sehr gut</span><span>5 sehr schlecht</span></div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Muskelkater</div>
+        <div class="scale" role="radiogroup" aria-label="Muskelkater">
+          <label><input type="radio" name="sore" value="1"><span>1</span></label>
+          <label><input type="radio" name="sore" value="2"><span>2</span></label>
+          <label><input type="radio" name="sore" value="3" checked><span>3</span></label>
+          <label><input type="radio" name="sore" value="4"><span>4</span></label>
+          <label><input type="radio" name="sore" value="5"><span>5</span></label>
+        </div>
+        <div class="scale-ends"><span>1 keiner</span><span>5 stark</span></div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Schmerz</div>
+        <div class="seg" role="radiogroup" aria-label="Schmerz">
+          <label><input type="radio" name="pain" value="nein" checked onchange="document.getElementById('pain-form').classList.remove('open')"><span>Nein</span></label>
+          <label><input type="radio" name="pain" value="ja" onchange="document.getElementById('pain-form').classList.add('open')"><span>Ja</span></label>
+        </div>
+      </div>
+
+      <div class="reveal subcard" id="pain-form">
+        <div class="between"><b>Schmerzereignis</b><span class="hint">Kurzform, Details in <a href="s5-schmerz.html">Schmerz</a></span></div>
+        <div class="field">
+          <label for="ort">Ort</label>
+          <div class="select-wrap">
+            <select class="select" id="ort">
+              <option>Finger, Ringband</option><option>Finger, Gelenk</option><option>Handgelenk</option>
+              <option>Ellbogen innen</option><option>Ellbogen außen</option><option selected>Schulter</option><option>Nacken</option>
+              <option>Lendenwirbelsäule</option><option>Hüfte</option><option>Knie</option><option>Achillessehne</option>
+              <option>Wade</option><option>Schienbein</option><option>Fuß</option><option>Sonstiges</option>
+            </select>
+            <svg class="ic"><use href="#i-chevron-right"/></svg>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-label">Seite</div>
+          <div class="seg"><label><input type="radio" name="side" value="L" checked><span>Links</span></label><label><input type="radio" name="side" value="R"><span>Rechts</span></label><label><input type="radio" name="side" value="beide"><span>Beide</span></label><label><input type="radio" name="side" value="na"><span>n. z.</span></label></div>
+        </div>
+        <div class="field">
+          <div class="field-label">Stärke (0–10)</div>
+          <div class="scale scale-11">
+            <label><input type="radio" name="int" value="0"><span>0</span></label><label><input type="radio" name="int" value="1"><span>1</span></label><label><input type="radio" name="int" value="2"><span>2</span></label><label><input type="radio" name="int" value="3" checked><span>3</span></label><label><input type="radio" name="int" value="4"><span>4</span></label><label><input type="radio" name="int" value="5"><span>5</span></label><label><input type="radio" name="int" value="6"><span>6</span></label><label><input type="radio" name="int" value="7"><span>7</span></label><label><input type="radio" name="int" value="8"><span>8</span></label><label><input type="radio" name="int" value="9"><span>9</span></label><label><input type="radio" name="int" value="10"><span>10</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-label">Wann</div>
+          <div class="seg wrap"><label><input type="radio" name="timing" value="waehrend"><span>Während</span></label><label><input type="radio" name="timing" value="danach"><span>Danach</span></label><label><input type="radio" name="timing" value="morgen" checked><span>Nächster Morgen</span></label><label><input type="radio" name="timing" value="ruhe"><span>In Ruhe</span></label></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="note">Notiz <span class="muted" style="font-weight:400">(optional)</span></label>
+        <input class="input" id="note" placeholder="Schlaf, Stress, Besonderes">
+      </div>
+    </section>
+
+    <div class="actions-sticky btn-row">
+      <button class="btn btn-primary btn-block" type="submit">Speichern</button>
+    </div>
+  </form>
+
+  <section style="margin-top:var(--space-8)">
+    <div class="section-title"><h2>Diese Woche</h2><span class="hint">3 von 4 Tagen</span></div>
+    <div class="card list">
+      <div class="list-item"><div><div class="t">Mittwoch, 23.09.</div><div class="s">Erholung 2 · Muskelkater 2 · kein Schmerz</div></div><span class="badge badge-success"><svg class="ic"><use href="#i-check"/></svg>erfasst</span></div>
+      <div class="list-item"><div><div class="t">Dienstag, 22.09.</div><div class="s">Erholung 3 · Muskelkater 3 · Schmerz Schulter links 3</div></div><span class="badge badge-success"><svg class="ic"><use href="#i-check"/></svg>erfasst</span></div>
+      <div class="list-item"><div><div class="t">Montag, 21.09.</div><div class="s">Erholung 2 · Muskelkater 1 · kein Schmerz</div></div><span class="badge badge-success"><svg class="ic"><use href="#i-check"/></svg>erfasst</span></div>
+    </div>
+  </section>
+</main>
+<script>
+  if(new URLSearchParams(location.search).get('schmerz')==='ja'){document.querySelector('input[name=pain][value=ja]').checked=true;document.getElementById('pain-form').classList.add('open')}
+</script>
+</body>
+</html>

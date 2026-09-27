@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Schmerz – Training</title>
+<link rel="icon" href="../chadid-design-system/assets/logo/lama-symbol-kopf.svg">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+</head>
+<body class="app">
+<header class="topbar">
+  <a class="btn btn-icon" href="s4-checkin.html" aria-label="Zurück"><svg class="ic ic-lg"><use href="#i-arrow-left"/></svg></a>
+  <h1>Schmerz</h1>
+</header>
+
+<nav class="nav" aria-label="Hauptnavigation">
+  <a class="nav-brand" href="s2-woche.html"><img src="../chadid-design-system/assets/logo/lama-symbol-kopf.svg" alt=""><span class="brand"><span>Training</span></span></a>
+  <a href="s2-woche.html"><svg class="ic"><use href="#i-calendar-week"/></svg>Woche</a>
+  <a href="s4-checkin.html" aria-current="page"><svg class="ic"><use href="#i-checkup-list"/></svg>Check-in</a>
+  <a href="s6-verlauf.html"><svg class="ic"><use href="#i-chart-line"/></svg>Verlauf</a>
+  <a href="s8-einstellungen.html"><svg class="ic"><use href="#i-settings"/></svg>Einstellungen</a>
+  <div class="nav-foot">philipp · Block 2, Woche 6</div>
+</nav>
+
+<main class="main">
+  <!-- S5 Schmerz: Kurzformular (pain_event). Mehrere Ereignisse pro Tag möglich. -->
+  <div class="page-head">
+    <div class="eyebrow">Donnerstag, 24.09.2026</div>
+    <h1>Schmerzereignis erfassen</h1>
+    <p class="muted small">Ort, Seite, Stärke und Zeitpunkt reichen. Die Schmerzregeln des Trainers greifen auf diese Angaben zu.</p>
+  </div>
+
+  <form class="stack-lg" action="#" onsubmit="return false">
+    <section class="card stack-lg">
+      <div class="field">
+        <label for="ort">Ort</label>
+        <div class="select-wrap">
+          <select class="select" id="ort">
+            <option>Finger, Ringband</option><option>Finger, Gelenk</option><option>Handgelenk</option>
+            <option>Ellbogen innen</option><option>Ellbogen außen</option><option selected>Schulter</option><option>Nacken</option>
+            <option>Lendenwirbelsäule</option><option>Hüfte</option><option>Knie</option><option>Achillessehne</option>
+            <option>Wade</option><option>Schienbein</option><option>Fuß</option><option>Sonstiges</option>
+          </select>
+          <svg class="ic"><use href="#i-chevron-right"/></svg>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Seite</div>
+        <div class="seg" role="radiogroup">
+          <label><input type="radio" name="side" value="L" checked><span>Links</span></label>
+          <label><input type="radio" name="side" value="R"><span>Rechts</span></label>
+          <label><input type="radio" name="side" value="beide"><span>Beide</span></label>
+          <label><input type="radio" name="side" value="na"><span>n. z.</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Stärke (0–10)</div>
+        <div class="scale scale-11" role="radiogroup" aria-label="Stärke">
+          <label><input type="radio" name="int" value="0"><span>0</span></label><label><input type="radio" name="int" value="1"><span>1</span></label><label><input type="radio" name="int" value="2"><span>2</span></label><label><input type="radio" name="int" value="3"><span>3</span></label><label><input type="radio" name="int" value="4" checked><span>4</span></label><label><input type="radio" name="int" value="5"><span>5</span></label><label><input type="radio" name="int" value="6"><span>6</span></label><label><input type="radio" name="int" value="7"><span>7</span></label><label><input type="radio" name="int" value="8"><span>8</span></label><label><input type="radio" name="int" value="9"><span>9</span></label><label><input type="radio" name="int" value="10"><span>10</span></label>
+        </div>
+        <div class="scale-ends"><span>0 kein Schmerz</span><span>10 stärkster vorstellbarer</span></div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Wann</div>
+        <div class="seg wrap" role="radiogroup">
+          <label><input type="radio" name="timing" value="waehrend"><span>Während</span></label>
+          <label><input type="radio" name="timing" value="danach" checked><span>Danach</span></label>
+          <label><input type="radio" name="timing" value="morgen"><span>Nächster Morgen</span></label>
+          <label><input type="radio" name="timing" value="ruhe"><span>In Ruhe</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="sess">Zugehörige Einheit <span class="muted" style="font-weight:400">(optional)</span></label>
+        <div class="select-wrap">
+          <select class="select" id="sess">
+            <option>Keine</option>
+            <option selected>Mi 23.09. · Ganzkörper Kraft 1</option>
+            <option>Di 22.09. · Bouldern Volumen</option>
+            <option>Mo 21.09. · Dauerlauf Zone 1</option>
+          </select>
+          <svg class="ic"><use href="#i-chevron-right"/></svg>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="note">Notiz</label>
+        <textarea class="textarea" id="note">Vorne an der Schulter beim Liegestütz, im Rudern nicht.</textarea>
+      </div>
+    </section>
+
+    <div class="alert alert-warning">
+      <svg class="ic"><use href="#i-alert-triangle"/></svg>
+      <div><b>Dritte Meldung an dieser Stelle in 14 Tagen.</b> <span class="body">Claude wird das bei der nächsten Wochenplanung berücksichtigen. Bei Stärke über 5 oder Schmerz in Ruhe bitte ärztlich abklären.</span></div>
+    </div>
+
+    <div class="actions-sticky btn-row">
+      <a class="btn btn-secondary" href="s4-checkin.html">Abbrechen</a>
+      <button class="btn btn-primary" type="submit">Speichern</button>
+    </div>
+  </form>
+</main>
+</body>
+</html>

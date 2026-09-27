@@ -1,0 +1,41 @@
+:root{
+  /* Abstände – 4-px-Basis. Innen gerade Stufen, Außen eine Stufe größer als innen */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+  --space-card: var(--space-6);
+  --space-stack: var(--space-3);
+  --space-inline: var(--space-2);
+
+  /* Radien – weich (2b) */
+  --radius-sm: 4px;   /* Badges, Inputs klein */
+  --radius-md: 6px;   /* Buttons, Inputs */
+  --radius-lg: 8px;   /* Karten, Menüs */
+  --radius-xl: 16px;  /* Dialoge, große Flächen */
+  --radius-icon: 12px;/* App-Icon-Kachel 36px */
+  --radius-full: 999px;
+
+  /* Rahmen */
+  --border-width: 1px;
+  --border-default: var(--border-width) solid var(--border-subtle);
+  --border-hover: var(--border-width) solid var(--border-strong);
+  --border-focus: 2px solid var(--focus-ring);
+
+  /* Tiefe (3c): Karten flach mit Rahmen; Schatten nur für Schwebendes. Schatten in Pflaume, nicht Grau */
+  --shadow-card: 0 1px 2px oklch(0.30 0.06 310 / .05);
+  --shadow-menu: 0 8px 24px oklch(0.30 0.06 310 / .14);
+  --shadow-dialog: 0 2px 6px oklch(0.30 0.06 310 / .10), 0 24px 64px oklch(0.30 0.06 310 / .22);
+  --shadow-focus: 0 0 0 3px oklch(0.72 0.17 45 / .45);
+
+  /* Bewegung (5c): kurz, ease-out, nichts springt */
+  --ease: cubic-bezier(0.2, 0, 0, 1); /* @kind other */
+  --duration-fast: 150ms; /* @kind other */
+  --duration-base: 200ms; /* @kind other */
+  --duration-slow: 300ms; /* @kind other */
+  --transition: all var(--duration-fast) var(--ease);
+  --opacity-disabled: 0.45; /* @kind other */
+
+  /* Icons: Tabler Outline, Strich 2, 24er-Raster – CDN unpkg.com/@tabler/icons@3.21.0/icons/outline/<name>.svg */
+  --icon-size: 20px;
+  --icon-size-lg: 24px;
+  --icon-stroke: 2;
+}

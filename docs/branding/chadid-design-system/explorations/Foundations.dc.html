@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="stylesheet" href="../styles.css"><style>body{margin:0;background:#ecebe8;font-family:var(--font-body);color:#26212a}a{color:#26212a}a:hover{color:#5c5360}</style></helmet>
+<section style="display:grid;gap:28px;padding:40px;width:1300px;box-sizing:border-box">
+
+  <div id="1a" style="background:#f6f3f0;padding:24px 28px;display:grid;gap:16px">
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:#77707a"><span style="letter-spacing:.14em;text-transform:uppercase">1a · Abstände</span><span>Vorschlag: 4-px-Basis, 8 Stufen. Innenabstände gerade Stufen, Außenabstände eine Stufe größer als innen.</span></div>
+    <div style="display:flex;gap:16px;align-items:flex-end">
+      <div style="display:grid;gap:4px;justify-items:center"><div style="width:4px;height:4px;background:oklch(0.48 0.105 310)"></div><span style="font-family:var(--font-mono);font-size:11px;color:#77707a">1·4</span></div>
+      <div style="display:grid;gap:4px;justify-items:center"><div style="width:8px;height:8px;background:oklch(0.48 0.105 310)"></div><span style="font-family:var(--font-mono);font-size:11px;color:#77707a">2·8</span></div>
+      <div style="display:grid;gap:4px;justify-items:center"><div style="width:12px;height:12px;background:oklch(0.48 0.105 310)"></div><span style="font-family:var(--font-mono);font-size:11px;color:#77707a">3·12</span></div>
+      <div style="display:grid;gap:4px;justify-items:center"><div style="width:16px;height:16px;background:oklch(0.48 0.105 310)"></div><span style="font-family:var(--font-mono);font-size:11px;color:#77707a">4·16</span></div>
+      <div style="display:grid;gap:4px;justify-items:center"><div style="width:24px;height:24px;background:oklch(0.48 0.105 310)"></div><span style="font-family:var(--font-mono);font-size:11px;color:#77707a">6·24</span></div>
+      <div style="display:grid;gap:4px;justify-items:center"><div style="width:32px;height:32px;background:oklch(0.48 0.105 310)"></div><span style="font-family:var(--font-mono);font-size:11px;color:#77707a">8·32</span></div>
+      <div style="display:grid;gap:4px;justify-items:center"><div style="width:48px;height:48px;background:oklch(0.48 0.105 310)"></div><span style="font-family:var(--font-mono);font-size:11px;color:#77707a">12·48</span></div>
+      <div style="display:grid;gap:4px;justify-items:center"><div style="width:64px;height:64px;background:oklch(0.48 0.105 310)"></div><span style="font-family:var(--font-mono);font-size:11px;color:#77707a">16·64</span></div>
+      <div style="margin-left:auto;background:#faf8f5;border:1px solid #e6dfe2;padding:24px;display:grid;gap:12px;width:300px;font-size:13px"><div style="font-family:var(--font-display);font-size:17px">Karte: innen 24, Elemente 12</div><div style="color:#5c5360;line-height:1.5">Text, dann 12 px Abstand, dann Aktionen mit 8 px zwischen den Buttons.</div><div style="display:flex;gap:8px"><span style="font-family:var(--font-display);background:oklch(0.48 0.105 310);color:#fff;padding:8px 14px;border-radius:4px">Speichern</span><span style="font-family:var(--font-display);border:1px solid #cfc6cc;padding:8px 14px;border-radius:4px">Abbrechen</span></div></div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+    <div id="2a" style="background:#f6f3f0;padding:24px;display:grid;gap:14px">
+      <div style="font-size:11px;color:#77707a"><span style="letter-spacing:.14em;text-transform:uppercase">2a · Radien knapp</span><br>2 / 4 / 8 · sachlich, dokumentnah</div>
+      <div style="background:#faf8f5;border:1px solid #e6dfe2;border-radius:4px;padding:16px;display:grid;gap:10px;font-size:13px"><div style="font-family:var(--font-display);font-size:16px">Polytrauma Motorrad</div><div style="border:1px solid #cfc6cc;border-radius:2px;padding:8px 10px;background:#fff;color:#77707a">Titel eingeben</div><div style="display:flex;gap:8px;align-items:center"><span style="font-family:var(--font-display);background:oklch(0.48 0.105 310);color:#fff;padding:8px 14px;border-radius:2px">Öffnen</span><span style="background:oklch(0.94 0.02 310);color:oklch(0.48 0.105 310);padding:3px 8px;border-radius:2px;font-size:12px;font-weight:600">Entwurf</span><span style="width:36px;height:36px;border-radius:8px;background:oklch(0.72 0.17 45);margin-left:auto"></span></div></div>
+    </div>
+    <div id="2b" style="background:#f6f3f0;padding:24px;display:grid;gap:14px">
+      <div style="font-size:11px;color:#77707a"><span style="letter-spacing:.14em;text-transform:uppercase">2b · Radien weich</span><br>4 / 8 / 16 · freundlich, passt zu Young Serif</div>
+      <div style="background:#faf8f5;border:1px solid #e6dfe2;border-radius:8px;padding:16px;display:grid;gap:10px;font-size:13px"><div style="font-family:var(--font-display);font-size:16px">Polytrauma Motorrad</div><div style="border:1px solid #cfc6cc;border-radius:6px;padding:8px 10px;background:#fff;color:#77707a">Titel eingeben</div><div style="display:flex;gap:8px;align-items:center"><span style="font-family:var(--font-display);background:oklch(0.48 0.105 310);color:#fff;padding:8px 14px;border-radius:6px">Öffnen</span><span style="background:oklch(0.94 0.02 310);color:oklch(0.48 0.105 310);padding:3px 8px;border-radius:6px;font-size:12px;font-weight:600">Entwurf</span><span style="width:36px;height:36px;border-radius:12px;background:oklch(0.72 0.17 45);margin-left:auto"></span></div></div>
+    </div>
+    <div id="2c" style="background:#f6f3f0;padding:24px;display:grid;gap:14px">
+      <div style="font-size:11px;color:#77707a"><span style="letter-spacing:.14em;text-transform:uppercase">2c · Radien rund</span><br>8 / 12 / Pille · sehr weich, App-artig</div>
+      <div style="background:#faf8f5;border:1px solid #e6dfe2;border-radius:16px;padding:16px;display:grid;gap:10px;font-size:13px"><div style="font-family:var(--font-display);font-size:16px">Polytrauma Motorrad</div><div style="border:1px solid #cfc6cc;border-radius:999px;padding:8px 14px;background:#fff;color:#77707a">Titel eingeben</div><div style="display:flex;gap:8px;align-items:center"><span style="font-family:var(--font-display);background:oklch(0.48 0.105 310);color:#fff;padding:8px 16px;border-radius:999px">Öffnen</span><span style="background:oklch(0.94 0.02 310);color:oklch(0.48 0.105 310);padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600">Entwurf</span><span style="width:36px;height:36px;border-radius:50%;background:oklch(0.72 0.17 45);margin-left:auto"></span></div></div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+    <div id="3a" style="background:#f6f3f0;padding:24px;display:grid;gap:14px">
+      <div style="font-size:11px;color:#77707a"><span style="letter-spacing:.14em;text-transform:uppercase">3a · Nur Rahmen</span><br>1 px Neutral 300, kein Schatten · flach, druckähnlich</div>
+      <div style="background:#faf8f5;border:1px solid #e6dfe2;border-radius:8px;padding:16px;display:grid;gap:8px;font-size:13px"><div style="font-family:var(--font-display);font-size:16px">Karte</div><div style="color:#5c5360">Ruhig, sehr klar. Tiefe nur durch Farbstufen.</div></div>
+      <div style="background:#faf8f5;border:1px solid #e6dfe2;border-radius:8px;padding:12px 16px;font-size:13px;display:flex;justify-content:space-between"><span>Menü / Dropdown</span><span style="color:#77707a">▾</span></div>
+    </div>
+    <div id="3b" style="background:#f6f3f0;padding:24px;display:grid;gap:14px">
+      <div style="font-size:11px;color:#77707a"><span style="letter-spacing:.14em;text-transform:uppercase">3b · Weicher Schatten</span><br>getönt (Pflaume), kein Rahmen · schwebend</div>
+      <div style="background:#fdfcfb;border-radius:8px;padding:16px;display:grid;gap:8px;font-size:13px;box-shadow:0 1px 2px oklch(0.30 0.06 310 / .06),0 4px 12px oklch(0.30 0.06 310 / .08)"><div style="font-family:var(--font-display);font-size:16px">Karte</div><div style="color:#5c5360">Weicher, moderner. Schatten in Pflaume statt Grau.</div></div>
+      <div style="background:#fdfcfb;border-radius:8px;padding:12px 16px;font-size:13px;display:flex;justify-content:space-between;box-shadow:0 2px 6px oklch(0.30 0.06 310 / .10),0 12px 32px oklch(0.30 0.06 310 / .14)"><span>Menü / Dropdown</span><span style="color:#77707a">▾</span></div>
+    </div>
+    <div id="3c" style="background:#f6f3f0;padding:24px;display:grid;gap:14px">
+      <div style="font-size:11px;color:#77707a"><span style="letter-spacing:.14em;text-transform:uppercase">3c · Rahmen + Hauch</span><br>1 px Rahmen, Schatten nur für Schwebendes · Empfehlung</div>
+      <div style="background:#faf8f5;border:1px solid #e6dfe2;border-radius:8px;padding:16px;display:grid;gap:8px;font-size:13px;box-shadow:0 1px 2px oklch(0.30 0.06 310 / .05)"><div style="font-family:var(--font-display);font-size:16px">Karte</div><div style="color:#5c5360">Karten flach mit Rahmen. Menüs, Dialoge, Toasts bekommen Schatten.</div></div>
+      <div style="background:#fdfcfb;border:1px solid #e6dfe2;border-radius:8px;padding:12px 16px;font-size:13px;display:flex;justify-content:space-between;box-shadow:0 8px 24px oklch(0.30 0.06 310 / .14)"><span>Menü / Dropdown</span><span style="color:#77707a">▾</span></div>
+    </div>
+  </div>
+
+  <div id="4a" style="background:#f6f3f0;padding:24px 28px;display:grid;gap:16px">
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:#77707a"><span style="letter-spacing:.14em;text-transform:uppercase">4 · Icons</span><span>Drei freie Sets (MIT/ISC), gleiche Icons nebeneinander · Strich soll zum Lama passen</span></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <div id="4a1" style="display:grid;gap:10px"><div style="font-size:12px"><b>4a · Lucide</b> <span style="color:#77707a">· Strich 2, rund, 24er-Raster, 1500+ Icons, sehr verbreitet</span></div><div style="display:flex;gap:14px;flex-wrap:wrap;background:#faf8f5;border:1px solid #e6dfe2;padding:14px;border-radius:8px">
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/lucide-static@0.460.0/icons/heart-pulse.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/heart-pulse.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/lucide-static@0.460.0/icons/stethoscope.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/stethoscope.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/lucide-static@0.460.0/icons/graduation-cap.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/graduation-cap.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/lucide-static@0.460.0/icons/code-xml.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/code-xml.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/lucide-static@0.460.0/icons/calendar.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/calendar.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/lucide-static@0.460.0/icons/users.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/users.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/lucide-static@0.460.0/icons/mail.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/mail.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/lucide-static@0.460.0/icons/arrow-right.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/arrow-right.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/lucide-static@0.460.0/icons/check.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/check.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/lucide-static@0.460.0/icons/triangle-alert.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/triangle-alert.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/lucide-static@0.460.0/icons/settings.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/settings.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/lucide-static@0.460.0/icons/search.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/search.svg) center/contain no-repeat"></span>
+      </div></div>
+      <div id="4b1" style="display:grid;gap:10px"><div style="font-size:12px"><b>4b · Phosphor (Regular)</b> <span style="color:#77707a">· Strich 1.5, 6 Stärken (thin→fill), 1200+ Icons</span></div><div style="display:flex;gap:14px;flex-wrap:wrap;background:#faf8f5;border:1px solid #e6dfe2;padding:14px;border-radius:8px">
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/heartbeat.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/heartbeat.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/stethoscope.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/stethoscope.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/graduation-cap.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/graduation-cap.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/code.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/code.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/calendar-blank.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/calendar-blank.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/users.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/users.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/envelope-simple.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/envelope-simple.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/arrow-right.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/arrow-right.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/check.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/check.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/warning.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/warning.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/gear.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/gear.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/magnifying-glass.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/magnifying-glass.svg) center/contain no-repeat"></span>
+      </div></div>
+      <div id="4c1" style="display:grid;gap:10px"><div style="font-size:12px"><b>4c · Tabler</b> <span style="color:#77707a">· Strich 2, etwas eckiger, 5000+ Icons, viele Medizin-Icons</span></div><div style="display:flex;gap:14px;flex-wrap:wrap;background:#faf8f5;border:1px solid #e6dfe2;padding:14px;border-radius:8px">
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/heartbeat.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/heartbeat.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/stethoscope.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/stethoscope.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/school.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/school.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/code.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/code.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/calendar.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/calendar.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/users.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/users.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/mail.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/mail.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/arrow-right.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/arrow-right.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/check.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/check.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/alert-triangle.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/alert-triangle.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/settings.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/settings.svg) center/contain no-repeat"></span>
+        <span style="width:24px;height:24px;background:oklch(0.48 0.105 310);mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/search.svg) center/contain no-repeat;-webkit-mask:url(https://unpkg.com/@tabler/icons@3.21.0/icons/outline/search.svg) center/contain no-repeat"></span>
+      </div></div>
+    </div>
+  </div>
+
+  <div id="5a" style="background:#f6f3f0;padding:24px 28px;display:grid;gap:16px">
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:#77707a"><span style="letter-spacing:.14em;text-transform:uppercase">5 · Bewegung &amp; Zustände</span><span>Mit der Maus drüberfahren. Vorschlag: 150 ms ease-out, nichts springt, nichts wackelt.</span></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;font-size:13px">
+      <div style="display:grid;gap:10px"><div style="font-size:12px"><b>5a · Farbe dunkler</b> <span style="color:#77707a">· Button 600→700, Karte Rahmen 300→400</span></div>
+        <div style="display:flex;gap:8px"><span style="font-family:var(--font-display);background:oklch(0.48 0.105 310);color:#fff;padding:10px 16px;border-radius:6px;cursor:pointer;transition:background .15s ease-out" style-hover="background:oklch(0.40 0.095 310)">Speichern</span><span style="font-family:var(--font-display);border:1px solid #cfc6cc;padding:10px 16px;border-radius:6px;cursor:pointer;transition:all .15s ease-out" style-hover="border-color:oklch(0.48 0.105 310);color:oklch(0.48 0.105 310)">Abbrechen</span></div>
+        <div style="background:#faf8f5;border:1px solid #e6dfe2;border-radius:8px;padding:14px;cursor:pointer;transition:border-color .15s ease-out" style-hover="border-color:#cfc6cc">Karte · Rahmen wird dunkler</div>
+      </div>
+      <div style="display:grid;gap:10px"><div style="font-size:12px"><b>5b · Anheben</b> <span style="color:#77707a">· 1 px hoch + Schatten, Button leicht heller</span></div>
+        <div style="display:flex;gap:8px"><span style="font-family:var(--font-display);background:oklch(0.48 0.105 310);color:#fff;padding:10px 16px;border-radius:6px;cursor:pointer;transition:all .15s ease-out" style-hover="transform:translateY(-1px);box-shadow:0 4px 12px oklch(0.30 0.06 310 / .2)">Speichern</span><span style="font-family:var(--font-display);border:1px solid #cfc6cc;padding:10px 16px;border-radius:6px;cursor:pointer;transition:all .15s ease-out" style-hover="transform:translateY(-1px);box-shadow:0 4px 12px oklch(0.30 0.06 310 / .1)">Abbrechen</span></div>
+        <div style="background:#faf8f5;border:1px solid #e6dfe2;border-radius:8px;padding:14px;cursor:pointer;transition:all .15s ease-out" style-hover="transform:translateY(-2px);box-shadow:0 8px 20px oklch(0.30 0.06 310 / .12)">Karte · hebt sich</div>
+      </div>
+      <div style="display:grid;gap:10px"><div style="font-size:12px"><b>5c · Orange-Akzent</b> <span style="color:#77707a">· Hover zeigt Orange (Unterstrich, Rahmen), Fokusring Orange</span></div>
+        <div style="display:flex;gap:8px"><span style="font-family:var(--font-display);background:oklch(0.48 0.105 310);color:#fff;padding:10px 16px;border-radius:6px;cursor:pointer;transition:all .15s ease-out;box-shadow:0 0 0 0 oklch(0.72 0.17 45 / 0)" style-hover="box-shadow:0 0 0 3px oklch(0.72 0.17 45 / .45)">Speichern</span><span style="font-family:var(--font-display);border:1px solid #cfc6cc;padding:10px 16px;border-radius:6px;cursor:pointer;transition:all .15s ease-out" style-hover="border-color:oklch(0.72 0.17 45)">Abbrechen</span></div>
+        <div style="background:#faf8f5;border:1px solid #e6dfe2;border-radius:8px;padding:14px;cursor:pointer;transition:all .15s ease-out;display:flex;justify-content:space-between" style-hover="border-color:oklch(0.72 0.17 45)"><span>Karte · Orange Rahmen</span><span style="color:oklch(0.52 0.15 40)">→</span></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center;font-size:12px;color:#5c5360;border-top:1px solid #e6dfe2;padding-top:14px"><span>Fokus (Tastatur), in allen Varianten gleich:</span><span style="font-family:var(--font-display);background:oklch(0.48 0.105 310);color:#fff;padding:8px 14px;border-radius:6px;outline:2px solid oklch(0.72 0.17 45);outline-offset:2px">Speichern</span><span style="border:1px solid #cfc6cc;padding:8px 12px;border-radius:6px;background:#fff;outline:2px solid oklch(0.72 0.17 45);outline-offset:2px;color:#77707a">Eingabefeld</span><span style="margin-left:auto">Gedrückt: 1 Stufe dunkler, keine Verkleinerung · Deaktiviert: 45 % Deckkraft · Übergänge 150 ms ease-out, Dialoge 200 ms, nie länger als 300 ms</span></div>
+  </div>
+
+</section>
+</x-dc>
+</body>
+</html>

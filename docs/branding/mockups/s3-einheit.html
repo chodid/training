@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Einheit – Training</title>
+<link rel="icon" href="../chadid-design-system/assets/logo/lama-symbol-kopf.svg">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+<style>
+  /* Variante über ?typ=kraft (Standard) | ausdauer | klettern (nur für das Mockup) */
+  [data-typ]{display:none}
+  body.typ-kraft [data-typ="kraft"],body.typ-ausdauer [data-typ="ausdauer"],body.typ-klettern [data-typ="klettern"]{display:block}
+  body.typ-kraft .page-head[data-typ="kraft"],body.typ-ausdauer .page-head[data-typ="ausdauer"],body.typ-klettern .page-head[data-typ="klettern"]{display:grid}
+</style>
+</head>
+<body class="app typ-kraft">
+<header class="topbar">
+  <a class="btn btn-icon" href="s2-woche.html" aria-label="Zurück zur Woche"><svg class="ic ic-lg"><use href="#i-arrow-left"/></svg></a>
+  <h1>Einheit</h1>
+  <div class="topbar-actions"><span class="badge badge-neutral hide-mobile">geplant</span></div>
+</header>
+
+<nav class="nav" aria-label="Hauptnavigation">
+  <a class="nav-brand" href="s2-woche.html"><img src="../chadid-design-system/assets/logo/lama-symbol-kopf.svg" alt=""><span class="brand"><span>Training</span></span></a>
+  <a href="s2-woche.html" aria-current="page"><svg class="ic"><use href="#i-calendar-week"/></svg>Woche</a>
+  <a href="s4-checkin.html"><svg class="ic"><use href="#i-checkup-list"/></svg>Check-in</a>
+  <a href="s6-verlauf.html"><svg class="ic"><use href="#i-chart-line"/></svg>Verlauf</a>
+  <a href="s8-einstellungen.html"><svg class="ic"><use href="#i-settings"/></svg>Einstellungen</a>
+  <div class="nav-foot">philipp · Block 2, Woche 6</div>
+</nav>
+
+<main class="main wide">
+  <!-- S3 Einheit: Plan mit Soll, Ist-Eingabe (vorbelegt mit Soll), Feedback-Block, Status setzen -->
+  <div class="page-head" data-typ="kraft">
+    <div class="eyebrow"><svg class="ic" style="color:var(--plum-600)"><use href="#i-barbell"/></svg>Kraft · Mittwoch, 23.09. · Priorität B · 45 min</div>
+    <h1>Ganzkörper Kraft 1</h1>
+    <p class="muted small">Trainer-Notiz: Zweite Krafteinheit im Block, Last wie letzte Woche, Fokus saubere Tiefe in der Kniebeuge. Rudern mit Band, weil die Schulter links noch reagiert.</p>
+  </div>
+  <div class="page-head" data-typ="ausdauer">
+    <div class="eyebrow"><svg class="ic" style="color:var(--plum-600)"><use href="#i-run"/></svg>Ausdauer · Donnerstag, 24.09. · Priorität A · 55 min</div>
+    <h1>Intervalle 5 × 4 min Zone 3</h1>
+    <p class="muted small">Trainer-Notiz: Erste Intervalleinheit im Block. Ziel ist die Zeit in Zone 3, nicht das Tempo. Pausen locker traben.</p>
+  </div>
+  <div class="page-head" data-typ="klettern">
+    <div class="eyebrow"><svg class="ic" style="color:var(--plum-600)"><use href="#i-mountain"/></svg>Klettern · Dienstag, 22.09. · Priorität A · 90 min</div>
+    <h1>Bouldern Volumen</h1>
+    <p class="muted small">Trainer-Notiz: Volumen unterhalb des Limits, viele Züge, keine Fingerkraft-Blöcke. Bei Ringband-Ziehen sofort abbrechen.</p>
+  </div>
+
+  <form class="two-col" action="#" onsubmit="return false">
+    <div class="stack-lg">
+
+      <!-- Plan + Ist: Kraft / Haltung (plan_json.exercises) -->
+      <section class="card" data-typ="kraft">
+        <div class="card-head"><h2>Plan und Ist</h2><span class="hint">Ist ist mit Soll vorbelegt</span></div>
+        <div class="exercise">
+          <div class="between"><span class="name">Kniebeuge</span><span class="soll">Soll 3 × 8 · 40 kg · Tempo 3-1-1 · Pause 120 s</span></div>
+          <div class="ist">
+            <div class="field"><label>Sätze</label><input class="input mono" value="3" inputmode="numeric"></div>
+            <div class="field"><label>Wdh.</label><input class="input mono" value="8" inputmode="numeric"></div>
+            <div class="field"><label>Last</label><input class="input mono" value="40 kg"></div>
+          </div>
+        </div>
+        <div class="exercise">
+          <div class="between"><span class="name">Rudern mit Band</span><span class="soll">Soll 3 × 10 · Band grün</span></div>
+          <div class="ist">
+            <div class="field"><label>Sätze</label><input class="input mono" value="3" inputmode="numeric"></div>
+            <div class="field"><label>Wdh.</label><input class="input mono" value="10" inputmode="numeric"></div>
+            <div class="field"><label>Last</label><input class="input mono" value="Band grün"></div>
+          </div>
+        </div>
+        <div class="exercise">
+          <div class="between"><span class="name">Liegestütz</span><span class="soll">Soll 3 × 8–10 · KG</span></div>
+          <div class="ist">
+            <div class="field"><label>Sätze</label><input class="input mono" value="2" inputmode="numeric"></div>
+            <div class="field"><label>Wdh.</label><input class="input mono" value="8" inputmode="numeric"></div>
+            <div class="field"><label>Last</label><input class="input mono" value="KG"></div>
+          </div>
+        </div>
+        <div class="exercise">
+          <div class="between"><span class="name">Unterarmstütz</span><span class="soll">Soll 3 × 45 s</span></div>
+          <div class="ist">
+            <div class="field"><label>Sätze</label><input class="input mono" value="3" inputmode="numeric"></div>
+            <div class="field"><label>Dauer</label><input class="input mono" value="45 s"></div>
+            <div class="field"><label>Notiz</label><input class="input" placeholder="optional"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Plan + Ist: Klettern (plan_json.blocks) -->
+      <section class="card" data-typ="klettern">
+        <div class="card-head"><h2>Blöcke</h2><span class="hint">Ist ist mit Soll vorbelegt</span></div>
+        <div class="exercise">
+          <div class="between"><span class="name">Aufwärmen, Technik</span><span class="badge badge-brand">unspezifisch</span></div>
+          <div class="soll">Soll 20 min · leichte Boulder, Fußtechnik</div>
+          <div class="ist">
+            <div class="field"><label>Dauer</label><input class="input mono" value="20 min"></div>
+            <div class="field" style="grid-column:span 2"><label>Notiz</label><input class="input" placeholder="optional"></div>
+          </div>
+        </div>
+        <div class="exercise">
+          <div class="between"><span class="name">Bouldern Volumen</span><span class="badge badge-brand">spezifisch</span></div>
+          <div class="soll">Soll 50 min · Grad 5–6, 20 Boulder, Pause 2–3 min</div>
+          <div class="ist">
+            <div class="field"><label>Dauer</label><input class="input mono" value="50 min"></div>
+            <div class="field"><label>Boulder</label><input class="input mono" value="18" inputmode="numeric"></div>
+            <div class="field"><label>Grad</label><input class="input mono" value="5–6"></div>
+          </div>
+        </div>
+        <div class="exercise">
+          <div class="between"><span class="name">Antagonisten</span><span class="badge badge-brand">unspezifisch</span></div>
+          <div class="soll">Soll 15 min · Liegestütz, Schulter außen, Handgelenk</div>
+          <div class="ist">
+            <div class="field"><label>Dauer</label><input class="input mono" value="15 min"></div>
+            <div class="field" style="grid-column:span 2"><label>Notiz</label><input class="input" placeholder="optional"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Plan: Ausdauer (intervals_workout_text, Aktivität aus Intervals.icu) -->
+      <section class="card" data-typ="ausdauer">
+        <div class="card-head"><h2>Plan</h2><span class="badge badge-info"><svg class="ic"><use href="#i-plug-connected"/></svg>auf der Uhr</span></div>
+        <div class="stack">
+          <p>10 min Einlaufen Zone 1 · 5 × (4 min Zone 3 / 3 min Zone 1) · 10 min Auslaufen Zone 1</p>
+          <pre class="mono small" style="margin:0;white-space:pre-wrap;color:var(--text-secondary);background:var(--bg-page);padding:var(--space-3);border-radius:var(--radius-md)">Warmup
+- 10m 55-70% LTHR
+Main 5x
+- 4m 95-102% LTHR
+- 3m 55-70% LTHR
+Cooldown
+- 10m 55-70% LTHR</pre>
+          <div class="hint">Ziel: Zeit in Zone 3. Die Einheit ist als Workout in Intervals.icu angelegt und über Garmin Connect auf der Uhr.</div>
+        </div>
+      </section>
+
+      <section class="card" data-typ="ausdauer">
+        <div class="card-head"><h2>Verknüpfte Aktivität</h2><a class="small" href="#" style="display:inline-flex;align-items:center;gap:4px">Intervals.icu <svg class="ic ic-sm"><use href="#i-external-link"/></svg></a></div>
+        <div class="stack">
+          <div class="between"><b>Lauf · 24.09., 07:12 Uhr</b><span class="badge badge-success"><svg class="ic"><use href="#i-check"/></svg>zugeordnet</span></div>
+          <div class="activity">
+            <div class="stat"><div class="l">Dauer</div><div class="v mono">58:12</div></div>
+            <div class="stat"><div class="l">Distanz</div><div class="v mono">9,8 <small>km</small></div></div>
+            <div class="stat"><div class="l">Ø Herzfrequenz</div><div class="v mono">152</div></div>
+            <div class="stat"><div class="l">Ø Pace</div><div class="v mono">5:56 <small>/km</small></div></div>
+          </div>
+          <div>
+            <div class="between small" style="margin-bottom:6px"><span class="muted">Zeit in Zonen</span><span class="mono muted">Z3: 21 min</span></div>
+            <div class="zones" aria-label="Zeit in Herzfrequenzzonen"><span style="flex:26" title="Zone 1: 26 min"></span><span style="flex:8" title="Zone 2: 8 min"></span><span style="flex:21" title="Zone 3: 21 min"></span><span style="flex:3" title="Zone 4: 3 min"></span><span style="flex:0"></span></div>
+            <div class="legend" style="margin-top:8px"><span><i style="background:var(--plum-300)"></i>Z1 26 min</span><span><i style="background:var(--plum-400)"></i>Z2 8 min</span><span><i style="background:var(--plum-600)"></i>Z3 21 min</span><span><i style="background:var(--plum-700)"></i>Z4 3 min</span></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Feedback-Block, für alle Typen gleich -->
+    <div class="stack-lg sticky">
+      <section class="card stack-lg">
+        <div class="card-head"><h2>Rückmeldung</h2><span class="hint">30 min nach Ende</span></div>
+
+        <div class="field">
+          <div class="field-label">Anstrengung (RPE 0–10)</div>
+          <div class="scale scale-11" role="radiogroup" aria-label="RPE">
+            <label><input type="radio" name="rpe" value="0"><span>0</span></label>
+            <label><input type="radio" name="rpe" value="1"><span>1</span></label>
+            <label><input type="radio" name="rpe" value="2"><span>2</span></label>
+            <label><input type="radio" name="rpe" value="3"><span>3</span></label>
+            <label><input type="radio" name="rpe" value="4"><span>4</span></label>
+            <label><input type="radio" name="rpe" value="5" checked><span>5</span></label>
+            <label><input type="radio" name="rpe" value="6"><span>6</span></label>
+            <label><input type="radio" name="rpe" value="7"><span>7</span></label>
+            <label><input type="radio" name="rpe" value="8"><span>8</span></label>
+            <label><input type="radio" name="rpe" value="9"><span>9</span></label>
+            <label><input type="radio" name="rpe" value="10"><span>10</span></label>
+          </div>
+          <div class="scale-ends"><span>0 Ruhe</span><span>10 maximal</span></div>
+          <div class="hint">Die Belastung (sRPE) wird automatisch berechnet: RPE × Dauer in Minuten.</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">Wie hat sich die Einheit angefühlt?</div>
+          <div class="scale" role="radiogroup" aria-label="Gefühl">
+            <label><input type="radio" name="feel" value="1"><span>1</span></label>
+            <label><input type="radio" name="feel" value="2" checked><span>2</span></label>
+            <label><input type="radio" name="feel" value="3"><span>3</span></label>
+            <label><input type="radio" name="feel" value="4"><span>4</span></label>
+            <label><input type="radio" name="feel" value="5"><span>5</span></label>
+          </div>
+          <div class="scale-ends"><span>1 sehr gut</span><span>5 sehr schlecht</span></div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">Schmerz während oder nach der Einheit?</div>
+          <div class="seg" role="radiogroup" aria-label="Schmerz">
+            <label><input type="radio" name="pain" value="nein" checked onchange="document.getElementById('pain-form').classList.remove('open')"><span>Nein</span></label>
+            <label><input type="radio" name="pain" value="ja" onchange="document.getElementById('pain-form').classList.add('open')"><span>Ja</span></label>
+          </div>
+        </div>
+
+        <div class="reveal subcard" id="pain-form">
+          <div class="field">
+            <label for="ort">Ort</label>
+            <div class="select-wrap">
+              <select class="select" id="ort">
+                <option>Finger, Ringband</option><option>Finger, Gelenk</option><option>Handgelenk</option>
+                <option>Ellbogen innen</option><option>Ellbogen außen</option><option>Schulter</option><option>Nacken</option>
+                <option>Lendenwirbelsäule</option><option>Hüfte</option><option>Knie</option><option>Achillessehne</option>
+                <option>Wade</option><option>Schienbein</option><option>Fuß</option><option>Sonstiges</option>
+              </select>
+              <svg class="ic"><use href="#i-chevron-right"/></svg>
+            </div>
+          </div>
+          <div class="field">
+            <div class="field-label">Seite</div>
+            <div class="seg"><label><input type="radio" name="side" value="L"><span>Links</span></label><label><input type="radio" name="side" value="R"><span>Rechts</span></label><label><input type="radio" name="side" value="beide"><span>Beide</span></label><label><input type="radio" name="side" value="na"><span>n. z.</span></label></div>
+          </div>
+          <div class="field">
+            <div class="field-label">Stärke (0–10)</div>
+            <div class="scale scale-11">
+              <label><input type="radio" name="int" value="0"><span>0</span></label><label><input type="radio" name="int" value="1"><span>1</span></label><label><input type="radio" name="int" value="2"><span>2</span></label><label><input type="radio" name="int" value="3"><span>3</span></label><label><input type="radio" name="int" value="4"><span>4</span></label><label><input type="radio" name="int" value="5"><span>5</span></label><label><input type="radio" name="int" value="6"><span>6</span></label><label><input type="radio" name="int" value="7"><span>7</span></label><label><input type="radio" name="int" value="8"><span>8</span></label><label><input type="radio" name="int" value="9"><span>9</span></label><label><input type="radio" name="int" value="10"><span>10</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="field-label">Wann</div>
+            <div class="seg wrap"><label><input type="radio" name="timing" value="waehrend"><span>Während</span></label><label><input type="radio" name="timing" value="danach"><span>Danach</span></label><label><input type="radio" name="timing" value="morgen"><span>Nächster Morgen</span></label><label><input type="radio" name="timing" value="ruhe"><span>In Ruhe</span></label></div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="dev">Abweichung vom Plan</label>
+          <div class="select-wrap">
+            <select class="select" id="dev">
+              <option>Keine Abweichung</option><option>Zeit</option><option>Ermüdung</option><option>Schmerz</option><option>Wetter</option><option>Sonstiges</option>
+            </select>
+            <svg class="ic"><use href="#i-chevron-right"/></svg>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="note">Notiz</label>
+          <textarea class="textarea" id="note" placeholder="Was war anders, was ist aufgefallen?"></textarea>
+        </div>
+
+        <div class="field">
+          <div class="field-label">Status</div>
+          <div class="seg wrap">
+            <label><input type="radio" name="status" value="erledigt" checked><svg class="ic ic-sm"><use href="#i-check"/></svg><span>Erledigt</span></label>
+            <label><input type="radio" name="status" value="teilweise"><span>Teilweise</span></label>
+            <label><input type="radio" name="status" value="ausgelassen"><span>Ausgelassen</span></label>
+            <label><input type="radio" name="status" value="verschoben"><svg class="ic ic-sm"><use href="#i-player-skip-forward"/></svg><span>Verschoben</span></label>
+          </div>
+        </div>
+      </section>
+
+      <div class="actions-sticky btn-row">
+        <a class="btn btn-secondary" href="s2-woche.html">Abbrechen</a>
+        <button class="btn btn-primary" type="submit">Speichern</button>
+      </div>
+    </div>
+  </form>
+</main>
+<script>
+  const t=new URLSearchParams(location.search).get('typ');if(t){document.body.className='app typ-'+t}
+  if(new URLSearchParams(location.search).get('schmerz')==='ja'){document.querySelector('input[name=pain][value=ja]').checked=true;document.getElementById('pain-form').classList.add('open')}
+</script>
+</body>
+</html>
