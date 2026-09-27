@@ -7,8 +7,8 @@
 - Keine eigenen Annahmen bei Unklarheiten; größere Aufgaben vor der Umsetzung zusammenfassen und bestätigen lassen.
 
 ## Rollenverteilung (Modelle)
-- Konzeptarbeit (Konzeptdokument, Entscheidungen, AP-Zuschnitt) und Design-Mockups erstellt das Modell **Fable** (in Claude Code als Subagent mit `model: fable`).
-- Codearbeit, Tests, Deployment und PRs übernimmt die Code-Instanz.
+- **Konzepterstellung** (neue Konzepte, neue Arbeitspakete, grundlegender Zuschnitt) und **Design-Mockups** übernimmt das Modell **Fable** (in Claude Code als Subagent mit `model: fable`).
+- Die Code-Instanz (Opus) übernimmt Codearbeit, Tests, Deployment und PRs. Sie darf bestehende Konzepte **in Rücksprache mit dem Athleten** ändern und ergänzen (z. B. bestätigte Entscheidungen eintragen, Befunde aus der Umsetzung nachziehen).
 
 ## Codearbeit
 - Maßgeblich: `docs/konzept/konzept-ki-personal-trainer.md`. Arbeitspakete (AP) in der dort festgelegten Reihenfolge.
