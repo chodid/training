@@ -14,27 +14,51 @@ ap: AP-00
 geprueft:
   - was: V-08 PHP-Anforderung des MCP-SDK (logiscape/mcp-sdk-php v2.0.1)
     wie: automatisiert (Packagist-Metadaten)
-    ergebnis: ok (PHP >= 8.1, ext-curl, ext-json; Server PHP 8.4 vorgesehen)
+    ergebnis: ok (PHP >= 8.1, ext-curl, ext-json)
+    datum: 2026-09-27
+  - was: Servertest Lima-City (test.php, Subdomain training.gen-em.org)
+    wie: manuell durch Athlet
+    ergebnis: ok – Apache 2.4, PHP 8.4.25, curl/json/openssl/pdo_mysql/zlib/mbstring aktiv, open_basedir leer, .env oberhalb des Docroots lesbar, .htaccess "Require all denied" → 403
     datum: 2026-09-27
   - was: V-10 Hosting-Funktionen
-    wie: Angaben des Athleten
-    ergebnis: offen (FTPS ja, SMTP ja, keine PHP-CLI-Aufgaben aber URL-Aufruf, OpenSSL unbestätigt, Anhang-Limit unbekannt)
+    wie: Angaben des Athleten + Servertest
+    ergebnis: ok bis auf SMTP-Anhang-Limit (FTPS Port 21 explizit mit gültigem Zertifikat, SMTP vorhanden, Cronjob per URL-Aufruf, keine PHP-CLI)
+    datum: 2026-09-27
+  - was: Unit-Tests (Konfiguration, SQL-Zerlegung, Migrationsdateien, Routing, 401/403/503 am Migrations-Endpunkt)
+    wie: automatisiert (PHPUnit, lokal PHP 8.4)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Integrationstests Migrationen (0 → 1, idempotent, Abbruch hält letzten Stand, Sperre gegen Parallellauf)
+    wie: automatisiert (PHPUnit gegen lokale MariaDB 10.11; in CI gegen MySQL 8.4)
+    ergebnis: ok (lokal)
+    datum: 2026-09-27
+  - was: HTTP-Durchlauf lokal – /health 503 vor Migration, /admin/migrate 401/403/200, /health 200 danach, zweiter Migrationsaufruf ohne Änderung, /.env → 404
+    wie: manuell (PHP-Built-in-Server, curl)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Workflow-Datei syntaktisch gültig
+    wie: automatisiert (YAML-Parser)
+    ergebnis: ok
     datum: 2026-09-27
 noch_zu_pruefen:
-  - was: Push auf main führt ohne manuelle Schritte zu lauffähigem Stand auf dem Server
-    wie: manuell (Push, Health-Endpunkt aufrufen)
-  - was: Health-Endpunkt über HTTPS erreichbar
-    wie: manuell (Browser/curl)
-  - was: Secrets nicht im Repo
-    wie: automatisiert (Secret-Scan) + manuelle Durchsicht
-  - was: Migrations-Endpunkt lehnt Aufrufe ohne Secret ab
-    wie: manuell (curl ohne/mit falschem Secret)
+  - was: CI-Job test läuft grün (MySQL 8.4)
+    wie: GitHub Actions am Pull Request
+  - was: Push auf main führt ohne manuelle Schritte zu lauffähigem Stand (Upload, Migration, Health-Check grün)
+    wie: GitHub Actions nach Merge; Workflow-Log prüfen
+  - was: Health-Endpunkt über HTTPS erreichbar, status ok, schema aktuell
+    wie: manuell (Browser https://training.gen-em.org/health)
+  - was: HTTP wird auf HTTPS umgeleitet, HSTS-Header gesetzt
+    wie: manuell (http://training.gen-em.org/health aufrufen; Header in Browser-Entwicklertools)
+  - was: Migrations-Endpunkt lehnt Aufrufe ohne/mit falschem Secret ab
+    wie: manuell (curl -X POST https://training.gen-em.org/admin/migrate → 401; mit falschem Header → 403)
+  - was: .env und Subdomain-Ordner nicht per HTTP erreichbar
+    wie: manuell (https://training.gen-em.org/../.env bzw. /.env → 404, kein Inhalt)
   - was: .env überlebt ein Deployment
-    wie: manuell (Wert in .env setzen, deployen, prüfen)
-  - was: PHP-Erweiterungen auf dem Server (curl, json, openssl, pdo_mysql, zlib)
-    wie: Health-Endpunkt nach erstem Deployment
+    wie: manuell (zweiten Push auf main, danach /health weiterhin ok)
+  - was: Secrets nicht im Repo
+    wie: automatisiert (GitHub Secret Scanning) + Durchsicht
   - was: SMTP-Anhang-Größenlimit
-    wie: Plesk-Mailkonto prüfen bzw. Testversand in AP-10
+    wie: Testversand in AP-10
 ```
 
 ## AP-06 Wissensbasis (übernommen aus Konzept)

@@ -1,0 +1,153 @@
+# Test und Deployment (Konzept D-17, D-20)
+#
+# test:   bei Push auf main und bei jedem Pull Request – PHPUnit inkl. Migrationstest gegen MySQL
+# deploy: nur bei Push auf main (bzw. manuell) – Build ohne Dev-Abhängigkeiten, FTPS-Upload von server/,
+#         danach Migration über den geschützten Endpunkt und Health-Check
+#
+# Benötigt im GitHub-Environment "production":
+#   Secrets:   FTP_USERNAME, FTP_PASSWORD, MIGRATION_SECRET
+#   Variablen: FTP_SERVER, FTP_PORT (optional, Standard 21), FTP_SERVER_DIR, APP_URL
+
+name: Test und Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: training_test
+          MYSQL_USER: test
+          MYSQL_PASSWORD: test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -ptest -utest"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: curl, json, mbstring, openssl, pdo_mysql, zlib
+          coverage: none
+          tools: composer
+
+      - name: Composer prüfen und installieren
+        run: |
+          composer validate --strict
+          composer install --no-interaction --no-progress
+
+      - name: PHP-Syntax prüfen
+        run: find src public migrations tests -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null
+
+      - name: Tests
+        env:
+          TEST_DB_HOST: 127.0.0.1
+          TEST_DB_PORT: 3306
+          TEST_DB_NAME: training_test
+          TEST_DB_USER: test
+          TEST_DB_PASSWORD: test
+        run: vendor/bin/phpunit
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    environment: production
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+          tools: composer
+
+      - name: Build ohne Dev-Abhängigkeiten
+        working-directory: server
+        run: composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+
+      - name: Konfiguration prüfen
+        id: cfg
+        env:
+          FTP_SERVER: ${{ vars.FTP_SERVER }}
+          FTP_SERVER_DIR: ${{ vars.FTP_SERVER_DIR }}
+          APP_URL: ${{ vars.APP_URL }}
+          HAS_USER: ${{ secrets.FTP_USERNAME != '' }}
+          HAS_PASSWORD: ${{ secrets.FTP_PASSWORD != '' }}
+          HAS_MIGRATION_SECRET: ${{ secrets.MIGRATION_SECRET != '' }}
+        run: |
+          missing=""
+          [ -n "$FTP_SERVER" ] || missing="$missing FTP_SERVER"
+          [ -n "$FTP_SERVER_DIR" ] || missing="$missing FTP_SERVER_DIR"
+          [ -n "$APP_URL" ] || missing="$missing APP_URL"
+          [ "$HAS_USER" = "true" ] || missing="$missing FTP_USERNAME"
+          [ "$HAS_PASSWORD" = "true" ] || missing="$missing FTP_PASSWORD"
+          [ "$HAS_MIGRATION_SECRET" = "true" ] || missing="$missing MIGRATION_SECRET"
+          if [ -n "$missing" ]; then
+            echo "::error::Im Environment 'production' fehlen:$missing"
+            exit 1
+          fi
+          case "$FTP_SERVER_DIR" in
+            /|./|"") echo "::error::FTP_SERVER_DIR darf nicht das Wurzelverzeichnis sein"; exit 1 ;;
+          esac
+          echo "server_dir=${FTP_SERVER_DIR%/}/" >> "$GITHUB_OUTPUT"
+          echo "app_url=${APP_URL%/}" >> "$GITHUB_OUTPUT"
+
+      # Lädt nur geänderte Dateien hoch (Statusdatei auf dem Server). Dateien, die der Workflow nie
+      # hochgeladen hat (.env, backups/), werden weder überschrieben noch gelöscht; zusätzlich ausgeschlossen.
+      - name: Upload per FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ vars.FTP_SERVER }}
+          port: ${{ vars.FTP_PORT || 21 }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          security: strict
+          local-dir: ./server/
+          server-dir: ${{ steps.cfg.outputs.server_dir }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .env
+            backups/**
+            tests/**
+            phpunit.xml.dist
+            .phpunit.cache/**
+
+      - name: Migration auslösen
+        env:
+          MIGRATION_SECRET: ${{ secrets.MIGRATION_SECRET }}
+          APP_URL: ${{ steps.cfg.outputs.app_url }}
+        run: |
+          curl --fail-with-body --silent --show-error --max-time 120 \
+            -X POST -H "X-Migration-Secret: ${MIGRATION_SECRET}" \
+            "${APP_URL}/admin/migrate"
+
+      - name: Health-Check
+        env:
+          APP_URL: ${{ steps.cfg.outputs.app_url }}
+        run: |
+          curl --fail-with-body --silent --show-error --max-time 30 \
+            --retry 3 --retry-delay 5 --retry-all-errors \
+            "${APP_URL}/health"
