@@ -1,0 +1,16 @@
+# Secrets – nie ins Repo (Abschnitt 12)
+.env
+*.env
+!.env.example
+
+# Composer-Abhängigkeiten (Build im Deploy-Workflow, D-17)
+server/vendor/
+
+# Backups / Dumps (D-18)
+*.sql
+*.sql.gz
+*.sql.gz.enc
+
+# System
+.DS_Store
+Thumbs.db
