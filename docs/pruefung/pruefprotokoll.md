@@ -200,11 +200,15 @@ geprueft:
     wie: manuell durch Athlet, Screenshot aus Intervals.icu
     ergebnis: ok
     datum: 2026-09-28
+  - was: Test-Event über Garmin Connect auf der Uhr angekommen (V-01)
+    wie: manuell durch Athlet
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: Intervals.icu-Konto – Aktivitäten privat (Q-03)
     wie: manuell durch Athlet in Intervals.icu (Einstellungen)
-  - was: Test-Event erscheint auf der Uhr mit korrekten Zielen (V-01, V-12) – in Intervals.icu bestätigt, Uhr offen
-    wie: manuell – Garmin Connect synchronisieren, auf der Uhr Trainingskalender für den 29.09. öffnen: 10 min Z1, 3 × (3 min Z3, 2 min Z1), 5 min Z1 als HF-Ziele; Zonengrenzen auf der Uhr mit Intervals.icu vergleichen
+  - was: Zonengrenzen des Test-Workouts auf der Uhr mit Intervals.icu vergleichen (Z1 103–129, Z3 138–145 bpm; V-12)
+    wie: manuell – auf der Uhr die Schritte des Workouts öffnen und HF-Bereiche ablesen
   - was: Ändern und Löschen werden auf der Uhr nachgezogen (V-02)
     wie: manuell – „Test-Event ändern“ (Name mit „(geändert)“), synchronisieren, prüfen; „Test-Event löschen“, synchronisieren, prüfen; Zeitverzug notieren
   - was: V-03 Feldsemantik icu_rpe (Skala) und feel (Richtung 1–5)
