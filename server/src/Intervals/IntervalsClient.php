@@ -77,6 +77,18 @@ final class IntervalsClient
         $this->call('DELETE', $this->athletePath('/events/' . $eventId));
     }
 
+    /** Felder einer Aktivität ändern, z. B. icu_rpe und feel (Q-02, D-46). @param array<string, mixed> $fields @return array<string, mixed> */
+    public function updateActivity(string $activityId, array $fields): array
+    {
+        return $this->object($this->call('PUT', '/activity/' . rawurlencode($activityId), [], $fields) ?? []);
+    }
+
+    /** Kommentar an eine Aktivität anhängen (Q-02, D-46). */
+    public function addActivityMessage(string $activityId, string $content): void
+    {
+        $this->call('POST', '/activity/' . rawurlencode($activityId) . '/messages', [], ['content' => $content]);
+    }
+
     /** @return list<array<string, mixed>> Aktivitäten (Zusammenfassungen, keine Streams) im Zeitraum */
     public function activities(string $oldest, string $newest): array
     {

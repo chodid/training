@@ -104,7 +104,11 @@ final class WeekController extends AppController
     private function notice(Request $request): ?array
     {
         return match ($request->query('ok')) {
-            'einheit' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Gespeichert.', 'text' => 'Die Rückmeldung zur Einheit ist erfasst.'],
+            'einheit' => match ($request->query('intervals')) {
+                'ok' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Gespeichert.', 'text' => 'Die Rückmeldung ist erfasst und nach Intervals.icu übertragen.'],
+                'fehler' => ['type' => 'warning', 'icon' => 'alert-triangle', 'title' => 'Gespeichert, aber nicht übertragen.', 'text' => 'Die Rückmeldung ist erfasst; die Übertragung nach Intervals.icu ist fehlgeschlagen. RPE und Gefühl werden beim nächsten Speichern erneut übertragen.'],
+                default => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Gespeichert.', 'text' => 'Die Rückmeldung zur Einheit ist erfasst.'],
+            },
             'checkin' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Check-in gespeichert.', 'text' => 'Der Tag ist erfasst.'],
             'schmerz' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Schmerzereignis gespeichert.', 'text' => ''],
             default => null,

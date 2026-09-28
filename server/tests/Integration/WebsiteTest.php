@@ -148,6 +148,38 @@ final class WebsiteTest extends AppTestCase
         self::assertCount(2, array_filter($t->requests, static fn (array $q): bool => str_contains($q['url'], '/activities')), 'Einheit und Woche je ein Abruf, zweite Wochenansicht aus dem Cache');
     }
 
+    public function testFeedbackIsPushedToLinkedIntervalsActivity(): void
+    {
+        $this->writeEnv(['INTERVALS_API_KEY' => 'k', 'INTERVALS_ATHLETE_ID' => 'i1']);
+        $this->intervalsTransport = $t = new FakeTransport([
+            'GET /api/v1/athlete/i1/activities' => [['status' => 200, 'body' => '[{"id":"i777","type":"Run","start_date_local":"2026-09-22T07:12:00","moving_time":3492,"paired_event_id":100001}]']],
+            'PUT /api/v1/activity/i777' => [['status' => 200, 'body' => '{"id":"i777"}']],
+            'POST /api/v1/activity/i777/messages' => [['status' => 200, 'body' => '{"id":1}']],
+        ]);
+        $form = $this->request('GET', '/einheit?id=' . $this->ids[1]);
+        $post = ['csrf' => self::csrfFrom($form), 'id' => (string) $this->ids[1], 'status' => 'erledigt', 'duration_min' => '58', 'rpe' => '4', 'feel' => '2', 'pain' => 'nein', 'notes' => 'Beine schwer'];
+        $r = $this->request('POST', '/einheit', $post);
+        self::assertStringEndsWith('&ok=einheit&intervals=ok', $r->headers['Location']);
+        $put = array_values(array_filter($t->requests, static fn (array $q): bool => $q['method'] === 'PUT'));
+        self::assertSame(['icu_rpe' => 4, 'feel' => 2], json_decode((string) $put[0]['body'], true));
+        $msg = array_values(array_filter($t->requests, static fn (array $q): bool => $q['method'] === 'POST'));
+        self::assertSame(['content' => 'Training-App: Beine schwer'], json_decode((string) $msg[0]['body'], true));
+        self::assertStringContainsString('nach Intervals.icu übertragen', $this->request('GET', $r->headers['Location'])->body);
+
+        // Erneut speichern mit gleicher Notiz und RPE 0: kein zweiter Kommentar, RPE nicht übertragen
+        $r = $this->request('POST', '/einheit', ['rpe' => '0'] + $post);
+        $put = array_values(array_filter($t->requests, static fn (array $q): bool => $q['method'] === 'PUT'));
+        self::assertSame(['feel' => 2], json_decode((string) end($put)['body'], true));
+        self::assertCount(1, array_filter($t->requests, static fn (array $q): bool => $q['method'] === 'POST'));
+
+        // Fehler bei Intervals.icu: Rückmeldung trotzdem gespeichert, Hinweis
+        $t->responses['PUT /api/v1/activity/i777'] = [['status' => 500, 'body' => '']];
+        $r = $this->request('POST', '/einheit', ['rpe' => '6'] + $post);
+        self::assertStringEndsWith('&intervals=fehler', $r->headers['Location']);
+        self::assertSame(6, (int) $this->pdo->query('SELECT rpe_cr10 FROM session_execution WHERE session_id = ' . $this->ids[1])->fetchColumn());
+        self::assertStringContainsString('Gespeichert, aber nicht übertragen', $this->request('GET', $r->headers['Location'])->body);
+    }
+
     public function testCheckinCreateUpdateWithPain(): void
     {
         $form = $this->request('GET', '/checkin');

@@ -51,6 +51,7 @@ final class SessionController extends AppController
             return $this->form($session, $activity, $data, $invalid, $message, 422);
         }
 
+        $previousNotes = $this->feedback()->execution((int) $session['id'])['notes'] ?? null;
         $pdo = $this->app->pdo();
         $pdo->beginTransaction();
         try {
@@ -69,7 +70,55 @@ final class SessionController extends AppController
         }
         unset($executionId);
 
-        return Response::redirect('/woche?start=' . Dates::monday((string) $session['date']) . '&ok=einheit');
+        $pushed = $this->pushFeedback($session, $activity, $data['execution'], $previousNotes);
+
+        return Response::redirect('/woche?start=' . Dates::monday((string) $session['date']) . '&ok=einheit' . ($pushed === false ? '&intervals=fehler' : ($pushed ? '&intervals=ok' : '')));
+    }
+
+    /**
+     * Rückschreiben nach Intervals.icu (Q-02, D-46): RPE (ohne 0) und Gefühl auf die zugeordnete Aktivität, die Notiz
+     * als Kommentar – nur wenn sie neu oder geändert ist. Fehler brechen nichts ab (Rückmeldung ist gespeichert).
+     *
+     * @param array<string, mixed> $session
+     * @param ?array<string, mixed> $activity
+     * @param array<string, mixed> $execution
+     * @return ?bool null = nichts zu tun, true = übertragen, false = Fehler
+     */
+    private function pushFeedback(array $session, ?array $activity, array $execution, ?string $previousNotes): ?bool
+    {
+        if ($activity === null || !isset($activity['id']) || !IntervalsClient::isConfigured($this->app->config())) {
+            return null;
+        }
+        $fields = [];
+        if (($execution['rpe_cr10'] ?? null) !== null && (int) $execution['rpe_cr10'] > 0) {
+            $fields['icu_rpe'] = (int) $execution['rpe_cr10'];
+        }
+        if (($execution['feel_1_5'] ?? null) !== null) {
+            $fields['feel'] = (int) $execution['feel_1_5'];
+        }
+        $notes = $execution['notes'] ?? null;
+        $comment = $notes !== null && $notes !== $previousNotes ? 'Training-App: ' . $notes : null;
+        if ($fields === [] && $comment === null) {
+            return null;
+        }
+        $client = $this->app->intervalsClient();
+        $id = (string) $activity['id'];
+        try {
+            if ($fields !== []) {
+                $client->updateActivity($id, $fields);
+            }
+            if ($comment !== null) {
+                $client->addActivityMessage($id, $comment);
+            }
+            $this->audit()->write('web', 'intervals_feedback', 'intervals_activity', $id, $fields + ['kommentar' => $comment !== null],
+                'Rückmeldung zu Einheit ' . $session['id'] . ' nach Intervals.icu übertragen');
+
+            return true;
+        } catch (\Training\Intervals\IntervalsException $e) {
+            $this->audit()->write('web', 'intervals_error', 'session', (int) $session['id'], null, mb_substr($e->getMessage(), 0, 400));
+
+            return false;
+        }
     }
 
     /** @param array<string, mixed> $session @return array<string, mixed>|null */

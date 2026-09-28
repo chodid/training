@@ -4,6 +4,15 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.10.0] – 2026-09-28
+
+AP-09 Teil 3: Feedback nach Intervals.icu (Q-02 → D-46).
+
+### Hinzugefügt
+- Beim Speichern einer Rückmeldung (S3) werden RPE (1–10) und Gefühl automatisch auf die zugeordnete Intervals.icu-Aktivität geschrieben, die Notiz als Kommentar (nur wenn neu oder geändert); Hinweis in der Wochenansicht bei Erfolg bzw. Fehler; Audit-Log.
+- `IntervalsClient::updateActivity`, `addActivityMessage`.
+- Test für Übertragung, keine Doppelkommentare, RPE 0 und Fehlerfall.
+
 ## [0.9.0] – 2026-09-28
 
 AP-09 Teil 2: Spiegel Intervals.icu → MySQL (D-43).

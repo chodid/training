@@ -302,6 +302,10 @@ geprueft:
     wie: automatisiert
     ergebnis: ok
     datum: 2026-09-28
+  - was: Feedback-Rückschreiben – RPE/Gefühl per PUT auf die zugeordnete Aktivität, Notiz als Kommentar, kein Doppelkommentar bei gleicher Notiz, RPE 0 nicht übertragen, Fehler → Rückmeldung gespeichert und Hinweis
+    wie: automatisiert (simulierte API)
+    ergebnis: ok
+    datum: 2026-09-28
   - was: Einstellungsseite bei veraltetem Schema erreichbar (Regression gefunden und behoben)
     wie: automatisiert (Schreibsperren-Test mit allgemeinem Zurücksetzen der letzten Migration)
     ergebnis: ok
@@ -309,6 +313,8 @@ geprueft:
 noch_zu_pruefen:
   - was: JSON-Export herunterladen und in einem Editor/Programm öffnen
   - was: Cronjob stündlich /cron/intervals-sync bei Lima-City; einmalig tage=365; Einstellungen zeigen Anzahl und letzten Abgleich
+    wie: manuell durch Athlet
+  - was: Rückschreiben mit echtem Konto (V-03/V-04) – nach Rückmeldung zu einer Einheit mit Aktivität in Intervals.icu RPE, Gefühl (Richtung!) und Kommentar prüfen
     wie: manuell durch Athlet
     wie: manuell durch Athlet
   - was: Verlauf mit echten Daten nach einigen Wochen Nutzung
