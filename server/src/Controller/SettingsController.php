@@ -90,6 +90,7 @@ final class SettingsController extends AppController
             'mail' => $this->app->mailBackup()->state() + ['to' => $config->get('BACKUP_MAIL_TO'), 'cron' => $config->get('CRON_SECRET') !== null, 'interval' => (int) $config->get('BACKUP_MAIL_INTERVAL_DAYS', '7')],
             'preMigration' => $this->preMigration(),
             'passkeyList' => $this->passkeyList(),
+            'profile' => $this->profileSummary(),
             'mirror' => $this->mirrorStats() + (new CronController($this->app))->syncState(),
         ]);
     }
@@ -149,6 +150,21 @@ final class SettingsController extends AppController
         } catch (\PDOException) {
             return ['aktivitaeten' => 0, 'wellness_tage' => 0, 'erste' => null, 'letzte' => null];
         }
+    }
+
+    /** Athletenprofil (D-48): ausgefüllte Abschnitte und letzte Änderung; tolerant bei veraltetem Schema. @return array{filled: int, total: int, last: ?string} */
+    private function profileSummary(): array
+    {
+        $total = count(\Training\Data\ProfileRepository::SECTIONS);
+        try {
+            $current = (new \Training\Data\ProfileRepository($this->app->pdo(), $this->app->clock()))->current();
+        } catch (\PDOException) {
+            return ['filled' => 0, 'total' => $total, 'last' => null];
+        }
+        $rows = array_filter($current);
+        $last = $rows === [] ? null : max(array_map(static fn (array $r): string => (string) $r['created_at'], $rows));
+
+        return ['filled' => count(array_filter($rows, static fn (array $r): bool => $r['content'] !== '')), 'total' => $total, 'last' => $last];
     }
 
     /** @return list<array<string, mixed>> */

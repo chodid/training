@@ -14,6 +14,14 @@ $scopeText = static fn (string $s): string => str_contains($s, 'training:write')
 <?php endif ?>
 
   <section>
+    <div class="section-title"><h2>Athletenprofil</h2></div>
+    <div class="card list">
+      <div class="list-item"><div><div class="t">Grundlage für die Planung</div><div class="s"><?= (int) $profile['filled'] ?> von <?= (int) $profile['total'] ?> Abschnitten ausgefüllt<?= $profile['last'] !== null ? ' · zuletzt geändert ' . $this->e($fmtDb((string) $profile['last'], $tz)) : '' ?></div></div>
+        <a class="btn btn-ghost" href="/profil"><?= $this->icon('user') ?>Öffnen</a></div>
+    </div>
+  </section>
+
+  <section>
     <div class="section-title"><h2>Konto</h2></div>
     <div class="card list">
       <div class="list-item"><div><div class="t">Angemeldet als <?= $this->e($login) ?></div><div class="s">Seit <?= $this->e($fmt($since, $tz)) ?> auf diesem Gerät · Sitzung endet nach 30 Tagen ohne Nutzung</div></div>

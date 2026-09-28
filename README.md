@@ -22,7 +22,6 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | `docs/wissen/` | Wissenskarten (Sammeldateien, 13.1) | AP-06 |
 | `docs/literatur/` | Literatur-Volltexte als PDF, Open Access und gekauft (D-31); nie ins Projektwissen | AP-06 |
 | `docs/regeln/` | Trainerregeln (Abschnitt 14) | AP-07 |
-| `docs/athlet/` | Athletenprofil (D-15) | AP-08 |
 | `docs/plaene/` | Blockpläne | AP-08 |
 | `docs/branding/` | Branding-Dokument `branding.md` (D-19), Gestaltungsvorgaben in `chadid-design-system/` (Einstieg `readme.md`, `SKILL.md`), Mockups in `mockups/` (Einstieg `index.html`) | AP-01a |
 
@@ -39,7 +38,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 └── .ftp-deploy-sync-state.json  ← Statusdatei des Upload-Schritts
 ```
 
-## Endpunkte (Stand AP-05)
+## Endpunkte (Stand AP-09)
 
 | Methode | Pfad | Zweck |
 |---|---|---|
@@ -48,9 +47,10 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | GET/POST | `/einheit` | S3 Einheit (`?id=…`): Plan, Ist-Werte, Rückmeldung, Schmerz, Status; bei Ausdauer verknüpfte Intervals.icu-Aktivität |
 | GET/POST | `/checkin` | S4 Tages-Check-in (`?datum=…`, nicht in der Zukunft) |
 | GET/POST | `/schmerz` | S5 Schmerzereignis (`?datum=…`, `?einheit=…`) |
-| GET/POST | `/einstellungen` | S8 Konto, Zeitzone, Passwort, Passkeys, Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
+| GET/POST | `/einstellungen` | S8 Athletenprofil (Link), Konto, Zeitzone, Passwort, Passkeys, Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
 | POST | `/passkey/register/options`, `/passkey/register` | Passkey anlegen (angemeldet, Header `X-CSRF-Token`; D-44) |
 | POST | `/passkey/login/options`, `/passkey/login` | Anmelden mit Passkey; Relying-Party-ID ist der Host aus `APP_URL` |
+| GET/POST | `/profil` | Athletenprofil (D-48): Abschnitte lesen und bearbeiten (`?abschnitt=…`), frühere Fassungen (`&verlauf=1`) |
 | GET | `/verlauf` | S6 Verlauf: Wochenlast je Bereich und Schmerz je Ort über 8 Wochen, Tabelle |
 | GET | `/manifest.webmanifest` | Web-App-Manifest („Zum Startbildschirm“) |
 | GET | `/health` | Zustand als JSON: PHP-Erweiterungen, Konfiguration, `var/` beschreibbar, Datenbank, Schemastand. `200` = in Ordnung, `503` = Handlungsbedarf. Enthält keine Secrets. |
@@ -78,10 +78,11 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | `get_pain_history` | `training:read` | Schmerz je Ort mit Trend (Standard 56 Tage) |
 | `get_wellness_trend` | `training:read` | HRV, Ruhepuls, Schlaf, Check-in; Baseline 7/28 Tage |
 | `get_block` | `training:read` | aktueller Block mit Wochenstatus |
-| `get_athlete_profile` | `training:read` | Inhalt von `docs/athlet/profil.md` (beim Deployment mitkopiert) |
+| `get_athlete_profile` | `training:read` | Athletenprofil aus der Datenbank (D-48) je Abschnitt; optional ein Abschnitt, früherer Stand (`as_of`), Fassungen (`include_history`) |
 | `upsert_block` | `training:write` | Block anlegen/ändern (Voraussetzung für Wochenpläne) |
 | `write_week_plan` | `training:write` | Wochenplan schreiben, Ausdauer als Workout nach Intervals.icu |
 | `update_session` | `training:write` | Einheit ändern, Event nachziehen |
+| `update_athlete_profile` | `training:write` | Profilabschnitt ersetzen (neue Fassung, frühere bleiben erhalten) |
 
 Schreib-Tools sind bei „Update erforderlich“ gesperrt; alle Schreibzugriffe stehen im `audit_log`.
 

@@ -4,6 +4,22 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.12.0] – 2026-09-28
+
+AP-09 Teil 5: Athletenprofil als DB-Objekt (D-48, ersetzt D-15). Asymmetrische Backups gestrichen (D-47).
+
+### Hinzugefügt
+- Migration `0018` `athlete_profile`: Abschnitte Ziele, Zeitbudget, Ausrüstung, Einschränkungen, Leistungswerte, Sonstiges als Markdown-Text; jede Änderung als neue Fassung mit Datum, Urheber (Claude/Web) und Grund; `App::SCHEMA_VERSION` = 18.
+- MCP-Tool `update_athlete_profile` (Scope `training:write`, Schreibsperre, Audit-Log); unveränderter Text legt keine Fassung an.
+- Seite `/profil` (Link unter Einstellungen): Abschnitte lesen, einzeln bearbeiten, frühere Fassungen ansehen; Schutz gegen Überschreiben, wenn Claude den Abschnitt inzwischen geändert hat.
+- Tests für Tools, Fassungen, früheren Stand, Konflikt und Webseite.
+
+### Geändert
+- `get_athlete_profile` liest aus der Datenbank; neue optionale Parameter `section`, `as_of` (Stand am Ende eines Tages) und `include_history`.
+
+### Entfernt
+- Build-Schritt `docs/athlet/*.md` → `server/resources/athlet/` und `App::profileFile()`; `docs/athlet/` entfällt.
+
 ## [0.11.0] – 2026-09-28
 
 AP-09 Teil 4: Passkey-Login zusätzlich zum Passwort (D-44).

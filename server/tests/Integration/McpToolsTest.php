@@ -38,7 +38,7 @@ final class McpToolsTest extends AppTestCase
         $this->mcpTool(self::STATIC, 'get_athlete_profile');
         $r = $this->request('POST', '/mcp', [], $headers + ['Mcp-Session-Id' => $this->sessionFor(self::STATIC), 'MCP-Protocol-Version' => '2025-06-18'], '{"jsonrpc":"2.0","id":3,"method":"tools/list"}');
         $names = array_column(json_decode($r->body, true)['result']['tools'], 'name');
-        foreach (['ping', 'get_week_overview', 'get_session_detail', 'get_pain_history', 'get_wellness_trend', 'get_block', 'get_athlete_profile', 'write_week_plan', 'update_session', 'upsert_block'] as $t) {
+        foreach (['ping', 'get_week_overview', 'get_session_detail', 'get_pain_history', 'get_wellness_trend', 'get_block', 'get_athlete_profile', 'write_week_plan', 'update_session', 'upsert_block', 'update_athlete_profile'] as $t) {
             self::assertContains($t, $names);
         }
 
@@ -184,9 +184,7 @@ final class McpToolsTest extends AppTestCase
 
         $profile = $this->mcpTool(self::STATIC, 'get_athlete_profile');
         self::assertFalse($profile['data']['vorhanden']);
-        mkdir($this->baseDir . '/resources/athlet', 0777, true);
-        file_put_contents($this->baseDir . '/resources/athlet/profil.md', "# Profil\nZiel: Skitour");
-        self::assertStringContainsString('Skitour', $this->mcpTool(self::STATIC, 'get_athlete_profile')['data']['inhalt']);
+        self::assertCount(6, $profile['data']['abschnitte']);
 
         self::assertTrue($this->mcpTool(self::STATIC, 'get_session_detail', ['session_id' => 999])['isError']);
 

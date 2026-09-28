@@ -318,6 +318,14 @@ geprueft:
     wie: Chromium mit virtuellem Authenticator (CDP WebAuthn)
     ergebnis: ok
     datum: 2026-09-28
+  - was: Athletenprofil MCP – leeres Profil mit Hinweis, update_athlete_profile legt Fassung an, gleicher Text (auch mit CRLF/Leerraum) keine Fassung, Abschnitt einzeln, as_of (Stand am Tagesende in Zeitzone des Athleten), include_history (neueste zuerst, nur mit section), unbekannter Abschnitt/Datum/zu lang → Fehler, Audit-Log, Schreibsperre
+    wie: automatisiert (PHPUnit über /mcp)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Athletenprofil Web – Übersicht leer/gefüllt, Bearbeiten mit Grund, HTML wird escaped, CSRF, Konflikt bei zwischenzeitlicher Änderung durch Claude (409, eigener Text bleibt, nichts überschrieben), unverändert, zu lang (422), Fassungen, unbekannter Abschnitt 404, Login nötig, Zusammenfassung in Einstellungen
+    wie: automatisiert + Browser 390/1280 px (kein Überlauf)
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: JSON-Export herunterladen und in einem Editor/Programm öffnen
     wie: manuell durch Athlet
@@ -327,6 +335,8 @@ noch_zu_pruefen:
     wie: manuell durch Athlet
   - was: Passkey auf echten Geräten – in den Einstellungen je Gerät anlegen (iPhone/iPad, Android bzw. Passwort-Manager), abmelden, „Mit Passkey anmelden“; Passkey entfernen; Passwort-Login funktioniert weiter
     wie: manuell durch Athlet (auf training.gen-em.org, Passkeys sind an den Host gebunden)
+  - was: Athletenprofil – in AP-08 von Claude über update_athlete_profile befüllen lassen; auf /profil lesen, einen Abschnitt korrigieren, frühere Fassung ansehen; in Claude get_athlete_profile mit as_of prüfen
+    wie: manuell durch Athlet (nach Migration auf Schema 18; Connector ggf. neu verbinden, damit das neue Tool erscheint)
   - was: Verlauf mit echten Daten nach einigen Wochen Nutzung
     wie: manuell durch Athlet
 ```

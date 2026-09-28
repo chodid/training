@@ -7,6 +7,7 @@ namespace Training\Mcp;
 use PDO;
 use Training\Clock;
 use Training\Data\FeedbackRepository;
+use Training\Data\ProfileRepository;
 use Training\Data\WeekRepository;
 use Training\Dates;
 use Training\Intervals\ActivityLookup;
@@ -33,7 +34,6 @@ final class ReadTools
         private readonly Clock $clock,
         private readonly string $tz,
         private readonly ?IntervalsClient $intervals,
-        private readonly string $profileFile,
     ) {
     }
 
@@ -361,14 +361,66 @@ final class ReadTools
         ];
     }
 
-    /** @return array<string, mixed> */
-    public function athleteProfile(): array
+    /**
+     * Athletenprofil (D-48): aktueller Stand je Abschnitt, optional ein Abschnitt, ein früherer Stand (Ende des Tages
+     * as_of) oder die Fassungen eines Abschnitts.
+     * @return array<string, mixed>
+     */
+    public function athleteProfile(?string $section = null, ?string $asOf = null, bool $includeHistory = false): array
     {
-        if (!is_file($this->profileFile)) {
-            return ['vorhanden' => false, 'hinweis' => 'Athletenprofil noch nicht angelegt (docs/athlet/profil.md, AP-08).'];
+        if ($section !== null && !isset(ProfileRepository::SECTIONS[$section])) {
+            throw new ToolError('Unbekannter Abschnitt. Erlaubt: ' . implode(', ', array_keys(ProfileRepository::SECTIONS)) . '.');
+        }
+        if ($asOf !== null && !Dates::isDate($asOf)) {
+            throw new ToolError('as_of muss ein Datum im Format YYYY-MM-DD sein.');
+        }
+        if ($includeHistory && $section === null) {
+            throw new ToolError('include_history braucht einen Abschnitt (section).');
+        }
+        $repo = new ProfileRepository($this->pdo, $this->clock);
+        $before = $asOf !== null
+            ? (new \DateTimeImmutable(Dates::addDays($asOf, 1) . ' 00:00', new \DateTimeZone($this->tz)))->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d H:i:s')
+            : null;
+        $current = $repo->current($before);
+        $sections = [];
+        $latest = null;
+        foreach (ProfileRepository::SECTIONS as $key => [$label]) {
+            if ($section !== null && $key !== $section) {
+                continue;
+            }
+            $row = $current[$key];
+            $sections[] = ['abschnitt' => $key, 'titel' => $label, 'inhalt' => $row['content'] ?? '',
+                'geaendert' => $row !== null ? $this->local((string) $row['created_at']) : null,
+                'von' => $row !== null ? self::author((string) $row['created_by']) : null,
+                'grund' => $row['reason'] ?? null, 'version' => $row['id'] ?? null, 'fassungen' => $row['versions'] ?? 0];
+            if ($row !== null && ($latest === null || $row['created_at'] > $latest)) {
+                $latest = (string) $row['created_at'];
+            }
+        }
+        $filled = array_filter($current, static fn (?array $r): bool => $r !== null && $r['content'] !== '');
+        $result = ['vorhanden' => $filled !== [], 'stand' => $latest !== null ? $this->local($latest) : null] + ($asOf !== null ? ['as_of' => $asOf] : [])
+            + ['abschnitte' => $sections];
+        if ($filled === []) {
+            $result['hinweis'] = 'Athletenprofil noch leer. Abschnitte mit update_athlete_profile anlegen (Ziele, Zeitbudget, Ausrüstung, Einschränkungen, Leistungswerte, Sonstiges).';
+        }
+        if ($includeHistory && $section !== null) {
+            $result['fassungen'] = array_map(fn (array $r): array => [
+                'version' => (int) $r['id'], 'geaendert' => $this->local((string) $r['created_at']), 'von' => self::author((string) $r['created_by']),
+                'grund' => $r['reason'], 'inhalt' => mb_strlen((string) $r['content']) > 1500 ? mb_substr((string) $r['content'], 0, 1500) . ' …' : $r['content'],
+            ], $repo->history($section, 20));
         }
 
-        return ['vorhanden' => true, 'quelle' => 'docs/athlet/profil.md', 'stand' => gmdate('Y-m-d', (int) filemtime($this->profileFile)), 'inhalt' => mb_substr((string) file_get_contents($this->profileFile), 0, 12000)];
+        return $result;
+    }
+
+    private function local(string $utc): string
+    {
+        return (new \DateTimeImmutable($utc, new \DateTimeZone('UTC')))->setTimezone(new \DateTimeZone($this->tz))->format('Y-m-d H:i');
+    }
+
+    private static function author(string $by): string
+    {
+        return $by === 'mcp' ? 'claude' : 'web';
     }
 
     /** @param array<string, mixed> $a @return array<string, mixed> */

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 /**
  * Kopiert die Gestaltungsgrundlage aus docs/branding/ nach server/public/assets/ (Branding-Dokument
- * Abschnitt 7.1) und das Athletenprofil aus docs/athlet/ nach server/resources/athlet/ (AP-05). Einzige Quelle bleibt docs/branding/; public/assets/ ist ein Build-Ergebnis und nicht im Repo.
+ * Abschnitt 7.1). Einzige Quelle bleibt docs/branding/; public/assets/ ist ein Build-Ergebnis und nicht im Repo.
+ * Das Athletenprofil liegt seit D-48 in der Datenbank (vorher Kopie aus docs/athlet/).
  * Aufruf (aus dem Repo-Wurzelverzeichnis oder server/): php server/bin/build-assets.php
  */
 
@@ -49,18 +50,3 @@ foreach ($copies as $from => $to) {
 }
 
 echo "Assets: $count Dateien nach public/assets kopiert.\n";
-
-// Athletenprofil für das MCP-Tool get_athlete_profile (AP-05): docs/athlet/*.md → server/resources/athlet/ (außerhalb des Docroots).
-$profileDir = dirname(__DIR__) . '/resources/athlet';
-if (!is_dir($profileDir) && !mkdir($profileDir, 0755, true)) {
-    fwrite(STDERR, "Ordner nicht anlegbar: $profileDir\n");
-    exit(1);
-}
-foreach (glob($profileDir . '/*.md') ?: [] as $old) {
-    unlink($old);
-}
-$profiles = glob($repo . '/docs/athlet/*.md') ?: [];
-foreach ($profiles as $file) {
-    copy($file, $profileDir . '/' . basename($file));
-}
-echo 'Athletenprofil: ' . count($profiles) . " Datei(en) nach resources/athlet kopiert.\n";

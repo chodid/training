@@ -7,6 +7,7 @@ namespace Training\Mcp;
 use PDO;
 use Training\Clock;
 use Training\Data\AuditLog;
+use Training\Data\ProfileRepository;
 use Training\Data\WeekRepository;
 use Training\Dates;
 use Training\Intervals\IntervalsClient;
@@ -270,6 +271,27 @@ final class WriteTools
         }
 
         return ['id' => $blockId, 'name' => $values[0], 'start' => $values[1], 'ende' => $values[2], 'status' => $status];
+    }
+
+    /**
+     * Neue Fassung eines Profilabschnitts (D-48); unveränderter Text legt keine Fassung an.
+     * @return array<string, mixed>
+     */
+    public function updateAthleteProfile(string $section, string $content, ?string $reason): array
+    {
+        try {
+            $saved = (new ProfileRepository($this->pdo, $this->clock))->save($section, $content, 'mcp', $reason);
+        } catch (\InvalidArgumentException $e) {
+            throw new ToolError($e->getMessage());
+        }
+        if ($saved['unchanged']) {
+            return ['abschnitt' => $section, 'version' => $saved['id'], 'unveraendert' => true, 'hinweis' => 'Text unverändert, keine neue Fassung angelegt.'];
+        }
+        $label = ProfileRepository::SECTIONS[$section][0];
+        (new AuditLog($this->pdo, $this->clock))->write('mcp', 'profile_update', 'athlete_profile', $saved['id'], $content,
+            'Profil „' . $label . '“ geändert' . ($reason !== null && trim($reason) !== '' ? ': ' . trim($reason) : ''));
+
+        return ['abschnitt' => $section, 'version' => $saved['id'], 'unveraendert' => false];
     }
 
     /**

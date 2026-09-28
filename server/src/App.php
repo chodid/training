@@ -21,10 +21,10 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.11.0';
+    public const VERSION = '0.12.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
-    public const SCHEMA_VERSION = 17;
+    public const SCHEMA_VERSION = 18;
 
     private ?Config $config = null;
     private ?PDO $pdo = null;
@@ -80,6 +80,7 @@ final class App
             '/checkin' => ['GET' => fn (): Response => (new \Training\Controller\CheckinController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\CheckinController($this))->handle($request)],
             '/schmerz' => ['GET' => fn (): Response => (new \Training\Controller\PainController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\PainController($this))->handle($request)],
             '/einstellungen' => ['GET' => fn (): Response => (new \Training\Controller\SettingsController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\SettingsController($this))->handle($request)],
+            '/profil' => ['GET' => fn (): Response => (new \Training\Controller\ProfileController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\ProfileController($this))->handle($request)],
             '/passkey/register/options' => ['POST' => fn (): Response => (new \Training\Controller\PasskeyController($this))->registerOptions($request)],
             '/passkey/register' => ['POST' => fn (): Response => (new \Training\Controller\PasskeyController($this))->register($request)],
             '/passkey/login/options' => ['POST' => fn (): Response => (new \Training\Controller\PasskeyController($this))->loginOptions()],
@@ -206,12 +207,6 @@ final class App
     }
 
     /** Laufzeitdaten außerhalb des Docroots (D-17), z. B. MCP-Sitzungsdateien. */
-    /** Kopie von docs/athlet/profil.md auf dem Server (Build-Schritt, für get_athlete_profile). */
-    public function profileFile(): string
-    {
-        return $this->baseDir . '/resources/athlet/profil.md';
-    }
-
     public function varDir(): string
     {
         return $this->baseDir . '/var';

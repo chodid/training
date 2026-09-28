@@ -35,3 +35,7 @@ form:has(input[name="pain"][value="ja"]:checked) .reveal{display:grid;gap:var(--
 .heat-scroll{overflow-x:auto}.heat-scroll .heat{min-width:420px}
 .table-scroll{overflow-x:auto}.table-wide{min-width:560px}
 [hidden]{display:none!important}
+
+/* Athletenprofil (D-48): Markdown als Text, lange Wörter/Links umbrechen */
+.profile-text{color:var(--text-primary);overflow-wrap:anywhere}
+.profile-edit{min-height:16rem}

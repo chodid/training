@@ -1,7 +1,7 @@
 ---
 titel: Datenmodell – ER-Diagramm und Umsetzungsdetails
-bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitt 7, AP-01 (D-35), AP-03, AP-09 (D-43, D-44)
-schemastand: 17 (Migrationen 0001–0017)
+bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitt 7, AP-01 (D-35), AP-03, AP-09 (D-43, D-44, D-48)
+schemastand: 18 (Migrationen 0001–0018)
 ---
 
 # Datenmodell
@@ -177,9 +177,17 @@ erDiagram
         json data_json
         datetime updated_at
     }
+    athlete_profile {
+        int id PK
+        enum section
+        mediumtext content "Markdown"
+        varchar reason
+        enum created_by
+        datetime created_at
+    }
 ```
 
-`audit_log`, `schema_version`, `ext_cache` und die Spiegeltabellen `ext_activity`/`ext_wellness` (D-43) stehen für sich (`ext_activity.paired_event_id` entspricht lose `session.intervals_event_id`); `audit_log` verweist über `entity`/`entity_id` lose auf die geänderte Zeile, damit Einträge das Löschen überdauern.
+`audit_log`, `schema_version`, `ext_cache`, `athlete_profile` (D-48, nur Einfügen; jüngste Fassung je Abschnitt gilt) und die Spiegeltabellen `ext_activity`/`ext_wellness` (D-43) stehen für sich (`ext_activity.paired_event_id` entspricht lose `session.intervals_event_id`); `audit_log` verweist über `entity`/`entity_id` lose auf die geänderte Zeile, damit Einträge das Löschen überdauern.
 
 ## Umsetzungsdetails
 

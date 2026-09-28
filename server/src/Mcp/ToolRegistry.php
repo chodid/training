@@ -9,6 +9,7 @@ use Mcp\Types\CallToolResult;
 use Mcp\Types\TextContent;
 use Training\App;
 use Training\Clock;
+use Training\Data\ProfileRepository;
 use Training\Intervals\IntervalsClient;
 use Training\Plan\PlanValidator;
 
@@ -54,10 +55,15 @@ final class ToolRegistry
             fn (?int $block_id = null): CallToolResult => $this->run('training:read', fn () => $this->reads()->block($block_id)),
             title: 'Block', inputSchema: ['properties' => ['block_id' => ['type' => 'integer']]], annotations: $read);
 
+        $sectionEnum = ['enum' => array_keys(ProfileRepository::SECTIONS)];
         $mcp->tool('get_athlete_profile',
-            'Athletenprofil (docs/athlet/profil.md): Ziele, Zeitbudget, Ausrüstung, Einschränkungen.',
-            fn (): CallToolResult => $this->run('training:read', fn () => $this->reads()->athleteProfile()),
-            title: 'Athletenprofil', annotations: $read);
+            'Athletenprofil aus der Datenbank (D-48), Abschnitte ziele, zeitbudget, ausruestung, einschraenkungen, leistungswerte, sonstiges (Markdown) mit Stand und Urheber. Optional nur ein Abschnitt, ein früherer Stand (as_of: Ende dieses Tages) oder mit include_history die Fassungen eines Abschnitts.',
+            fn (?string $section = null, ?string $as_of = null, bool $include_history = false): CallToolResult
+                => $this->run('training:read', fn () => $this->reads()->athleteProfile($section, $as_of, $include_history)),
+            title: 'Athletenprofil', inputSchema: ['properties' => [
+                'section' => $sectionEnum, 'as_of' => $date + ['description' => 'Profil wie am Ende dieses Tages'],
+                'include_history' => ['type' => 'boolean', 'default' => false, 'description' => 'Fassungen des Abschnitts (nur mit section), neueste zuerst, höchstens 20'],
+            ]], annotations: $read);
 
         $sessionSchema = [
             'type' => 'object',
@@ -118,6 +124,18 @@ final class ToolRegistry
                 ]],
             ], 'required' => ['block']],
             annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false]);
+
+        $mcp->tool('update_athlete_profile',
+            'Ersetzt den Text eines Profilabschnitts (Markdown, höchstens ' . ProfileRepository::MAX_LENGTH . ' Zeichen) durch eine neue Fassung; frühere Fassungen bleiben erhalten. Immer den vollständigen Abschnitt schicken (vorher mit get_athlete_profile lesen). Leerer Text leert den Abschnitt. reason kurz angeben (z. B. „Test 12.10.: LTHR 172“).',
+            fn (string $section, string $content, ?string $reason = null): CallToolResult
+                => $this->run('training:write', fn () => $this->writes()->updateAthleteProfile($section, $content, $reason), true),
+            title: 'Athletenprofil ändern',
+            inputSchema: ['properties' => [
+                'section' => $sectionEnum,
+                'content' => ['type' => 'string', 'maxLength' => ProfileRepository::MAX_LENGTH],
+                'reason' => ['type' => 'string', 'maxLength' => ProfileRepository::REASON_MAX],
+            ], 'required' => ['section', 'content']],
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false]);
     }
 
     /** @param callable(): array<string, mixed> $fn */
@@ -161,7 +179,7 @@ final class ToolRegistry
     {
         $user = $this->app->users()->first();
 
-        return new ReadTools($this->app->pdo(), $this->clock, $user?->tz ?? 'Europe/Berlin', $this->intervals(), $this->app->profileFile());
+        return new ReadTools($this->app->pdo(), $this->clock, $user?->tz ?? 'Europe/Berlin', $this->intervals());
     }
 
     private function writes(): WriteTools
