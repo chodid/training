@@ -620,7 +620,7 @@ noch_zu_pruefen:
 
 ```yaml
 ap: AP-14
-auftrag: docs/konzept/gefuehrte-einheit.md (Teil C, T3–T7)
+auftrag: docs/konzept/gefuehrte-einheit.md (Teil C, T3–T7; Nachtrag T8 unter AP-11)
 geprueft:
   - was: T3 Ablaufplan – Testfälle 8.1 A-01 bis A-12 (Wiederholungen, Halten s/min/Bereich, max, Hangboard mit und ohne Sätze, Block, offen, Ausdauer/Ruhe ohne Plan, Reihenfolge und Index) und alle übrigen kind-Werte (campus, bouldern_limit, ausdauer_route, zugkraft, antagonisten); A-01 bis A-10, die kind-Fälle und A-12 gültig nach plan_json-Schema, A-11 zusätzlich mit leeren/ungültigen Plänen; Schreibweisen der Haltezeit (s, sek, sec, min, Bereich mit - und –, 0, Komma)
     wie: automatisiert (AblaufplanTest)
@@ -676,6 +676,10 @@ geprueft:
     datum: 2026-09-28
   - was: "Review T5 (Testaufbau): run.sh auf freiem Port, Abbruch mit Protokoll bei belegtem Port; Warten auf den Service Worker begrenzt; CI-Schritt mit 10 min Grenze"
     wie: manuell (run.sh mehrfach, Port frei gewählt) + Durchsicht des Workflows
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T7 – Dokumente konsistent (Changelog 0.17.0–0.19.0, README, Hauptkonzept AP-11/AP-13/AP-14 und D-55 bis D-60, Datenmodell, Branding, Auftrag Abschnitt 12, Prüfprotokoll); Versionsnummer 0.19.0 in App.php
+    wie: Durchsicht und Suche nach veralteten Angaben (Termin je Einheit, „✓“, SessionEvent, Zählerstände, Port) + unabhängiges Review der Dokumente zu T8
     ergebnis: ok
     datum: 2026-09-28
 noch_zu_pruefen:

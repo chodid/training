@@ -1,7 +1,7 @@
 # Auftrag: App-Icon, Begründungstexte der Planung und geführte Trainingseinheit
 
 Ablageort im Repo: `docs/konzept/gefuehrte-einheit.md` (im Hauptkonzept: AP-13 und AP-14, D-55 bis D-59, Q-14; Nachtrag T8: AP-11, D-60)
-Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21, Nachtrag T8 mit E-22); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); Umsetzung in Arbeit (Stand in Abschnitt 12)
+Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21, Nachtrag T8 mit E-22); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); T1–T8 umgesetzt (Code-Stand 0.17.0 bis 0.19.0), Abnahme durch den Athleten offen (Stand in Abschnitt 12)
 Versionsnummer: keine im Konzept; wird in der Umsetzung festgelegt
 
 ---
@@ -589,7 +589,24 @@ T6:
   probleme_loesungen:
     - was: 6.6 sieht einen Schalter ohne JavaScript vor; ein Radio-Segment speichert ohne Skript nicht von selbst
       loesung: kleines Formular in der Zeile mit Segment An/Aus und Knopf „Speichern“; auf schmalen Geräten steht die Bedienung unter dem Text
-T7: {status: offen}
+T7:
+  status: umgesetzt          # Code-Stand 0.18.0 (Dokumentation zu T1–T6; T8 mit 0.19.0)
+  datum: 2026-09-28
+  ergebnis: >
+    Version je AP (AP-13 = 0.17.0, AP-14 = 0.18.0, Nachtrag T8 = 0.19.0); CHANGELOG mit allen drei Teilen und T8;
+    README (Struktur mit js/ und sw.js, Endpunkte Stand AP-14, Icons, Tests mit Node und Browser-Durchlauf, Kalender
+    mit Sammeltermin); Hauptkonzept (AP-11, AP-13, AP-14 mit Status und probleme_loesungen, D-60, Abschnitte 3, 7, 8.2,
+    10, Änderungsprotokoll); datenmodell.md (Schema 22, coach_summary, app_setting-Schlüssel); branding.md (B-03, B-09,
+    Abschnitt 8); dieses Dokument (Abschnitt 12 je Unterpunkt, E-22, T8, 8.4); Prüfprotokoll (AP-11, AP-13, AP-14).
+    Jeder Unterpunkt und jede Review-Runde als eigener Commit; unabhängige Reviews zu T1–T5 und T8 mit
+    Gegenprüfung jedes Befunds, bestätigte Befunde behoben.
+  tests: PHPUnit 195, node --test 17, Browser-Durchlauf 14 Prüfungen – alle grün; Konsistenzprüfung der Dokumente
+  abnahme: Dokumente konsistent (Feldnamen, Tool-Namen, Screens, Versionen); Changelog nennt alle drei Teile und T8
+  probleme_loesungen:
+    - was: Sporadischer Testfehler MorningCheckinTest::testDaylightSavingSwitch (AP-12 als nicht reproduzierbar vermerkt)
+      loesung: Ursache gefunden (Aufräumen der MCP-Sitzungsdateien verglich echte Dateizeiten mit der verstellten Test-Uhr), behoben in 0.18.0
+    - was: In S3 liegt die fixierte Speichern-Leiste auf dem Smartphone beim Scrollen hinter der unteren Navigation (seit vor AP-14)
+      loesung: in S9 behoben (Abstand 61 px + Safe Area); S3 nicht geändert, dem Athleten gemeldet
 T8:
   status: umgesetzt          # Code-Stand 0.19.0; Abnahme im Nextcloud-Kalender durch den Athleten offen
   datum: 2026-09-28
