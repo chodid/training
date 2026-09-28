@@ -179,6 +179,7 @@ flowchart LR
 | D-48 | Athletenprofil als DB-Objekt (ersetzt D-15): Tabelle `athlete_profile` mit festen Abschnitten `ziele`, `zeitbudget`, `ausruestung`, `einschraenkungen`, `leistungswerte`, `sonstiges`, je Abschnitt Markdown-Text (höchstens 6 000 Zeichen). Jede Änderung legt eine neue Fassung an (Datum, Urheber Claude/Web, optionaler Grund); frühere Stände bleiben lesbar. Die DB ist die einzige Quelle: `docs/athlet/profil.md` und die Kopie im Projekt-Wissen entfallen. Bearbeiten durch Claude (`update_athlete_profile`, Scope `training:write`) und auf der Webseite (`/profil`, erreichbar über S8); Schutz gegen gegenseitiges Überschreiben. | Profil ändert sich mit Tests und Lebensumständen; Claude kann Werte direkt im Chat eintragen, ohne Repo und Deployment. Abschnitte statt eines Dokuments, damit Änderungen gezielt sind; Fassungen, damit spätere Auswertungen den damaligen Stand kennen. Entscheidung des Athleten (Struktur, Bearbeiter, Quelle, Verlauf). | 2026-09-28 |
 | D-49 | Ausgestaltung Offline (konkretisiert D-45): (a) Vorgeladen werden beim Öffnen der aktuellen Woche die aktuelle und die nächste Woche mit allen Einheiten sowie Check-in und Schmerz für heute; weitere besuchte Seiten dieser Art werden beim Aufruf gespeichert, andere Seiten sind offline nicht verfügbar. (b) Abmelden löscht die gespeicherten Seiten auf dem Gerät; noch nicht gesendete Eingaben bleiben und werden nach dem nächsten Login gesendet. (c) Wurde ein Eintrag (Check-in, Rückmeldung) seit dem Laden des Formulars geändert, wird eine gepufferte Eingabe nicht übernommen, sondern als Hinweis mit „Öffnen“, „Trotzdem übernehmen“ und „Verwerfen“ angezeigt; dieselbe Prüfung gilt online (Formular bleibt mit den Eingaben stehen, erneutes Speichern übernimmt). Schmerzereignisse sind immer neue Einträge und kollidieren nicht. | Entscheidung des Athleten (Umfang, Abmelden, Konflikt); „Trotzdem übernehmen“ ergänzt in der Umsetzung, damit eine Eingabe nach Prüfung nicht neu getippt werden muss. | 2026-09-28 |
 | D-50 | Kalender per CalDAV-Push (AP-11): Die App schreibt jede Einheit außer Ruhetagen als ganztägigen Termin in einen Nextcloud-Kalender (eigener Kalender empfohlen), mit fester UID je Einheit; Titel „Typ: Titel“, Beschreibung mit Priorität, Dauer, Kurzplan, Trainer-Begründung und Link zur App. Status: erledigt/teilweise mit „✓“ im Titel, ausgelassen als abgesagter Termin, verschoben wandert mit dem Datum. Übertragen wird bei jeder Änderung (Wochenplan, update_session, Ersetzen einer Woche, Rückmeldung auf der Webseite); zusätzlich Abgleich 7 Tage zurück bis 8 Wochen voraus im stündlichen Cronjob und per Knopf in den Einstellungen, dabei werden verwaiste eigene Termine entfernt, fremde nie. Zugang über Nextcloud-App-Passwort in der .env (CALDAV_URL nur https); Fehler brechen nichts ab. Einbahnstraße: Änderungen im Kalender werden nicht zurückgelesen. | Entscheidung des Athleten (CalDAV statt ICS-Abo: sofort sichtbar; Umfang ohne Ruhetage; Markierung; Abgleich im bestehenden Cronjob; direkte Umsetzung durch die Code-Instanz). Einheiten haben keine Uhrzeit, daher ganztägig. | 2026-09-28 |
+| D-51 | Ablage der Volltexte in `docs/literatur/`: Unterordner je Block (`uebergreifend/`, `t1-ausdauer/`, `t2-kraft/`, `t3-klettern/`), eine Datei im Block ihrer ID-Definition; Dateiname `<ID>_<Erstautor>-<Jahr>_<Kurztitel>[_<Auflage>].pdf` (ASCII). Bücher zusätzlich als Kapitel-PDFs in `<ID>_kapitel/` (Schritt 1 in 13.1; Kapitel über 60 PDF-Seiten in etwa gleich große Teile, möglichst an Abschnittsgrenzen); das Originalbuch bleibt liegen. Im Konzept verweisen die Felder `datei`/`kapitel` auf die Dateien, 13.4 führt die Spalte „vorhanden“, `docs/literatur/README.md` ist das Verzeichnis. L-A01 liegt in der 7. Aufl. (2019) vor: gilt vorläufig, die 8./9. Aufl. bleibt auf der Beschaffungsliste. | Entscheidung des Athleten 2026-09-28 (Unterordner statt flacher Ablage; Kapitel-PDFs zusätzlich zum Original statt Ersatz; 7. Aufl. nur vorläufig). Kapitel-PDFs sind nötig, weil die Bücher (bis 1876 Seiten, 65 MB) für Chat-Sitzungen zu groß sind. | 2026-09-28 |
 
 # 5. Offene Fragen und Verifikationen
 
@@ -215,9 +216,9 @@ flowchart LR
 | V-10 | Auf dem Hosting verfügbar: FTPS oder SFTP für den Deploy-Workflow; PHP-CLI für „Geplante Aufgaben" (sonst HTTP-Aufruf eines geschützten Endpunkts); E-Mail-Versand aus PHP mit Anhang (SMTP über Mailkonto des Hostings bevorzugt, Größenlimit des Anhangs); PHP-OpenSSL-Erweiterung aktiv. Ergebnis (Angaben Athlet 2026-09-27): FTPS vorhanden (Port 21, explizit, gültiges Zertifikat); SMTP vorhanden; keine PHP-CLI-Aufgaben, aber zeitgesteuerter Aufruf von URLs → E-Mail-Backup über geschützten Endpunkt (D-18 b); OpenSSL aktiv (Servertest). Servertest zusätzlich: `open_basedir` leer, Datei oberhalb des Docroots lesbar, `.htaccess` wird ausgewertet (`Require all denied` → 403). Rest: Anhang-Größenlimit SMTP → Testversand in AP-10. | AP-00 | erledigt 2026-09-27 (bis auf Anhang-Limit) |
 | V-11 | Bibliografische Prüfung der T1-Quellen (Autoren, Jahr, Band/Seiten, DOI/ISBN, freie Verfügbarkeit) per PubMed-Connector bzw. Bibliothekskataloge. Ergebnis in 13.2.2 (Felder `zugang`, `verifikation`). Hinweis Lizenz: PubMed liefert keinen Lizenztyp; „frei" heißt Volltext in PMC; CC BY 4.0 nur für L-T1-04 belegt. | AP-06 | erledigt 2026-09-27 |
 | V-12 | Zonendefinition in Garmin Connect (Laufprofil, ggf. eigenes Profil Skitour) und in Intervals.icu identisch halten (%LTHR, gleiche Grenzen), damit HF-Ziele aus Intervals.icu-Workouts auf der Uhr dieselbe Zone treffen. Prüfen, ob Intervals.icu Zonen nach Garmin überträgt oder beide getrennt gepflegt werden müssen (D-27). | AP-02 (mit V-01), AP-08 | offen |
-| V-13 | Format und Kopierschutz je Titel vor Beschaffung (D-26): Human-Kinetics-Titel (L-A01, L-A03, L-T1-07, L-T2-05, L-T2-07) laufen über VitalSource mit DRM → Print oder anderer Anbieter; Springer-Titel (L-A02, L-T2-03, L-T2-06, L-T3-06/07) kapitelweise als PDF über SpringerLink bzw. Bibliothekszugang; L-T2-04 (Low) Digitalausgabe PDF/ePUB beim Autor prüfen; L-T1-01, L-T1-08, L-T3-08 PDF-Verfügbarkeit prüfen. | AP-06 | offen |
+| V-13 | Format und Kopierschutz je Titel vor Beschaffung (D-26): Human-Kinetics-Titel (L-A01, L-A03, L-T1-07, L-T2-05, L-T2-07) laufen über VitalSource mit DRM → Print oder anderer Anbieter; Springer-Titel (L-A02, L-T2-03, L-T2-06, L-T3-06/07) kapitelweise als PDF über SpringerLink bzw. Bibliothekszugang; L-T2-04 (Low) Digitalausgabe PDF/ePUB beim Autor prüfen; L-T1-01, L-T1-08, L-T3-08 PDF-Verfügbarkeit prüfen. Stand 2026-09-28: als durchsuchbares PDF vorhanden L-A01 (7. Aufl., vorläufig), L-A03, L-T1-08 (Scan), L-T2-03, L-T2-04 (Scan, Texterkennung fehlerhaft), L-T3-06; offen L-A02, L-T1-01, L-T1-07, L-T3-08 sowie die 8./9. Aufl. von L-A01. | AP-06 | teilweise |
 | V-14 | PubMed-Verifikation Kraftliteratur: Rønnestad & Mujika 2014 (Scand J Med Sci Sports) und Blagrove et al. 2018 (Sports Med) → L-T2-11, L-T2-12. ACSM 2026 und Schumann 2022 bereits verifiziert als L-P08 und L-P07. | AP-06 | offen |
-| V-15 | Bibliografische Vervollständigung T3: L-T3-03 (Band, Lizenz), L-T3-04 (Band, Seiten, DOI, Zugang), L-T3-05 (Titel, Journal, Band, Seiten, DOI), L-T3-07 (ISBN), L-T3-08 (aktuelle Auflage/ISBN), L-T3-09 (Jahr), L-T3-12 (Jahr, Auflage, ISBN); Kernaussagen L-T3-02 am Original statt Sekundärzitat prüfen. | AP-06 | offen |
+| V-15 | Bibliografische Vervollständigung T3: L-T3-03 (Band, Lizenz – erledigt 2026-09-28: Bd. 5, Art. 1130812, CC BY laut Volltext), L-T3-04 (Band, Seiten, DOI, Zugang), L-T3-05 (Titel, Journal, Band, Seiten, DOI), L-T3-07 (ISBN), L-T3-08 (aktuelle Auflage/ISBN), L-T3-09 (Jahr), L-T3-12 (Jahr, Auflage, ISBN); Kernaussagen L-T3-02 am Original statt Sekundärzitat prüfen (Original liegt seit 2026-09-28 vor). | AP-06 | offen |
 
 # 6. Betriebsablauf (Wochenzyklus)
 
@@ -405,7 +406,7 @@ Regeln für fehlende Daten:
 - PubMed-Workflow: Bei Entscheidungen, die eine Primärquelle brauchen, Abfrage über den PubMed-Connector im Projekt-Chat; DOI in die Karte übernehmen.
 - Zitierregel D-13 gilt in jedem Chat.
 - Bündelung und Budget: Projektwissen wird vollständig in jeden Chat geladen, solange es unter dem Kontextlimit bleibt; darüber (und beobachtet bereits ab etwa 13 Dateien) schaltet das Projekt in den Retrieval-Modus, in dem nur gefundene Passagen sichtbar sind. Daher: wenige Sammeldateien (je Bereich T1–T3 plus übergreifend, 4–6 Dateien) statt vieler Einzelkarten; Gesamtbudget des Projektwissens inkl. Regeln, Profil und aktuellem Blockplan unter ca. 40 000 Tokens halten.
-- Erstellungsprozess (in eigenen Sitzungen, nicht im Trainingsprojekt): (1) PDF kapitelweise aufteilen (20–40 Seiten); (2) Extraktion je Kapitel mit Template und Regeln: nur Textinhalt, Seitenzahl je Aussage, Zahlen exakt mit Einheit, Modellschlüsse markiert, Lücken des Kapitels aufgelistet; (3) Prüfung: 3–5 Aussagen je Karte gegen das PDF, dann `konfidenz` setzen; (4) Synthesekarte je Thema über alle Quellen mit Widersprüchen und geltender Regel (Vorarbeit AP-07); (5) Ablage in `docs/wissen/`, Spiegelung ins Projektwissen. PDFs liegen lokal und dürfen zusätzlich im privaten Repo unter `docs/literatur/` liegen (D-31), nie im Projektwissen.
+- Erstellungsprozess (in eigenen Sitzungen, nicht im Trainingsprojekt): (1) PDF kapitelweise aufteilen (20–40 Seiten; für die vorhandenen Bücher erledigt, `docs/literatur/<block>/<ID>_kapitel/`, D-51); (2) Extraktion je Kapitel mit Template und Regeln: nur Textinhalt, Seitenzahl je Aussage, Zahlen exakt mit Einheit, Modellschlüsse markiert, Lücken des Kapitels aufgelistet; (3) Prüfung: 3–5 Aussagen je Karte gegen das PDF, dann `konfidenz` setzen; (4) Synthesekarte je Thema über alle Quellen mit Widersprüchen und geltender Regel (Vorarbeit AP-07); (5) Ablage in `docs/wissen/`, Spiegelung ins Projektwissen. PDFs liegen lokal und dürfen zusätzlich im privaten Repo unter `docs/literatur/` liegen (D-31), nie im Projektwissen.
 
 ## 13.2 Literaturkandidaten und -auswahl (AP-06)
 
@@ -418,6 +419,8 @@ ID-Konvention:
 
 Statuswerte: `kandidat` (unverifiziert) · `verifiziert` (bibliografisch bzw. PubMed) · `vorgeschlagen` (von der Sitzung empfohlen, vom Athleten noch nicht bestätigt) · `ausgewaehlt` (vom Athleten bestätigt) · `optional` · `zurueckgestellt` · `verweis` · `nicht_aufgenommen`
 
+Volltext (Felder `datei`, `kapitel`, D-51): Pfad relativ zu `docs/literatur/`; fehlt `datei`, liegt noch kein Volltext vor. Verzeichnis aller Dateien: `docs/literatur/README.md`.
+
 Evidenzstufe (Feld `stufe`, D-31): `A` Paper/Konsens (konfidenz hoch) · `B` wissenschaftliches Lehrbuch (mittel) · `C` Praxisquelle (niedrig, kein alleiniger Beleg für Belastungsparameter)
 
 ### 13.2.1 Übergreifend – Allgemeine Trainingslehre (Block bestätigt 2026-09-27)
@@ -427,6 +430,9 @@ Bücher:
 ```yaml
 - id: L-A01
   status: ausgewaehlt
+  datei: uebergreifend/L-A01_Kenney-2019_Physiology-of-Sport-and-Exercise_7ed.pdf
+  vorhanden_auflage: 7. Aufl. 2019, ISBN 978-1-4925-7229-9 – vorläufig; 8. oder 9. Aufl. weiter beschaffen (D-51)
+  kapitel: uebergreifend/L-A01_kapitel/
   typ: Lehrbuch
   autor: Kenney WL, Wilmore JH, Costill DL
   titel: Physiology of Sport and Exercise
@@ -451,6 +457,8 @@ Bücher:
   verifikation: 2. Auflage belegt (Händlerangaben); Erscheinungsjahr und ISBN der 2. Aufl. offen (AP-06)
 - id: L-A03
   status: ausgewaehlt
+  datei: uebergreifend/L-A03_NSCA-2026_Essentials-of-Strength-Training-and-Conditioning_5ed.pdf
+  kapitel: uebergreifend/L-A03_kapitel/
   entschieden_in: Block T2 (2026-09-27), Kernset D-28
   stufe: B
   typ: Lehrbuch
@@ -471,6 +479,7 @@ Paper (Kern der Regelbasis; L-P01–L-P09 per PubMed verifiziert am 2026-09-27):
 ```yaml
 - id: L-P01
   status: ausgewaehlt
+  datei: uebergreifend/L-P01_Kiely-2018_Periodization-Theory.pdf
   thema: Planung/Periodisierung – Kritik
   zitat: "Kiely J. Periodization Theory: Confronting an Inconvenient Truth. Sports Med. 2018;48(4):753-764."
   doi: 10.1007/s40279-017-0823-y
@@ -479,6 +488,7 @@ Paper (Kern der Regelbasis; L-P01–L-P09 per PubMed verifiziert am 2026-09-27):
   zugang: Open Access (PMC)
 - id: L-P02
   status: ausgewaehlt
+  datei: uebergreifend/L-P02_Mujika-2018_Integrated-Approach-to-Periodization.pdf
   thema: Planung/Periodisierung – integrierte Periodisierung (Gegenposition zu L-P01)
   zitat: "Mujika I, Halson S, Burke LM, Balagué G, Farrow D. An Integrated, Multifactorial Approach to Periodization for Optimal Performance in Individual and Team Sports. Int J Sports Physiol Perform. 2018;13(5):538-561."
   doi: 10.1123/ijspp.2018-0093
@@ -486,6 +496,7 @@ Paper (Kern der Regelbasis; L-P01–L-P09 per PubMed verifiziert am 2026-09-27):
   zugang: kein PMC-Volltext
 - id: L-P03
   status: ausgewaehlt
+  datei: uebergreifend/L-P03_Bourdon-2017_Monitoring-Training-Loads-Consensus.pdf
   thema: Belastungsmonitoring – Konsens
   zitat: "Bourdon PC, Cardinale M, Murray A, et al. Monitoring Athlete Training Loads: Consensus Statement. Int J Sports Physiol Perform. 2017;12(Suppl 2):S2161-S2170."
   doi: 10.1123/IJSPP.2017-0208
@@ -493,6 +504,7 @@ Paper (Kern der Regelbasis; L-P01–L-P09 per PubMed verifiziert am 2026-09-27):
   zugang: kein PMC-Volltext
 - id: L-P04
   status: ausgewaehlt
+  datei: uebergreifend/L-P04_Impellizzeri-2019_Internal-and-External-Training-Load.pdf
   thema: Belastungsbegriff intern/extern
   zitat: "Impellizzeri FM, Marcora SM, Coutts AJ. Internal and External Training Load: 15 Years On. Int J Sports Physiol Perform. 2019;14(2):270-273."
   doi: 10.1123/ijspp.2018-0935
@@ -500,6 +512,7 @@ Paper (Kern der Regelbasis; L-P01–L-P09 per PubMed verifiziert am 2026-09-27):
   zugang: kein PMC-Volltext
 - id: L-P05
   status: ausgewaehlt
+  datei: uebergreifend/L-P05_Kellmann-2018_Recovery-and-Performance-Consensus.pdf
   thema: Erholung – Konsens
   zitat: "Kellmann M, Bertollo M, Bosquet L, et al. Recovery and Performance in Sport: Consensus Statement. Int J Sports Physiol Perform. 2018;13(2):240-245."
   doi: 10.1123/ijspp.2017-0759
@@ -507,6 +520,7 @@ Paper (Kern der Regelbasis; L-P01–L-P09 per PubMed verifiziert am 2026-09-27):
   zugang: kein PMC-Volltext
 - id: L-P06
   status: ausgewaehlt
+  datei: uebergreifend/L-P06_Meeusen-2013_Overtraining-Syndrome-Consensus.pdf
   thema: Übertraining – Konsens
   zitat: "Meeusen R, Duclos M, Foster C, et al. Prevention, diagnosis, and treatment of the overtraining syndrome: joint consensus statement of the European College of Sport Science and the American College of Sports Medicine. Med Sci Sports Exerc. 2013;45(1):186-205."
   doi: 10.1249/MSS.0b013e318279a10a
@@ -515,6 +529,7 @@ Paper (Kern der Regelbasis; L-P01–L-P09 per PubMed verifiziert am 2026-09-27):
   hinweis: Zitierfassung ist die in PubMed indexierte MSSE-Fassung (D-24)
 - id: L-P07
   status: ausgewaehlt
+  datei: uebergreifend/L-P07_Schumann-2022_Concurrent-Training-Meta-Analysis.pdf
   thema: Kombiniertes Training (Interferenz Ausdauer/Kraft)
   zitat: "Schumann M, Feuerbacher JF, Sünkeler M, et al. Compatibility of Concurrent Aerobic and Strength Training for Skeletal Muscle Size and Function: An Updated Systematic Review and Meta-Analysis. Sports Med. 2022;52(3):601-612."
   doi: 10.1007/s40279-021-01587-7
@@ -524,6 +539,7 @@ Paper (Kern der Regelbasis; L-P01–L-P09 per PubMed verifiziert am 2026-09-27):
   relevanz: hoch – T1, T2 und T3 laufen parallel
 - id: L-P08
   status: ausgewaehlt
+  datei: uebergreifend/L-P08_Currier-2026_ACSM-Resistance-Training-Prescription.pdf
   thema: Krafttraining – Prinzipien (ersetzt ACSM Position Stand 2009)
   zitat: "Currier BS, D'Souza AC, Singh MAF, et al. American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews. Med Sci Sports Exerc. 2026;58(4):851-872."
   doi: 10.1249/MSS.0000000000003897
@@ -533,6 +549,7 @@ Paper (Kern der Regelbasis; L-P01–L-P09 per PubMed verifiziert am 2026-09-27):
   bezug: auch T2; laut Abstract kein konsistenter Effekt von Periodisierung auf Trainingsergebnisse → relevant für Kontroverse L-P01/L-P02
 - id: L-P09
   status: ausgewaehlt
+  datei: uebergreifend/L-P09_Held-2026_Concurrent-Training-Umbrella-Review.pdf
   thema: Kombiniertes Training – Umbrella-Review (Ergänzung zu L-P07)
   zitat: "Held S, Wolf L, Rappelt L, et al. Maximizing Adaptations in Concurrent Training: An Umbrella Review of Meta-analyses. Sports Med. 2026;56(6):1489-1512."
   doi: 10.1007/s40279-026-02401-y
@@ -576,6 +593,7 @@ Kern:
   verifikation: bibliografisch (Bibliothekskataloge)
 - id: L-T1-02
   status: ausgewaehlt
+  datei: t1-ausdauer/L-T1-02_Seiler-2010_Intensity-and-Duration-Distribution.pdf
   stufe: A
   typ: review
   zitat: "Seiler S. What is best practice for training intensity and duration distribution in endurance athletes? Int J Sports Physiol Perform. 2010;5(3):276-291."
@@ -585,6 +603,7 @@ Kern:
   zugang: nicht in PMC → Beschaffung
 - id: L-T1-03
   status: ausgewaehlt
+  datei: t1-ausdauer/L-T1-03_Casado-2022_Periodization-Elite-Distance-Runners.pdf
   stufe: A
   typ: systematischer_review
   zitat: "Casado A, González-Mohíno F, González-Ravé JM, Foster C. Training Periodization, Methods, Intensity Distribution, and Volume in Highly Trained and Elite Distance Runners: A Systematic Review. Int J Sports Physiol Perform. 2022;17(6):820-833."
@@ -594,6 +613,7 @@ Kern:
   zugang: nicht in PMC; Repositorium Univ. Nebrija weist Open Access aus → prüfen
 - id: L-T1-04
   status: ausgewaehlt
+  datei: t1-ausdauer/L-T1-04_Haugen-2022_World-Class-Distance-Runners.pdf
   stufe: A
   typ: review
   zitat: "Haugen T, Sandbakk Ø, Seiler S, Tønnessen E. The Training Characteristics of World-Class Distance Runners: An Integration of Scientific Literature and Results-Proven Practice. Sports Med Open. 2022;8(1):46."
@@ -604,6 +624,7 @@ Kern:
   zugang: Open Access (PMC), CC BY 4.0
 - id: L-T1-05
   status: ausgewaehlt
+  datei: t1-ausdauer/L-T1-05_Vernillo-2017_Uphill-and-Downhill-Running.pdf
   stufe: A
   typ: review
   zitat: "Vernillo G, Giandolini M, Edwards WB, Morin JB, Samozino P, Horvais N, Millet GY. Biomechanics and Physiology of Uphill and Downhill Running. Sports Med. 2017;47(4):615-629."
@@ -613,6 +634,7 @@ Kern:
   zugang: nicht in PMC → Beschaffung
 - id: L-T1-06
   status: ausgewaehlt
+  datei: t1-ausdauer/L-T1-06_Bortolan-2021_Ski-Mountaineering-Perspectives.pdf
   stufe: A
   typ: perspective
   zitat: "Bortolan L, Savoldelli A, Pellegrini B, Modena R, Sacchi M, Holmberg HC, Supej M. Ski Mountaineering: Perspectives on a Novel Sport to Be Introduced at the 2026 Winter Olympic Games. Front Physiol. 2021;12:737249."
@@ -633,6 +655,8 @@ Kern:
   verifikation: bibliografisch (Verlag, Bibliothekskatalog)
 - id: L-T1-08
   status: ausgewaehlt
+  datei: t1-ausdauer/L-T1-08_House-2019_Training-for-the-Uphill-Athlete.pdf
+  kapitel: t1-ausdauer/L-T1-08_kapitel/
   stufe: C
   typ: praxisquelle
   konfidenz: niedrig (D-25)
@@ -649,6 +673,7 @@ Optional (nur bei Bedarf und Tokenbudget):
 ```yaml
 - id: L-T1-09
   status: optional
+  datei: t1-ausdauer/L-T1-09_Toennessen-2024_Training-Session-Models.pdf
   stufe: C
   typ: qualitative_studie (Trainer als Informanten) → praxisquelle
   konfidenz: mittel (D-25)
@@ -660,6 +685,7 @@ Optional (nur bei Bedarf und Tokenbudget):
   zugang: Open Access (PMC)
 - id: L-T1-10
   status: optional
+  datei: t1-ausdauer/L-T1-10_Sandbakk-2025_Best-Practice-Norwegian-Coaches.pdf
   stufe: C
   typ: multiple_case_study (Trainer) → praxisquelle
   konfidenz: mittel (D-25)
@@ -680,6 +706,7 @@ Optional (nur bei Bedarf und Tokenbudget):
   zugang: nicht in PMC → Beschaffung
 - id: L-T1-12
   status: optional
+  datei: t1-ausdauer/L-T1-12_Joyner-2008_Physiology-of-Champions.pdf
   stufe: A
   typ: review
   zitat: "Joyner MJ, Coyle EF. Endurance exercise performance: the physiology of champions. J Physiol. 2008;586(1):35-44."
@@ -718,6 +745,8 @@ Kernset und Regeln in D-28 bis D-30.
   rolle: NSCA Essentials – Grundlagen, Programmgestaltung, Testung, Technik
 - id: L-T2-03
   status: ausgewaehlt
+  datei: t2-kraft/L-T2-03_Schumann-2019_Concurrent-Aerobic-and-Strength-Training.pdf
+  kapitel: t2-kraft/L-T2-03_kapitel/
   stufe: B
   typ: lehrbuch (Herausgeberwerk)
   zitat: "Schumann M, Rønnestad BR (Hrsg.). Concurrent Aerobic and Strength Training: Scientific Basics and Practical Applications. Cham: Springer; 2019."
@@ -727,6 +756,8 @@ Kernset und Regeln in D-28 bis D-30.
   zugang: Springer, kapitelweise PDF (V-13)
 - id: L-T2-04
   status: ausgewaehlt
+  datei: t2-kraft/L-T2-04_Low-2016_Overcoming-Gravity_2ed.pdf
+  kapitel: t2-kraft/L-T2-04_kapitel/
   stufe: C
   typ: praxisquelle
   konfidenz: niedrig (D-29)
@@ -760,6 +791,7 @@ Kernset und Regeln in D-28 bis D-30.
   zweck: Hypertrophie (kein Primärziel); falls benötigt 3. Aufl., Erscheinen angekündigt 23.10.2026
 - id: L-T2-08
   status: verifiziert
+  datei: t2-kraft/L-T2-08_Kotarsky-2018_Progressive-Push-up-Training.pdf
   stufe: A
   typ: interventionsstudie
   zitat: "Kotarsky CJ, Christensen BK, Miller JS, Hackney KJ. Effect of Progressive Calisthenic Push-up Training on Muscle Strength and Thickness. J Strength Cond Res. 2018;32(3):651-659."
@@ -767,6 +799,7 @@ Kernset und Regeln in D-28 bis D-30.
   zweck: Liegestütz-Progression ≈ Bankdrücken (n = 23, 4 Wochen); Beleg für Calisthenics-Wirksamkeit (D-29)
 - id: L-T2-09
   status: verifiziert
+  datei: t2-kraft/L-T2-09_vandenTillaar-2019_Push-up-vs-Bench-Press.pdf
   stufe: A
   typ: studie (akut)
   zitat: "van den Tillaar R. Comparison of Kinematics and Muscle Activation between Push-up and Bench Press. Sports Med Int Open. 2019;3(3):E74-E81."
@@ -797,6 +830,7 @@ Kernset und Regeln in D-28 bis D-30.
   zweck: Haltung, Rumpf, Rücken – Teilblock Haltung/Rücken noch offen
 - id: L-T2-14
   status: kandidat
+  datei: t2-kraft/L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf
   stufe: A
   typ: systematischer_review_netzwerk_metaanalyse
   zitat: "Cowley N, et al. The Effects of Advanced Resistance Training Prescription Methods on Strength, Power, Hypertrophy, and Performance Adaptations in Healthy Adults: A Systematic Review and Bayesian Network Meta-analysis. Sports Med. 2026;56(8):1955-1977."
@@ -813,6 +847,7 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
 ```yaml
 - id: L-T3-01
   status: ausgewaehlt (kern)
+  datei: t3-klettern/L-T3-01_Stien-2023_Climbing-and-Resistance-Training-Meta-Analysis.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Stien N, Riiser A, Shaw MP, Saeterbakken AH, Andersen V. Effects of climbing- and resistance-training on climbing-specific performance: a systematic review and meta-analysis. Biol Sport. 2023;40(1):179-191."
@@ -823,6 +858,7 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   verifikation: verifiziert
 - id: L-T3-02
   status: ausgewaehlt (kern)
+  datei: t3-klettern/L-T3-02_Langer-2023_Strength-Training-in-Climbing.pdf
   stufe: A
   typ: systematischer_review
   zitat: "Langer K, Simon C, Wiemeyer J. Strength training in climbing: a systematic review. J Strength Cond Res. 2023;37(3):751-767."
@@ -833,14 +869,15 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   verifikation: verifiziert (Bibliografie)
 - id: L-T3-03
   status: ausgewaehlt (kern)
+  datei: t3-klettern/L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf
   stufe: A
   typ: systematischer_review
-  zitat: "Langer K, Simon C, Wiemeyer J. Physical performance testing in climbing – A systematic review. Front Sports Act Living. 2023."
+  zitat: "Langer K, Simon C, Wiemeyer J. Physical performance testing in climbing – A systematic review. Front Sports Act Living. 2023;5:1130812."
   doi: 10.3389/fspor.2023.1130812
-  zugang: Open Access (Lizenz zu verifizieren, V-15)
+  zugang: Open Access, CC BY (laut Volltext; Volltext im Repo zulässig, D-31)
   themenfelder: [leistungsdiagnostik]
   kernaussagen: keine einheitlichen Standardverfahren für Kraft-, Ausdauer-, Beweglichkeitstests; kaum Gütekriterien berichtet → präzise Testempfehlungen nicht möglich; Grundlage für Verlaufstests (AP-08)
-  verifikation: teilweise (Band, Lizenz offen)
+  verifikation: verifiziert (Band 5, Artikel 1130812, Lizenz CC BY laut Volltext, 2026-09-28)
 - id: L-T3-04
   status: ausgewaehlt (ergaenzend)
   stufe: A
@@ -859,6 +896,8 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   verifikation: zu_verifizieren
 - id: L-T3-06
   status: ausgewaehlt (kern)
+  datei: t3-klettern/L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf
+  kapitel: t3-klettern/L-T3-06_kapitel/
   stufe: B
   typ: fachbuch
   zitat: "Schöffl V, Schöffl I, Lutter C, Hochholzer T (Hrsg.). Climbing Medicine – A Practical Guide. Cham: Springer; 2022. 329 S."
@@ -970,25 +1009,27 @@ hinweis: Auflagen der nicht aufgenommenen Werke wurden nicht geprüft.
 
 ## 13.4 Beschaffungsliste (Verantwortung Athlet, D-26)
 
-Formatprüfung je Titel vor dem Kauf (V-13). Alle Blöcke sind bestätigt (D-31).
+Formatprüfung je Titel vor dem Kauf (V-13). Alle Blöcke sind bestätigt (D-31). Spalte „vorhanden“: Abgleich mit `docs/literatur/` (D-51).
 
-| prio | block | quelle | benötigt | formatanforderung | bemerkung |
-|---|---|---|---|---|---|
-| 1 | übergreifend | L-A01 Kenney/Wilmore/Costill | Auflage klären (8. 2022 vs. 9. 2024) | durchsuchbares PDF; Human-Kinetics-Format prüfen | |
-| 1 | übergreifend | L-A02 Ferrauti, 2. Aufl. | Jahr/ISBN offen | Springer-Kapitel-PDF | |
-| 1 | übergreifend | L-P02, L-P03, L-P04, L-P05, L-P06, L-P09 | Artikel | PDF | nicht in PMC → Bibliothekszugang |
-| 1 | T1 | L-T1-01 Hottenrott/Seidel, 2. Aufl. 2025 | Buch | durchsuchbares PDF | Kapitelauswahl (Adaptation, Ausdauer, Periodisierung, Diagnostik) nach Inhaltsverzeichnis |
-| 1 | T1 | L-T1-02 Seiler 2010, L-T1-03 Casado 2022, L-T1-05 Vernillo 2017 | Artikel | PDF | Casado: zuerst freie Repositoriumsfassung prüfen |
-| 1 | T2 | L-A03 NSCA, 5. Aufl. | Buch | kein VitalSource-DRM → Print oder anderer Anbieter | |
-| 1 | T2 | L-T2-03 Schumann/Rønnestad 2019 | Buch | Springer-Kapitel-PDF | |
-| 1 | T2 | L-T2-04 Low, Overcoming Gravity, 2. Aufl. | Buch | PDF/ePUB beim Autor prüfen | |
-| 2 | T1 | L-T1-07 Laursen/Buchheit | Buch | kein VitalSource-DRM | Teil Grundlagen Intervallprogrammierung + Kapitel Lauf/Ausdauer |
-| 2 | T1 | L-T1-08 Uphill Athlete | Buch | PDF bevorzugt; E-Book-DRM prüfen | Praxisquelle |
-| 2 | T3 | L-T3-02 Langer 2023 (JSCR) | Artikel | PDF | kostenpflichtig |
-| 2 | T3 | L-T3-06 Climbing Medicine 2022 (bevorzugt) oder L-T3-07 Klettermedizin 2020 (Alternative) | Buch, eine Ausgabe (D-31) | Springer-Kapitel-PDF | |
-| 2 | T3 | L-T3-08 Köstermeyer, Peak Performance | Buch | PDF-Verfügbarkeit prüfen | aktuelle Auflage klären (V-15) |
-| frei | alle | L-P01, L-P07, L-P08, L-T1-04, L-T1-06, L-T3-01, L-T3-03; optional L-T1-09, L-T1-10, L-T1-12 | – | PDF aus PMC bzw. Verlag (OA) | kein Kauf |
-| bei Bedarf | – | L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-09, L-T3-10, L-T3-11 | – | – | nur wenn optional aktiviert |
+| prio | block | quelle | benötigt | formatanforderung | bemerkung | vorhanden (2026-09-28) |
+|---|---|---|---|---|---|---|
+| 1 | übergreifend | L-A01 Kenney/Wilmore/Costill | Auflage klären (8. 2022 vs. 9. 2024) | durchsuchbares PDF; Human-Kinetics-Format prüfen | | teilweise: 7. Aufl. 2019 als E-Book-PDF, vorläufig (D-51); 8./9. Aufl. offen |
+| 1 | übergreifend | L-A02 Ferrauti, 2. Aufl. | Jahr/ISBN offen | Springer-Kapitel-PDF | | offen |
+| 1 | übergreifend | L-P02, L-P03, L-P04, L-P05, L-P06, L-P09 | Artikel | PDF | nicht in PMC → Bibliothekszugang | ✓ alle |
+| 1 | T1 | L-T1-01 Hottenrott/Seidel, 2. Aufl. 2025 | Buch | durchsuchbares PDF | Kapitelauswahl (Adaptation, Ausdauer, Periodisierung, Diagnostik) nach Inhaltsverzeichnis | offen |
+| 1 | T1 | L-T1-02 Seiler 2010, L-T1-03 Casado 2022, L-T1-05 Vernillo 2017 | Artikel | PDF | Casado: zuerst freie Repositoriumsfassung prüfen | ✓ alle |
+| 1 | T2 | L-A03 NSCA, 5. Aufl. | Buch | kein VitalSource-DRM → Print oder anderer Anbieter | | ✓ E-Book-PDF mit Lesezeichen |
+| 1 | T2 | L-T2-03 Schumann/Rønnestad 2019 | Buch | Springer-Kapitel-PDF | | ✓ Gesamt-PDF |
+| 1 | T2 | L-T2-04 Low, Overcoming Gravity, 2. Aufl. | Buch | PDF/ePUB beim Autor prüfen | | ✓ Scan; Texterkennung fehlerhaft |
+| 2 | T1 | L-T1-07 Laursen/Buchheit | Buch | kein VitalSource-DRM | Teil Grundlagen Intervallprogrammierung + Kapitel Lauf/Ausdauer | offen |
+| 2 | T1 | L-T1-08 Uphill Athlete | Buch | PDF bevorzugt; E-Book-DRM prüfen | Praxisquelle | ✓ Scan mit Texterkennung |
+| 2 | T3 | L-T3-02 Langer 2023 (JSCR) | Artikel | PDF | kostenpflichtig | ✓ |
+| 2 | T3 | L-T3-06 Climbing Medicine 2022 (bevorzugt) oder L-T3-07 Klettermedizin 2020 (Alternative) | Buch, eine Ausgabe (D-31) | Springer-Kapitel-PDF | | ✓ L-T3-06, Gesamt-PDF |
+| 2 | T3 | L-T3-08 Köstermeyer, Peak Performance | Buch | PDF-Verfügbarkeit prüfen | aktuelle Auflage klären (V-15) | offen |
+| frei | alle | L-P01, L-P07, L-P08, L-T1-04, L-T1-06, L-T3-01, L-T3-03; optional L-T1-09, L-T1-10, L-T1-12 | – | PDF aus PMC bzw. Verlag (OA) | kein Kauf | ✓ alle |
+| bei Bedarf | – | L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-09, L-T3-10, L-T3-11 | – | – | nur wenn optional aktiviert | – |
+
+Stand 2026-09-28: 29 Volltexte vorhanden (D-51), Verzeichnis in `docs/literatur/README.md`. Zusätzlich vorhanden, aber nicht auf der Liste: L-T2-14 (Kandidat). Offen sind L-A02, L-T1-01, L-T1-07, L-T3-08 und die 8./9. Aufl. von L-A01. Ausgewählt bzw. verifiziert, aber weder auf der Liste noch vorhanden: L-T2-10, L-T3-04, L-T3-05 (Bibliografie offen, V-15).
 
 # 14. Trainerregeln (Struktur; Inhalte in AP-07)
 
@@ -1306,7 +1347,7 @@ probleme_loesungen:
      - `docs/wissen/t1-ausdauer.md` ← L-T1-01 bis L-T1-08 (Karten: Intensitätsverteilung und Zonenmodell D-27; Bergauf-Ausdauer und Skitour-Spezifik; Intervallprogrammierung); optionale Quellen nur bei konkreter Planungsfrage; Budget ca. 8 000–10 000 Tokens
      - `docs/wissen/t2-kraft-haltung.md` ← L-P08, L-A03, L-T2-03 (Karten: Dosierung und Progression; kombiniertes Training Kraft/Ausdauer) plus Abschnitt `uebungskatalog_calisthenics` aus L-T2-04 mit Belegen L-T2-08 bis L-T2-10 (D-29); Haltung/Rücken nach Teilblock
      - `docs/wissen/t3-klettern.md` ← L-T3-01, -02, -03, -06 (bzw. -07), -08; optional -09 (Karten: kletterspezifisches Krafttraining und Spezifitätsschema; Leistungsdiagnostik und Verlaufstests; Verletzungsprävention/Schmerz); Stufe-C-Quellen nur als Ideenfundus (D-31); Kennzeichnung „Evidenz: begrenzt"
-  4. Offene Punkte: Jahr/ISBN L-A02 (2. Aufl.); Auflage L-A01 (8. vs. 9.); Bibliografie L-P10–L-P13 (V-06, V-07); V-14 (L-T2-11, L-T2-12); V-15 (T3-Lücken); Teilblock Haltung/Rücken (L-T2-13 bewerten, Alternativen suchen); Bewertung L-T2-14; Karten-Template (Schema: Kernaussage + Quelle + Seite + Stufe + konfidenz + Themenfeld); Kartenerstellung nach Beschaffung.
+  4. Offene Punkte: Jahr/ISBN L-A02 (2. Aufl.); Auflage L-A01 (7. Aufl. vorläufig vorhanden, 8. oder 9. beschaffen, D-51); Bibliografie L-P10–L-P13 (V-06, V-07); V-14 (L-T2-11, L-T2-12); V-15 (T3-Lücken); Teilblock Haltung/Rücken (L-T2-13 bewerten, Alternativen suchen); Bewertung L-T2-14; Karten-Template (Schema: Kernaussage + Quelle + Seite + Stufe + konfidenz + Themenfeld); Kartenerstellung nach Beschaffung.
 - **Abhängigkeiten:** keine (Chat-Arbeit); Kartenerstellung erst nach Beschaffung.
 - **Abnahmekriterien:** Karten liegen in `docs/wissen/` und im Projekt-Wissen; jede Kernaussage hat Quelle mit Seite bzw. DOI/PMID und Evidenzstufe; V-06, V-07, V-14, V-15 erledigt; Gesamtbudget 13.1 eingehalten.
 - **Status:**
@@ -1320,7 +1361,7 @@ teilschritte:
   - Literaturauswahl T2 Kraft/Calisthenics: erledigt (D-28–D-30)
   - Literaturauswahl T2 Haltung/Rücken: offen
   - Literaturauswahl T3 Klettern/Bouldern: erledigt (D-31)
-  - Beschaffung und Formatprüfung: offen (13.4, V-13)
+  - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-28 – 29 Volltexte sortiert und umbenannt, Kapitel-PDFs für 6 Bücher, D-51; offen nach 13.4 sind L-A02, L-T1-01, L-T1-07, L-T3-08 und L-A01 in 8./9. Aufl.)
   - Primärquellen verifizieren: offen (V-06, V-07, V-14, V-15)
   - Karten-Template und Karten: offen
 probleme_loesungen:
@@ -1360,6 +1401,24 @@ probleme_loesungen:
   - datum: 2026-09-27
     was: Block T3 – abweichendes Evidenzschema (A/B/C) und strengere Regel für Praxisquellen (E4) gegenüber D-25/D-29
     loesung: Vereinheitlicht als D-31 (bestätigt); Feld `stufe` in 13.2 eingeführt
+  - datum: 2026-09-28
+    was: 29 PDFs unsortiert in docs/literatur/ mit Verlags- und Archivdateinamen (z. B. s40279-017-0823-y.pdf, „… Anna’s Archive.pdf“)
+    loesung: jede Datei am Inhalt (Titel, Autoren, DOI) identifiziert und einer ID aus 13.2 zugeordnet; alle DOIs stimmen mit 13.2 überein; nach D-51 umbenannt und in Blockordner sortiert; Felder `datei`/`kapitel` und Spalte „vorhanden“ in 13.4 ergänzt
+  - datum: 2026-09-28
+    was: Kenney/Wilmore/Costill liegt in der 7. Aufl. (2019) vor, ausgewählt ist die 8. (2022)
+    loesung: Athlet entscheidet – 7. Aufl. vorläufig, 8./9. Aufl. bleibt auf der Beschaffungsliste (D-51)
+  - datum: 2026-09-28
+    was: Bücher bis 1876 Seiten und 65 MB, für Chat-Sitzungen zu groß (13.1 Schritt 1)
+    loesung: Kapitel-PDFs nach Lesezeichen (NSCA, Kenney, Climbing Medicine, Concurrent Training) bzw. nach im Text gefundenen Kapitelanfängen (Scans Uphill Athlete, Overcoming Gravity); 179 Dateien mit 4–59 Seiten, Seitensummen je Buch geprüft
+  - datum: 2026-09-28
+    was: Kapitel-PDFs der E-Books zunächst bis dreimal so groß wie das Buch (Vorspann Kenney 45 MB bei 34 Seiten)
+    loesung: interne Sprungverweise (Inhaltsverzeichnis, Index) zogen die Zielseiten samt Ressourcen mit; Kapitel-PDFs ohne Link-Annotationen erzeugt → zusammen 258 MB, größte Datei 11 MB; Links bleiben im Original
+  - datum: 2026-09-28
+    was: Scans ohne Lesezeichen mit Unregelmäßigkeiten – Uphill Athlete – PDF-Seiten 88–89 wiederholen 86–87, Druckseiten 149–150 fehlen; Overcoming Gravity – fehlerhafte Texterkennung (z. B. „ANO“ statt „AND“), PDF-Seiten 577/578 vertauscht
+    loesung: Druckseiten je Abschnitt aus dem Versatz berechnet und in docs/literatur/README.md dokumentiert; bei Zitaten aus Overcoming Gravity Wortlaut gegen das Seitenbild prüfen
+  - datum: 2026-09-28
+    was: Die Kapitel-PDFs vergrößern das Repo um 258 MB (zusammen mit den Originalen rund 540 MB PDFs); der CI-Lauf checkt das ganze Repo aus
+    loesung: Deployment lädt nur server/ hoch (geprüft); beobachten, bei Bedarf Sparse-Checkout ohne docs/literatur im Workflow
 ```
 Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage von `docs/pruefung/pruefprotokoll.md` als AP-06-Block zu übernehmen.
 
@@ -1629,3 +1688,4 @@ noch_zu_pruefen:
 | 2026-09-28 | Deployment 0.13.0 auf training.gen-em.org (Merge PR #7), Schema 18. Prüfungen durch den Athleten eingetragen: Setup, Intervals.icu (GET, Event-POST), Claude-Connector (Web), Cron-Abgleich, Backup-Mail, Entschlüsselung, Passkey, Offline; V-04 und V-05 teilweise bestätigt. |
 | 2026-09-28 | Konsistenz: Athletenprofil und K5 verwiesen fälschlich auf K2 statt K3; 3.3 beschreibt jetzt den Spiegel (D-43) statt „live“. |
 | 2026-09-28 | Neu: AP-11 Kalender per CalDAV (D-50) auf Wunsch des Athleten, direkt umgesetzt (Code-Stand 0.14.0); K8 in 3.1/3.2/3.3 ergänzt. |
+| 2026-09-28 | Literatur-Volltexte abgeglichen, umbenannt und in Blockordner sortiert (D-51); Bücher zusätzlich als Kapitel-PDFs. 13.1 Schritt 1, 13.2 (Felder `datei`/`kapitel`, L-A01 vorhandene Auflage, L-T3-03 Band und Lizenz), 13.4 Spalte „vorhanden“, V-13 teilweise, V-15 L-T3-03 erledigt, AP-06 Teilschritt Beschaffung teilweise. |
