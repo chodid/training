@@ -71,6 +71,7 @@ AP-13: App-Icon und Logo (D-55, D-59) sowie Begründungstexte der Planung (D-56)
 - `server/public/icons/icon-192.png`, `icon-512.png`, `icon-512-maskable.png` (Lama-Kopf); der Build kopiert `lama-kopf.svg` nicht mehr (der Kopf bleibt im Design-System).
 
 ### Dokumentation
+- Sechs weitere Literatur-Volltexte einsortiert und eingetragen: L-P10 Foster 2001, L-P12 Impellizzeri 2020, L-P13 Silbernagel 2007, L-T2-17 Shiri 2018, L-T2-18 Steffens 2016, L-T3-04 Draper 2015.
 - Konzeptentwurf `docs/konzept/gefuehrte-einheit.md` (Fable): App-Icon und Logo auf das ganze Lama (D-55, Q-14), Begründungstexte je Woche und Einheit mit Kurzsatz und „mehr“ (D-56), geführte Einheit mit Timer, Farbwechsel und Signalen (D-57, D-58); AP-13 und AP-14 im Hauptkonzept; vom Athleten bestätigt, Logo-Variante D-59 (V3 App-Icon, V2 Favicon und Kennung). Mockups `s9-einheit-gefuehrt.html` (fünf Zustände) und `icon-optionen.html` (fünf Logo-Varianten), S2/S3/S8 angepasst, Icons `player-play`, `player-pause`, `player-skip-back`, `volume`, `volume-off` ergänzt (Branding B-08, B-09).
 - Konzept: Übergaben AP-06 Teil B (Verifikation L-P10–L-P14, L-T2-11/-12, T3) und Teil A (Haltung/Rücken, L-T2-15–L-T2-19) eingearbeitet; neu D-54 und Q-13; Beschaffungsliste 13.4 ergänzt.
 
