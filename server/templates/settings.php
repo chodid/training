@@ -43,7 +43,7 @@ $scopeText = static fn (string $s): string => str_contains($s, 'training:write')
   <section>
     <div class="section-title"><h2>Training</h2></div>
     <div class="card list">
-      <form class="list-item timer-zeile" method="post" action="/einstellungen">
+      <form class="list-item timer-zeile" method="post" action="/einstellungen" data-timer-ton="<?= $timerTon ? 'an' : 'aus' ?>">
         <input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>">
         <input type="hidden" name="action" value="timer">
         <div><div class="t">Timer-Signale</div><div class="s">Ton und Vibration im geführten Modus (Start, 30 s, 10 s, 3-2-1) · in der Einheit jederzeit umschaltbar</div></div>

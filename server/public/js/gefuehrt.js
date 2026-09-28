@@ -481,6 +481,23 @@
     }
   }
 
+  /**
+   * Vorgabe der Timer-Signale aus S8 (E-18): frisch geladen gilt data-ton und wird auf dem Gerät gemerkt; eine offline
+   * gezeigte Seite nimmt den gemerkten Wert (die Einstellung kann seit dem Vorladen geändert worden sein).
+   */
+  function timerVorgabe(seite) {
+    try {
+      if (document.body.hasAttribute('data-offline-stand')) {
+        const gemerkt = localStorage.getItem('training.timer_ton');
+        return (gemerkt === 'an' || gemerkt === 'aus' ? gemerkt : seite) !== 'aus';
+      }
+      localStorage.setItem('training.timer_ton', seite === 'aus' ? 'aus' : 'an');
+    } catch (e) {
+      // ohne Speicher gilt die Seite
+    }
+    return seite !== 'aus';
+  }
+
   function einrichten() {
     const form = document.querySelector('form[data-gefuehrt]');
     if (!form) {
@@ -499,7 +516,7 @@
     }
     const schluessel = SCHLUESSEL + form.getAttribute('data-session');
     const stand = (form.querySelector('input[name="stand"]') || {}).value || '';
-    const tonStandard = form.getAttribute('data-ton') !== 'aus';
+    const tonStandard = timerVorgabe(form.getAttribute('data-ton'));
     const dauerAusPlan = form.getAttribute('data-dauer-plan') === '1';
     const abschnitte = Array.from(form.querySelectorAll('.gf-step'));
     const aktionen = document.getElementById('gf-aktionen');

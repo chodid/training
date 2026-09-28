@@ -179,6 +179,7 @@ final class GuidedSessionTest extends AppTestCase
         $after = $this->request('GET', '/einstellungen?ok=timer');
         self::assertStringContainsString('Timer-Signale gespeichert.', $after->body);
         self::assertMatchesRegularExpression('/name="timer_ton" value="aus" checked>/', $after->body);
+        self::assertStringContainsString('data-timer-ton="aus"', $after->body, 'offline.js merkt den Wert für offline gezeigte S9');
         self::assertStringContainsString('data-ton="aus"', $this->request('GET', '/einheit?id=' . $this->ids['kraft'] . '&modus=start')->body);
         self::assertSame('timer_ton', $this->pdo->query("SELECT entity_id FROM audit_log WHERE action = 'setting_update'")->fetchColumn());
 

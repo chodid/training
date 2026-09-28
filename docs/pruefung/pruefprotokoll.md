@@ -597,7 +597,7 @@ geprueft:
     datum: 2026-09-28
 noch_zu_pruefen:
   - was: P-A2 – Chrome Desktop, DevTools → Application → Manifest ohne Fehler, alle Icons geladen; erwartet nur die zwei Hinweise „Richer PWA Install UI … desktop/mobile“ (keine Screenshots im Manifest, Auftrag O-05)
-    wie: manuell durch Athlet (nach Deployment; 0.17.0 und 0.18.0 kommen gemeinsam mit einem Pull Request)
+    wie: manuell durch Athlet (nach Deployment; 0.17.0 bis 0.19.0 kommen gemeinsam mit einem Pull Request)
   - was: P-A3 – LibreWolf Android, von /login und von /woche „Zum Startbildschirm“ → beide Male Lama-Icon (V3)
     wie: Gerätetest durch Athlet (alte Verknüpfung vorher entfernen); Screenshot ins Prüfprotokoll
   - was: P-A4 – LibreWolf about:config dom.serviceWorkers.enabled, dom.manifest.enabled notieren
@@ -609,7 +609,7 @@ noch_zu_pruefen:
   - was: P-A1 erneut mit dem neuen Icon (V3) in Chrome Android
     wie: Gerätetest durch Athlet
   - was: T2 – Wochenplan aus dem Projekt-Chat mit focus, coach_notes, coach_summary und coach_rationale schreiben (Connector ggf. neu verbinden); ohne Kurzsatz meldet das Tool die fehlenden Felder
-    wie: manuell durch Athlet im Trainer-Chat (nach Deployment; 0.17.0 und 0.18.0 kommen gemeinsam mit einem Pull Request)
+    wie: manuell durch Athlet im Trainer-Chat (nach Deployment; 0.17.0 bis 0.19.0 kommen gemeinsam mit einem Pull Request)
   - was: T2 – S2 und S3 auf dem Smartphone: Kurzsatz sichtbar, „mehr“ klappt auf (auch mit abgeschaltetem JavaScript)
     wie: manuell durch Athlet
   - was: T2 – Kalendertermin im Nextcloud-Kalender zeigt den Kurzsatz als erste Zeile der Beschreibung (bei mehreren Einheiten eines Tages je Abschnitt nach der Überschrift „Typ: Titel“, D-60)
@@ -682,13 +682,17 @@ geprueft:
     wie: Durchsicht und Suche nach veralteten Angaben (Termin je Einheit, „✓“, SessionEvent, Zählerstände, Port) + unabhängiges Review der Dokumente zu T8
     ergebnis: ok
     datum: 2026-09-28
+  - was: "Abschluss-Review T6: S9 mit „an“ vorgeladen, danach S8 auf „aus“ – ohne Netz startet die gespeicherte S9 stumm (Wert aus localStorage); S8 trägt data-timer-ton; Gegenprobe ohne Korrektur schlägt fehl"
+    wie: automatisiert (Playwright, run.sh, Z-12-Teil; GuidedSessionTest)
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: T5 Gerätetest Android – Töne und Vibration bei Start, 30 s, 10 s, 3-2-1 und Abschluss hörbar/spürbar; Grün/Rot und Browserleiste; Bildschirm bleibt während der Einheit an; Stumm in der Einheit (Blinken auch in der 3-s-Pause bei Hangboard 7/3); Fortsetzen nach versehentlichem Neuladen; Tipp kurz vor Phasenende wirkt wie erwartet (kein Sprung zur nächsten Übung)
-    wie: Gerätetest durch Athlet (nach Deployment 0.18.0), am besten mit einer Einheit mit Haltezeiten (z. B. Unterarmstütz 45 s)
+    wie: Gerätetest durch Athlet (nach Deployment 0.19.0), am besten mit einer Einheit mit Haltezeiten (z. B. Unterarmstütz 45 s)
   - was: O-06 – 30-s-Ton erst bei Phasen über 45 s (Z-01) statt ab 45 s (E-17) bestätigen; Tonhöhen/-längen nach Gehör anpassen (O-04)
     wie: Rückmeldung des Athleten nach dem Gerätetest
   - was: T6 im Flugmodus auf dem Smartphone – Woche mit Netz öffnen, dann Flugmodus; geführte Einheit von heute öffnen (aus dem Cache), durchgehen, speichern („Offline gespeichert“), Netz an → Rückmeldung erscheint in der Woche; Einstellung „Timer-Signale aus“ → S9 startet stumm
-    wie: Gerätetest durch Athlet (nach Deployment 0.18.0)
+    wie: Gerätetest durch Athlet (nach Deployment 0.19.0)
 ```
 
 ## AP-05 MCP-Tools produktiv

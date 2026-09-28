@@ -88,6 +88,16 @@
       status.__fixed = notes;
     }
 
+    // Timer-Signale (S8) auf dem Gerät merken: eine offline gezeigte geführte Einheit trägt den Stand ihres Ladens
+    var timerTon = document.querySelector('[data-timer-ton]');
+    if (timerTon && !stand) {
+      try {
+        localStorage.setItem('training.timer_ton', timerTon.getAttribute('data-timer-ton'));
+      } catch (e) {
+        // ohne Speicher gilt offline der Stand der gespeicherten Seite
+      }
+    }
+
     var prefetchEl = document.getElementById('offline-prefetch');
     if (prefetchEl && !stand && navigator.onLine) {
       try {

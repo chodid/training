@@ -248,13 +248,14 @@ value:
 
 ### 6.6 Einstellungen (S8)
 
-Bereich „Training“: Zeile „Timer-Signale“ mit Schalter Ton/Vibration `an`/`aus` (`app_setting.timer_ton`, Standard `an`); Untertext „Gilt für den geführten Modus; in der Einheit jederzeit umschaltbar“. Umsetzung als Formular mit zwei Radio-Optionen (kein JS nötig).
+Bereich „Training“: Zeile „Timer-Signale“ mit Schalter Ton/Vibration `an`/`aus` (`app_setting.timer_ton`, Standard `an`); Untertext wie im Mockup S8: „Ton und Vibration im geführten Modus (Start, 30 s, 10 s, 3-2-1) · in der Einheit jederzeit umschaltbar“ (zuvor hier „Gilt für den geführten Modus; in der Einheit jederzeit umschaltbar“; angeglichen nach dem Abschluss-Review). Umsetzung als Formular mit zwei Radio-Optionen und „Speichern“ (kein JS nötig).
 
 ### 6.7 Offline
 
 - `/einheit?id=…&modus=start` ist über `PAGE_PATHS` bereits cachefähig (Schlüssel enthält die Query). `WeekController::prefetch` nimmt für heutige und morgige geeignete Einheiten zusätzlich die Start-Adresse auf.
 - Speichern offline: unverändert über den Formular-Puffer (`data-offline-form`); der Zustandsspeicher wird erst nach der Antwort 204/Weiterleitung gelöscht.
 - Skript `js/gefuehrt.js` kommt in `PRECACHE` (mit Version).
+- Die Vorgabe `timer_ton` steht in der gespeicherten Seite; S8 und jede online geladene S9 merken sie zusätzlich auf dem Gerät (`localStorage` `training.timer_ton`), eine offline gezeigte S9 nimmt diesen Wert (Abschluss-Review).
 
 ### 6.8 Zugänglichkeit und Gestaltung
 
@@ -589,6 +590,10 @@ T6:
   probleme_loesungen:
     - was: 6.6 sieht einen Schalter ohne JavaScript vor; ein Radio-Segment speichert ohne Skript nicht von selbst
       loesung: kleines Formular in der Zeile mit Segment An/Aus und Knopf „Speichern“; auf schmalen Geräten steht die Bedienung unter dem Text
+    - was: "Abschluss-Review: Eine vorgeladene S9 trägt timer_ton aus der Zeit des Vorladens; nach „Aus“ in S8 startete sie offline trotzdem mit Ton (Vorladen erneuert Seiten erst nach 10 min)"
+      loesung: S8 (data-timer-ton, offline.js) und jede online geladene S9 merken den Wert in localStorage training.timer_ton; eine offline gezeigte S9 (data-offline-stand) nimmt diesen Wert. Browser-Test: S9 vorgeladen mit „an“, S8 auf „aus“, ohne Netz startet S9 stumm (Gegenprobe ohne Korrektur schlägt fehl)
+    - was: "Abschluss-Review: Untertext in 6.6 wich von Mockup und Umsetzung ab"
+      loesung: 6.6 an das Mockup S8 angeglichen (Umsetzung folgte dem Mockup)
 T7:
   status: umgesetzt          # Code-Stand 0.18.0 (Dokumentation zu T1–T6; T8 mit 0.19.0)
   datum: 2026-09-28
@@ -626,7 +631,7 @@ T8:
   abnahme_offen: Nextcloud-Kalender nach Deploy und Abgleich (Web und Handy) durch den Athleten
   probleme_loesungen:
     - was: Bestehende Einzeltermine je Einheit im Kalender des Athleten
-      loesung: der Abgleich erkennt training-session-<id>.ics weiter als eigene Termine und löscht sie im Zeitraum (7 Tage zurück bis 8 Wochen voraus); bis zum nächsten stündlichen Abgleich (oder Knopf in S8) kann ein Tag doppelt erscheinen; ältere Einzeltermine bleiben als Verlauf
+      loesung: der Abgleich erkennt training-session-<id>.ics weiter als eigene Termine und löscht sie im Zeitraum (7 Tage zurück bis 8 Wochen voraus); bis zum nächsten stündlichen Abgleich (oder Knopf in S8) kann ein Tag doppelt erscheinen; ältere Einzeltermine unberührter Einheiten bleiben als Verlauf
     - was: Nach Verschieben oder Ersetzen muss auch der alte Tag neu gebildet werden
       loesung: Termine werden nicht je Einheit, sondern je Tag aus der Datenbank gebildet; die Tools übergeben alle betroffenen Tage (alt und neu), ein leerer Tag verliert seinen Termin
     - was: Audit-Eintrag calendar_error bezog sich auf eine Einheit

@@ -323,10 +323,16 @@ async function haupt(page) {
   await offline.waitForFunction(() => navigator.serviceWorker.getRegistration().then((r) => !!(r && r.active)), null, { timeout: 15000 });
   await offline.reload(); // jetzt vom Service Worker kontrolliert
   assert.ok(await offline.evaluate(() => !!navigator.serviceWorker.controller), 'Service Worker aktiv');
+  assert.equal(await offline.getAttribute('#gf-stumm', 'aria-pressed'), 'false', 'S8 „an“ beim Vorladen');
+  // S8 nach dem Vorladen auf „aus“: die offline gezeigte S9 (gespeichert mit „an“) übernimmt die Einstellung
+  await offline.goto(P + '/einstellungen');
+  await offline.locator('label:has(input[name="timer_ton"][value="aus"])').click();
+  await Promise.all([offline.waitForURL(/ok=timer/), offline.click('form:has(input[name="timer_ton"]) button[type=submit]')]);
   netzAus = true; // T6: S9 öffnet ohne Netz aus dem Seiten-Cache
-  await offline.reload();
+  await offline.goto(P + '/einheit?id=' + haltungId + '&modus=start');
   assert.ok(await offline.evaluate(() => document.body.hasAttribute('data-offline-stand')), 'gespeicherter Stand');
   assert.equal(await offline.textContent('#gf-aktionen [data-aktion="haupt"] .gf-text'), 'Satz erledigt', 'Skript läuft offline');
+  assert.equal(await offline.getAttribute('#gf-stumm', 'aria-pressed'), 'true', 'Timer-Signale „aus“ aus S8 gilt auch offline');
   netzAus = false;
   await offline.click('#gf-aktionen [data-aktion="haupt"]'); // Satz erledigt → fertig
   await offline.click('#gf-aktionen [data-aktion="haupt"]'); // Zum Abschluss
