@@ -1,7 +1,7 @@
 ---
 titel: Datenmodell – ER-Diagramm und Umsetzungsdetails
-bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitt 7, AP-01 (D-35), AP-03, AP-09 (D-43, D-44, D-48), AP-11 (D-52), AP-12 (D-53)
-schemastand: 21 (Migrationen 0001–0021)
+bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitt 7, AP-01 (D-35), AP-03, AP-09 (D-43, D-44, D-48), AP-11 (D-52), AP-12 (D-53), AP-13 (D-56)
+schemastand: 22 (Migrationen 0001–0022)
 ---
 
 # Datenmodell
@@ -93,8 +93,8 @@ erDiagram
         int id PK
         int block_id FK
         date week_start UK
-        varchar focus
-        text coach_notes
+        varchar focus "Kurzsatz"
+        text coach_notes "Begründung"
         enum status
         enum created_by
     }
@@ -108,7 +108,8 @@ erDiagram
         smallint planned_duration_min
         bigint intervals_event_id UK
         json plan_json
-        text coach_rationale
+        varchar coach_summary "Kurzsatz, AP-13"
+        text coach_rationale "Begründung"
         enum status
         smallint sort_order
     }
@@ -213,6 +214,7 @@ erDiagram
 | Löschen | Woche → Einheiten → Durchführung kaskadierend; Schmerzereignisse bleiben erhalten (`session_id` wird `NULL`); ein Block mit Wochen lässt sich nicht löschen |
 | JSON | `plan_json`, `actual_json`, `goal_events_json` als `JSON` (Datenbank prüft Syntax); Struktur prüft `Training\Plan\PlanValidator` gegen `server/schemas/` |
 | Montag | `training_week.week_start` muss ein Montag sein – Prüfung in der Anwendung (AP-04/AP-05) |
+| Begründungstexte (D-56) | Woche: `focus` VARCHAR(255) = Kurzsatz (Pflicht in `write_week_plan`), `coach_notes` = ausführlicher Text; Einheit: `coach_summary` VARCHAR(200) = Kurzsatz (Migration 0022, Pflicht außer `ruhe`), `coach_rationale` = ausführlicher Text. Längen (Kurzsatz Woche ≤ 255, Einheit ≤ 200, Texte ≤ 1 500 Zeichen) prüft die Anwendung (`WriteTools`); Altdaten vor AP-13 behalten `coach_rationale` ohne Kurzsatz |
 
 ## JSON-Schemata (`server/schemas/`)
 

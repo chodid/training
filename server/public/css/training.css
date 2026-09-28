@@ -46,3 +46,11 @@ form:has(input[name="pain"][value="ja"]:checked) .reveal{display:grid;gap:var(--
 @supports not selector(:has(*)){.osg-schwellung{display:flex}}
 details.more>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap}
 details.more>summary .hint{font-weight:400}
+
+/* Begründung der Planung (AP-13, D-56): Kurzsatz sichtbar, „mehr“ klappt ohne JavaScript auf (details) */
+.kurz{color:var(--text-secondary)}
+details.mehr>summary{color:var(--text-brand);list-style:none;gap:var(--space-1)}
+details.mehr>summary::-webkit-details-marker{display:none}
+details.mehr>summary .ic{transition:transform 150ms ease-out}
+details.mehr[open]>summary .ic{transform:rotate(90deg)}
+details.mehr>p{color:var(--text-secondary);padding-bottom:var(--space-2);max-width:70ch;white-space:pre-line;overflow-wrap:anywhere}

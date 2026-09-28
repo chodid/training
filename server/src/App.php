@@ -24,7 +24,7 @@ final class App
     public const VERSION = '0.17.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
-    public const SCHEMA_VERSION = 21;
+    public const SCHEMA_VERSION = 22;
 
     private ?Config $config = null;
     private ?PDO $pdo = null;

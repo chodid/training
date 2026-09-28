@@ -31,12 +31,12 @@ final class ToolRegistry
         $date = ['type' => 'string', 'pattern' => '^\\d{4}-\\d{2}-\\d{2}$'];
 
         $mcp->tool('get_week_overview',
-            'Wochenübersicht (aggregiert): je Einheit Plan vs. Ist (Dauer, RPE, sRPE-Last, Gefühl, Abweichung), Ausdauer mit Aktivität aus Intervals.icu, Summen und Compliance, Schmerz der Woche, Check-in-Mittel und Abdeckung, Morgentest je Tag (Steuerwert, Ampel; Tage grün, Abdeckung), Fitness/Ermüdung/Form. Ohne week_start die laufende Woche.',
+            'Wochenübersicht (aggregiert): Kurzsatz (fokus) und Begründung der Woche, je Einheit Kurzsatz (kurz) und Plan vs. Ist (Dauer, RPE, sRPE-Last, Gefühl, Abweichung), Ausdauer mit Aktivität aus Intervals.icu, Summen und Compliance, Schmerz der Woche, Check-in-Mittel und Abdeckung, Morgentest je Tag (Steuerwert, Ampel; Tage grün, Abdeckung), Fitness/Ermüdung/Form. Ohne week_start die laufende Woche.',
             fn (?string $week_start = null): CallToolResult => $this->run('training:read', fn () => $this->reads()->weekOverview($week_start)),
             title: 'Wochenübersicht', inputSchema: ['properties' => ['week_start' => $date + ['description' => 'Montag der Woche (andere Tage werden auf Montag gerundet)']]], annotations: $read);
 
         $mcp->tool('get_session_detail',
-            'Details einer Einheit: plan_json, actual_json, Rückmeldung, Schmerzereignisse, Trainer-Begründung, bei Ausdauer die Aktivität.',
+            'Details einer Einheit: plan_json, actual_json, Rückmeldung, Schmerzereignisse, Kurzsatz (coach_summary) und ausführliche Begründung (coach_rationale), bei Ausdauer die Aktivität.',
             fn (int $session_id): CallToolResult => $this->run('training:read', fn () => $this->reads()->sessionDetail($session_id)),
             title: 'Einheit', inputSchema: ['properties' => ['session_id' => ['type' => 'integer']], 'required' => ['session_id']], annotations: $read);
 
@@ -70,6 +70,9 @@ final class ToolRegistry
                 'include_history' => ['type' => 'boolean', 'default' => false, 'description' => 'Fassungen des Abschnitts (nur mit section), neueste zuerst, höchstens 20'],
             ]], annotations: $read);
 
+        // Begründungstexte der Planung (AP-13, E-10): Regel je Feld in der Beschreibung, damit Claude sie beim Planen sieht
+        $summaryRule = 'Kurzsatz der Einheit: ein Satz, höchstens ' . WriteTools::SUMMARY_MAX . ' Zeichen, sagt Was und Warum (z. B. „Zweite Krafteinheit, Last wie letzte Woche, Fokus Tiefe – Sehne noch reizbar“). Pflicht außer bei ruhe.';
+        $textRule = 'höchstens ' . WriteTools::TEXT_MAX . ' Zeichen, 2–6 Sätze mit Bezug auf Blockziel, Belastungssteuerung und Befunde (Morgentest, Schmerz, Wellness), ohne Literaturzitate; erwartet, aber nicht Pflicht.';
         $sessionSchema = [
             'type' => 'object',
             'required' => ['date', 'type', 'title'],
@@ -80,12 +83,13 @@ final class ToolRegistry
                 'priority' => ['enum' => ['A', 'B', 'C'], 'default' => 'B'],
                 'planned_duration_min' => ['type' => 'integer', 'minimum' => 1, 'maximum' => 600],
                 'plan_json' => ['type' => ['object', 'null'], 'description' => 'Schema je Typ (Konzept 7.1): kraft/haltung/mobilitaet {exercises:[{name,sets,reps,load,tempo,rest_s,notes}]}, klettern {blocks:[{kind,spezifitaet,edge_mm,grip,hang_s,rest_s,sets,added_load_kg,duration_min,target,notes}]}, ausdauer {intervals_workout_text,target_type(hf_zone|pace|rpe),summary,sport(Run…)}, ruhe null'],
-                'coach_rationale' => ['type' => 'string'],
+                'coach_summary' => ['type' => 'string', 'maxLength' => WriteTools::SUMMARY_MAX, 'description' => $summaryRule],
+                'coach_rationale' => ['type' => 'string', 'maxLength' => WriteTools::TEXT_MAX, 'description' => 'Ausführliche Begründung der Einheit („mehr“ in der App): ' . $textRule],
                 'sort_order' => ['type' => 'integer'],
             ],
         ];
         $mcp->tool('write_week_plan',
-            'Schreibt den bestätigten Wochenplan (D-11): Einheiten in die Datenbank, Ausdauereinheiten zusätzlich als Workout in Intervals.icu (→ Uhr). Alle Einheiten werden vorher geprüft; bei Fehlern wird nichts geschrieben. replace_existing ersetzt nur geplante Einheiten ohne Rückmeldung. Intervals-Fehler werden je Einheit gemeldet.',
+            'Schreibt den bestätigten Wochenplan (D-11): Einheiten in die Datenbank, Ausdauereinheiten zusätzlich als Workout in Intervals.icu (→ Uhr). Alle Einheiten werden vorher geprüft; bei Fehlern wird nichts geschrieben. replace_existing ersetzt nur geplante Einheiten ohne Rückmeldung. Intervals-Fehler werden je Einheit gemeldet. Begründung (E-10): focus ist Pflicht (Kurzsatz der Woche, Was und warum), coach_notes der ausführliche Text der Woche; je Einheit coach_summary Pflicht außer bei ruhe, coach_rationale ausführlich. Die App zeigt den Kurzsatz, den ausführlichen Text hinter „mehr“.',
             fn (string $week_start, array $sessions, bool $replace_existing = false, ?string $focus = null, ?string $coach_notes = null): CallToolResult
                 => $this->run('training:write', fn () => $this->writes()->writeWeekPlan($week_start, $sessions, $replace_existing, $focus, $coach_notes), true),
             title: 'Wochenplan schreiben',
@@ -93,13 +97,13 @@ final class ToolRegistry
                 'week_start' => $date + ['description' => 'Montag der Woche'],
                 'sessions' => ['type' => 'array', 'items' => $sessionSchema, 'minItems' => 1],
                 'replace_existing' => ['type' => 'boolean', 'default' => false],
-                'focus' => ['type' => 'string'],
-                'coach_notes' => ['type' => 'string'],
-            ], 'required' => ['week_start', 'sessions']],
+                'focus' => ['type' => 'string', 'minLength' => 1, 'maxLength' => WriteTools::FOCUS_MAX, 'description' => 'Kurzsatz der Woche: ein Satz, höchstens ' . WriteTools::FOCUS_MAX . ' Zeichen, sagt Was und Warum (z. B. „Ausdauerwoche mit zwei Intervalleinheiten, Kraft nur erhaltend – die Sehne war ruhig“). Pflicht.'],
+                'coach_notes' => ['type' => 'string', 'maxLength' => WriteTools::TEXT_MAX, 'description' => 'Ausführliche Begründung der Woche („mehr“ in der App): ' . $textRule],
+            ], 'required' => ['week_start', 'sessions', 'focus']],
             annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => false, 'openWorldHint' => true]);
 
         $mcp->tool('update_session',
-            'Ändert eine Einheit (Datum, Titel, Priorität, Dauer, plan_json, Begründung, Status, Reihenfolge); bei Ausdauer wird das Intervals.icu-Event nachgezogen (bei „ausgelassen“ gelöscht) bzw. neu angelegt, falls es fehlt.',
+            'Ändert eine Einheit (Datum, Titel, Priorität, Dauer, plan_json, Kurzsatz coach_summary, Begründung coach_rationale, Status, Reihenfolge); nicht übergebene Felder bleiben. Wochentexte (focus, coach_notes) nur über write_week_plan. Bei Ausdauer wird das Intervals.icu-Event nachgezogen (bei „ausgelassen“ gelöscht) bzw. neu angelegt, falls es fehlt.',
             fn (int $session_id, array $changes, bool $sync_intervals = true): CallToolResult
                 => $this->run('training:write', fn () => $this->writes()->updateSession($session_id, $changes, $sync_intervals), true),
             title: 'Einheit ändern',
@@ -108,7 +112,9 @@ final class ToolRegistry
                 'changes' => ['type' => 'object', 'properties' => [
                     'date' => $date, 'title' => ['type' => 'string'], 'priority' => ['enum' => ['A', 'B', 'C']],
                     'planned_duration_min' => ['type' => 'integer'], 'plan_json' => ['type' => ['object', 'null']],
-                    'coach_rationale' => ['type' => 'string'], 'status' => ['enum' => ['geplant', 'erledigt', 'teilweise', 'ausgelassen', 'verschoben']],
+                    'coach_summary' => ['type' => 'string', 'minLength' => 1, 'maxLength' => WriteTools::SUMMARY_MAX, 'description' => $summaryRule],
+                    'coach_rationale' => ['type' => 'string', 'maxLength' => WriteTools::TEXT_MAX, 'description' => 'Ausführliche Begründung: ' . $textRule . ' Leerer Text entfernt sie.'],
+                    'status' => ['enum' => ['geplant', 'erledigt', 'teilweise', 'ausgelassen', 'verschoben']],
                     'sort_order' => ['type' => 'integer'],
                 ], 'additionalProperties' => false],
                 'sync_intervals' => ['type' => 'boolean', 'default' => true],

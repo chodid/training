@@ -30,7 +30,7 @@ final class CalendarTest extends AppTestCase
 
     public function testPlanUpdateReplaceAndWebFeedbackAreMirrored(): void
     {
-        $plan = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'sessions' => [
+        $plan = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => 'Grundlage', 'sessions' => [
             $this->session('2026-09-22', 'kraft', 'Beine'), $this->session('2026-09-24', 'klettern', 'Boulder'), ['date' => '2026-09-27', 'type' => 'ruhe', 'title' => 'Ruhe'],
         ]]);
         self::assertSame('ok', $plan['data']['status'], $plan['text']);
@@ -55,7 +55,7 @@ final class CalendarTest extends AppTestCase
 
         // Woche ersetzen: geplante Einheiten ohne Rückmeldung verschwinden (Kraft ist erledigt, Klettern hat Rückmeldung)
         $this->mcpTool(self::STATIC, 'upsert_block', ['block' => ['name' => 'B', 'start_date' => '2026-09-14', 'end_date' => '2026-10-11', 'status' => 'aktiv'], 'block_id' => 1]);
-        $plan2 = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'replace_existing' => true, 'sessions' => [$this->session('2026-09-25', 'mobilitaet', 'Hüfte')]]);
+        $plan2 = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => 'Grundlage', 'replace_existing' => true, 'sessions' => [$this->session('2026-09-25', 'mobilitaet', 'Hüfte')]]);
         self::assertContains($ruhe, $plan2['data']['ersetzt']);
         $new = $plan2['data']['einheiten'][0]['id'];
         self::assertArrayHasKey('training-session-' . $new . '.ics', $this->cal->events);
@@ -65,7 +65,7 @@ final class CalendarTest extends AppTestCase
     public function testErrorsAreReportedButDoNotBlockAndSyncRepairs(): void
     {
         $this->cal->failStatus = 401;
-        $plan = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'sessions' => [$this->session('2026-09-22', 'kraft', 'Beine')]]);
+        $plan = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => 'Grundlage', 'sessions' => [$this->session('2026-09-22', 'kraft', 'Beine')]]);
         self::assertFalse($plan['isError']);
         self::assertSame('teilweise', $plan['data']['status']);
         self::assertStringContainsString('HTTP 401', $plan['data']['fehler_kalender'][0]);
@@ -103,7 +103,7 @@ final class CalendarTest extends AppTestCase
 
     public function testReminderDefaultChangeAndOff(): void
     {
-        $plan = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'sessions' => [$this->session('2026-09-24', 'kraft', 'Beine')]]);
+        $plan = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => 'Grundlage', 'sessions' => [$this->session('2026-09-24', 'kraft', 'Beine')]]);
         $id = $plan['data']['einheiten'][0]['id'];
         $res = 'training-session-' . $id . '.ics';
         self::assertStringContainsString('TRIGGER;RELATED=START:PT5H', $this->cal->events[$res], 'Standard 05:00');
@@ -136,7 +136,7 @@ final class CalendarTest extends AppTestCase
     public function testNotConfiguredOrNotHttps(): void
     {
         $this->writeEnv(['MCP_STATIC_TOKEN' => self::STATIC, 'MCP_STATIC_TOKEN_ENABLED' => 'true', 'CRON_SECRET' => str_repeat('c', 32)]);
-        $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'sessions' => [$this->session('2026-09-22', 'kraft', 'Beine')]]);
+        $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => 'Grundlage', 'sessions' => [$this->session('2026-09-22', 'kraft', 'Beine')]]);
         self::assertSame([], $this->cal->requests);
         self::assertSame('nicht_konfiguriert', json_decode($this->request('GET', '/health')->body, true)['checks']['kalender']);
         self::assertSame(503, $this->request('GET', '/cron/intervals-sync?key=' . str_repeat('c', 32))->status, 'weder Intervals noch Kalender');
@@ -157,6 +157,6 @@ final class CalendarTest extends AppTestCase
             default => ['exercises' => [['name' => 'Kniebeuge', 'sets' => 3, 'reps' => '8', 'load' => '60 kg']]],
         };
 
-        return ['date' => $date, 'type' => $type, 'title' => $title, 'priority' => 'B', 'planned_duration_min' => 60, 'plan_json' => $plan];
+        return ['date' => $date, 'type' => $type, 'title' => $title, 'priority' => 'B', 'planned_duration_min' => 60, 'plan_json' => $plan, 'coach_summary' => $title . ' als Grundlage'];
     }
 }

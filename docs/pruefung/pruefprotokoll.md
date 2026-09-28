@@ -554,6 +554,26 @@ geprueft:
     wie: Chromium/Playwright (build-icons.cjs, screenshots.cjs), manuell
     ergebnis: ok
     datum: 2026-09-28
+  - was: T2 Schreib-Tools – ohne focus und ohne coach_summary Fehler mit Liste der betroffenen Einheiten (Ruhetag ausgenommen), nichts geschrieben; Grenzlängen focus 255/256, coach_summary 200/201, coach_notes und coach_rationale 1500/1501 in Zeichen (Umlaute); Texte getrimmt gespeichert
+    wie: automatisiert (McpToolsTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T2 Lese-Tools und update_session – get_week_overview fokus/begruendung/kurz, get_session_detail coach_summary; update_session ändert Kurzsatz, leerer Kurzsatz abgelehnt, leere Begründung entfernt, focus dort unbekannt; überlange Altdaten blockieren andere Änderungen nicht und fehlen in der Übersicht
+    wie: automatisiert (McpToolsTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T2 Anzeige – S2 Kurzsatz in eigener Karte ohne „Fokus …“ in der Kopfzeile, „mehr“ als details (ohne JavaScript) nur mit ausführlichem Text, Woche ohne Plan unverändert, Altdaten „Begründung der Woche“; S3 Kurzsatz und „mehr“, Altdaten „Trainer-Notiz“, HTML maskiert; 375 px ohne Überlauf
+    wie: automatisiert (WebsiteTest) + Browser (Chromium, lokale Instanz)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T2 Kalender – Beschreibung beginnt mit dem Kurzsatz, dann Kurzplan mit Priorität/Dauer, „Trainer: …“ gekürzt auf 1 000 Zeichen, Link; Altdaten ohne Kurzsatz beginnen mit dem Kurzplan
+    wie: automatisiert (SessionEventTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Migration 0022 auf leerer Datenbank (jeder Testlauf) und auf befüllter Datenbank (Rückweg 0020–0022 angewendet, erneut migriert)
+    wie: automatisiert (MigratorTest, MorningCheckinTest)
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: P-A2 – Chrome Desktop, DevTools → Application → Manifest ohne Warnungen, alle Icons geladen
     wie: manuell durch Athlet (nach Deployment 0.17.0)
@@ -567,6 +587,12 @@ noch_zu_pruefen:
     wie: manuell (curl) nach Deployment
   - was: P-A1 erneut mit dem neuen Icon (V3) in Chrome Android
     wie: Gerätetest durch Athlet
+  - was: T2 – Wochenplan aus dem Projekt-Chat mit focus, coach_notes, coach_summary und coach_rationale schreiben (Connector ggf. neu verbinden); ohne Kurzsatz meldet das Tool die fehlenden Felder
+    wie: manuell durch Athlet im Trainer-Chat (nach Deployment 0.17.0)
+  - was: T2 – S2 und S3 auf dem Smartphone: Kurzsatz sichtbar, „mehr“ klappt auf (auch mit abgeschaltetem JavaScript)
+    wie: manuell durch Athlet
+  - was: T2 – Kalendertermin im Nextcloud-Kalender zeigt den Kurzsatz als erste Zeile der Beschreibung
+    wie: manuell durch Athlet
 ```
 
 ## AP-05 MCP-Tools produktiv

@@ -41,8 +41,16 @@ $meta = $typeLabel . ' · ' . Dates::long($session['date']) . ' · Priorität ' 
   <div class="page-head">
     <div class="eyebrow"><?= $this->icon($typeIcon, 'ic ic-brand') ?><?= $this->e($meta) ?></div>
     <h1><?= $this->e($session['title']) ?></h1>
-<?php if (!empty($session['coach_rationale'])): ?>
-    <p class="muted small">Trainer-Notiz: <?= $this->e($session['coach_rationale']) ?></p>
+<?php
+// Begründung der Einheit (AP-13, E-11): Kurzsatz im Seitenkopf, ausführlicher Text hinter „mehr“; Altdaten ohne Kurzsatz: „Trainer-Notiz“
+$kurz = trim((string) ($session['coach_summary'] ?? ''));
+$mehr = trim((string) ($session['coach_rationale'] ?? ''));
+?>
+<?php if ($kurz !== ''): ?>
+    <p class="kurz"><?= $this->e($kurz) ?></p>
+<?php endif ?>
+<?php if ($mehr !== ''): ?>
+    <details class="more mehr"><summary><?= $this->icon('chevron-right', 'ic ic-sm') ?><?= $kurz !== '' ? 'mehr' : 'Trainer-Notiz' ?></summary><p><?= $this->e($mehr) ?></p></details>
 <?php endif ?>
   </div>
 <?php if ($alert !== null): ?>

@@ -48,4 +48,23 @@ final class SessionEventTest extends TestCase
         self::assertSame(7, SessionEvent::idFromResource('training-session-7.ics'));
         self::assertNull(SessionEvent::idFromResource('fremd.ics'));
     }
+
+    /** AP-13 (5.3): Kurzsatz, Leerzeile, Kurzplan, Leerzeile, ausführlicher Text (≤ 1 000 Zeichen), Link. */
+    public function testDescriptionStartsWithSummaryAndShortensLongRationale(): void
+    {
+        $s = ['id' => 8, 'date' => '2026-09-30', 'type' => 'kraft', 'title' => 'Kraft', 'priority' => 'B', 'planned_duration_min' => 45, 'status' => 'geplant',
+            'coach_summary' => 'Zweite Krafteinheit, Last wie letzte Woche', 'coach_rationale' => str_repeat('a', 995) . ' bbbbbbbbbb',
+            'plan' => ['exercises' => [['name' => 'Kniebeuge', 'sets' => 3, 'reps' => '8']]], 'updated_at' => '2026-09-28 10:00:00'];
+        $unfolded = str_replace("\r\n ", '', SessionEvent::ics($s, 'https://training.example', 'training.example', 1790000000));
+        preg_match('/^DESCRIPTION:(.*)$/m', $unfolded, $m);
+        $parts = explode('\n\n', rtrim($m[1], "\r"));
+        self::assertSame('Zweite Krafteinheit\, Last wie letzte Woche', $parts[0]);
+        self::assertSame('Priorität B · 45 min\n- Kniebeuge: 3 × 8', $parts[1]);
+        self::assertSame('Trainer: ' . str_repeat('a', 995) . ' bbb…', $parts[2], 'gekürzt auf 1 000 Zeichen');
+        self::assertSame(1000, mb_strlen(substr($parts[2], strlen('Trainer: '))));
+        self::assertSame('In der App: https://training.example/einheit?id=8', $parts[3]);
+
+        $old = SessionEvent::ics(['coach_summary' => null, 'coach_rationale' => null] + $s, 'https://t', 't', 1);
+        self::assertMatchesRegularExpression('/DESCRIPTION:Priorität B · 45 min\\\\n- Kniebeuge/u', str_replace("\r\n ", '', $old), 'Altdaten ohne Kurzsatz: Kurzplan zuerst');
+    }
 }

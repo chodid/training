@@ -1893,7 +1893,7 @@ probleme_loesungen:
 status: in_arbeit
 begonnen: 2026-09-28
 abgeschlossen: null
-teilpakete: T1 umgesetzt (Code-Stand 0.17.0), T2 offen – Details in docs/konzept/gefuehrte-einheit.md Abschnitt 12
+teilpakete: T1 und T2 umgesetzt (Code-Stand 0.17.0, Schema 22), Abnahme durch den Athleten offen – Details in docs/konzept/gefuehrte-einheit.md Abschnitt 12
 probleme_loesungen:
   - datum: 2026-09-28
     was: Icon-Erzeugung als PHP-Skript nicht möglich (kein SVG-Renderer auf Server und in PHP)
@@ -1901,6 +1901,9 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: Motivwechsel bei gleichbleibenden Icon-Dateinamen bliebe in Browser-Caches hängen
     loesung: neue Dateinamen lama-*.png, alte icon-*.png entfernt; Icons 7 Tage im Cache
+  - datum: 2026-09-28
+    was: Überlange Begründungen aus der Zeit vor AP-13 hätten update_session blockiert (Prüfung der zusammengeführten Einheit)
+    loesung: nur übergebene Texte werden geprüft; Kurzsatz-Pflicht nur in write_week_plan
 ```
 
 ## AP-14 Geführte Einheit
@@ -1984,3 +1987,4 @@ noch_zu_pruefen:
 | 2026-09-28 | Auftrag `gefuehrte-einheit.md` vom Athleten bestätigt (E-08 bis E-20 gelten); Q-14 → D-59 (V3 App-Icon, V2 Favicon und App-Kennung); AP-13 kann ohne Wartepunkt starten. |
 | 2026-09-28 | Icon-Befund (Auftrag gefuehrte-einheit.md, E-05/O-03): Chrome auf Android zeigt das App-Icon; Fehler ist auf den Favicon-Weg von LibreWolf eingegrenzt, Manifest ausgeschlossen. |
 | 2026-09-28 | AP-13 begonnen: T1 App-Icon und Logo umgesetzt (Code-Stand 0.17.0, D-59); AP-13 `in_arbeit`, Befunde im AP-13-Block und im Auftrag (Abschnitt 12). |
+| 2026-09-28 | AP-13 T2 Begründungstexte umgesetzt (Code-Stand 0.17.0, Schema 22: `session.coach_summary`); 7, 8.2 und 10 entsprechen der Umsetzung (bereits mit D-56 eingetragen). AP-13 bleibt `in_arbeit` bis zur Abnahme durch den Athleten. |

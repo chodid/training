@@ -54,7 +54,7 @@ final class McpToolsTest extends AppTestCase
     public function testBlockWeekPlanOverviewAndAudit(): void
     {
         // Ohne Block kein Wochenplan
-        $noBlock = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'sessions' => [$this->kraft('2026-09-21')]]);
+        $noBlock = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => 'Grundlage', 'sessions' => [$this->kraft('2026-09-21')]]);
         self::assertTrue($noBlock['isError']);
         self::assertStringContainsString('upsert_block', $noBlock['text']);
 
@@ -62,7 +62,7 @@ final class McpToolsTest extends AppTestCase
         self::assertFalse($block['isError'], $block['text']);
 
         // Ungültiger Plan: nichts geschrieben, alle Fehler gemeldet
-        $bad = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'sessions' => [
+        $bad = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => 'Grundlage', 'sessions' => [
             ['date' => '2026-09-28', 'type' => 'kraft', 'title' => 'X', 'plan_json' => ['exercises' => [['name' => 'A', 'sets' => 3, 'reps' => '8']]]],
             ['date' => '2026-09-22', 'type' => 'ausdauer', 'title' => 'Lauf', 'plan_json' => ['summary' => 'x']],
         ]]);
@@ -74,7 +74,7 @@ final class McpToolsTest extends AppTestCase
         $plan = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => 'Grundlage', 'sessions' => [
             $this->kraft('2026-09-21'),
             $this->lauf('2026-09-22', 'Lauf locker Z2'),
-            ['date' => '2026-09-24', 'type' => 'ausdauer', 'title' => 'Intervalle', 'planned_duration_min' => 60, 'plan_json' => ['intervals_workout_text' => "- 15m Z1 HR\n\n5x\n- 4m Z4 HR\n- 3m Z1 HR", 'target_type' => 'hf_zone', 'summary' => '5 × 4 min Z4', 'sport' => 'TrailRun']],
+            ['date' => '2026-09-24', 'type' => 'ausdauer', 'title' => 'Intervalle', 'planned_duration_min' => 60, 'plan_json' => ['intervals_workout_text' => "- 15m Z1 HR\n\n5x\n- 4m Z4 HR\n- 3m Z1 HR", 'target_type' => 'hf_zone', 'summary' => '5 × 4 min Z4', 'sport' => 'TrailRun'], 'coach_summary' => 'Schwelle bergauf'],
             ['date' => '2026-09-27', 'type' => 'ruhe', 'title' => 'Ruhetag'],
         ]]);
         self::assertFalse($plan['isError'], $plan['text']);
@@ -87,7 +87,7 @@ final class McpToolsTest extends AppTestCase
         self::assertSame('bestaetigt', $this->pdo->query('SELECT status FROM training_week')->fetchColumn());
 
         // Zweites Schreiben ohne replace_existing wird abgelehnt
-        self::assertTrue($this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'sessions' => [$this->kraft('2026-09-21')]])['isError']);
+        self::assertTrue($this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => 'Grundlage', 'sessions' => [$this->kraft('2026-09-21')]])['isError']);
 
         // Rückmeldung zur Krafteinheit, dann Übersicht
         $kraftId = (int) $plan['data']['einheiten'][0]['id'];
@@ -120,7 +120,7 @@ final class McpToolsTest extends AppTestCase
     public function testUpdateSessionReplaceAndIntervalsErrors(): void
     {
         $this->mcpTool(self::STATIC, 'upsert_block', ['block' => ['name' => 'B', 'start_date' => '2026-09-14', 'end_date' => '2026-10-11', 'status' => 'aktiv']]);
-        $plan = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'sessions' => [$this->kraft('2026-09-21'), $this->lauf('2026-09-22', 'Lauf'), $this->lauf('2026-09-25', 'Lauf 2')]]);
+        $plan = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => 'Grundlage', 'sessions' => [$this->kraft('2026-09-21'), $this->lauf('2026-09-22', 'Lauf'), $this->lauf('2026-09-25', 'Lauf 2')]]);
         [$kraft, $lauf, $lauf2] = array_column($plan['data']['einheiten'], 'id');
 
         // Verschieben mit Event-Aktualisierung
@@ -143,7 +143,7 @@ final class McpToolsTest extends AppTestCase
         $now = Db::ts($this->clock->now());
         $this->pdo->exec("INSERT INTO session_execution (session_id, duration_min, rpe_cr10, source, created_at, updated_at) VALUES ($kraft, 60, 6, 'web', '$now', '$now')");
         $this->intervalsTransport->responses['POST /api/v1/athlete/i1/events'] = [['status' => 500, 'body' => '{"error":"kaputt"}']];
-        $r = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'replace_existing' => true, 'sessions' => [$this->lauf('2026-09-26', 'Neuer Lauf')]]);
+        $r = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => 'Grundlage', 'replace_existing' => true, 'sessions' => [$this->lauf('2026-09-26', 'Neuer Lauf')]]);
         self::assertFalse($r['isError'], $r['text']);
         self::assertSame('teilweise', $r['data']['status']);
         self::assertContains($lauf2, $r['data']['ersetzt']);
@@ -195,6 +195,71 @@ final class McpToolsTest extends AppTestCase
         self::assertStringContainsString('Update erforderlich', $locked['text']);
     }
 
+    /** AP-13 T2 (E-01, E-10): Kurzsatz und Begründung je Woche und Einheit – Pflicht, Grenzlängen, Lese-Tools. */
+    public function testPlanTextsAreRequiredLimitedAndReadable(): void
+    {
+        $this->mcpTool(self::STATIC, 'upsert_block', ['block' => ['name' => 'B', 'start_date' => '2026-09-14', 'end_date' => '2026-10-11', 'status' => 'aktiv']]);
+        $ruhe = ['date' => '2026-09-27', 'type' => 'ruhe', 'title' => 'Ruhetag'];
+        $ohneKurz = ['coach_summary' => null] + $this->kraft('2026-09-21');
+
+        // Pflichtfelder fehlen: Fehler mit Liste der betroffenen Einheiten, Ruhetag braucht keinen Kurzsatz, nichts geschrieben
+        $missing = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => '   ', 'sessions' => [$ohneKurz, $ruhe, ['coach_summary' => ''] + $this->lauf('2026-09-22', 'Lauf')]]);
+        self::assertTrue($missing['isError']);
+        $details = implode("\n", $missing['data']['details']);
+        self::assertStringContainsString('focus fehlt', $details);
+        self::assertMatchesRegularExpression('/^sessions\[0\]: .*coach_summary fehlt/m', $details);
+        self::assertMatchesRegularExpression('/^sessions\[2\]: .*coach_summary fehlt/m', $details);
+        self::assertStringNotContainsString('sessions[1]', $details, 'Ruhetag ohne Kurzsatz ist erlaubt');
+        self::assertSame(0, (int) $this->pdo->query('SELECT COUNT(*) FROM `session`')->fetchColumn());
+        self::assertSame(0, (int) $this->pdo->query('SELECT COUNT(*) FROM training_week')->fetchColumn());
+
+        // Grenzlängen in Zeichen (Umlaute zählen einfach): 255/200/1500 erlaubt, eins mehr nicht
+        $tooLong = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => str_repeat('ä', 256), 'coach_notes' => str_repeat('ö', 1501),
+            'sessions' => [['coach_summary' => str_repeat('ü', 201), 'coach_rationale' => str_repeat('ß', 1501)] + $this->kraft('2026-09-21')]]);
+        self::assertTrue($tooLong['isError']);
+        $details = implode("\n", $tooLong['data']['details']);
+        foreach (['focus ist 256 Zeichen lang, erlaubt sind 255', 'coach_notes ist 1501 Zeichen lang, erlaubt sind 1500', 'coach_summary ist 201 Zeichen lang, erlaubt sind 200', 'coach_rationale ist 1501 Zeichen lang, erlaubt sind 1500'] as $msg) {
+            self::assertStringContainsString($msg, $details);
+        }
+
+        $ok = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => ' ' . str_repeat('ä', 255) . ' ', 'coach_notes' => str_repeat('ö', 1500),
+            'sessions' => [['coach_summary' => str_repeat('ü', 200), 'coach_rationale' => str_repeat('ß', 1500)] + $this->kraft('2026-09-21'), $ruhe]]);
+        self::assertFalse($ok['isError'], $ok['text']);
+        [$kraftId, $ruheId] = array_column($ok['data']['einheiten'], 'id');
+        $week = $this->pdo->query('SELECT focus, coach_notes FROM training_week')->fetch();
+        self::assertSame(str_repeat('ä', 255), $week['focus'], 'getrimmt gespeichert');
+        self::assertSame(1500, mb_strlen((string) $week['coach_notes']));
+        self::assertSame(str_repeat('ü', 200), $this->pdo->query('SELECT coach_summary FROM `session` WHERE id = ' . $kraftId)->fetchColumn());
+        self::assertNull($this->pdo->query('SELECT coach_summary FROM `session` WHERE id = ' . $ruheId)->fetchColumn());
+
+        // Lese-Tools: fokus, begruendung, kurz je Einheit; Detail mit coach_summary
+        $o = $this->mcpTool(self::STATIC, 'get_week_overview', ['week_start' => '2026-09-21'])['data'];
+        self::assertSame(str_repeat('ä', 255), $o['woche']['fokus']);
+        self::assertSame(str_repeat('ö', 1500), $o['woche']['begruendung']);
+        self::assertSame(str_repeat('ü', 200), $o['einheiten'][0]['kurz']);
+        self::assertArrayNotHasKey('kurz', $o['einheiten'][1], 'Ruhetag ohne Kurzsatz');
+        $d = $this->mcpTool(self::STATIC, 'get_session_detail', ['session_id' => $kraftId])['data'];
+        self::assertSame([str_repeat('ü', 200), str_repeat('ß', 1500)], [$d['coach_summary'], $d['coach_rationale']]);
+
+        // update_session: Kurzsatz ändern, leerer Kurzsatz abgelehnt, Begründung leeren, Wochenfelder nicht hier
+        $u = $this->mcpTool(self::STATIC, 'update_session', ['session_id' => $kraftId, 'changes' => ['coach_summary' => 'Last bleibt, Tiefe sauber', 'coach_rationale' => '']]);
+        self::assertFalse($u['isError'], $u['text']);
+        self::assertSame(['coach_summary', 'coach_rationale'], $u['data']['geaendert']);
+        $row = $this->pdo->query('SELECT coach_summary, coach_rationale FROM `session` WHERE id = ' . $kraftId)->fetch();
+        self::assertSame(['Last bleibt, Tiefe sauber', null], [$row['coach_summary'], $row['coach_rationale']]);
+        self::assertStringContainsString('coach_summary darf nicht leer sein', $this->mcpTool(self::STATIC, 'update_session', ['session_id' => $kraftId, 'changes' => ['coach_summary' => ' ']])['text']);
+        self::assertStringContainsString('201 Zeichen', $this->mcpTool(self::STATIC, 'update_session', ['session_id' => $kraftId, 'changes' => ['coach_summary' => str_repeat('x', 201)]])['text']);
+        self::assertStringContainsString('Unbekannte Felder: focus', $this->mcpTool(self::STATIC, 'update_session', ['session_id' => $kraftId, 'changes' => ['focus' => 'x']])['text']);
+
+        // Altdaten: überlange Begründung aus der Zeit vor AP-13 blockiert andere Änderungen nicht und fehlt in der Übersicht
+        $this->pdo->exec("UPDATE `session` SET coach_rationale = REPEAT('a', 2000), coach_summary = NULL WHERE id = " . $kraftId);
+        $this->pdo->exec("UPDATE training_week SET coach_notes = REPEAT('b', 1600)");
+        self::assertFalse($this->mcpTool(self::STATIC, 'update_session', ['session_id' => $kraftId, 'changes' => ['title' => 'Kraft neu']])['isError']);
+        $o = $this->mcpTool(self::STATIC, 'get_week_overview', ['week_start' => '2026-09-21'])['data'];
+        self::assertArrayNotHasKey('begruendung', $o['woche'], 'Antwortbudget 8.3');
+        self::assertArrayNotHasKey('kurz', $o['einheiten'][0]);
+    }
+
     private function sessionFor(string $token): string
     {
         $r = new \ReflectionProperty(\Training\Tests\Support\AppTestCase::class, 'mcpSessions');
@@ -206,13 +271,13 @@ final class McpToolsTest extends AppTestCase
     private function kraft(string $date): array
     {
         return ['date' => $date, 'type' => 'kraft', 'title' => 'Kraft', 'priority' => 'B', 'planned_duration_min' => 60,
-            'plan_json' => ['exercises' => [['name' => 'Kniebeuge', 'sets' => 3, 'reps' => '8', 'load' => '60 kg']]], 'coach_rationale' => 'Grundkraft'];
+            'plan_json' => ['exercises' => [['name' => 'Kniebeuge', 'sets' => 3, 'reps' => '8', 'load' => '60 kg']]], 'coach_summary' => 'Grundkraft Beine', 'coach_rationale' => 'Grundkraft'];
     }
 
     /** @return array<string, mixed> */
     private function lauf(string $date, string $title): array
     {
         return ['date' => $date, 'type' => 'ausdauer', 'title' => $title, 'priority' => 'A', 'planned_duration_min' => 50,
-            'plan_json' => ['intervals_workout_text' => '- 50m Z2 HR', 'target_type' => 'hf_zone', 'summary' => '50 min Z2']];
+            'plan_json' => ['intervals_workout_text' => '- 50m Z2 HR', 'target_type' => 'hf_zone', 'summary' => '50 min Z2'], 'coach_summary' => 'Lockerer Grundlagenlauf'];
     }
 }

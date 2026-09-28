@@ -118,11 +118,11 @@ final class WeekRepository
     public function insertSession(int $weekId, array $s): int
     {
         $now = Db::ts($this->clock->now());
-        $this->pdo->prepare('INSERT INTO `session` (week_id, date, type, title, priority, planned_duration_min, plan_json, coach_rationale, status, sort_order, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, \'geplant\', ?, ?, ?)')
+        $this->pdo->prepare('INSERT INTO `session` (week_id, date, type, title, priority, planned_duration_min, plan_json, coach_summary, coach_rationale, status, sort_order, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, \'geplant\', ?, ?, ?)')
             ->execute([$weekId, $s['date'], $s['type'], $s['title'], $s['priority'], $s['planned_duration_min'],
                 $s['plan_json'] === null ? null : json_encode($s['plan_json'], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR),
-                $s['coach_rationale'], $s['sort_order'], $now, $now]);
+                $s['coach_summary'] ?? null, $s['coach_rationale'], $s['sort_order'], $now, $now]);
 
         return (int) $this->pdo->lastInsertId();
     }

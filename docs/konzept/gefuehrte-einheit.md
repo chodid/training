@@ -395,7 +395,36 @@ T1:
       loesung: FilesMatch auf die Icon-Dateinamen in public/.htaccess
     - was: Versionsnummer je Unterpunkt oder je AP?
       loesung: je AP (CLAUDE.md „nach jedem AP“): AP-13 (T1, T2) = 0.17.0, AP-14 (T3–T7) = 0.18.0; Changelog, README, Konzept und Prüfprotokoll werden nach jedem Unterpunkt nachgezogen
-T2: {status: offen}
+T2:
+  status: umgesetzt          # Code-Stand 0.17.0; Abnahme (Plan aus dem Projekt-Chat, S2/S3, Kalender) durch den Athleten offen
+  datum: 2026-09-28
+  ergebnis: >
+    Migration 0022_session_coach_summary (session.coach_summary VARCHAR(200) NULL nach plan_json, Rückweg als Kommentar),
+    Schema 22. WriteTools: write_week_plan verlangt focus (1–255) und je Einheit außer ruhe coach_summary (1–200),
+    coach_notes/coach_rationale ≤ 1500; Längen in Zeichen (mb_strlen), Texte getrimmt, leerer Text = NULL; alle Fehler
+    als Liste (sessions[i]: …), nichts geschrieben. update_session: coach_summary (nicht leer, ≤ 200) und coach_rationale
+    (leer = entfernen, ≤ 1500) änderbar, focus/coach_notes dort unbekannte Felder (bestehendes COALESCE in upsertWeek
+    bleibt). Tool-Beschreibungen mit der Regel aus E-10 je Feld (Konstanten FOCUS_MAX, SUMMARY_MAX, TEXT_MAX).
+    ReadTools: get_week_overview woche.begruendung (nur ≤ 1500 Zeichen) und je Einheit kurz (nur wenn vorhanden),
+    get_session_detail coach_summary. Kalender: Beschreibung Kurzsatz, Kurzplan (Priorität/Dauer/Status als erste
+    Zeile), „Trainer: …“ (≤ 1000 Zeichen), Link. S2: Karte .begruendung unter der Kopfzeile (Kurzsatz, details.more.mehr),
+    „Fokus …“ in der Kopfzeile entfällt. S3: Kurzsatz im Seitenkopf, „mehr“ bzw. „Trainer-Notiz“ bei Altdaten.
+    CSS in training.css (.kurz, details.mehr mit drehendem Chevron, Zeilenumbrüche des Texts bleiben).
+  tests: McpToolsTest::testPlanTextsAreRequiredLimitedAndReadable, WebsiteTest::testWeekAndSessionShowSummaryWithMore, SessionEventTest::testDescriptionStartsWithSummaryAndShortensLongRationale; bestehende Tests um focus/coach_summary ergänzt, Migrationstest AP-12 um den Rückweg von 0022
+  abnahme_offen: Plan aus dem Projekt-Chat mit beiden Texten erscheint in S2 und S3; „mehr“ klappt ohne JavaScript auf; Kalendertermin zeigt den Kurzsatz
+  probleme_loesungen:
+    - was: update_session prüft die zusammengeführte Einheit; eine überlange Begründung aus der Zeit vor AP-13 hätte danach jede Änderung (z. B. Status) blockiert
+      loesung: unveränderte Begründungstexte werden nicht erneut geprüft; nur übergebene Felder unterliegen den Grenzen
+    - was: Kurzsatz-Pflicht auch in update_session? Altdaten haben keinen Kurzsatz
+      loesung: Pflicht nur in write_week_plan (5.2); in update_session darf coach_summary fehlen, wird er übergeben, muss er 1–200 Zeichen haben
+    - was: 5.2 „begruendung nur, wenn ≤ 1500 Zeichen“ – Altdaten können länger sein
+      loesung: wörtlich umgesetzt – längere Altwochen-Texte fehlen in get_week_overview (Budget 8.3), bleiben aber in S2 sichtbar
+    - was: Woche mit ausführlichem Text, aber ohne Kurzsatz (Altdaten) – wie „mehr“ beschriften?
+      loesung: analog S3 („Trainer-Notiz“): Summary „Begründung der Woche“
+    - was: Wochen-Kurzsatz focus: E-10 nennt 200 Zeichen für Kurzsätze, 5.1/5.2 für focus 1–255 (Spaltenlänge)
+      loesung: Prüfung 1–255 wie 5.2 und Testfall „Grenzlängen 200/255/1500“; die Tool-Beschreibung nennt 255
+    - was: Test-Hilfe rollbackLastMigration setzte bei Spaltenänderungen nur den Schemastand zurück; 0022 (ADD COLUMN) ließ sich danach nicht erneut einspielen (BackupTest rot)
+      loesung: die Hilfe entfernt beim Zurücksetzen neu angelegte Spalten (ADD COLUMN); Seiten und Lese-Tools vertragen die fehlende Spalte während der Schreibsperre
 T3: {status: offen}
 T4: {status: offen}
 T5: {status: offen}

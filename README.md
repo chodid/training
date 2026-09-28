@@ -38,13 +38,13 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 └── .ftp-deploy-sync-state.json  ← Statusdatei des Upload-Schritts
 ```
 
-## Endpunkte (Stand AP-09)
+## Endpunkte (Stand AP-13)
 
 | Methode | Pfad | Zweck |
 |---|---|---|
 | GET | `/` | Weiterleitung auf `/woche`; ohne Anmeldung auf `/login` (bzw. `/setup`, solange kein Benutzer existiert) |
-| GET | `/woche` | S2 Wochenansicht (`?start=YYYY-MM-DD` für eine andere Woche) |
-| GET/POST | `/einheit` | S3 Einheit (`?id=…`): Plan, Ist-Werte, Rückmeldung, Schmerz, Status; bei Ausdauer verknüpfte Intervals.icu-Aktivität |
+| GET | `/woche` | S2 Wochenansicht (`?start=YYYY-MM-DD` für eine andere Woche); Kurzsatz der Woche mit „mehr“ |
+| GET/POST | `/einheit` | S3 Einheit (`?id=…`): Kurzsatz mit „mehr“, Plan, Ist-Werte, Rückmeldung, Schmerz, Status; bei Ausdauer verknüpfte Intervals.icu-Aktivität |
 | GET/POST | `/checkin` | S4 Tages-Check-in mit Morgentest (`?datum=…`, nicht in der Zukunft); Formular bzw. Ampel auch oben in `/woche` |
 | GET/POST | `/schmerz` | S5 Schmerzereignis (`?datum=…`, `?einheit=…`) |
 | GET/POST | `/einstellungen` | S8 Athletenprofil (Link), Konto, Zeitzone, Passwort, Passkeys, Kalender-Abgleich und -Erinnerung (`?bereich=erinnerung`), Morgen-Check-in „Hand rechts bis“ (`?bereich=checkin`), Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
@@ -74,15 +74,15 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | Tool | Scope | Zweck |
 |---|---|---|
 | `ping` | – | Verbindungstest |
-| `get_week_overview` | `training:read` | Woche aggregiert: Plan vs. Ist, sRPE, Compliance, Aktivitäten, Schmerz, Check-in, Form |
-| `get_session_detail` | `training:read` | Einheit mit `plan_json`, `actual_json`, Rückmeldung, Schmerz, Aktivität |
+| `get_week_overview` | `training:read` | Woche aggregiert: Kurzsatz (`fokus`) und Begründung der Woche, je Einheit Kurzsatz (`kurz`), Plan vs. Ist, sRPE, Compliance, Aktivitäten, Schmerz, Check-in, Form |
+| `get_session_detail` | `training:read` | Einheit mit `plan_json`, `actual_json`, Kurzsatz (`coach_summary`) und Begründung (`coach_rationale`), Rückmeldung, Schmerz, Aktivität |
 | `get_pain_history` | `training:read` | Schmerz je Ort mit Trend (Standard 56 Tage) |
 | `get_wellness_trend` | `training:read` | HRV, Ruhepuls, Schlaf, Check-in; Baseline 7/28 Tage |
 | `get_block` | `training:read` | aktueller Block mit Wochenstatus |
 | `get_athlete_profile` | `training:read` | Athletenprofil aus der Datenbank (D-48) je Abschnitt; optional ein Abschnitt, früherer Stand (`as_of`), Fassungen (`include_history`) |
 | `upsert_block` | `training:write` | Block anlegen/ändern (Voraussetzung für Wochenpläne) |
-| `write_week_plan` | `training:write` | Wochenplan schreiben, Ausdauer als Workout nach Intervals.icu |
-| `update_session` | `training:write` | Einheit ändern, Event nachziehen |
+| `write_week_plan` | `training:write` | Wochenplan schreiben, Ausdauer als Workout nach Intervals.icu; Pflicht: `focus` (Kurzsatz der Woche) und je Einheit außer Ruhetag `coach_summary` (≤ 200 Zeichen), dazu optional `coach_notes`/`coach_rationale` (≤ 1 500 Zeichen, D-56) |
+| `update_session` | `training:write` | Einheit ändern (auch Kurzsatz und Begründung), Event nachziehen |
 | `get_morning_checks` | `training:read` | Morgen-Check-ins: Ampel mit Grund, Morgentest links/rechts, Wochenausgangswert, Warnzeichen/Abklärung, je Tag alle Werte (Standard 14 Tage) |
 | `update_athlete_profile` | `training:write` | Profilabschnitt ersetzen (neue Fassung, frühere bleiben erhalten) |
 

@@ -9,13 +9,16 @@ use Training\View\Labels;
 
 /**
  * Termin (iCalendar, RFC 5545) für eine Einheit (AP-11, D-50): ganztägig am Datum der Einheit, Titel mit Typ und
- * Status-Markierung (✓ erledigt/teilweise, ausgelassen = abgesagt), Beschreibung mit Kurzplan und Link zur App.
+ * Status-Markierung (✓ erledigt/teilweise, ausgelassen = abgesagt), Beschreibung mit Kurzsatz, Kurzplan, Begründung
+ * und Link zur App.
  * Eine Einheit = eine Ressource mit fester UID, damit Änderungen denselben Termin ersetzen.
  * Erinnerung (D-52): am Tag der Einheit zur eingestellten Uhrzeit, nur für geplante und verschobene Einheiten.
  */
 final class SessionEvent
 {
     public const PREFIX = 'training-session-';
+    /** Ausführlicher Text in der Terminbeschreibung, höchstens so viele Zeichen (AP-13, 5.3) */
+    private const TEXT_MAX = 1000;
 
     public static function resource(int $sessionId): string
     {
@@ -85,7 +88,11 @@ final class SessionEvent
         return ['BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' . self::text($summary), 'TRIGGER;RELATED=START:' . $trigger, 'END:VALARM'];
     }
 
-    /** @param array<string, mixed> $s */
+    /**
+     * Beschreibung (AP-13, 5.3): Kurzsatz, Leerzeile, Kurzplan (mit Priorität, Dauer, Status), Leerzeile, ausführlicher
+     * Text (höchstens 1 000 Zeichen), Link.
+     * @param array<string, mixed> $s
+     */
     private static function description(array $s, string $link): string
     {
         $head = ['Priorität ' . $s['priority']];
@@ -95,9 +102,13 @@ final class SessionEvent
         if ($s['status'] !== 'geplant') {
             $head[] = Labels::STATUS[$s['status']][0] ?? (string) $s['status'];
         }
-        $parts = [implode(' · ', $head)];
+        $parts = [];
+        $summary = trim((string) ($s['coach_summary'] ?? ''));
+        if ($summary !== '') {
+            $parts[] = $summary;
+        }
         $plan = is_array($s['plan'] ?? null) ? $s['plan'] : [];
-        $rows = [];
+        $rows = [implode(' · ', $head)];
         foreach ($plan['exercises'] ?? [] as $x) {
             $rows[] = '- ' . $x['name'] . ': ' . $x['sets'] . ' × ' . $x['reps'] . (isset($x['load']) ? ' · ' . $x['load'] : '');
         }
@@ -119,11 +130,10 @@ final class SessionEvent
         if (isset($plan['notes'])) {
             $rows[] = (string) $plan['notes'];
         }
-        if ($rows !== []) {
-            $parts[] = implode("\n", $rows);
-        }
-        if (!empty($s['coach_rationale'])) {
-            $parts[] = 'Trainer: ' . $s['coach_rationale'];
+        $parts[] = implode("\n", $rows);
+        $text = trim((string) ($s['coach_rationale'] ?? ''));
+        if ($text !== '') {
+            $parts[] = 'Trainer: ' . (mb_strlen($text) > self::TEXT_MAX ? rtrim(mb_substr($text, 0, self::TEXT_MAX - 1)) . '…' : $text);
         }
         $parts[] = 'In der App: ' . $link;
 

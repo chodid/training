@@ -6,7 +6,9 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [0.17.0] – 2026-09-28
 
-AP-13: App-Icon und Logo (D-55, D-59) – Auftrag `docs/konzept/gefuehrte-einheit.md`, Unterpunkt T1.
+AP-13: App-Icon und Logo (D-55, D-59) sowie Begründungstexte der Planung (D-56) – Auftrag `docs/konzept/gefuehrte-einheit.md`, Unterpunkte T1 und T2.
+
+**Achtung (Planung im Projekt-Chat):** `write_week_plan` verlangt jetzt `focus` (Kurzsatz der Woche) und je Einheit außer Ruhetagen `coach_summary` (Kurzsatz, höchstens 200 Zeichen); ohne sie wird nichts geschrieben. Den Connector in Claude ggf. neu verbinden, damit die neuen Tool-Beschreibungen geladen werden.
 
 ### Hinzugefügt
 - App-Icon „ganzes Lama“ (D-59): V3 (Fläche hell auf Pflaume 600) als PNG 48, 96, 192, 512 (`any`), 512 `maskable` und `apple-touch-icon` 180; V2 (Fläche Pflaume auf Papier) als SVG-Favicon und `favicon.ico` (16/32/48) im Docroot. Das Skript `docs/branding/build-icons.cjs` (Playwright/Chromium) rendert den Satz aus `docs/branding/mockups/icon-optionen/`; das Ergebnis ist eingecheckt, weil der Server kein SVG rendern kann.
@@ -15,9 +17,15 @@ AP-13: App-Icon und Logo (D-55, D-59) – Auftrag `docs/konzept/gefuehrte-einhei
 - `.htaccess`: `image/x-icon` für `.ico`, Icons und Favicon 7 Tage im Browser-Cache. Service Worker liefert `/favicon.ico` wie das Manifest aus dem Versions-Cache. Der Dev-Router setzt für `.ico` und `.webmanifest` dieselben Content-Types wie Apache.
 - Skript `docs/branding/mockups/screenshots.cjs` erzeugt die Mockup-Screenshots neu (und prüft Überlauf, fehlende Ressourcen, Skriptfehler).
 - Tests: Manifest (JSON, jede Datei vorhanden, `sizes` = PNG-Kopf), Kopfteil-Links, `favicon.ico` (16/32/48), beide Seitenrahmen, `HEAD /favicon.ico` über den Dev-Router.
+- Begründungstexte je Woche und Einheit (E-01, E-10): neues Feld `session.coach_summary` (Kurzsatz, höchstens 200 Zeichen; Migration `0022`, `App::SCHEMA_VERSION` = 22). `write_week_plan` prüft Pflicht und Längen (Woche `focus` 1–255, `coach_notes` ≤ 1 500; Einheit `coach_summary` 1–200 außer `ruhe`, `coach_rationale` ≤ 1 500) und meldet alle betroffenen Einheiten auf einmal; `update_session` ändert `coach_summary` und `coach_rationale` (leerer Text entfernt die Begründung), Wochentexte nur über `write_week_plan`. Die Tool-Beschreibungen enthalten die Regel aus E-10.
+- `get_week_overview` liefert zusätzlich `woche.begruendung` (ausführlicher Text der Woche, nur bis 1 500 Zeichen) und je Einheit `kurz`; `get_session_detail` liefert `coach_summary`.
+- S2 Woche: Karte unter der Kopfzeile mit dem Kurzsatz und „mehr“ (aufklappbar ohne JavaScript) für den ausführlichen Text. S3 Einheit: Kurzsatz im Seitenkopf, „mehr“ für die Begründung; Altdaten ohne Kurzsatz zeigen „Trainer-Notiz“ zum Aufklappen.
+- Tests: Pflichtfelder mit Fehlerliste, Grenzlängen 200/255/1 500 (Zeichen, nicht Bytes), Lese-Tools, `update_session`, Altdaten mit überlangen Texten, Anzeige in S2/S3 inkl. Altdaten, Kalenderbeschreibung.
 
 ### Geändert
 - App-Kennung in Kopfzeile, Navigation und Login-Karte: ganzes Lama (`/assets/lama.svg` aus `lama-symbol-flaeche.svg`) statt Lama-Kopf; Mockups und Screenshots entsprechend (Branding B-09).
+- S2: die Angabe „Fokus …“ in der Kopfzeile der Woche entfällt (der Kurzsatz steht jetzt in eigener Zeile darunter). S3: „Trainer-Notiz: …“ als ganzer Absatz entfällt zugunsten von Kurzsatz und „mehr“.
+- Kalendertermin: Beschreibung beginnt mit dem Kurzsatz, danach Kurzplan (mit Priorität, Dauer, Status), die Begründung („Trainer: …“, gekürzt auf 1 000 Zeichen) und der Link.
 
 ### Entfernt
 - `server/public/icons/icon-192.png`, `icon-512.png`, `icon-512-maskable.png` (Lama-Kopf); der Build kopiert `lama-kopf.svg` nicht mehr (der Kopf bleibt im Design-System).
