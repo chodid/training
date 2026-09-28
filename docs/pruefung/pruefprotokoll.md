@@ -479,12 +479,16 @@ geprueft:
     wie: manuell durch Athlet (nach Deployment 0.14.0)
     ergebnis: ok
     datum: 2026-09-28
-  - was: "T8/D-60 (0.19.0): Sammeltermin je Tag – eine Einheit „Typ: Titel“ ohne „✓“, mehrere „Training: A + B + C“ in Planreihenfolge, STATUS immer CONFIRMED (auch ausgelassen), URL zur Woche, CATEGORIES je Typ einmal, Beschreibung je Einheit mit Überschrift, Kurzsatz, Kurzplan mit Status, Begründung, Link und Trennlinie; Erinnerung nur, solange eine Einheit geplant/verschoben ist; Ruhetage nie im Termin (Testfälle K-01 bis K-07)"
-    wie: automatisiert (DayEventTest)
+  - was: "T8/D-60 (0.19.0): Sammeltermin je Tag – eine Einheit „Typ: Titel“ ohne „✓“, mehrere „Training: A + B + C“ in Planreihenfolge, STATUS immer CONFIRMED (auch ausgelassen), URL zur Woche, CATEGORIES je Typ einmal, Beschreibung je Einheit mit Überschrift (bei mehreren), Kurzsatz, Kurzplan mit Status, Begründung, Link und Trennlinie (bei mehreren); Erinnerung nur, solange eine Einheit geplant/verschoben ist; Ruhetage nie im Termin (Testfälle K-01 bis K-07)"
+    wie: automatisiert (DayEventTest: K-01–K-03, K-07; CalendarTest: K-04–K-07)
     ergebnis: ok
     datum: 2026-09-28
   - was: "T8/D-60: Wochenplan mit zwei Einheiten an einem Tag → ein Termin; update_session verschiebt eine Einheit → alter und neuer Tag neu geschrieben, letzte Einheit weg → Termin gelöscht; Rückmeldung „ausgelassen“ → Termin bleibt, Status in der Beschreibung; Woche ersetzen → Tage ersetzter Einheiten neu bzw. gelöscht; Abgleich löscht alte Einzeltermine (auch zu bestehenden Einheiten) und verwaiste Sammeltermine, fremde bleiben, Zählung in Tagen; Erinnerungstexte in S8"
     wie: automatisiert (CalendarTest, simulierter CalDAV-Server)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "Review T8: Tagestermin dreimal geleert und neu belegt mit nachgebildetem Nextcloud-Papierkorb – jede Neuanlage mit neuer Fassung (training-tag-<Datum>-1/-2/-3, UID passend), keine Fehler; Abgleich schreibt dieselbe Fassung, leerer Tag erhöht sie; Einzeltermine geänderter Einheiten auch außerhalb des Zeitraums entfernt, unberührte ältere bleiben; Ruhetage im Abgleich, Zählung in Tagen, Reihenfolge nach sort_order, ersetzte Woche mit behaltener Einheit; Abbruch nach dem ersten Fehler mit Audit je Tag; eine Erinnerung bei zwei offenen Einheiten, Begründung je Einheit"
+    wie: automatisiert (CalendarTest, DayEventTest)
     ergebnis: ok
     datum: 2026-09-28
   - was: "T8/D-60: Echter CalDAV-Server – Sammeltermin mit drei Einheiten, Sonderzeichen, Faltung und VALARM angenommen; Ersetzen; REPORT mit Zeitraum; alter Einzeltermin training-session-<id>.ics gelöscht, fremder Termin bleibt"
@@ -608,7 +612,7 @@ noch_zu_pruefen:
     wie: manuell durch Athlet im Trainer-Chat (nach Deployment; 0.17.0 und 0.18.0 kommen gemeinsam mit einem Pull Request)
   - was: T2 – S2 und S3 auf dem Smartphone: Kurzsatz sichtbar, „mehr“ klappt auf (auch mit abgeschaltetem JavaScript)
     wie: manuell durch Athlet
-  - was: T2 – Kalendertermin im Nextcloud-Kalender zeigt den Kurzsatz als erste Zeile der Beschreibung
+  - was: T2 – Kalendertermin im Nextcloud-Kalender zeigt den Kurzsatz als erste Zeile der Beschreibung (bei mehreren Einheiten eines Tages je Abschnitt nach der Überschrift „Typ: Titel“, D-60)
     wie: manuell durch Athlet
 ```
 

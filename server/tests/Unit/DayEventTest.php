@@ -52,7 +52,7 @@ final class DayEventTest extends TestCase
     public function testSeveralSessionsShareOneEvent(): void
     {
         $kraft = self::kraft(['id' => 11, 'title' => 'Kraft Unterkörper', 'status' => 'erledigt', 'coach_summary' => 'Beine schwer',
-            'updated_at' => '2026-09-28 10:00:00']);
+            'coach_rationale' => 'Sehne ruhig, Last halten', 'updated_at' => '2026-09-28 10:00:00']);
         $lauf = self::kraft(['id' => 12, 'type' => 'ausdauer', 'title' => 'Lauf locker Z2', 'priority' => 'B', 'planned_duration_min' => 40,
             'status' => 'geplant', 'coach_summary' => 'Grundlage', 'coach_rationale' => null, 'updated_at' => '2026-09-28 11:00:00',
             'plan' => ['intervals_workout_text' => "- 40m Z2\n", 'summary' => 'Locker laufen']]);
@@ -73,12 +73,14 @@ final class DayEventTest extends TestCase
         $sections = explode('\n\n——————————\n\n', rtrim($m[1], "\r"));
         self::assertCount(3, $sections, 'je Einheit ein Abschnitt in Planreihenfolge');
         self::assertSame('Kraft: Kraft Unterkörper\nBeine schwer\n\nPriorität B · 60 min · erledigt\n- Kniebeuge: 3 × 8'
-            . '\n\nIn der App: https://training.example/einheit?id=11', $sections[0]);
+            . '\n\nTrainer: Sehne ruhig\, Last halten\n\nIn der App: https://training.example/einheit?id=11', $sections[0], 'Begründung je Einheit');
         self::assertSame('Ausdauer: Lauf locker Z2\nGrundlage\n\nPriorität B · 40 min\nLocker laufen\n- 40m Z2'
             . '\n\nIn der App: https://training.example/einheit?id=12', $sections[1]);
         self::assertSame('Klettern: Boulder\n\nPriorität B · 60 min · ausgelassen\n- Bouldern Volumen · 60 min · Grad 5'
             . '\n\nIn der App: https://training.example/einheit?id=13', $sections[2]);
 
+        $zweiOffen = DayEvent::ics('2026-09-30', [['status' => 'geplant'] + $kraft, ['status' => 'verschoben'] + $lauf], 'https://t', 't', 1, '05:00');
+        self::assertSame(1, substr_count($zweiOffen, 'BEGIN:VALARM'), 'eine Erinnerung je Tag, auch bei zwei offenen Einheiten');
         $done = DayEvent::ics('2026-09-30', [$kraft, ['status' => 'teilweise'] + $lauf, $boulder], 'https://t', 't', 1, '05:00');
         self::assertStringNotContainsString('VALARM', $done, 'alle Einheiten erledigt/teilweise/ausgelassen: keine Erinnerung');
         self::assertStringContainsString('SUMMARY:Training: Kraft Unterkörper + Lauf locker Z2 + Boulder', str_replace("\r\n ", '', $done), 'Titel unabhängig vom Status');
@@ -108,7 +110,13 @@ final class DayEventTest extends TestCase
     public function testResourceNamesAndRestDays(): void
     {
         self::assertSame('training-tag-2026-09-30.ics', DayEvent::resource('2026-09-30'));
+        self::assertSame('training-tag-2026-09-30-2.ics', DayEvent::resource('2026-09-30', 2), 'Fassung nach zweimaligem Löschen');
+        self::assertSame('training-session-7.ics', DayEvent::legacyResource(7));
         self::assertSame('2026-09-30', DayEvent::dateFromResource('training-tag-2026-09-30.ics'));
+        self::assertSame('2026-09-30', DayEvent::dateFromResource('training-tag-2026-09-30-12.ics'));
+        self::assertNull(DayEvent::dateFromResource('training-tag-2026-09-30-0.ics'));
+        self::assertNull(DayEvent::dateFromResource('training-tag-2026-09-30-x.ics'));
+        self::assertStringContainsString("UID:training-tag-2026-09-30-2@t\r\n", DayEvent::ics('2026-09-30', [self::kraft([])], 'https://t', 't', 1, null, 2));
         self::assertNull(DayEvent::dateFromResource('training-session-7.ics'));
         self::assertTrue(DayEvent::isOwn('training-tag-2026-09-30.ics'));
         self::assertTrue(DayEvent::isOwn('training-session-7.ics'), 'alter Einzeltermin (bis 0.18.0)');

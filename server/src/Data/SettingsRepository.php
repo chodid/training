@@ -44,6 +44,20 @@ final class SettingsRepository
             ->execute([$key, $value, Db::ts($this->clock->now())]);
     }
 
+    /**
+     * Einträge mit Datum im Schlüssel (Präfix + Y-m-d) vor $date entfernen, z. B. die Fassungen der Kalender-Tagestermine
+     * (kalender_tag_<Datum>, D-60).
+     */
+    public function forgetBefore(string $prefix, string $date): void
+    {
+        try {
+            $this->pdo->prepare('DELETE FROM app_setting WHERE setting_key LIKE ? AND setting_key < ?')
+                ->execute([addcslashes($prefix, '%_\\') . '%', $prefix . $date]);
+        } catch (\PDOException) {
+            // Schema älter als 19: nichts zu tun
+        }
+    }
+
     /** Erinnerungszeit 'HH:MM' oder null (aus). */
     public function calendarReminder(): ?string
     {

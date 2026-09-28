@@ -12,7 +12,9 @@ use Training\View\Labels;
  * Sammeltermin (iCalendar, RFC 5545) für einen Trainingstag (AP-11, D-60 ändert D-50): ein ganztägiger Termin je Tag
  * mit allen Einheiten außer Ruhetagen. Titel „Typ: Titel“ bei einer Einheit, sonst „Training: Titel 1 + Titel 2“;
  * ohne Status-Markierung und nie abgesagt – der Status steht je Einheit in der Beschreibung.
- * Ein Tag = eine Ressource mit fester UID, damit Änderungen denselben Termin ersetzen.
+ * Ein Tag = eine Ressource mit fester UID, damit Änderungen denselben Termin ersetzen. Wird der Termin eines Tages
+ * gelöscht, bekommt der nächste eine neue Fassung (Name und UID mit Zähler): Nextcloud legt Gelöschtes in den
+ * Papierkorb und lehnt bis Version 34.0.1 das wiederholte Löschen und Anlegen derselben Adresse/UID mit HTTP 403 ab.
  * Erinnerung (D-52): am Tag zur eingestellten Uhrzeit, solange mindestens eine Einheit geplant oder verschoben ist.
  */
 final class DayEvent
@@ -25,15 +27,27 @@ final class DayEvent
     /** Trennlinie zwischen den Einheiten eines Tages */
     private const SEPARATOR = '——————————';
 
-    public static function resource(string $date): string
+    /** Ressourcenname des Tages in Fassung $generation (0 = erste, danach „-1“, „-2“ … nach jedem Löschen). */
+    public static function resource(string $date, int $generation = 0): string
     {
-        return self::PREFIX . $date . '.ics';
+        return self::name($date, $generation) . '.ics';
     }
 
-    /** Datum aus dem Ressourcennamen eines Sammeltermins, null bei anderen Namen. */
+    /** Einzeltermin einer Einheit aus der Zeit vor D-60 (bis 0.18.0). */
+    public static function legacyResource(int $sessionId): string
+    {
+        return self::LEGACY_PREFIX . $sessionId . '.ics';
+    }
+
+    /** Datum aus dem Ressourcennamen eines Sammeltermins (jede Fassung), null bei anderen Namen. */
     public static function dateFromResource(string $name): ?string
     {
-        return preg_match('/^' . preg_quote(self::PREFIX, '/') . '(\d{4}-\d{2}-\d{2})\.ics$/', $name, $m) ? $m[1] : null;
+        return preg_match('/^' . preg_quote(self::PREFIX, '/') . '(\d{4}-\d{2}-\d{2})(?:-[1-9]\d*)?\.ics$/', $name, $m) ? $m[1] : null;
+    }
+
+    private static function name(string $date, int $generation): string
+    {
+        return self::PREFIX . $date . ($generation > 0 ? '-' . $generation : '');
     }
 
     /** Eigener Termin der App (Sammeltermin oder alter Einzeltermin); fremde Termine bleiben unberührt. */
@@ -53,8 +67,9 @@ final class DayEvent
      * @param list<array<string, mixed>> $sessions Einheiten des Tages ohne Ruhetage in Planreihenfolge, wie
      *     WeekRepository::sessions() (plan dekodiert); mindestens eine
      * @param ?string $reminder Uhrzeit 'HH:MM' am Tag, null = keine Erinnerung
+     * @param int $generation Fassung des Tagestermins (bestimmt die UID wie den Ressourcennamen)
      */
-    public static function ics(string $date, array $sessions, string $appUrl, string $host, int $now, ?string $reminder = null): string
+    public static function ics(string $date, array $sessions, string $appUrl, string $host, int $now, ?string $reminder = null, int $generation = 0): string
     {
         if ($sessions === []) {
             throw new \InvalidArgumentException('Sammeltermin ohne Einheiten: ' . $date);
@@ -74,7 +89,7 @@ final class DayEvent
             'PRODID:-//training.gen-em.org//Training-App//DE',
             'CALSCALE:GREGORIAN',
             'BEGIN:VEVENT',
-            'UID:' . self::PREFIX . $date . '@' . $host,
+            'UID:' . self::name($date, $generation) . '@' . $host,
             'DTSTAMP:' . gmdate('Ymd\THis\Z', $now),
             'LAST-MODIFIED:' . gmdate('Ymd\THis\Z', $modified),
             'SEQUENCE:' . max(0, $modified - 1_700_000_000),

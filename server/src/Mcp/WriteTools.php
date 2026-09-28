@@ -145,7 +145,7 @@ final class WriteTools
             $out[] = $row;
         }
         $failed = count(array_filter($out, static fn (array $r): bool => isset($r['fehler_intervals'])));
-        $calendarErrors = $this->calendarSync([...array_column($clean, 'date'), ...$replacedDates]);
+        $calendarErrors = $this->calendarSync([...array_column($clean, 'date'), ...$replacedDates], $replaced);
 
         return array_filter([
             'woche' => $weekStart,
@@ -242,7 +242,7 @@ final class WriteTools
                 $result['intervals'] = $err === null ? ($s['intervals_event_id'] !== null ? 'event_aktualisiert' : 'event_angelegt') : 'fehler: ' . $err;
             }
         }
-        $calendarErrors = $this->calendarSync([(string) $s['date'], (string) $clean['date']]);
+        $calendarErrors = $this->calendarSync([(string) $s['date'], (string) $clean['date']], [$sessionId]);
         if ($calendarErrors !== []) {
             $result['fehler_kalender'] = $calendarErrors;
         }
@@ -309,17 +309,18 @@ final class WriteTools
 
     /**
      * Kalender nachziehen (AP-11, D-60): Sammeltermine der betroffenen Tage neu schreiben (neue, geänderte, verschobene
-     * und ersetzte Einheiten; beim Verschieben alter und neuer Tag). Fehler werden nur gemeldet (einmal je Aufruf); der
-     * stündliche Abgleich holt sie nach.
+     * und ersetzte Einheiten; beim Verschieben alter und neuer Tag), dazu die alten Einzeltermine der betroffenen
+     * Einheiten entfernen. Fehler werden nur gemeldet (einmal je Aufruf); der stündliche Abgleich holt sie nach.
      * @param list<string> $dates
+     * @param list<int> $sessionIds geänderte bzw. ersetzte Einheiten
      * @return list<string>
      */
-    private function calendarSync(array $dates): array
+    private function calendarSync(array $dates, array $sessionIds): array
     {
         if ($this->calendar === null || !$this->calendar->enabled()) {
             return [];
         }
-        $error = $this->calendar->pushDays($dates);
+        $error = $this->calendar->pushDays($dates, 'mcp', $sessionIds);
 
         return $error === null ? [] : [$error . ' Der stündliche Abgleich überträgt die Termine erneut.'];
     }

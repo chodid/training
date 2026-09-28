@@ -50,7 +50,7 @@ Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 waren Vor
 | E-08 | **Logo überall:** Die gewählte Lama-Variante ersetzt den Kopf als App-Icon, Favicon und App-Kennung (Topbar, Navigation, Login-Karte). Bis zur Wahl (Q-14) bleibt der Kopf; Teil A wird erst nach der Wahl umgesetzt. | Wunsch des Athleten („der Kopf gefällt mir nicht“); eine Kennung, nicht zwei. |
 | E-09 | **Icon-Satz:** PNG 48, 96, 192, 512 (`purpose: any`), 512 maskable (Motiv in der sicheren Zone, Grund Pflaume 600 bzw. je Variante), `apple-touch-icon` 180 PNG, `favicon.ico` (16/32/48 mehrfach) im Docroot, SVG-Favicon bleibt zusätzlich. Beide Layouts (`layout-app`, `layout-auth`) tragen Manifest, PNG-Icon-Links mit `sizes`, `apple-touch-icon` und `theme-color`. Manifest zusätzlich mit `id` und `description`. | Deckt Verknüpfung per Favicon (Firefox-Familie), Manifest (Chrome/Edge/Samsung), iOS und Desktop ab; Login-Seite ist oft die Seite, von der aus verknüpft wird. |
 | E-10 | **Kurzsatz-Regeln:** Ein Satz, max. 200 Zeichen, sagt Was und Warum („Zweite Krafteinheit, Last wie letzte Woche, Fokus Tiefe – Sehne noch reizbar“). Ausführlich: 2–6 Sätze, max. 1 500 Zeichen, Bezug auf Blockziel, Belastungssteuerung, Befunde (Morgentest, Schmerz, Wellness), ohne Literaturzitate. Pflicht: Woche `focus`, Einheit `coach_summary` außer bei `ruhe`; die ausführlichen Texte sind erwartet, aber nicht erzwungen. | „Nicht ausführlich, nur kleines Darlegen der Ziele.“ Die Regel steht in den Tool-Beschreibungen (Claude sieht sie beim Planen) und später in den Trainerregeln (AP-07). |
-| E-11 | **Anzeige des Kurzsatzes:** Woche: eigene Zeile unter der Kopfzeile der Woche (Kurzsatz + „mehr“); die bisherige Angabe „Fokus …“ in der Kopfzeile entfällt. Einheit: Kurzsatz im Seitenkopf statt „Trainer-Notiz: …“ (+ „mehr“). Wochenliste: **kein** Kurzsatz je Einheit (bleibt kompakt). Kalendertermin: Kurzsatz als erste Zeile der Beschreibung, ausführlicher Text danach. | Wunsch: „bei Woche / Einheit“; Wochenliste bleibt auf dem Handy lesbar. |
+| E-11 | **Anzeige des Kurzsatzes:** Woche: eigene Zeile unter der Kopfzeile der Woche (Kurzsatz + „mehr“); die bisherige Angabe „Fokus …“ in der Kopfzeile entfällt. Einheit: Kurzsatz im Seitenkopf statt „Trainer-Notiz: …“ (+ „mehr“). Wochenliste: **kein** Kurzsatz je Einheit (bleibt kompakt). Kalendertermin: Kurzsatz als erste Zeile der Beschreibung, ausführlicher Text danach (seit E-22/D-60 bei mehreren Einheiten eines Tages je Abschnitt nach der Überschrift „Typ: Titel“). | Wunsch: „bei Woche / Einheit“; Wochenliste bleibt auf dem Handy lesbar. |
 | E-12 | **„mehr“ ohne JavaScript:** `<details class="more">` mit `<summary>` (bereits im CSS für AP-12), aufklappbar per Tipp, keine Skripte. | Branding 7.3, CSP. |
 | E-13 | **Einstieg in die geführte Einheit** nur auf S3 (Knopf „Einheit starten“ als Primäraktion im Seitenkopf) für die Typen `kraft`, `haltung`, `mobilitaet`, `klettern` mit vorhandenem Plan. Nicht für `ausdauer` (läuft auf der Uhr) und `ruhe`. In der Wochenliste kein Zusatzknopf. | Ein Tipp mehr, dafür bleibt S2 unverändert; Ausdauer ist auf der Uhr geführt. |
 | E-14 | **Adresse:** `GET /einheit?id=<id>&modus=start` rendert S9; `POST /einheit` bleibt der einzige Speicherweg (gleiche Feldnamen wie S3). Kein neuer Controller-Endpunkt, nur ein zweites Template. | Konfliktschutz (`stand`), Offline-Puffer und Validierung werden wiederverwendet. |
@@ -144,7 +144,7 @@ Trainerregeln (AP-07, `docs/regeln/`): Abschnitt „Begründung je Woche und Ein
 - **S2 Woche:** unter der Wochen-Kopfzeile eine Zeile `Kurzsatz` mit `<details class="more"><summary>mehr</summary>…</details>` für `coach_notes`. Ohne Text: Zeile entfällt. Bei Wochen ohne Plan unverändert (Leerzustand).
 - **S3 Einheit:** im Seitenkopf `coach_summary` als Absatz, daneben „mehr“ → `coach_rationale`. Ist nur `coach_rationale` vorhanden (Altdaten), steht „Trainer-Notiz“ als Summary-Text und der Text dahinter.
 - **S9 geführt:** Kurzsatz der Einheit im Startschritt („bereit“), nicht in den Übungsschritten.
-- **Kalender (AP-11):** Beschreibung = Kurzsatz, Leerzeile, Kurzplan, Leerzeile, ausführlicher Text (gekürzt auf 1 000 Zeichen), Link.
+- **Kalender (AP-11):** Beschreibung = Kurzsatz, Leerzeile, Kurzplan, Leerzeile, ausführlicher Text (gekürzt auf 1 000 Zeichen), Link. Seit T8 (E-22) je Einheit ein solcher Abschnitt, bei mehreren Einheiten mit Überschrift „Typ: Titel“ davor und Trennlinie dazwischen.
 - Offline: die Seiten sind ohnehin im Seiten-Cache; keine Änderung.
 
 ## 6. Teil C · Geführte Einheit (S9)
@@ -301,7 +301,7 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nacht
 - **Abnahme:** Dokumente konsistent (Feldnamen, Tool-Namen, Screens); Changelog nennt alle drei Teile.
 
 ### T8 · Sammeltermin je Tag im Kalender (Nachtrag, Teil D)
-- `Training\Calendar\DayEvent` ersetzt `SessionEvent`: ein Termin je Tag (Ressource `training-tag-<Datum>.ics`, UID je Tag), Titel und Beschreibung nach E-22, `STATUS:CONFIRMED`, `URL` = Woche, `CATEGORIES` = Typen des Tages, Erinnerung nach E-22.
+- `Training\Calendar\DayEvent` ersetzt `SessionEvent`: ein Termin je Tag (Ressource `training-tag-<Datum>.ics`, UID je Tag; nach einem Löschen neue Fassung `-1`, `-2` …, siehe Abschnitt 12), Titel und Beschreibung nach E-22, `STATUS:CONFIRMED`, `URL` = Woche, `CATEGORIES` = Typen des Tages, Erinnerung nach E-22.
 - `CalendarSync`: `pushDays(Daten)` statt `push`/`remove` je Einheit; Abgleich je Tag, löscht verwaiste Sammeltermine und die alten Einzeltermine (`training-session-<id>.ics`) im Zeitraum.
 - Aufrufer: `write_week_plan` (Tage der neuen und ersetzten Einheiten), `update_session` (alter und neuer Tag), Rückmeldung auf der Webseite (Tag der Einheit); Einstellungen und Cron unverändert (Abgleich).
 - Texte in S8 („Am Trainingstag um …“), Hauptkonzept (D-60, AP-11, K8), README, Changelog, Prüfprotokoll; Version hochstufen.
@@ -595,7 +595,7 @@ T8:
   datum: 2026-09-28
   ergebnis: >
     Ein Sammeltermin je Tag (E-22, D-60): Training\Calendar\DayEvent ersetzt SessionEvent – Ressource
-    training-tag-<Datum>.ics, UID je Tag, SUMMARY „Typ: Titel“ bzw. „Training: Titel 1 + Titel 2“ (Planreihenfolge,
+    training-tag-<Datum>.ics (nach einem Löschen des Tagestermins -1, -2 …), UID je Tag und Fassung, SUMMARY „Typ: Titel“ bzw. „Training: Titel 1 + Titel 2“ (Planreihenfolge,
     ohne Ruhetage), STATUS immer CONFIRMED, URL zur Woche, CATEGORIES mit den Typen des Tages, LAST-MODIFIED/SEQUENCE
     aus der jüngsten Änderung der Einheiten; Beschreibung je Einheit mit Überschrift (bei mehreren), Kurzsatz, Kurzplan
     (Priorität, Dauer, Status, Übungen/Blöcke mit Namen), Begründung (≤ 1 000 Zeichen) und Link, Trennlinie zwischen
@@ -604,8 +604,8 @@ T8:
     syncRange überträgt je Tag und löscht verwaiste Sammeltermine sowie alte Einzeltermine training-session-<id>.ics.
     Aufrufer: write_week_plan (Tage der neuen und ersetzten Einheiten), update_session (alter und neuer Tag),
     Rückmeldung auf der Webseite (Tag der Einheit). S8-Texte zur Erinnerung („Am Trainingstag um …“).
-  tests: DayEventTest (eine Einheit, mehrere Einheiten, Kurzsatz/Kürzung, Ressourcennamen und Ruhetage), CalendarTest (Wochenplan mit zwei Einheiten an einem Tag, Verschieben, letzter Termin eines Tages, ausgelassen, Woche ersetzen, Abgleich mit alten Einzelterminen, Erinnerung); Testfälle K-01 bis K-07; Rauchtest gegen Radicale
-  abnahme: automatisiert (PHPUnit 191 Tests grün) und Rauchtest gegen einen echten CalDAV-Server (Radicale, lokal) – Anlegen, Ersetzen, Zeitraum-Abfrage, Löschen des alten Einzeltermins, fremder Termin bleibt, iCalendar mit Erinnerung angenommen
+  tests: DayEventTest (K-01–K-03, K-07 – eine Einheit, mehrere Einheiten, Erinnerung auch bei zwei offenen Einheiten, Begründung je Einheit, Kurzsatz/Kürzung, Ressourcennamen mit Fassung, Ruhetage) und CalendarTest (K-04–K-07 – zwei Einheiten an einem Tag, Verschieben, letzter Termin eines Tages, ausgelassen, Woche ersetzen mit behaltener Einheit, Abgleich mit alten Einzelterminen und Zählung in Tagen, Ruhetage im Abgleich, Reihenfolge nach sort_order, Erinnerung; nach dem Review: nie wiederverwendete Adresse/UID mit nachgebildetem Nextcloud-Papierkorb, Einzeltermine geänderter Einheiten auch außerhalb des Zeitraums, Abbruch nach dem ersten Fehler mit Audit je Tag); Rauchtest gegen Radicale
+  abnahme: automatisiert (PHPUnit 195 Tests grün) und Rauchtest gegen einen echten CalDAV-Server (Radicale, lokal) – Anlegen, Ersetzen, Zeitraum-Abfrage, Löschen des alten Einzeltermins, fremder Termin bleibt, iCalendar mit Erinnerung angenommen
   abnahme_offen: Nextcloud-Kalender nach Deploy und Abgleich (Web und Handy) durch den Athleten
   probleme_loesungen:
     - was: Bestehende Einzeltermine je Einheit im Kalender des Athleten
@@ -616,6 +616,12 @@ T8:
       loesung: Bezug jetzt auf den Tag (entity kalender_tag, Datum; beim Abgleich ohne Bezug)
     - was: Kurzplan der Kletterblöcke zeigte den internen Schlüssel (bouldern_volumen)
       loesung: Anzeige mit dem Namen wie in S3 („Bouldern Volumen“), da die Beschreibung ohnehin neu aufgebaut wurde
+    - was: "Review T8: Nextcloud bis 34.0.1 hält gelöschte Termine 30 Tage im Papierkorb; wird derselbe Tagestermin (Adresse und UID) mehrfach gelöscht und neu angelegt, antwortet es mit 403 – der Tag behält einen veralteten Termin und der stündliche Abgleich scheitert"
+      loesung: Fassung je Tag in app_setting (kalender_tag_<Datum>), erhöht nach jedem tatsächlichen Löschen; Name und UID tragen die Fassung (training-tag-<Datum>-1.ics …), sodass keine gelöschte Adresse oder UID wiederkehrt; Einträge verfallen 60 Tage vor dem Abgleichzeitraum; Hinweis bei 403 nennt den Papierkorb. Getestet mit nachgebildetem Papierkorb (dreimal leeren und neu belegen)
+    - was: "Review T8: Alte Einzeltermine blieben dauerhaft stehen, wenn die App eine Einheit außerhalb des Abgleichzeitraums änderte (späte Rückmeldung, Verschieben, Ersetzen einer alten Woche)"
+      loesung: bei jeder direkten Änderung löscht die App auch den Einzeltermin der betroffenen Einheiten (ein DELETE, 404 ist kein Fehler)
+    - was: "Review T8: Doku – Datenfluss 3.2 („Termine je Einheit“), „Kurzsatz als erste Zeile“ (D-56, E-11, 5.3, Prüfprotokoll) und „mit Überschrift“ im Changelog passten nicht mehr; Testfälle K-01–K-07 nur DayEventTest zugeschrieben"
+      loesung: nachgezogen (Überschrift nur bei mehreren Einheiten, Kurzsatz dann je Abschnitt nach der Überschrift); Zuordnung der Testfälle zu DayEventTest und CalendarTest; fehlende Tests ergänzt
 probleme_loesungen: []
 ```
 
