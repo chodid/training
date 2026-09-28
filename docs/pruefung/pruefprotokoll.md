@@ -868,6 +868,21 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: Übergabe Teil C beruhte auf einem älteren Konzeptstand; D-39, Q-10, Q-11 waren inzwischen vergeben, Q-09 aus Teil B war bereits Q-13
     loesung: umnummeriert – D-39 → D-61, Q-10 → Q-15, Q-11 → Q-16, Ergänzung Q-09 → Q-13; Kartenzuschnitt von 5 auf 6 Sammeldateien (13.1 erlaubt 4–6)
+  - datum: 2026-09-28
+    was: Hypertrophie war in D-28 als „kein Primärziel“ zurückgestellt; der Athlet fragt nach Hypertrophie-Literatur
+    loesung: Rückfrage – Ergänzung, D-28 bleibt; L-T2-07 weiter zurückgestellt (D-62)
+  - datum: 2026-09-28
+    was: Keine Metaanalyse zu Hypertrophie mit Band oder Kettlebell bei gesunden Erwachsenen gefunden (PubMed); Treffer nur zu Kraft (L-T2-24) oder an Älteren/Patienten
+    loesung: Übertragung über L-T2-23 als gekennzeichneter Schluss; Pflichtinhalt „Grenzen“ (D-62 e)
+  - datum: 2026-09-28
+    was: L-P08 (Übersicht über Reviews) enthält vermutlich einen Teil der neuen Arbeiten
+    loesung: auf Wunsch des Athleten trotzdem aufgenommen; Klärung am Volltext (V-16)
+  - datum: 2026-09-28
+    was: Widersprüchliche Befunde zur Modalität der Ausdauer – Nachteil beim Laufen (L-T2-25, L-T2-31) vs. Trend zu Nachteil bei Rad-HIIT für Unterkörperkraft (L-T2-32)
+    loesung: in der Karte unter „Grenzen/Widersprüche“; keine Regel aus der Modalität allein ableiten (D-62 e)
+  - datum: 2026-09-28
+    was: Die Sitzung prüfte zunächst die Konzeptkopie im Projektwissen; diese war veraltet (Stand vor D-38). Die aktuelle Fassung lag als Anhang im Chat vor
+    loesung: IDs aus der aktuellen Fassung (D-61) abgeleitet; Athlet hat das Projektwissen aktualisiert; U1 prüft die IDs vor der Einarbeitung erneut
 geprueft:
   - was: Zuordnung der 29 PDFs zu IDs aus 13.2 – Titel, Autoren und DOI auf den ersten Seiten gegen 13.2 abgeglichen
     wie: Textextraktion (pypdf) aller Dateien, Abgleich je Datei
@@ -949,6 +964,38 @@ geprueft:
     wie: PubMed-Suche nach widersprechenden oder neueren Arbeiten; Frandsen 2025 per Websuche identifiziert, danach PubMed-Metadaten
     ergebnis: Thesen A2, A4, B1, B3, B5 gestützt; A1 relativiert (Cochrane); A3 nicht repliziert; B2 eingeschränkt (Wagemans); B4 nur mechanistisch; C1 korrigiert (Frandsen)
     datum: 2026-09-28
+  - was: Teil D (Hypertrophie) – Bibliografie L-T2-20 bis L-T2-32 (Autoren, Titel, Journal, Jahr, Band, Heft, Seiten, DOI, PMID, PMCID)
+    wie: PubMed-Metadaten (Connector)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Corrigenda zu L-T2-23 und L-T2-24 (Existenz, Fundstelle)
+    wie: PubMed-Metadaten
+    ergebnis: ok; Inhalt des Corrigendums zu L-T2-23 nicht geprüft
+    datum: 2026-09-28
+  - was: Kernaussagen
+    wie: Abstracts (PubMed)
+    ergebnis: ok, nur Abstract
+    datum: 2026-09-28
+  - was: Lizenzen L-T2-22, L-T2-23, L-T2-24, L-T2-25, L-T2-30
+    wie: PubMed/PMC-Copyright-Abfrage
+    ergebnis: L-T2-24 CC BY-NC 4.0; übrige ohne Lizenzangabe
+    datum: 2026-09-28
+  - was: L-T2-07 3. Aufl. (Erscheinen, ISBN, Format)
+    wie: Verlagsseite Human Kinetics, Händlerkatalog
+    ergebnis: ok; DRM des epub offen
+    datum: 2026-09-28
+  - was: Dubletten gegen 13.2 und 13.3 der Basisfassung
+    wie: manueller Abgleich
+    ergebnis: keine Dubletten
+    datum: 2026-09-28
+  - was: Hypertrophie-Evidenz zu Band/Kettlebell bei gesunden Erwachsenen
+    wie: PubMed-Suche (Titel elastic/band/kettlebell/home-based/bodyweight mit strength/hypertrophy/muscle mass, SR/MA)
+    ergebnis: keine Metaanalyse gefunden
+    datum: 2026-09-28
+  - was: Einarbeitung Teil D ins Konzept (U1–U8) – IDs L-T2-20 bis L-T2-32, D-62, V-16 frei; alle Verweise lösen auf; YAML-Blöcke parsebar wie zuvor
+    wie: Code-Instanz, automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
     wie: manuell durch Athlet bei der ersten Kartensitzung
@@ -978,4 +1025,12 @@ noch_zu_pruefen:
     wie: Verlagsseiten
   - was: Wortlaut VISA-P-G (L-R-08) gegen WebApp-Rechner
     wie: manuell nach Beschaffung; ggf. Code-Auftrag
+  - was: Redundanz zu L-P08, Corrigendum L-T2-23
+    wie: V-16 am Volltext
+  - was: Kernaussagen am Volltext
+    wie: Kartensitzung, 13.1 Schritt 3 (3–5 Aussagen je Karte gegen das PDF)
+  - was: Lizenzen ohne Angabe vor Ablage im Repo
+    wie: Verlagsseite bzw. PDF
+  - was: DRM des epub von L-T2-07
+    wie: nur bei Aktivierung, V-13
 ```
