@@ -77,11 +77,12 @@ abstract class AppTestCase extends TestCase
     }
 
     protected ?\Training\Intervals\HttpTransport $intervalsTransport = null;
+    protected ?\Training\Intervals\HttpTransport $calendarTransport = null;
     protected ?FakeMailer $mailer = null;
 
     protected function app(): App
     {
-        return new App($this->baseDir, $this->clock, new LoginThrottle(), $this->intervalsTransport, $this->mailer);
+        return new App($this->baseDir, $this->clock, new LoginThrottle(), $this->intervalsTransport, $this->mailer, $this->calendarTransport);
     }
 
     /**

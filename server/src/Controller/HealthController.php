@@ -66,6 +66,8 @@ final class HealthController
         // Intervals.icu (AP-02): nur Konfiguration, kein Netzwerkaufruf; Fehlen macht Health nicht rot.
         if ($checks['config'] === 'ok') {
             $checks['intervals'] = IntervalsClient::isConfigured($this->app->config()) ? 'konfiguriert' : 'nicht_konfiguriert';
+            $checks['kalender'] = !\Training\Calendar\CalDavClient::isConfigured($this->app->config()) ? 'nicht_konfiguriert'
+                : (str_starts_with(strtolower((string) $this->app->config()->get('CALDAV_URL')), 'https://') ? 'konfiguriert' : 'ungueltig_kein_https');
         }
 
         $schema = ['code' => App::SCHEMA_VERSION, 'db' => null, 'status' => 'unbekannt'];

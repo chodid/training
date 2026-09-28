@@ -77,9 +77,10 @@ Ein einzelner Athlet (= Betreiber des Systems). Kein Mehrbenutzerbetrieb.
 | K2 | Intervals.icu | Drittanbieter | Hub für Ausdauer: empfängt Aktivitäten und Wellness von Garmin; hält geplante Ausdauereinheiten (Kalender); überträgt geplante Workouts an Garmin Connect (Vorschau eine Woche) |
 | K3 | PHP-Server (Lima-City) | Eigenes Hosting | Webseite (mobil und Tablet), MySQL-Datenbank, Intervals.icu-Client, MCP-Endpunkt, OAuth-Server |
 | K4 | claude.ai-Projekt | Anthropic | Trainer-Instanz: Planung, Anpassung, Begründung; Zugriff auf K3 über Custom Connector (MCP) |
-| K5 | Projekt-Wissen (Dateien im Projekt) | Anthropic | Wissenskarten (Literatur), Trainerregeln, Blockpläne (Athletenprofil seit D-48 in K2) |
+| K5 | Projekt-Wissen (Dateien im Projekt) | Anthropic | Wissenskarten (Literatur), Trainerregeln, Blockpläne (Athletenprofil seit D-48 in K3) |
 | K6 | Projekt-Memory | Anthropic | Nur stabile, nicht gesundheitsbezogene Fakten (Ziele, Ausrüstung, Präferenzen) |
 | K7 | GitHub-Repo | GitHub | Code (server/), Dokumente (docs/), Wissenskarten (docs/wissen/), Regeln (docs/regeln/) |
+| K8 | Nextcloud-Kalender (CalDAV) | Eigenes Hosting des Athleten | Kopie der Einheiten als ganztägige Termine (AP-11, D-50); wird nur von K3 beschrieben |
 
 ## 3.2 Datenflüsse
 
@@ -89,7 +90,8 @@ flowchart LR
   ICU[K2 Intervals.icu]
   SRV[K3 PHP-Server\nWebseite + MySQL + MCP + OAuth]
   CHAT[K4 claude.ai Projekt-Chat]
-  WISSEN[K5 Projekt-Wissen\nWissenskarten, Regeln, Profil]
+  WISSEN[K5 Projekt-Wissen\nWissenskarten, Regeln, Blockpläne]
+  CAL[K8 Nextcloud-Kalender]
   REPO[K7 GitHub-Repo]
   HANDY[Handy-Browser]
 
@@ -101,6 +103,7 @@ flowchart LR
   WISSEN --> CHAT
   REPO -- Deploy --> SRV
   REPO -- Sync der docs --> WISSEN
+  SRV -- CalDAV: Termine je Einheit --> CAL
 ```
 
 ## 3.3 Was wo gespeichert wird (System of Record)
@@ -108,16 +111,17 @@ flowchart LR
 | daten | system_of_record | bemerkung |
 |---|---|---|
 | Geplante Ausdauereinheiten | K2 Intervals.icu (Event) | K3 hält nur `intervals_event_id` als Referenz |
-| Ausgeführte Ausdauer-Aktivitäten, HF, Pace, Höhe, Load | K2 | K3 liest live per API (kein Spiegel in Phase 1) |
-| Objektive Wellness (HRV, Ruhepuls, Schlaf) | K2 (aus Garmin) | K3 liest live |
+| Ausgeführte Ausdauer-Aktivitäten, HF, Pace, Höhe, Load | K2 | K3 spiegelt Zusammenfassungen in `ext_activity` (D-43, read-through und stündlicher Abgleich) |
+| Objektive Wellness (HRV, Ruhepuls, Schlaf) | K2 (aus Garmin) | K3 spiegelt in `ext_wellness` (D-43) |
 | Geplante Nicht-Ausdauer-Einheiten (Kraft, Klettern, Haltung) | K3 MySQL | Strukturierte Inhalte (Übungen, Sätze, Kante, Last) |
 | Ausführungslog aller Einheiten (Ist-Werte) | K3 MySQL | Auch für Ausdauereinheiten (Feedback) |
 | Feedback (RPE, Feel, Schmerz, Abweichung, Notiz) | K3 MySQL | Ein Eingabeort für alles |
 | Tägliches Check-in | K3 MySQL | D-16 |
+| Kalendertermine der Einheiten | K3 MySQL (Einheit) | K8 hält nur eine Kopie; Änderungen im Kalender werden nicht zurückgelesen und beim nächsten Abgleich überschrieben (D-50) |
 | Backups (verschlüsselte DB-Dumps) | Manuell heruntergeladen bzw. per E-Mail beim Athleten; Pre-Migration-Dumps lokal außerhalb Docroot | D-18 |
 | Branding-Dokument | K7 Repo (docs/branding/) | D-19 |
 | Blockplan, Begründungen, Trainerregeln, Wissenskarten | K7 Repo + K5 Projekt-Wissen | Textdokumente |
-| Athletenprofil (Ziele, Zeitbudget, Ausrüstung, Einschränkungen, Leistungswerte) | K2 MySQL (`athlete_profile`, D-48; Zugriff über `get_athlete_profile`/`update_athlete_profile`) | Nicht in K6 Memory; nicht mehr als Datei in K7/K5 (vorher D-15) |
+| Athletenprofil (Ziele, Zeitbudget, Ausrüstung, Einschränkungen, Leistungswerte) | K3 MySQL (`athlete_profile`, D-48; Zugriff über `get_athlete_profile`/`update_athlete_profile`) | Nicht in K6 Memory; nicht mehr als Datei in K7/K5 (vorher D-15) |
 | OAuth-Clients, Auth-Codes, Refresh-Tokens (gehasht), Web-Sessions, Audit-Log der MCP-Schreibzugriffe | K3 MySQL | Access-Tokens sind signierte JWT und werden nicht gespeichert (D-32); Web-Session in `web_session` (D-33) |
 | MCP-Sitzungsdateien des SDK (nur für Clients älterer Protokollrevisionen) | K3 Dateisystem `<Ordner>/var/` | Außerhalb Docroot, vom Deployment nicht berührt (D-17) |
 
@@ -174,6 +178,7 @@ flowchart LR
 | D-47 | Asymmetrische Backup-Verschlüsselung wird nicht umgesetzt (ändert D-42); Backups bleiben passwortverschlüsselt nach D-18 (`openssl enc`, AES-256-CBC, PBKDF2). Auch kein Wechsel auf AES-ZIP. | Ein Serverkompromiss legt die Live-Datenbank ohnehin offen, ein Postfachkompromiss enthält das Passwort nicht; Gewinn nur im Randfall „.env und alte Backups“ (ältere/gelöschte Stände). Kosten: Verwaltung eines privaten Schlüssels, dessen Verlust alle Backups unlesbar macht, umständlicherer Restore. ZIP wäre ebenfalls symmetrisch; der Restore braucht ohnehin die Kommandozeile, zum Ansehen gibt es den JSON-Export. Entscheidung des Athleten nach Erklärung. | 2026-09-28 |
 | D-48 | Athletenprofil als DB-Objekt (ersetzt D-15): Tabelle `athlete_profile` mit festen Abschnitten `ziele`, `zeitbudget`, `ausruestung`, `einschraenkungen`, `leistungswerte`, `sonstiges`, je Abschnitt Markdown-Text (höchstens 6 000 Zeichen). Jede Änderung legt eine neue Fassung an (Datum, Urheber Claude/Web, optionaler Grund); frühere Stände bleiben lesbar. Die DB ist die einzige Quelle: `docs/athlet/profil.md` und die Kopie im Projekt-Wissen entfallen. Bearbeiten durch Claude (`update_athlete_profile`, Scope `training:write`) und auf der Webseite (`/profil`, erreichbar über S8); Schutz gegen gegenseitiges Überschreiben. | Profil ändert sich mit Tests und Lebensumständen; Claude kann Werte direkt im Chat eintragen, ohne Repo und Deployment. Abschnitte statt eines Dokuments, damit Änderungen gezielt sind; Fassungen, damit spätere Auswertungen den damaligen Stand kennen. Entscheidung des Athleten (Struktur, Bearbeiter, Quelle, Verlauf). | 2026-09-28 |
 | D-49 | Ausgestaltung Offline (konkretisiert D-45): (a) Vorgeladen werden beim Öffnen der aktuellen Woche die aktuelle und die nächste Woche mit allen Einheiten sowie Check-in und Schmerz für heute; weitere besuchte Seiten dieser Art werden beim Aufruf gespeichert, andere Seiten sind offline nicht verfügbar. (b) Abmelden löscht die gespeicherten Seiten auf dem Gerät; noch nicht gesendete Eingaben bleiben und werden nach dem nächsten Login gesendet. (c) Wurde ein Eintrag (Check-in, Rückmeldung) seit dem Laden des Formulars geändert, wird eine gepufferte Eingabe nicht übernommen, sondern als Hinweis mit „Öffnen“, „Trotzdem übernehmen“ und „Verwerfen“ angezeigt; dieselbe Prüfung gilt online (Formular bleibt mit den Eingaben stehen, erneutes Speichern übernimmt). Schmerzereignisse sind immer neue Einträge und kollidieren nicht. | Entscheidung des Athleten (Umfang, Abmelden, Konflikt); „Trotzdem übernehmen“ ergänzt in der Umsetzung, damit eine Eingabe nach Prüfung nicht neu getippt werden muss. | 2026-09-28 |
+| D-50 | Kalender per CalDAV-Push (AP-11): Die App schreibt jede Einheit außer Ruhetagen als ganztägigen Termin in einen Nextcloud-Kalender (eigener Kalender empfohlen), mit fester UID je Einheit; Titel „Typ: Titel“, Beschreibung mit Priorität, Dauer, Kurzplan, Trainer-Begründung und Link zur App. Status: erledigt/teilweise mit „✓“ im Titel, ausgelassen als abgesagter Termin, verschoben wandert mit dem Datum. Übertragen wird bei jeder Änderung (Wochenplan, update_session, Ersetzen einer Woche, Rückmeldung auf der Webseite); zusätzlich Abgleich 7 Tage zurück bis 8 Wochen voraus im stündlichen Cronjob und per Knopf in den Einstellungen, dabei werden verwaiste eigene Termine entfernt, fremde nie. Zugang über Nextcloud-App-Passwort in der .env (CALDAV_URL nur https); Fehler brechen nichts ab. Einbahnstraße: Änderungen im Kalender werden nicht zurückgelesen. | Entscheidung des Athleten (CalDAV statt ICS-Abo: sofort sichtbar; Umfang ohne Ruhetage; Markierung; Abgleich im bestehenden Cronjob; direkte Umsetzung durch die Code-Instanz). Einheiten haben keine Uhrzeit, daher ganztägig. | 2026-09-28 |
 
 # 5. Offene Fragen und Verifikationen
 
@@ -1001,7 +1006,7 @@ Vorgesehene Kapitel:
 
 # 15. Arbeitspakete
 
-Reihenfolge Code-Instanz: AP-00 → **AP-01a (Fable, Vorarbeit)** → AP-01 → AP-02 → AP-03 → AP-04 → AP-10 → AP-05 → AP-09.
+Reihenfolge Code-Instanz: AP-00 → **AP-01a (Fable, Vorarbeit)** → AP-01 → AP-02 → AP-03 → AP-04 → AP-10 → AP-05 → AP-09 → AP-11 (ergänzt 2026-09-28).
 Parallel im Projekt-Chat: AP-06 → AP-07 → AP-08. Training kann mit AP-06 bis AP-08 und Plan-als-Dokument (Übergangslösung) starten, bevor der Code fertig ist.
 Hinweis zur Nummerierung: AP-10 wurde nachträglich eingefügt und steht bewusst vor AP-05, weil Migrationen und Backups produktiv sein müssen, bevor Claude über MCP schreibt. AP-01a wurde nachträglich als eigenes Vorpaket eingefügt (D-37), weil es von einem anderen Modell (Fable) bearbeitet und vom Athleten abgenommen wird und damit einen eigenen Statusblock braucht; AP-01 hängt davon ab.
 
@@ -1536,6 +1541,37 @@ probleme_loesungen:
     loesung: gesperrt sind alle fachlichen Schreibzugriffe (Einheit, Check-in, Schmerz, Zeitzone, Passwort); erlaubt bleiben Anmelden/Abmelden, OAuth, Backup-Download, Freigabe widerrufen und der Migrationsknopf selbst. MCP-Schreibtools prüfen die Sperre ab AP-05 (App::writeLocked)
 ```
 
+## AP-11 Kalender (CalDAV, Nextcloud)
+
+- **Ziel:** Alle Einheiten (außer Ruhetagen) erscheinen als ganztägige Termine im Nextcloud-Kalender des Athleten und bleiben mit Plan und Status aktuell (D-50).
+- **Umfang:**
+  1. CalDAV-Client: PUT/DELETE je Einheit (`training-session-<id>.ics`), REPORT calendar-query für einen Zeitraum; Basic-Auth mit App-Passwort; nur https.
+  2. Termin-Aufbau (iCalendar): ganztägig, feste UID, Titel mit Typ und Status-Markierung, Beschreibung mit Kurzplan und Link, STATUS:CANCELLED bei „ausgelassen“; Escaping und Zeilenfaltung nach RFC 5545.
+  3. Übertragen bei jeder Änderung (MCP `write_week_plan`, `update_session`, Ersetzen; Rückmeldung auf der Webseite); Fehler als `fehler_kalender` in der Tool-Antwort, im Audit-Log und in den Einstellungen.
+  4. Abgleich 7 Tage zurück bis 8 Wochen voraus im stündlichen Cronjob `/cron/intervals-sync` und per Knopf in S8; verwaiste eigene Termine löschen, fremde nie.
+  5. Konfiguration `CALDAV_URL`, `CALDAV_USER`, `CALDAV_PASSWORD` (optional; ohne sie aus), Anzeige in S8 und `/health`.
+- **Abhängigkeiten:** AP-05, AP-09 (Cronjob).
+- **Abnahmekriterien:** Nach einem Wochenplan aus Claude stehen die Einheiten im Nextcloud-Kalender (Web und Handy); Statusänderung und Verschieben werden sichtbar; Abgleich-Knopf meldet Anzahl.
+- **Status:**
+```yaml
+status: in_arbeit
+begonnen: 2026-09-28
+abgeschlossen: null
+probleme_loesungen:
+  - datum: 2026-09-28
+    was: Kein Nextcloud in der Code-Umgebung
+    loesung: Tests mit simuliertem CalDAV-Server (PUT/DELETE/REPORT mit Zeitraum); zusätzlich Rauchtest gegen einen echten CalDAV-Server (Radicale 3.8, lokal): Anlegen, Ersetzen, Zeitraum-Abfrage, Löschen und iCalendar-Prüfung ok. Nextcloud (Sabre/DAV) prüft der Athlet
+  - datum: 2026-09-28
+    was: Ungültige CALDAV_URL (http) darf die Schreib-Tools nicht lahmlegen
+    loesung: Kalender bleibt dann aus; Hinweis in den Einstellungen, /health meldet ungueltig_kein_https
+  - datum: 2026-09-28
+    was: Welche Termine darf der Abgleich löschen?
+    loesung: nur Ressourcen mit dem Namensmuster training-session-<id>.ics im Zeitraum, deren Einheit fehlt oder ein Ruhetag ist; fremde Termine bleiben
+  - datum: 2026-09-28
+    was: Viele Fehler bei ausgefallenem Kalender (eine Meldung je Einheit)
+    loesung: je Tool-Aufruf nur die erste Fehlermeldung, weitere Versuche entfallen; der stündliche Abgleich holt alles nach
+```
+
 # 16. Prüfprotokoll (separates Dokument)
 
 Datei: `docs/pruefung/pruefprotokoll.md`. Struktur je AP:
@@ -1591,3 +1627,5 @@ noch_zu_pruefen:
 | 2026-09-28 | Asymmetrische Backups gestrichen (D-47, ändert D-42/D-18). Athletenprofil als DB-Objekt entschieden (D-48, ersetzt D-15) und umgesetzt (AP-09 Teil 5, Code-Stand 0.12.0): Abschnitt 3.1/3.3, Ablauf Wochenplanung, 8.2 (`get_athlete_profile` neu, `update_athlete_profile`), Abschnitt 10 (Profilseite), AP-08 angepasst. |
 | 2026-09-28 | AP-09 Teil 6 umgesetzt (Code-Stand 0.13.0): Offline-Fähigkeit (D-45) mit D-49 (Umfang, Abmelden, Konflikt); alle AP-09-Teilpakete umgesetzt, Abnahme durch Athlet offen. |
 | 2026-09-28 | Deployment 0.13.0 auf training.gen-em.org (Merge PR #7), Schema 18. Prüfungen durch den Athleten eingetragen: Setup, Intervals.icu (GET, Event-POST), Claude-Connector (Web), Cron-Abgleich, Backup-Mail, Entschlüsselung, Passkey, Offline; V-04 und V-05 teilweise bestätigt. |
+| 2026-09-28 | Konsistenz: Athletenprofil und K5 verwiesen fälschlich auf K2 statt K3; 3.3 beschreibt jetzt den Spiegel (D-43) statt „live“. |
+| 2026-09-28 | Neu: AP-11 Kalender per CalDAV (D-50) auf Wunsch des Athleten, direkt umgesetzt (Code-Stand 0.14.0); K8 in 3.1/3.2/3.3 ergänzt. |

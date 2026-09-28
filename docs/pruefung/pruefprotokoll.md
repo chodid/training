@@ -445,6 +445,38 @@ noch_zu_pruefen:
     wie: manuell durch Athlet
 ```
 
+## AP-11 Kalender (CalDAV)
+
+```yaml
+ap: AP-11
+geprueft:
+  - was: Wochenplan → Termine je Einheit ohne Ruhetag (PUT mit Basic-Auth an CALDAV_URL), update_session (Datum, erledigt → „✓“), Rückmeldung „ausgelassen“ auf der Webseite → STATUS:CANCELLED, Woche ersetzen → ersetzte Termine gelöscht, neue angelegt
+    wie: automatisiert (PHPUnit, simulierter CalDAV-Server)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Fehler (HTTP 401, Netz weg) – Einheit bleibt gespeichert, fehler_kalender mit Hinweis, Audit calendar_error, Anzeige in den Einstellungen; stündlicher Abgleich überträgt nach und löscht verwaiste eigene Termine, fremde bleiben; Knopf „Abgleichen“ mit Anzahl bzw. Fehlermeldung
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Ohne Konfiguration keine Anfragen; http-URL → Kalender aus, Schreib-Tools laufen, /health ungueltig_kein_https, Hinweis in den Einstellungen; Cron ohne Intervals und ohne Kalender 503
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: iCalendar – ganztägig (DTSTART/DTEND VALUE=DATE), UID, Escaping von ; , Zeilenumbruch, Zeilen ≤ 75 Oktette ohne geteilte UTF-8-Zeichen, Beschreibung mit Kurzplan und Link
+    wie: automatisiert (Unit-Test)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Echter CalDAV-Server – Anlegen, Ersetzen (✓ im Titel), REPORT mit Zeitraum (nur passende Termine), Löschen (auch doppelt), iCalendar vom Server angenommen
+    wie: Rauchtest gegen Radicale 3.8 (lokal, http nur für den Test)
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: Nextcloud – Kalender „Training“ und App-Passwort anlegen, CALDAV_* in die .env, Einstellungen → „Abgleichen“; Termine im Nextcloud-Web und auf dem Handy sichtbar
+    wie: manuell durch Athlet
+  - was: Änderung aus Claude (update_session, Status) erscheint im Kalender; Rückmeldung auf der Webseite setzt „✓“
+    wie: manuell durch Athlet
+```
+
 ## AP-05 MCP-Tools produktiv
 
 ```yaml

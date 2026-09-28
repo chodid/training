@@ -47,7 +47,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | GET/POST | `/einheit` | S3 Einheit (`?id=…`): Plan, Ist-Werte, Rückmeldung, Schmerz, Status; bei Ausdauer verknüpfte Intervals.icu-Aktivität |
 | GET/POST | `/checkin` | S4 Tages-Check-in (`?datum=…`, nicht in der Zukunft) |
 | GET/POST | `/schmerz` | S5 Schmerzereignis (`?datum=…`, `?einheit=…`) |
-| GET/POST | `/einstellungen` | S8 Athletenprofil (Link), Konto, Zeitzone, Passwort, Passkeys, Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
+| GET/POST | `/einstellungen` | S8 Athletenprofil (Link), Konto, Zeitzone, Passwort, Passkeys, Kalender-Abgleich, Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
 | POST | `/passkey/register/options`, `/passkey/register` | Passkey anlegen (angemeldet, Header `X-CSRF-Token`; D-44) |
 | POST | `/passkey/login/options`, `/passkey/login` | Anmelden mit Passkey; Relying-Party-ID ist der Host aus `APP_URL` |
 | GET/POST | `/profil` | Athletenprofil (D-48): Abschnitte lesen und bearbeiten (`?abschnitt=…`), frühere Fassungen (`&verlauf=1`) |
@@ -57,7 +57,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | GET | `/health` | Zustand als JSON: PHP-Erweiterungen, Konfiguration, `var/` beschreibbar, Datenbank, Schemastand. `200` = in Ordnung, `503` = Handlungsbedarf. Enthält keine Secrets. |
 | POST | `/admin/migrate` | Führt ausstehende Migrationen aus, vorher verschlüsselter Pre-Migration-Dump nach `backups/` (die letzten 5 bleiben). Header `X-Migration-Secret` muss `MIGRATION_SECRET` entsprechen. `401` ohne Header, `403` bei falschem Secret, `409` wenn bereits eine Migration läuft oder die Datenbank neuer als der Code ist, `500` wenn der Dump fehlschlägt (dann keine Migration). |
 | GET | `/cron/backup-mail?key=…` | Backup per E-Mail für den Lima-City-Cronjob (`CRON_SECRET`); versendet nur nach Ablauf des Intervalls, `&force=1` sofort |
-| GET | `/cron/intervals-sync?key=…` | Spiegel Intervals.icu → MySQL (D-43): Aktivitäten und Wellness der letzten 14 Tage (`&tage=…` bis 400), entfernt dort gelöschte Aktivitäten |
+| GET | `/cron/intervals-sync?key=…` | Spiegel Intervals.icu → MySQL (D-43): Aktivitäten und Wellness der letzten 14 Tage (`&tage=…` bis 400), entfernt dort gelöschte Aktivitäten; gleicht außerdem den CalDAV-Kalender ab (AP-11) |
 | GET/POST | `/setup` | S0: legt den einzigen Benutzer an (verlangt `MIGRATION_SECRET`, D-34). Sobald ein Benutzer existiert: `404`. |
 | GET/POST | `/login` | S1: Anmeldung, Session 30 Tage gleitend. Nach 10 Fehlversuchen 5 min Sperre, jeder weitere Fehlversuch verdoppelt bis 24 h (D-33). |
 | POST | `/logout` | Abmelden (mit CSRF-Token) |
@@ -132,6 +132,7 @@ Optional unter Einstellungen → Konto → „Passkey hinzufügen“ einen Passk
 - **Cronjobs bei Lima-City:** `CRON_SECRET` (mindestens 32 Zeichen) in die `.env`, dann zwei zeitgesteuerte URL-Aufrufe anlegen:
   - täglich `https://training.gen-em.org/cron/backup-mail?key=<CRON_SECRET>` – Backup per E-Mail (zusätzlich `BACKUP_MAIL_TO` und `SMTP_*` des Mailkontos). Stand unter Einstellungen → Backup; Fehler erscheinen auch in der Wochenansicht.
   - stündlich `https://training.gen-em.org/cron/intervals-sync?key=<CRON_SECRET>` – Spiegel Intervals.icu → MySQL (D-43). Einmalig `…&tage=365` im Browser aufrufen, um die Vorgeschichte zu übernehmen. Stand unter Einstellungen → Verbindungen.
+- **Kalender (Nextcloud, AP-11):** In Nextcloud einen Kalender „Training“ anlegen und unter Einstellungen → Sicherheit ein App-Passwort erzeugen. In die `.env`: `CALDAV_URL=https://<nextcloud>/remote.php/dav/calendars/<benutzer>/training/`, `CALDAV_USER=<benutzer>`, `CALDAV_PASSWORD=<App-Passwort>`. Danach in den Einstellungen unter „Verbindungen → Kalender (CalDAV)“ auf „Abgleichen“ tippen. Einheiten erscheinen als ganztägige Termine und werden bei jeder Änderung und stündlich (Cronjob `intervals-sync`) aktualisiert; Änderungen im Kalender selbst werden überschrieben.
 - **Offline nutzen (D-45, D-49):** Die Seite auf dem Smartphone „Zum Home-Bildschirm“ hinzufügen und die Woche einmal mit Netz öffnen – dann sind aktuelle und nächste Woche mit allen Einheiten sowie Check-in und Schmerz für heute auch im Funkloch verfügbar. Eingaben ohne Netz werden auf dem Gerät gepuffert („Offline gespeichert“) und automatisch gesendet, sobald Netz da ist; auf dem iPhone beim nächsten Öffnen der App. Wurde ein Eintrag inzwischen anders geändert, erscheint ein Hinweis mit „Öffnen“, „Trotzdem übernehmen“ und „Verwerfen“. Abmelden löscht die gespeicherten Seiten, nicht aber ungesendete Eingaben.
 - **Notbremse:** `OAUTH_JWT_SECRET` wechseln macht alle Access-Tokens sofort ungültig; Refresh-Tokens lassen sich in der Tabelle `oauth_token` (`revoked = 1`) sperren.
 
