@@ -1,6 +1,6 @@
 /*
  * Icon-Satz der App (AP-13 T1, E-09, E-21/D-59) aus den gewählten Vorlagen rendern.
- * Der Deploy-Server kann kein SVG rendern; das Ergebnis wird deshalb eingecheckt (server/public/icons/, server/public/favicon.ico).
+ * Der Deploy-Server kann kein SVG rendern; das Ergebnis wird deshalb eingecheckt (server/public/app-icons/, server/public/favicon.ico).
  *
  *   V3 (Fläche hell auf Pflaume 600)  icon-optionen/v3.svg          → lama-48/96/192/512.png (purpose any), apple-touch-icon-180.png
  *   V3 maskable (Motiv in 64 %)       icon-optionen/v3-maskable.svg → lama-512-maskable.png
@@ -25,7 +25,7 @@ function loadPlaywright() {
 
 const repo = path.resolve(__dirname, '..', '..');
 const src = path.join(__dirname, 'mockups', 'icon-optionen');
-const icons = path.join(repo, 'server', 'public', 'icons');
+const icons = path.join(repo, 'server', 'public', 'app-icons');
 const docroot = path.join(repo, 'server', 'public');
 
 const PNGS = [
@@ -76,7 +76,7 @@ function ico(images) {
   fs.mkdirSync(icons, { recursive: true });
   for (const [file, size, out] of PNGS) {
     fs.writeFileSync(path.join(icons, out), await render(page, file, size));
-    console.log('icons/' + out + ' (' + size + ' px aus ' + file + ')');
+    console.log('app-icons/' + out + ' (' + size + ' px aus ' + file + ')');
   }
   const [icoSrc, sizes, icoOut] = ICO;
   const images = [];
@@ -86,7 +86,7 @@ function ico(images) {
   fs.writeFileSync(path.join(docroot, icoOut), ico(images));
   console.log(icoOut + ' (' + sizes.join('/') + ' px aus ' + icoSrc + ')');
   fs.copyFileSync(path.join(src, 'v2.svg'), path.join(icons, 'favicon.svg'));
-  console.log('icons/favicon.svg (Kopie von v2.svg)');
+  console.log('app-icons/favicon.svg (Kopie von v2.svg)');
   await browser.close();
 })().catch((e) => {
   console.error(e);

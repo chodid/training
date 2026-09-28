@@ -2318,13 +2318,13 @@ probleme_loesungen:
 - **Ziel:** Das App-Logo erscheint beim Verknüpfen auf dem Startbildschirm in allen Browsern (Android, iOS, Desktop) und wechselt auf das ganze Lama (D-55); die Planung liefert je Woche und Einheit einen Kurzsatz und eine Begründung, sichtbar mit „mehr“ (D-56).
 - **Umfang:** Auftrag `docs/konzept/gefuehrte-einheit.md`, Teile A und B, Unterpunkte T1 (Icon, Variante D-59) und T2 (Begründungstexte); Mockups `icon-optionen.html`, S2/S3 angepasst.
 - **Abhängigkeiten:** AP-04, AP-05, AP-11 (Kalenderbeschreibung).
-- **Abnahmekriterien:** Prüfschritte P-A1 bis P-A6 des Auftrags (Lama-Icon in Chrome und LibreWolf, von `/login` und `/woche`); Plan aus dem Projekt-Chat mit Kurzsatz und Begründung erscheint in S2 und S3, „mehr“ klappt ohne JavaScript auf.
+- **Abnahmekriterien:** Prüfschritte P-A1 bis P-A7 des Auftrags (Lama-Icon in Chrome, LibreWolf und IronFox, von `/login` und `/woche`); Plan aus dem Projekt-Chat mit Kurzsatz und Begründung erscheint in S2 und S3, „mehr“ klappt ohne JavaScript auf.
 - **Status:**
 ```yaml
 status: in_arbeit
 begonnen: 2026-09-28
 abgeschlossen: null
-teilpakete: T1 und T2 umgesetzt (Code-Stand 0.17.0, Schema 22), Abnahme durch den Athleten offen – Details in docs/konzept/gefuehrte-einheit.md Abschnitt 12
+teilpakete: T1 und T2 umgesetzt (Code-Stand 0.17.0, Schema 22; Icon-Pfad korrigiert in 0.20.1), Abnahme durch den Athleten offen – Details in docs/konzept/gefuehrte-einheit.md Abschnitt 12
 probleme_loesungen:
   - datum: 2026-09-28
     was: Icon-Erzeugung als PHP-Skript nicht möglich (kein SVG-Renderer auf Server und in PHP)
@@ -2335,6 +2335,9 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: Überlange Begründungen aus der Zeit vor AP-13 hätten update_session blockiert (Prüfung der zusammengeführten Einheit)
     loesung: nur übergebene Texte werden geprüft; Kurzsatz-Pflicht nur in write_week_plan
+  - datum: 2026-09-28
+    was: App-Icons unter /icons/ wurden nie ausgeliefert – der Hoster hat den serverweiten Apache-Alias /icons/ aktiv (vor Document Root und .htaccess); IronFox zeigte beim Verknüpfen ein „T“
+    loesung: Ordner public/app-icons/, Verweise angepasst, Test gegen Apache-Aliase, Prüfschritt P-A7 (Code-Stand 0.20.1; Auftrag 4.1 Punkt 4)
 ```
 
 ## AP-14 Geführte Einheit
@@ -2459,3 +2462,4 @@ noch_zu_pruefen:
 | 2026-09-28 | AP-14 Nachtrag T9 (Code-Stand 0.20.0): Entscheidungen zu O-05 bis O-07 (Auftrag E-23), D-57 um Kletterblöcke mit Sätzen ergänzt; Speichern-Leisten über der unteren Navigation. |
 | 2026-09-28 | Sechs weitere Volltexte einsortiert (L-P10, L-P12, L-P13, L-T2-17, L-T2-18, L-T3-04; D-51): Felder `datei`, `zugang`, 13.4 „vorhanden“, V-07 (Volltext liegt vor), AP-06 Teilschritt Beschaffung. |
 | 2026-09-28 | Übergabe AP-06 Teil C eingearbeitet: neuer Block 13.2.5 R Reha/Prävention (L-R-01 bis L-R-28; Patellasehne, Sprunggelenk, Laufumfang), ID-Konvention `L-R-<nn>`, 13.3 Ausschlüsse, 13.4 ergänzt. Neu D-61 (in der Übergabe D-39), Q-15 und Q-16 (dort Q-10, Q-11), Q-13 um Kongsgaard-Schmerzregel ergänzt; AP-06 Umfang, Kartenzuschnitt (6 Sammeldateien), Teilschritt, `probleme_loesungen`; AP-07 Vorgaben ergänzt. |
+| 2026-09-28 | AP-13 Nachtrag (Code-Stand 0.20.1): App-Icons von `/icons/` nach `/app-icons/`, weil Apache `/icons/` serverweit per Alias belegt (Befund IronFox, Auftrag 4.1 Punkt 4); AP-13 `probleme_loesungen` ergänzt. |

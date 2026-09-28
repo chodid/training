@@ -8,7 +8,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 
 | Pfad | Inhalt | Arbeitspaket |
 |---|---|---|
-| `server/public/` | Document Root (einziger per HTTP erreichbarer Ordner), `index.php` als einziger Einstieg; `css/training.css` (Ergänzungen), `js/` (Seitenskripte: Offline, Check-in, Passkey, geführte Einheit), `sw.js` (Service Worker), `manifest.webmanifest`, `favicon.ico` und `icons/` (App-Icon, eingecheckt, siehe „Icons“); `assets/` wird gebaut (siehe unten) | AP-00, AP-01, AP-04, AP-09, AP-13, AP-14 |
+| `server/public/` | Document Root (einziger per HTTP erreichbarer Ordner), `index.php` als einziger Einstieg; `css/training.css` (Ergänzungen), `js/` (Seitenskripte: Offline, Check-in, Passkey, geführte Einheit), `sw.js` (Service Worker), `manifest.webmanifest`, `favicon.ico` und `app-icons/` (App-Icon, eingecheckt, siehe „Icons“; nicht `icons/`, diesen Pfad belegt Apache serverweit); `assets/` wird gebaut (siehe unten) | AP-00, AP-01, AP-04, AP-09, AP-13, AP-14 |
 | `server/src/` | PHP-Quellcode (Namespace `Training\`): `Auth/` Login und Session, `OAuth/` Autorisierungsserver, `Mcp/` MCP-Endpunkt, `Intervals/` Intervals.icu-Client, `Data/` Datenzugriff und Audit-Log, `Plan/` Plan-Validierung und Ablaufplan der geführten Einheit, `View/` Seiten | AP-00 ff. |
 | `server/templates/` | Seitenvorlagen nach `docs/branding/` (S0, S1, S7 aus AP-01; S2–S5, S8 aus AP-04; S9 `session-start.php` aus AP-14); Teilvorlagen beginnen mit `_` | AP-01, AP-04, AP-14 |
 | `server/bin/build-assets.php` | Kopiert Design-System, `app.css`, Icons und Logo aus `docs/branding/` nach `server/public/assets/` | AP-01 |
@@ -54,7 +54,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | GET/POST | `/profil` | Athletenprofil (D-48): Abschnitte lesen und bearbeiten (`?abschnitt=…`), frühere Fassungen (`&verlauf=1`) |
 | GET | `/offline/token` | Frisches CSRF-Token für offline gepufferte Eingaben (nur für den Service Worker, D-45) |
 | GET | `/verlauf` | S6 Verlauf: Wochenlast je Bereich und Schmerz je Ort über 8 Wochen, Tabelle |
-| GET | `/manifest.webmanifest` | Web-App-Manifest („Zum Startbildschirm“, `id` `/woche`); Icons unter `/icons/`, `/favicon.ico` (16/32/48) – statische Dateien, von Apache direkt ausgeliefert |
+| GET | `/manifest.webmanifest` | Web-App-Manifest („Zum Startbildschirm“, `id` `/woche`); Icons unter `/app-icons/`, `/favicon.ico` (16/32/48) – statische Dateien, von Apache direkt ausgeliefert |
 | GET | `/health` | Zustand als JSON: PHP-Erweiterungen, Konfiguration, `var/` beschreibbar, Datenbank, Schemastand. `200` = in Ordnung, `503` = Handlungsbedarf. Enthält keine Secrets. |
 | POST | `/admin/migrate` | Führt ausstehende Migrationen aus, vorher verschlüsselter Pre-Migration-Dump nach `backups/` (die letzten 5 bleiben). Header `X-Migration-Secret` muss `MIGRATION_SECRET` entsprechen. `401` ohne Header, `403` bei falschem Secret, `409` wenn bereits eine Migration läuft oder die Datenbank neuer als der Code ist, `500` wenn der Dump fehlschlägt (dann keine Migration). |
 | GET | `/cron/backup-mail?key=…` | Backup per E-Mail für den Lima-City-Cronjob (`CRON_SECRET`); versendet nur nach Ablauf des Intervalls, `&force=1` sofort |
@@ -165,7 +165,9 @@ Der Icon-Satz ist eingecheckt, weil der Server kein SVG rendern kann. Nach einer
 node docs/branding/build-icons.cjs      # braucht Playwright mit Chromium (lokal oder global)
 ```
 
-Ergebnis: `server/public/icons/lama-48|96|192|512.png`, `lama-512-maskable.png`, `apple-touch-icon-180.png`, `favicon.svg` und `server/public/favicon.ico`. Ein neues Motiv bekommt neue Dateinamen (Icons liegen 7 Tage im Browser-Cache); Manifest, `templates/_head_icons.php` und `AppIconTest` dann mitziehen.
+Ergebnis: `server/public/app-icons/lama-48|96|192|512.png`, `lama-512-maskable.png`, `apple-touch-icon-180.png`, `favicon.svg` und `server/public/favicon.ico`. Ein neues Motiv bekommt neue Dateinamen (Icons liegen 7 Tage im Browser-Cache); Manifest, `templates/_head_icons.php` und `AppIconTest` dann mitziehen.
+
+Der Ordner heißt bewusst `app-icons/`: Den Pfad `/icons/` (ebenso `/error/`, `/manual/`, `/cgi-bin/`) belegt Apache in der Standardkonfiguration serverweit per Alias, noch vor Document Root und `.htaccess`; Dateien darunter werden nie ausgeliefert. `AppIconTest` prüft das.
 
 ### Migrationen (D-20)
 

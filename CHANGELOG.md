@@ -4,6 +4,18 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.20.1] – 2026-09-28
+
+Nachtrag zu AP-13 T1: Das App-Icon kam nie beim Browser an.
+
+### Behoben
+- App-Icons lagen unter `/icons/`. Diesen Pfad belegt Apache in der Standardkonfiguration serverweit (`Alias /icons/` auf die eigenen Server-Symbole, `autoindex.conf`); der Alias greift vor dem Document Root und der `.htaccess`, der Server antwortete deshalb mit seinem eigenen „Not Found“. Folge: IronFox (und andere Browser, die die Manifest-Icons nachladen) zeigten beim „Zum Startbildschirm“ ein „T“ statt des Lamas; auch PNG-Favicons, `favicon.svg` und `apple-touch-icon` fehlten. Der Ordner heißt jetzt `server/public/app-icons/`; Manifest, Kopfteil `_head_icons.php`, Service Worker (statische Pfade) und `docs/branding/build-icons.cjs` sind angepasst. Dateinamen bleiben gleich.
+
+### Hinzugefügt
+- Test: kein Ordner im Document Root und kein Icon-Verweis aus Manifest oder Kopfteil unter einem von Apache serverweit belegten Pfad (`/icons/`, `/error/`, `/manual/`, `/cgi-bin/`).
+
+**Nach dem Deployment:** alte Verknüpfung vom Startbildschirm entfernen und neu anlegen (Prüfschritte P-A1, P-A3, P-A7).
+
 ## [0.20.0] – 2026-09-28
 
 AP-14 Nachtrag T9: Entscheidungen des Athleten zu den offenen Punkten O-05 bis O-07 (Auftrag `docs/konzept/gefuehrte-einheit.md`, E-23).
