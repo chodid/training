@@ -144,7 +144,7 @@ flowchart LR
 | D-13 | Zitierregel: Jede trainingsfachliche Aussage von Claude wird entweder mit Wissenskarte/DOI belegt oder ausdrücklich als „Einschätzung ohne Quelle" markiert. | Verhindert erfundene Referenzen. | 2026-09-27 |
 | D-14 | Gesundheitsbezogene Daten (Schmerz, Verletzungen, Einschränkungen) werden ausschließlich in K3 (MySQL) und K7/K5 (Profil-Dokument) gehalten, nie im Projekt-Memory (K6). | Datensparsamkeit; Memory hält nur stabile, nicht sensible Fakten. | 2026-09-27 |
 | D-15 | ~~Athletenprofil ist ein Dokument (docs/athlet/profil.md), kein DB-Objekt (Phase 1).~~ **Ersetzt durch D-48 (2026-09-28).** | Geringer Aufwand, im Chat direkt lesbar; DB-Abbildung bei Bedarf in AP-09. | 2026-09-27 |
-| D-16 | Tägliches Check-in auf der Webseite mit genau drei Feldern: `recovery_1_5`, `soreness_1_5`, `pain_flag` (bei ja → Schmerzereignis). Keine separate Schlafqualität. Fehlende Einträge gelten als fehlend; MCP meldet Abdeckungsquote. | Subjektive Marker sind sensitiver als objektive (V-06); Schmerz hat keinen objektiven Ersatz; minimaler Umfang sichert Compliance. Bestätigt durch Athlet. | 2026-09-27 |
+| D-16 | Tägliches Check-in auf der Webseite mit genau drei Feldern: `recovery_1_5`, `soreness_1_5`, `pain_flag` (bei ja → Schmerzereignis). Keine separate Schlafqualität. Fehlende Einträge gelten als fehlend; MCP meldet Abdeckungsquote. | Subjektive Marker sind sensitiver als objektive (L-P11, verifiziert V-06); Schmerz hat keinen objektiven Ersatz; minimaler Umfang sichert Compliance. Bestätigt durch Athlet. | 2026-09-27 |
 | D-17 | Deployment: GitHub-Repo ist Quelle; ein GitHub-Actions-Workflow baut (`composer install --no-dev`) und überträgt `server/` per FTPS (explizit, Port 21) in den Subdomain-Ordner auf dem Webspace. Kein Klartext-FTP. Layout auf dem Server: Subdomain-Ordner = Inhalt von `server/` (`src/`, `vendor/`, `migrations/`, …), Document Root = `<Ordner>/public`, `.env` direkt in `<Ordner>/`, Backups in `<Ordner>/backups/`, Laufzeitdaten (z. B. MCP-Sitzungsdateien des SDK für Clients älterer Protokollrevisionen) in `<Ordner>/var/`; nur `public/` ist per HTTP erreichbar. `.env`, `backups/` und `var/` werden vom Deployment nie überschrieben oder gelöscht. Migrationen werden nach dem Upload über einen geschützten Endpunkt vom Workflow ausgelöst (Secret in GitHub Actions). Optional zweiter Workflow für eine Staging-Subdomain. | Kein SSH/Composer auf dem Server vorausgesetzt; reproduzierbarer Build; Nutzeranforderung „GitHub + FTP-Push". | 2026-09-27 |
 | D-18 | Backup betrifft nur die Datenbank (Code und Dokumente liegen in GitHub). Mechanik: SQL-Dump per PHP (Schema + Daten, portabel) → gzip → Verschlüsselung mit Passwort. Format OpenSSL-kompatibel (AES-256-CBC, PBKDF2 mit dokumentierter Iterationszahl, `Salted__`-Header), damit die Datei ohne eigenes Werkzeug per `openssl enc -d` entschlüsselbar ist. Auslöser: (a) manuell als Download auf der Webseite (nur eingeloggt); (b) zeitgesteuert per E-Mail (Lima-City-Cronjob ruft einen geschützten Endpunkt auf, Intervall konfigurierbar, Standard wöchentlich); (c) automatisch vor jeder Migration (in `backups/` außerhalb Docroot, Rotation der letzten 5). Backup-Passwort liegt in `.env`. Restore-Anleitung im README; Restore-Test Pflicht in AP-10. | Nutzeranforderung; DB ist klein (KB bis wenige MB), E-Mail-Anhang unkritisch; Standardformat sichert Wiederherstellbarkeit auf jedem Rechner. Tradeoff: symmetrisches Passwort auf dem Server bedeutet, dass ein Serverkompromiss auch das Backup-Passwort preisgibt – da der Server die DB ohnehin hält, entsteht kein zusätzlicher Verlust. Asymmetrische Variante (Public Key auf dem Server) optional in AP-09 – gestrichen (D-47). CBC ohne Authentifizierung: Integrität wird über die gzip-Prüfsumme nach dem Entschlüsseln erkannt. | 2026-09-27 |
 | D-19 | Das Branding-Dokument wird im Repo unter `docs/branding/` abgelegt und gilt für **alle** Webseiten-Screens ab AP-01 (S0 Setup, S1 Login, S7 Freigabe) über AP-04 (S2–S5) bis AP-09 (S6). Es enthält die Gestaltungsvorgaben des Athleten und die Mockups aus AP-01a (D-37); alle Screens sind **mobil- und tabletfreundlich** (responsive, Touch-Bedienung, Hoch- und Querformat) und haben zusätzlich eine **Desktop-Ansicht** (Seitenleiste ab 1024 px; Ergänzung 2026-09-27, branding.md B-02). Die Code-Instanz liest es vor Beginn von AP-01. | Gestaltung ist Umsetzungsdetail, keine Konzeptentscheidung; da bereits AP-01 sichtbare Seiten baut, muss die Vorgabe vorher vorliegen. | 2026-09-27 |
@@ -181,6 +181,7 @@ flowchart LR
 | D-50 | Kalender per CalDAV-Push (AP-11): Die App schreibt jede Einheit außer Ruhetagen als ganztägigen Termin in einen Nextcloud-Kalender (eigener Kalender empfohlen), mit fester UID je Einheit; Titel „Typ: Titel“, Beschreibung mit Priorität, Dauer, Kurzplan, Trainer-Begründung und Link zur App. Status: erledigt/teilweise mit „✓“ im Titel, ausgelassen als abgesagter Termin, verschoben wandert mit dem Datum. Übertragen wird bei jeder Änderung (Wochenplan, update_session, Ersetzen einer Woche, Rückmeldung auf der Webseite); zusätzlich Abgleich 7 Tage zurück bis 8 Wochen voraus im stündlichen Cronjob und per Knopf in den Einstellungen, dabei werden verwaiste eigene Termine entfernt, fremde nie. Zugang über Nextcloud-App-Passwort in der .env (CALDAV_URL nur https); Fehler brechen nichts ab. Einbahnstraße: Änderungen im Kalender werden nicht zurückgelesen. | Entscheidung des Athleten (CalDAV statt ICS-Abo: sofort sichtbar; Umfang ohne Ruhetage; Markierung; Abgleich im bestehenden Cronjob; direkte Umsetzung durch die Code-Instanz). Einheiten haben keine Uhrzeit, daher ganztägig. | 2026-09-28 |
 | D-51 | Ablage der Volltexte in `docs/literatur/`: Unterordner je Block (`uebergreifend/`, `t1-ausdauer/`, `t2-kraft/`, `t3-klettern/`), eine Datei im Block ihrer ID-Definition; Dateiname `<ID>_<Erstautor>-<Jahr>_<Kurztitel>[_<Auflage>].pdf` (ASCII). Bücher zusätzlich als Kapitel-PDFs in `<ID>_kapitel/` (Schritt 1 in 13.1; Kapitel über 60 PDF-Seiten in etwa gleich große Teile, möglichst an Abschnittsgrenzen); das Originalbuch bleibt liegen. Im Konzept verweisen die Felder `datei`/`kapitel` auf die Dateien, 13.4 führt die Spalte „vorhanden“, `docs/literatur/README.md` ist das Verzeichnis. L-A01 liegt in der 7. Aufl. (2019) vor: gilt vorläufig, die 8./9. Aufl. bleibt auf der Beschaffungsliste. | Entscheidung des Athleten 2026-09-28 (Unterordner statt flacher Ablage; Kapitel-PDFs zusätzlich zum Original statt Ersatz; 7. Aufl. nur vorläufig). Kapitel-PDFs sind nötig, weil die Bücher (bis 1876 Seiten, 65 MB) für Chat-Sitzungen zu groß sind. | 2026-09-28 |
 | D-52 | Erinnerung an Kalenderterminen (ergänzt D-50): Jeder Termin einer geplanten oder verschobenen Einheit trägt eine Erinnerung (VALARM) am Tag der Einheit zur eingestellten Uhrzeit, Standard 05:00; erledigte und ausgelassene Einheiten erinnern nicht. Uhrzeit oder „keine Erinnerung“ in den Einstellungen (S8), gespeichert in der neuen Tabelle `app_setting` (Schlüssel/Wert); nach dem Ändern werden die Termine im Abgleichzeitraum sofort neu übertragen. | Wunsch des Athleten (Uhrzeit einstellbar, Standard 05:00); Ausnahmen für erledigt/ausgelassen und die Aus-Option in der Umsetzung ergänzt, weil eine Erinnerung dort keinen Nutzen hat. | 2026-09-28 |
+| D-53 | Literatur Haltung/Rücken (Teilblock T2). Kern: L-T2-15 (Warneke 2024, Kräftigung vs. Dehnung, Anker), L-T2-16 (Khorramroo 2026, Korrekturübungen bei Upper Crossed Syndrome), L-T2-17 (Shiri 2018, Prävention Kreuzschmerz mit Dosierung), L-T2-18 (Steffens 2016, Prävention Kreuzschmerz). Optional: L-T2-19 (Carrasco-Uribarren 2026, Nacken vs. Nacken + BWS), L-T2-14 (Cowley 2026). Zurückgestellt: L-T2-13 (McGill, Stufe C). Übungsbeispiele aus Praxisquellen (z. B. McGill „Big 3“) dürfen in Karten nur als gekennzeichnete Beispiele stehen (D-31). Geltungsbereich: thorakale und zervikale Extension (Vorkopfhaltung, thorakale Kyphose) plus Rumpfkraft und Prävention von Kreuzschmerzen. Planungsfolgen (in AP-07 als Regeln auszuformulieren): (a) Haltungsarbeit als Kräftigung (thorakale/zervikale Extensoren, Schulterblattmuskulatur), nicht als Dehnprogramm; (b) Kreuzschmerz-Prävention über Kräftigung kombiniert mit Dehnung oder Ausdauer, 2–3× pro Woche, eingebettet in bestehende Kraft-/Haltungseinheiten, kein eigener Block; (c) Karten führen unter „Grenzen“, dass verbesserte Haltungswinkel nicht zuverlässig weniger Schmerz oder bessere Funktion bedeuten. | L-T2-15: 23 Studien, gesunde Personen, GRADE moderat – Dehnen ohne Effekt auf Haltung, Kräftigung wirksam an BWS/HWS, nicht an LWS/Becken. L-T2-16: 28 RCTs – große Effekte auf Haltungswinkel, Schmerz/Funktion inkonsistent. L-T2-17/18: Training (mit oder ohne Aufklärung) senkt das Risiko von Kreuzschmerz-Episoden; Aufklärung allein, Rückengurte, Einlagen wirkungslos. Stufe-C-Buch nicht nötig, da Dosierung vollständig aus Stufe A (D-31). Bestätigt durch Athlet (Literatur-Sitzung AP-06 Teil A; dort als D-38 vergeben, wegen Kollision umnummeriert). | 2026-09-28 |
 
 # 5. Offene Fragen und Verifikationen
 
@@ -188,7 +189,7 @@ flowchart LR
 
 | id | frage | empfehlung | status |
 |---|---|---|---|
-| Q-01 | Tägliches subjektives Check-in erheben? Welche Felder? Wo? | Ja, minimal: `erholung_1_5`, `muskelkater_1_5`, `schmerz_ja_nein` (bei ja → Schmerzereignis). Auf der Webseite, integriert in Wochenansicht, ≤ 10 s. Keine separate Schlafqualität (Garmin liefert Schlaf; fließt in Erholung ein). Begründung: subjektive Marker sind sensitiver als objektive (Saw/Main/Gastin 2016, zu verifizieren V-06); Schmerz hat keinen objektiven Ersatz. Fehlende Einträge gelten als fehlend, nicht als beschwerdefrei; MCP meldet Abdeckungsquote. | entschieden → D-16 |
+| Q-01 | Tägliches subjektives Check-in erheben? Welche Felder? Wo? | Ja, minimal: `erholung_1_5`, `muskelkater_1_5`, `schmerz_ja_nein` (bei ja → Schmerzereignis). Auf der Webseite, integriert in Wochenansicht, ≤ 10 s. Keine separate Schlafqualität (Garmin liefert Schlaf; fließt in Erholung ein). Begründung: subjektive Marker sind sensitiver als objektive (Saw/Main/Gastin 2016, verifiziert als L-P11); Schmerz hat keinen objektiven Ersatz. Fehlende Einträge gelten als fehlend, nicht als beschwerdefrei; MCP meldet Abdeckungsquote. | entschieden → D-16 |
 | Q-02 | Feedback zu Ausdauereinheiten zusätzlich zurück nach Intervals.icu schreiben (RPE/Feel/Kommentar auf der Aktivität)? | Optional in AP-09; Nutzen: Intervals.icu-Charts vollständig. Kosten: Feld-Semantik abgleichen (V-03). | entschieden → D-46 (2026-09-28) |
 | Q-03 | Sichtbarkeit der Aktivitäten in Intervals.icu | Auf privat stellen. | offen |
 | Q-04 | Repo-Name und Lizenz | Repo `chodid/training`, privat, keine Lizenz. | entschieden (2026-09-27) |
@@ -200,6 +201,7 @@ flowchart LR
 | Q-10 | `plan_json` für `mobilitaet` und `ruhe` (Abschnitt 7.1 definiert nur kraft/haltung, klettern, ausdauer). | `mobilitaet` wie kraft/haltung (Übungsliste mit Sätzen/Wiederholungen bzw. Haltezeit „30s“); `ruhe` ohne Plan, höchstens Notiz. Passt zu den Mockups (S3) und hält die Webseite einfach. | entschieden → D-39 (2026-09-28) |
 | Q-11 | Neues MCP-Tool `upsert_block` (Block anlegen/ändern: Name, Zeitraum, Status, Zielevents, Phasen, Verweis auf docs/plaene/). Abschnitt 8.2 sieht kein Tool dafür vor, `write_week_plan` braucht aber einen Block. | Tool aufnehmen (so umgesetzt): Blockplan entsteht im Projekt-Chat (AP-08), Claude legt ihn nach Bestätigung per Tool an. Alternative: Block per SQL/Webseite anlegen. | entschieden → D-40 (2026-09-28) |
 | Q-12 | Sportart für Intervals.icu-Events: optionales Feld `sport` in `plan_json.ausdauer` (Run, TrailRun, Hike, Walk, Ride, MountainBikeRide, GravelRide, BackcountrySki, NordicSki, Snowshoe, Swim, Rowing; Standard Run). | Aufnehmen (so umgesetzt): Skitour und Wandern brauchen eigene Typen, damit Garmin das richtige Sportprofil (und die Zonen, V-12) nutzt. | entschieden → D-41 (2026-09-28) |
+| Q-13 | Schmerzregeln 14.5 (≤ 3/10 fortfahren; 4–5/10 reduzieren; > 5/10 stoppen) sind strenger als das Schmerzmonitoring-Modell nach L-P13 (laut Sekundärquelle ≤ 5/10 zulässig, Abklingen bis Folgemorgen, keine Zunahme von Woche zu Woche). Beibehalten, an das Modell angleichen oder je Struktur unterscheiden (Sehnen untere Extremität vs. Finger/Ringbänder)? | Entscheidung in AP-07 nach Volltextprüfung L-P13. Für Finger/Ringbänder strengere Schwellen beibehalten, da das Modell dort nicht validiert ist (Einschätzung); für Sehnen der unteren Extremität Angleichung an das Modell prüfen. (Literatur-Sitzung AP-06 Teil B; dort als Q-09 vergeben, wegen Kollision umnummeriert.) | offen (AP-07) |
 
 ## 5.2 Zu verifizieren (vor/in dem jeweiligen AP)
 
@@ -210,16 +212,16 @@ flowchart LR
 | V-03 | Semantik der Intervals.icu-Felder `icu_rpe` (Skala) und `feel` (Richtung der 1–5-Skala) sowie verfügbare Wellness-Felder für dieses Konto über die API. | AP-02 | offen |
 | V-04 | Endpunkte/Parameter für Events (GET/POST/PUT/DELETE), Aktivitäten (Zeitraum), Wellness (Zeitraum) anhand der aktuellen API-Dokumentation. Stand 2026-09-27 (vorläufig, Sekundärquelle Client-Quellcode, da intervals.icu aus der Code-Umgebung gesperrt): Basis `https://intervals.icu/api/v1`, Basic-Auth `API_KEY:<key>`, `/athlete/{id}/events` (GET mit `oldest`/`newest`, POST), `/athlete/{id}/events/{eventId}` (PUT, DELETE), `/athlete/{id}/activities` und `/athlete/{id}/wellness` (GET mit `oldest`/`newest`); Event-Felder `category` WORKOUT, `type`, `name`, `start_date_local`, `description`, `external_id`. Bestätigung über `/intervals` auf dem Server. Stand 2026-09-28: auf dem Server mit echtem Konto bestätigt für Aktivitäten und Wellness (GET) sowie Event anlegen (POST, Workout-Text korrekt als strukturiertes Workout übernommen); PUT/DELETE und Rückschreiben (Aktivität) offen. | AP-02 | in Arbeit |
 | V-05 | OAuth-Flow claude.ai (Web und Mobile) gegen PHP-Server: DCR, Callback-URLs (`claude.ai/api/mcp/auth_callback`, ggf. `claude.com/...`), Token-Refresh. Stand 2026-09-27: Ablauf lokal automatisiert geprüft (DCR, Authorize, PKCE, Token, Refresh-Rotation, `/mcp` mit JWT) und mit dem SDK-Client in beiden Protokoll-Epochen; beide Callback-Hosts sind als https-URIs zulässig. Stand 2026-09-28: Connector in claude.ai (Web) verbunden und freigegeben, Tool-Aufruf funktioniert; Mobile-App und Token-Refresh nach > 1 h offen. | AP-01 | in Arbeit |
-| V-06 | Referenz Saw AE, Main LC, Gastin PB. Monitoring the athlete training response: subjective self-reported measures trump commonly used objective measures. Br J Sports Med 2016 – DOI und Kernaussage über PubMed-Connector prüfen. | AP-06 | offen |
-| V-07 | Schmerzmonitoring-Modell für Sehnenbelastung (Silbernagel/Thomeé 2007) als Grundlage der Schmerzregeln – Quelle und Schwellenwerte prüfen. | AP-07 | offen |
+| V-06 | Referenz Saw AE, Main LC, Gastin PB. Monitoring the athlete training response: subjective self-reported measures trump commonly used objective measures. Br J Sports Med 2016 – DOI und Kernaussage über PubMed-Connector prüfen. | AP-06 | erledigt 2026-09-28 (L-P11 per PubMed verifiziert, Kernaussage bestätigt) |
+| V-07 | Schmerzmonitoring-Modell für Sehnenbelastung (Silbernagel/Thomeé 2007) als Grundlage der Schmerzregeln – Quelle und Schwellenwerte prüfen. | AP-06 (Literatur), AP-07 (Schwellen) | teilweise 2026-09-28: Bibliografie L-P13 und Modellherkunft (Thomeé 1997) verifiziert; Schwellenwerte nur aus Sekundärquelle, Abweichung zu 14.5 → Q-13; Rest: Volltext L-P13 beschaffen und Schwellen am Original prüfen |
 | V-08 | PHP-Version auf dem Hosting vs. Anforderungen des SDK; Composer-Verfügbarkeit. Ergebnis: Test auf dem Server 2026-09-27: PHP 8.4.25, Apache 2.4, Erweiterungen curl, json, openssl, pdo_mysql, zlib, mbstring aktiv; logiscape/mcp-sdk-php v2.0.1 verlangt PHP ≥ 8.1, ext-curl, ext-json (Packagist, 2026-09-27). Composer auf dem Server nicht nötig (Build in GitHub Actions, D-17). Health-Endpunkt prüft die Erweiterungen laufend. | AP-00 | erledigt 2026-09-27 |
 | V-09 | Verhalten von Garmin-Kraftaktivitäten (auf der Uhr gestartet) in Intervals.icu: Typ, Dauer, HF – für heuristisches Matching mit Webseiten-Einheiten. | AP-02 | offen |
 | V-10 | Auf dem Hosting verfügbar: FTPS oder SFTP für den Deploy-Workflow; PHP-CLI für „Geplante Aufgaben" (sonst HTTP-Aufruf eines geschützten Endpunkts); E-Mail-Versand aus PHP mit Anhang (SMTP über Mailkonto des Hostings bevorzugt, Größenlimit des Anhangs); PHP-OpenSSL-Erweiterung aktiv. Ergebnis (Angaben Athlet 2026-09-27): FTPS vorhanden (Port 21, explizit, gültiges Zertifikat); SMTP vorhanden; keine PHP-CLI-Aufgaben, aber zeitgesteuerter Aufruf von URLs → E-Mail-Backup über geschützten Endpunkt (D-18 b); OpenSSL aktiv (Servertest). Servertest zusätzlich: `open_basedir` leer, Datei oberhalb des Docroots lesbar, `.htaccess` wird ausgewertet (`Require all denied` → 403). Rest: Anhang-Größenlimit SMTP → Testversand in AP-10. | AP-00 | erledigt 2026-09-27 (bis auf Anhang-Limit) |
 | V-11 | Bibliografische Prüfung der T1-Quellen (Autoren, Jahr, Band/Seiten, DOI/ISBN, freie Verfügbarkeit) per PubMed-Connector bzw. Bibliothekskataloge. Ergebnis in 13.2.2 (Felder `zugang`, `verifikation`). Hinweis Lizenz: PubMed liefert keinen Lizenztyp; „frei" heißt Volltext in PMC; CC BY 4.0 nur für L-T1-04 belegt. | AP-06 | erledigt 2026-09-27 |
 | V-12 | Zonendefinition in Garmin Connect (Laufprofil, ggf. eigenes Profil Skitour) und in Intervals.icu identisch halten (%LTHR, gleiche Grenzen), damit HF-Ziele aus Intervals.icu-Workouts auf der Uhr dieselbe Zone treffen. Prüfen, ob Intervals.icu Zonen nach Garmin überträgt oder beide getrennt gepflegt werden müssen (D-27). | AP-02 (mit V-01), AP-08 | offen |
 | V-13 | Format und Kopierschutz je Titel vor Beschaffung (D-26): Human-Kinetics-Titel (L-A01, L-A03, L-T1-07, L-T2-05, L-T2-07) laufen über VitalSource mit DRM → Print oder anderer Anbieter; Springer-Titel (L-A02, L-T2-03, L-T2-06, L-T3-06/07) kapitelweise als PDF über SpringerLink bzw. Bibliothekszugang; L-T2-04 (Low) Digitalausgabe PDF/ePUB beim Autor prüfen; L-T1-01, L-T1-08, L-T3-08 PDF-Verfügbarkeit prüfen. Stand 2026-09-28: als durchsuchbares PDF vorhanden L-A01 (7. Aufl., vorläufig), L-A02 (2. Aufl. 2025), L-A03, L-T1-08 (Scan), L-T2-03, L-T2-04 (Scan, Texterkennung fehlerhaft), L-T3-06; offen L-T1-01, L-T1-07, L-T3-08 sowie die 8./9. Aufl. von L-A01. | AP-06 | teilweise |
-| V-14 | PubMed-Verifikation Kraftliteratur: Rønnestad & Mujika 2014 (Scand J Med Sci Sports) und Blagrove et al. 2018 (Sports Med) → L-T2-11, L-T2-12. ACSM 2026 und Schumann 2022 bereits verifiziert als L-P08 und L-P07. | AP-06 | offen |
-| V-15 | Bibliografische Vervollständigung T3: L-T3-03 (Band, Lizenz – erledigt 2026-09-28: Bd. 5, Art. 1130812, CC BY laut Volltext), L-T3-04 (Band, Seiten, DOI, Zugang), L-T3-05 (Titel, Journal, Band, Seiten, DOI), L-T3-07 (ISBN), L-T3-08 (aktuelle Auflage/ISBN), L-T3-09 (Jahr), L-T3-12 (Jahr, Auflage, ISBN); Kernaussagen L-T3-02 am Original statt Sekundärzitat prüfen (Original liegt seit 2026-09-28 vor). | AP-06 | offen |
+| V-14 | PubMed-Verifikation Kraftliteratur: Rønnestad & Mujika 2014 (Scand J Med Sci Sports) und Blagrove et al. 2018 (Sports Med) → L-T2-11, L-T2-12. ACSM 2026 und Schumann 2022 bereits verifiziert als L-P08 und L-P07. | AP-06 | erledigt 2026-09-28 (L-T2-11, L-T2-12 verifiziert) |
+| V-15 | Bibliografische Vervollständigung T3: L-T3-03 (Band, Lizenz – erledigt 2026-09-28: Bd. 5, Art. 1130812, CC BY laut Volltext), L-T3-04 (Band, Seiten, DOI, Zugang), L-T3-05 (Titel, Journal, Band, Seiten, DOI), L-T3-07 (ISBN), L-T3-08 (aktuelle Auflage/ISBN), L-T3-09 (Jahr), L-T3-12 (Jahr, Auflage, ISBN); Kernaussagen L-T3-02 am Original statt Sekundärzitat prüfen (Original liegt seit 2026-09-28 vor). | AP-06 | weitgehend erledigt 2026-09-28: L-T3-03, -04, -05, -07, -09 verifiziert; L-T3-02 Kernaussagen am Abstract korrigiert. Rest: L-T3-02 Wiederholungsbereiche am Volltext (liegt vor), L-T3-08 ISBN/aktuelle Auflage, L-T3-12 Auflage |
 
 # 6. Betriebsablauf (Wochenzyklus)
 
@@ -479,7 +481,7 @@ Bücher:
   verifikation: bibliografisch (Verlag, Bibliothekskatalog)
 ```
 
-Paper (Kern der Regelbasis; L-P01–L-P09 per PubMed verifiziert am 2026-09-27):
+Paper (Kern der Regelbasis; L-P01–L-P09 per PubMed verifiziert am 2026-09-27, L-P10–L-P14 am 2026-09-28):
 
 ```yaml
 - id: L-P01
@@ -562,21 +564,66 @@ Paper (Kern der Regelbasis; L-P01–L-P09 per PubMed verifiziert am 2026-09-27):
   zugang: kein PMC-Volltext
   relevanz: Reihenfolge Kraft vor Ausdauer in derselben Einheit (Trend, nicht signifikant); Datenlage bei Hochtrainierten dünn
 - id: L-P10
-  status: kandidat
+  status: ausgewaehlt
+  stufe: A
+  typ: validierungsstudie
   thema: sRPE-Methode (Belastungsmaß, Abschnitt 11)
-  zitat: "Foster C et al. – Originalarbeit zur Session-RPE-Methode; vollständige Bibliografie per PubMed zu prüfen"
+  zitat: "Foster C, Florhaug JA, Franklin J, Gottschall L, Hrovatin LA, Parker S, Doleshal P, Dodge C. A new approach to monitoring exercise training. J Strength Cond Res. 2001;15(1):109-15."
+  pmid: "11708692"
+  doi: keine in PubMed hinterlegt
+  zugang: kein PMC-Volltext → Beschaffung
+  kernaussage_abstract: Session-RPE korreliert konsistent mit HF-basiertem Belastungsmaß über Dauer-, Intervall- und Spielbelastung; absolute Werte liegen mit sRPE höher
+  verifikation: PubMed 2026-09-28
 - id: L-P11
-  status: kandidat
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review
   thema: Erholungsmonitoring – subjektiv vs. objektiv
-  zitat: "Saw AE, Main LC, Gastin PB. Br J Sports Med 2016 – Bibliografie per PubMed zu prüfen (V-06)"
+  zitat: "Saw AE, Main LC, Gastin PB. Monitoring the athlete training response: subjective self-reported measures trump commonly used objective measures: a systematic review. Br J Sports Med. 2016;50(5):281-91."
+  pmid: "26423706"
+  pmcid: PMC4789708
+  doi: 10.1136/bjsports-2015-094758
+  zugang: Volltext in PMC; Lizenz laut PubMed nicht als CC ausgewiesen (BMJ)
+  kernaussage_abstract: 56 Studien; subjektive und objektive Marker korrelierten meist nicht; subjektive Marker bildeten akute und chronische Last sensitiver und konsistenter ab
+  hinweis: Online-Vorabveröffentlichung 2015, Heft 2016 – Zitierjahr 2016
+  verifikation: PubMed 2026-09-28 (V-06)
 - id: L-P12
-  status: kandidat
+  status: ausgewaehlt
+  stufe: A
+  typ: kommentar_kritische_analyse
   thema: ACWR-Kritik (Begründung, warum keine ACWR-Automatik)
-  zitat: "Impellizzeri FM et al. 2020/2021 – konkrete Arbeit und Bibliografie per PubMed zu prüfen"
+  zitat: "Impellizzeri FM, Tenan MS, Kempton T, Novak A, Coutts AJ. Acute:Chronic Workload Ratio: Conceptual Issues and Fundamental Pitfalls. Int J Sports Physiol Perform. 2020;15(6):907-913."
+  pmid: "32502973"
+  doi: 10.1123/ijspp.2019-0864
+  zugang: kein PMC-Volltext → Beschaffung
+  ersatz: "Impellizzeri FM, McCall A, Ward P, Bornn L, Coutts AJ. Training Load and Its Role in Injury Prevention, Part 2. J Athl Train. 2020;55(9):893-901. DOI 10.4085/1062-6050-501-19, PMC7534938 – Open Access, inhaltlich redundant; nur falls die Beschaffung von L-P12 scheitert"
+  kernaussage_abstract: keine Evidenz für ACWR in Laststeuerungssystemen oder Empfehlungen zur Verletzungsreduktion; Kausalität nicht belegt; Ratio erzeugt statistische Artefakte
+  verifikation: PubMed 2026-09-28
 - id: L-P13
-  status: kandidat
+  status: ausgewaehlt
+  stufe: A
+  typ: rct
   thema: Schmerzmonitoring bei Sehnenbelastung (Grundlage Schmerzregeln 14.5)
-  zitat: "Silbernagel KG, Thomeé R et al. 2007 – Bibliografie per PubMed zu prüfen (V-07)"
+  zitat: "Silbernagel KG, Thomeé R, Eriksson BI, Karlsson J. Continued sports activity, using a pain-monitoring model, during rehabilitation in patients with Achilles tendinopathy: a randomized controlled study. Am J Sports Med. 2007;35(6):897-906."
+  pmid: "17307888"
+  doi: 10.1177/0363546506298279
+  zugang: kein PMC-Volltext → Beschaffung (nötig für V-07)
+  kernaussage_abstract: n = 38; Weiterlaufen/Springen nach Schmerzmonitoring-Modell ohne Nachteil gegenüber aktiver Pause (VISA-A-S, 12 Monate)
+  herkunft_modell: "Thomeé R. A comprehensive treatment approach for patellofemoral pain syndrome in young women. Phys Ther. 1997;77(12):1690-703. PMID 9413448, DOI 10.1093/ptj/77.12.1690"
+  schwellenwerte: nicht im Abstract; nur nicht begutachtete Sekundärquelle (Physiotherapie-Blog) – Schmerz bis 5/10 (VAS) während der Belastung zulässig, bis zum Folgemorgen abgeklungen, keine Zunahme von Schmerz/Steifigkeit von Woche zu Woche → am Volltext prüfen
+  geltungsbereich: Sehnenreha untere Extremität; Übertragung auf Finger/Ringbänder unbelegt (→ Q-13)
+  verifikation: teilweise (V-07)
+- id: L-P14
+  status: optional
+  stufe: A
+  typ: reanalyse
+  thema: ACWR-Kritik – statistische Widerlegung (Ergänzung zu L-P12)
+  zitat: "Impellizzeri FM, Woodcock S, Coutts AJ, Fanchini M, McCall A, Vigotsky AD. What Role Do Chronic Workloads Play in the Acute to Chronic Workload Ratio? Time to Dismiss ACWR and Its Underlying Theory. Sports Med. 2021;51(3):581-592."
+  pmid: "33332011"
+  doi: 10.1007/s40279-020-01378-6
+  zugang: kein PMC-Volltext
+  kernaussage_abstract: zufällige bzw. fixe chronische Last im Nenner erzeugt ähnliche Effekte wie echte; ACWR ohne prädiktiven Mehrwert
+  verifikation: PubMed 2026-09-28
 ```
 
 ### 13.2.2 T1 Ausdauer (Block bestätigt 2026-09-27)
@@ -735,9 +782,9 @@ Optional (nur bei Bedarf und Tokenbudget):
   verifikation: teilweise (Verlagsleseprobe)
 ```
 
-### 13.2.3 T2 Kraft/Haltung (Block Kraft/Calisthenics bestätigt 2026-09-27; Haltung/Rücken offen)
+### 13.2.3 T2 Kraft/Haltung (Block Kraft/Calisthenics bestätigt 2026-09-27; Haltung/Rücken bestätigt 2026-09-28, D-53)
 
-Kernset und Regeln in D-28 bis D-30.
+Kernset und Regeln in D-28 bis D-30; Haltung/Rücken in D-53.
 
 ```yaml
 - id: L-T2-01
@@ -818,32 +865,111 @@ Kernset und Regeln in D-28 bis D-30.
   doi: 10.1159/000546346
   zweck: Körpergewichtstraining wirksam, kleinster Effekt; Population Ältere – Übertragung eingeschränkt (D-29)
 - id: L-T2-11
-  status: kandidat
+  status: ausgewaehlt
   stufe: A
-  zitat: "Rønnestad BR, Mujika I. Optimizing strength training for running and cycling endurance performance: A review. Scand J Med Sci Sports. 2014 – Bibliografie per PubMed prüfen (V-14)"
+  typ: review
+  zitat: "Rønnestad BR, Mujika I. Optimizing strength training for running and cycling endurance performance: A review. Scand J Med Sci Sports. 2014;24(4):603-12."
+  pmid: "23914932"
+  doi: 10.1111/sms.12104
+  zugang: kein PMC-Volltext → Beschaffung
   zweck: Krafttraining für Lauf-/Radleistung (T2 als Ergänzung zu T1)
+  kernaussage_abstract: Laufökonomie verbessert durch schweres oder explosives Krafttraining; Effekte auf Schwellenleistung uneinheitlich
+  hinweis: Online-Vorabveröffentlichung 2013, Heft 2014
+  verifikation: PubMed 2026-09-28 (V-14)
 - id: L-T2-12
-  status: kandidat
+  status: ausgewaehlt
   stufe: A
-  zitat: "Blagrove RC, Howatson G, Hayes PR. Effects of Strength Training on the Physiological Determinants of Middle- and Long-Distance Running Performance: A Systematic Review. Sports Med. 2018 – Bibliografie per PubMed prüfen (V-14)"
+  typ: systematischer_review
+  zitat: "Blagrove RC, Howatson G, Hayes PR. Effects of Strength Training on the Physiological Determinants of Middle- and Long-Distance Running Performance: A Systematic Review. Sports Med. 2018;48(5):1117-1149."
+  pmid: "29249083"
+  pmcid: PMC5889786
+  doi: 10.1007/s40279-017-0835-7
+  zugang: Open Access, CC BY 4.0 (PMC) – Volltext im Repo zulässig (D-31)
   zweck: Krafttraining bei Mittel-/Langstreckenläufern
+  kernaussage_abstract: 24 Studien; Laufökonomie meist +2–8 %; Zeitfahrleistung und Sprint tendenziell besser; VO2max und Körperzusammensetzung unverändert; Empfehlung 2–3 Krafteinheiten/Woche mit gemischten Modalitäten
+  verifikation: PubMed 2026-09-28 (V-14)
 - id: L-T2-13
-  status: kandidat
+  status: zurueckgestellt
   stufe: C
   typ: praxisquelle
   zitat: "McGill S. Back Mechanic / Ultimate Back Fitness and Performance"
-  zweck: Haltung, Rumpf, Rücken – Teilblock Haltung/Rücken noch offen
+  zweck: nur Übungsbeispiele (gekennzeichnet); Dosierung aus L-T2-15 bis L-T2-18 (D-53)
 - id: L-T2-14
-  status: kandidat
+  status: optional
   datei: t2-kraft/L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf
   stufe: A
   typ: systematischer_review_netzwerk_metaanalyse
-  zitat: "Cowley N, et al. The Effects of Advanced Resistance Training Prescription Methods on Strength, Power, Hypertrophy, and Performance Adaptations in Healthy Adults: A Systematic Review and Bayesian Network Meta-analysis. Sports Med. 2026;56(8):1955-1977."
+  zitat: "Cowley N, Nicholson V, Timmins R, Munteanu G, Weakley J. The Effects of Advanced Resistance Training Prescription Methods on Strength, Power, Hypertrophy, and Performance Adaptations in Healthy Adults: A Systematic Review and Bayesian Network Meta-analysis. Sports Med. 2026;56(8):1955-1977."
   doi: 10.1007/s40279-026-02428-1
   pmid: "41951916"
   pmcid: PMC13457283
-  zweck: Nebenbefund aus Block übergreifend (per PubMed belegt); Bewertung im Teilblock T2 offen
+  zugang: Volltext in PMC
+  zweck: Beleg für einfache, klassische Programmierung – fortgeschrittene Methoden (u. a. Cluster/Rest-Redistribution, Flywheel) ohne klaren Vorteil für Kraft, Schnellkraft, Hypertrophie bei untrainierten bis mäßig trainierten Personen
+  verifikation: PubMed 2026-09-28
+- id: L-T2-15
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Warneke K, Lohmann LH, Wilke J. Effects of Stretching or Strengthening Exercise on Spinal and Lumbopelvic Posture: A Systematic Review with Meta-Analysis. Sports Med Open. 2024;10(1):65."
+  doi: 10.1186/s40798-024-00733-5
+  pmid: "38834878"
+  pmcid: PMC11150224
+  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (vor Ablage im Repo prüfen)
+  themenfelder: [haltung, kraeftigung, dehnung]
+  kernaussagen_abstract: 23 Studien, 969 gesunde Teilnehmer; Dehnen akut (d = 0,01) und chronisch (d = −0,19) ohne Effekt auf Haltung; chronische Kräftigung große Verbesserung (d = −0,83); Kräftigung Dehnen überlegen (d = 0,81); wirksam an BWS/HWS (d = −1,04), nicht an LWS/Becken (d = −0,23); Evidenzsicherheit moderat (GRADE)
+  rolle: Anker Haltung (D-53)
+  verifikation: PubMed 2026-09-28
+- id: L-T2-16
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Khorramroo F, Rostami M, Bafrouei MJ. Corrective exercises strongly improve posture but fail to produce consistent clinical or functional benefits in patients with upper crossed syndrome: a systematic review and meta-analysis of randomized controlled trials. BMC Sports Sci Med Rehabil. 2026;18(1)."
+  doi: 10.1186/s13102-026-01707-8
+  pmid: "42210327"
+  pmcid: PMC13326462
+  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen
+  themenfelder: [haltung, vorkopfhaltung, kyphose]
+  kernaussagen_abstract: 28 RCTs (n = 901); Korrekturübungen verbessern Vorkopfwinkel (SMD −1,49), Schulterwinkel (SMD −1,53), Kyphosewinkel (SMD −1,70) bei hoher Heterogenität; Effekte auf Muskelaktivierung, Funktion, Gleichgewicht und Schmerz nicht schlüssig
+  hinweis: Artikelnummer in PubMed nicht hinterlegt – bei Beschaffung ergänzen
+  verifikation: PubMed 2026-09-28
+- id: L-T2-17
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Shiri R, Coggon D, Falah-Hassani K. Exercise for the Prevention of Low Back Pain: Systematic Review and Meta-Analysis of Controlled Trials. Am J Epidemiol. 2018;187(5):1093-1101."
+  doi: 10.1093/aje/kwx337
+  pmid: "29053873"
+  zugang: kein PMC-Volltext → Beschaffung
+  themenfelder: [rumpf, praevention_kreuzschmerz]
+  kernaussagen_abstract: Training allein senkt Kreuzschmerz-Risiko um 33 % (RR 0,67), mit Aufklärung um 27 % (RR 0,73); Schwere und Beeinträchtigung geringer; Empfehlung Kräftigung kombiniert mit Dehnung oder Ausdauer, 2–3× pro Woche
+  rolle: Dosierung Prävention (D-53)
+  verifikation: PubMed 2026-09-28
+- id: L-T2-18
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Steffens D, Maher CG, Pereira LSM, Stevens ML, Oliveira VC, Chapple M, Teixeira-Salmela LF, Hancock MJ. Prevention of Low Back Pain: A Systematic Review and Meta-analysis. JAMA Intern Med. 2016;176(2):199-208."
+  doi: 10.1001/jamainternmed.2015.7431
+  pmid: "26752509"
+  zugang: kein PMC-Volltext → Beschaffung
+  themenfelder: [rumpf, praevention_kreuzschmerz]
+  kernaussagen_abstract: 21 RCTs, 30 850 Teilnehmer; Training + Aufklärung senkt Risiko einer Kreuzschmerz-Episode (RR 0,55, moderate Evidenz); Training allein RR 0,65 (niedrige bis sehr niedrige Evidenz); Aufklärung allein, Rückengurte, Einlagen ohne Effekt
+  verifikation: PubMed 2026-09-28
+- id: L-T2-19
+  status: optional
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Carrasco-Uribarren A, Ceballos-Laita L, Pérez-Guillén S, Jiménez-Del-Barrio S, Pantaleón-Hernández D, Cabanillas-Barea S. Impact of therapeutic exercise on craniovertebral angle in forward head posture: a systematic review and meta-analysis. J Man Manip Ther. 2026:1-12."
+  doi: 10.1080/10669817.2026.2686739
+  pmid: "42281352"
+  zugang: kein PMC-Volltext; Band/Heft noch nicht vergeben (Online-Vorabveröffentlichung)
+  themenfelder: [haltung, vorkopfhaltung]
+  kernaussagen_abstract: 13 RCTs (n = 819); Nacken-Übungen allein und kombiniert mit BWS-Übungen verbessern kurzfristig Kraniovertebralwinkel und Nackenbeeinträchtigung; nur die Kombination senkt Schmerz; Evidenzsicherheit niedrig bis sehr niedrig
+  zweck: Begründung für Kombination HWS + BWS in Haltungseinheiten
+  verifikation: PubMed 2026-09-28
 ```
+
+Themenfeld-Vokabular T2 Haltung/Rücken (für Karten): haltung, vorkopfhaltung, kyphose, kraeftigung, dehnung, rumpf, praevention_kreuzschmerz.
 
 ### 13.2.4 T3 Klettern/Bouldern (Block bestätigt 2026-09-27; E1/E2 bestätigt, E3–E6 → D-31)
 
@@ -866,39 +992,48 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   datei: t3-klettern/L-T3-02_Langer-2023_Strength-Training-in-Climbing.pdf
   stufe: A
   typ: systematischer_review
-  zitat: "Langer K, Simon C, Wiemeyer J. Strength training in climbing: a systematic review. J Strength Cond Res. 2023;37(3):751-767."
+  zitat: "Langer K, Simon C, Wiemeyer J. Strength Training in Climbing: A Systematic Review. J Strength Cond Res. 2023;37(3):751-767."
+  pmid: "36820707"
   doi: 10.1519/JSC.0000000000004286
-  zugang: kostenpflichtig → Beschaffung
+  zugang: Volltext vorhanden (datei)
   themenfelder: [fingerkraft, maximalkraft, hypertrophie, kraftausdauer, kraftanstiegsrate]
-  kernaussagen: halbspezifische Methoden (Fingerboard, Campusboard) am effizientesten für Fingerbeuger-/Oberkörperkraft, Ausdauer, Kraftanstiegsrate und Kletterleistung; Kombination Maximalkraft (ca. 1–5 Wdh./s) und Hypertrophie (ca. 8–15 Wdh. bzw. 3–30 s) tendenziell am wirksamsten – beide Aussagen aus Sekundärzitat (Front Physiol 2024, doi 10.3389/fphys.2024.1461820), am Original prüfen (V-15)
-  verifikation: verifiziert (Bibliografie)
+  kernaussagen: "Laut Abstract: 12 Studien, Effektstärken für 9; positive Effekte des Krafttrainings auf alle Zielgrößen; Trend zu Kombination Maximalkraft mit Hypertrophie oder Ausdauer; Trend zu halbspezifischen Übungen; statisch und dynamisch ähnlich, Trend zur Mischung. Wiederholungsbereiche (1–5 Wdh./s; 8–15 Wdh. bzw. 3–30 s) stehen nicht im Abstract und bleiben Sekundärzitat (Front Physiol 2024, doi 10.3389/fphys.2024.1461820), bis sie am Volltext geprüft sind (V-15)"
+  verifikation: teilweise (Abstract PubMed 2026-09-28; Wiederholungsbereiche am Volltext offen)
 - id: L-T3-03
   status: ausgewaehlt (kern)
   datei: t3-klettern/L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf
   stufe: A
   typ: systematischer_review
   zitat: "Langer K, Simon C, Wiemeyer J. Physical performance testing in climbing – A systematic review. Front Sports Act Living. 2023;5:1130812."
+  pmid: "37229362"
+  pmcid: PMC10203485
   doi: 10.3389/fspor.2023.1130812
-  zugang: Open Access, CC BY (laut Volltext; Volltext im Repo zulässig, D-31)
+  zugang: Open Access, CC BY (Verlags-PDF; Zweitveröffentlichung TU Darmstadt als CC BY 4.0) – Volltext im Repo zulässig (D-31)
   themenfelder: [leistungsdiagnostik]
-  kernaussagen: keine einheitlichen Standardverfahren für Kraft-, Ausdauer-, Beweglichkeitstests; kaum Gütekriterien berichtet → präzise Testempfehlungen nicht möglich; Grundlage für Verlaufstests (AP-08)
-  verifikation: verifiziert (Band 5, Artikel 1130812, Lizenz CC BY laut Volltext, 2026-09-28)
+  kernaussagen: 156 Studien, 63 verschiedene Tests; keine einheitlichen Standardverfahren für Kraft-, Ausdauer-, Beweglichkeitstests; kaum Gütekriterien berichtet → präzise Testempfehlungen nicht möglich; Grundlage für Verlaufstests (AP-08)
+  verifikation: verifiziert 2026-09-28 (Band 5, Artikel 1130812, Lizenz CC BY laut Volltext und Verlag)
 - id: L-T3-04
   status: ausgewaehlt (ergaenzend)
   stufe: A
   typ: positionspapier
-  zitat: "Draper N, Giles D, Schöffl V, et al. Comparative grading scales, statistical analyses, climber descriptors and ability grouping: International Rock Climbing Research Association position statement. Sports Technology. 2015."
+  zitat: "Draper N, Giles D, Schöffl V, et al. Comparative grading scales, statistical analyses, climber descriptors and ability grouping: International Rock Climbing Research Association position statement. Sports Technology. 2015;8(3-4):88-94."
+  doi: 10.1080/19346182.2015.1107081
+  zugang: Taylor & Francis; nicht in PubMed indexiert; Zugang nicht geprüft
   themenfelder: [leistungsniveau_klassifikation]
   zweck: Umrechnung von Schwierigkeitsgraden, Einordnung des Leistungsniveaus (Datenmodell)
-  verifikation: teilweise (Band, Seiten, DOI, Zugang offen, V-15)
+  verifikation: verifiziert 2026-09-28 (Hochschulbibliografien Bayreuth, Cádiz)
 - id: L-T3-05
   status: ausgewaehlt (ergaenzend)
   stufe: A
+  konfidenz: niedrig trotz Stufe A (sehr kleine Stichprobe, keine Signifikanz) – Protokollvorlage, kein Wirksamkeitsbeleg
   typ: interventionsstudie
-  zitat: "López-Rivera E, González-Badillo JJ. 2012 – Titel, Journal, Band, Seiten, DOI zu verifizieren (V-15)"
+  zitat: "López-Rivera E, González-Badillo JJ. The effects of two maximum grip strength training methods using the same effort duration and different edge depth on grip endurance in elite climbers. Sports Technology. 2012;5(3-4):100-110."
+  doi: 10.1080/19346182.2012.716061
+  zugang: Taylor & Francis; nicht in PubMed indexiert
   themenfelder: [fingerkraft, kraftausdauer]
-  zweck: Vergleich von Hangboard-Maximalkraftmethoden (Leistentiefe/Zusatzlast); Basis vieler Fingerboard-Protokolle
-  verifikation: zu_verifizieren
+  zweck: Vergleich von Hangboard-Maximalkraftmethoden (Leistentiefe/Zusatzlast); Hauptbeleg für Hangboard-Protokolle ist L-T3-18
+  kernaussagen: n = 9 (8a+/b); Reihenfolge Zusatzgewicht an 18-mm-Leiste vor minimaler Leistentiefe tendenziell besser; Unterschiede nicht signifikant (p > 0,05)
+  verifikation: verifiziert 2026-09-28 (Datenbank BISp/IAT)
 - id: L-T3-06
   status: ausgewaehlt (kern)
   datei: t3-klettern/L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf
@@ -917,30 +1052,34 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   status: optional (Alternative zu L-T3-06, D-31)
   stufe: B
   typ: fachbuch
-  zitat: "Schöffl V, Schöffl I, Lutter C, Hochholzer T. Klettermedizin. Springer; 2020."
+  zitat: "Schöffl V, Schöffl I, Hochholzer T, Lutter C (Hrsg.). Klettermedizin – Grundlagen, Unfälle, Verletzungen und Therapie. Berlin, Heidelberg: Springer; 2020. IX, 255 S."
+  isbn: 978-3-662-61090-9 (E-Book)
+  doi: 10.1007/978-3-662-61090-9
   sprache: de
   zweck: Deutsche Originalausgabe von L-T3-06; Alternative, falls die englische nicht beschafft wird (D-31)
-  verifikation: teilweise (ISBN offen)
+  hinweis: Print-ISBN nicht ermittelt; für Springer-Kapitel-PDF genügen E-ISBN/DOI. Nicht nötig, L-T3-06 liegt vor
+  verifikation: verifiziert 2026-09-28 (Katalog UB TUM)
 - id: L-T3-08
   status: ausgewaehlt (kern)
   stufe: B
   typ: fachbuch
-  zitat: "Köstermeyer G. Peak Performance – Klettertechnik und Klettertraining von A–Z. 8. Aufl. tmms-Verlag; 2017."
+  zitat: "Köstermeyer G. Peak Performance – Klettertechnik und Klettertraining von A–Z. 8. Aufl. Korb: tmms-Verlag; 2017."
   sprache: de
   themenfelder: [periodisierung, fingerkraft, kraftausdauer, technik, taktik]
   zweck: Deutschsprachiges Standardwerk; Übertragung der Trainingslehre aufs Klettern, nichtlineare Periodisierung; Autor FAU Erlangen-Nürnberg, DAV-Trainer
-  verifikation: teilweise (aktuelle Auflage/ISBN offen; 7. Aufl. 2014: 978-3-930650-97-2; FAU-Publikationsliste nennt 2019, V-15)
+  verifikation: teilweise – 8. Aufl. 2017 belegt (Fachpresse); FAU-Publikationsliste nennt „Peak Performance (2019)" ohne Auflagenangabe; ISBN der 8. Aufl. nicht ermittelt → beim Kauf klären (tmms-Shop); 7. Aufl. 2014 ISBN 978-3-930650-97-2
 - id: L-T3-09
   status: optional
   stufe: B
   typ: fachbuch
-  zitat: "Hörst EJ. Training for Climbing – The Definitive Guide to Improving Your Performance. 3. Aufl. FalconGuides."
+  zitat: "Hörst EJ. Training for Climbing – The Definitive Guide to Improving Your Performance. 3. Aufl. Guilford, CT: FalconGuides; 2016. xiii, 335 S."
   isbn: 978-1-4930-1761-4
   sprache: en
   themenfelder: [periodisierung, fingerkraft, kraftausdauer, unterarmausdauer, mental, verletzungspraevention]
   zweck: Energiesystemtraining, Trainingszonen, DUP, Hangboard-Protokolle, Tapering
   einschraenkung: Label „evidenzbasiert" stammt vom Verlag; Autor ist Coach, kein Hochschulforscher – Aussagen gegen Stufe A abgleichen
-  verifikation: teilweise (Jahr offen, V-15)
+  hinweis: Neuauflage vom Handel angekündigt für 02.03.2027 (ISBN 9781493086184); bei Aktivierung Neuauflage abwarten
+  verifikation: verifiziert 2026-09-28 (Bibliothekskataloge)
 - id: L-T3-10
   status: optional (ideenfundus, Stufe C)
   stufe: C
@@ -964,11 +1103,12 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   status: optional (ideenfundus, Stufe C)
   stufe: C
   typ: praxisbuch
-  zitat: "Hochholzer T, Schöffl V. So weit die Hände greifen (engl. One Move Too Many). Lochner-Verlag."
+  zitat: "Hochholzer T, Schöffl V. So weit die Hände greifen (engl. One Move Too Many). Ebenhausen: Lochner-Verlag; 2014. 320 S."
+  isbn: 9783928026345
   sprache: de
   themenfelder: [verletzungspraevention, verletzungen_therapie]
   hinweis: Weitgehend redundant zu L-T3-06/07; nur relevant, falls Klettermedizin nicht beschafft wird
-  verifikation: teilweise (Jahr, Auflage, ISBN offen)
+  verifikation: teilweise – Jahr/ISBN aus Händlerangabe; Auflage unklar (laut Händler „Ausgabe Nr. 6")
 - id: L-T3-15
   status: kandidat
   stufe: C (erwartet)
@@ -984,6 +1124,19 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   stufe: A
   thema: Fingerbeuger-/Sehnen-/Ringbandadaptation, Hangboard-Protokolle, Belastungsdosierung
   zweck: Progressionsregeln und Schmerzregeln (14.5); von Block T3 nur über L-T3-01/02/05 abgedeckt – Primärstudien bei Bedarf über PubMed
+- id: L-T3-18
+  status: ausgewaehlt
+  stufe: A
+  typ: rct
+  zitat: "López-Rivera E, González-Badillo JJ. Comparison of the Effects of Three Hangboard Strength and Endurance Training Programs on Grip Endurance in Sport Climbers. J Hum Kinet. 2019;66:183-195."
+  pmid: "30988852"
+  pmcid: PMC6458579
+  doi: 10.2478/hukin-2018-0057
+  zugang: Open Access (PMC)
+  themenfelder: [fingerkraft, kraftausdauer]
+  zweck: Größere Folgestudie zu L-T3-05 (n = 26, 8 Wochen, drei Hangboard-Programme); Hauptbeleg für Hangboard-Protokolle
+  kernaussage: Griffausdauer +34 % (maximale Hangs), +45 % (intermittierende Hangs), +7 % (Kombination)
+  verifikation: PMC-Seite 2026-09-28; PubMed-Metadaten nicht separat abgerufen
 ```
 
 Nummernlücke: L-T3-13 (MacLeod) und L-T3-14 (Neumann U) stehen als ausgeschlossene Werke in 13.3.
@@ -1009,6 +1162,14 @@ Themenfeld-Vokabular T3 (für Karten und Datenmodell): fingerkraft, maximalkraft
   grund: Stufe C, meinungsstark; nicht als Begründungsbasis (Block T3, unverifiziert)
 - werk: Neumann U – Lizenz zum Klettern
   grund: Klassiker der Bewegungslehre, Stufe C; nicht als Begründungsbasis (Block T3, unverifiziert)
+- werk: "Sheikhhoseini R, Shahrbanian S, Sayyadi P, O'Sullivan K. Effectiveness of Therapeutic Exercise on Forward Head Posture: A Systematic Review and Meta-analysis. J Manipulative Physiol Ther. 2018;41(6):530-539. DOI 10.1016/j.jmpt.2018.02.002"
+  grund: 7 RCTs; durch L-T2-16 (28 RCTs, 2026) inhaltlich überholt; im Reha-Plan (anderer Chat) bereits verwendet
+- werk: "de Campos TF, Maher CG, Fuller JT, et al. Prevention strategies to reduce future impact of low back pain. Br J Sports Med. 2021;55(9):468-476. DOI 10.1136/bjsports-2019-101436"
+  grund: bestätigt L-T2-17/18 (Training bzw. Training + Aufklärung reduziert künftige Schmerzintensität/Beeinträchtigung); redundant, Tokenbudget 13.1
+- werk: "Huang R, Ning J, Chuter VH, et al. Exercise alone and exercise combined with education both prevent episodes of low back pain and related absenteeism. Br J Sports Med. 2020;54(13):766-770. DOI 10.1136/bjsports-2018-100035"
+  grund: Netzwerk-Metaanalyse, 40 RCTs; bestätigt L-T2-17/18; redundant
+- werk: "Sepehri S, Sheikhhoseini R, Piri H, Sayyadi P. BMC Musculoskelet Disord. 2024;25(1):105. DOI 10.1186/s12891-024-07224-4"
+  grund: Upper Crossed Syndrome, 22 Studien inkl. nicht indexierter Google-Scholar-Funde; durch L-T2-16 überholt
 hinweis: Auflagen der nicht aufgenommenen Werke wurden nicht geprüft.
 ```
 
@@ -1026,15 +1187,24 @@ Formatprüfung je Titel vor dem Kauf (V-13). Alle Blöcke sind bestätigt (D-31)
 | 1 | T2 | L-A03 NSCA, 5. Aufl. | Buch | kein VitalSource-DRM → Print oder anderer Anbieter | | ✓ E-Book-PDF mit Lesezeichen |
 | 1 | T2 | L-T2-03 Schumann/Rønnestad 2019 | Buch | Springer-Kapitel-PDF | | ✓ Gesamt-PDF |
 | 1 | T2 | L-T2-04 Low, Overcoming Gravity, 2. Aufl. | Buch | PDF/ePUB beim Autor prüfen | | ✓ Scan; Texterkennung fehlerhaft |
+| 1 | übergreifend | L-P13 Silbernagel 2007 (AJSM) | Artikel | PDF | Pflicht für V-07 | offen |
+| 1 | übergreifend | L-P10 Foster 2001 (JSCR), L-P12 Impellizzeri 2020 (IJSPP) | Artikel | PDF | nicht in PMC → Bibliothekszugang; Open-Access-Ersatz für L-P12 im Eintrag | offen |
+| 1 | T2 | L-T2-17 Shiri 2018 (AJE), L-T2-18 Steffens 2016 (JAMA IM) | Artikel | PDF | nicht in PMC → Bibliothekszugang | offen |
 | 2 | T1 | L-T1-07 Laursen/Buchheit | Buch | kein VitalSource-DRM | Teil Grundlagen Intervallprogrammierung + Kapitel Lauf/Ausdauer | offen |
 | 2 | T1 | L-T1-08 Uphill Athlete | Buch | PDF bevorzugt; E-Book-DRM prüfen | Praxisquelle | ✓ Scan mit Texterkennung |
 | 2 | T3 | L-T3-02 Langer 2023 (JSCR) | Artikel | PDF | kostenpflichtig | ✓ |
 | 2 | T3 | L-T3-06 Climbing Medicine 2022 (bevorzugt) oder L-T3-07 Klettermedizin 2020 (Alternative) | Buch, eine Ausgabe (D-31) | Springer-Kapitel-PDF | | ✓ L-T3-06, Gesamt-PDF |
 | 2 | T3 | L-T3-08 Köstermeyer, Peak Performance | Buch | PDF-Verfügbarkeit prüfen | aktuelle Auflage klären (V-15) | offen |
+| 2 | T2 | L-T2-11 Rønnestad & Mujika 2014 | Artikel | PDF | nicht in PMC | offen |
+| 2 | T3 | L-T3-05 López-Rivera 2012 (Sports Technology) | Artikel | PDF | nur falls L-T3-18 nicht genügt | offen |
 | frei | alle | L-P01, L-P07, L-P08, L-T1-04, L-T1-06, L-T3-01, L-T3-03; optional L-T1-09, L-T1-10, L-T1-12 | – | PDF aus PMC bzw. Verlag (OA) | kein Kauf | ✓ alle |
+| frei | übergreifend/T2/T3 | L-P11 (PMC), L-T2-12 (CC BY 4.0), L-T3-03 (CC BY), L-T3-18 (PMC) | – | PDF aus PMC/Verlag | L-P11 ohne CC-Lizenz | L-T3-03 ✓; L-P11, L-T2-12, L-T3-18 offen |
+| frei | T2 | L-T2-15 Warneke 2024, L-T2-16 Khorramroo 2026 | – | PDF aus PMC | Lizenz vor Ablage im Repo prüfen | offen |
 | bei Bedarf | – | L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-09, L-T3-10, L-T3-11 | – | – | nur wenn optional aktiviert | – |
+| bei Bedarf | übergreifend | L-P14 Impellizzeri 2021 | Artikel | PDF | optional | – |
+| bei Bedarf | T2 | L-T2-14 Cowley 2026 (PMC), L-T2-19 Carrasco-Uribarren 2026 | – | PDF | optional | L-T2-14 ✓ |
 
-Stand 2026-09-28: 30 Volltexte vorhanden (D-51), Verzeichnis in `docs/literatur/README.md`. Zusätzlich vorhanden, aber nicht auf der Liste: L-T2-14 (Kandidat). Offen sind L-T1-01, L-T1-07, L-T3-08 und die 8./9. Aufl. von L-A01. Ausgewählt bzw. verifiziert, aber weder auf der Liste noch vorhanden: L-T2-10, L-T3-04, L-T3-05 (Bibliografie offen, V-15).
+Stand 2026-09-28: 30 Volltexte vorhanden (D-51), Verzeichnis in `docs/literatur/README.md`. Offen sind 4 Bücher (L-T1-01, L-T1-07, L-T3-08 sowie L-A01 in 8./9. Aufl.), 6 Artikel ohne freien Zugang (L-P10, L-P12, L-P13, L-T2-11, L-T2-17, L-T2-18; dazu L-T3-05 nur bei Bedarf) und 5 frei verfügbare Artikel (L-P11, L-T2-12, L-T2-15, L-T2-16, L-T3-18). Ausgewählt bzw. verifiziert, aber nicht auf der Liste: L-T2-10 (Wiedenmann 2025), L-T3-04 (Draper 2015, Zugang nicht geprüft).
 
 # 14. Trainerregeln (Struktur; Inhalte in AP-07)
 
@@ -1045,7 +1215,7 @@ Vorgesehene Kapitel:
 2. Sequenzierung (Abstände zwischen intensiven Finger-Einheiten; harte Läufe nicht am Vortag von Limit-Bouldern; Haltungsarbeit als niedrigschwelliger Filler).
 3. Progression je Bereich (Ausdauer: Volumen-/Intensitätsschritte, Entlastungswochen; Kraft: doppelte Progression; Hangboard: Last-/Kanten-/Zeitprogression).
 4. Deload-Trigger (Kombination aus subjektiven Markern, sRPE-Wochenlast, HRV/Ruhepuls-Abweichung, Schmerzereignissen).
-5. Schmerzregeln (vorläufig, V-07): Schmerz ≤ 3/10 während der Belastung und am Folgemorgen abgeklungen → fortfahren; 4–5/10 oder Morgenschmerz → Belastung der Struktur reduzieren; > 5/10, über eine Woche steigend oder akutes Ereignis (z. B. Knall/Riss-Gefühl am Finger) → Belastung der Struktur stoppen, klinische Abklärung vor Weitertraining.
+5. Schmerzregeln (vorläufig, V-07; Abgleich mit dem Modell nach L-P13 offen, Q-13): Schmerz ≤ 3/10 während der Belastung und am Folgemorgen abgeklungen → fortfahren; 4–5/10 oder Morgenschmerz → Belastung der Struktur reduzieren; > 5/10, über eine Woche steigend oder akutes Ereignis (z. B. Knall/Riss-Gefühl am Finger) → Belastung der Struktur stoppen, klinische Abklärung vor Weitertraining.
 6. Datenqualitätsregeln (Abschnitt 11).
 7. Schreibregel D-11 (nur nach Bestätigung).
 8. Zonenmodell: Abbildung des Drei-Zonen-Modells (LT1/LT2) auf die fünf Garmin-Zonen (%LTHR), Grenzwerte, Umgang mit nur einer Schwelle auf der Uhr (D-27). Kletterregeln tragen die Kennzeichnung „Evidenz: begrenzt“ (13.2.4).
@@ -1344,17 +1514,17 @@ probleme_loesungen:
 
 - **Ziel:** Literaturauswahl je Block, Beschaffung, Wissenskarten gemäß 13.1.
 - **Umfang:**
-  1. Literaturblöcke: übergreifend (bestätigt), T1 Ausdauer (bestätigt), T2 Kraft/Calisthenics (bestätigt; Teilblock Haltung/Rücken offen), T3 Klettern/Bouldern (bestätigt; E3–E6 → D-31). Regel für weitere Sitzungen: aktuelle Konzeptfassung laden, Übergabedokument liefern, Konzept nicht direkt editieren.
+  1. Literaturblöcke: übergreifend (bestätigt), T1 Ausdauer (bestätigt), T2 Kraft/Calisthenics (bestätigt) und Haltung/Rücken (bestätigt, D-53), T3 Klettern/Bouldern (bestätigt; E3–E6 → D-31). Regel für weitere Sitzungen: aktuelle Konzeptfassung laden, Übergabedokument liefern, Konzept nicht direkt editieren.
   2. Beschaffung nach 13.4 (Athlet, D-26); Formatprüfung je Titel (V-13).
   3. Kartenzuschnitt (Bündelungsregel 13.1, Zielzahl 5 Dateien):
      - `docs/wissen/uebergreifend-belastung-monitoring-erholung.md` ← L-P03, L-P04, L-P05, L-P06, L-A01, L-A02, L-P10, L-P11, L-P12, L-P13
      - `docs/wissen/uebergreifend-planung-kombiniertes-training.md` ← L-P01, L-P02, L-P07, L-P08, L-P09, L-A01, L-A02
      - `docs/wissen/t1-ausdauer.md` ← L-T1-01 bis L-T1-08 (Karten: Intensitätsverteilung und Zonenmodell D-27; Bergauf-Ausdauer und Skitour-Spezifik; Intervallprogrammierung); optionale Quellen nur bei konkreter Planungsfrage; Budget ca. 8 000–10 000 Tokens
-     - `docs/wissen/t2-kraft-haltung.md` ← L-P08, L-A03, L-T2-03 (Karten: Dosierung und Progression; kombiniertes Training Kraft/Ausdauer) plus Abschnitt `uebungskatalog_calisthenics` aus L-T2-04 mit Belegen L-T2-08 bis L-T2-10 (D-29); Haltung/Rücken nach Teilblock
-     - `docs/wissen/t3-klettern.md` ← L-T3-01, -02, -03, -06 (bzw. -07), -08; optional -09 (Karten: kletterspezifisches Krafttraining und Spezifitätsschema; Leistungsdiagnostik und Verlaufstests; Verletzungsprävention/Schmerz); Stufe-C-Quellen nur als Ideenfundus (D-31); Kennzeichnung „Evidenz: begrenzt"
-  4. Offene Punkte: Auflage L-A01 (7. Aufl. vorläufig vorhanden, 8. oder 9. beschaffen, D-51); Bibliografie L-P10–L-P13 (V-06, V-07); V-14 (L-T2-11, L-T2-12); V-15 (T3-Lücken); Teilblock Haltung/Rücken (L-T2-13 bewerten, Alternativen suchen); Bewertung L-T2-14; Karten-Template (Schema: Kernaussage + Quelle + Seite + Stufe + konfidenz + Themenfeld); Kartenerstellung nach Beschaffung.
+     - `docs/wissen/t2-kraft-haltung.md` ← L-P08, L-A03, L-T2-03 (Karten: Dosierung und Progression; kombiniertes Training Kraft/Ausdauer), L-T2-11, L-T2-12 (Kraft für Läufer), Abschnitt `uebungskatalog_calisthenics` aus L-T2-04 mit Belegen L-T2-08 bis L-T2-10 (D-29), Karte Haltung und Rücken aus L-T2-15 bis L-T2-18 (D-53); optional L-T2-14, L-T2-19
+     - `docs/wissen/t3-klettern.md` ← L-T3-01, -02, -03, -06 (bzw. -07), -08; optional -09 (Karten: kletterspezifisches Krafttraining und Spezifitätsschema; Leistungsdiagnostik und Verlaufstests; Verletzungsprävention/Schmerz); L-T3-18 als Beleg für Hangboard-Protokolle, L-T3-05 mit konfidenz niedrig; Stufe-C-Quellen nur als Ideenfundus (D-31); Kennzeichnung „Evidenz: begrenzt"
+  4. Offene Punkte: Auflage L-A01 (7. Aufl. vorläufig vorhanden, 8. oder 9. beschaffen, D-51); V-07 Rest (Schwellen am Volltext L-P13, Entscheidung Q-13 in AP-07); V-15 Rest (L-T3-02 Wiederholungsbereiche, L-T3-08, L-T3-12); Lizenz L-T2-15, L-T2-16 vor Ablage prüfen; Karten-Template (Schema: Kernaussage + Quelle + Seite + Stufe + konfidenz + Themenfeld); Kartenerstellung nach Beschaffung.
 - **Abhängigkeiten:** keine (Chat-Arbeit); Kartenerstellung erst nach Beschaffung.
-- **Abnahmekriterien:** Karten liegen in `docs/wissen/` und im Projekt-Wissen; jede Kernaussage hat Quelle mit Seite bzw. DOI/PMID und Evidenzstufe; V-06, V-07, V-14, V-15 erledigt; Gesamtbudget 13.1 eingehalten.
+- **Abnahmekriterien:** Karten liegen in `docs/wissen/` und im Projekt-Wissen; jede Kernaussage hat Quelle mit Seite bzw. DOI/PMID und Evidenzstufe; V-06, V-07 (Literaturteil), V-14, V-15 erledigt; Gesamtbudget 13.1 eingehalten.
 - **Status:**
 ```yaml
 status: in_arbeit
@@ -1364,10 +1534,10 @@ teilschritte:
   - Literaturauswahl übergreifend: erledigt (D-21–D-24)
   - Literaturauswahl T1 Ausdauer: erledigt (D-25–D-27, V-11)
   - Literaturauswahl T2 Kraft/Calisthenics: erledigt (D-28–D-30)
-  - Literaturauswahl T2 Haltung/Rücken: offen
+  - Literaturauswahl T2 Haltung/Rücken: erledigt (D-53)
   - Literaturauswahl T3 Klettern/Bouldern: erledigt (D-31)
   - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-28 – 30 Volltexte sortiert und umbenannt, Kapitel-PDFs für 7 Bücher, D-51; offen nach 13.4 sind L-T1-01, L-T1-07, L-T3-08 und L-A01 in 8./9. Aufl.)
-  - Primärquellen verifizieren: offen (V-06, V-07, V-14, V-15)
+  - Primärquellen verifizieren: weitgehend erledigt (V-06, V-14 erledigt; V-07, V-15 teilweise, Rest nach Beschaffung)
   - Karten-Template und Karten: offen
 probleme_loesungen:
   - datum: 2026-09-27
@@ -1427,12 +1597,46 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: L-A02 Ferrauti (2. Aufl.) als 355-MB-PDF geliefert (per HTTPS-Download), zu groß für GitHub (Grenze 100 MB je Datei)
     loesung: Das PDF ist aus Einzelkapiteln zusammengesetzt und bettete gleiche Schriften und Bilder mehrfach ein. Ohne Dubletten neu geschrieben → Gesamtbuch 94 MB, 25 Kapitel-PDFs zusammen 98 MB (größte 16 MB). Text und Bilddaten (Prüfsumme) aller 911 Seiten gleich dem Original; interne Links wie bei den anderen Kapitel-PDFs entfernt. Nebenbei geklärt – 2. Aufl. 2025, ISBN 978-3-662-69523-4, zweiter Herausgeber Wiewelhove
+  - datum: 2026-09-28
+    was: V-07 – Schwellenwerte des Schmerzmonitoring-Modells nicht im Abstract, Volltext nicht in PMC; einzige gefundene Angabe aus nicht begutachteter Sekundärquelle
+    loesung: V-07 als teilweise geführt; Volltext in Beschaffungsliste; Abweichung zu 14.5 als Q-13 nach AP-07
+  - datum: 2026-09-28
+    was: L-T3-02 – Kernaussagen im Konzept stärker formuliert als im Original-Abstract („am effizientesten" statt Trend; Wiederholungsbereiche nicht im Abstract)
+    loesung: Kernaussagen auf Abstract-Wortlaut zurückgeführt; Wiederholungsbereiche bleiben als Sekundärzitat markiert, Prüfung am Volltext (liegt im Repo)
+  - datum: 2026-09-28
+    was: L-T3-05 – Stufe A, aber n = 9 ohne signifikante Gruppenunterschiede
+    loesung: konfidenz niedrig; größere Folgestudie derselben Autoren als L-T3-18 aufgenommen
+  - datum: 2026-09-28
+    was: Literatur-Sitzung – zwei PubMed-Aufrufe (Volltext, ID-Konvertierung) ohne Freigabe abgebrochen
+    loesung: Ersatzweise Metadaten-Abruf bzw. Verlagsseiten/Bibliothekskataloge; Volltext Sprague 2021 (PMC7905015) für Modellschwellen nicht genutzt
+  - datum: 2026-09-28
+    was: V-07 in 5.2 bei AP-07 geführt, Abnahme AP-06 verlangt V-07
+    loesung: V-07 auf AP-06 (Literatur) und AP-07 (Schwellen) aufgeteilt
+  - datum: 2026-09-28
+    was: Teilblock Haltung/Rücken – einzige Kandidatenquelle (McGill) Stufe C; Frage, ob Haltungskorrektur überhaupt Beschwerden reduziert
+    loesung: Stufe-A-Kern über PubMed aufgebaut (L-T2-15 bis L-T2-18); Grenze „Haltung ≠ Schmerz" als Pflichtinhalt der Karte (D-53 c); McGill zurückgestellt
+  - datum: 2026-09-28
+    was: Im Chat vorgesehene IDs L-T2-19 bis L-T2-22 für vier optionale Quellen; nur eine aufgenommen
+    loesung: Carrasco-Uribarren als L-T2-19, übrige ohne ID in 13.3
+  - datum: 2026-09-28
+    was: Übergaben Teil A und B beruhten auf einem älteren Konzeptstand (letzte IDs D-37, Q-08); D-38 und Q-09 waren inzwischen vergeben
+    loesung: bei der Einarbeitung umnummeriert – D-38 → D-53, Q-09 → Q-13; übrige neue IDs (L-P14, L-T2-15 bis L-T2-19, L-T3-18) waren frei
 ```
 Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage von `docs/pruefung/pruefprotokoll.md` als AP-06-Block zu übernehmen.
 
 ## AP-07 Trainerregeln (Projekt-Chat)
 
 - **Ziel:** `docs/regeln/trainerregeln.md` gemäß Abschnitt 14.
+- **Vorgaben aus AP-06** (Kapitel 2 und 3 in 14; D-53, Q-13):
+```yaml
+- regelvorschlag: Haltungsarbeit = Kräftigung BWS/HWS-Extensoren und Schulterblattmuskulatur, kombiniert HWS + BWS; Dehnen nicht als Haltungskorrektur einplanen
+  quelle: L-T2-15, L-T2-16, L-T2-19
+- regelvorschlag: Kreuzschmerz-Prävention 2–3× pro Woche als Teil bestehender Kraft-/Haltungseinheiten (Kräftigung + Dehnung oder Ausdauer)
+  quelle: L-T2-17, L-T2-18
+- regelvorschlag: Erfolgskriterium Haltungsarbeit nicht über Schmerzfreiheit definieren
+  quelle: L-T2-16
+- offene_frage: Q-13 Schmerzschwellen 14.5 vs. Modell L-P13 (nach Volltextprüfung L-P13)
+```
 - **Abhängigkeiten:** AP-06 (Quellen).
 - **Abnahmekriterien:** Jede Regel mit Quelle oder Kennzeichnung „Einschätzung"; Schmerz- und Deload-Regeln vom Athleten bestätigt.
 - **Status:**
@@ -1706,3 +1910,4 @@ noch_zu_pruefen:
 | 2026-09-28 | Literatur-Volltexte abgeglichen, umbenannt und in Blockordner sortiert (D-51); Bücher zusätzlich als Kapitel-PDFs. 13.1 Schritt 1, 13.2 (Felder `datei`/`kapitel`, L-A01 vorhandene Auflage, L-T3-03 Band und Lizenz), 13.4 Spalte „vorhanden“, V-13 teilweise, V-15 L-T3-03 erledigt, AP-06 Teilschritt Beschaffung teilweise. |
 | 2026-09-28 | AP-11 ergänzt um Erinnerungen (D-52, Code-Stand 0.15.0, Schema 19: `app_setting`). Zunächst als D-51 vergeben; beim Zusammenführen mit der parallelen Literatur-Sitzung (PR #9, ebenfalls D-51) in D-52 umbenannt. |
 | 2026-09-28 | L-A02 Ferrauti, 2. Aufl. 2025, ergänzt (Gesamtbuch ohne doppelt eingebettete Ressourcen, 94 MB, plus Kapitel-PDFs); Eintrag 13.2.1 vervollständigt (Herausgeber, Jahr, ISBN, DOI, Verlag), 13.4, V-13, AP-06 nachgezogen. |
+| 2026-09-28 | Übergaben AP-06 Teil B (Verifikation) und Teil A (Haltung/Rücken) eingearbeitet: 13.2.1 L-P10–L-P13 ausgewählt und verifiziert, L-P14 neu (optional); 13.2.3 L-T2-11/-12 ausgewählt, Teilblock Haltung/Rücken mit L-T2-15–L-T2-19, L-T2-13 zurückgestellt, L-T2-14 optional; 13.2.4 L-T3-02 Kernaussagen korrigiert, L-T3-03/-04/-05/-07/-08/-09/-12 bibliografisch ergänzt, L-T3-18 neu; 13.3 vier Ausschlüsse; 13.4 ergänzt. Neu D-53 (Haltung/Rücken, in der Übergabe D-38) und Q-13 (Schmerzschwellen, in der Übergabe Q-09); V-06 und V-14 erledigt, V-07 teilweise (AP-06/AP-07), V-15 weitgehend erledigt; 14.5 Verweis auf Q-13; AP-06 Umfang, Abnahme, Status; AP-07 Vorgaben aus AP-06. |

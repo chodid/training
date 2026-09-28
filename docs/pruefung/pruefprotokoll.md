@@ -591,6 +591,30 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: L-A02 Ferrauti (2. Aufl.) als 355-MB-PDF geliefert (per HTTPS-Download), zu groß für GitHub (Grenze 100 MB je Datei)
     loesung: Das PDF ist aus Einzelkapiteln zusammengesetzt und bettete gleiche Schriften und Bilder mehrfach ein. Ohne Dubletten neu geschrieben → Gesamtbuch 94 MB, 25 Kapitel-PDFs zusammen 98 MB (größte 16 MB). Text und Bilddaten (Prüfsumme) aller 911 Seiten gleich dem Original; interne Links wie bei den anderen Kapitel-PDFs entfernt. Nebenbei geklärt – 2. Aufl. 2025, ISBN 978-3-662-69523-4, zweiter Herausgeber Wiewelhove
+  - datum: 2026-09-28
+    was: V-07 – Schwellenwerte des Schmerzmonitoring-Modells nicht im Abstract, Volltext nicht in PMC; einzige gefundene Angabe aus nicht begutachteter Sekundärquelle
+    loesung: V-07 als teilweise geführt; Volltext in Beschaffungsliste; Abweichung zu 14.5 als Q-13 nach AP-07
+  - datum: 2026-09-28
+    was: L-T3-02 – Kernaussagen im Konzept stärker formuliert als im Original-Abstract („am effizientesten" statt Trend; Wiederholungsbereiche nicht im Abstract)
+    loesung: Kernaussagen auf Abstract-Wortlaut zurückgeführt; Wiederholungsbereiche bleiben als Sekundärzitat markiert, Prüfung am Volltext (liegt im Repo)
+  - datum: 2026-09-28
+    was: L-T3-05 – Stufe A, aber n = 9 ohne signifikante Gruppenunterschiede
+    loesung: konfidenz niedrig; größere Folgestudie derselben Autoren als L-T3-18 aufgenommen
+  - datum: 2026-09-28
+    was: Literatur-Sitzung – zwei PubMed-Aufrufe (Volltext, ID-Konvertierung) ohne Freigabe abgebrochen
+    loesung: Ersatzweise Metadaten-Abruf bzw. Verlagsseiten/Bibliothekskataloge; Volltext Sprague 2021 (PMC7905015) für Modellschwellen nicht genutzt
+  - datum: 2026-09-28
+    was: V-07 in 5.2 bei AP-07 geführt, Abnahme AP-06 verlangt V-07
+    loesung: V-07 auf AP-06 (Literatur) und AP-07 (Schwellen) aufgeteilt
+  - datum: 2026-09-28
+    was: Teilblock Haltung/Rücken – einzige Kandidatenquelle (McGill) Stufe C; Frage, ob Haltungskorrektur überhaupt Beschwerden reduziert
+    loesung: Stufe-A-Kern über PubMed aufgebaut (L-T2-15 bis L-T2-18); Grenze „Haltung ≠ Schmerz" als Pflichtinhalt der Karte (D-53 c); McGill zurückgestellt
+  - datum: 2026-09-28
+    was: Im Chat vorgesehene IDs L-T2-19 bis L-T2-22 für vier optionale Quellen; nur eine aufgenommen
+    loesung: Carrasco-Uribarren als L-T2-19, übrige ohne ID in 13.3
+  - datum: 2026-09-28
+    was: Übergaben Teil A und B beruhten auf einem älteren Konzeptstand (letzte IDs D-37, Q-08); D-38 und Q-09 waren inzwischen vergeben
+    loesung: bei der Einarbeitung umnummeriert – D-38 → D-53, Q-09 → Q-13; übrige neue IDs (L-P14, L-T2-15 bis L-T2-19, L-T3-18) waren frei
 geprueft:
   - was: Zuordnung der 29 PDFs zu IDs aus 13.2 – Titel, Autoren und DOI auf den ersten Seiten gegen 13.2 abgeglichen
     wie: Textextraktion (pypdf) aller Dateien, Abgleich je Datei
@@ -616,6 +640,42 @@ geprueft:
     wie: automatisiert (pypdf, Seitenvergleich über alle 911 Seiten)
     ergebnis: ok
     datum: 2026-09-28
+  - was: Bibliografie und Kernaussage L-P11 (V-06)
+    wie: PubMed-Connector (Metadaten, Abstract) – Literatur-Sitzung AP-06 Teil B
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Bibliografie L-P10, L-P12, L-P14
+    wie: PubMed-Connector
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Bibliografie L-P13 und Modellherkunft (V-07)
+    wie: PubMed-Connector
+    ergebnis: ok (Bibliografie); offen (Schwellen)
+    datum: 2026-09-28
+  - was: Bibliografie L-T2-11, L-T2-12 (V-14)
+    wie: PubMed-Connector; Lizenz über Copyright-Status
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Bibliografie T3 (V-15)
+    wie: PubMed-Connector (L-T3-02, -03); Verlagsseite und Bibliothekskataloge (L-T3-03 Lizenz, -04, -05, -07, -08, -09, -12)
+    ergebnis: ok für -03, -04, -05, -07, -09; teilweise für -02, -08, -12
+    datum: 2026-09-28
+  - was: Literaturrecherche Haltung/Rücken (Vorkopfhaltung, Kyphose, Kreuzschmerz-Prävention) – Literatur-Sitzung AP-06 Teil A
+    wie: PubMed-Connector (Suche nach systematischen Reviews/Metaanalysen, Metadaten, Abstracts)
+    ergebnis: ok – 4 Kernquellen, 1 optionale Quelle, 4 dokumentierte Ausschlüsse
+    datum: 2026-09-28
+  - was: Bibliografie und Kernaussage L-T2-14 (Cowley 2026)
+    wie: PubMed-Connector
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Zugang/Lizenz L-T2-15 bis L-T2-19
+    wie: PubMed-Copyright-Status
+    ergebnis: teilweise – L-T2-15, -16 in PMC ohne ausgewiesene Lizenz; L-T2-17, -18, -19 nicht in PMC
+    datum: 2026-09-28
+  - was: Einarbeitung der Übergaben Teil A und B ins Konzept – ID-Kollisionen (D-38 → D-53, Q-09 → Q-13), Pfade datei/kapitel erhalten, YAML-Blöcke parsebar wie zuvor
+    wie: Code-Instanz, automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
     wie: manuell durch Athlet bei der ersten Kartensitzung
@@ -623,4 +683,18 @@ noch_zu_pruefen:
     wie: manuell in der Kartensitzung
   - was: Restliche Beschaffung laut 13.4 (L-T1-01, L-T1-07, L-T3-08, L-A01 8./9. Aufl.); neue Dateien nach D-51 ablegen und eintragen
     wie: Athlet (D-26), Eintrag durch Code-Instanz
+  - was: Schwellenwerte Schmerzmonitoring-Modell am Volltext L-P13 (V-07), danach Entscheidung Q-13
+    wie: manuell nach Beschaffung; Entscheidung in AP-07
+  - was: Wiederholungsbereiche L-T3-02 am Volltext (V-15)
+    wie: manuell in der Kartensitzung; der Volltext liegt bereits im Repo
+  - was: L-T3-08 aktuelle Auflage/ISBN, L-T3-12 Auflage
+    wie: beim Kauf (Verlagsshop)
+  - was: L-T3-18 PubMed-Metadaten
+    wie: PubMed-Connector
+  - was: Lizenz L-T2-15, L-T2-16 (für Ablage im Repo, D-31)
+    wie: Verlagsseite (BMC/Springer Open)
+  - was: Artikelnummer L-T2-16, Band/Heft L-T2-19
+    wie: bei Beschaffung
+  - was: Kernaussagen L-T2-15 bis L-T2-18 am Volltext (Dosierungsdetails für Karten)
+    wie: manuell nach Beschaffung, Kartenerstellung 13.1
 ```

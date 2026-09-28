@@ -6,6 +6,7 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ### Dokumentation
 - L-A02 Ferrauti, Trainingswissenschaft für die Sportpraxis (2. Aufl. 2025) ergänzt: Gesamtbuch ohne doppelt eingebettete Schriften/Bilder (355 → 94 MB, seitengleich geprüft) und 25 Kapitel-PDFs.
+- Konzept: Übergaben AP-06 Teil B (Verifikation L-P10–L-P14, L-T2-11/-12, T3) und Teil A (Haltung/Rücken, L-T2-15–L-T2-19) eingearbeitet; neu D-53 und Q-13; Beschaffungsliste 13.4 ergänzt.
 
 ## [0.15.0] – 2026-09-28
 
