@@ -97,12 +97,14 @@ final class GuidedSessionTest extends AppTestCase
             ['kind' => 'hangboard', 'edge_mm' => 20, 'grip' => 'halbkrimp', 'hang_s' => 7, 'rest_s' => 3, 'sets' => 6],
             ['kind' => 'bouldern_volumen', 'duration_min' => 40, 'target' => 'Grad 5'],
             ['kind' => 'technik', 'notes' => 'Fußtechnik'],
+            ['kind' => 'zugkraft', 'sets' => 4, 'rest_s' => 120, 'target' => 'Klimmzüge 5 Wdh.'],
+            ['kind' => 'antagonisten', 'sets' => 3],
         ]];
         $this->pdo->prepare('UPDATE `session` SET plan_json = ? WHERE id = ?')->execute([json_encode($plan), $this->ids['klettern']]);
         $body = $this->request('GET', '/einheit?id=' . $this->ids['klettern'] . '&modus=start')->body;
         preg_match('/data-ablauf="([^"]+)"/', $body, $m);
         $steps = json_decode(html_entity_decode($m[1], ENT_QUOTES), true);
-        self::assertSame(['halten', 'block', 'offen'], array_column($steps, 'art'));
+        self::assertSame(['halten', 'block', 'offen', 'wiederholungen', 'wiederholungen'], array_column($steps, 'art'), 'Sätze ohne Zeiten: satzweise wie Kraft (E-23)');
         self::assertStringContainsString('<div class="timer" data-sekunden="7">00:07</div>', $body);
         self::assertStringContainsString('<div class="timer" data-sekunden="2400">40:00</div>', $body);
         self::assertStringContainsString('<div class="soll">Fußtechnik</div>', $body, 'Hinweis aus dem Plan');
@@ -112,6 +114,13 @@ final class GuidedSessionTest extends AppTestCase
         self::assertStringContainsString('6 Sätze · je 7 s · Pause 3 s', $body);
         self::assertStringContainsString('Block · 40 min', $body, 'Block ohne irreführende Satzzahl');
         self::assertStringContainsString('ohne Zeitvorgabe', $body);
+        // E-23 (O-07): Kletterblock mit Sätzen ohne Haltezeit und Dauer – satzweise, Pausentimer bei rest_s (nur mit Skript)
+        self::assertStringContainsString('<div class="reps">4 Sätze<small>Klimmzüge 5 Wdh.</small></div>', $body);
+        self::assertStringContainsString('<div class="timer needs-js" data-sekunden="120" hidden>02:00</div>', $body);
+        self::assertStringContainsString('4 Sätze · Pause 120 s', $body);
+        self::assertStringContainsString('<div class="reps">3 Sätze</div>', $body, 'ohne Ziel nur die Satzzahl');
+        self::assertSame(1, substr_count($body, 'data-sekunden="120"'), 'ohne rest_s kein Pausentimer');
+        self::assertStringContainsString('name="ist[3][sets]"', $body);
     }
 
     public function testPostFromGuidedFormSavesLikeS3AndShowsErrorsInS9(): void

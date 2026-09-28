@@ -88,7 +88,11 @@ $saetze = static function (array $st): string {
 <?php if ($timed): ?>
           <div class="timer" data-sekunden="<?= (int) $st['arbeit_s'] ?>"><?= $mmss((int) $st['arbeit_s']) ?></div>
 <?php elseif ($st['art'] === Ablaufplan::WIEDERHOLUNGEN): ?>
+<?php if ($session['type'] === 'klettern'): // Kletterblock satzweise (E-23): Satzzahl, Ziel klein darunter ?>
+          <div class="reps"><?= (int) $st['saetze'] ?> Sätze<?php if (trim((string) ($item['target'] ?? '')) !== ''): ?><small><?= $this->e($item['target']) ?></small><?php endif ?></div>
+<?php else: ?>
           <div class="reps"><?= $this->e($item['reps']) ?> Wdh.<?php $extra = array_filter([$item['load'] ?? null, isset($item['tempo']) && $item['tempo'] !== '' ? 'Tempo ' . $item['tempo'] : null]); if ($extra !== []): ?><small><?= $this->e(implode(' · ', $extra)) ?></small><?php endif ?></div>
+<?php endif ?>
 <?php if ($st['pause_s'] !== null && $st['saetze'] > 1): // Pausentimer nach „Satz erledigt“ (E-03), nur mit Skript ?>
           <div class="timer needs-js" data-sekunden="<?= (int) $st['pause_s'] ?>" hidden><?= $mmss((int) $st['pause_s']) ?></div>
 <?php endif ?>

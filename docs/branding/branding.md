@@ -66,7 +66,7 @@ Die Beispieldaten (Block 2 „Grundlage Herbst“, KW 39, Athlet „philipp“) 
 - Woche: bis 1023 px eine Tagesliste, 1024–1279 px zwei Spalten, ab 1280 px sieben Spalten (kompakt, Bereichswort ausgeblendet, Icon trägt den Typ).
 - Einheit: ab 1024 px zweispaltig, Plan links (3/5), Rückmeldung rechts (2/5, sticky).
 - Auth-Seiten (S0, S1, S7) haben keine Navigation: eine zentrierte Karte (max. 420 px) mit Lama und „Training“.
-- Primäraktionen auf dem Smartphone in einer sticky Leiste am unteren Rand des Formulars (`.actions-sticky`), auf Tablet und Desktop normal im Fluss.
+- Primäraktionen auf dem Smartphone in einer sticky Leiste am unteren Rand des Formulars (`.actions-sticky`), auf Tablet und Desktop normal im Fluss. Beim Scrollen hält die Leiste Abstand zur unteren Navigation (60 px + Rand, `training.css`), damit sie nicht dahinter verschwindet.
 - Kein horizontaler Scrollbereich in keiner Größe (geprüft, Abschnitt 6). Tabellen mit vielen Spalten scrollen innerhalb ihrer Karte.
 
 ## 4. Bausteine (`mockups/app.css`)

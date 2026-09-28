@@ -85,8 +85,9 @@ html.js .gf-step:not(.aktiv){display:none}
 .gf-actions .btn{min-width:0;padding:0 var(--space-3)}
 .gf-actions .btn-primary{min-height:52px;font-size:var(--text-lg)}
 .gf-actions .gf-icon:empty{display:none}
-/* Aktionsleisten über der unteren Navigation (60 px + Rand) halten, damit die Primäraktion immer sichtbar ist */
-@media (max-width:767px){.gf-actions,.gf-save{bottom:calc(61px + env(safe-area-inset-bottom))}}
+/* Fixierte Aktionsleisten (S3, S9, Check-in, Schmerz …) auf dem Smartphone über der unteren Navigation (60 px + Rand)
+   halten, damit Speichern bzw. die Primäraktion beim Scrollen sichtbar bleibt */
+@media (max-width:767px){.actions-sticky{bottom:calc(61px + env(safe-area-inset-bottom))}}
 .gf-save{display:flex;flex-wrap:nowrap}
 .timer-ton{flex-wrap:wrap;justify-content:flex-end}
 @media (max-width:479px){.timer-zeile{grid-template-columns:1fr}.timer-ton{justify-content:flex-start}}

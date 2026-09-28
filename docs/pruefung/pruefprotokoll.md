@@ -686,13 +686,23 @@ geprueft:
     wie: automatisiert (Playwright, run.sh, Z-12-Teil; GuidedSessionTest)
     ergebnis: ok
     datum: 2026-09-28
+  - was: "T9 (E-23): Kletterblock ohne Haltezeit und Dauer mit Sätzen → satzweise (Zugkraft 4 Sätze mit 120 s Pausentimer, Antagonisten 3 Sätze ohne Timer), ein Satz ohne Zeiten bleibt offen (A-13, A-14); S9 zeigt „n Sätze“ mit Ziel, im Browser Satz erledigt → rote Pause 02:00, 375 px ohne Überlauf"
+    wie: automatisiert (AblaufplanTest, GuidedSessionTest) + Browser (Chromium, lokale Instanz, Screenshots)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "T9: Speichern-Leisten auf 375 px beim Scrollen über der unteren Navigation (Unterkante der Leiste = Oberkante der Navigation) in S3, Check-in, Schmerz und S9; Desktop unverändert"
+    wie: Browser (Messung der Positionen, Screenshot S3 gescrollt)
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: T5 Gerätetest Android – Töne und Vibration bei Start, 30 s, 10 s, 3-2-1 und Abschluss hörbar/spürbar; Grün/Rot und Browserleiste; Bildschirm bleibt während der Einheit an; Stumm in der Einheit (Blinken auch in der 3-s-Pause bei Hangboard 7/3); Fortsetzen nach versehentlichem Neuladen; Tipp kurz vor Phasenende wirkt wie erwartet (kein Sprung zur nächsten Übung)
     wie: Gerätetest durch Athlet (nach Deployment 0.19.0), am besten mit einer Einheit mit Haltezeiten (z. B. Unterarmstütz 45 s)
-  - was: O-06 – 30-s-Ton erst bei Phasen über 45 s (Z-01) statt ab 45 s (E-17) bestätigen; Tonhöhen/-längen nach Gehör anpassen (O-04)
+  - was: Tonhöhen/-längen nach Gehör anpassen (O-04); 30-s-Ton erst bei Phasen über 45 s ist entschieden (E-23)
     wie: Rückmeldung des Athleten nach dem Gerätetest
   - was: T6 im Flugmodus auf dem Smartphone – Woche mit Netz öffnen, dann Flugmodus; geführte Einheit von heute öffnen (aus dem Cache), durchgehen, speichern („Offline gespeichert“), Netz an → Rückmeldung erscheint in der Woche; Einstellung „Timer-Signale aus“ → S9 startet stumm
     wie: Gerätetest durch Athlet (nach Deployment 0.19.0)
+  - was: "T9 auf dem Smartphone: Kletterblock mit Sätzen und Pause im Training (Satz erledigt → Pausentimer, Töne); Speichern-Leisten in S3, Check-in und Schmerz beim Scrollen sichtbar"
+    wie: Gerätetest durch Athlet (nach Deployment 0.20.0)
 ```
 
 ## AP-05 MCP-Tools produktiv

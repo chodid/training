@@ -43,8 +43,13 @@ final class AblaufplanTest extends TestCase
                 ['name' => 'Bouldern Limit', 'art' => 'offen', 'saetze' => 1, 'arbeit_s' => null, 'ist_felder' => ['duration_min', 'notes'], 'soll' => 'Soll 3 Projekte']],
             'ausdauer_route mit Dauer und Sätzen' => ['klettern', ['kind' => 'ausdauer_route', 'duration_min' => 30, 'sets' => 3],
                 ['name' => 'Ausdauer Route', 'art' => 'block', 'arbeit_s' => 1800, 'saetze' => 1, 'pause_s' => null, 'ist_felder' => ['duration_min', 'sets', 'notes'], 'soll' => 'Soll 30 min · 3 Sätze']],
-            'zugkraft mit Sätzen, ohne Zeiten' => ['klettern', ['kind' => 'zugkraft', 'sets' => 4, 'rest_s' => 120, 'target' => 'Klimmzüge 5 Wdh.'],
-                ['name' => 'Zugkraft', 'art' => 'offen', 'saetze' => 4, 'arbeit_s' => null, 'pause_s' => null, 'ist_felder' => ['duration_min', 'sets', 'notes'], 'soll' => 'Soll Klimmzüge 5 Wdh. · 4 Sätze']],
+            // E-23 (O-07): Sätze ohne Haltezeit und Dauer – satzweise wie Kraft, Pausentimer bei rest_s
+            'zugkraft mit Sätzen und Pause, ohne Zeiten' => ['klettern', ['kind' => 'zugkraft', 'sets' => 4, 'rest_s' => 120, 'target' => 'Klimmzüge 5 Wdh.'],
+                ['name' => 'Zugkraft', 'art' => 'wiederholungen', 'saetze' => 4, 'arbeit_s' => null, 'pause_s' => 120, 'ist_felder' => ['duration_min', 'sets', 'notes'], 'soll' => 'Soll Klimmzüge 5 Wdh. · 4 Sätze']],
+            'campus mit Sätzen ohne Pause und Zeiten' => ['klettern', ['kind' => 'campus', 'sets' => 3],
+                ['art' => 'wiederholungen', 'saetze' => 3, 'arbeit_s' => null, 'pause_s' => null]],
+            'technik mit einem Satz und Pause bleibt offen' => ['klettern', ['kind' => 'technik', 'sets' => 1, 'rest_s' => 60],
+                ['art' => 'offen', 'saetze' => 1, 'arbeit_s' => null, 'pause_s' => null]],
             'antagonisten mit Dauer' => ['klettern', ['kind' => 'antagonisten', 'duration_min' => 15],
                 ['name' => 'Antagonisten', 'art' => 'block', 'arbeit_s' => 900, 'saetze' => 1, 'ist_felder' => ['duration_min', 'notes'], 'soll' => 'Soll 15 min']],
         ];
