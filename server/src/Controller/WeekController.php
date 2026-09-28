@@ -88,6 +88,7 @@ final class WeekController extends AppController
             'prev' => $prev,
             'next' => $next,
             'prefetch' => $monday === Dates::monday($today) ? $this->prefetch($monday, $next, $today, $sessions) : [],
+            'morning' => $monday === Dates::monday($today) ? $this->morning($today) : null,
             'intervalsError' => $lookup->error,
             'mailError' => $this->app->mailBackup()->state()['error'] ?? null,
         ]);
@@ -109,6 +110,22 @@ final class WeekController extends AppController
         }
 
         return $urls;
+    }
+
+    /**
+     * Morgen-Check-in auf der Startseite (AP-12, T3): Formular, solange heute kein Morgentest erfasst ist, danach die
+     * Zusammenfassung mit Ampel (6.2).
+     * @return array{summary: ?array<string, mixed>, form: ?array<string, mixed>}
+     */
+    private function morning(string $today): array
+    {
+        $checkin = $this->feedback()->checkin($today);
+        $hasTest = $checkin !== null && ($checkin['mt_links'] !== null || $checkin['mt_rechts'] !== null);
+        if ($hasTest) {
+            return ['summary' => (new \Training\Checkin\MorningChecks($this->app->pdo(), $this->app->clock(), $this->session->tz ?? 'Europe/Berlin'))->summary($today), 'form' => null];
+        }
+
+        return ['summary' => null, 'form' => (new CheckinController($this->app))->formVars($today)];
     }
 
     /** Aktivitäten aus dem Spiegel (D-43); ohne Intervals-Konfiguration nur der vorhandene Spiegel. */

@@ -487,6 +487,47 @@ noch_zu_pruefen:
     wie: manuell durch Athlet
 ```
 
+## AP-12 Morgen-Check-in (Morgentest)
+
+```yaml
+ap: AP-12
+auftrag: docs/konzept/morgen-checkin.md
+geprueft:
+  - was: Ampel – alle 10 Testfälle aus Abschnitt 8 (u. a. steigend 2→3→4 rot, steigend < 4 grün, Vortag fehlt, eine Seite, nicht streng steigend, 0/0 grün und als 0 gespeichert), Steuerwert null ≠ 0, Wochenausgangswert (Mo 2/Mi 3 → über; Mo leer/Di 1 → 1; Vorwoche zählt nicht), Abklärung
+    wie: automatisiert (Unit-Test MorningStatusTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Formular – ohne Vorauswahl, Pflicht Erholung/Muskelkater (422), Wert 11 abgelehnt, 0/0 als 0 und leere Felder als NULL gespeichert, Schwellung nur mit umgeknickt, unbekannte Warnzeichen verworfen, Überschreiben am selben Tag inkl. Leeren eines Werts, Audit-Zusammenfassung, Hand rechts nach Stichtag ausgeblendet und ignoriert, Einstellung Stichtag
+    wie: automatisiert (MorningCheckinTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Startseite – Formular solange kein Morgentest, danach Zusammenfassung (Ampel, Grund, Wochenausgangswert-Hinweis, Abklärung hervorgehoben); MCP get_morning_checks (Format 6.1, neueste zuerst, Vortagseinheiten, grüne Tage, Abdeckung, leere Felder weggelassen) und get_week_overview (Steuerwert/Ampel je Tag, Tage grün, Abdeckung)
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Zeitzone über die Umstellung am 25.10.2026 (00:30 MESZ bzw. MEZ → richtiger Kalendertag, Steigung über die Umstellung)
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Migration 0020/0021 auf befüllter Datenbank (Rückweg angewendet, Altbestand angelegt, erneut migriert – Altwerte unverändert, neue Spalten leer); neue Schmerzorte speicherbar; Export mit Warnzeichen als Liste
+    wie: automatisiert; Migration auf leerer Datenbank in jedem Testlauf
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: 375 px – kein horizontales Scrollen, erneutes Tippen leert den Morgentest, Schwellung erscheint nach „umgeknickt“, nach dem Speichern Ampel auf der Startseite
+    wie: Browser (Chromium/Playwright)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Stabilität der Testsuite (155 Tests)
+    wie: 18 volle Läufe lokal (MariaDB)
+    ergebnis: 17 grün; 1 Lauf mit einem einzelnen Fehler, nicht reproduzierbar und mangels Protokoll nicht zuzuordnen – beobachten (CI)
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: Morgens auf dem Smartphone erfassen (auch offline), Ampel ansehen; nachträgliche Änderung am selben Tag
+    wie: manuell durch Athlet (nach Deployment 0.16.0)
+  - was: get_morning_checks über den Claude-Connector (Format 6.1, Tool-Beschreibung mit Skalen und Ampelregeln); Connector ggf. neu verbinden, damit das Tool erscheint
+    wie: manuell durch Athlet im Trainer-Chat
+```
+
 ## AP-05 MCP-Tools produktiv
 
 ```yaml
@@ -608,13 +649,13 @@ probleme_loesungen:
     loesung: V-07 auf AP-06 (Literatur) und AP-07 (Schwellen) aufgeteilt
   - datum: 2026-09-28
     was: Teilblock Haltung/Rücken – einzige Kandidatenquelle (McGill) Stufe C; Frage, ob Haltungskorrektur überhaupt Beschwerden reduziert
-    loesung: Stufe-A-Kern über PubMed aufgebaut (L-T2-15 bis L-T2-18); Grenze „Haltung ≠ Schmerz" als Pflichtinhalt der Karte (D-53 c); McGill zurückgestellt
+    loesung: Stufe-A-Kern über PubMed aufgebaut (L-T2-15 bis L-T2-18); Grenze „Haltung ≠ Schmerz" als Pflichtinhalt der Karte (D-54 c); McGill zurückgestellt
   - datum: 2026-09-28
     was: Im Chat vorgesehene IDs L-T2-19 bis L-T2-22 für vier optionale Quellen; nur eine aufgenommen
     loesung: Carrasco-Uribarren als L-T2-19, übrige ohne ID in 13.3
   - datum: 2026-09-28
     was: Übergaben Teil A und B beruhten auf einem älteren Konzeptstand (letzte IDs D-37, Q-08); D-38 und Q-09 waren inzwischen vergeben
-    loesung: bei der Einarbeitung umnummeriert – D-38 → D-53, Q-09 → Q-13; übrige neue IDs (L-P14, L-T2-15 bis L-T2-19, L-T3-18) waren frei
+    loesung: bei der Einarbeitung umnummeriert – D-38 → D-54 (zunächst D-53; AP-12 hat D-53 parallel belegt und wurde zuerst gemergt), Q-09 → Q-13; übrige neue IDs (L-P14, L-T2-15 bis L-T2-19, L-T3-18) waren frei
 geprueft:
   - was: Zuordnung der 29 PDFs zu IDs aus 13.2 – Titel, Autoren und DOI auf den ersten Seiten gegen 13.2 abgeglichen
     wie: Textextraktion (pypdf) aller Dateien, Abgleich je Datei
@@ -672,7 +713,7 @@ geprueft:
     wie: PubMed-Copyright-Status
     ergebnis: teilweise – L-T2-15, -16 in PMC ohne ausgewiesene Lizenz; L-T2-17, -18, -19 nicht in PMC
     datum: 2026-09-28
-  - was: Einarbeitung der Übergaben Teil A und B ins Konzept – ID-Kollisionen (D-38 → D-53, Q-09 → Q-13), Pfade datei/kapitel erhalten, YAML-Blöcke parsebar wie zuvor
+  - was: Einarbeitung der Übergaben Teil A und B ins Konzept – ID-Kollisionen (D-38 → D-54, Q-09 → Q-13), Pfade datei/kapitel erhalten, YAML-Blöcke parsebar wie zuvor
     wie: Code-Instanz, automatisiert
     ergebnis: ok
     datum: 2026-09-28

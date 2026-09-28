@@ -31,7 +31,7 @@ final class ToolRegistry
         $date = ['type' => 'string', 'pattern' => '^\\d{4}-\\d{2}-\\d{2}$'];
 
         $mcp->tool('get_week_overview',
-            'Wochenübersicht (aggregiert): je Einheit Plan vs. Ist (Dauer, RPE, sRPE-Last, Gefühl, Abweichung), Ausdauer mit Aktivität aus Intervals.icu, Summen und Compliance, Schmerz der Woche, Check-in-Mittel und Abdeckung, Fitness/Ermüdung/Form. Ohne week_start die laufende Woche.',
+            'Wochenübersicht (aggregiert): je Einheit Plan vs. Ist (Dauer, RPE, sRPE-Last, Gefühl, Abweichung), Ausdauer mit Aktivität aus Intervals.icu, Summen und Compliance, Schmerz der Woche, Check-in-Mittel und Abdeckung, Morgentest je Tag (Steuerwert, Ampel; Tage grün, Abdeckung), Fitness/Ermüdung/Form. Ohne week_start die laufende Woche.',
             fn (?string $week_start = null): CallToolResult => $this->run('training:read', fn () => $this->reads()->weekOverview($week_start)),
             title: 'Wochenübersicht', inputSchema: ['properties' => ['week_start' => $date + ['description' => 'Montag der Woche (andere Tage werden auf Montag gerundet)']]], annotations: $read);
 
@@ -54,6 +54,11 @@ final class ToolRegistry
             'Trainingsblock (ohne block_id der aktive bzw. aktuelle): Zeitraum, Phasen, Zielevents, Wochenstatus.',
             fn (?int $block_id = null): CallToolResult => $this->run('training:read', fn () => $this->reads()->block($block_id)),
             title: 'Block', inputSchema: ['properties' => ['block_id' => ['type' => 'integer']]], annotations: $read);
+
+        $mcp->tool('get_morning_checks',
+            'Morgen-Check-ins (Morgentest Patellasehne, NRS 0–10, null = nicht erhoben): Zusammenfassung für heute (Ampel mit Grund, Werte links/rechts und Steuerwert = Maximum, Wochenausgangswert und 24-Stunden-Regel, Einheiten vom Vortag, grüne Tage und Abdeckung der letzten 7 Tage, abklaerung_empfohlen) und je Tag alle Felder (Nacken/BWS, Sprunggelenk links, Hand rechts, Warnzeichen, Erholung 1–5, Muskelkater 1–5, Notiz), neueste zuerst. Ampel: rot > 5 oder zwei Tage streng steigend bis ≥ 4, gelb 4–5, grün ≤ 3. Die Ampel ist Information; Planänderungen über update_session/write_week_plan.',
+            fn (int $days = 14): CallToolResult => $this->run('training:read', fn () => $this->reads()->morningChecks($days)),
+            title: 'Morgen-Check-ins', inputSchema: ['properties' => ['days' => ['type' => 'integer', 'minimum' => 7, 'maximum' => 90, 'default' => 14]]], annotations: $read);
 
         $sectionEnum = ['enum' => array_keys(ProfileRepository::SECTIONS)];
         $mcp->tool('get_athlete_profile',

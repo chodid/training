@@ -14,6 +14,9 @@ final class SettingsRepository
     /** Kalender-Erinnerung am Tag der Einheit: 'HH:MM' oder 'aus' (AP-11, D-52) */
     public const CALENDAR_REMINDER = 'calendar_reminder';
     public const CALENDAR_REMINDER_DEFAULT = '05:00';
+    /** Check-in: „Hand rechts“ abfragen bis einschließlich (Y-m-d; AP-12, E-08) */
+    public const CHECKIN_HAND_BIS = 'checkin_hand_rechts_bis';
+    public const CHECKIN_HAND_BIS_DEFAULT = '2026-11-23';
 
     public function __construct(private readonly PDO $pdo, private readonly Clock $clock)
     {
@@ -44,5 +47,13 @@ final class SettingsRepository
         $v = $this->get(self::CALENDAR_REMINDER, self::CALENDAR_REMINDER_DEFAULT);
 
         return preg_match('/^([01]\d|2[0-3]):[0-5]\d$/', $v) ? $v : null;
+    }
+
+    /** Letzter Tag, an dem „Hand rechts“ im Check-in abgefragt wird. */
+    public function handRechtsBis(): string
+    {
+        $v = $this->get(self::CHECKIN_HAND_BIS, self::CHECKIN_HAND_BIS_DEFAULT);
+
+        return \Training\Dates::isDate($v) ? $v : self::CHECKIN_HAND_BIS_DEFAULT;
     }
 }

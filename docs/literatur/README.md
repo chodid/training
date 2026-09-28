@@ -59,7 +59,7 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T2-04 | C | Low 2016 – Overcoming Gravity, 2. Aufl. | [`L-T2-04_Low-2016_Overcoming-Gravity_2ed.pdf`](t2-kraft/L-T2-04_Low-2016_Overcoming-Gravity_2ed.pdf) | 600 | Scan mit fehlerhafter Texterkennung (z. B. „ANO“ statt „AND“), ohne Lesezeichen; Druckseite = PDF-Seite − 14; PDF-Seiten 577/578 sind vertauscht (Druckseiten 564/563). Kapitel-PDFs in `L-T2-04_kapitel/` |
 | L-T2-08 | A | Kotarsky et al. 2018 – Progressive Push-up Training | [`L-T2-08_Kotarsky-2018_Progressive-Push-up-Training.pdf`](t2-kraft/L-T2-08_Kotarsky-2018_Progressive-Push-up-Training.pdf) | 9 |  |
 | L-T2-09 | A | van den Tillaar 2019 – Push-up vs. Bench Press | [`L-T2-09_vandenTillaar-2019_Push-up-vs-Bench-Press.pdf`](t2-kraft/L-T2-09_vandenTillaar-2019_Push-up-vs-Bench-Press.pdf) | 8 |  |
-| L-T2-14 | A | Cowley et al. 2026 – Advanced Resistance Training Methods (optional) | [`L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf`](t2-kraft/L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf) | 23 | optional (D-53) |
+| L-T2-14 | A | Cowley et al. 2026 – Advanced Resistance Training Methods (optional) | [`L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf`](t2-kraft/L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf) | 23 | optional (D-54) |
 
 ### T3 Klettern/Bouldern (13.2.4)
 
@@ -90,6 +90,8 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A und B eingearbeitet).
 | 2 | L-T2-11 | Rønnestad & Mujika 2014, Scand J Med Sci Sports 24(4):603–612 | Kraft für Läufer |
 | 2 | L-T1-07 | Laursen/Buchheit, Science and Application of HIIT, 2019 (Buch) | Intervallprogrammierung; kein VitalSource-DRM |
 | 2 | L-T3-08 | Köstermeyer, Peak Performance, 8. Aufl. 2017 (Buch) | T3 Kern; Auflage/ISBN beim Kauf klären (tmms-Shop) |
+| 2 | L-T2-10 | Wiedenmann et al. 2025, Gerontology 71(7):576–588 | Beleg Körpergewichtstraining (D-29); Zugang nicht geprüft |
+| 2 | L-T3-04 | Draper et al. 2015, Sports Technology 8(3-4):88–94 | IRCRA-Positionspapier, Graduierung (Datenmodell); Zugang nicht geprüft |
 
 ### Frei verfügbar (PubMed Central)
 
@@ -107,8 +109,6 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A und B eingearbeitet).
 - L-T2-19 Carrasco-Uribarren et al. 2026 (optional)
 - L-T3-05 López-Rivera & González-Badillo 2012 (nur falls L-T3-18 nicht genügt)
 - optionale Bücher aus 13.4 („bei Bedarf“): L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-09, L-T3-10, L-T3-11
-
-Ausgewählt bzw. verifiziert, aber nicht auf der Beschaffungsliste: L-T2-10 (Wiedenmann 2025), L-T3-04 (Draper 2015, Zugang nicht geprüft).
 
 
 ## Kapitel-PDFs
