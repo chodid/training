@@ -1,0 +1,41 @@
+/* Ergänzungen zu assets/app.css (Branding AP-01a) für die serverseitigen Seiten.
+   Ersetzt Inline-Styles der Mockups, weil die Content-Security-Policy keine Inline-Styles erlaubt. */
+.h-card{font:var(--type-h3)}
+.center{text-align:center}
+.gap-6{gap:6px}
+.mt-8{margin-top:8px}
+.ic-brand{color:var(--plum-600)}
+.btn .ic{margin-right:var(--space-2)}
+.auth-card-wide{max-width:640px}
+/* Schmerz-Kurzform ohne JavaScript aufklappen (Branding 7.3): sichtbar, sobald "Ja" gewählt ist */
+form:has(input[name="pain"][value="ja"]:checked) .reveal{display:grid;gap:var(--space-4)}
+/* Browser ohne :has() zeigen die Kurzform immer */
+@supports not selector(:has(*)){.reveal{display:grid;gap:var(--space-4)}}
+.plan-text{margin:0;white-space:pre-wrap;color:var(--text-secondary);background:var(--bg-page);padding:var(--space-3);border-radius:var(--radius-md)}
+.mt-4{margin-top:var(--space-4)}
+.mt-8x{margin-top:var(--space-8)}
+.label-light{font-weight:400}
+.span-2{grid-column:span 2}
+.link-inline{display:inline-flex;align-items:center;gap:4px}
+.danger-text{color:var(--action-danger)}
+.inline-form{display:inline}
+.zones-svg{display:block;width:100%;height:10px;border-radius:var(--radius-full);overflow:hidden}
+.zones-svg .z1,.legend .z1{fill:var(--plum-300);background:var(--plum-300)}
+.zones-svg .z2,.legend .z2{fill:var(--plum-400);background:var(--plum-400)}
+.zones-svg .z3,.legend .z3{fill:var(--plum-600);background:var(--plum-600)}
+.zones-svg .z4,.legend .z4{fill:var(--plum-700);background:var(--plum-700)}
+.zones-svg .z5,.legend .z5{fill:var(--plum-800);background:var(--plum-800)}
+.link-row{text-decoration:none;color:inherit}
+.update-banner{margin-bottom:var(--space-4)}
+
+/* S6 Verlauf: Balkenhöhen in 5-%-Schritten (statt Inline-Styles, CSP) */
+.bars i.h0{height:0%}.bars i.h5{height:5%}.bars i.h10{height:10%}.bars i.h15{height:15%}.bars i.h20{height:20%}.bars i.h25{height:25%}.bars i.h30{height:30%}.bars i.h35{height:35%}.bars i.h40{height:40%}.bars i.h45{height:45%}.bars i.h50{height:50%}.bars i.h55{height:55%}.bars i.h60{height:60%}.bars i.h65{height:65%}.bars i.h70{height:70%}.bars i.h75{height:75%}.bars i.h80{height:80%}.bars i.h85{height:85%}.bars i.h90{height:90%}.bars i.h95{height:95%}.bars i.h100{height:100%}
+.bars i.h0{height:2px}
+.heat-scale .hs0{background:var(--bg-page);border:1px solid var(--border-subtle)}.heat-scale .hs1{background:var(--plum-100)}.heat-scale .hs2{background:var(--plum-200)}.heat-scale .hs3{background:var(--plum-400)}.heat-scale .hs4{background:var(--plum-600)}.heat-scale .hs5{background:var(--plum-800)}
+.heat-scroll{overflow-x:auto}.heat-scroll .heat{min-width:420px}
+.table-scroll{overflow-x:auto}.table-wide{min-width:560px}
+[hidden]{display:none!important}
+
+/* Athletenprofil (D-48): Markdown als Text, lange Wörter/Links umbrechen */
+.profile-text{color:var(--text-primary);overflow-wrap:anywhere}
+.profile-edit{min-height:16rem}

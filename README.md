@@ -8,18 +8,20 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 
 | Pfad | Inhalt | Arbeitspaket |
 |---|---|---|
-| `server/public/` | Document Root (einziger per HTTP erreichbarer Ordner), `index.php` als einziger Einstieg | AP-00 |
-| `server/src/` | PHP-Quellcode (Namespace `Training\`) | AP-00 ff. |
+| `server/public/` | Document Root (einziger per HTTP erreichbarer Ordner), `index.php` als einziger Einstieg; `css/training.css` (Ergänzungen), `manifest.webmanifest` und `icons/`; `assets/` wird gebaut (siehe unten) | AP-00, AP-01, AP-04 |
+| `server/src/` | PHP-Quellcode (Namespace `Training\`): `Auth/` Login und Session, `OAuth/` Autorisierungsserver, `Mcp/` MCP-Endpunkt, `Intervals/` Intervals.icu-Client, `Data/` Datenzugriff und Audit-Log, `Plan/` Plan-Validierung, `View/` Seiten | AP-00 ff. |
+| `server/templates/` | Seitenvorlagen nach `docs/branding/` (S0, S1, S7 aus AP-01; S2–S5, S8 aus AP-04) | AP-01, AP-04 |
+| `server/bin/build-assets.php` | Kopiert Design-System, `app.css`, Icons und Logo aus `docs/branding/` nach `server/public/assets/` | AP-01 |
 | `server/config/` | Konfiguration ohne Secrets (derzeit leer) | – |
-| `server/migrations/` | Nummerierte Migrationen (D-20) | AP-00, AP-03 |
+| `server/migrations/` | Nummerierte Migrationen (D-20) | AP-00, AP-01, AP-03 |
+| `server/schemas/` | JSON-Schemata für `plan_json`/`actual_json` je Einheitentyp (Konzept 7.1) | AP-03 |
 | `server/tests/` | PHPUnit-Tests (Unit und Integration gegen MySQL) | AP-00 ff. |
 | `.github/workflows/deploy.yml` | Test und Deployment (D-17) | AP-00 |
-| `docs/konzept/` | Konzeptdokument | – |
+| `docs/konzept/` | Konzeptdokument; `datenmodell.md` mit ER-Diagramm | – , AP-03 |
 | `docs/pruefung/` | Prüfprotokoll (Konzept Abschnitt 16) | alle |
 | `docs/wissen/` | Wissenskarten (Sammeldateien, 13.1) | AP-06 |
 | `docs/literatur/` | Literatur-Volltexte als PDF, Open Access und gekauft (D-31); nie ins Projektwissen | AP-06 |
 | `docs/regeln/` | Trainerregeln (Abschnitt 14) | AP-07 |
-| `docs/athlet/` | Athletenprofil (D-15) | AP-08 |
 | `docs/plaene/` | Blockpläne | AP-08 |
 | `docs/branding/` | Branding-Dokument `branding.md` (D-19), Gestaltungsvorgaben in `chadid-design-system/` (Einstieg `readme.md`, `SKILL.md`), Mockups in `mockups/` (Einstieg `index.html`) | AP-01a |
 
@@ -30,18 +32,60 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 ├── .env                       ← Konfiguration, nur auf dem Server, vom Deployment nie berührt
 ├── .htaccess                  ← sperrt den Ordner, falls der Document Root falsch gesetzt ist
 ├── backups/                   ← Datenbank-Backups (ab AP-10), vom Deployment nie berührt
-├── public/                    ← Document Root der Subdomain training.gen-em.org
-├── src/  migrations/  vendor/
+├── var/                       ← Laufzeitdaten (MCP-Sitzungsdateien), vom Deployment nie berührt
+├── public/                    ← Document Root der Subdomain training.gen-em.org (inkl. assets/)
+├── src/  templates/  migrations/  vendor/
 └── .ftp-deploy-sync-state.json  ← Statusdatei des Upload-Schritts
 ```
 
-## Endpunkte (Stand AP-00)
+## Endpunkte (Stand AP-09)
 
 | Methode | Pfad | Zweck |
 |---|---|---|
-| GET | `/` | Platzhalterseite |
-| GET | `/health` | Zustand als JSON: PHP-Erweiterungen, Konfiguration, Datenbank, Schemastand. `200` = in Ordnung, `503` = Handlungsbedarf. Enthält keine Secrets. |
-| POST | `/admin/migrate` | Führt ausstehende Migrationen aus. Header `X-Migration-Secret` muss `MIGRATION_SECRET` entsprechen. `401` ohne Header, `403` bei falschem Secret, `409` wenn bereits eine Migration läuft oder die Datenbank neuer als der Code ist. |
+| GET | `/` | Weiterleitung auf `/woche`; ohne Anmeldung auf `/login` (bzw. `/setup`, solange kein Benutzer existiert) |
+| GET | `/woche` | S2 Wochenansicht (`?start=YYYY-MM-DD` für eine andere Woche) |
+| GET/POST | `/einheit` | S3 Einheit (`?id=…`): Plan, Ist-Werte, Rückmeldung, Schmerz, Status; bei Ausdauer verknüpfte Intervals.icu-Aktivität |
+| GET/POST | `/checkin` | S4 Tages-Check-in (`?datum=…`, nicht in der Zukunft) |
+| GET/POST | `/schmerz` | S5 Schmerzereignis (`?datum=…`, `?einheit=…`) |
+| GET/POST | `/einstellungen` | S8 Athletenprofil (Link), Konto, Zeitzone, Passwort, Passkeys, Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
+| POST | `/passkey/register/options`, `/passkey/register` | Passkey anlegen (angemeldet, Header `X-CSRF-Token`; D-44) |
+| POST | `/passkey/login/options`, `/passkey/login` | Anmelden mit Passkey; Relying-Party-ID ist der Host aus `APP_URL` |
+| GET/POST | `/profil` | Athletenprofil (D-48): Abschnitte lesen und bearbeiten (`?abschnitt=…`), frühere Fassungen (`&verlauf=1`) |
+| GET | `/offline/token` | Frisches CSRF-Token für offline gepufferte Eingaben (nur für den Service Worker, D-45) |
+| GET | `/verlauf` | S6 Verlauf: Wochenlast je Bereich und Schmerz je Ort über 8 Wochen, Tabelle |
+| GET | `/manifest.webmanifest` | Web-App-Manifest („Zum Startbildschirm“) |
+| GET | `/health` | Zustand als JSON: PHP-Erweiterungen, Konfiguration, `var/` beschreibbar, Datenbank, Schemastand. `200` = in Ordnung, `503` = Handlungsbedarf. Enthält keine Secrets. |
+| POST | `/admin/migrate` | Führt ausstehende Migrationen aus, vorher verschlüsselter Pre-Migration-Dump nach `backups/` (die letzten 5 bleiben). Header `X-Migration-Secret` muss `MIGRATION_SECRET` entsprechen. `401` ohne Header, `403` bei falschem Secret, `409` wenn bereits eine Migration läuft oder die Datenbank neuer als der Code ist, `500` wenn der Dump fehlschlägt (dann keine Migration). |
+| GET | `/cron/backup-mail?key=…` | Backup per E-Mail für den Lima-City-Cronjob (`CRON_SECRET`); versendet nur nach Ablauf des Intervalls, `&force=1` sofort |
+| GET | `/cron/intervals-sync?key=…` | Spiegel Intervals.icu → MySQL (D-43): Aktivitäten und Wellness der letzten 14 Tage (`&tage=…` bis 400), entfernt dort gelöschte Aktivitäten |
+| GET/POST | `/setup` | S0: legt den einzigen Benutzer an (verlangt `MIGRATION_SECRET`, D-34). Sobald ein Benutzer existiert: `404`. |
+| GET/POST | `/login` | S1: Anmeldung, Session 30 Tage gleitend. Nach 10 Fehlversuchen 5 min Sperre, jeder weitere Fehlversuch verdoppelt bis 24 h (D-33). |
+| POST | `/logout` | Abmelden (mit CSRF-Token) |
+| GET/POST | `/intervals` | Verbindungstest Intervals.icu (nur nach Login): Athlet, Aktivitäten/Wellness 7 Tage, Events 14 Tage; Test-Event anlegen, ändern, löschen |
+| GET | `/.well-known/oauth-authorization-server` | OAuth-Metadaten (RFC 8414); auch unter `…/mcp` |
+| GET | `/.well-known/oauth-protected-resource` | Resource-Metadaten aus dem SDK; auch unter `…/mcp` |
+| POST | `/oauth/register` | Offene Client-Registrierung (RFC 7591); Redirect-URIs nur `https://` oder `http://localhost` |
+| GET/POST | `/oauth/authorize` | Login + Freigabeseite S7; PKCE `S256` Pflicht |
+| POST | `/oauth/token` | Code-Einlösung und Refresh (Rotation, Familien-Widerruf) |
+| POST | `/mcp` | MCP (Streamable HTTP, ohne SSE). Bearer-Token Pflicht: JWT aus `/oauth/token` oder – nur mit `MCP_STATIC_TOKEN_ENABLED=true` – `MCP_STATIC_TOKEN`. Tools siehe unten. |
+
+### MCP-Tools (Konzept 8.2)
+
+| Tool | Scope | Zweck |
+|---|---|---|
+| `ping` | – | Verbindungstest |
+| `get_week_overview` | `training:read` | Woche aggregiert: Plan vs. Ist, sRPE, Compliance, Aktivitäten, Schmerz, Check-in, Form |
+| `get_session_detail` | `training:read` | Einheit mit `plan_json`, `actual_json`, Rückmeldung, Schmerz, Aktivität |
+| `get_pain_history` | `training:read` | Schmerz je Ort mit Trend (Standard 56 Tage) |
+| `get_wellness_trend` | `training:read` | HRV, Ruhepuls, Schlaf, Check-in; Baseline 7/28 Tage |
+| `get_block` | `training:read` | aktueller Block mit Wochenstatus |
+| `get_athlete_profile` | `training:read` | Athletenprofil aus der Datenbank (D-48) je Abschnitt; optional ein Abschnitt, früherer Stand (`as_of`), Fassungen (`include_history`) |
+| `upsert_block` | `training:write` | Block anlegen/ändern (Voraussetzung für Wochenpläne) |
+| `write_week_plan` | `training:write` | Wochenplan schreiben, Ausdauer als Workout nach Intervals.icu |
+| `update_session` | `training:write` | Einheit ändern, Event nachziehen |
+| `update_athlete_profile` | `training:write` | Profilabschnitt ersetzen (neue Fassung, frühere bleiben erhalten) |
+
+Schreib-Tools sind bei „Update erforderlich“ gesperrt; alle Schreibzugriffe stehen im `audit_log`.
 
 ## Einrichtung
 
@@ -50,7 +94,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 1. Subdomain `training.gen-em.org` auf das Verzeichnis `/training.jennym.org/public` zeigen lassen, HTTPS-Zertifikat aktivieren.
 2. PHP-Version 8.4 wählen.
 3. MySQL-Datenbank mit eigenem Benutzer anlegen.
-4. Per FTP die Datei `/training.jennym.org/.env` anlegen, Vorlage: [`server/.env.example`](server/.env.example). `MIGRATION_SECRET` z. B. mit `openssl rand -hex 32` erzeugen (mindestens 32 Zeichen).
+4. Per FTP die Datei `/training.jennym.org/.env` anlegen, Vorlage: [`server/.env.example`](server/.env.example). `MIGRATION_SECRET` und `OAUTH_JWT_SECRET` jeweils z. B. mit `openssl rand -hex 32` erzeugen (mindestens 32 Zeichen, zwei verschiedene Werte), `BACKUP_PASSWORD` mit mindestens 16 Zeichen (z. B. `openssl rand -base64 24`) und zusätzlich sicher außerhalb des Servers aufbewahren. **Ab Version 0.2.0 ist `OAUTH_JWT_SECRET` Pflicht, ab 0.6.0 auch `BACKUP_PASSWORD`** – beide vor dem Deployment eintragen, sonst schlagen Migration und Health-Check fehl.
 
 ### 2. GitHub
 
@@ -74,6 +118,23 @@ Jeder Push auf `main` führt den Workflow „Test und Deploy" aus: Tests (inkl. 
 
 Pull Requests durchlaufen nur die Tests.
 
+### 4. Benutzer anlegen (einmalig)
+
+`https://training.gen-em.org/setup` öffnen, `MIGRATION_SECRET` aus der `.env`, Anmeldename, Passwort (mindestens 12 Zeichen) und Zeitzone eintragen. Danach ist `/setup` dauerhaft gesperrt. Zurücksetzen nur über die Datenbank (Tabelle `user` leeren).
+
+Optional unter Einstellungen → Konto → „Passkey hinzufügen“ einen Passkey je Gerät anlegen (Fingerabdruck, Gesicht oder Geräte-PIN). Das Passwort bleibt gültig und ist der Rückfallweg, wenn das Gerät verloren geht. Passkeys sind an den Host aus `APP_URL` gebunden; ändert sich die Adresse, müssen sie neu angelegt werden.
+
+### 5. Claude verbinden
+
+- **claude.ai (Web und Mobile-App):** Einstellungen → Connectors → Custom Connector hinzufügen, URL `https://training.gen-em.org/mcp`, keine Client-ID/Secret eintragen (Claude registriert sich selbst). Beim Verbinden öffnet sich die Anmeldung, danach die Freigabeseite: „Freigeben“ wählen. Der Connector steht dann auch in der Mobile-App zur Verfügung.
+- **Claude Desktop / Claude Code (Fallback, D-06):** in der `.env` `MCP_STATIC_TOKEN` (z. B. `openssl rand -hex 32`) und `MCP_STATIC_TOKEN_ENABLED=true` setzen; im Client den Server `https://training.gen-em.org/mcp` mit Header `Authorization: Bearer <MCP_STATIC_TOKEN>` eintragen. Nach dem Test `MCP_STATIC_TOKEN_ENABLED` wieder auf `false` setzen.
+- **Intervals.icu (AP-02):** In Intervals.icu Garmin verbinden (Aktivitäten, Wellness, „Upload planned workouts“), Aktivitäten auf privat stellen (Q-03). Unter Einstellungen → Developer Settings API-Key erzeugen und Athleten-ID (z. B. `i12345`) ablesen; beide als `INTERVALS_API_KEY` und `INTERVALS_ATHLETE_ID` in die `.env`. Danach `https://training.gen-em.org/intervals` öffnen: zeigt Aktivitäten und Wellness der letzten 7 Tage und legt auf Knopfdruck ein Test-Event für morgen an.
+- **Cronjobs bei Lima-City:** `CRON_SECRET` (mindestens 32 Zeichen) in die `.env`, dann zwei zeitgesteuerte URL-Aufrufe anlegen:
+  - täglich `https://training.gen-em.org/cron/backup-mail?key=<CRON_SECRET>` – Backup per E-Mail (zusätzlich `BACKUP_MAIL_TO` und `SMTP_*` des Mailkontos). Stand unter Einstellungen → Backup; Fehler erscheinen auch in der Wochenansicht.
+  - stündlich `https://training.gen-em.org/cron/intervals-sync?key=<CRON_SECRET>` – Spiegel Intervals.icu → MySQL (D-43). Einmalig `…&tage=365` im Browser aufrufen, um die Vorgeschichte zu übernehmen. Stand unter Einstellungen → Verbindungen.
+- **Offline nutzen (D-45, D-49):** Die Seite auf dem Smartphone „Zum Home-Bildschirm“ hinzufügen und die Woche einmal mit Netz öffnen – dann sind aktuelle und nächste Woche mit allen Einheiten sowie Check-in und Schmerz für heute auch im Funkloch verfügbar. Eingaben ohne Netz werden auf dem Gerät gepuffert („Offline gespeichert“) und automatisch gesendet, sobald Netz da ist; auf dem iPhone beim nächsten Öffnen der App. Wurde ein Eintrag inzwischen anders geändert, erscheint ein Hinweis mit „Öffnen“, „Trotzdem übernehmen“ und „Verwerfen“. Abmelden löscht die gespeicherten Seiten, nicht aber ungesendete Eingaben.
+- **Notbremse:** `OAUTH_JWT_SECRET` wechseln macht alle Access-Tokens sofort ungültig; Refresh-Tokens lassen sich in der Tabelle `oauth_token` (`revoked = 1`) sperren.
+
 ## Entwicklung
 
 ```bash
@@ -85,7 +146,11 @@ TEST_DB_HOST=127.0.0.1 TEST_DB_NAME=training_test TEST_DB_USER=… TEST_DB_PASSW
 
 Achtung: Die Integrationstests löschen alle Tabellen der Testdatenbank.
 
-Lokal starten (ohne `.htaccess`): `.env` in `server/` anlegen, dann `php -S 127.0.0.1:8080 -t public public/index.php`.
+Lokal starten (ohne `.htaccess`): `.env` in `server/` anlegen (für `http://` ist `APP_URL=http://localhost:8080` möglich, dann ohne `Secure`-Cookies), Assets bauen mit `php bin/build-assets.php`, dann `php -S 127.0.0.1:8080 -t public bin/dev-router.php` (liefert vorhandene Dateien aus `public/` direkt aus). Datenbank einmalig mit `curl -X POST -H "X-Migration-Secret: …" http://127.0.0.1:8080/admin/migrate` migrieren.
+
+### Assets (Branding)
+
+Einzige Quelle der Gestaltung ist `docs/branding/`. `php server/bin/build-assets.php` kopiert Design-System (`styles.css`, `tokens/`, `fonts/`), `mockups/app.css`, die Tabler-Icons und den Lama-Kopf nach `server/public/assets/`. Der Ordner ist nicht im Repo; CI und Deploy-Workflow bauen ihn. Eigene Ergänzungen stehen in `server/public/css/training.css` (keine Inline-Styles wegen Content-Security-Policy).
 
 ### Migrationen (D-20)
 
@@ -97,4 +162,18 @@ Lokal starten (ohne `.htaccess`): `.env` in `server/` anlegen, dann `php -S 127.
 
 ## Wiederherstellung
 
-Folgt mit AP-10 (Backup und Update-Mechanik).
+Backups (Download, E-Mail, `backups/*-vor-migration.sql.gz.enc`) sind gzip-komprimierte SQL-Dumps, verschlüsselt mit `BACKUP_PASSWORD` (AES-256-CBC, PBKDF2-SHA256 mit 200 000 Iterationen, OpenSSL-Format). Sessions, OAuth-Tokens und der Intervals-Cache sind nur als Struktur enthalten: nach einem Restore neu anmelden und den Connector in Claude neu freigeben.
+
+1. Entschlüsseln (auf jedem Rechner mit OpenSSL ≥ 1.1.1; unter Windows z. B. über Git Bash):
+   ```bash
+   openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -md sha256 -in training-backup-….sql.gz.enc -out backup.sql.gz
+   ```
+   Falsches Passwort → „bad decrypt“. Eine beschädigte Datei fällt spätestens im nächsten Schritt auf (gzip-Prüfsumme).
+2. Entpacken: `gunzip backup.sql.gz` → `backup.sql`.
+3. Einspielen in die (leere oder zu ersetzende) Datenbank: phpMyAdmin bei Lima-City → Datenbank wählen → Importieren → `backup.sql`; oder `mysql -h … -u … -p datenbank < backup.sql`. Der Dump löscht und erstellt jede Tabelle neu (`DROP TABLE IF EXISTS`).
+4. `/health` prüfen: `schema` muss `aktuell` sein.
+
+**Rückweg nach einem fehlgeschlagenen Update** (D-20, kein automatisches Rollback):
+1. Den vorherigen Stand deployen: auf GitHub den letzten funktionierenden Commit (oder Tag) nach `main` zurückholen (Revert-PR) – das Deployment läuft automatisch.
+2. Den passenden Pre-Migration-Dump aus `backups/` (per FTP) wie oben entschlüsseln und einspielen; der Schemastand im Dateinamen (`-s<N>-`) muss zum Code passen.
+3. `/health` prüfen.

@@ -1,0 +1,109 @@
+<?php
+/** @var \Training\View\View $this */
+/** @var ?array $alert */
+/** @var string $csrf */
+/** @var string $login */
+$fmt = static fn (?int $t, string $tz): string => $t === null ? '–' : (new DateTimeImmutable('@' . $t))->setTimezone(new DateTimeZone($tz))->format('d.m.Y');
+$fmtDb = static fn (?string $v, string $tz): string => $v === null ? '–' : (new DateTimeImmutable($v . ' UTC'))->setTimezone(new DateTimeZone($tz))->format('d.m.Y, H:i') . ' Uhr';
+$scopeText = static fn (string $s): string => str_contains($s, 'training:write') ? 'Lesen und Schreiben' : 'Nur lesen';
+?>
+<div class="stack-lg">
+<?php if ($alert !== null) { include __DIR__ . '/_alert.php'; } ?>
+<?php if ($schemaDb !== null && $schemaDb !== $schemaCode): ?>
+  <div class="alert alert-warning"><?= $this->icon('alert-triangle') ?><div><b>Update erforderlich.</b> <span class="body">Der Code erwartet Schemastand <?= $schemaCode ?>, die Datenbank steht auf <?= $schemaDb ?>. Bis zur Migration sind alle Schreibzugriffe (Web und MCP) gesperrt. Vor der Migration wird automatisch ein Backup angelegt.</span></div></div>
+<?php endif ?>
+
+  <section>
+    <div class="section-title"><h2>Athletenprofil</h2></div>
+    <div class="card list">
+      <div class="list-item"><div><div class="t">Grundlage für die Planung</div><div class="s"><?= (int) $profile['filled'] ?> von <?= (int) $profile['total'] ?> Abschnitten ausgefüllt<?= $profile['last'] !== null ? ' · zuletzt geändert ' . $this->e($fmtDb((string) $profile['last'], $tz)) : '' ?></div></div>
+        <a class="btn btn-ghost" href="/profil"><?= $this->icon('user') ?>Öffnen</a></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><h2>Konto</h2></div>
+    <div class="card list">
+      <div class="list-item"><div><div class="t">Angemeldet als <?= $this->e($login) ?></div><div class="s">Seit <?= $this->e($fmt($since, $tz)) ?> auf diesem Gerät · Sitzung endet nach 30 Tagen ohne Nutzung</div></div>
+        <form method="post" action="/logout"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><button class="btn btn-secondary" type="submit"><?= $this->icon('logout') ?>Abmelden</button></form></div>
+      <div class="list-item"><div><div class="t">Zeitzone</div><div class="s mono"><?= $this->e($tz) ?></div></div><a class="btn btn-ghost" href="/einstellungen?bereich=zeitzone">Ändern</a></div>
+      <div class="list-item"><div><div class="t">Passwort</div><div class="s">Mindestens 12 Zeichen</div></div><a class="btn btn-ghost" href="/einstellungen?bereich=passwort">Ändern</a></div>
+<?php foreach ($passkeyList as $pk): ?>
+      <div class="list-item"><div><div class="t">Passkey „<?= $this->e($pk['name']) ?>“</div><div class="s">Angelegt <?= $this->e($fmtDb((string) $pk['created_at'], $tz)) ?><?= $pk['last_used_at'] !== null ? ' · zuletzt genutzt ' . $this->e($fmtDb((string) $pk['last_used_at'], $tz)) : '' ?></div></div>
+        <form method="post" action="/einstellungen"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><input type="hidden" name="action" value="passkey_loeschen"><input type="hidden" name="passkey_id" value="<?= $this->e($pk['id']) ?>"><button class="btn btn-ghost danger-text" type="submit">Entfernen</button></form></div>
+<?php endforeach ?>
+      <div class="list-item"><div class="stack"><div><div class="t">Passkey hinzufügen</div><div class="s">Anmelden mit Fingerabdruck, Gesicht oder Geräte-PIN; das Passwort bleibt als Rückfallweg.</div></div>
+        <input class="input" id="passkey-name" maxlength="100" placeholder="Name, z. B. iPhone" aria-label="Name des Passkeys">
+        <div class="alert alert-error" id="passkey-error" role="alert" hidden></div></div>
+        <button class="btn btn-secondary" type="button" data-passkey="register" data-csrf="<?= $this->e($csrf) ?>" hidden><?= $this->icon('key') ?>Hinzufügen</button></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><h2>Backup</h2><span class="hint">verschlüsselt, AES-256</span></div>
+    <div class="card list">
+      <div class="list-item"><div><div class="t">Backup herunterladen</div><div class="s">SQL-Dump, gzip, mit dem Backup-Passwort aus der <span class="mono">.env</span> verschlüsselt</div></div>
+        <form method="post" action="/einstellungen"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><input type="hidden" name="action" value="backup"><button class="btn btn-primary" type="submit"><?= $this->icon('download') ?>Herunterladen</button></form></div>
+<?php
+$mailText = 'Nicht eingerichtet: BACKUP_MAIL_TO, CRON_SECRET und SMTP_* in der .env, Cronjob bei Lima-City';
+$mailBadge = ['neutral', 'aus'];
+if (!empty($mail['to']) && !empty($mail['cron'])) {
+    $mailText = 'Alle ' . (int) $mail['interval'] . ' Tage an ' . $mail['to'];
+    $mailBadge = ['neutral', 'wartet auf Cronjob'];
+    if (!empty($mail['last_success'])) {
+        $mailText .= ' · zuletzt ' . $fmtDb(gmdate('Y-m-d H:i:s', (int) $mail['last_success']), $tz) . ' · ' . number_format(((int) ($mail['last_size'] ?? 0)) / 1024, 0, ',', '.') . ' KB';
+        $mailBadge = ['success', 'zugestellt'];
+    }
+    if (!empty($mail['error'])) {
+        $mailText .= ' · Fehler: ' . $mail['error'];
+        $mailBadge = ['error', 'fehlgeschlagen'];
+    }
+}
+?>
+      <div class="list-item"><div><div class="t">Daten exportieren (JSON)</div><div class="s">Alle Trainingsdaten lesbar für andere Programme – <b>unverschlüsselt</b>, enthält Gesundheitsdaten</div></div>
+        <form method="post" action="/einstellungen"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><input type="hidden" name="action" value="export"><button class="btn btn-secondary" type="submit"><?= $this->icon('download') ?>Exportieren</button></form></div>
+      <div class="list-item"><div><div class="t">Backup per E-Mail</div><div class="s"><?= $this->e($mailText) ?></div></div><span class="badge badge-<?= $mailBadge[0] ?>"><?= $mailBadge[0] === 'success' ? $this->icon('check') : '' ?><?= $this->e($mailBadge[1]) ?></span></div>
+      <div class="list-item"><div><div class="t">Vor Migrationen</div><div class="s">Automatisch, die letzten 5 werden aufbewahrt<?= $preMigration['last'] !== null ? ' · zuletzt ' . $this->e($preMigration['last']) : '' ?></div></div><span class="badge badge-neutral"><?= (int) $preMigration['count'] ?> Datei<?= (int) $preMigration['count'] === 1 ? '' : 'en' ?></span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><h2>Update</h2></div>
+    <div class="card list">
+      <div class="list-item"><div><div class="t">Schemastand</div><div class="s">Code <?= $schemaCode ?> · Datenbank <?= $schemaDb ?? '?' ?><?= $schemaDb === $schemaCode ? ' · alles aktuell' : ' · Migration ausstehend' ?></div></div>
+        <?php if ($schemaDb === $schemaCode): ?><span class="badge badge-success"><?= $this->icon('check') ?>aktuell</span><?php else: ?><span class="badge badge-warning">ausstehend</span><?php endif ?></div>
+      <div class="list-item"><div><div class="t">Migration ausführen</div><div class="s">Legt zuerst ein Backup an, dann werden die ausstehenden Migrationen der Reihe nach eingespielt.</div></div>
+        <form method="post" action="/einstellungen"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><input type="hidden" name="action" value="migrieren"><button class="btn btn-secondary" type="submit"<?= $schemaDb === $schemaCode ? ' disabled' : '' ?>><?= $this->icon('refresh') ?>Migrieren</button></form></div>
+      <div class="list-item"><div><div class="t">Version</div><div class="s mono"><?= $this->e($version) ?></div></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><h2>Verbindungen</h2></div>
+    <div class="card list">
+      <div class="list-item"><div><div class="t">Intervals.icu</div><div class="s"><?= $intervals !== null ? 'Athlet ' . $this->e($intervals) . ' · <a href="/intervals">Verbindung prüfen</a>' : 'Nicht eingerichtet: INTERVALS_API_KEY und INTERVALS_ATHLETE_ID in der <span class="mono">.env</span>' ?></div></div>
+        <?php if ($intervals !== null): ?><span class="badge badge-success"><?= $this->icon('plug-connected') ?>eingerichtet</span><?php else: ?><span class="badge badge-neutral">aus</span><?php endif ?></div>
+<?php
+$mirrorText = (int) $mirror['aktivitaeten'] . ' Aktivitäten, ' . (int) $mirror['wellness_tage'] . ' Wellness-Tage';
+if (!empty($mirror['erste'])) { $mirrorText .= ' · ' . $mirror['erste'] . ' bis ' . $mirror['letzte']; }
+if (!empty($mirror['last_success'])) { $mirrorText .= ' · Abgleich ' . $fmtDb(gmdate('Y-m-d H:i:s', (int) $mirror['last_success']), $tz); }
+if (!empty($mirror['error'])) { $mirrorText .= ' · Fehler: ' . $mirror['error']; }
+?>
+      <div class="list-item"><div><div class="t">Spiegel Intervals.icu</div><div class="s"><?= $this->e($mirrorText) ?></div></div><span class="badge badge-<?= !empty($mirror['error']) ? 'error' : (!empty($mirror['last_success']) ? 'success' : 'neutral') ?>"><?= !empty($mirror['error']) ? 'Fehler' : (!empty($mirror['last_success']) ? 'aktiv' : 'kein Cronjob') ?></span></div>
+<?php if ($clients === []): ?>
+      <div class="list-item"><div><div class="t">Claude</div><div class="s">Keine aktive Freigabe. Connector-Adresse: <span class="mono"><?= $this->e($mcpUrl) ?></span></div></div><span class="badge badge-neutral">nicht verbunden</span></div>
+<?php endif ?>
+<?php foreach ($clients as $c):
+    $uris = json_decode((string) $c['redirect_uris_json'], true) ?: [];
+    $host = (string) parse_url((string) ($uris[0] ?? ''), PHP_URL_HOST);
+?>
+      <div class="list-item"><div><div class="t"><?= $this->e($c['client_name']) ?><?= $host !== '' ? ' (' . $this->e($host) . ')' : '' ?></div><div class="s">Freigegeben am <?= $this->e($fmtDb((string) $c['since'], $tz)) ?> · <?= $scopeText((string) $c['scope']) ?> · zuletzt erneuert <?= $this->e($fmtDb((string) $c['last_used'], $tz)) ?></div></div>
+        <form method="post" action="/einstellungen"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><input type="hidden" name="action" value="widerrufen"><input type="hidden" name="client_id" value="<?= $this->e($c['client_id']) ?>"><button class="btn btn-ghost danger-text" type="submit">Widerrufen</button></form></div>
+<?php endforeach ?>
+      <div class="list-item"><div><div class="t">Statisches Token (Fallback)</div><div class="s">Für Claude Desktop, nur aktiv wenn in der <span class="mono">.env</span> eingeschaltet</div></div><span class="badge badge-<?= $staticToken ? 'warning' : 'neutral' ?>"><?= $staticToken ? 'an' : 'aus' ?></span></div>
+    </div>
+  </section>
+
+  <p class="hint">Audit-Log und Wissensbasis liegen in Datenbank bzw. Repo, nicht in der App.</p>
+</div>
+<script src="/js/passkey.js" defer></script>

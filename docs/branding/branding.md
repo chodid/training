@@ -127,6 +127,33 @@ Abnahmekriterien (AP-01a): Athlet hat die Mockups bestätigt; Branding-Dokument 
 
 Abgenommen durch den Athleten am 2026-09-27. Konzept ergänzt: D-19 (Desktop), Abschnitt 10 (S8 Einstellungen).
 
+Abweichungen in der Umsetzung (nach Hinweis 7.10):
+
+| screen | abweichung | grund | ap / datum |
+|---|---|---|---|
+| alle | Icons serverseitig als Inline-SVG aus `public/assets/icons/` statt über `icons.js` (B-05 bleibt: lokal, kein CDN, keine CSS-Maske) | Seiten funktionieren ohne JavaScript; Content-Security-Policy erlaubt keine Inline-Skripte | AP-01, 2026-09-27 |
+| alle | Inline-Styles der Mockups als Klassen in `server/public/css/training.css` (`h-card`, `center`, `gap-6`, `mt-8`, `ic-brand`) | Content-Security-Policy ohne `unsafe-inline` | AP-01, 2026-09-27 |
+| S1 | Kein Knopf „Passwort anzeigen“ | braucht JavaScript; Passwort-Manager und Browser bieten die Funktion | AP-01, 2026-09-27 |
+| S1 gesperrt | Statt „Anmelden“ ein Sekundärknopf „Erneut versuchen“ (lädt die Seite neu) | ohne Passwortfeld ist Anmelden nicht möglich | AP-01, 2026-09-27 |
+| S7 | Hinweistext „Prüfe, ob Du die Verbindung gerade selbst eingerichtet hast. Die Freigabe gilt, bis sie widerrufen wird.“ statt Audit-Log/Einstellungen | Audit-Log (AP-03/AP-05) und Einstellungen (AP-04) gibt es noch nicht; Text wird mit AP-04 wieder angeglichen | AP-01, 2026-09-27 |
+| S7 | Fußzeile ohne Link „Abmelden“ | Abmelden braucht ein Formular mit CSRF-Token; auf der Freigabeseite reicht „Ablehnen“ | AP-01, 2026-09-27 |
+| S7 | Zugriffsliste nach Scope gruppiert (erst Lesen, dann Schreiben) | ergibt sich aus der Scope-Zuordnung | AP-01, 2026-09-27 |
+| Startseite | ~~Übergangsseite nach dem Login~~ – seit AP-04 Weiterleitung auf `/woche` | Seitenrahmen mit Navigation kommt mit AP-04 | AP-01, 2026-09-27; ersetzt AP-04, 2026-09-28 |
+| S2 | Kennzahl „sRPE bisher“ ohne „≈ geplant“ | geplante sRPE-Last ist im Datenmodell nicht vorhanden (nur geplante Dauer) | AP-04, 2026-09-28 |
+| S2 | Vergangene Tage ohne Check-in als „Check-in fehlt“ (Hinweis-Stil wie „offen“), Tage ohne Einheit als „Keine Einheit“ | Mockup zeigt nur Wochenmitte; fehlende Tage sollen sichtbar sein (Abschnitt 11) | AP-04, 2026-09-28 |
+| S2 | Marke „verschoben“ ohne Icon | passt sonst nicht in die 7-Spalten-Woche | AP-04, 2026-09-28 |
+| S3 | Zusätzliches Feld „Dauer (min)“ im Rückmeldungsblock; Hinweis zu ausgelassen/verschoben unter dem Status | sRPE braucht die Dauer | AP-04, 2026-09-28 |
+| S3 | Ist-Felder Kraft: Sätze, Wdh., Last (Haltezeiten in „Wdh.“, z. B. „30s“); Klettern: Dauer, Sätze (nur wenn geplant), Notiz | folgt dem Schema 7.1; mockup-spezifische Felder wie „Boulder“/„Grad“ gibt es im Schema nicht | AP-04, 2026-09-28 |
+| S3 | Zonenbalken als SVG, Legendenfarben über Klassen | Content-Security-Policy ohne Inline-Styles | AP-04, 2026-09-28 |
+| S3, S4 | Schmerz-Kurzform klappt per CSS `:has()` auf (ohne JavaScript) | Hinweis 7.3 | AP-04, 2026-09-28 |
+| S5 | Warnhinweis erst nach dem Speichern, mit Knöpfen „Zur Woche“/„Weiteres Ereignis“ | Hinweis hängt vom gespeicherten Verlauf ab; Anzeigeregel vorläufig bis AP-07 | AP-04, 2026-09-28 |
+| S8 | Backup und „Migrieren“ als deaktivierte Platzhalter; Zeitzone/Passwort auf eigenen Unterseiten; Widerrufen als Formular | Funktionen aus AP-10; Formulare ohne JavaScript | AP-04, 2026-09-28 |
+| S1, S8 | Passkey (D-44): S1 zusätzlicher Sekundärknopf „Mit Passkey anmelden“ (Icon `key`) unter „Anmelden“; S8 Konto mit je einer Zeile pro Passkey („Entfernen“ in Fehlerfarbe) und „Passkey hinzufügen“ mit Namensfeld. Knöpfe nur sichtbar, wenn der Browser WebAuthn kann | nicht in den Mockups (AP-09); Gestaltung mit vorhandenen Bausteinen | AP-09, 2026-09-28 |
+| Profil (neu) | Seite `/profil` ohne Mockup, aus vorhandenen Bausteinen: je Abschnitt Abschnittstitel mit Stand, Karte mit Text im Stil `plan-text`, Knöpfe „Bearbeiten“/„Frühere Fassungen“; Bearbeiten wie die S8-Unterseiten (Textfeld, Grund, fixierte Knopfleiste); Fassungen als Karten mit Marke „aktuell“. Markdown wird als Text angezeigt. Einstieg über S8 (eigener Abschnitt „Athletenprofil“), keine eigene Navigationsposition | D-48 (AP-09) kam nach AP-01a; Mockup durch Fable auf Wunsch nachträglich | AP-09, 2026-09-28 |
+| alle App-Seiten | Offline (D-45/D-49): Hinweise oben im Inhalt als vorhandene Alerts – „Offline. Gespeicherter Stand vom …“ (Warnung), „Offline gespeichert.“ (Erfolg), „N Eingaben warten auf Netz“ (Info), abgelehnte Eingabe (Fehler) mit Knöpfen „Öffnen“, „Trotzdem übernehmen“ (sekundär) und „Verwerfen“ (Ghost, Fehlerfarbe); Alerts ohne Icon, da vom Skript erzeugt (Icons sind serverseitige SVG). Nicht gespeicherte Seiten ohne Netz: schlichte Hinweisseite im Anmelde-Layout | nicht in den Mockups | AP-09, 2026-09-28 |
+| S3, S4 | Formular „Inzwischen geändert.“ (Warnung) bei zwischenzeitlicher Änderung; Eingaben bleiben stehen | Schutz gegen Überschreiben (D-49) | AP-09, 2026-09-28 |
+| S6 | ~~Platzhalterseite~~ – seit 0.8.0 umgesetzt; Balkenhöhen als Klassen in 5-%-Schritten, Legende über Klassen; Hinweis „steigt seit … Wochen“ weggelassen (Trendregel erst mit AP-07); Raster scrollt auf dem Smartphone waagrecht innerhalb der Karte | CSP ohne Inline-Styles; Trendregel fehlt noch | AP-04, 2026-09-28; AP-09, 2026-09-28 |
+
 Offen (unabhängig von den Mockups):
 - Word-Vorlage mit variablen TTF prüfen (aus dem Ablegen des Design-Systems).
 

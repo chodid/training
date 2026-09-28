@@ -4,7 +4,202 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.13.0] – 2026-09-28
+
+AP-09 Teil 6: Offline-Fähigkeit (D-45, D-49). Damit sind alle AP-09-Teilpakete umgesetzt.
+
+### Hinzugefügt
+- Service Worker `/sw.js` und Seitenskript `/js/offline.js`: Woche, Einheiten, Check-in und Schmerz sind ohne Netz lesbar (erst Netz mit 5 s Wartezeit, sonst gespeicherter Stand mit Hinweis „Offline – Stand vom …“); Gestaltung liegt je Version im Cache.
+- Beim Öffnen der aktuellen Woche werden aktuelle und nächste Woche mit allen Einheiten sowie Check-in und Schmerz für heute vorgeladen (höchstens alle 10 Minuten je Seite).
+- Check-in, Rückmeldung und Schmerz werden ohne Netz auf dem Gerät gepuffert und automatisch gesendet, sobald Netz da ist (Android/Chrome auch im Hintergrund, iPhone beim nächsten Öffnen); Anzeige wartender, abgelehnter und kollidierender Eingaben mit „Öffnen“, „Trotzdem übernehmen“, „Verwerfen“.
+- Schutz gegen Überschreiben: Check-in- und Einheitenformular tragen den Stand des Eintrags; wurde er inzwischen geändert, wird nicht gespeichert (409), die Eingaben bleiben im Formular.
+- `GET /offline/token` (frisches CSRF-Token für gepufferte Eingaben); Kopfzeile `X-Offline-Queue` liefert Statuscodes statt Seiten.
+- Erfassungszeit gepufferter Rückmeldungen wird als Durchführungszeit übernommen.
+- Tests für Konflikt, Statusantworten, Token, Erfassungszeit und Vorladeliste.
+
+### Geändert
+- Die Login-Seite löscht die offline gespeicherten Seiten (Abmelden); ungesendete Eingaben bleiben und werden nach dem Login gesendet.
+
+## [0.12.0] – 2026-09-28
+
+AP-09 Teil 5: Athletenprofil als DB-Objekt (D-48, ersetzt D-15). Asymmetrische Backups gestrichen (D-47).
+
+### Hinzugefügt
+- Migration `0018` `athlete_profile`: Abschnitte Ziele, Zeitbudget, Ausrüstung, Einschränkungen, Leistungswerte, Sonstiges als Markdown-Text; jede Änderung als neue Fassung mit Datum, Urheber (Claude/Web) und Grund; `App::SCHEMA_VERSION` = 18.
+- MCP-Tool `update_athlete_profile` (Scope `training:write`, Schreibsperre, Audit-Log); unveränderter Text legt keine Fassung an.
+- Seite `/profil` (Link unter Einstellungen): Abschnitte lesen, einzeln bearbeiten, frühere Fassungen ansehen; Schutz gegen Überschreiben, wenn Claude den Abschnitt inzwischen geändert hat.
+- Tests für Tools, Fassungen, früheren Stand, Konflikt und Webseite.
+
+### Geändert
+- `get_athlete_profile` liest aus der Datenbank; neue optionale Parameter `section`, `as_of` (Stand am Ende eines Tages) und `include_history`.
+
+### Entfernt
+- Build-Schritt `docs/athlet/*.md` → `server/resources/athlet/` und `App::profileFile()`; `docs/athlet/` entfällt.
+
+## [0.11.0] – 2026-09-28
+
+AP-09 Teil 4: Passkey-Login zusätzlich zum Passwort (D-44).
+
+### Hinzugefügt
+- Passkeys (WebAuthn) über `lbuchs/webauthn`: in den Einstellungen anlegen (mit Namen) und entfernen, auf der Login-Seite „Mit Passkey anmelden“ (nur sichtbar, wenn ein Passkey angelegt ist und der Browser WebAuthn kann). Das Passwort bleibt Rückfallweg.
+- Migration `0017` `webauthn_credential` (öffentlicher Schlüssel, Signaturzähler, zuletzt genutzt); `App::SCHEMA_VERSION` = 17.
+- Endpunkte `POST /passkey/register/options`, `/passkey/register` (angemeldet, CSRF-Header), `/passkey/login/options`, `/passkey/login`; Challenge im signierten, 5 Minuten gültigen Cookie; Relying-Party-ID ist der Host aus `APP_URL`.
+- Anmelden mit Passkey hebt eine Passwort-Sperre auf; Anlegen und Entfernen im Audit-Log.
+- `public/js/passkey.js` (erstes JavaScript der App, nur für Passkeys; Seiten funktionieren weiter ohne).
+- Tests mit Software-Authenticator: Registrieren, Anmelden, Wiederholung, fremder Schlüssel, falscher Origin, abgelaufene Challenge, Sperre, Entfernen.
+
+### Geändert
+- Passkeys sind im SQL-Backup enthalten (nach einem Restore weiter nutzbar), nicht im JSON-Export.
+
+### Behoben
+- Einstellungen: „1 Dateien“ → „1 Datei“ bei den Pre-Migration-Dumps.
+
+## [0.10.0] – 2026-09-28
+
+AP-09 Teil 3: Feedback nach Intervals.icu (Q-02 → D-46).
+
+### Hinzugefügt
+- Beim Speichern einer Rückmeldung (S3) werden RPE (1–10) und Gefühl automatisch auf die zugeordnete Intervals.icu-Aktivität geschrieben, die Notiz als Kommentar (nur wenn neu oder geändert); Hinweis in der Wochenansicht bei Erfolg bzw. Fehler; Audit-Log.
+- `IntervalsClient::updateActivity`, `addActivityMessage`.
+- Test für Übertragung, keine Doppelkommentare, RPE 0 und Fehlerfall.
+
+## [0.9.0] – 2026-09-28
+
+AP-09 Teil 2: Spiegel Intervals.icu → MySQL (D-43).
+
+### Hinzugefügt
+- Migrationen `0015` `ext_activity`, `0016` `ext_wellness` (Zusammenfassungen, keine Streams); `App::SCHEMA_VERSION` = 16.
+- Spiegel mit read-through: Webseite und MCP lesen aus MySQL; ein Zeitraum wird höchstens alle 5 Minuten live abgefragt und übernommen (in Intervals.icu gelöschte Aktivitäten werden entfernt); fällt Intervals.icu aus, kommen die Daten aus dem Spiegel.
+- `GET /cron/intervals-sync?key=…` für einen stündlichen Lima-City-Cronjob; Status (Anzahl, Zeitraum, letzter Abgleich, Fehler) in den Einstellungen.
+- Spiegeldaten sind in SQL-Backup und JSON-Export enthalten.
+- Tests für read-through, Rückfall, Cron-Abgleich und Löschungen.
+
+### Geändert
+- `BACKUP_CRON_SECRET` heißt jetzt `CRON_SECRET` (gilt für alle Cron-Endpunkte).
+
+### Behoben
+- Einstellungsseite war bei veraltetem Schema nicht erreichbar, sobald neue Tabellen abgefragt wurden (gefunden durch den Schreibsperren-Test); Spiegelzugriffe tolerieren fehlende Tabellen.
+
+## [0.8.0] – 2026-09-28
+
+AP-09 Teil 1: JSON-Export und Verlauf (D-42).
+
+### Hinzugefügt
+- JSON-Export aller Trainingsdaten in den Einstellungen (unverschlüsselt, ohne Sessions, Tokens, Cache und Passwort-Hash; JSON-Spalten als Objekte; im Audit-Log).
+- `/verlauf` (S6): Kennzahlen (sRPE diese Woche/Vorwoche, Check-in-Abdeckung, Schmerzereignisse), Wochenlast je Bereich über 8 Wochen als kleine Vielfache mit gemeinsamer Achse, Schmerz je Ort und Seite als Raster (stärkste Meldung der Woche, Hinweis beim Berühren), Tabelle aller Werte.
+- Tests für Export und Verlauf.
+
 ### Dokumentation
+- Konzept: Q-11 → D-40 (`upsert_block`), Q-12 → D-41 (Feld `sport`) bestätigt.
+
+## [0.7.0] – 2026-09-28
+
+AP-05 MCP-Tools produktiv.
+
+### Hinzugefügt
+- Lese-Tools (Abschnitt 8.2, aggregiert, Skalen benannt): `get_week_overview` (Plan vs. Ist, sRPE je Typ, Compliance, Aktivitäten aus Intervals.icu inkl. nicht geplanter, Schmerz der Woche, Check-in-Abdeckung, Fitness/Ermüdung/Form), `get_session_detail`, `get_pain_history` (je Ort mit 7-Tage-Trend), `get_wellness_trend` (HRV, Ruhepuls, Schlaf, Check-in, Baseline 7 vs. 28 Tage), `get_block`, `get_athlete_profile`.
+- Schreib-Tools: `write_week_plan` (vollständige Prüfung vor dem Schreiben, DB-Transaktion, danach Intervals.icu-Workouts je Ausdauereinheit mit Fehlerbericht je Einheit; `replace_existing` ersetzt nur geplante Einheiten ohne Rückmeldung und löscht deren Events), `update_session` (inkl. Nachziehen, Löschen bei „ausgelassen“ oder Neuanlage des Events), `upsert_block` (D-40, Voraussetzung für Wochenpläne).
+- Rechteprüfung je Tool über den Token-Scope (`training:read`, `training:write`); Schreibsperre (D-20) für alle Schreib-Tools; Audit-Log aller MCP-Schreibzugriffe inkl. Intervals-Events und -Fehler.
+- `plan_json` Ausdauer: optionales Feld `sport` (Intervals.icu-Sportart, Standard Run; D-41).
+- Build: `docs/athlet/*.md` → `server/resources/athlet/` für `get_athlete_profile`.
+- Tests über den echten `/mcp`-Endpunkt (Scopes, Block, Wochenplan, Übersicht, Ersetzen, Intervals-Fehler und erneuter Sync, Schreibsperre, Lese-Tools).
+
+
+## [0.6.0] – 2026-09-28
+
+AP-10 Backup und Update-Mechanik.
+
+### Hinzugefügt
+- Backup (D-18): SQL-Dump per PHP (Struktur aller Tabellen; Daten ohne Sessions, OAuth-Tokens/-Codes und Cache; ohne berechnete Spalten) → gzip → Verschlüsselung kompatibel zu `openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -md sha256`. Dateiname mit Zeitstempel, Schemastand und Anlass.
+- Download in den Einstellungen (nur angemeldet, im Audit-Log).
+- Backup per E-Mail: `GET /cron/backup-mail?key=…` für den Lima-City-Cronjob, SMTP über PHPMailer, Intervall in `.env`; Zustand in `var/backup-mail.json`, Fehler in Einstellungen und Wochenansicht.
+- Pre-Migration-Dump (D-20): vor jeder ausstehenden Migration (Deploy und Einstellungen) nach `backups/`, die letzten 5 bleiben; schlägt der Dump fehl, wird nicht migriert.
+- Schreibsperre (D-20): Weichen Code- und Datenbankstand ab, sind alle Schreibzugriffe der Webseite gesperrt (Seite „Update erforderlich“ mit Migrationsknopf, Hinweis auf allen Seiten); Migrationsknopf in den Einstellungen.
+- `/health` prüft `backups/`.
+- Restore-Anleitung im README; Tests für Restore in eine leere Datenbank (inkl. Entschlüsseln mit der openssl-Kommandozeile), Rotation, Abbruch bei fehlgeschlagenem Dump, Schreibsperre, Download und E-Mail.
+
+### Geändert
+- Neuer Pflichtwert `BACKUP_PASSWORD` (mindestens 16 Zeichen). **Vor dem Deployment in die `.env` eintragen.**
+- `/admin/migrate` legt vor Migrationen einen Dump an und meldet dessen Namen.
+
+
+## [0.5.0] – 2026-09-28
+
+AP-04 Webseite.
+
+### Hinzugefügt
+- App-Rahmen nach Branding: Tab-Leiste (Smartphone), Leiste links (Tablet), Seitenleiste (Desktop); Kopfzeile mit Zurück-Pfeil auf Unterseiten.
+- `/woche` (S2): 7 Tage mit Einheiten (Typ-Icon, Titel, Priorität, Dauer, Status bzw. „Feedback“), heutiger Tag hervorgehoben, Check-in-Status je Tag, ±Woche, Kennzahlen (sRPE, erledigte Einheiten, Check-in-Abdeckung), Hinweis auf offene Rückmeldungen, Leerzustand.
+- `/einheit` (S3): Plan mit Soll je Übung bzw. Block, Ist-Eingabe (vorbelegt mit Soll oder letzter Eingabe), Rückmeldung (Dauer, RPE 0–10, Gefühl 1–5, Schmerz mit Kurzform, Abweichung, Notiz, Status); bei Ausdauer Plan-Text und verknüpfte Aktivität aus Intervals.icu (Dauer, Distanz, Ø HF, Ø Pace, Zeit in Zonen). Speichern in `session_execution` (sRPE berechnet), `session.status`, `pain_event`.
+- `/checkin` (S4): Erholung, Muskelkater, Schmerz (Kurzform), Notiz; ein Eintrag pro Tag (überschreibbar), Liste der Woche.
+- `/schmerz` (S5): Schmerzereignis mit optionaler Einheit der letzten 14 Tage; Hinweis bei wiederholter Meldung, Stärke über 5 oder Schmerz in Ruhe.
+- `/einstellungen` (S8): Abmelden, Zeitzone, Passwort (beendet andere Sessions), Schemastand und Version, Intervals.icu-Status, aktive Claude-Freigaben mit Widerruf, statisches Token; Backup/Migration als Platzhalter bis AP-10.
+- `/verlauf`: Platzhalter bis AP-09.
+- Audit-Log für alle Schreibzugriffe der Webseite (`audit_log`, Hash statt Inhalt).
+- Kurzcache für Intervals.icu-Aktivitäten (`ext_cache`, 5 min) und Zuordnung Aktivität ↔ Ausdauereinheit (`paired_event_id`, sonst gleicher Tag).
+- Web-App-Manifest (`/manifest.webmanifest`, Name „Training“, Farben laut Branding) mit Icons 192/512 px und maskierbarem Icon aus dem Lama-Kopf.
+- Tests: Seiten, Speichern, Validierung, Aktivitätsanzeige, Check-in, Schmerz, Einstellungen.
+
+### Geändert
+- `/` leitet nach dem Login auf `/woche` (vorher Übergangsseite).
+- Status „verschoben“ ohne Icon (passt in die 7-Spalten-Woche).
+
+### Dokumentation
+- README (Endpunkte), Konzept (AP-04 `in_arbeit`, Befunde), Prüfprotokoll AP-04, Branding-Dokument Abschnitt 8 (Abweichungen).
+- Konzept: Q-09 → D-38 (Refresh-Token 90 Tage), Q-10 → D-39 (`plan_json` für Mobilität wie Kraft, Ruhetag leer) bestätigt.
+
+## [0.4.0] – 2026-09-27
+
+AP-03 Datenmodell.
+
+### Hinzugefügt
+- Migrationen `0007`–`0014`: `training_block`, `training_week`, `session`, `session_execution` (mit berechneter Spalte `srpe_load`), `pain_event`, `checkin`, `audit_log`, `ext_cache`; Aufzählungen als `ENUM`, Wertebereiche als `CHECK`, Eindeutigkeit (Woche je Montag, eine Durchführung je Einheit, ein Check-in je Tag); `App::SCHEMA_VERSION` = 14.
+- JSON-Schemata (Draft 2020-12) für `plan_json` und `actual_json` je Typ in `server/schemas/`; `Training\Plan\PlanValidator` (Bibliothek `opis/json-schema`).
+- Beispielwoche mit allen Einheitentypen (`server/tests/fixtures/beispielwoche.json`); Tests für Validator, Constraints, berechnete Last und Löschverhalten.
+
+### Geändert
+- Datenbankverbindung im strikten SQL-Modus (`STRICT_ALL_TABLES`, `NO_ZERO_DATE` u. a.) und mit Zeitzone UTC, unabhängig von der Voreinstellung des Hosters.
+
+### Dokumentation
+- `docs/konzept/datenmodell.md` mit ER-Diagramm (Mermaid) aller Tabellen und Umsetzungsdetails; Konzept (AP-03, Abschnitt 7/7.1, Q-10), Prüfprotokoll AP-03, README.
+
+## [0.3.0] – 2026-09-27
+
+AP-02 Intervals.icu-Anbindung (Client fertig; Prüfung gegen die echte API und auf der Uhr steht aus).
+
+### Hinzugefügt
+- `Training\Intervals\IntervalsClient`: HTTP Basic (`API_KEY:<key>`), Athlet, Events lesen/anlegen/ändern/löschen, Aktivitäten und Wellness nach Zeitraum; eine Wiederholung bei HTTP 429/5xx (Retry-After, max. 5 s); Fehlermeldungen mit Hinweis, ohne Key. Transport austauschbar (curl im Betrieb, simuliert in Tests).
+- `/intervals` (nur nach Login): Verbindungstest mit Athlet, Aktivitäten und Wellness der letzten 7 Tage, Events der nächsten 14 Tage; Test-Event (Laufeinheit mit HF-Zonen, `external_id` `training-app-test`) anlegen, ändern und löschen für die Abnahme auf der Uhr.
+- `.env`: `INTERVALS_API_KEY`, `INTERVALS_ATHLETE_ID` (optional); `/health` meldet `intervals: konfiguriert | nicht_konfiguriert`, ohne Netzwerkaufruf und ohne Health rot zu machen.
+- Tests: Client (Auth, Query, CRUD, Fehler, Retry, Eingaben) und Seite `/intervals` mit simuliertem Intervals.icu.
+
+### Dokumentation
+- README (Einrichtung Intervals.icu, Endpunkt `/intervals`), Konzept (AP-02 `in_arbeit`, Befunde, V-04 vorläufig), Prüfprotokoll AP-02.
+
+## [0.2.0] – 2026-09-27
+
+AP-01 MCP-Minimalserver mit OAuth (Code fertig; Abnahme auf dem Server und mit claude.ai steht aus).
+
+### Hinzugefügt
+- MCP-Endpunkt `/mcp` über `logiscape/mcp-sdk-php` (v2.0.x): Streamable HTTP ohne SSE, zustandslos für Clients der Revision 2026-07-28, Sitzungsdateien für ältere Revisionen in `var/mcp_sessions/` (außerhalb des Docroots, Dateien älter als ein Tag werden aufgeräumt). Dummy-Tool `ping` (Serverzeit, Code-Stand).
+- Bearer-Prüfung am `/mcp` über den SDK-`JwtTokenValidator` (iss, aud, exp; zusätzlich `exp` Pflicht); 401 mit `WWW-Authenticate: Bearer resource_metadata=…` aus dem SDK; `/.well-known/oauth-protected-resource` (auch mit Suffix `/mcp`).
+- Statisches Fallback-Token `MCP_STATIC_TOKEN`, nur aktiv mit `MCP_STATIC_TOKEN_ENABLED=true` (D-06).
+- Eigener OAuth-2.1-Autorisierungsserver (D-32, D-36): `/.well-known/oauth-authorization-server` (RFC 8414, auch mit Suffix `/mcp`), `/oauth/register` (offene Dynamic Client Registration, nur `https://` bzw. `http://localhost`/`127.0.0.1`/`[::1]` als Redirect-URI), `/oauth/authorize` (Login + Freigabeseite S7, Ablehnen möglich), `/oauth/token` (PKCE S256 Pflicht, Codes 10 min einmalig; Access-Token als JWT HS256 1 h; Refresh-Token mit Rotation und Familien-Widerruf bei Wiederverwendung). Scopes `training:read` und `training:write`.
+- Webseite: `/setup` (S0, einmalige Anlage des einzigen Benutzers mit `MIGRATION_SECRET`, danach 404), `/login` (S1, Passwort mit Argon2id, 30-Tage-Session gleitend, Kontosperre nach 10 Fehlversuchen für 5 min mit Verdopplung bis 24 h), `/logout`, Startseite nach Login. Gestaltung nach `docs/branding/` (Smartphone, Tablet, Desktop).
+- Migrationen `0002`–`0006`: `user`, `web_session`, `oauth_client`, `oauth_auth_code`, `oauth_token` (D-35); `App::SCHEMA_VERSION` = 6.
+- CSRF-Schutz: Double-Submit-Cookie für Setup und Login, Session-gebundenes Token für Abmelden und Freigabe.
+- Sicherheitsheader für HTML-Seiten (Content-Security-Policy ohne Inline-Skripte/-Styles, `frame-ancestors 'none'`, `X-Frame-Options: DENY`, `no-store`); CORS für Metadaten, Registrierung, Token und `/mcp` (ohne Cookies).
+- `server/bin/build-assets.php`: übernimmt Design-System, `app.css`, Icons und Logo aus `docs/branding/` nach `server/public/assets/` (Build-Schritt in CI und Deploy, nicht im Repo).
+- `/health` prüft zusätzlich, ob `var/` beschreibbar ist.
+- Tests: Unit-Tests (Sperrstufen, Redirect-Regeln, PKCE nach RFC-7636-Beispiel, JWT gegen SDK-Validator, statisches Token, Rücksprungziele) und Integrationstests für Setup, Login/Sperre/Session sowie den vollständigen OAuth- und MCP-Ablauf.
+
+### Geändert
+- Neuer Pflichtwert `OAUTH_JWT_SECRET` in `.env` (mindestens 32 Zeichen); fehlt er oder ist er zu kurz, meldet `/health` `config` als fehlend und die App startet nicht. **Vor dem Deployment in die `.env` auf dem Server eintragen.**
+- Deploy-Workflow: `var/**` und `bin/**` vom Upload ausgeschlossen, Assets-Build in Test- und Deploy-Job, Syntaxprüfung auch für `templates/` und `bin/`.
+- `Request` liest Query, Formularfelder, Cookies und Rohdaten; `Response` kann Cookies setzen, HTML ausliefern und weiterleiten.
+
+### Dokumentation
+- AP-01: README (Endpunkte, neue `.env`-Schlüssel, Ersteinrichtung, Connector in claude.ai und Claude Desktop), Konzept (Status AP-01, Befunde, offene Frage Q-09 Laufzeit Refresh-Token), Prüfprotokoll AP-01, Branding-Dokument Abschnitt 8 (Abweichungen von den Mockups).
 - AP-01a: Design-Mockups aller Webseiten-Screens (S0 Setup, S1 Login mit Fehler/gesperrt, S2 Woche inkl. leer, S3 Einheit für Kraft/Ausdauer/Klettern, S4 Check-in, S5 Schmerz, S6 Verlauf, S7 Freigabe, Einstellungen inkl. „Update erforderlich“) als HTML unter `docs/branding/mockups/` mit Übersicht `index.html`, Bausteinen `app.css`, lokalem Icon-Sprite (Tabler, MIT) und Screenshots; Branding-Dokument `docs/branding/branding.md` (Vorgaben, Bausteine, Layout, Entscheidungen B-01–B-07, Umsetzungshinweise). Vom Athleten abgenommen; Konzept D-19 (Desktop-Ansicht) und Abschnitt 10 (S8 Einstellungen) ergänzt, AP-01a `erledigt`.
 - AP-01a begonnen: Gestaltungsvorgaben als Chadid Design-System unter `docs/branding/chadid-design-system/` (Farb-, Schrift- und Abstands-Tokens, Richtlinien-Karten, Lama-Logo, Briefvorlage, `SKILL.md`). Schriften (Young Serif, Source Sans 3, Source Code Pro, SIL OFL) lokal in `fonts/` statt über Google Fonts. Grundlage für die Mockups (Fable).
 - AP-00 abgenommen: Prüfprotokoll mit Servertests ergänzt, Konzept-Status `erledigt`, Hinweis auf vorgeschalteten Lima-City-Proxy.
