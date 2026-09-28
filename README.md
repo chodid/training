@@ -157,7 +157,7 @@ Lokal starten (ohne `.htaccess`): `.env` in `server/` anlegen (für `http://` is
 
 Einzige Quelle der Gestaltung ist `docs/branding/`. `php server/bin/build-assets.php` kopiert Design-System (`styles.css`, `tokens/`, `fonts/`), `mockups/app.css`, die Tabler-Icons und das Lama (`lama-symbol-flaeche.svg` als `assets/lama.svg`, App-Kennung) nach `server/public/assets/`. Der Ordner ist nicht im Repo; CI und Deploy-Workflow bauen ihn. Eigene Ergänzungen stehen in `server/public/css/training.css` (keine Inline-Styles wegen Content-Security-Policy).
 
-### Icons (App-Icon und Favicon, D-59, D-62)
+### Icons (App-Icon und Favicon, D-59, D-63)
 
 Der Icon-Satz ist eingecheckt, weil der Server kein SVG rendern kann. Nach einer Änderung an den Vorlagen `docs/branding/mockups/icon-optionen/v3.svg`, `v3-maskable.svg` (App-Icon, V3) oder `v3-favicon.svg` (Favicon, V3 mit 22 % gerundeten Ecken) neu erzeugen:
 

@@ -80,7 +80,7 @@ Summe: 36 Werke (davon 7 Bücher mit Kapitel-PDFs).
 
 ## Noch nicht vorhanden
 
-Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A, B und C eingearbeitet).
+Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D eingearbeitet).
 
 ### Kaufen oder über die Bibliothek (nicht frei verfügbar)
 
@@ -97,6 +97,9 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A, B und C eingearbeite
 | 2 | L-T2-10 | Wiedenmann et al. 2025, Gerontology 71(7):576–588 | Beleg Körpergewichtstraining (D-29); Zugang nicht geprüft |
 | 2 | L-R-03 | Agergaard et al. 2021, Am J Sports Med 49(4):982–993 | Lastdosierung Patellasehne |
 | 2 | L-R-26 | Doherty et al. 2017, Br J Sports Med 51(2):113–125 | Rezidivprophylaxe, Orthese (Q-16) |
+| 2 | L-T2-20 | Pelland et al. 2026, Sports Med 56(2):481–505 | Hypertrophie: Volumen/Frequenz (D-62) |
+| 2 | L-T2-21 | Robinson et al. 2024, Sports Med 54(9):2209–2231 | Hypertrophie: Nähe zum Muskelversagen (D-62) |
+| 2 | L-T2-26 | Monserdà-Vilaró et al. 2023, J Strength Cond Res 37(3):688–709 | Interferenz kontinuierlich vs. HIIT (D-62) |
 
 ### Frei verfügbar (PubMed Central)
 
@@ -121,6 +124,10 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A, B und C eingearbeite
 | L-R-24 | Schuster Brandt Frandsen et al. 2025, Br J Sports Med | PMC12421110 | Block R |
 | L-R-25 | Wagemans et al. 2022, PLoS One | PMC8824326 | Block R |
 | L-R-27 | Deng et al. 2025, Am J Sports Med | PMC12125489 | Block R, optional |
+| L-T2-22 | Refalo et al. 2023, Sports Med | PMC9935748 | Hypertrophie (D-62) |
+| L-T2-23 | Lopez et al. 2021, Med Sci Sports Exerc (mit Corrigendum 2022;54(2):370) | PMC8126497 | Hypertrophie (D-62) |
+| L-T2-24 | Lopes et al. 2019, SAGE Open Med (mit Corrigendum 2020) | PMC6383082 | CC BY-NC 4.0 (D-62) |
+| L-T2-25 | Lundberg et al. 2022, Sports Med | PMC9474354 | Hypertrophie (D-62) |
 
 ### Nur bei Bedarf
 
@@ -128,6 +135,7 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A, B und C eingearbeite
 - L-T2-19 Carrasco-Uribarren et al. 2026 (optional)
 - L-T3-05 López-Rivera & González-Badillo 2012 (nur falls L-T3-18 nicht genügt)
 - Block R (optional bzw. Kernaussage aus Abstract ausreichend): L-R-07 Visentini, L-R-09 Hernandez-Sanchez, L-R-12 Backman, L-R-15 Schiftan, L-R-18 Nielsen RØ, L-R-19 Kiers, L-R-20 Fakontis, L-R-22 Delahunt, L-R-28 Hjortshoej
+- T2 Hypertrophie (optional, D-62): L-T2-27 Schoenfeld 2019, L-T2-28 Refalo 2021, L-T2-29 Carvalho 2022, L-T2-30 Grgic 2022 (PMC9068575), L-T2-31 Wilson 2012, L-T2-32 Sabag 2018
 - optionale Bücher aus 13.4 („bei Bedarf“): L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-09, L-T3-10, L-T3-11
 
 

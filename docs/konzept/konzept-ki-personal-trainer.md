@@ -1,7 +1,7 @@
 ---
 titel: Konzept KI-Personal-Trainer – Trainingsplanung, Feedback und Garmin-Anbindung
 projekt: Personal Training & Trainingsdokumentation
-dokumentstand: 2026-09-27
+dokumentstand: 2026-09-28
 status: bestaetigt
 bestaetigt_am: 2026-09-27
 repo: chodid/training (privat, keine Lizenz)
@@ -156,7 +156,7 @@ flowchart LR
 | D-25 | Quellenhierarchie Ausdauer (T1), Konkretisierung von D-22: Systematische Reviews und Übersichtsarbeiten bilden den Kern der Wissenskarten, Lehrbücher das Fundament für Begriffe und Physiologie. Praxisquellen (Trainerbücher, Trainerbefragungen) sind zulässig, werden in Karten aber mit `quellentyp: praxisquelle` und `konfidenz: niedrig` (Bücher) bzw. `mittel` (peer-reviewte qualitative Studien mit Trainern) geführt. Jede Karte benennt unter „Grenzen" die Übertragung von Elite-/Hochleistungsdaten auf den Athleten (Freizeitsport, drei Trainingsbereiche). „Training for the Uphill Athlete" bleibt auf Wunsch des Athleten als Praxisquelle. | Aktuelle Evidenz zu Intensitätsverteilung/Periodisierung steht in Reviews; Lehrbücher tradieren teils schwach belegte Modelle. Ausschluss Weineck: Einschätzung ohne Quelle (kompilatorisch). | 2026-09-27 |
 | D-26 | Wissenskarten werden auf Deutsch verfasst (Quellen deutsch oder englisch, D-21). Beschaffung der Bücher und nicht frei verfügbaren Artikel übernimmt der Athlet. Für den Erstellungsprozess 13.1 muss jede Quelle als durchsuchbares PDF vorliegen; DRM-geschützte E-Books (z. B. VitalSource) sind ungeeignet. Formatprüfung je Titel vor dem Kauf (V-13). | Formatanforderung folgt aus 13.1 Schritt (1)–(3). Human-Kinetics-E-Books laufen über VitalSource mit DRM (festgestellt in T1 und T2). | 2026-09-27 |
 | D-27 | Zonenreferenz der Wissenskarten ist das internationale Drei-Zonen-Modell (Zone 1 ≤ LT1/VT1, Zone 2 zwischen LT1 und LT2, Zone 3 > LT2/VT2), wie in L-T1-02 und L-T1-03. In Plänen und auf der Uhr werden die fünf Garmin-Herzfrequenzzonen genutzt, definiert als %LTHR. Abbildung 3 → 5 Zonen und Grenzwerte werden in AP-07 (Regel) und AP-08 (Ausgangstests, LT1-Bestimmung) festgelegt. Das deutsche GA1/GA2/WSA-System ist keine Referenz; Neumann/Pfützner/Berbalk nur optional. | Garmin bietet fünf HF-Zonen (BPM, %HFmax, %HFR oder %LTHR, je Sportprofil); %LTHR verankert die Zonen an einer Schwelle und ist mit der Schwellendefinition der Kernquellen kompatibel; GA-Bezeichnungen existieren auf der Uhr nicht. Einschränkung: Garmin kennt nur eine Schwelle (LTHR ≈ LT2); LT1 muss separat bestimmt werden. | 2026-09-27 |
-| D-28 | Literatur Krafttraining (Geltungsbereich T2 und Kraft als Ergänzung zu T1; fingerspezifische Kraft gehört zu T3). Kernset: L-P08 (ACSM Position Stand 2026, Anker Dosierung), L-A03 (NSCA Essentials, 5. Aufl., Breite: Programmgestaltung, Testung, Technik), L-T2-03 (Schumann/Rønnestad, Concurrent Aerobic and Strength Training, Kombination Ausdauer + Kraft). Optional kapitelweise: L-T2-05 (Zatsiorsky/Kraemer/Fry), L-T2-06 (Güllich/Krüger, Sport – Lehrbuch). Zurückgestellt: L-T2-07 (Schoenfeld, Hypertrophie kein Primärziel). Weineck und Bompa nicht als Evidenzbasis. Ergänzend Primärliteratur über PubMed (V-14). | Positionspapier = aktuellste Evidenzsynthese (137 systematische Reviews, GRADE); Lehrbücher bündeln Konsens mit Verzögerung und mischen Evidenz mit Praxiserfahrung; Tokenbudget 13.1 erlaubt kein Vollprogramm. | 2026-09-27 |
+| D-28 | Literatur Krafttraining (Geltungsbereich T2 und Kraft als Ergänzung zu T1; fingerspezifische Kraft gehört zu T3). Kernset: L-P08 (ACSM Position Stand 2026, Anker Dosierung), L-A03 (NSCA Essentials, 5. Aufl., Breite: Programmgestaltung, Testung, Technik), L-T2-03 (Schumann/Rønnestad, Concurrent Aerobic and Strength Training, Kombination Ausdauer + Kraft). Optional kapitelweise: L-T2-05 (Zatsiorsky/Kraemer/Fry), L-T2-06 (Güllich/Krüger, Sport – Lehrbuch). Zurückgestellt: L-T2-07 (Schoenfeld, Hypertrophie kein Primärziel). Weineck und Bompa nicht als Evidenzbasis. Ergänzend Primärliteratur über PubMed (V-14). **Ergänzung Hypertrophie – D-62 (2026-09-28).** | Positionspapier = aktuellste Evidenzsynthese (137 systematische Reviews, GRADE); Lehrbücher bündeln Konsens mit Verzögerung und mischen Evidenz mit Praxiserfahrung; Tokenbudget 13.1 erlaubt kein Vollprogramm. | 2026-09-27 |
 | D-29 | Calisthenics ist Teil von T2. Übungskatalog mit Progressionsleitern aus L-T2-04 (Low, Overcoming Gravity, 2. Aufl. 2016), abgelegt als Abschnitt `uebungskatalog_calisthenics` in der T2-Sammeldatei, nicht als eigene Karte; Konfidenz niedrig (Praxiswissen). Dosierung (Sätze, Nähe zum Muskelversagen, Frequenz, Volumen) ausschließlich aus dem Kernset D-28. Ausgeschlossen: Wade, Convict Conditioning. | Kein wissenschaftliches Standardwerk zu Calisthenics; Progression über Hebelvarianten praktisch nicht untersucht. Belastungsprinzipien gelten unabhängig vom Widerstand (ACSM 2026 schließt Körpergewicht/Band/Heimtraining ein). Direkte Studien L-T2-08 bis L-T2-10 (per PubMed geprüft). Convict Conditioning: anonymer Autor, unbelegte Behauptungen. | 2026-09-27 |
 | D-30 | Zugübungen mit Körpergewicht (Klimmzug-Varianten, Front Lever u. ä.) werden unter T3 geplant (`session.type = klettern`, Block `zugkraft`). Calisthenics unter T2 umfasst Druckübungen, Beine und Rumpf. | Starke Überschneidung mit Kletter-Zugkraft; nur bei Zuordnung zu T3 greifen die Sequenzierungsregeln (Abschnitt 14 Kap. 2). | 2026-09-27 |
 | D-31 | Einheitliches Evidenzschema für alle Literaturblöcke: Stufe A = Paper/Konsens (konfidenz hoch), B = wissenschaftliche Lehrbücher (mittel), C = Praxisquellen (niedrig). Stufe C darf in Wissenskarten als Übungs-/Ideenfundus und mit Kennzeichnung zitiert werden, aber nie allein einen Belastungsparameter (Dosierung, Progression, Schwelle) begründen. Volltexte (Open Access und gekaufte PDFs) dürfen im privaten Repo unter `docs/literatur/` liegen, nie im Projektwissen; einzelne Dateien < 100 MB (GitHub-Grenze), große Bücher als Kapitel-PDFs. Evidenzkern T3 gemäß E6 übernommen (L-T3-01, -02, -03, -06, -08; -09 optional). Klettermedizin: englische Ausgabe 2022 (L-T3-06) bevorzugt, deutsche 2020 (L-T3-07) als Alternative. | Vereinheitlicht D-22, D-25, D-29 und die T3-Vorschläge E3–E6; bestätigt durch Athlet (Q-07, Q-08). | 2026-09-27 |
@@ -187,10 +187,11 @@ flowchart LR
 | D-56 | Begründungstexte der Planung: je Woche und Einheit ein Kurzsatz (Was und warum) und ein ausführlicher Text. Woche: `focus` (Kurzsatz, Pflicht) + `coach_notes`; Einheit: neues Feld `coach_summary` (max. 200 Zeichen, Pflicht außer `ruhe`) + `coach_rationale` (≤ 1 500 Zeichen). Anzeige: Kurzsatz bei Woche (unter der Kopfzeile) und Einheit (Seitenkopf), „mehr“ als `<details>` ohne JavaScript; nicht in der Wochenliste. Kalendertermin führt den Kurzsatz als erste Zeile (seit D-60 bei mehreren Einheiten eines Tages je Abschnitt nach der Überschrift „Typ: Titel“). Regel für den Inhalt in den Tool-Beschreibungen und in AP-07. | Wunsch des Athleten; eigene Kurzfelder statt Konvention „erster Absatz“ (Entscheidung 2026-09-28). | 2026-09-28 |
 | D-57 | Geführte Einheit (S9): `GET /einheit?id=…&modus=start` zeigt für `kraft`, `haltung`, `mobilitaet`, `klettern` dasselbe Formular wie S3 schrittweise (eine Übung je Schritt, Ist-Felder, „Als Nächstes“, Abschluss mit Rückmeldung), gespeichert einmal am Ende über `POST /einheit`. Ablaufplan aus `plan_json` serverseitig und deterministisch (Halten bei `reps` in s/min und `hang_s`, Block bei `duration_min`, sonst Wiederholungen – bei Kletterblöcken ab zwei Sätzen, sonst „offen“, E-23 im Auftrag); Automatik innerhalb einer Übung, „Weiter“ zwischen Übungen; Pausentimer nach „Satz erledigt“. Ohne JavaScript alle Schritte sichtbar. Nicht für `ausdauer` (Uhr) und `ruhe`. Details `docs/konzept/gefuehrte-einheit.md` Teil C (AP-14). | Wunsch des Athleten; Wiederverwendung von Formular, Konfliktschutz und Offline-Puffer; kein Serverzustand während des Trainings (Entscheidung 2026-09-28). | 2026-09-28 |
 | D-58 | Timer und Signale in S9: Grün nur in der Arbeitsphase, Rot in Pause/bereit/angehalten, sonst normale Farbe (Statusfarben des Design-Systems, B-08). Töne über Web Audio (Start, 30 s und 10 s vor Ende, letzte 3 s, Abschlusston) plus Vibration; Bildschirm bleibt an (Wake Lock). Stumm: Einstellung `timer_ton` in `app_setting` (S8) und Schalter in der Einheit. Zeit zeitstempelbasiert, Fortschritt im Browser (`sessionStorage`, 12 h). | Vorgabe des Athleten (Rot → Grün, Signalzeitpunkte, stummschaltbar an zwei Stellen); Grün = Arbeit, Wake Lock und Vibration am 2026-09-28 bestätigt. | 2026-09-28 |
-| D-59 | Logo-Variante (Q-14): V3 (Lama Fläche hell auf Pflaume 600) als App-Icon Android/iOS und `maskable`; V2 (Lama Fläche Pflaume 600 auf Papier) als Favicon 16/32 px, SVG-Favicon und App-Kennung in Topbar, Navigation und Login. Vorlagen in `docs/branding/mockups/icon-optionen/`. **Favicon geändert durch D-62** (V3 gerundet). | Entscheidung des Athleten, wie von Fable empfohlen: Kontrast auf dem Startbildschirm, Lesbarkeit bei 16 px, Kennung auf Papier wie bisher. | 2026-09-28 |
+| D-59 | Logo-Variante (Q-14): V3 (Lama Fläche hell auf Pflaume 600) als App-Icon Android/iOS und `maskable`; V2 (Lama Fläche Pflaume 600 auf Papier) als Favicon 16/32 px, SVG-Favicon und App-Kennung in Topbar, Navigation und Login. Vorlagen in `docs/branding/mockups/icon-optionen/`. **Favicon geändert durch D-63** (V3 gerundet). | Entscheidung des Athleten, wie von Fable empfohlen: Kontrast auf dem Startbildschirm, Lesbarkeit bei 16 px, Kennung auf Papier wie bisher. | 2026-09-28 |
 | D-60 | Ein Sammeltermin je Tag im Kalender (ändert D-50, passt D-52 an): Statt eines Termins je Einheit schreibt die App je Trainingstag einen ganztägigen Termin (Ressource `training-tag-<Datum>.ics`, feste UID je Tag; nach dem Löschen eines Tagestermins bekommt der nächste eine neue Fassung `-1`, `-2` … mit eigener UID, weil Nextcloud Gelöschtes im Papierkorb hält). Titel „Typ: Titel“ bei einer Einheit, sonst „Training: Titel 1 + Titel 2“ in Planreihenfolge; kein Status-Zeichen im Titel, der Termin wird nie abgesagt – der Status steht je Einheit in der Beschreibung. Beschreibung: alle Einheiten des Tages ohne Ruhetage, je Einheit Überschrift (bei mehreren), Kurzsatz, Kurzplan mit Priorität/Dauer/Status, Trainer-Begründung (gekürzt) und Link; der Termin verlinkt die Woche. Erinnerung einmal je Tag, solange eine Einheit geplant oder verschoben ist. Bei jeder Änderung wird der ganze Tag neu geschrieben (beim Verschieben alter und neuer Tag); Tage ohne Einheiten verlieren ihren Termin. Der Abgleich ersetzt die alten Einzeltermine im Abgleichzeitraum; ändert die App eine Einheit, entfernt sie deren Einzeltermin sofort, auch außerhalb des Zeitraums; ältere Einzeltermine unberührter Einheiten bleiben. | Wunsch des Athleten (ein Termin je Tag, übersichtlicher Kalender); Titel aus den Einheitentiteln, kein Status-Zeichen und Umfang (Unterpunkt T8, eigener Code-Stand) am 2026-09-28 gewählt. | 2026-09-28 |
 | D-61 | Neuer Literaturblock R Reha/Prävention (13.2.5), themenübergreifend zu T1 und T2, IDs L-R-nn, Wissenskarte docs/wissen/r-reha-praevention.md (Dateiname Vorschlag). Teilthemen: Patellatendinopathie (Übungstherapie, Lastdosierung, Messinstrument VISA-P), Sprunggelenksinstabilität/Rezidivprophylaxe, Laufumfang und Verletzungsrisiko. Kern: L-R-01 bis L-R-09, L-R-13 bis L-R-17, L-R-23 bis L-R-25. Optional: L-R-10 bis L-R-12, L-R-18 bis L-R-22, L-R-26 bis L-R-28. Planungsfolgen (in AP-07 als Regeln auszuformulieren, nicht hier entschieden): (a) Sehnentraining: progressive Belastung, Lasthöhe moderat bis schwer gleichwertig; 1 Trainingstag/Woche als Einzelstudienbefund (TEREX) kennzeichnen; (b) Isometrik als verträglicher Einstieg, nicht als überlegene Schmerztherapie; (c) Sprunggelenk: neuromuskuläres/Balance-Training zur Rezidivprophylaxe; Dosis nach Tang gilt für Funktion/Balance, nicht für Rezidivschutz; Gerätetyp zweitrangig; (d) Laufprogression: Einzellauf-Spitzen statt Wochenprozent (→ Q-15); (e) Karte führt unter „Grenzen": Übungstherapie vs. keine Behandlung laut Cochrane sehr unsicher (L-R-23); Dorsalextension als Risikofaktor nur begrenzt/widersprüchlich belegt (L-R-11). | Begründung in den Einträgen 13.2.5 und im Prüfprotokoll AP-06. Bestätigt durch Athlet (Literatur-Sitzung AP-06 Teil C; dort als D-39 vergeben, wegen Kollision umnummeriert). | 2026-09-28 |
-| D-62 | Favicon gerundet (ändert D-59 für das Favicon): Im Browser-Tab steht V3 (Lama hell auf Pflaume 600) mit um 22 % gerundeten, transparenten Ecken (SVG, PNG 32/48/96, `favicon.ico` 16/32/48; Vorlage `icon-optionen/v3-favicon.svg`). Startbildschirm-Icons (PNG 192/512 `any`, 512 `maskable`, `apple-touch-icon` 180) bleiben eckig; App-Kennung in Topbar, Navigation und Login bleibt wie in D-59. | Wunsch des Athleten („so eckig sieht es nicht so gut aus“), Varianten im Vergleich gewählt (C mittel statt leicht oder Kreis; Kreis schneidet Ohren und Beine an). V3 statt V2, weil der Papiergrund im hellen Tab verschwindet und Firefox ohnehin die V3-PNGs zeigte. Launcher (Android, iOS) schneiden selbst zu; iOS färbt Transparenz schwarz. | 2026-09-28 |
+| D-62 | Literatur Muskelhypertrophie als Ergänzung zu T2. D-28 bleibt unverändert: Hypertrophie ist kein Primärziel, L-T2-07 bleibt zurückgestellt. Schwerpunkte: Dosierung, Heimtraining mit leichten Lasten und Band, Interferenz mit Ausdauer; Ernährung ist nicht im Umfang. Kern: L-T2-20 bis L-T2-26. Optional: L-T2-27 bis L-T2-32. Planungsfolgen (in AP-07 als Regeln auszuformulieren, nicht hier entschieden): (a) Das Wochenvolumen je Muskelgruppe ist der Haupthebel für Hypertrophie, mit abnehmendem Grenznutzen; die Frequenz ist für Hypertrophie nachrangig, für Kraft wirksam (L-T2-20). (b) Sätze nahe am Muskelversagen beenden; Training bis zum Versagen bringt allenfalls trivialen Zusatznutzen (L-T2-21, L-T2-22). (c) Leichte Lasten wirken hypertrophiewirksam, wenn die Sätze nahe ans Versagen gehen; Maximalkraft braucht höhere Lasten bzw. schwerere Varianten (L-T2-23; Band bei Kraft gleichwertig L-T2-24; Calisthenics D-29). (d) Interferenz: Die Hypertrophie des ganzen Muskels ist im kombinierten Training nicht beeinträchtigt (L-T2-26). Auf Faserebene gibt es einen kleinen Nachteil, vorläufig ausgeprägter mit Laufen (L-T2-25) und mit HIIT im Ausdauerteil (L-T2-26). (e) Die Karte führt unter „Grenzen“: Für Hypertrophie mit Band oder Kettlebell bei gesunden Erwachsenen wurde keine Metaanalyse gefunden; die Übertragung über L-T2-23 ist ein Schluss (Kennzeichnung „Einschätzung“, D-13). L-T2-21 ist explorativ mit geschätzten RIR. Die Befunde zur Modalität sind widersprüchlich (L-T2-25/L-T2-31 vs. L-T2-32). | Anfrage des Athleten nach Hypertrophie-Literatur. L-P08 bleibt Anker; die Ergänzung liefert Dosis-Wirkungs-Befunde und die im Plan relevanten Sonderfragen (leichte Lasten im Heimtraining, Kombination mit Trailrunning). Bibliografie per PubMed geprüft. Bestätigt durch Athlet (Literatur-Sitzung AP-06 Teil D). | 2026-09-28 |
+| D-63 | Favicon gerundet (ändert D-59 für das Favicon): Im Browser-Tab steht V3 (Lama hell auf Pflaume 600) mit um 22 % gerundeten, transparenten Ecken (SVG, PNG 32/48/96, `favicon.ico` 16/32/48; Vorlage `icon-optionen/v3-favicon.svg`). Startbildschirm-Icons (PNG 192/512 `any`, 512 `maskable`, `apple-touch-icon` 180) bleiben eckig; App-Kennung in Topbar, Navigation und Login bleibt wie in D-59. | Wunsch des Athleten („so eckig sieht es nicht so gut aus“), Varianten im Vergleich gewählt (C mittel statt leicht oder Kreis; Kreis schneidet Ohren und Beine an). V3 statt V2, weil der Papiergrund im hellen Tab verschwindet und Firefox ohnehin die V3-PNGs zeigte. Launcher (Android, iOS) schneiden selbst zu; iOS färbt Transparenz schwarz. | 2026-09-28 |
 
 # 5. Offene Fragen und Verifikationen
 
@@ -234,6 +235,7 @@ flowchart LR
 | V-13 | Format und Kopierschutz je Titel vor Beschaffung (D-26): Human-Kinetics-Titel (L-A01, L-A03, L-T1-07, L-T2-05, L-T2-07) laufen über VitalSource mit DRM → Print oder anderer Anbieter; Springer-Titel (L-A02, L-T2-03, L-T2-06, L-T3-06/07) kapitelweise als PDF über SpringerLink bzw. Bibliothekszugang; L-T2-04 (Low) Digitalausgabe PDF/ePUB beim Autor prüfen; L-T1-01, L-T1-08, L-T3-08 PDF-Verfügbarkeit prüfen. Stand 2026-09-28: als durchsuchbares PDF vorhanden L-A01 (7. Aufl., vorläufig), L-A02 (2. Aufl. 2025), L-A03, L-T1-08 (Scan), L-T2-03, L-T2-04 (Scan, Texterkennung fehlerhaft), L-T3-06; offen L-T1-01, L-T1-07, L-T3-08 sowie die 8./9. Aufl. von L-A01. | AP-06 | teilweise |
 | V-14 | PubMed-Verifikation Kraftliteratur: Rønnestad & Mujika 2014 (Scand J Med Sci Sports) und Blagrove et al. 2018 (Sports Med) → L-T2-11, L-T2-12. ACSM 2026 und Schumann 2022 bereits verifiziert als L-P08 und L-P07. | AP-06 | erledigt 2026-09-28 (L-T2-11, L-T2-12 verifiziert) |
 | V-15 | Bibliografische Vervollständigung T3: L-T3-03 (Band, Lizenz – erledigt 2026-09-28: Bd. 5, Art. 1130812, CC BY laut Volltext), L-T3-04 (Band, Seiten, DOI, Zugang), L-T3-05 (Titel, Journal, Band, Seiten, DOI), L-T3-07 (ISBN), L-T3-08 (aktuelle Auflage/ISBN), L-T3-09 (Jahr), L-T3-12 (Jahr, Auflage, ISBN); Kernaussagen L-T3-02 am Original statt Sekundärzitat prüfen (Original liegt seit 2026-09-28 vor). | AP-06 | weitgehend erledigt 2026-09-28: L-T3-03, -04, -05, -07, -09 verifiziert; L-T3-02 Kernaussagen am Abstract korrigiert. Rest: L-T3-02 Wiederholungsbereiche am Volltext (liegt vor), L-T3-08 ISBN/aktuelle Auflage, L-T3-12 Auflage |
+| V-16 | Redundanz der Hypertrophie-Ergänzung zu L-P08: Am Volltext von L-P08 (eingeschlossene Reviews) prüfen, ob L-T2-20, L-T2-22 und L-T2-23 dort enthalten sind. L-T2-20 erschien online 12/2025, L-P08 im Heft 58(4) 2026. Sind sie enthalten, zitiert die Karte L-P08 als Anker und die Einzelarbeiten nur für Zahlen und Dosis-Wirkung; sonst jeweils eine eigene Kernaussage. Zusätzlich das Corrigendum zu L-T2-23 sichten (Inhalt nicht geprüft). | AP-06 | offen |
 
 # 6. Betriebsablauf (Wochenzyklus)
 
@@ -799,9 +801,9 @@ Optional (nur bei Bedarf und Tokenbudget):
   verifikation: teilweise (Verlagsleseprobe)
 ```
 
-### 13.2.3 T2 Kraft/Haltung (Block Kraft/Calisthenics bestätigt 2026-09-27; Haltung/Rücken bestätigt 2026-09-28, D-54)
+### 13.2.3 T2 Kraft/Haltung (Block Kraft/Calisthenics bestätigt 2026-09-27; Haltung/Rücken bestätigt 2026-09-28, D-54; Hypertrophie-Ergänzung bestätigt 2026-09-28, D-62)
 
-Kernset und Regeln in D-28 bis D-30; Haltung/Rücken in D-54.
+Kernset und Regeln in D-28 bis D-30; Haltung/Rücken in D-54; Hypertrophie-Ergänzung in D-62 (D-28 unverändert).
 
 ```yaml
 - id: L-T2-01
@@ -856,8 +858,13 @@ Kernset und Regeln in D-28 bis D-30; Haltung/Rücken in D-54.
   status: zurueckgestellt
   stufe: B
   typ: lehrbuch
-  zitat: "Schoenfeld BJ. Science and Development of Muscle Hypertrophy. Human Kinetics."
-  zweck: Hypertrophie (kein Primärziel); falls benötigt 3. Aufl., Erscheinen angekündigt 23.10.2026
+  zitat: "Schoenfeld BJ. Science and Development of Muscle Hypertrophy. 3. Aufl. Champaign, IL: Human Kinetics; ©2027."
+  isbn: 9781718258839 (Hardback, 368 S.), 9781718258846 (E-Book epub, 344 S.); 2. Aufl. 2021 – 978-1-4925-9767-4
+  sprache: en
+  zweck: Hypertrophie (kein Primärziel, D-28); bleibt auch nach der Ergänzung D-62 zurückgestellt
+  erscheinen: laut Verlagsseite Human Kinetics (US) 23.10.2026; ein australischer Vertrieb nennt lokal 23.01.2027
+  zugang: Kauf nur bei Aktivierung; epub-Format und DRM vor Kauf prüfen (D-26, V-13)
+  verifikation: Verlagsseite Human Kinetics und Händlerkatalog 2026-09-28; 2. Aufl. Bibliothekskatalog
 - id: L-T2-08
   status: verifiziert
   datei: t2-kraft/L-T2-08_Kotarsky-2018_Progressive-Push-up-Training.pdf
@@ -988,7 +995,203 @@ Kernset und Regeln in D-28 bis D-30; Haltung/Rücken in D-54.
   verifikation: PubMed 2026-09-28
 ```
 
+Hypertrophie-Ergänzung (D-62): Alle Einträge per PubMed verifiziert am 2026-09-28; Kernaussagen aus den Abstracts, Prüfung am Volltext in der Kartensitzung (13.1 Schritt 3).
+
+Kern – Dosierung:
+
+```yaml
+- id: L-T2-20
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_metaregression
+  zitat: "Pelland JC, Remmert JF, Robinson ZP, Hinson SR, Zourdos MC. The Resistance Training Dose Response: Meta-Regressions Exploring the Effects of Weekly Volume and Frequency on Muscle Hypertrophy and Strength Gains. Sports Med. 2026;56(2):481-505."
+  doi: 10.1007/s40279-025-02344-w
+  pmid: "41343037"
+  zugang: kein PMC-Volltext → Beschaffung
+  themenfelder: [hypertrophie, volumen, frequenz]
+  kernaussagen_abstract: "67 Studien, 2 058 Teilnehmende (79 % Männer, im Mittel 25 Jahre). Muskelgröße und Kraft steigen mit dem wöchentlichen Satzvolumen, jeweils mit abnehmendem Grenznutzen (bei Kraft deutlich stärker). Für Hypertrophie ist die Frequenz mit einem vernachlässigbaren Effekt vereinbar; die Kraft steigt mit der Frequenz. Indirekte Sätze werden am besten als halber Satz gezählt („fraktional“)."
+  rolle: Dosis-Wirkung Volumen und Frequenz (D-62 a)
+  hinweis: Online-Vorabveröffentlichung 12/2025, Heft 2026 – Zitierjahr 2026; Population überwiegend junge Männer; möglicherweise in L-P08 enthalten (V-16)
+  verifikation: PubMed 2026-09-28
+- id: L-T2-21
+  status: ausgewaehlt
+  stufe: A
+  typ: metaregression
+  konfidenz: mittel – explorativ, RIR aus Studienbeschreibungen geschätzt, mäßige Modellgüte
+  zitat: "Robinson ZP, Pelland JC, Remmert JF, Refalo MC, Jukic I, Steele J, Zourdos MC. Exploring the Dose-Response Relationship Between Estimated Resistance Training Proximity to Failure, Strength Gain, and Muscle Hypertrophy: A Series of Meta-Regressions. Sports Med. 2024;54(9):2209-2231."
+  doi: 10.1007/s40279-024-02069-2
+  pmid: "38970765"
+  zugang: kein PMC-Volltext → Beschaffung
+  themenfelder: [hypertrophie, naehe_muskelversagen]
+  kernaussagen_abstract: "Die Hypertrophie nimmt zu, je näher am Muskelversagen die Sätze enden (negative Steigung für RIR, Konfidenzintervall ohne Null). Der Kraftzuwachs ist über einen weiten RIR-Bereich ähnlich. Die Modelle sind adjustiert für Last, Art des Volumenausgleichs, Dauer und Trainingsstatus."
+  rolle: Dosis-Wirkung Nähe zum Muskelversagen (D-62 b)
+  verifikation: PubMed 2026-09-28
+- id: L-T2-22
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Refalo MC, Helms ER, Trexler ET, Hamilton DL, Fyfe JJ. Influence of Resistance Training Proximity-to-Failure on Skeletal Muscle Hypertrophy: A Systematic Review with Meta-analysis. Sports Med. 2023;53(3):649-665."
+  doi: 10.1007/s40279-022-01784-y
+  pmid: "36334240"
+  pmcid: PMC9935748
+  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (© Autoren)
+  themenfelder: [hypertrophie, naehe_muskelversagen]
+  kernaussagen_abstract: "15 Studien. Satzversagen (jede Definition) gegenüber keinem Versagen bringt einen trivialen Vorteil (ES 0,19; 95%-KI 0,00–0,37), unabhängig von Volumenlast und relativer Last. Momentanes Muskelversagen gegenüber keinem Versagen bringt keinen Vorteil (ES 0,12; −0,13 bis 0,37). Hohe (> 25 %) und moderate (20–25 %) Geschwindigkeitsverlustschwellen unterscheiden sich nicht. Die Autoren sehen Hinweise auf eine nichtlineare Beziehung."
+  rolle: Versagen nicht nötig (D-62 b)
+  hinweis: Online 11/2022, Heft 2023 – Zitierjahr 2023; möglicherweise in L-P08 enthalten (V-16)
+  verifikation: PubMed 2026-09-28
+```
+
+Kern – Heimtraining mit leichten Lasten und Band:
+
+```yaml
+- id: L-T2-23
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_netzwerk_metaanalyse
+  zitat: "Lopez P, Radaelli R, Taaffe DR, Newton RU, Galvão DA, Trajano GS, Teodoro JL, Kraemer WJ, Häkkinen K, Pinto RS. Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis. Med Sci Sports Exerc. 2021;53(6):1206-1216."
+  doi: 10.1249/MSS.0000000000002585
+  pmid: "33433148"
+  pmcid: PMC8126497
+  corrigendum: "Med Sci Sports Exerc. 2022;54(2):370. PMID 35029596, DOI 10.1249/MSS.0000000000002838 – Inhalt nicht geprüft (V-16)"
+  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (© Autoren)
+  themenfelder: [hypertrophie, last, maximalkraft]
+  kernaussagen_abstract: "28 Studien, 747 gesunde Erwachsene, nur Sätze bis zum willentlichen Versagen. Die Hypertrophie unterscheidet sich nicht zwischen niedriger (> 15 RM), mittlerer (9–15 RM) und hoher Last (≤ 8 RM). Die Kraft steigt bei hoher und mittlerer Last stärker als bei niedriger (SMD 0,60–0,63 bzw. 0,34–0,35). Untrainierte zeigen größere Hypertrophie."
+  rolle: Hauptbeleg für leichte Lasten im Heimtraining unter der Voraussetzung, dass die Sätze nahe ans Versagen gehen (D-62 c); Übertragung auf Band/Kettlebell ist ein Schluss (D-62 e)
+  hinweis: möglicherweise in L-P08 enthalten (V-16)
+  verifikation: PubMed 2026-09-28
+- id: L-T2-24
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Lopes JSS, Machado AF, Micheletti JK, de Almeida AC, Cavina AP, Pastre CM. Effects of training with elastic resistance versus conventional resistance on muscular strength: A systematic review and meta-analysis. SAGE Open Med. 2019;7:2050312119831116."
+  doi: 10.1177/2050312119831116
+  pmid: "30815258"
+  pmcid: PMC6383082
+  corrigendum: "SAGE Open Med. 2020;8:2050312120961220. PMID 32953119, DOI 10.1177/2050312120961220 – das PubMed-Abstract enthält die korrigierten Werte"
+  zugang: Open Access, CC BY-NC 4.0 (PMC) – Volltext im Repo zulässig (D-31)
+  themenfelder: [elastischer_widerstand, maximalkraft]
+  kernaussagen_abstract: "8 Studien, Suche bis 12/2017, verschiedene Populationen. Elastischer Widerstand (Schläuche, TheraBand) und Geräte/Hanteln unterscheiden sich nicht bei der Kraft der unteren (SMD −0,11; −0,40 bis 0,19) und der oberen Extremität (SMD 0,09; −0,18 bis 0,35)."
+  grenze: nur Kraft, keine Hypertrophie-Endpunkte
+  rolle: Band ist für Kraft gleichwertig (D-62 c)
+  verifikation: PubMed 2026-09-28; Lizenz über PMC
+```
+
+Kern – Interferenz mit Ausdauer:
+
+```yaml
+- id: L-T2-25
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Lundberg TR, Feuerbacher JF, Sünkeler M, Schumann M. The Effects of Concurrent Aerobic and Strength Training on Muscle Fiber Hypertrophy: A Systematic Review and Meta-Analysis. Sports Med. 2022;52(10):2391-2403."
+  doi: 10.1007/s40279-022-01688-x
+  pmid: "35476184"
+  pmcid: PMC9474354
+  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (© Autoren)
+  themenfelder: [interferenz, faserhypertrophie]
+  kernaussagen_abstract: "15 Studien, kombiniertes Training gegenüber Krafttraining allein. Faserhypertrophie gesamt SMD −0,23 (95%-KI −0,46 bis −0,00; p = 0,050); Typ I −0,34 und Typ II −0,13 (beide n. s.). Nachteil bei Typ-I-Fasern, wenn die Ausdauer gelaufen wird (SMD −0,81; −1,26 bis −0,36), nicht bei Radfahren. Frequenz, Trainingsstatus, Trainingsmodalität und Reihenfolge machen keinen Unterschied."
+  konfidenz: hoch für den Gesamtbefund; Subgruppe Laufen laut Autoren vorläufig
+  bezug: gleiche Arbeitsgruppe wie L-P07; ergänzt deren Befunde zum ganzen Muskel um die Faserebene
+  rolle: Interferenz, relevant für Trailrunning (D-62 d)
+  verifikation: PubMed 2026-09-28
+- id: L-T2-26
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  konfidenz: mittel – auch nicht randomisierte Studien eingeschlossen
+  zitat: "Monserdà-Vilaró A, Balsalobre-Fernández C, Hoffman JR, Alix-Fages C, Jiménez SL. Effects of Concurrent Resistance and Endurance Training Using Continuous or Intermittent Protocols on Muscle Hypertrophy: Systematic Review With Meta-Analysis. J Strength Cond Res. 2023;37(3):688-709."
+  doi: 10.1519/JSC.0000000000004304
+  pmid: "36508686"
+  zugang: kein PMC-Volltext → Beschaffung
+  themenfelder: [interferenz, faserhypertrophie, hypertrophie]
+  kernaussagen_abstract: "25 Studien (randomisiert und nicht randomisiert). Beim ganzen Muskel kein Unterschied zwischen Krafttraining allein und kombiniertem Training (SMD < 0,03). Faserhypertrophie Typ I und II größer bei Krafttraining allein, wenn der Ausdauerteil nur HIIT (SMD > 0,33) oder HIIT plus kontinuierliche Ausdauer (SMD > 0,27) enthält, nicht bei nur kontinuierlicher Ausdauer (SMD < 0,16)."
+  rolle: Interferenz abhängig von der Ausdauerform (D-62 d)
+  hinweis: Online 11/2022, Heft 2023 – Zitierjahr 2023
+  verifikation: PubMed 2026-09-28
+```
+
+Optional:
+
+```yaml
+- id: L-T2-27
+  status: optional
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Schoenfeld BJ, Grgic J, Krieger J. How many times per week should a muscle be trained to maximize muscle hypertrophy? A systematic review and meta-analysis of studies examining the effects of resistance training frequency. J Sports Sci. 2019;37(11):1286-1295."
+  doi: 10.1080/02640414.2018.1555906
+  pmid: "30558493"
+  zugang: kein PMC-Volltext
+  themenfelder: [hypertrophie, frequenz]
+  kernaussagen_abstract: "25 Studien. Bei gleichem Volumen kein relevanter Frequenzeffekt auf die Hypertrophie, auch bei Trainierten und getrennt für Ober- und Unterkörper. Ohne Volumenausgleich moderater Vorteil höherer Frequenz (1 vs. ≥ 3 Tage/Woche)."
+  hinweis: Online 12/2018, Heft 2019; durch L-T2-20 weitgehend abgedeckt
+  verifikation: PubMed 2026-09-28
+- id: L-T2-28
+  status: optional
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Refalo MC, Hamilton DL, Paval DR, Gallagher IJ, Feros SA, Fyfe JJ. Influence of resistance training load on measures of skeletal muscle hypertrophy and improvements in maximal strength and neuromuscular task performance: A systematic review and meta-analysis. J Sports Sci. 2021;39(15):1723-1745."
+  doi: 10.1080/02640414.2021.1898094
+  pmid: "33874848"
+  zugang: kein PMC-Volltext
+  themenfelder: [hypertrophie, faserhypertrophie, last, maximalkraft]
+  kernaussagen_abstract: "45 Studien. Höhere (> 60 % 1RM bzw. < 15 RM) und niedrigere Last führen zu ähnlicher Hypertrophie auf Ganzkörper-, Ganzmuskel- und Faserebene. Höhere Last ist besser für 1RM- und isometrische Kraft; der Vorteil bei 1RM ist bei Jüngeren größer."
+  zweck: Ergänzung zu L-T2-23 (mehr Studien, Faserebene)
+  verifikation: PubMed 2026-09-28
+- id: L-T2-29
+  status: optional
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Carvalho L, Junior RM, Barreira J, Schoenfeld BJ, Orazem J, Barroso R. Muscle hypertrophy and strength gains after resistance training with different volume-matched loads: a systematic review and meta-analysis. Appl Physiol Nutr Metab. 2022;47(4):357-368."
+  doi: 10.1139/apnm-2021-0515
+  pmid: "35015560"
+  zugang: kein PMC-Volltext
+  themenfelder: [hypertrophie, last, maximalkraft]
+  kernaussagen_abstract: "Bei gleicher Volumenlast (Sätze × Wiederholungen × Gewicht) kein Unterschied in der Hypertrophie zwischen sehr niedriger, niedriger, mittlerer und hoher Last; 1RM bei hoher Last besser."
+  zweck: Last bei gleichem Volumen (Gegenstück zu L-T2-23 mit Versagen)
+  verifikation: PubMed 2026-09-28
+- id: L-T2-30
+  status: optional
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Grgic J, Schoenfeld BJ, Orazem J, Sabol F. Effects of resistance training performed to repetition failure or non-failure on muscular strength and hypertrophy: A systematic review and meta-analysis. J Sport Health Sci. 2022;11(2):202-211."
+  doi: 10.1016/j.jshs.2021.01.007
+  pmid: "33497853"
+  pmcid: PMC9068575
+  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (Elsevier)
+  themenfelder: [hypertrophie, naehe_muskelversagen]
+  kernaussagen_abstract: "15 Studien, junge Erwachsene. Versagen und kein Versagen unterscheiden sich nicht bei Kraft (ES −0,09) und Hypertrophie (ES 0,22; −0,11 bis 0,55). Ohne Volumenausgleich Kraftvorteil ohne Versagen. Bei Trainierten kleiner Hypertrophievorteil mit Versagen (ES 0,15)."
+  hinweis: Online 01/2021, Heft 2022
+  verifikation: PubMed 2026-09-28
+- id: L-T2-31
+  status: optional
+  stufe: A
+  typ: metaanalyse
+  zitat: "Wilson JM, Marin PJ, Rhea MR, Wilson SM, Loenneke JP, Anderson JC. Concurrent training: a meta-analysis examining interference of aerobic and resistance exercises. J Strength Cond Res. 2012;26(8):2293-2307."
+  doi: 10.1519/JSC.0b013e31823a3e2d
+  pmid: "22002517"
+  zugang: kein PMC-Volltext
+  themenfelder: [interferenz, hypertrophie]
+  kernaussagen_abstract: "21 Studien, 422 Effektstärken. Laufen, nicht Radfahren, geht mit Einbußen bei Hypertrophie und Kraft einher. Frequenz und Dauer der Ausdauer sind negativ mit Hypertrophie, Kraft und Schnellkraft korreliert."
+  hinweis: älter; durch L-P07, L-P09 und L-T2-25 im Wesentlichen abgelöst
+  verifikation: PubMed 2026-09-28
+- id: L-T2-32
+  status: optional
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Sabag A, Najafi A, Michael S, Esgin T, Halaki M, Hackett D. The compatibility of concurrent high intensity interval training and resistance training for muscular strength and hypertrophy: a systematic review and meta-analysis. J Sports Sci. 2018;36(21):2472-2483."
+  doi: 10.1080/02640414.2018.1464636
+  pmid: "29658408"
+  zugang: kein PMC-Volltext
+  themenfelder: [interferenz, hypertrophie, maximalkraft]
+  kernaussagen_abstract: "HIIT plus Krafttraining gegenüber Kraft allein: ähnliche Hypertrophie und Oberkörperkraft, geringerer Zuwachs der Unterkörperkraft (ES −0,248). Trend zu stärkerem Nachteil bei Rad-HIIT (ES −0,377; p = 0,074) als bei Lauf-HIIT."
+  hinweis: Die Richtung des Modalitätsbefunds widerspricht L-T2-25 und L-T2-31 (D-62 e)
+  verifikation: PubMed 2026-09-28
+```
+
 Themenfeld-Vokabular T2 Haltung/Rücken (für Karten): haltung, vorkopfhaltung, kyphose, kraeftigung, dehnung, rumpf, praevention_kreuzschmerz.
+
+Themenfeld-Vokabular T2 Hypertrophie (für Karten): hypertrophie, faserhypertrophie, volumen, frequenz, naehe_muskelversagen, last, maximalkraft, elastischer_widerstand, interferenz.
 
 ### 13.2.4 T3 Klettern/Bouldern (Block bestätigt 2026-09-27; E1/E2 bestätigt, E3–E6 → D-31)
 
@@ -1559,6 +1762,26 @@ Themenfeld-Vokabular R (für Karten und Datenmodell): patellasehne, progressive_
   grund: Randthemen, überwiegend niedrige Evidenzqualität; Tokenbudget 13.1
 - werk: "Breda SJ, et al. J Sci Med Sport. 2022;25(5):372-378; Fendri T, et al. J ISAKOS. 2026;18:101105; López-Royo MP, et al. 2021/2024; Herrero C, et al. 2024 (PRP)"
   grund: Nebenfragen (Sehnensteifigkeit, Nadelverfahren, PRP) ohne Planungsrelevanz
+- werk: "Schoenfeld BJ, Grgic J, Ogborn D, Krieger JW. Strength and Hypertrophy Adaptations Between Low- vs. High-Load Resistance Training: A Systematic Review and Meta-analysis. J Strength Cond Res. 2017;31(12):3508-3523. DOI 10.1519/JSC.0000000000002200"
+  grund: durch L-T2-23 (Netzwerk-Metaanalyse 2021) und L-T2-28 abgedeckt
+- werk: "Schoenfeld BJ, Ogborn D, Krieger JW. Effects of Resistance Training Frequency on Measures of Muscle Hypertrophy. Sports Med. 2016;46(11):1689-1697. DOI 10.1007/s40279-016-0543-8"
+  grund: 10 Studien; durch L-T2-27 (2019) und L-T2-20 (2026) überholt
+- werk: "Vieira AF, et al. Effects of Resistance Training Performed to Failure or Not to Failure on Muscle Strength, Hypertrophy, and Power Output. J Strength Cond Res. 2021;35(4):1165-1175. DOI 10.1519/JSC.0000000000003936"
+  grund: durch L-T2-22 und L-T2-30 abgedeckt
+- werk: "Grgic J. The Effects of Low-Load Vs. High-Load Resistance Training on Muscle Fiber Hypertrophy: A Meta-Analysis. J Hum Kinet. 2020;74:51-58. DOI 10.2478/hukin-2020-0013"
+  grund: 10 Studiengruppen, sehr weite Intervalle; durch L-T2-23 und L-T2-28 abgedeckt
+- werk: "de Oliveira PA, et al. Effects of Elastic Resistance Exercise on Muscle Strength and Functional Performance in Healthy Adults. J Phys Act Health. 2017;14(4):317-327. DOI 10.1123/jpah.2016-0415"
+  grund: 5 Studien; durch L-T2-24 (8 Studien) abgedeckt
+- werk: "Moesgaard L, et al. Effects of Periodization on Strength and Muscle Hypertrophy in Volume-Equated Resistance Training Programs. Sports Med. 2022;52(7):1647-1666. DOI 10.1007/s40279-021-01636-1"
+  grund: Periodisierungsfrage ohne Hypertrophie-Effekt; Kontroverse durch L-P01, L-P02, L-P08 abgedeckt
+- werk: "Hickmott LM, et al. The Effect of Load and Volume Autoregulation on Muscular Strength and Hypertrophy. Sports Med Open. 2022;8(1):9. DOI 10.1186/s40798-021-00404-9"
+  grund: Autoregulation über RPE/Geschwindigkeit; Nebenfrage ohne Planungsrelevanz für die Ergänzung
+- werk: "Metaanalysen zu Blutflussrestriktion im Vergleich zu hoher Last (Chang 2024, Life, DOI 10.3390/life14111442; Geng 2024, Sports Med Open, DOI 10.1186/s40798-024-00719-3; Fabero-Garrido 2022, J Clin Med, DOI 10.3390/jcm11247389)"
+  grund: Methode mit Manschetten, außerhalb des Schwerpunkts leichte Lasten/Band; Blutflussrestriktion bei Patellasehne bereits als L-R-28 geführt
+- werk: "Metaanalysen an Älteren, Gebrechlichen oder Patienten zu Volumen, Frequenz, Band und Heimtraining (Radaelli 2024, Sports Med, DOI 10.1007/s40279-024-02123-z; Kneffel 2021, J Sports Sci, DOI 10.1080/02640414.2020.1822595; Nunes 2024, Arch Gerontol Geriatr, DOI 10.1016/j.archger.2024.105474; Zhao 2022, IJERPH, DOI 10.3390/ijerph192315491; Meng 2025, Front Sports Act Living, DOI 10.3389/fspor.2025.1649305; Puelles-Diaz 2026, Rehabilitacion, DOI 10.1016/j.rh.2026.100961; Zhu 2026, Front Public Health, DOI 10.3389/fpubh.2026.1910792; Costa 2023, J Aging Phys Act, DOI 10.1123/japa.2022-0221)"
+  grund: Population (Ältere, Gebrechliche, Typ-2-Diabetes); Übertragung auf den Athleten eingeschränkt
+- werk: "Ferraro-Farro D, et al. Does Sprint Interval Training Cause Interference in Concurrent Training? Int J Sports Med. 2026;47(10):747-759. DOI 10.1055/a-2820-4527"
+  grund: Hypertrophie im Abstract ohne gepooltes Ergebnis; Nebenthema
 hinweis: Auflagen der nicht aufgenommenen Werke wurden nicht geprüft.
 ```
 
@@ -1600,8 +1823,11 @@ Formatprüfung je Titel vor dem Kauf (V-13). Alle Blöcke sind bestätigt (D-31)
 | 2 | R | L-R-03 Agergaard 2021, L-R-26 Doherty 2017 | Artikel | PDF | nicht in PMC | offen |
 | frei | R | L-R-01, -04, -05, -06, -10, -11, -14, -16, -17, -21, -23, -24, -25, -27 | – | PDF aus PMC | Lizenzen vor Ablage im Repo prüfen (D-31) | offen |
 | bei Bedarf | R | L-R-07, -09, -12, -15, -18, -19, -20, -22, -28 | Artikel | PDF | optional bzw. Kernaussage aus Abstract ausreichend | – |
+| 2 | T2 | L-T2-20 Pelland 2026, L-T2-21 Robinson 2024 (Sports Med), L-T2-26 Monserdà-Vilaró 2023 (JSCR) | Artikel | PDF | nicht in PMC → Bibliothekszugang | offen |
+| frei | T2 | L-T2-22 Refalo 2023, L-T2-23 Lopez 2021 (mit Corrigendum), L-T2-24 Lopes 2019 (mit Corrigendum), L-T2-25 Lundberg 2022 | – | PDF aus PMC | L-T2-24 CC BY-NC 4.0; übrige ohne Lizenzangabe → vor Ablage im Repo prüfen (D-31) | offen |
+| bei Bedarf | T2 | L-T2-27 bis L-T2-32 | Artikel | PDF | optional; L-T2-30 in PMC | – |
 
-Stand 2026-09-28: 36 Volltexte vorhanden (D-51), Verzeichnis in `docs/literatur/README.md`. Offen sind 4 Bücher (L-T1-01, L-T1-07, L-T3-08 sowie L-A01 in 8./9. Aufl.), 7 Artikel ohne freien Zugang (L-T2-10, L-T2-11, L-R-02, L-R-03, L-R-08, L-R-13, L-R-26; dazu L-T3-05 nur bei Bedarf) und 19 frei verfügbare Artikel (L-P11, L-T2-12, L-T2-15, L-T2-16, L-T3-18 sowie 14 aus Block R). Block R „bei Bedarf“: 9 Titel.
+Stand 2026-09-28: 36 Volltexte vorhanden (D-51), Verzeichnis in `docs/literatur/README.md`. Offen sind 4 Bücher (L-T1-01, L-T1-07, L-T3-08 sowie L-A01 in 8./9. Aufl.), 10 Artikel ohne freien Zugang (L-T2-10, L-T2-11, L-T2-20, L-T2-21, L-T2-26, L-R-02, L-R-03, L-R-08, L-R-13, L-R-26; dazu L-T3-05 nur bei Bedarf) und 23 frei verfügbare Artikel (L-P11, L-T2-12, L-T2-15, L-T2-16, L-T2-22 bis L-T2-25, L-T3-18 sowie 14 aus Block R). Block R „bei Bedarf“: 9 Titel; T2 Hypertrophie „bei Bedarf“: 6 Titel.
 
 # 14. Trainerregeln (Struktur; Inhalte in AP-07)
 
@@ -1911,16 +2137,16 @@ probleme_loesungen:
 
 - **Ziel:** Literaturauswahl je Block, Beschaffung, Wissenskarten gemäß 13.1.
 - **Umfang:**
-  1. Literaturblöcke: übergreifend (bestätigt), T1 Ausdauer (bestätigt), T2 Kraft/Calisthenics (bestätigt) und Haltung/Rücken (bestätigt, D-54), T3 Klettern/Bouldern (bestätigt; E3–E6 → D-31), R Reha/Prävention (bestätigt, D-61: Patellasehne, Sprunggelenk, Laufumfang). Regel für weitere Sitzungen: aktuelle Konzeptfassung laden, Übergabedokument liefern, Konzept nicht direkt editieren.
+  1. Literaturblöcke: übergreifend (bestätigt), T1 Ausdauer (bestätigt), T2 Kraft/Calisthenics (bestätigt), Haltung/Rücken (bestätigt, D-54) und Hypertrophie-Ergänzung (bestätigt, D-62), T3 Klettern/Bouldern (bestätigt; E3–E6 → D-31), R Reha/Prävention (bestätigt, D-61: Patellasehne, Sprunggelenk, Laufumfang). Regel für weitere Sitzungen: aktuelle Konzeptfassung laden, Übergabedokument liefern, Konzept nicht direkt editieren.
   2. Beschaffung nach 13.4 (Athlet, D-26); Formatprüfung je Titel (V-13).
   3. Kartenzuschnitt (Bündelungsregel 13.1, Zielzahl 6 Dateien):
      - `docs/wissen/uebergreifend-belastung-monitoring-erholung.md` ← L-P03, L-P04, L-P05, L-P06, L-A01, L-A02, L-P10, L-P11, L-P12, L-P13
-     - `docs/wissen/uebergreifend-planung-kombiniertes-training.md` ← L-P01, L-P02, L-P07, L-P08, L-P09, L-A01, L-A02
+     - `docs/wissen/uebergreifend-planung-kombiniertes-training.md` ← L-P01, L-P02, L-P07, L-P08, L-P09, L-A01, L-A02; L-T2-25, L-T2-26 (Interferenz auf Faserebene, D-62 d), optional L-T2-31, L-T2-32; Widerspruch zur Modalität (Laufen vs. Rad) unter „Grenzen/Widersprüche“
      - `docs/wissen/t1-ausdauer.md` ← L-T1-01 bis L-T1-08 (Karten: Intensitätsverteilung und Zonenmodell D-27; Bergauf-Ausdauer und Skitour-Spezifik; Intervallprogrammierung); optionale Quellen nur bei konkreter Planungsfrage; Budget ca. 8 000–10 000 Tokens
-     - `docs/wissen/t2-kraft-haltung.md` ← L-P08, L-A03, L-T2-03 (Karten: Dosierung und Progression; kombiniertes Training Kraft/Ausdauer), L-T2-11, L-T2-12 (Kraft für Läufer), Abschnitt `uebungskatalog_calisthenics` aus L-T2-04 mit Belegen L-T2-08 bis L-T2-10 (D-29), Karte Haltung und Rücken aus L-T2-15 bis L-T2-18 (D-54); optional L-T2-14, L-T2-19
+     - `docs/wissen/t2-kraft-haltung.md` ← L-P08, L-A03, L-T2-03 (Karten: Dosierung und Progression; kombiniertes Training Kraft/Ausdauer), L-T2-11, L-T2-12 (Kraft für Läufer), Abschnitt `uebungskatalog_calisthenics` aus L-T2-04 mit Belegen L-T2-08 bis L-T2-10 (D-29), Karte Haltung und Rücken aus L-T2-15 bis L-T2-18 (D-54); optional L-T2-14, L-T2-19; Abschnitt Hypertrophie (Ergänzung, D-62) aus L-T2-20 bis L-T2-24, optional L-T2-27 bis L-T2-30; Pflichtinhalt „Grenzen“ gemäß D-62 (e); Abschnitt knapp halten, Gesamtbudget 13.1 prüfen
      - `docs/wissen/t3-klettern.md` ← L-T3-01, -02, -03, -06 (bzw. -07), -08; optional -09 (Karten: kletterspezifisches Krafttraining und Spezifitätsschema; Leistungsdiagnostik und Verlaufstests; Verletzungsprävention/Schmerz); L-T3-18 als Beleg für Hangboard-Protokolle, L-T3-05 mit konfidenz niedrig; Stufe-C-Quellen nur als Ideenfundus (D-31); Kennzeichnung „Evidenz: begrenzt"
      - `docs/wissen/r-reha-praevention.md` ← L-R-01 bis L-R-09, L-R-13 bis L-R-17, L-R-23 bis L-R-25 (Kern); optional L-R-10 bis L-R-12, L-R-18 bis L-R-22, L-R-26 bis L-R-28; Pflichtabschnitt „Grenzen“ gemäß D-61 (e)
-  4. Offene Punkte: Auflage L-A01 (7. Aufl. vorläufig vorhanden, 8. oder 9. beschaffen, D-51); V-07 Rest (Schwellen am Volltext L-P13, Entscheidung Q-13 in AP-07); V-15 Rest (L-T3-02 Wiederholungsbereiche, L-T3-08, L-T3-12); Lizenz L-T2-15, L-T2-16 vor Ablage prüfen; Karten-Template (Schema: Kernaussage + Quelle + Seite + Stufe + konfidenz + Themenfeld); Kartenerstellung nach Beschaffung.
+  4. Offene Punkte: Auflage L-A01 (7. Aufl. vorläufig vorhanden, 8. oder 9. beschaffen, D-51); V-07 Rest (Schwellen am Volltext L-P13, Entscheidung Q-13 in AP-07); V-15 Rest (L-T3-02 Wiederholungsbereiche, L-T3-08, L-T3-12); Lizenz L-T2-15, L-T2-16 vor Ablage prüfen; Karten-Template (Schema: Kernaussage + Quelle + Seite + Stufe + konfidenz + Themenfeld); V-16 (Redundanz Hypertrophie-Ergänzung zu L-P08, Corrigendum L-T2-23); Lizenz L-T2-22, L-T2-23, L-T2-25 vor Ablage prüfen; Kartenerstellung nach Beschaffung.
 - **Abhängigkeiten:** keine (Chat-Arbeit); Kartenerstellung erst nach Beschaffung.
 - **Abnahmekriterien:** Karten liegen in `docs/wissen/` und im Projekt-Wissen; jede Kernaussage hat Quelle mit Seite bzw. DOI/PMID und Evidenzstufe; V-06, V-07 (Literaturteil), V-14, V-15 erledigt; Gesamtbudget 13.1 eingehalten.
 - **Status:**
@@ -1935,6 +2161,7 @@ teilschritte:
   - Literaturauswahl T2 Haltung/Rücken: erledigt (D-54)
   - Literaturauswahl T3 Klettern/Bouldern: erledigt (D-31)
   - Literaturauswahl Block R Reha/Prävention: erledigt (D-61)
+  - Literaturauswahl T2 Hypertrophie-Ergänzung: erledigt (D-62)
   - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-28 – 36 Volltexte sortiert und umbenannt, Kapitel-PDFs für 7 Bücher, D-51; offen nach 13.4 sind L-T1-01, L-T1-07, L-T3-08 und L-A01 in 8./9. Aufl.)
   - Primärquellen verifizieren: weitgehend erledigt (V-06, V-14 erledigt; V-07, V-15 teilweise, Rest nach Beschaffung)
   - Karten-Template und Karten: offen
@@ -2041,13 +2268,28 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: Übergabe Teil C beruhte auf einem älteren Konzeptstand; D-39, Q-10, Q-11 waren inzwischen vergeben, Q-09 aus Teil B war bereits Q-13
     loesung: umnummeriert – D-39 → D-61, Q-10 → Q-15, Q-11 → Q-16, Ergänzung Q-09 → Q-13; Kartenzuschnitt von 5 auf 6 Sammeldateien (13.1 erlaubt 4–6)
+  - datum: 2026-09-28
+    was: Hypertrophie war in D-28 als „kein Primärziel“ zurückgestellt; der Athlet fragt nach Hypertrophie-Literatur
+    loesung: Rückfrage – Ergänzung, D-28 bleibt; L-T2-07 weiter zurückgestellt (D-62)
+  - datum: 2026-09-28
+    was: Keine Metaanalyse zu Hypertrophie mit Band oder Kettlebell bei gesunden Erwachsenen gefunden (PubMed); Treffer nur zu Kraft (L-T2-24) oder an Älteren/Patienten
+    loesung: Übertragung über L-T2-23 als gekennzeichneter Schluss; Pflichtinhalt „Grenzen“ (D-62 e)
+  - datum: 2026-09-28
+    was: L-P08 (Übersicht über Reviews) enthält vermutlich einen Teil der neuen Arbeiten
+    loesung: auf Wunsch des Athleten trotzdem aufgenommen; Klärung am Volltext (V-16)
+  - datum: 2026-09-28
+    was: Widersprüchliche Befunde zur Modalität der Ausdauer – Nachteil beim Laufen (L-T2-25, L-T2-31) vs. Trend zu Nachteil bei Rad-HIIT für Unterkörperkraft (L-T2-32)
+    loesung: in der Karte unter „Grenzen/Widersprüche“; keine Regel aus der Modalität allein ableiten (D-62 e)
+  - datum: 2026-09-28
+    was: Die Sitzung prüfte zunächst die Konzeptkopie im Projektwissen; diese war veraltet (Stand vor D-38). Die aktuelle Fassung lag als Anhang im Chat vor
+    loesung: IDs aus der aktuellen Fassung (D-61) abgeleitet; Athlet hat das Projektwissen aktualisiert; U1 prüft die IDs vor der Einarbeitung erneut
 ```
 Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage von `docs/pruefung/pruefprotokoll.md` als AP-06-Block zu übernehmen.
 
 ## AP-07 Trainerregeln (Projekt-Chat)
 
 - **Ziel:** `docs/regeln/trainerregeln.md` gemäß Abschnitt 14.
-- **Vorgaben aus AP-06** (Kapitel 2 und 3 in 14; D-54, D-61, Q-13, Q-15, Q-16):
+- **Vorgaben aus AP-06** (Kapitel 2 und 3 in 14; D-54, D-61, D-62, Q-13, Q-15, Q-16):
 ```yaml
 - regelvorschlag: Haltungsarbeit = Kräftigung BWS/HWS-Extensoren und Schulterblattmuskulatur, kombiniert HWS + BWS; Dehnen nicht als Haltungskorrektur einplanen
   quelle: L-T2-15, L-T2-16, L-T2-19
@@ -2069,6 +2311,16 @@ Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage
 - regelvorschlag: Orthese/Tape als Option (Q-16, L-R-26)
 - regelvorschlag: Schmerzschwellen erst nach Klärung Q-13 (L-P13, L-R-02)
 - hinweis: Bestehender Plan Rev. 6 (WebApp) nutzt Wochen-km-Progression mit Morgentest-Bedingung; bei Annahme von Q-15 ist die Laufprogression im laufenden Block zu prüfen
+- regelvorschlag: Hypertrophie als Nebenziel über das Wochenvolumen je Muskelgruppe steuern; mehr Sätze mit abnehmendem Grenznutzen; die Frequenz nach Planbarkeit wählen (für Hypertrophie nachrangig, für Kraft wirksam)
+  quelle: L-T2-20 (optional L-T2-27); Anker L-P08
+- regelvorschlag: Sätze nahe am Muskelversagen beenden; Training bis zum Versagen nicht als Standard einplanen
+  quelle: L-T2-21 (explorativ), L-T2-22 (optional L-T2-30)
+- regelvorschlag: Im Heimtraining mit leichten Lasten und Band Sätze nahe ans Versagen führen, damit sie hypertrophiewirksam sind; für Maximalkraft höhere Lasten bzw. schwerere Hebelvarianten (Calisthenics)
+  quelle: L-T2-23, L-T2-24, D-29
+  kennzeichnung: Übertragung auf Band/Kettlebell ist „Einschätzung“ (D-62 e)
+- regelvorschlag: Bei Blöcken mit Kraft- oder Hypertrophie-Anteil die Interferenz beachten – die Hypertrophie des ganzen Muskels bleibt erhalten, auf Faserebene kleiner Nachteil, vorläufig stärker bei Laufen und HIIT; mit der Reihenfolgeregel aus L-P09 abgleichen
+  quelle: L-T2-25, L-T2-26 (optional L-T2-31, L-T2-32)
+- hinweis: Ernährung/Protein ist nicht im Umfang der Ergänzung (D-62)
 ```
 - **Abhängigkeiten:** AP-06 (Quellen).
 - **Abnahmekriterien:** Jede Regel mit Quelle oder Kennzeichnung „Einschätzung"; Schmerz- und Deload-Regeln vom Athleten bestätigt.
@@ -2325,7 +2577,7 @@ probleme_loesungen:
 status: in_arbeit
 begonnen: 2026-09-28
 abgeschlossen: null
-teilpakete: T1 und T2 umgesetzt (Code-Stand 0.17.0, Schema 22; Icon-Pfad korrigiert in 0.20.1, Favicon gerundet in 0.20.2 nach D-62), Abnahme durch den Athleten offen – Details in docs/konzept/gefuehrte-einheit.md Abschnitt 12
+teilpakete: T1 und T2 umgesetzt (Code-Stand 0.17.0, Schema 22; Icon-Pfad korrigiert in 0.20.1, Favicon gerundet in 0.20.2 nach D-63), Abnahme durch den Athleten offen – Details in docs/konzept/gefuehrte-einheit.md Abschnitt 12
 probleme_loesungen:
   - datum: 2026-09-28
     was: Icon-Erzeugung als PHP-Skript nicht möglich (kein SVG-Renderer auf Server und in PHP)
@@ -2341,7 +2593,10 @@ probleme_loesungen:
     loesung: Ordner public/app-icons/, Verweise angepasst, Test gegen Apache-Aliase, Prüfschritt P-A7 (Code-Stand 0.20.1; Auftrag 4.1 Punkt 4)
   - datum: 2026-09-28
     was: Nach 0.20.1 zeigte der Browser-Tab ein eckiges V3 statt des vorgesehenen V2-Favicons – Firefox wählte die PNG-Links (V3) statt SVG/ICO (V2); der Athlet wünscht abgerundete Ecken
-    loesung: Rückfrage mit gerenderter Vorschau (Rundung 0/12/22/50 %, V3 und V2); Entscheidung D-62: V3 mit 22 % Rundung für alle Tab-Favicons, Startbildschirm-Icons eckig (Code-Stand 0.20.2)
+    loesung: Rückfrage mit gerenderter Vorschau (Rundung 0/12/22/50 %, V3 und V2); Entscheidung D-63: V3 mit 22 % Rundung für alle Tab-Favicons, Startbildschirm-Icons eckig (Code-Stand 0.20.2)
+  - datum: 2026-09-28
+    was: Beim Zusammenführen mit main war D-62 inzwischen für die Hypertrophie-Literatur (AP-06 Teil D) vergeben
+    loesung: Favicon-Entscheidung als D-63 geführt, alle Verweise (Konzept, Auftrag E-24, Branding B-10, Code-Kommentare, Changelog, Prüfprotokoll) angepasst
 ```
 
 ## AP-14 Geführte Einheit
@@ -2467,4 +2722,5 @@ noch_zu_pruefen:
 | 2026-09-28 | Sechs weitere Volltexte einsortiert (L-P10, L-P12, L-P13, L-T2-17, L-T2-18, L-T3-04; D-51): Felder `datei`, `zugang`, 13.4 „vorhanden“, V-07 (Volltext liegt vor), AP-06 Teilschritt Beschaffung. |
 | 2026-09-28 | Übergabe AP-06 Teil C eingearbeitet: neuer Block 13.2.5 R Reha/Prävention (L-R-01 bis L-R-28; Patellasehne, Sprunggelenk, Laufumfang), ID-Konvention `L-R-<nn>`, 13.3 Ausschlüsse, 13.4 ergänzt. Neu D-61 (in der Übergabe D-39), Q-15 und Q-16 (dort Q-10, Q-11), Q-13 um Kongsgaard-Schmerzregel ergänzt; AP-06 Umfang, Kartenzuschnitt (6 Sammeldateien), Teilschritt, `probleme_loesungen`; AP-07 Vorgaben ergänzt. |
 | 2026-09-28 | AP-13 Nachtrag (Code-Stand 0.20.1): App-Icons von `/icons/` nach `/app-icons/`, weil Apache `/icons/` serverweit per Alias belegt (Befund IronFox, Auftrag 4.1 Punkt 4); AP-13 `probleme_loesungen` ergänzt. |
-| 2026-09-28 | Neu D-62 (Favicon V3 gerundet, ändert D-59 für das Favicon), AP-13 `probleme_loesungen` ergänzt (Code-Stand 0.20.2). |
+| 2026-09-28 | Übergabe AP-06 Teil D (Hypertrophie-Ergänzung) eingearbeitet: 13.2.3 L-T2-20 bis L-T2-26 ausgewählt, L-T2-27 bis L-T2-32 optional, L-T2-07 um die bibliografischen Daten der 3. Aufl. ergänzt (weiter zurückgestellt), Themenfeld-Vokabular; 13.3 Ausschlüsse; 13.4 ergänzt. Neu D-62 (D-28 unverändert, Verweis ergänzt) und V-16; AP-06 Umfang, Kartenzuschnitt, Teilschritt, `probleme_loesungen`; AP-07 Vorgaben ergänzt. |
+| 2026-09-28 | Neu D-63 (Favicon V3 gerundet, ändert D-59 für das Favicon), AP-13 `probleme_loesungen` ergänzt (Code-Stand 0.20.2). |

@@ -68,7 +68,7 @@ final class AppIconTest extends TestCase
         self::assertStringContainsString('<meta name="theme-color" content="#7A5C94">', $partial);
     }
 
-    /** D-62: Browser-Favicons gerundet mit transparenten Ecken (RGBA); Startbildschirm-Icons eckig ohne Alpha (iOS färbt Transparenz schwarz). */
+    /** D-63: Browser-Favicons gerundet mit transparenten Ecken (RGBA); Startbildschirm-Icons eckig ohne Alpha (iOS färbt Transparenz schwarz). */
     public function testTabFaviconsAreRoundedAndLauncherIconsStaySquare(): void
     {
         $colorType = static fn (string $file): int => ord(((string) file_get_contents(self::public() . $file))[25]);
