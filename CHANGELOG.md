@@ -4,6 +4,9 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+### Dokumentation
+- L-A02 Ferrauti, Trainingswissenschaft für die Sportpraxis (2. Aufl. 2025) ergänzt: Gesamtbuch ohne doppelt eingebettete Schriften/Bilder (355 → 94 MB, seitengleich geprüft) und 25 Kapitel-PDFs.
+
 ## [0.15.0] – 2026-09-28
 
 AP-11: Erinnerungen an Kalenderterminen (D-52).

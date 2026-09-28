@@ -217,7 +217,7 @@ flowchart LR
 | V-10 | Auf dem Hosting verfügbar: FTPS oder SFTP für den Deploy-Workflow; PHP-CLI für „Geplante Aufgaben" (sonst HTTP-Aufruf eines geschützten Endpunkts); E-Mail-Versand aus PHP mit Anhang (SMTP über Mailkonto des Hostings bevorzugt, Größenlimit des Anhangs); PHP-OpenSSL-Erweiterung aktiv. Ergebnis (Angaben Athlet 2026-09-27): FTPS vorhanden (Port 21, explizit, gültiges Zertifikat); SMTP vorhanden; keine PHP-CLI-Aufgaben, aber zeitgesteuerter Aufruf von URLs → E-Mail-Backup über geschützten Endpunkt (D-18 b); OpenSSL aktiv (Servertest). Servertest zusätzlich: `open_basedir` leer, Datei oberhalb des Docroots lesbar, `.htaccess` wird ausgewertet (`Require all denied` → 403). Rest: Anhang-Größenlimit SMTP → Testversand in AP-10. | AP-00 | erledigt 2026-09-27 (bis auf Anhang-Limit) |
 | V-11 | Bibliografische Prüfung der T1-Quellen (Autoren, Jahr, Band/Seiten, DOI/ISBN, freie Verfügbarkeit) per PubMed-Connector bzw. Bibliothekskataloge. Ergebnis in 13.2.2 (Felder `zugang`, `verifikation`). Hinweis Lizenz: PubMed liefert keinen Lizenztyp; „frei" heißt Volltext in PMC; CC BY 4.0 nur für L-T1-04 belegt. | AP-06 | erledigt 2026-09-27 |
 | V-12 | Zonendefinition in Garmin Connect (Laufprofil, ggf. eigenes Profil Skitour) und in Intervals.icu identisch halten (%LTHR, gleiche Grenzen), damit HF-Ziele aus Intervals.icu-Workouts auf der Uhr dieselbe Zone treffen. Prüfen, ob Intervals.icu Zonen nach Garmin überträgt oder beide getrennt gepflegt werden müssen (D-27). | AP-02 (mit V-01), AP-08 | offen |
-| V-13 | Format und Kopierschutz je Titel vor Beschaffung (D-26): Human-Kinetics-Titel (L-A01, L-A03, L-T1-07, L-T2-05, L-T2-07) laufen über VitalSource mit DRM → Print oder anderer Anbieter; Springer-Titel (L-A02, L-T2-03, L-T2-06, L-T3-06/07) kapitelweise als PDF über SpringerLink bzw. Bibliothekszugang; L-T2-04 (Low) Digitalausgabe PDF/ePUB beim Autor prüfen; L-T1-01, L-T1-08, L-T3-08 PDF-Verfügbarkeit prüfen. Stand 2026-09-28: als durchsuchbares PDF vorhanden L-A01 (7. Aufl., vorläufig), L-A03, L-T1-08 (Scan), L-T2-03, L-T2-04 (Scan, Texterkennung fehlerhaft), L-T3-06; offen L-A02, L-T1-01, L-T1-07, L-T3-08 sowie die 8./9. Aufl. von L-A01. | AP-06 | teilweise |
+| V-13 | Format und Kopierschutz je Titel vor Beschaffung (D-26): Human-Kinetics-Titel (L-A01, L-A03, L-T1-07, L-T2-05, L-T2-07) laufen über VitalSource mit DRM → Print oder anderer Anbieter; Springer-Titel (L-A02, L-T2-03, L-T2-06, L-T3-06/07) kapitelweise als PDF über SpringerLink bzw. Bibliothekszugang; L-T2-04 (Low) Digitalausgabe PDF/ePUB beim Autor prüfen; L-T1-01, L-T1-08, L-T3-08 PDF-Verfügbarkeit prüfen. Stand 2026-09-28: als durchsuchbares PDF vorhanden L-A01 (7. Aufl., vorläufig), L-A02 (2. Aufl. 2025), L-A03, L-T1-08 (Scan), L-T2-03, L-T2-04 (Scan, Texterkennung fehlerhaft), L-T3-06; offen L-T1-01, L-T1-07, L-T3-08 sowie die 8./9. Aufl. von L-A01. | AP-06 | teilweise |
 | V-14 | PubMed-Verifikation Kraftliteratur: Rønnestad & Mujika 2014 (Scand J Med Sci Sports) und Blagrove et al. 2018 (Sports Med) → L-T2-11, L-T2-12. ACSM 2026 und Schumann 2022 bereits verifiziert als L-P08 und L-P07. | AP-06 | offen |
 | V-15 | Bibliografische Vervollständigung T3: L-T3-03 (Band, Lizenz – erledigt 2026-09-28: Bd. 5, Art. 1130812, CC BY laut Volltext), L-T3-04 (Band, Seiten, DOI, Zugang), L-T3-05 (Titel, Journal, Band, Seiten, DOI), L-T3-07 (ISBN), L-T3-08 (aktuelle Auflage/ISBN), L-T3-09 (Jahr), L-T3-12 (Jahr, Auflage, ISBN); Kernaussagen L-T3-02 am Original statt Sekundärzitat prüfen (Original liegt seit 2026-09-28 vor). | AP-06 | offen |
 
@@ -447,15 +447,19 @@ Bücher:
   hinweis: E-Book-Format (epub/HKPropel) vor Kauf auf Eignung für den PDF-Kapitel-Workflow (13.1) prüfen. Block T1 meldet eine 9. Aufl. 2024 (ISBN 978-1-7182-2842-9, nur Händlerangabe) – Auflage und Autorenliste beim Erwerb prüfen (AP-06 offener Punkt).
 - id: L-A02
   status: ausgewaehlt
+  datei: uebergreifend/L-A02_Ferrauti-2025_Trainingswissenschaft-fuer-die-Sportpraxis_2ed.pdf
+  kapitel: uebergreifend/L-A02_kapitel/
   typ: Lehrbuch
-  autor: Ferrauti A (Hrsg.)
-  titel: Trainingswissenschaft für die Sportpraxis
+  autor: Ferrauti A, Wiewelhove T (Hrsg.)
+  titel: "Trainingswissenschaft für die Sportpraxis. Lehrbuch für Studium, Ausbildung und Unterricht im Sport"
   auflage: 2
-  jahr: offen (1. Aufl. 2020, ISBN 9783662582268, DOI 10.1007/978-3-662-58227-5)
-  verlag: Springer Spektrum
+  jahr: 2025 (1. Aufl. 2020, ISBN 9783662582268, DOI 10.1007/978-3-662-58227-5)
+  isbn: 978-3-662-69523-4 (Print), 978-3-662-69524-1 (E-Book)
+  doi: 10.1007/978-3-662-69524-1
+  verlag: Springer (1. Aufl. Springer Spektrum)
   sprache: de
   zweck: Integrierte Trainingswissenschaft – Leistungsdiagnostik, Trainingssteuerung, Monitoring, Regenerationsmanagement
-  verifikation: 2. Auflage belegt (Händlerangaben); Erscheinungsjahr und ISBN der 2. Aufl. offen (AP-06)
+  verifikation: bibliografisch laut Titelei und Impressum des Volltexts (2026-09-28); 2. Aufl. mit Wiewelhove als zweitem Herausgeber
 - id: L-A03
   status: ausgewaehlt
   datei: uebergreifend/L-A03_NSCA-2026_Essentials-of-Strength-Training-and-Conditioning_5ed.pdf
@@ -1015,7 +1019,7 @@ Formatprüfung je Titel vor dem Kauf (V-13). Alle Blöcke sind bestätigt (D-31)
 | prio | block | quelle | benötigt | formatanforderung | bemerkung | vorhanden (2026-09-28) |
 |---|---|---|---|---|---|---|
 | 1 | übergreifend | L-A01 Kenney/Wilmore/Costill | Auflage klären (8. 2022 vs. 9. 2024) | durchsuchbares PDF; Human-Kinetics-Format prüfen | | teilweise: 7. Aufl. 2019 als E-Book-PDF, vorläufig (D-51); 8./9. Aufl. offen |
-| 1 | übergreifend | L-A02 Ferrauti, 2. Aufl. | Jahr/ISBN offen | Springer-Kapitel-PDF | | offen |
+| 1 | übergreifend | L-A02 Ferrauti, 2. Aufl. | Jahr/ISBN offen | Springer-Kapitel-PDF | | ✓ 2. Aufl. 2025, Gesamt-PDF; Jahr und ISBN geklärt |
 | 1 | übergreifend | L-P02, L-P03, L-P04, L-P05, L-P06, L-P09 | Artikel | PDF | nicht in PMC → Bibliothekszugang | ✓ alle |
 | 1 | T1 | L-T1-01 Hottenrott/Seidel, 2. Aufl. 2025 | Buch | durchsuchbares PDF | Kapitelauswahl (Adaptation, Ausdauer, Periodisierung, Diagnostik) nach Inhaltsverzeichnis | offen |
 | 1 | T1 | L-T1-02 Seiler 2010, L-T1-03 Casado 2022, L-T1-05 Vernillo 2017 | Artikel | PDF | Casado: zuerst freie Repositoriumsfassung prüfen | ✓ alle |
@@ -1030,7 +1034,7 @@ Formatprüfung je Titel vor dem Kauf (V-13). Alle Blöcke sind bestätigt (D-31)
 | frei | alle | L-P01, L-P07, L-P08, L-T1-04, L-T1-06, L-T3-01, L-T3-03; optional L-T1-09, L-T1-10, L-T1-12 | – | PDF aus PMC bzw. Verlag (OA) | kein Kauf | ✓ alle |
 | bei Bedarf | – | L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-09, L-T3-10, L-T3-11 | – | – | nur wenn optional aktiviert | – |
 
-Stand 2026-09-28: 29 Volltexte vorhanden (D-51), Verzeichnis in `docs/literatur/README.md`. Zusätzlich vorhanden, aber nicht auf der Liste: L-T2-14 (Kandidat). Offen sind L-A02, L-T1-01, L-T1-07, L-T3-08 und die 8./9. Aufl. von L-A01. Ausgewählt bzw. verifiziert, aber weder auf der Liste noch vorhanden: L-T2-10, L-T3-04, L-T3-05 (Bibliografie offen, V-15).
+Stand 2026-09-28: 30 Volltexte vorhanden (D-51), Verzeichnis in `docs/literatur/README.md`. Zusätzlich vorhanden, aber nicht auf der Liste: L-T2-14 (Kandidat). Offen sind L-T1-01, L-T1-07, L-T3-08 und die 8./9. Aufl. von L-A01. Ausgewählt bzw. verifiziert, aber weder auf der Liste noch vorhanden: L-T2-10, L-T3-04, L-T3-05 (Bibliografie offen, V-15).
 
 # 14. Trainerregeln (Struktur; Inhalte in AP-07)
 
@@ -1348,7 +1352,7 @@ probleme_loesungen:
      - `docs/wissen/t1-ausdauer.md` ← L-T1-01 bis L-T1-08 (Karten: Intensitätsverteilung und Zonenmodell D-27; Bergauf-Ausdauer und Skitour-Spezifik; Intervallprogrammierung); optionale Quellen nur bei konkreter Planungsfrage; Budget ca. 8 000–10 000 Tokens
      - `docs/wissen/t2-kraft-haltung.md` ← L-P08, L-A03, L-T2-03 (Karten: Dosierung und Progression; kombiniertes Training Kraft/Ausdauer) plus Abschnitt `uebungskatalog_calisthenics` aus L-T2-04 mit Belegen L-T2-08 bis L-T2-10 (D-29); Haltung/Rücken nach Teilblock
      - `docs/wissen/t3-klettern.md` ← L-T3-01, -02, -03, -06 (bzw. -07), -08; optional -09 (Karten: kletterspezifisches Krafttraining und Spezifitätsschema; Leistungsdiagnostik und Verlaufstests; Verletzungsprävention/Schmerz); Stufe-C-Quellen nur als Ideenfundus (D-31); Kennzeichnung „Evidenz: begrenzt"
-  4. Offene Punkte: Jahr/ISBN L-A02 (2. Aufl.); Auflage L-A01 (7. Aufl. vorläufig vorhanden, 8. oder 9. beschaffen, D-51); Bibliografie L-P10–L-P13 (V-06, V-07); V-14 (L-T2-11, L-T2-12); V-15 (T3-Lücken); Teilblock Haltung/Rücken (L-T2-13 bewerten, Alternativen suchen); Bewertung L-T2-14; Karten-Template (Schema: Kernaussage + Quelle + Seite + Stufe + konfidenz + Themenfeld); Kartenerstellung nach Beschaffung.
+  4. Offene Punkte: Auflage L-A01 (7. Aufl. vorläufig vorhanden, 8. oder 9. beschaffen, D-51); Bibliografie L-P10–L-P13 (V-06, V-07); V-14 (L-T2-11, L-T2-12); V-15 (T3-Lücken); Teilblock Haltung/Rücken (L-T2-13 bewerten, Alternativen suchen); Bewertung L-T2-14; Karten-Template (Schema: Kernaussage + Quelle + Seite + Stufe + konfidenz + Themenfeld); Kartenerstellung nach Beschaffung.
 - **Abhängigkeiten:** keine (Chat-Arbeit); Kartenerstellung erst nach Beschaffung.
 - **Abnahmekriterien:** Karten liegen in `docs/wissen/` und im Projekt-Wissen; jede Kernaussage hat Quelle mit Seite bzw. DOI/PMID und Evidenzstufe; V-06, V-07, V-14, V-15 erledigt; Gesamtbudget 13.1 eingehalten.
 - **Status:**
@@ -1362,7 +1366,7 @@ teilschritte:
   - Literaturauswahl T2 Kraft/Calisthenics: erledigt (D-28–D-30)
   - Literaturauswahl T2 Haltung/Rücken: offen
   - Literaturauswahl T3 Klettern/Bouldern: erledigt (D-31)
-  - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-28 – 29 Volltexte sortiert und umbenannt, Kapitel-PDFs für 6 Bücher, D-51; offen nach 13.4 sind L-A02, L-T1-01, L-T1-07, L-T3-08 und L-A01 in 8./9. Aufl.)
+  - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-28 – 30 Volltexte sortiert und umbenannt, Kapitel-PDFs für 7 Bücher, D-51; offen nach 13.4 sind L-T1-01, L-T1-07, L-T3-08 und L-A01 in 8./9. Aufl.)
   - Primärquellen verifizieren: offen (V-06, V-07, V-14, V-15)
   - Karten-Template und Karten: offen
 probleme_loesungen:
@@ -1420,6 +1424,9 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: Die Kapitel-PDFs vergrößern das Repo um 258 MB (zusammen mit den Originalen rund 540 MB PDFs); der CI-Lauf checkt das ganze Repo aus
     loesung: Deployment lädt nur server/ hoch (geprüft); beobachten, bei Bedarf Sparse-Checkout ohne docs/literatur im Workflow
+  - datum: 2026-09-28
+    was: L-A02 Ferrauti (2. Aufl.) als 355-MB-PDF geliefert (per HTTPS-Download), zu groß für GitHub (Grenze 100 MB je Datei)
+    loesung: Das PDF ist aus Einzelkapiteln zusammengesetzt und bettete gleiche Schriften und Bilder mehrfach ein. Ohne Dubletten neu geschrieben → Gesamtbuch 94 MB, 25 Kapitel-PDFs zusammen 98 MB (größte 16 MB). Text und Bilddaten (Prüfsumme) aller 911 Seiten gleich dem Original; interne Links wie bei den anderen Kapitel-PDFs entfernt. Nebenbei geklärt – 2. Aufl. 2025, ISBN 978-3-662-69523-4, zweiter Herausgeber Wiewelhove
 ```
 Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage von `docs/pruefung/pruefprotokoll.md` als AP-06-Block zu übernehmen.
 
@@ -1698,3 +1705,4 @@ noch_zu_pruefen:
 | 2026-09-28 | Neu: AP-11 Kalender per CalDAV (D-50) auf Wunsch des Athleten, direkt umgesetzt (Code-Stand 0.14.0); K8 in 3.1/3.2/3.3 ergänzt. |
 | 2026-09-28 | Literatur-Volltexte abgeglichen, umbenannt und in Blockordner sortiert (D-51); Bücher zusätzlich als Kapitel-PDFs. 13.1 Schritt 1, 13.2 (Felder `datei`/`kapitel`, L-A01 vorhandene Auflage, L-T3-03 Band und Lizenz), 13.4 Spalte „vorhanden“, V-13 teilweise, V-15 L-T3-03 erledigt, AP-06 Teilschritt Beschaffung teilweise. |
 | 2026-09-28 | AP-11 ergänzt um Erinnerungen (D-52, Code-Stand 0.15.0, Schema 19: `app_setting`). Zunächst als D-51 vergeben; beim Zusammenführen mit der parallelen Literatur-Sitzung (PR #9, ebenfalls D-51) in D-52 umbenannt. |
+| 2026-09-28 | L-A02 Ferrauti, 2. Aufl. 2025, ergänzt (Gesamtbuch ohne doppelt eingebettete Ressourcen, 94 MB, plus Kapitel-PDFs); Eintrag 13.2.1 vervollständigt (Herausgeber, Jahr, ISBN, DOI, Verlag), 13.4, V-13, AP-06 nachgezogen. |

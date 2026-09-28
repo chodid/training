@@ -25,6 +25,7 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | ID | Stufe | Quelle | Datei | Seiten | Hinweis |
 |---|---|---|---|---|---|
 | L-A01 | B | Kenney, Wilmore, Costill – Physiology of Sport and Exercise, **7. Aufl. 2019** | [`L-A01_Kenney-2019_Physiology-of-Sport-and-Exercise_7ed.pdf`](uebergreifend/L-A01_Kenney-2019_Physiology-of-Sport-and-Exercise_7ed.pdf) | 1379 | Ausgewählt ist die 8. Aufl. (2022). Die 7. Aufl. gilt vorläufig, die 8./9. Aufl. bleibt auf der Beschaffungsliste (D-51). E-Book, Kapitel-PDFs in `L-A01_kapitel/` |
+| L-A02 | B | Ferrauti, Wiewelhove (Hrsg.) – Trainingswissenschaft für die Sportpraxis, 2. Aufl. 2025 | [`L-A02_Ferrauti-2025_Trainingswissenschaft-fuer-die-Sportpraxis_2ed.pdf`](uebergreifend/L-A02_Ferrauti-2025_Trainingswissenschaft-fuer-die-Sportpraxis_2ed.pdf) | 911 | Geliefert als 355-MB-PDF mit mehrfach eingebetteten Schriften und Bildern; hier ohne Dubletten (94 MB), Text und Bilder aller Seiten gleich dem Original. Kapitel-PDFs in `L-A02_kapitel/` |
 | L-A03 | B | NSCA (Hrsg.) – Essentials of Strength Training and Conditioning, 5. Aufl. | [`L-A03_NSCA-2026_Essentials-of-Strength-Training-and-Conditioning_5ed.pdf`](uebergreifend/L-A03_NSCA-2026_Essentials-of-Strength-Training-and-Conditioning_5ed.pdf) | 1876 | E-Book, Kapitel-PDFs in `L-A03_kapitel/` |
 | L-P01 | A | Kiely 2018 – Periodization Theory | [`L-P01_Kiely-2018_Periodization-Theory.pdf`](uebergreifend/L-P01_Kiely-2018_Periodization-Theory.pdf) | 12 | Open Access |
 | L-P02 | A | Mujika et al. 2018 – Integrated Approach to Periodization | [`L-P02_Mujika-2018_Integrated-Approach-to-Periodization.pdf`](uebergreifend/L-P02_Mujika-2018_Integrated-Approach-to-Periodization.pdf) | 24 |  |
@@ -69,7 +70,7 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T3-03 | A | Langer, Simon, Wiemeyer 2023 – Performance Testing in Climbing | [`L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf`](t3-klettern/L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf) | 23 | CC BY; Front Sports Act Living Bd. 5, Art. 1130812 |
 | L-T3-06 | B | Schöffl et al. (Hrsg.) 2022 – Climbing Medicine | [`L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf`](t3-klettern/L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf) | 319 | Kapitel-PDFs in `L-T3-06_kapitel/` |
 
-Summe: 29 Werke (davon 6 Bücher mit Kapitel-PDFs).
+Summe: 30 Werke (davon 7 Bücher mit Kapitel-PDFs).
 
 ## Noch nicht vorhanden
 
@@ -78,7 +79,6 @@ Laut Beschaffungsliste 13.4 fehlen noch:
 | ID | Quelle | Bemerkung |
 |---|---|---|
 | L-A01 | Kenney/Wilmore/Costill, 8. (2022) oder 9. Aufl. (2024) | vorläufig durch die 7. Aufl. ersetzt (D-51) |
-| L-A02 | Ferrauti, Trainingswissenschaft für die Sportpraxis, 2. Aufl. | Springer, kapitelweise |
 | L-T1-01 | Hottenrott/Seidel, Handbuch Trainingswissenschaft – Trainingslehre, 2. Aufl. 2025 | |
 | L-T1-07 | Laursen/Buchheit, Science and Application of HIIT | kein VitalSource-DRM |
 | L-T3-08 | Köstermeyer, Peak Performance | Auflage klären (V-15) |
@@ -180,6 +180,38 @@ Ausgewählt bzw. verifiziert, aber nicht auf der Beschaffungsliste und nicht vor
 | 90 | Glossary | 1248–1277 | [`L-A01_90_Glossary.pdf`](uebergreifend/L-A01_kapitel/L-A01_90_Glossary.pdf) |
 | 91 | References | 1278–1321 | [`L-A01_91_References.pdf`](uebergreifend/L-A01_kapitel/L-A01_91_References.pdf) |
 | 92 | Index | 1322–1379 | [`L-A01_92_Index.pdf`](uebergreifend/L-A01_kapitel/L-A01_92_Index.pdf) |
+
+### L-A02 Ferrauti/Wiewelhove – Trainingswissenschaft für die Sportpraxis (2. Aufl.) – `uebergreifend/L-A02_kapitel/`
+
+25 Dateien, 911 PDF-Seiten.
+
+| Nr. | Titel | PDF-Seiten | Datei |
+|---|---|---|---|
+| 00 | Vorspann | 1–17 | [`L-A02_00_Vorspann.pdf`](uebergreifend/L-A02_kapitel/L-A02_00_Vorspann.pdf) |
+| 01 | Aufgaben und Inhalte der Trainingswissenschaft | 18–44 | [`L-A02_01_Aufgaben-und-Inhalte-der-Trainingswissenschaft.pdf`](uebergreifend/L-A02_kapitel/L-A02_01_Aufgaben-und-Inhalte-der-Trainingswissenschaft.pdf) |
+| 02 | Grundlagenwissen zum sportlichen Training | 45–95 | [`L-A02_02_Grundlagenwissen-zum-sportlichen-Training.pdf`](uebergreifend/L-A02_kapitel/L-A02_02_Grundlagenwissen-zum-sportlichen-Training.pdf) |
+| 03-1 | Leistungssteuerung (Teil 1/3) | 96–140 | [`L-A02_03-1_Leistungssteuerung.pdf`](uebergreifend/L-A02_kapitel/L-A02_03-1_Leistungssteuerung.pdf) |
+| 03-2 | Leistungssteuerung (Teil 2/3) | 141–183 | [`L-A02_03-2_Leistungssteuerung.pdf`](uebergreifend/L-A02_kapitel/L-A02_03-2_Leistungssteuerung.pdf) |
+| 03-3 | Leistungssteuerung (Teil 3/3) | 184–226 | [`L-A02_03-3_Leistungssteuerung.pdf`](uebergreifend/L-A02_kapitel/L-A02_03-3_Leistungssteuerung.pdf) |
+| 04-1 | Krafttraining (Teil 1/2) | 227–267 | [`L-A02_04-1_Krafttraining.pdf`](uebergreifend/L-A02_kapitel/L-A02_04-1_Krafttraining.pdf) |
+| 04-2 | Krafttraining (Teil 2/2) | 268–307 | [`L-A02_04-2_Krafttraining.pdf`](uebergreifend/L-A02_kapitel/L-A02_04-2_Krafttraining.pdf) |
+| 05-1 | Schnelligkeitstraining (Teil 1/2) | 308–342 | [`L-A02_05-1_Schnelligkeitstraining.pdf`](uebergreifend/L-A02_kapitel/L-A02_05-1_Schnelligkeitstraining.pdf) |
+| 05-2 | Schnelligkeitstraining (Teil 2/2) | 343–380 | [`L-A02_05-2_Schnelligkeitstraining.pdf`](uebergreifend/L-A02_kapitel/L-A02_05-2_Schnelligkeitstraining.pdf) |
+| 06 | Beweglichkeitstraining | 381–407 | [`L-A02_06_Beweglichkeitstraining.pdf`](uebergreifend/L-A02_kapitel/L-A02_06_Beweglichkeitstraining.pdf) |
+| 07-1 | Ausdauertraining (Teil 1/2) | 408–445 | [`L-A02_07-1_Ausdauertraining.pdf`](uebergreifend/L-A02_kapitel/L-A02_07-1_Ausdauertraining.pdf) |
+| 07-2 | Ausdauertraining (Teil 2/2) | 446–482 | [`L-A02_07-2_Ausdauertraining.pdf`](uebergreifend/L-A02_kapitel/L-A02_07-2_Ausdauertraining.pdf) |
+| 08 | Techniktraining | 483–531 | [`L-A02_08_Techniktraining.pdf`](uebergreifend/L-A02_kapitel/L-A02_08_Techniktraining.pdf) |
+| 09-1 | Regenerationsmanagement und Ernährung (Teil 1/2) | 532–563 | [`L-A02_09-1_Regenerationsmanagement-und-Ernaehrung.pdf`](uebergreifend/L-A02_kapitel/L-A02_09-1_Regenerationsmanagement-und-Ernaehrung.pdf) |
+| 09-2 | Regenerationsmanagement und Ernährung (Teil 2/2) | 564–594 | [`L-A02_09-2_Regenerationsmanagement-und-Ernaehrung.pdf`](uebergreifend/L-A02_kapitel/L-A02_09-2_Regenerationsmanagement-und-Ernaehrung.pdf) |
+| 10 | Training im Kindes- und Jugendalter | 595–647 | [`L-A02_10_Training-im-Kindes-und-Jugendalter.pdf`](uebergreifend/L-A02_kapitel/L-A02_10_Training-im-Kindes-und-Jugendalter.pdf) |
+| 11-1 | Training mit Frauen (Teil 1/2) | 648–684 | [`L-A02_11-1_Training-mit-Frauen.pdf`](uebergreifend/L-A02_kapitel/L-A02_11-1_Training-mit-Frauen.pdf) |
+| 11-2 | Training mit Frauen (Teil 2/2) | 685–719 | [`L-A02_11-2_Training-mit-Frauen.pdf`](uebergreifend/L-A02_kapitel/L-A02_11-2_Training-mit-Frauen.pdf) |
+| 12 | Training im mittleren und höheren Lebensalter | 720–761 | [`L-A02_12_Training-im-mittleren-und-hoeheren-Lebensalter.pdf`](uebergreifend/L-A02_kapitel/L-A02_12_Training-im-mittleren-und-hoeheren-Lebensalter.pdf) |
+| 13 | Trainingswissenschaft in den Ausdauersportarten | 762–784 | [`L-A02_13_Trainingswissenschaft-in-den-Ausdauersportarten.pdf`](uebergreifend/L-A02_kapitel/L-A02_13_Trainingswissenschaft-in-den-Ausdauersportarten.pdf) |
+| 14-1 | Trainingswissenschaft in den Mannschaftssportarten (Teil 1/2) | 785–821 | [`L-A02_14-1_Trainingswissenschaft-in-den-Mannschaftssportarten.pdf`](uebergreifend/L-A02_kapitel/L-A02_14-1_Trainingswissenschaft-in-den-Mannschaftssportarten.pdf) |
+| 14-2 | Trainingswissenschaft in den Mannschaftssportarten (Teil 2/2) | 822–860 | [`L-A02_14-2_Trainingswissenschaft-in-den-Mannschaftssportarten.pdf`](uebergreifend/L-A02_kapitel/L-A02_14-2_Trainingswissenschaft-in-den-Mannschaftssportarten.pdf) |
+| 15 | Trainingswissenschaft in den Rückschlagsportarten | 861–900 | [`L-A02_15_Trainingswissenschaft-in-den-Rueckschlagsportarten.pdf`](uebergreifend/L-A02_kapitel/L-A02_15_Trainingswissenschaft-in-den-Rueckschlagsportarten.pdf) |
+| 90 | Serviceteil | 901–911 | [`L-A02_90_Serviceteil.pdf`](uebergreifend/L-A02_kapitel/L-A02_90_Serviceteil.pdf) |
 
 ### L-T3-06 Climbing Medicine – `t3-klettern/L-T3-06_kapitel/`
 
