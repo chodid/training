@@ -8,7 +8,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 
 | Pfad | Inhalt | Arbeitspaket |
 |---|---|---|
-| `server/public/` | Document Root (einziger per HTTP erreichbarer Ordner), `index.php` als einziger Einstieg; `css/training.css` (Ergänzungen), `manifest.webmanifest`, `favicon.ico` und `icons/` (App-Icon, eingecheckt, siehe „Icons“); `assets/` wird gebaut (siehe unten) | AP-00, AP-01, AP-04, AP-13 |
+| `server/public/` | Document Root (einziger per HTTP erreichbarer Ordner), `index.php` als einziger Einstieg; `css/training.css` (Ergänzungen), `js/` (Seitenskripte: Offline, Check-in, Passkey, geführte Einheit), `sw.js` (Service Worker), `manifest.webmanifest`, `favicon.ico` und `icons/` (App-Icon, eingecheckt, siehe „Icons“); `assets/` wird gebaut (siehe unten) | AP-00, AP-01, AP-04, AP-09, AP-13, AP-14 |
 | `server/src/` | PHP-Quellcode (Namespace `Training\`): `Auth/` Login und Session, `OAuth/` Autorisierungsserver, `Mcp/` MCP-Endpunkt, `Intervals/` Intervals.icu-Client, `Data/` Datenzugriff und Audit-Log, `Plan/` Plan-Validierung und Ablaufplan der geführten Einheit, `View/` Seiten | AP-00 ff. |
 | `server/templates/` | Seitenvorlagen nach `docs/branding/` (S0, S1, S7 aus AP-01; S2–S5, S8 aus AP-04; S9 `session-start.php` aus AP-14); Teilvorlagen beginnen mit `_` | AP-01, AP-04, AP-14 |
 | `server/bin/build-assets.php` | Kopiert Design-System, `app.css`, Icons und Logo aus `docs/branding/` nach `server/public/assets/` | AP-01 |
@@ -38,7 +38,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 └── .ftp-deploy-sync-state.json  ← Statusdatei des Upload-Schritts
 ```
 
-## Endpunkte (Stand AP-13)
+## Endpunkte (Stand AP-14)
 
 | Methode | Pfad | Zweck |
 |---|---|---|

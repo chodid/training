@@ -419,9 +419,22 @@
   // Sofort (Skript steht vor den Schritten): Schritte erst nach der Einrichtung zeigen, kein Aufblitzen aller Übungen
   document.documentElement.classList.add('js');
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', einrichten);
+    document.addEventListener('DOMContentLoaded', sicherEinrichten);
   } else {
-    einrichten();
+    sicherEinrichten();
+  }
+
+  /** Scheitert die Einrichtung, bleibt die Seite ein vollständiges Formular (wie ohne JavaScript). */
+  function sicherEinrichten() {
+    try {
+      einrichten();
+    } catch (e) {
+      document.documentElement.classList.remove('js');
+      document.body.removeAttribute('data-phase');
+      if (window.console) {
+        console.error('Geführte Einheit:', e);
+      }
+    }
   }
 
   function einrichten() {

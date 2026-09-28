@@ -107,7 +107,8 @@ final class McpEndpoint
         if (random_int(1, 50) !== 1 || !is_dir($this->sessionDir())) {
             return;
         }
-        $limit = $this->clock->now() - 86400;
+        // Dateizeiten sind echte Zeit; die App-Uhr kann in Tests verstellt sein (sonst verschwindet eine neue Sitzung)
+        $limit = time() - 86400;
         foreach (glob($this->sessionDir() . '/*') ?: [] as $file) {
             if (is_file($file) && filemtime($file) < $limit) {
                 @unlink($file);

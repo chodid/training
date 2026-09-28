@@ -576,7 +576,7 @@ geprueft:
     datum: 2026-09-28
 noch_zu_pruefen:
   - was: P-A2 – Chrome Desktop, DevTools → Application → Manifest ohne Fehler, alle Icons geladen; erwartet nur die zwei Hinweise „Richer PWA Install UI … desktop/mobile“ (keine Screenshots im Manifest, Auftrag O-05)
-    wie: manuell durch Athlet (nach Deployment 0.17.0)
+    wie: manuell durch Athlet (nach Deployment; 0.17.0 und 0.18.0 kommen gemeinsam mit einem Pull Request)
   - was: P-A3 – LibreWolf Android, von /login und von /woche „Zum Startbildschirm“ → beide Male Lama-Icon (V3)
     wie: Gerätetest durch Athlet (alte Verknüpfung vorher entfernen); Screenshot ins Prüfprotokoll
   - was: P-A4 – LibreWolf about:config dom.serviceWorkers.enabled, dom.manifest.enabled notieren
@@ -588,7 +588,7 @@ noch_zu_pruefen:
   - was: P-A1 erneut mit dem neuen Icon (V3) in Chrome Android
     wie: Gerätetest durch Athlet
   - was: T2 – Wochenplan aus dem Projekt-Chat mit focus, coach_notes, coach_summary und coach_rationale schreiben (Connector ggf. neu verbinden); ohne Kurzsatz meldet das Tool die fehlenden Felder
-    wie: manuell durch Athlet im Trainer-Chat (nach Deployment 0.17.0)
+    wie: manuell durch Athlet im Trainer-Chat (nach Deployment; 0.17.0 und 0.18.0 kommen gemeinsam mit einem Pull Request)
   - was: T2 – S2 und S3 auf dem Smartphone: Kurzsatz sichtbar, „mehr“ klappt auf (auch mit abgeschaltetem JavaScript)
     wie: manuell durch Athlet
   - was: T2 – Kalendertermin im Nextcloud-Kalender zeigt den Kurzsatz als erste Zeile der Beschreibung
