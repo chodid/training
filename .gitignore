@@ -15,6 +15,7 @@ server/backups/
 
 # Build-Ergebnis: Gestaltungsgrundlage aus docs/branding/ (server/bin/build-assets.php)
 server/public/assets/
+server/resources/
 
 # Laufzeitdaten (D-17)
 server/var/

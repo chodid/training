@@ -4,6 +4,19 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.7.0] – 2026-09-28
+
+AP-05 MCP-Tools produktiv.
+
+### Hinzugefügt
+- Lese-Tools (Abschnitt 8.2, aggregiert, Skalen benannt): `get_week_overview` (Plan vs. Ist, sRPE je Typ, Compliance, Aktivitäten aus Intervals.icu inkl. nicht geplanter, Schmerz der Woche, Check-in-Abdeckung, Fitness/Ermüdung/Form), `get_session_detail`, `get_pain_history` (je Ort mit 7-Tage-Trend), `get_wellness_trend` (HRV, Ruhepuls, Schlaf, Check-in, Baseline 7 vs. 28 Tage), `get_block`, `get_athlete_profile`.
+- Schreib-Tools: `write_week_plan` (vollständige Prüfung vor dem Schreiben, DB-Transaktion, danach Intervals.icu-Workouts je Ausdauereinheit mit Fehlerbericht je Einheit; `replace_existing` ersetzt nur geplante Einheiten ohne Rückmeldung und löscht deren Events), `update_session` (inkl. Nachziehen, Löschen bei „ausgelassen“ oder Neuanlage des Events), `upsert_block` (Vorschlag Q-11, Voraussetzung für Wochenpläne).
+- Rechteprüfung je Tool über den Token-Scope (`training:read`, `training:write`); Schreibsperre (D-20) für alle Schreib-Tools; Audit-Log aller MCP-Schreibzugriffe inkl. Intervals-Events und -Fehler.
+- `plan_json` Ausdauer: optionales Feld `sport` (Intervals.icu-Sportart, Standard Run; Vorschlag Q-12).
+- Build: `docs/athlet/*.md` → `server/resources/athlet/` für `get_athlete_profile`.
+- Tests über den echten `/mcp`-Endpunkt (Scopes, Block, Wochenplan, Übersicht, Ersetzen, Intervals-Fehler und erneuter Sync, Schreibsperre, Lese-Tools).
+
+
 ## [0.6.0] – 2026-09-28
 
 AP-10 Backup und Update-Mechanik.

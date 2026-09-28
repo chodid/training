@@ -25,24 +25,30 @@ use Training\OAuth\OAuthConfig;
 final class McpEndpoint
 {
     private const SESSION_TTL = 3600;
+    /** Scopes des geprüften Tokens (für die Rechteprüfung je Tool). */
+    private string $scope = '';
+
     public function __construct(
         private readonly OAuthConfig $config,
         private readonly string $varDir,
         private readonly Clock $clock,
+        private readonly ?App $app = null,
     ) {
     }
 
     public function handle(Request $request): Response
     {
-        $mcp = new McpServer('training', null, App::VERSION);
-        $this->registerTools($mcp);
-
         // Das SDK legt für Clients älterer Protokollrevisionen Sitzungsdateien an, auch vor der Token-Prüfung.
         // Ohne gültiges Token wird daher nur ein flüchtiger Speicher benutzt; die 401-Antwort erzeugt weiterhin das SDK.
         $validator = new TokenValidator($this->config);
         $authorized = $this->hasValidToken($request, $validator);
         if ($authorized) {
             $this->cleanupSessions();
+        }
+        $mcp = new McpServer('training', null, App::VERSION);
+        $this->registerTools($mcp);
+        if ($this->app !== null) {
+            (new ToolRegistry($this->app, $this->clock, fn (): string => $this->scope))->register($mcp);
         }
 
         $options = [
@@ -81,8 +87,13 @@ final class McpEndpoint
     private function hasValidToken(Request $request, TokenValidator $validator): bool
     {
         $header = $request->header('Authorization');
+        if ($header === null || preg_match('/^Bearer\s+(\S+)/i', $header, $m) !== 1) {
+            return false;
+        }
+        $result = $validator->validate($m[1]);
+        $this->scope = $result->valid ? (string) ($result->claims['scope'] ?? '') : '';
 
-        return $header !== null && preg_match('/^Bearer\s+(\S+)/i', $header, $m) === 1 && $validator->validate($m[1])->valid;
+        return $result->valid;
     }
 
     private function sessionDir(): string

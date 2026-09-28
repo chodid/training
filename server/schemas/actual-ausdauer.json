@@ -29,6 +29,23 @@
         "null"
       ],
       "maxLength": 1000
+    },
+    "sport": {
+      "enum": [
+        "Run",
+        "TrailRun",
+        "Hike",
+        "Walk",
+        "Ride",
+        "MountainBikeRide",
+        "GravelRide",
+        "BackcountrySki",
+        "NordicSki",
+        "Snowshoe",
+        "Swim",
+        "Rowing"
+      ],
+      "description": "Sportart des Intervals.icu-Events (Standard Run)"
     }
   }
 }

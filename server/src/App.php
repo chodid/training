@@ -21,7 +21,7 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.6.0';
+    public const VERSION = '0.7.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
     public const SCHEMA_VERSION = 14;
@@ -64,7 +64,7 @@ final class App
     {
         $web = fn (): WebController => new WebController($this);
         $oauth = fn (): OAuthController => new OAuthController($this);
-        $mcp = fn (): Response => (new McpEndpoint($this->oauthConfig(), $this->varDir(), $this->clock))->handle($request);
+        $mcp = fn (): Response => (new McpEndpoint($this->oauthConfig(), $this->varDir(), $this->clock, $this))->handle($request);
         $mcpWithCors = fn (): Response => $mcp()->withHeaders(OAuthController::CORS);
         $preflight = fn (): Response => (new Response(204, ''))->withHeaders(OAuthController::CORS);
 
@@ -201,6 +201,12 @@ final class App
     }
 
     /** Laufzeitdaten außerhalb des Docroots (D-17), z. B. MCP-Sitzungsdateien. */
+    /** Kopie von docs/athlet/profil.md auf dem Server (Build-Schritt, für get_athlete_profile). */
+    public function profileFile(): string
+    {
+        return $this->baseDir . '/resources/athlet/profil.md';
+    }
+
     public function varDir(): string
     {
         return $this->baseDir . '/var';

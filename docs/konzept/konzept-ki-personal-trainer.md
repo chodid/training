@@ -181,6 +181,8 @@ flowchart LR
 | Q-08 | Klettermedizin: deutsche (L-T3-07, 2020) oder englische Ausgabe (L-T3-06, 2022)? Nur eine wird beschafft. | Englische Ausgabe (neuer, ISBN/DOI verifiziert, Springer-Kapitel-PDFs); deutsche nur, wenn Sprache im Alltag wichtiger ist als Aktualität. | entschieden → D-31: 2022 bevorzugt, 2020 als Alternative |
 | Q-09 | Laufzeit der Refresh-Tokens (D-32 legt keine fest). Jede Rotation beginnt die Laufzeit neu; nach Ablauf muss der Connector in Claude neu verbunden werden (Login + Freigabe). | 90 Tage: bei regelmäßiger Nutzung (wöchentlicher Zyklus) nie ein erneuter Login, ein verlorenes Gerät verliert den Zugang spätestens nach 90 Tagen ohne Nutzung. Kürzer (30 Tage) nur, wenn Pausen > 30 Tage einen neuen Login rechtfertigen. | entschieden → D-38 (2026-09-28) |
 | Q-10 | `plan_json` für `mobilitaet` und `ruhe` (Abschnitt 7.1 definiert nur kraft/haltung, klettern, ausdauer). | `mobilitaet` wie kraft/haltung (Übungsliste mit Sätzen/Wiederholungen bzw. Haltezeit „30s“); `ruhe` ohne Plan, höchstens Notiz. Passt zu den Mockups (S3) und hält die Webseite einfach. | entschieden → D-39 (2026-09-28) |
+| Q-11 | Neues MCP-Tool `upsert_block` (Block anlegen/ändern: Name, Zeitraum, Status, Zielevents, Phasen, Verweis auf docs/plaene/). Abschnitt 8.2 sieht kein Tool dafür vor, `write_week_plan` braucht aber einen Block. | Tool aufnehmen (so umgesetzt): Blockplan entsteht im Projekt-Chat (AP-08), Claude legt ihn nach Bestätigung per Tool an. Alternative: Block per SQL/Webseite anlegen. | offen (umgesetzt, Code-Stand 0.7.0) |
+| Q-12 | Sportart für Intervals.icu-Events: optionales Feld `sport` in `plan_json.ausdauer` (Run, TrailRun, Hike, Walk, Ride, MountainBikeRide, GravelRide, BackcountrySki, NordicSki, Snowshoe, Swim, Rowing; Standard Run). | Aufnehmen (so umgesetzt): Skitour und Wandern brauchen eigene Typen, damit Garmin das richtige Sportprofil (und die Zonen, V-12) nutzt. | offen (umgesetzt, Code-Stand 0.7.0) |
 
 ## 5.2 Zu verifizieren (vor/in dem jeweiligen AP)
 
@@ -264,6 +266,7 @@ klettern:
       notes: string|null
 ausdauer:
   intervals_workout_text: string   # Intervals.icu-Syntax (V-01)
+  sport: enum|null [Run, TrailRun, Hike, Walk, Ride, MountainBikeRide, GravelRide, BackcountrySki, NordicSki, Snowshoe, Swim, Rowing]  # Q-12, Standard Run
   target_type: enum [hf_zone, pace, rpe]
   summary: string                  # Klartext für Wochenansicht
 ```
@@ -300,7 +303,11 @@ Zuordnung der übrigen Typen (D-39): `mobilitaet` nutzt das Schema `kraft_oder_h
 | `update_session` | session_id, changes | aktualisierte Session; bei Ausdauer auch Event-Update | ja |
 | `get_athlete_profile` | – | Inhalt von docs/athlet/profil.md (vom Server aus Repo-Kopie gelesen) | nein |
 
+| `upsert_block` (Q-11) | block_id (optional), block {name, start_date, end_date, status, goal_events, phase_notes, doc_ref} | Block-ID | ja |
+
 Enum-Werte und Skalen in Antworten immer mit Einheit/Skala kennzeichnen (z. B. `rpe_cr10`), damit Claude sie nicht verwechselt.
+
+Rechte (AP-05): Lese-Tools verlangen den Scope `training:read`, Schreib-Tools `training:write`. Schreib-Tools sind bei Code/Schema-Abweichung gesperrt (D-20).
 
 ## 8.3 Antwortbudget
 
@@ -1233,10 +1240,36 @@ probleme_loesungen:
 - **Abnahmekriterien:** Aus dem Projekt-Chat: Wochenübersicht abrufen (≤ 2 000 Tokens); Wochenplan schreiben → Einheiten in DB, Ausdauer-Events auf der Uhr; Audit-Log vollständig; Fehler in Intervals.icu brechen den DB-Schreibvorgang nicht unbemerkt ab.
 - **Status:**
 ```yaml
-status: offen
-begonnen: null
+status: in_arbeit         # Code-Stand 0.7.0, Tests über /mcp grün (simulierte Intervals-API), SDK-Client beide Protokoll-Epochen ok; offen: Projekt-Chat mit echten Daten, Events auf der Uhr, Q-11/Q-12
+begonnen: 2026-09-28
 abgeschlossen: null
-probleme_loesungen: []
+umsetzung:
+  - server/src/Mcp/ReadTools.php, WriteTools.php, ToolRegistry.php; Registrierung in McpEndpoint
+  - Scope je Tool (training:read / training:write) aus dem geprüften Token; Schreibsperre D-20 für Schreib-Tools
+  - write_week_plan – Prüfung aller Einheiten vor dem Schreiben (alles oder nichts), DB-Transaktion, danach Intervals-Events (external_id training-session-<id>); Fehler je Einheit, Einheit bleibt ohne Event-ID, erneuter Sync mit update_session
+  - Audit-Log – block_create/update, week_plan_write, session_update, intervals_event_create/update/delete, intervals_error (actor mcp)
+probleme_loesungen:
+  - datum: 2026-09-28
+    was: Kein Tool legt einen Trainingsblock an; write_week_plan braucht aber einen Block (training_week.block_id)
+    loesung: Tool upsert_block ergänzt (Anlegen/Ändern, „aktiv“ schließt andere aktive Blöcke ab); als Q-11 dem Athleten vorgelegt
+  - datum: 2026-09-28
+    was: Das Intervals.icu-Event braucht eine Sportart; plan_json.ausdauer (7.1) hat keine
+    loesung: optionales Feld sport (Run, TrailRun, Hike, Walk, Ride, …, BackcountrySki, NordicSki; Standard Run) im Schema; als Q-12 vorgelegt
+  - datum: 2026-09-28
+    was: replace_existing würde Einheiten mit Rückmeldung löschen (Datenverlust)
+    loesung: ersetzt werden nur Einheiten mit Status geplant und ohne Durchführung; alle anderen bleiben und werden in „behalten“ gemeldet; Events ersetzter Einheiten werden in Intervals.icu gelöscht
+  - datum: 2026-09-28
+    was: Reihenfolge DB ↔ Intervals.icu bei Teilfehlern
+    loesung: erst DB-Transaktion (vollständig oder gar nicht), dann Events; Intervals-Fehler landen je Einheit in der Antwort (status teilweise) und im audit_log; update_session legt fehlende Events nachträglich an
+  - datum: 2026-09-28
+    was: Status „ausgelassen“ bzw. Verschieben einer Ausdauereinheit
+    loesung: ausgelassen löscht das Event (verschwindet von der Uhr), Datumsänderung aktualisiert es; Verschieben in eine Woche ohne Plan wird abgelehnt
+  - datum: 2026-09-28
+    was: Antwortbudget (8.3)
+    loesung: kompakte deutsche Schlüssel, Aktivitäten zusammengefasst (Zonen in Minuten), Schmerzverlauf als „MM-TT:Stärke:Zeitpunkt“, Listen begrenzt; Beispielwoche ≈ 2 000 Zeichen (Test < 8 000 Zeichen ≈ 2 000 Tokens)
+  - datum: 2026-09-28
+    was: Feldnamen der Intervals-Wellness (ctl, atl, hrv, restingHR, sleepSecs, sleepScore) und Aktivität (icu_training_load, total_elevation_gain) nicht am Original prüfbar (V-04)
+    loesung: fehlende Felder werden weggelassen statt Fehler; Prüfung mit echten Daten im Prüfprotokoll
 ```
 
 ## AP-06 Wissensbasis (Projekt-Chat / eigene Literatur-Sitzungen)
@@ -1437,3 +1470,4 @@ noch_zu_pruefen:
 | 2026-09-28 | Q-09 → D-38 (Refresh-Token 90 Tage) und Q-10 → D-39 (`plan_json` für mobilitaet/ruhe) vom Athleten bestätigt; Umsetzung unverändert. Auslieferung: AP-01 bis AP-03 gemeinsam in einem Pull Request (Entscheidung Athlet). |
 | 2026-09-28 | AP-04 umgesetzt (Code-Stand 0.5.0), Status `in_arbeit` bis zur Abnahme auf Smartphone/Tablet. Befunde im AP-04-Block (Dauerfeld in S3, Speichern bei ausgelassen/verschoben, performed_at, actual_json vollständig, Aktivitätszuordnung, vorläufige Schmerz-Hinweisregel, CSS statt JavaScript, Platzhalter für AP-09/AP-10). |
 | 2026-09-28 | AP-10 umgesetzt (Code-Stand 0.6.0), Status `in_arbeit` bis Entschlüsseln beim Athleten, E-Mail-Test über Lima-City und MCP-Schreibsperre (AP-05). Befunde im AP-10-Block (BACKUP_PASSWORD Pflicht, 200 000 Iterationen, Cron-Secret im Query, Zustand in var/, Umfang der Sperre). |
+| 2026-09-28 | AP-05 umgesetzt (Code-Stand 0.7.0), Status `in_arbeit`. Neu vorgeschlagen: Q-11 Tool `upsert_block` (8.2 ergänzt), Q-12 Feld `sport` in `plan_json.ausdauer` (7.1 ergänzt); Rechte je Tool über Scopes. Befunde im AP-05-Block. |

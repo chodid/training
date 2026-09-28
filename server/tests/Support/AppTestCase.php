@@ -117,6 +117,34 @@ abstract class AppTestCase extends TestCase
         return $response;
     }
 
+    /** @var array<string, string> MCP-Sitzung je Token */
+    private array $mcpSessions = [];
+
+    /**
+     * Ruft ein MCP-Tool über /mcp auf (Protokoll 2025-06-18 mit Handshake) und gibt das Ergebnis zurück.
+     *
+     * @param array<string, mixed> $args
+     * @return array{isError: bool, data: mixed, text: string}
+     */
+    protected function mcpTool(string $token, string $tool, array $args = []): array
+    {
+        $headers = ['Authorization' => 'Bearer ' . $token, 'Content-Type' => 'application/json', 'Accept' => 'application/json, text/event-stream'];
+        if (!isset($this->mcpSessions[$token])) {
+            $init = $this->request('POST', '/mcp', [], $headers, '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"test","version":"1"}}}');
+            self::assertSame(200, $init->status, $init->body);
+            $this->mcpSessions[$token] = $init->headers['Mcp-Session-Id'];
+            $this->request('POST', '/mcp', [], $headers + ['Mcp-Session-Id' => $this->mcpSessions[$token], 'MCP-Protocol-Version' => '2025-06-18'], '{"jsonrpc":"2.0","method":"notifications/initialized"}');
+        }
+        $body = json_encode(['jsonrpc' => '2.0', 'id' => 2, 'method' => 'tools/call', 'params' => ['name' => $tool, 'arguments' => (object) $args]], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+        $r = $this->request('POST', '/mcp', [], $headers + ['Mcp-Session-Id' => $this->mcpSessions[$token], 'MCP-Protocol-Version' => '2025-06-18'], $body);
+        self::assertSame(200, $r->status, $r->body);
+        $json = json_decode($r->body, true);
+        self::assertArrayHasKey('result', $json, $r->body);
+        $text = (string) ($json['result']['content'][0]['text'] ?? '');
+
+        return ['isError' => (bool) ($json['result']['isError'] ?? false), 'data' => json_decode($text, true), 'text' => $text];
+    }
+
     /** CSRF-Token aus dem versteckten Feld einer HTML-Seite. */
     protected static function csrfFrom(Response $response): string
     {

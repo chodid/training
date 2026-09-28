@@ -39,7 +39,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 └── .ftp-deploy-sync-state.json  ← Statusdatei des Upload-Schritts
 ```
 
-## Endpunkte (Stand AP-10)
+## Endpunkte (Stand AP-05)
 
 | Methode | Pfad | Zweck |
 |---|---|---|
@@ -63,7 +63,24 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | POST | `/oauth/register` | Offene Client-Registrierung (RFC 7591); Redirect-URIs nur `https://` oder `http://localhost` |
 | GET/POST | `/oauth/authorize` | Login + Freigabeseite S7; PKCE `S256` Pflicht |
 | POST | `/oauth/token` | Code-Einlösung und Refresh (Rotation, Familien-Widerruf) |
-| POST | `/mcp` | MCP (Streamable HTTP, ohne SSE). Bearer-Token Pflicht: JWT aus `/oauth/token` oder – nur mit `MCP_STATIC_TOKEN_ENABLED=true` – `MCP_STATIC_TOKEN`. Tool: `ping`. |
+| POST | `/mcp` | MCP (Streamable HTTP, ohne SSE). Bearer-Token Pflicht: JWT aus `/oauth/token` oder – nur mit `MCP_STATIC_TOKEN_ENABLED=true` – `MCP_STATIC_TOKEN`. Tools siehe unten. |
+
+### MCP-Tools (Konzept 8.2)
+
+| Tool | Scope | Zweck |
+|---|---|---|
+| `ping` | – | Verbindungstest |
+| `get_week_overview` | `training:read` | Woche aggregiert: Plan vs. Ist, sRPE, Compliance, Aktivitäten, Schmerz, Check-in, Form |
+| `get_session_detail` | `training:read` | Einheit mit `plan_json`, `actual_json`, Rückmeldung, Schmerz, Aktivität |
+| `get_pain_history` | `training:read` | Schmerz je Ort mit Trend (Standard 56 Tage) |
+| `get_wellness_trend` | `training:read` | HRV, Ruhepuls, Schlaf, Check-in; Baseline 7/28 Tage |
+| `get_block` | `training:read` | aktueller Block mit Wochenstatus |
+| `get_athlete_profile` | `training:read` | Inhalt von `docs/athlet/profil.md` (beim Deployment mitkopiert) |
+| `upsert_block` | `training:write` | Block anlegen/ändern (Voraussetzung für Wochenpläne) |
+| `write_week_plan` | `training:write` | Wochenplan schreiben, Ausdauer als Workout nach Intervals.icu |
+| `update_session` | `training:write` | Einheit ändern, Event nachziehen |
+
+Schreib-Tools sind bei „Update erforderlich“ gesperrt; alle Schreibzugriffe stehen im `audit_log`.
 
 ## Einrichtung
 

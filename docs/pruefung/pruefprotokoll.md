@@ -310,6 +310,10 @@ geprueft:
     wie: automatisiert
     ergebnis: ok
     datum: 2026-09-28
+  - was: Schreibsperre für MCP-Schreibtools (upsert_block bei Abweichung → Fehler „Update erforderlich“)
+    wie: automatisiert (McpToolsTest, AP-05)
+    ergebnis: ok
+    datum: 2026-09-28
   - was: Cron-Endpunkt – ohne Secret 503, falscher Schlüssel 403, Versand mit Anhang und Anleitung, Intervall (übersprungen), force, Fehler gespeichert und in Woche/Einstellungen angezeigt
     wie: automatisiert (simulierter Mailer)
     ergebnis: ok
@@ -321,8 +325,50 @@ noch_zu_pruefen:
     wie: manuell durch Athlet – Einstellungen → Herunterladen, openssl enc -d … (README), gunzip, Import in eine leere Test-DB bei Lima-City
   - was: E-Mail mit Anhang kommt an (V-10 Anhang-Limit)
     wie: manuell – SMTP_* und BACKUP_* in .env, Aufruf /cron/backup-mail?key=…&force=1, Postfach prüfen; Cronjob bei Lima-City täglich einrichten
-  - was: Schreibsperre für MCP-Schreibtools
-    wie: automatisiert mit AP-05
+```
+
+## AP-05 MCP-Tools produktiv
+
+```yaml
+ap: AP-05
+geprueft:
+  - was: tools/list enthält alle zehn Tools; Scope training:read darf lesen, aber nicht schreiben (Fehler mit Hinweis auf training:write)
+    wie: automatisiert (PHPUnit über /mcp)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: write_week_plan – ohne Block abgelehnt; ungültige Einheiten (Datum außerhalb der Woche, Plan ohne Workout-Text) → nichts geschrieben, alle Fehler gemeldet; gültiger Plan mit Kraft, zwei Ausdauer (Sportart TrailRun), Ruhetag → DB, Woche bestätigt, Events 5001/5002 mit external_id, Dauer und Sportart; zweites Schreiben ohne replace_existing abgelehnt
+    wie: automatisiert (simulierte Intervals-API)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: get_week_overview – Block, sRPE je Typ, Compliance, Abweichung, Aktivität per paired_event_id (Zonen in Minuten, Load), Aktivität ohne Plan, Schmerz der Woche, Check-in-Abdeckung, Form (CTL−ATL), Skalen; Antwort < 8 000 Zeichen
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: update_session – Verschieben aktualisiert Event (neues Datum), unbekannte Felder/Woche ohne Plan abgelehnt, „ausgelassen“ löscht Event; replace_existing behält Einheit mit Rückmeldung, ersetzt geplante (Event gelöscht); Intervals-Fehler 500 → Einheit bleibt ohne Event, status teilweise, audit_log intervals_error; erneuter Sync legt Event an
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: get_block, get_pain_history (Trend steigend), get_wellness_trend (Tageswerte, Baseline), get_athlete_profile (ohne/mit Profildatei), get_session_detail unbekannt → Fehler; Schreibsperre
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Audit-Log vollständig für MCP-Schreibzugriffe (block_create, week_plan_write, intervals_event_create …)
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Echter MCP-Client (logiscape SDK) in der zustandslosen Revision 2026-07-28 – tools/list, get_week_overview, write_week_plan mit verschachtelten Argumenten
+    wie: manuell (lokaler Server, statisches Token)
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: Aus dem Projekt-Chat Wochenübersicht abrufen (≤ 2 000 Tokens) mit echten Daten
+    wie: manuell durch Athlet nach Deployment und Connector-Freigabe
+  - was: Wochenplan schreiben → Einheiten in DB (Webseite /woche), Ausdauer-Events in Intervals.icu und auf der Uhr
+    wie: manuell – zuerst upsert_block, dann write_week_plan für eine Testwoche; Webseite, Intervals-Kalender und Uhr prüfen; danach Testwoche per update_session/replace_existing bereinigen
+  - was: Intervals-Feldnamen (ctl, atl, hrv, restingHR, sleepSecs, icu_training_load, paired_event_id) mit echten Daten
+    wie: manuell – get_week_overview/get_wellness_trend mit Werten in Intervals.icu vergleichen
+  - was: Q-11 (upsert_block) und Q-12 (sport) bestätigen
+    wie: Entscheidung Athlet
 ```
 
 ## AP-06 Wissensbasis (übernommen aus Konzept)
