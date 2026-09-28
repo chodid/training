@@ -425,7 +425,23 @@ T2:
       loesung: Prüfung 1–255 wie 5.2 und Testfall „Grenzlängen 200/255/1500“; die Tool-Beschreibung nennt 255
     - was: Test-Hilfe rollbackLastMigration setzte bei Spaltenänderungen nur den Schemastand zurück; 0022 (ADD COLUMN) ließ sich danach nicht erneut einspielen (BackupTest rot)
       loesung: die Hilfe entfernt beim Zurücksetzen neu angelegte Spalten (ADD COLUMN); Seiten und Lese-Tools vertragen die fehlende Spalte während der Schreibsperre
-T3: {status: offen}
+T3:
+  status: umgesetzt          # Code-Stand 0.18.0
+  datum: 2026-09-28
+  ergebnis: >
+    Training\Plan\Ablaufplan: schritte(type, plan) liefert je Übung/Block {index, quelle, name, soll, notiz, art,
+    saetze, arbeit_s, pause_s, ist_felder} in Planreihenfolge (index = Feldindex ist[i]) oder null (ausdauer, ruhe,
+    kein Plan, leere Liste); geeignet() für E-13; json() für data-ablauf; holdSeconds() für die Regeln aus 6.3.
+    Soll-Texte über Training\View\PlanFormat (aus dem S3-Template herausgelöst, S3 nutzt dieselbe Klasse).
+    Zusätzlich zum Schema 6.3: Feld notiz (Hinweis der Übung aus plan_json, für die Anzeige in S9).
+  tests: AblaufplanTest (A-01 bis A-12 als Datenfälle, jeder Fall zusätzlich gegen das plan_json-Schema geprüft; Schreibweisen der Haltezeit)
+  probleme_loesungen:
+    - was: 6.3 lässt offen, was rest_s = 0 bedeutet
+      loesung: 0 = keine Pausenphase (pause_s null), ebenso hang_s/duration_min 0 bzw. Haltezeit 0 → kein Timer
+    - was: Die Regex in 6.3 kennt beim Haltebereich nur „-“ und die Einheiten s/sek; im Deutschen ist „30–45 s“ (Halbgeviertstrich) üblich, bei Einzelwerten erlaubt 6.3 auch „sec“ und einen Punkt
+      loesung: Bereich akzeptiert zusätzlich „–“ und dieselben Einheiten wie der Einzelwert (s, sek, sec, mit Punkt); alle Testfälle aus 8.1 unverändert
+    - was: Klettern-Block mit hang_s und duration_min (z. B. Hangboard 20 min, 10 s, 5 Sätze)
+      loesung: Regelreihenfolge aus 6.3 – hang_s geht vor (halten), duration_min bleibt Ist-Feld wie in S3
 T4: {status: offen}
 T5: {status: offen}
 T6: {status: offen}

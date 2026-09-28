@@ -4,6 +4,17 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.18.0] – 2026-09-28
+
+AP-14: Geführte Einheit (D-57, D-58) – Auftrag `docs/konzept/gefuehrte-einheit.md`, Unterpunkte T3–T7.
+
+### Hinzugefügt
+- Ablaufplan der geführten Einheit (`Training\Plan\Ablaufplan`, T3): leitet aus `plan_json` für Kraft, Haltung, Mobilität und Klettern deterministisch die Schritte ab – je Übung bzw. Block Art (Wiederholungen, Halten, Block, offen), Sätze, Arbeits- und Pausenzeit, Soll-Text und Ist-Felder wie in S3. Halten bei Wiederholungsangaben in Sekunden oder Minuten („45s“, „2 min“, „30-45 s“ → obere Grenze) und bei `hang_s`, Block bei `duration_min`. Ausdauer und Ruhetage haben keinen Ablaufplan.
+- Tests: alle Testfälle A-01 bis A-12 des Auftrags und die Schreibweisen der Haltezeiten.
+
+### Geändert
+- Soll-Texte von Übungen und Kletterblöcken kommen aus `Training\View\PlanFormat` (bisher im Template von S3), damit S3 und die geführte Einheit dieselben Texte zeigen.
+
 ## [0.17.0] – 2026-09-28
 
 AP-13: App-Icon und Logo (D-55, D-59) sowie Begründungstexte der Planung (D-56) – Auftrag `docs/konzept/gefuehrte-einheit.md`, Unterpunkte T1 und T2.

@@ -1914,10 +1914,14 @@ probleme_loesungen:
 - **Abnahmekriterien:** Testfälle 8.1 und 8.2 des Auftrags grün; Gerätetest des Athleten auf Android (Töne, Vibration, Grün/Rot, Bildschirm an, Stumm in S8 und in der Einheit); ohne JavaScript vollständig ausfüllbar; Speichern offline landet im Puffer.
 - **Status:**
 ```yaml
-status: offen
-begonnen: null
+status: in_arbeit
+begonnen: 2026-09-28
 abgeschlossen: null
-probleme_loesungen: []
+teilpakete: T3 umgesetzt (Code-Stand 0.18.0), T4–T7 offen – Details in docs/konzept/gefuehrte-einheit.md Abschnitt 12
+probleme_loesungen:
+  - datum: 2026-09-28
+    was: Haltebereiche mit Halbgeviertstrich („30–45 s“) und rest_s = 0 sind in 6.3 nicht geregelt
+    loesung: „–“ wie „-“; 0 = keine Pause bzw. kein Timer (Auftrag Abschnitt 12, T3)
 ```
 
 # 16. Prüfprotokoll (separates Dokument)
@@ -1988,3 +1992,4 @@ noch_zu_pruefen:
 | 2026-09-28 | Icon-Befund (Auftrag gefuehrte-einheit.md, E-05/O-03): Chrome auf Android zeigt das App-Icon; Fehler ist auf den Favicon-Weg von LibreWolf eingegrenzt, Manifest ausgeschlossen. |
 | 2026-09-28 | AP-13 begonnen: T1 App-Icon und Logo umgesetzt (Code-Stand 0.17.0, D-59); AP-13 `in_arbeit`, Befunde im AP-13-Block und im Auftrag (Abschnitt 12). |
 | 2026-09-28 | AP-13 T2 Begründungstexte umgesetzt (Code-Stand 0.17.0, Schema 22: `session.coach_summary`); 7, 8.2 und 10 entsprechen der Umsetzung (bereits mit D-56 eingetragen). AP-13 bleibt `in_arbeit` bis zur Abnahme durch den Athleten. |
+| 2026-09-28 | AP-14 begonnen: T3 Ablaufplan umgesetzt (Code-Stand 0.18.0); AP-14 `in_arbeit`. |

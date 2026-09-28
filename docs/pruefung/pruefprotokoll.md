@@ -595,6 +595,25 @@ noch_zu_pruefen:
     wie: manuell durch Athlet
 ```
 
+## AP-14 Geführte Einheit
+
+```yaml
+ap: AP-14
+auftrag: docs/konzept/gefuehrte-einheit.md (Teil C, T3–T7)
+geprueft:
+  - was: T3 Ablaufplan – Testfälle 8.1 A-01 bis A-12 (Wiederholungen, Halten s/min/Bereich, max, Hangboard mit und ohne Sätze, Block, offen, Ausdauer/Ruhe ohne Plan, Reihenfolge und Index), jeder Fall gültig nach plan_json-Schema; Schreibweisen der Haltezeit (s, sek, sec, min, Bereich mit - und –, 0, Komma)
+    wie: automatisiert (AblaufplanTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: S3-Soll-Texte nach Umzug in PlanFormat unverändert
+    wie: automatisiert (WebsiteTest)
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: T4–T6 (S9 ohne und mit Skript, Einstellungen, Offline)
+    wie: siehe Auftrag Abschnitt 7 und 8.2
+```
+
 ## AP-05 MCP-Tools produktiv
 
 ```yaml
