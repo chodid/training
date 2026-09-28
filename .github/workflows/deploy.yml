@@ -81,6 +81,7 @@ jobs:
         run: node --test tests/js/*.test.cjs
 
       - name: Browser-Test geführte Einheit (Playwright)
+        timeout-minutes: 10
         env:
           TEST_DB_HOST: 127.0.0.1
           TEST_DB_PORT: 3306

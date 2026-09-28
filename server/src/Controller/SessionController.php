@@ -230,6 +230,7 @@ final class SessionController extends AppController
                         $v = self::intField((string) $in[$field], $min, $max);
                         if ($v === null) {
                             $invalid['ist'] = true;
+                            $invalid['ist_schritte'][$i] = true; // S9 öffnet die erste Übung mit ungültigem Ist-Wert
                             $errors[] = sprintf('%s: „%s“ ist kein gültiger Wert.', $item['name'] ?? Labels::BLOCK_KINDS[$item['kind']] ?? '?', (string) $in[$field]);
                         } else {
                             $row[$field] = $v;

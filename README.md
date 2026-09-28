@@ -149,7 +149,7 @@ TEST_DB_HOST=127.0.0.1 TEST_DB_NAME=training_test TEST_DB_USER=… TEST_DB_PASSW
 
 Achtung: Die Integrationstests löschen alle Tabellen der Testdatenbank.
 
-Geführte Einheit (AP-14): Kern des Seitenskripts `public/js/gefuehrt.js` ohne Browser mit `node --test tests/js/*.test.cjs`; Browser-Durchlauf mit Playwright und gesteuerter Uhr mit `bash tests/e2e/run.sh` (startet die App auf Port 8089 mit eigener `.env` gegen die Testdatenbank aus `TEST_DB_*`; Playwright lokal, global oder per `npm install --no-save --prefix tests/e2e playwright`, anderer Browser über `CHROME_PATH`). Beides läuft auch in der CI.
+Geführte Einheit (AP-14): Kern des Seitenskripts `public/js/gefuehrt.js` ohne Browser mit `node --test tests/js/*.test.cjs`; Browser-Durchlauf mit Playwright und gesteuerter Uhr mit `bash tests/e2e/run.sh` (startet die App auf einem freien Port – oder `E2E_PORT` – mit eigener `.env` gegen die Testdatenbank aus `TEST_DB_*`; Playwright lokal, global oder per `npm install --no-save --prefix tests/e2e playwright`, anderer Browser über `CHROME_PATH`). Beides läuft auch in der CI.
 
 Lokal starten (ohne `.htaccess`): `.env` in `server/` anlegen (für `http://` ist `APP_URL=http://localhost:8080` möglich, dann ohne `Secure`-Cookies), Assets bauen mit `php bin/build-assets.php`, dann `php -S 127.0.0.1:8080 -t public bin/dev-router.php` (liefert vorhandene Dateien aus `public/` direkt aus). Datenbank einmalig mit `curl -X POST -H "X-Migration-Secret: …" http://127.0.0.1:8080/admin/migrate` migrieren.
 

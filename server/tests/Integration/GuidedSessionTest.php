@@ -126,6 +126,16 @@ final class GuidedSessionTest extends AppTestCase
         self::assertStringContainsString('data-gefuehrt', $bad->body, 'Fehler erscheinen wieder in S9');
         self::assertStringContainsString(' data-fehler>', $bad->body);
         self::assertStringContainsString('name="ist[0][load]" value="62,5 kg"', $bad->body, 'Eingaben bleiben');
+        self::assertStringNotContainsString('data-ist-fehler', $bad->body, 'Fehler in der Rückmeldung, nicht in den Ist-Werten');
+
+        // Ungültiger Ist-Wert in der zweiten Übung: S9 markiert genau diesen Schritt (Skript öffnet ihn, Review T5)
+        $ist = $this->request('POST', '/einheit', ['csrf' => self::csrfFrom($form), 'id' => (string) $id, 'stand' => $stand[1], 'modus' => 'start', 'status' => 'erledigt', 'duration_min' => '40', 'rpe' => '6', 'feel' => '2', 'pain' => 'nein',
+            'ist' => [['sets' => '3', 'reps' => '8'], ['sets' => 'abc', 'reps' => '8']]]);
+        self::assertSame(422, $ist->status);
+        self::assertStringContainsString(' data-fehler data-ist-fehler>', $ist->body);
+        self::assertSame(1, preg_match_all('/<section class="gf-step[^>]*data-invalid/', $ist->body));
+        self::assertStringContainsString('id="gf-schritt-1" aria-labelledby="gf-name-1" data-invalid>', $ist->body);
+        self::assertSame(1, substr_count($ist->body, '<section class="card invalid">'), 'nur die Ist-Karte der betroffenen Übung');
 
         $ok = $this->request('POST', '/einheit', ['csrf' => self::csrfFrom($form), 'id' => (string) $id, 'stand' => $stand[1], 'modus' => 'start', 'status' => 'teilweise', 'duration_min' => '41', 'rpe' => '6', 'feel' => '2', 'pain' => 'nein', 'deviation' => '', 'notes' => 'geführt',
             'ist' => [['sets' => '3', 'reps' => '8', 'load' => '62,5 kg'], ['sets' => '3', 'reps' => '8', 'load' => '50 kg'], ['sets' => '0', 'reps' => '12', 'load' => 'KG']]]);

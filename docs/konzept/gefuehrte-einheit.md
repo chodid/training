@@ -242,6 +242,8 @@ value:
   stumm: bool
   ist: { "<feldname>": "<wert>" }   # alle Formularfelder, bei Eingabe gespeichert
   gespeichert_am: epoch_ms    # Ablauf nach 12 h
+# Umsetzung (T5, Review): zusätzlich u. a. fertig [int], ende_um (Ende der Dauermessung) und ein eigener Schlüssel
+# training.gefuehrt.<session_id>.stumm ('1'/'0') für die Stumm-Wahl vor der ersten Eingabe – Details Abschnitt 12, T5
 ```
 
 ### 6.6 Einstellungen (S8)
@@ -524,9 +526,11 @@ T5:
     Template: Pausentimer auch bei Wiederholungsübungen (nur mit Skript), aria-live von der Phase-Karte entfernt.
     CSS: Aktionsleisten auf dem Smartphone über der unteren Navigation.
   tests: >
-    server/tests/js/gefuehrt.test.cjs (node --test, 14 Fälle: Z-01–Z-07, Z-10–Z-12 als Kern, Hangboard 7/3 × 6,
-    Block, offen, Bedienung zurück/wiederholen, Halten ohne Pause); server/tests/e2e/gefuehrt.e2e.cjs mit run.sh
-    (Playwright, gesteuerte Uhr, Audio/Vibration/Wake Lock ersetzt: Z-01–Z-08, Z-10–Z-12, Speichern, 375 px); beide in der CI
+    server/tests/js/gefuehrt.test.cjs (node --test, 17 Fälle: Z-01–Z-07, Z-10–Z-12 als Kern, Hangboard 7/3 × 6,
+    Block, offen, Bedienung zurück/wiederholen, Halten ohne Pause; nach dem Review Tipp-Sperre, Zurück/Weiter mit
+    erledigten Übungen, Schritt öffnen nach Ist-Fehler); server/tests/e2e/gefuehrt.e2e.cjs mit run.sh (Playwright,
+    gesteuerte Uhr, Audio/Vibration/Wake Lock ersetzt: Z-01–Z-08, Z-10–Z-12, Speichern, 375 px, verworfener Tipp,
+    Fokus, Stumm-Wahl vor dem Start; 14 Prüfungen); beide in der CI
   abnahme_offen: Gerätetest des Athleten auf Android (Töne und Vibration bei Start/30/10/3-2-1, Grün/Rot, Bildschirm bleibt an, Stumm in der Einheit und in S8)
   probleme_loesungen:
     - was: Widerspruch im Auftrag – E-17/6.4 „30 s vor Ende … nur bei Phasen ≥ 45 s“, Testfall Z-01 „halten 45 s … kein 30-s-Ton (< 45 s)“
@@ -551,6 +555,24 @@ T5:
       loesung: Test tippt auf die Beschriftung wie ein Nutzer und lässt die Uhr zum Ausfüllen wieder laufen
     - was: Mockup zeigt „≈ 32 min verbleibend“; die Dauer von Wiederholungsübungen ist unbekannt
       loesung: stattdessen die Zeit seit dem ersten Start (mm:ss) rechts über dem Fortschritt
+    - was: "Review T5: Ein Tipp kurz nach einem automatischen Phasenwechsel wirkte auf die neue, noch nicht angezeigte Phase (Anhalten am Ende der letzten Arbeitsphase → nächste Übung, entgegen E-03; Pause beenden → Satz als erledigt gezählt)"
+      loesung: tipp() zieht erst die Zeit nach; endete dabei eine Phase oder liegt der letzte automatische Wechsel unter 500 ms zurück, wird der Tipp verworfen und nur neu gezeichnet (Node- und Browser-Test, Gegenprobe ohne Korrektur schlägt fehl)
+    - was: "Review T5: „Vorige Übung“ löschte die Erledigt-Markierung; „Zurück zur letzten Übung“ ließ eine übersprungene letzte Übung als übersprungen stehen (Status-Vorbelegung „teilweise“ trotz aller Übungen)"
+      loesung: zurück und „Weiter“ öffnen eine erledigte Übung als erledigt (Primär „Weiter“); zurück zu einer übersprungenen Übung hebt die Markierung auf, eine nachgeholte Übung ist nicht mehr übersprungen; „Übung wiederholen“ setzt wie bisher zurück
+    - was: "Review T5: Die gemessene Dauer lief im Abschluss weiter (Warten auf die Rückmeldung zählte mit, nach „Zurück“ neu vorbelegt)"
+      loesung: Messung endet beim Erreichen des Abschlusses (ende_um im Zustand); Zurück ohne neues Training behält sie, erneutes Training misst neu; Uhr oben steht im Abschluss
+    - was: "Review T5: Stumm – Blinken blieb als Klasse stehen (bei reduzierter Bewegung dauerhafte Umrandung) und fehlte bei Phasen bis 3 s (Pause 3 s bei 7/3); Wahl vor der ersten Eingabe ging beim Neuladen verloren; Name des Schalters wechselte mit aria-pressed"
+      loesung: Blinken 3 s ab dem ersten Tick-Signal der Phase (t3, sonst t2/t1), endet nach 3 s und bei jedem Phasenwechsel; Stumm-Wahl zusätzlich unter training.gefuehrt.<id>.stumm (gelöscht, sobald die Einheit gespeichert ist); Name bleibt „Ton und Vibration aus“, gedrückt = stumm
+    - was: "Review T5: Fokus ging nach „Fortsetzen“/„Neu starten“ und bei gesperrtem bzw. ausgeblendetem Knopf auf <body> verloren (6.8)"
+      loesung: nach Fortsetzen/Neu starten Fokus auf die Überschrift des Schritts; wird der fokussierte Knopf gesperrt oder ausgeblendet, geht der Fokus auf die Primäraktion
+    - was: "Review T5: Nach 422 wegen eines Ist-Werts öffnete S9 den Abschluss, das fehlerhafte Feld war nicht erreichbar"
+      loesung: der Server markiert die Übung (data-invalid, nur deren Ist-Karte rot); S9 öffnet sie ohne Erledigt/Übersprungen zu ändern, „Weiter“ führt durch die erledigten Übungen zum Abschluss; Ist-Fehler ohne Zuordnung → Formular wie ohne JavaScript (alle Schritte)
+    - was: "Review T5: Fortsetzen kurz nach einem Speichern ohne Takt (Stumm im Fortsetzen-Dialog) spielte alle verpassten Signale auf einmal"
+      loesung: takt() wertet es als Lücke, wenn die laufende Phase schon vor dem letzten Takt endete (nur Hinweiston)
+    - was: "Review T5: run.sh testete gegen einen schon laufenden Server auf dem Port, leerte ohne TEST_DB_HOST ggf. eine andere Datenbank (Socket); ein hängender Service Worker hätte die CI bis zu 6 h blockiert"
+      loesung: freier Port (oder E2E_PORT), Abbruch mit Serverprotokoll, wenn der eigene Server nicht läuft; TEST_DB_HOST Standard 127.0.0.1 für App und Leeren; Warten auf den Service Worker mit 15 s Grenze, CI-Schritt timeout-minutes 10
+    - was: "Review T5: Beim Zurück über mehrere Übungen bleibt „Übung wiederholen“ auf dem linken Knopf einer erledigten Übung (weiter zurück nur über Wiederholen)"
+      loesung: bewusst so gelassen – eine eigene Navigation über mehrere Übungen wäre eine neue Bedienentscheidung; bei Bedarf mit dem Athleten klären
 T6:
   status: umgesetzt          # Code-Stand 0.18.0; Abnahme auf dem Gerät (Flugmodus) durch den Athleten offen
   datum: 2026-09-28

@@ -658,8 +658,24 @@ geprueft:
     wie: automatisiert (Playwright, tests/e2e/run.sh, Netzausfall über Proxy)
     ergebnis: ok
     datum: 2026-09-28
+  - was: "Review T5 (Kern): Tipp nach abgelaufener Phase verworfen (letzte Arbeitsphase → keine nächste Übung, Pausenende → kein gezählter Satz, Arbeitsende → Pause nicht übersprungen), Sperre 500 ms; Zurück/Weiter behalten erledigte Übungen, nachgeholte Übung nicht mehr übersprungen (Status erledigt); Dauer endet mit dem Abschluss (auch nach Zurück), erneutes Training misst neu; Schritt öffnen nach Ist-Fehler ohne Änderung von Erledigt/Übersprungen; Fortsetzen nach Speichern ohne Takt nur Hinweiston"
+    wie: automatisiert (node --test, 17 Fälle)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "Review T5 (Browser): Fokus nach Fortsetzen auf der Übung; Stumm-Schalter behält den Namen „Ton und Vibration aus“; Blinken erst in den letzten 3 s und Ende mit der Phase; Tipp auf „Anhalten“ nach abgelaufener, noch nicht neu gezeichneter Phase → Pause statt angehalten (Gegenprobe ohne Korrektur schlägt fehl); Dauer-Marke im Abschluss bleibt nach 10 min Warten; Stumm-Wahl vor der ersten Eingabe übersteht Neuladen ohne Fortsetzen-Frage"
+    wie: automatisiert (Playwright, run.sh, 14 Prüfungen)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "Review T5 (Server): ungültiger Ist-Wert in Übung 2 → 422, data-ist-fehler, nur Schritt 2 mit data-invalid und nur dessen Ist-Karte rot; Fehler in der Rückmeldung ohne Ist-Markierung"
+    wie: automatisiert (GuidedSessionTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "Review T5 (Testaufbau): run.sh auf freiem Port, Abbruch mit Protokoll bei belegtem Port; Warten auf den Service Worker begrenzt; CI-Schritt mit 10 min Grenze"
+    wie: manuell (run.sh mehrfach, Port frei gewählt) + Durchsicht des Workflows
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
-  - was: T5 Gerätetest Android – Töne und Vibration bei Start, 30 s, 10 s, 3-2-1 und Abschluss hörbar/spürbar; Grün/Rot und Browserleiste; Bildschirm bleibt während der Einheit an; Stumm in der Einheit; Fortsetzen nach versehentlichem Neuladen
+  - was: T5 Gerätetest Android – Töne und Vibration bei Start, 30 s, 10 s, 3-2-1 und Abschluss hörbar/spürbar; Grün/Rot und Browserleiste; Bildschirm bleibt während der Einheit an; Stumm in der Einheit (Blinken auch in der 3-s-Pause bei Hangboard 7/3); Fortsetzen nach versehentlichem Neuladen; Tipp kurz vor Phasenende wirkt wie erwartet (kein Sprung zur nächsten Übung)
     wie: Gerätetest durch Athlet (nach Deployment 0.18.0), am besten mit einer Einheit mit Haltezeiten (z. B. Unterarmstütz 45 s)
   - was: O-06 – 30-s-Ton erst bei Phasen über 45 s (Z-01) statt ab 45 s (E-17) bestätigen; Tonhöhen/-längen nach Gehör anpassen (O-04)
     wie: Rückmeldung des Athleten nach dem Gerätetest

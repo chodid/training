@@ -3,10 +3,12 @@
 # Nutzt die Testdatenbank aus TEST_DB_* (alle Tabellen werden gelöscht) und ein eigenes Basisverzeichnis mit eigener
 # .env (eine vorhandene server/.env bleibt unberührt). Aufruf in server/: bash tests/e2e/run.sh
 # Braucht PHP, Node und Playwright (lokal, global oder im Ordner installiert); CHROME_PATH wählt einen anderen Browser.
+# Port: E2E_PORT, sonst ein freier Port (eine schon laufende App auf dem Port würde sonst mitgetestet).
 set -euo pipefail
 
 SERVER="$(cd "$(dirname "$0")/../.." && pwd)"
-PORT="${E2E_PORT:-8089}"
+PORT="${E2E_PORT:-$(php -r '$s = stream_socket_server("tcp://127.0.0.1:0"); echo explode(":", stream_socket_get_name($s, false))[1];')}"
+export TEST_DB_HOST="${TEST_DB_HOST:-127.0.0.1}" # wie die .env der App (ohne Host nähme PDO den lokalen Socket)
 SECRET="e2e-migration-secret-e2e-migration-secret"
 TOKEN="e2e-statisches-token-e2e-statisches-token"
 BASE="$(mktemp -d)"
@@ -25,7 +27,7 @@ mkdir -p "$BASE/var" "$BASE/backups"
 cat > "$BASE/.env" <<EOF
 APP_ENV=test
 APP_URL=http://127.0.0.1:$PORT
-DB_HOST=${TEST_DB_HOST:-127.0.0.1}
+DB_HOST=$TEST_DB_HOST
 DB_PORT=${TEST_DB_PORT:-3306}
 DB_NAME=${TEST_DB_NAME:?TEST_DB_NAME fehlt}
 DB_USER=${TEST_DB_USER:?TEST_DB_USER fehlt}
@@ -46,10 +48,14 @@ foreach ($pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN) as $t) { $pdo->
 
 php -S "127.0.0.1:$PORT" -t "$BASE/public" "$BASE/bin/dev-router.php" > "$BASE/server.log" 2>&1 &
 PID=$!
+BEREIT=""
 for _ in $(seq 1 50); do
-  if curl -s -o /dev/null "http://127.0.0.1:$PORT/health"; then break; fi
+  # eigener Server beendet (z. B. Port belegt)? Dann nicht gegen einen fremden Server testen
+  kill -0 "$PID" 2>/dev/null || { echo "Server auf Port $PORT nicht gestartet:"; cat "$BASE/server.log"; exit 1; }
+  if curl -s -o /dev/null "http://127.0.0.1:$PORT/health"; then BEREIT=1; break; fi
   sleep 0.2
 done
+[ -n "$BEREIT" ] || { echo "Server auf Port $PORT antwortet nicht:"; cat "$BASE/server.log"; exit 1; }
 curl -fsS -X POST -H "X-Migration-Secret: $SECRET" "http://127.0.0.1:$PORT/admin/migrate" > /dev/null
 
 E2E_BASE_URL="http://127.0.0.1:$PORT" E2E_MCP_TOKEN="$TOKEN" E2E_MIGRATION_SECRET="$SECRET" \

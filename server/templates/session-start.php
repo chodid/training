@@ -48,7 +48,7 @@ $saetze = static function (array $st): string {
 
   <form class="gf-form" method="post" action="/einheit" data-offline-form data-gefuehrt
         data-session="<?= (int) $session['id'] ?>" data-ablauf="<?= $this->e(Ablaufplan::json($steps)) ?>"
-        data-ton="<?= $timerTon ? 'an' : 'aus' ?>" data-dauer-plan="<?= !empty($data['duration_from_plan']) ? '1' : '0' ?>"<?= $alert !== null ? ' data-fehler' : '' ?>>
+        data-ton="<?= $timerTon ? 'an' : 'aus' ?>" data-dauer-plan="<?= !empty($data['duration_from_plan']) ? '1' : '0' ?>"<?= $alert !== null ? ' data-fehler' : '' ?><?= !empty($invalid['ist']) ? ' data-ist-fehler' : '' ?>>
     <input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>">
     <input type="hidden" name="id" value="<?= (int) $session['id'] ?>">
     <input type="hidden" name="stand" value="<?= $this->e($stand) ?>">
@@ -80,7 +80,7 @@ $saetze = static function (array $st): string {
     $next = $steps[$n + 1] ?? null;
     $timed = $st['arbeit_s'] !== null;
 ?>
-      <section class="gf-step stack-lg" data-step="<?= $n ?>" id="gf-schritt-<?= $n ?>" aria-labelledby="gf-name-<?= $n ?>">
+      <section class="gf-step stack-lg" data-step="<?= $n ?>" id="gf-schritt-<?= $n ?>" aria-labelledby="gf-name-<?= $n ?>"<?= !empty($invalid['ist_schritte'][$i]) ? ' data-invalid' : '' ?>>
         <div class="card phase-card">
           <div class="satz" data-satz-text="<?= $this->e($saetze($st)) ?>">Übung <?= $n + 1 ?> von <?= $count ?> · <?= $this->e($saetze($st)) ?></div>
           <h2 id="gf-name-<?= $n ?>"><?= $this->e($st['name']) ?></h2>
@@ -99,7 +99,7 @@ $saetze = static function (array $st): string {
 <?php endif ?>
         </div>
 
-        <section class="card<?= !empty($invalid['ist']) ? ' invalid' : '' ?>">
+        <section class="card<?= !empty($invalid['ist_schritte'][$i]) || (!empty($invalid['ist']) && empty($invalid['ist_schritte'])) ? ' invalid' : '' ?>">
           <div class="card-head"><h2>Ist</h2><span class="hint">vorbelegt mit Soll</span></div>
           <div class="exercise">
 <?php if ($session['type'] === 'klettern'): $b = $item; include __DIR__ . '/_ist_block.php'; else: $x = $item; include __DIR__ . '/_ist_exercise.php'; endif ?>

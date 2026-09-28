@@ -187,25 +187,33 @@ async function haupt(page) {
   await page.click('#gf-fortsetzen [data-aktion="fortsetzen"]');
   s = await zustand(page);
   assert.deepEqual([s.frage, s.phase, s.schritt, s.satz, s.timer], [false, 'arbeit', '0', 'Satz 2 von 3 · dann 60 s Pause', '00:15']);
-  ok('Z-06 Neu laden: Frage, Fortsetzen stellt Schritt, Satz und Restzeit her');
+  assert.equal(await page.evaluate(() => document.activeElement.id), 'gf-name-0', 'Fokus auf der Übung, nicht auf <body> (6.8)');
+  ok('Z-06 Neu laden: Frage, Fortsetzen stellt Schritt, Satz und Restzeit her, Fokus auf der Übung');
 
-  // Z-08: stumm in S9 – keine Töne, keine Vibration, Blinken in den letzten 3 s
+  // Z-08: stumm in S9 – keine Töne, keine Vibration, Blinken nur in den letzten 3 s
   await page.click('#gf-stumm');
   assert.equal(await page.getAttribute('#gf-stumm', 'aria-pressed'), 'true');
+  assert.equal(await page.getAttribute('#gf-stumm', 'aria-label'), 'Ton und Vibration aus', 'Name bleibt, gedrückt = stumm');
   const vorher = await page.evaluate(() => ({ toene: window.__log.toene, vib: window.__log.vibration.length }));
-  await page.clock.runFor(12500);
+  await page.clock.runFor(11500);
+  assert.ok(!(await zustand(page)).blink, 'noch nicht in den letzten 3 s');
+  await page.clock.runFor(1000);
   s = await zustand(page);
   assert.deepEqual([s.log.toene, s.log.vibration.length], [vorher.toene, vorher.vib]);
   assert.ok(s.log.signale.includes('t3(stumm)'));
   assert.ok(s.blink, 'Anzeige blinkt');
+  await page.clock.runFor(2500);
+  s = await zustand(page);
+  assert.deepEqual([s.phase, s.blink], ['pause', false], 'Blinken endet mit der Phase');
   await page.click('#gf-stumm');
-  ok('Z-08 stumm: keine Töne und Vibration, Blinken');
+  ok('Z-08 stumm: keine Töne und Vibration, Blinken nur in den letzten 3 s');
 
   // Z-07: Wiederholungen – zur Kniebeuge überspringen wäre Z-10; hier regulär weiter
-  await page.clock.runFor(2500 + 60000 + 45000); // Rest Satz 2, Pause, Satz 3
+  await page.clock.runFor(60000 + 45000); // Pause, Satz 3
   s = await zustand(page);
   assert.deepEqual([s.phase, s.haupt], [null, 'Weiter'], 'nach Satz 3 fertig, normale Farbe');
   assert.ok(s.log.signale.includes('ende'), 'Abschlusston');
+  await page.clock.runFor(1000); // Tipps direkt nach einem automatischen Wechsel gelten der alten Phase (Sperre)
   await haupt(page);
   s = await zustand(page);
   assert.deepEqual([s.schritt, s.phase, s.timer, s.haupt], ['1', null, null, 'Satz erledigt']);
@@ -219,12 +227,15 @@ async function haupt(page) {
   ok('Z-07 Satz erledigt startet den Pausentimer, danach Satz 2 ohne Timer');
 
   // Z-10: letzte Übung überspringen → Abschluss mit „teilweise“ und gemessener Dauer (Z-11)
+  await page.clock.runFor(1000);
   await haupt(page);
   await page.click('#gf-aktionen [data-aktion="rechts"]'); // Rest der Kniebeuge überspringen
   await page.click('#gf-aktionen [data-aktion="rechts"]'); // Seitstütz überspringen
   s = await zustand(page);
   assert.deepEqual([s.schritt, s.aktionen], ['abschluss', false]);
-  assert.equal(await page.inputValue('input[name="duration_min"]'), '6', 'gemessene Minuten seit dem ersten Start (375 s)');
+  assert.equal(await page.inputValue('input[name="duration_min"]'), '6', 'gemessene Minuten seit dem ersten Start (377 s)');
+  await page.clock.runFor(10 * 60000);
+  assert.equal(await page.textContent('#gf-dauer-marke span'), '6 min', 'Warten im Abschluss zählt nicht');
   assert.ok(await page.isChecked('input[name="status"][value="teilweise"]'));
   assert.equal(await page.textContent('[data-uebersicht="2"] .gf-uebersicht-soll'), 'übersprungen');
   ok('Z-10/Z-11 Abschluss: teilweise, Dauer gemessen');
@@ -252,6 +263,16 @@ async function haupt(page) {
   assert.deepEqual([s.phase, s.satz, s.timer], ['arbeit', 'Satz 2 von 3 · dann 60 s Pause', '00:30']);
   ok('Z-05 Hintergrund: Folgephase richtig, nur ein Hinweiston');
 
+  // Tipp auf „Anhalten“, nachdem die Arbeitsphase schon abgelaufen, aber noch nicht neu gezeichnet ist: gilt der
+  // angezeigten Phase und wird verworfen (Review T5) – keine angehaltene Pause
+  await page.clock.runFor(29000);
+  assert.equal((await zustand(page)).haupt, 'Anhalten');
+  await page.clock.setSystemTime(await page.evaluate(() => Date.now() + 1500)); // Zeit weiter, ohne Takt
+  await haupt(page);
+  s = await zustand(page);
+  assert.deepEqual([s.phase, s.haupt], ['pause', 'Pause beenden']);
+  ok('Tipp nach abgelaufener Phase wird verworfen');
+
   // ---------- Z-09: Einstellung S8 „aus“ → S9 startet stumm; Umschalten in S9 gilt nur für diese Einheit ----------
   await page.goto(BASE + '/einstellungen');
   await page.locator('label:has(input[name="timer_ton"][value="aus"])').click();
@@ -260,6 +281,9 @@ async function haupt(page) {
   assert.equal(await page.getAttribute('#gf-stumm', 'aria-pressed'), 'true', 'startet stumm');
   await page.click('#gf-stumm');
   assert.equal(await page.getAttribute('#gf-stumm', 'aria-pressed'), 'false');
+  await page.reload();
+  s = await zustand(page);
+  assert.deepEqual([await page.getAttribute('#gf-stumm', 'aria-pressed'), s.frage], ['false', false], 'Wahl vor der ersten Eingabe bleibt (E-18), keine Frage');
   await page.goto(BASE + '/einstellungen');
   assert.ok(await page.isChecked('input[name="timer_ton"][value="aus"]'), 'S8 unverändert');
   await page.locator('label:has(input[name="timer_ton"][value="an"])').click();
@@ -295,7 +319,8 @@ async function haupt(page) {
   await offline.fill('input[name=password]', PASSWORD);
   await Promise.all([offline.waitForURL(/\/woche/), offline.click('button[type=submit]')]);
   await offline.goto(P + '/einheit?id=' + haltungId + '&modus=start');
-  await offline.evaluate(() => navigator.serviceWorker.ready);
+  // begrenzt warten: scheitert die Installation des Service Workers, wird ready nie erfüllt
+  await offline.waitForFunction(() => navigator.serviceWorker.getRegistration().then((r) => !!(r && r.active)), null, { timeout: 15000 });
   await offline.reload(); // jetzt vom Service Worker kontrolliert
   assert.ok(await offline.evaluate(() => !!navigator.serviceWorker.controller), 'Service Worker aktiv');
   netzAus = true; // T6: S9 öffnet ohne Netz aus dem Seiten-Cache

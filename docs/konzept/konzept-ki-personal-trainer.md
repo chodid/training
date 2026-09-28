@@ -1942,6 +1942,9 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: E-17 („30-s-Ton bei Phasen ≥ 45 s“) widerspricht Testfall Z-01 („bei 45 s kein 30-s-Ton“)
     loesung: umgesetzt nach Z-01 (Phase länger als 45 s), Bestätigung offen (Auftrag O-06)
+  - datum: 2026-09-28
+    was: Review T5 – Tipps direkt nach einem automatischen Phasenwechsel, Zurück-Navigation, Dauermessung im Abschluss, Stumm (Blinken, Wahl vor der ersten Eingabe, Name des Schalters), Fokus, Ist-Fehler nach 422, Browser-Test und CI
+    loesung: Tipp-Sperre (verworfen, wenn die angezeigte Phase inzwischen endete oder < 500 ms nach einem automatischen Wechsel), erledigte Übungen bleiben beim Zurück erledigt, Messung endet mit dem Abschluss, Blinken nur in den letzten 3 s, Ist-Fehler öffnen die Übung; run.sh mit freiem Port, CI-Zeitlimit – Einzelheiten im Auftrag Abschnitt 12, T5
 ```
 
 # 16. Prüfprotokoll (separates Dokument)
@@ -2017,3 +2020,4 @@ noch_zu_pruefen:
 | 2026-09-28 | AP-14 T5: Seitenskript `js/gefuehrt.js` (Timer, Signale, Farben, Wake Lock, Stumm, Fortschritt im Browser), Node- und Browser-Tests in der CI; offener Punkt O-06 (30-s-Ton) im Auftrag. |
 | 2026-09-28 | AP-14 T6: Einstellungen → Training (Timer-Signale, `timer_ton`), Vorladen der geführten Einheit für heute und morgen, Skript im Versions-Cache. |
 | 2026-09-28 | Neu: D-60 (ändert D-50, passt D-52 an) – ein Sammeltermin je Tag im Kalender, auf Wunsch des Athleten als Unterpunkt T8 des Auftrags `gefuehrte-einheit.md` umgesetzt (Code-Stand 0.19.0); AP-11 Umfang und Status, K8 in 3.1/3.3 nachgezogen. |
+| 2026-09-28 | AP-14 T5: Befunde des Reviews eingearbeitet (Tipp-Sperre nach automatischem Phasenwechsel, Zurück-Navigation, Dauermessung, Stumm, Fokus, Ist-Fehler, Browser-Test/CI); Auftrag Abschnitt 12 und 6.5 ergänzt. |

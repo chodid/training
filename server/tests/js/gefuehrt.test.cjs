@@ -173,17 +173,24 @@ test('Z-10 Überspringen: Status-Vorbelegung teilweise; Z-11 gemessene Dauer in 
   z = K.aktion(z, steps, 'rechts', 70000).zustand;
   assert.deepEqual([z.schritt, z.uebersprungen], [1, [0]]);
   z = K.aktion(z, steps, 'haupt', 80000).zustand; // Erledigt
-  z = K.aktion(z, steps, 'haupt', 90000).zustand; // Zum Abschluss
-  const v = K.anzeige(z, steps, 90000);
+  assert.equal(K.dauerMinuten(z, 61000), 1, 'mindestens 1');
+  const ende = 60000 + 41 * 60000 + 20000;
+  z = K.aktion(z, steps, 'haupt', ende).zustand; // Zum Abschluss
+  const v = K.anzeige(z, steps, ende);
   assert.equal(v.abschluss, true);
   assert.equal(v.fortschritt.text, '1 von 2 Übungen erledigt');
   assert.equal(K.statusVorbelegung(z), 'teilweise');
-  assert.equal(K.dauerMinuten(z, 60000 + 41 * 60000 + 20000), 41);
-  assert.equal(K.dauerMinuten(z, 61000), 1, 'mindestens 1');
+  assert.equal(K.dauerMinuten(z, ende), 41);
+  assert.equal(K.dauerMinuten(z, ende + 30 * 60000), 41, 'Warten im Abschluss zählt nicht (Review T5)');
   assert.equal(K.dauerMinuten(start(steps), 61000), null, 'ohne Start keine Messung');
-  // zurück zur letzten Übung und nochmals vor
-  const zurueck = K.aktion(z, steps, 'zurueck-abschluss', 95000).zustand;
+  // zurück zur letzten Übung und nochmals vor: Messung bleibt, solange nicht wieder trainiert wird
+  const zurueck = K.aktion(z, steps, 'zurueck-abschluss', ende + 60000).zustand;
   assert.deepEqual([zurueck.schritt, zurueck.phase], [1, 'fertig']);
+  const wieder = K.aktion(zurueck, steps, 'haupt', ende + 120000).zustand;
+  assert.equal(K.dauerMinuten(wieder, ende + 30 * 60000), 41);
+  const nochmal = K.aktion(K.aktion(zurueck, steps, 'links', ende + 60000).zustand, steps, 'haupt', ende + 5 * 60000).zustand; // Übung wiederholen
+  assert.equal(nochmal.ende_um, null, 'wieder trainiert: neu messen');
+  assert.equal(K.dauerMinuten(K.aktion(nochmal, steps, 'haupt', ende + 9 * 60000).zustand, ende + 60 * 60000), 50);
   const alle = K.aktion(K.aktion(K.aktion(start(steps), steps, 'haupt', 0).zustand, steps, 'haupt', 1).zustand, steps, 'haupt', 2).zustand;
   assert.equal(alle.phase, 'pause');
 });
@@ -239,4 +246,75 @@ test('Halten ohne Pause mit mehreren Sätzen: nächste Arbeitsphase direkt mit S
   const z = K.aktion(start(steps), steps, 'haupt', 0).zustand;
   const r = K.takt(z, steps, 119900, 120100);
   assert.deepEqual([r.zustand.phase, r.zustand.satz, r.signale], ['arbeit', 2, ['start']]);
+});
+
+test('Review T5: Tipp direkt nach einem automatischen Phasenwechsel gilt der angezeigten Phase und wird verworfen', () => {
+  const wandsitz = { index: 0, name: 'Wandsitz', art: 'halten', saetze: 1, arbeit_s: 45, pause_s: null };
+  let steps = [wandsitz, WDH];
+  let z = K.takt(K.aktion(start(steps), steps, 'haupt', 0).zustand, steps, 0, 44900).zustand; // Anzeige „Anhalten“
+  let r = K.tipp(z, steps, 'haupt', 44900, 45100, null);
+  assert.equal(r.verworfen, true);
+  assert.deepEqual([r.zustand.schritt, r.zustand.phase, r.signale], [0, 'fertig', ['ende']], 'kein Sprung zur nächsten Übung (E-03)');
+  // Wiederholungen mit Pause: „Pause beenden“ genau am Pausenende zählt keinen Satz
+  steps = [WDH];
+  z = K.aktion(start(steps), steps, 'haupt', 0).zustand; // Satz 1 erledigt → Pause 90 s
+  r = K.tipp(z, steps, 'haupt', 89900, 90100, null);
+  assert.deepEqual([r.verworfen, r.zustand.satz, r.zustand.phase], [true, 2, 'bereit']);
+  // Halten mit Pause: „Anhalten“ am Ende der Arbeit überspringt die Pause nicht
+  steps = [HALTEN];
+  z = K.aktion(start(steps), steps, 'haupt', 0).zustand;
+  r = K.tipp(z, steps, 'haupt', 44900, 45100, null);
+  assert.deepEqual([r.verworfen, r.zustand.phase, r.zustand.satz], [true, 'pause', 1]);
+  // Sperre kurz nach einem automatischen Wechsel im Takt, danach wirkt der Tipp
+  r = K.tipp(r.zustand, steps, 'haupt', 45100, 45300, 45100);
+  assert.equal(r.verworfen, true, 'innerhalb von SPERRE_MS');
+  r = K.tipp(r.zustand, steps, 'haupt', 45300, 45100 + K.SPERRE_MS, 45100);
+  assert.deepEqual([r.verworfen, r.zustand.phase, r.zustand.satz], [false, 'arbeit', 2], 'Pause beenden');
+  // gewöhnlicher Tipp ohne Wechsel
+  r = K.tipp(K.aktion(start(steps), steps, 'haupt', 0).zustand, steps, 'haupt', 10000, 10100, null);
+  assert.deepEqual([r.verworfen, r.zustand.phase], [false, 'angehalten']);
+});
+
+test('Review T5: Zurück und Weiter behalten erledigte Übungen; nachgeholte Übung ist nicht mehr übersprungen', () => {
+  const steps = [HALTEN, OFFEN];
+  let z = K.takt(K.aktion(start(steps), steps, 'haupt', 0).zustand, steps, 0, 400000).zustand;
+  assert.deepEqual(z.fertig, [0]);
+  z = K.aktion(z, steps, 'haupt', 400001).zustand; // Weiter
+  z = K.aktion(z, steps, 'links', 400002).zustand; // Vorige Übung
+  assert.deepEqual([z.schritt, z.phase, z.fertig, z.satz], [0, 'fertig', [0], 3], 'bleibt erledigt');
+  assert.equal(K.anzeige(z, steps, 400002).haupt.text, 'Weiter');
+  z = K.aktion(z, steps, 'haupt', 400003).zustand; // Weiter
+  assert.deepEqual([z.schritt, z.phase], [1, 'bereit']);
+  z = K.aktion(z, steps, 'rechts', 400004).zustand; // letzte Übung überspringen
+  assert.deepEqual(z.uebersprungen, [1]);
+  z = K.aktion(z, steps, 'zurueck-abschluss', 400005).zustand;
+  assert.deepEqual([z.schritt, z.phase, z.uebersprungen], [1, 'bereit', []], 'zurück zur übersprungenen letzten Übung');
+  z = K.aktion(K.aktion(z, steps, 'haupt', 400006).zustand, steps, 'haupt', 400007).zustand; // Erledigt, Zum Abschluss
+  assert.equal(K.statusVorbelegung(z), 'erledigt');
+  assert.equal(K.anzeige(z, steps, 400007).fortschritt.text, 'Alle 2 Übungen durch');
+  // Weiter in eine schon erledigte Übung: bleibt erledigt
+  let w = K.aktion(z, steps, 'zurueck-abschluss', 400008).zustand;
+  w = K.aktion(w, steps, 'links', 400009).zustand; // Übung wiederholen (fertig → bereit)
+  assert.deepEqual([w.schritt, w.phase, w.fertig], [1, 'bereit', [0]]);
+  w = K.aktion(w, steps, 'links', 400010).zustand; // vorige Übung
+  w = K.aktion(w, steps, 'haupt', 400011).zustand; // Weiter
+  assert.deepEqual([w.schritt, w.phase], [1, 'bereit'], 'wiederholte Übung ist offen');
+  // übersprungene Übung später doch erledigt
+  let u = K.aktion(start(steps), steps, 'rechts', 0).zustand;
+  u = K.aktion(u, steps, 'links', 1).zustand;
+  u = K.takt(K.aktion(u, steps, 'haupt', 2).zustand, steps, 2, 400000).zustand;
+  assert.deepEqual([u.fertig, u.uebersprungen], [[0], []]);
+});
+
+test('Review T5: Schritt öffnen nach Ist-Fehler; Fortsetzen nach Speichern ohne Takt holt keine Signale nach', () => {
+  const steps = [HALTEN, OFFEN];
+  let z = K.takt(K.aktion(start(steps), steps, 'haupt', 0).zustand, steps, 0, 400000).zustand;
+  z = K.aktion(K.aktion(K.aktion(z, steps, 'haupt', 1).zustand, steps, 'rechts', 2).zustand, steps, 'haupt', 3).zustand;
+  const o = K.oeffne({ ...z, schritt: steps.length }, steps, 0);
+  assert.deepEqual([o.schritt, o.phase, o.fertig, o.uebersprungen], [0, 'fertig', [0], [1]], 'Erledigt/Übersprungen unverändert');
+  assert.equal(K.oeffne(z, steps, 1).phase, 'bereit');
+  // Stumm im Fortsetzen-Dialog speichert (gespeichert_am nach end_at), Fortsetzen innerhalb von 2 s
+  const lauf = K.aktion(start([HALTEN]), [HALTEN], 'haupt', 0).zustand;
+  const r = K.takt(lauf, [HALTEN], 300000, 301000);
+  assert.deepEqual(r.signale, ['hinweis'], 'nur der Hinweiston, keine 23 Töne');
 });

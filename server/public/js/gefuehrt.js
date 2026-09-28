@@ -14,6 +14,7 @@
   // ---------- Kern: reine Funktionen ----------
 
   const LUECKE_MS = 2000;               // größerer Abstand zwischen zwei Takten = Seite war im Hintergrund (E-16)
+  const SPERRE_MS = 500;                // Tipps so kurz nach einem automatischen Phasenwechsel galten der alten Phase
   const VERFALL_MS = 12 * 3600 * 1000;  // Fortschritt verfällt nach 12 h (6.2)
   const SCHLUESSEL = 'training.gefuehrt.';
 
@@ -62,7 +63,7 @@
     return {
       version: 1, signatur: signatur(steps), stand: o.stand || '', begonnen_um: null,
       schritt: 0, satz: 1, phase: 'bereit', end_at: null, phase_ms: null, rest_ms: null, vor_anhalten: null,
-      uebersprungen: [], fertig: [], stumm: !!o.stumm, ist: {}, dauer_manuell: false, status_manuell: false,
+      uebersprungen: [], fertig: [], stumm: !!o.stumm, ist: {}, dauer_manuell: false, status_manuell: false, ende_um: null,
       abgeschickt: null, gespeichert_am: o.jetzt || 0,
     };
   }
@@ -112,6 +113,16 @@
     if (!z.fertig.includes(z.schritt)) {
       z.fertig.push(z.schritt);
     }
+    z.uebersprungen = ohne(z.uebersprungen, z.schritt); // nachgeholt
+  }
+
+  /** Schritt i öffnen: eine schon erledigte Übung bleibt erledigt („Weiter“), sonst „bereit“ ab Satz 1. */
+  function oeffneSchritt(z, steps, i) {
+    setzeBereit(z, i, 1);
+    if (i < steps.length && z.fertig.includes(i)) {
+      z.satz = steps[i].saetze;
+      setzeFertig(z);
+    }
   }
 
   /** Ende der laufenden Phase zum Zeitpunkt end_at: Folgephase zeitstempelgenau, Signale des Übergangs. */
@@ -151,7 +162,9 @@
     const z = kopie(z0);
     const signale = [];
     let uebergaenge = 0;
-    const luecke = vorher !== null && jetzt - vorher > LUECKE_MS;
+    // Lücke auch, wenn die laufende Phase schon vor dem letzten Takt endete (z. B. Fortsetzen nach einem Speichern
+    // ohne Takt): sonst kämen alle Signale der Zwischenzeit auf einmal
+    const luecke = vorher !== null && (jetzt - vorher > LUECKE_MS || (laeuft(z0) && z0.end_at !== null && z0.end_at < vorher));
     let t = vorher === null ? jetzt : vorher;
     while (laeuft(z) && !istAbschluss(z, steps)) {
       const bis = Math.min(jetzt, z.end_at);
@@ -180,16 +193,21 @@
    * zurueck-abschluss (vom Abschluss zur letzten Übung).
    */
   function aktion(z0, steps, name, jetzt) {
+    const z = bedienung(z0, steps, name, jetzt);
+    if (!istAbschluss(z0, steps) && istAbschluss(z.zustand, steps) && z.zustand.ende_um == null) {
+      z.zustand.ende_um = jetzt; // Ende der Messung (Z-11): Warten auf die Rückmeldung zählt nicht mit
+    }
+    return z;
+  }
+
+  function bedienung(z0, steps, name, jetzt) {
     const z = kopie(z0);
     const signale = [];
     if (name === 'zurueck-abschluss') {
       if (istAbschluss(z, steps) && steps.length > 0) {
         const i = steps.length - 1;
-        setzeBereit(z, i, 1);
-        if (z.fertig.includes(i)) {
-          z.satz = steps[i].saetze;
-          setzeFertig(z);
-        }
+        z.uebersprungen = ohne(z.uebersprungen, i);
+        oeffneSchritt(z, steps, i);
       }
       return { zustand: z, signale };
     }
@@ -205,6 +223,7 @@
         if (z.begonnen_um === null) {
           z.begonnen_um = jetzt;
         }
+        z.ende_um = null; // es wird wieder trainiert: Dauer beim nächsten Abschluss neu messen
         if (getimt(st)) {
           starteArbeit(z, st, jetzt);
           signale.push('start');
@@ -235,17 +254,16 @@
       } else if (z.phase === 'angehalten') {
         Object.assign(z, { phase: z.vor_anhalten || 'arbeit', end_at: jetzt + z.rest_ms, rest_ms: null, vor_anhalten: null });
       } else if (z.phase === 'fertig') {
-        setzeBereit(z, z.schritt + 1, 1);
+        oeffneSchritt(z, steps, z.schritt + 1); // nächste Übung; eine schon erledigte bleibt erledigt
       }
     } else if (name === 'links') {
       if (z.phase === 'bereit') {
         if (z.satz > 1) {
           z.satz--;
         } else if (z.schritt > 0) {
-          const i = z.schritt - 1;
-          z.fertig = ohne(z.fertig, i);
+          const i = z.schritt - 1; // vorige Übung: erledigt bleibt erledigt, übersprungen wird wieder offen
           z.uebersprungen = ohne(z.uebersprungen, i);
-          setzeBereit(z, i, 1);
+          oeffneSchritt(z, steps, i);
         }
       } else if (z.phase === 'arbeit' || z.phase === 'angehalten') {
         setzeBereit(z, z.schritt, z.satz); // Satz neu starten
@@ -263,6 +281,27 @@
       setzeBereit(z, z.schritt + 1, 1);
     }
     return { zustand: z, signale };
+  }
+
+  /**
+   * Tipp auf einen Knopf: erst die offene Zeit nachziehen (takt), dann die Bedienung anwenden. Hat sich dabei die Phase
+   * geändert oder liegt der letzte automatische Wechsel weniger als SPERRE_MS zurück, galt der Tipp der zuvor
+   * angezeigten Phase und wird verworfen (sonst z. B. „Anhalten“ → nächste Übung, „Pause beenden“ → Satz erledigt).
+   */
+  function tipp(z0, steps, name, vorher, jetzt, letzterWechsel) {
+    const r0 = takt(z0, steps, vorher, jetzt);
+    if (r0.uebergaenge > 0 || (letzterWechsel !== null && jetzt - letzterWechsel < SPERRE_MS)) {
+      return { zustand: r0.zustand, signale: r0.signale, uebergaenge: r0.uebergaenge, verworfen: true };
+    }
+    const r1 = aktion(r0.zustand, steps, name, jetzt);
+    return { zustand: r1.zustand, signale: r0.signale.concat(r1.signale), uebergaenge: 0, verworfen: false };
+  }
+
+  /** Schritt i öffnen, ohne Erledigt/Übersprungen zu ändern (z. B. Ist-Fehler nach dem Speichern). */
+  function oeffne(z0, steps, i) {
+    const z = kopie(z0);
+    oeffneSchritt(z, steps, i);
+    return z;
   }
 
   function sekunden(ms) {
@@ -368,9 +407,14 @@
     return z.uebersprungen.length > 0 ? 'teilweise' : 'erledigt';
   }
 
-  /** Gemessene Dauer seit dem ersten Start in ganzen Minuten (mindestens 1), null ohne Start (6.2, Z-11). */
+  /** Ende der Messung: Erreichen des Abschlusses, sonst jetzt. */
+  function messEnde(z, jetzt) {
+    return z.ende_um !== null && z.ende_um !== undefined ? z.ende_um : jetzt;
+  }
+
+  /** Gemessene Dauer vom ersten Start bis zum Abschluss in ganzen Minuten (mindestens 1), null ohne Start (6.2, Z-11). */
   function dauerMinuten(z, jetzt) {
-    return z.begonnen_um === null ? null : Math.max(1, Math.round((jetzt - z.begonnen_um) / 60000));
+    return z.begonnen_um === null ? null : Math.max(1, Math.round((messEnde(z, jetzt) - z.begonnen_um) / 60000));
   }
 
   /**
@@ -403,8 +447,8 @@
   }
 
   const Kern = {
-    LUECKE_MS, VERFALL_MS, SCHLUESSEL, MUSTER, signalPlan, signaleZwischen, signatur, neuerZustand, takt, aktion,
-    anzeige, statusVorbelegung, dauerMinuten, laden, mmss, sekunden,
+    LUECKE_MS, SPERRE_MS, VERFALL_MS, SCHLUESSEL, MUSTER, signalPlan, signaleZwischen, signatur, neuerZustand, takt,
+    aktion, tipp, oeffne, anzeige, statusVorbelegung, dauerMinuten, messEnde, laden, mmss, sekunden,
   };
 
   if (typeof module === 'object' && module.exports) {
@@ -470,13 +514,16 @@
     const OHNE = ['csrf', 'id', 'stand', 'offline_label', 'modus'];
 
     let z = null;
-    let modus = 'lauf'; // lauf | fragen
+    let modus = 'lauf'; // lauf | fragen | aus (Rückfall auf das Formular ohne Skript)
     let gemerkt = false; // Fortschritt liegt im Speicher (erst nach der ersten Eingabe)
     let letzterTakt = null;
+    let letzterWechsel = null; // Zeitpunkt des letzten automatischen Phasenwechsels (Tipp-Sperre)
     let letzteAnsage = '';
     let letzterSchritt = null;
     let audio = null;
     let sperre = null;
+    let blinkUhr = null;
+    const stummSchluessel = schluessel + '.stumm'; // Stumm-Wahl dieser Einheit, auch vor der ersten Eingabe (E-18)
 
     function icon(name) {
       const quelle = icons && icons.content.querySelector('[data-icon="' + name + '"]');
@@ -571,8 +618,8 @@
         return;
       }
       if (z.stumm) {
-        if (name === 't3') {
-          blinken(); // stumm: Anzeige blinkt in den letzten 3 s (6.4)
+        if (['t3', 't2', 't1'].includes(name) && blinkUhr === null) {
+          blinken(); // stumm: Anzeige blinkt in den letzten 3 s (6.4), auch bei Phasen bis 3 s (erstes Tick-Signal)
         }
         return;
       }
@@ -608,10 +655,20 @@
     function blinken() {
       const karte = aktiverAbschnitt() && aktiverAbschnitt().querySelector('.phase-card');
       if (karte) {
-        karte.classList.remove('blink');
+        blinkAus();
         void karte.offsetWidth; // Animation neu starten
         karte.classList.add('blink');
+        // nach 3 s wieder aus (bei reduzierter Bewegung gibt es kein animationend: Umrandung statt Blinken)
+        blinkUhr = window.setTimeout(blinkAus, 3000);
       }
+    }
+
+    function blinkAus() {
+      if (blinkUhr !== null) {
+        window.clearTimeout(blinkUhr);
+        blinkUhr = null;
+      }
+      form.querySelectorAll('.phase-card.blink').forEach((k) => k.classList.remove('blink'));
     }
 
     // ----- Bildschirm an (Wake Lock) -----
@@ -641,6 +698,7 @@
 
     function zeige(fokus) {
       if (modus === 'fragen') {
+        blinkAus();
         abschnitte.forEach((a) => a.classList.remove('aktiv'));
         aktionen.hidden = true;
         fortsetzen.hidden = false;
@@ -670,6 +728,9 @@
       const ansageSchluessel = ziel + '|' + z.phase + '|' + z.satz;
       if (ansageSchluessel !== letzteAnsage) {
         text(ansage, v.ansage); // nur Phasenwechsel ansagen, nicht jede Sekunde (6.8)
+        if (letzteAnsage !== '') {
+          blinkAus(); // Blinken gehört zu den letzten 3 s der vorigen Phase
+        }
         letzteAnsage = ansageSchluessel;
       }
       if (fokus && letzterSchritt !== ziel) {
@@ -701,7 +762,7 @@
         balken.parentElement.setAttribute('aria-valuenow', String(z.fertig.length + z.uebersprungen.length));
       }
       text(document.getElementById('gf-fortschritt-text'), v.fortschritt.text);
-      text(document.getElementById('gf-uhr'), z.begonnen_um === null ? '' : mmss(Math.floor((jetzt - z.begonnen_um) / 1000)));
+      text(document.getElementById('gf-uhr'), z.begonnen_um === null ? '' : mmss(Math.floor((messEnde(z, jetzt) - z.begonnen_um) / 1000)));
     }
 
     function zeigeSchritt(v) {
@@ -733,6 +794,7 @@
     }
 
     function zeigeKnoepfe(v) {
+      const fokus = document.activeElement;
       setzeIcon(knopf.links.querySelector('.gf-icon'), v.links.icon);
       knopf.links.setAttribute('aria-label', v.links.label);
       knopf.links.title = v.links.label;
@@ -743,6 +805,10 @@
       setzeIcon(knopf.rechts.querySelector('.gf-icon'), v.rechts.icon);
       knopf.rechts.setAttribute('aria-label', v.rechts.label);
       knopf.rechts.title = v.rechts.label;
+      // Fokus nicht verlieren, wenn der fokussierte Knopf gesperrt oder ausgeblendet wird (6.8)
+      if ((fokus === knopf.links && knopf.links.disabled) || (fokus === knopf.rechts && knopf.rechts.hidden)) {
+        knopf.haupt.focus();
+      }
     }
 
     function zeigeAbschluss(jetzt) {
@@ -825,6 +891,7 @@
       letzterTakt = jetzt;
       uebernehme(r);
       if (r.uebergaenge > 0) {
+        letzterWechsel = jetzt;
         speichern();
       }
       zeige(false);
@@ -834,11 +901,13 @@
       audioBereit(); // Nutzergeste schaltet Audio frei (E-17)
       const vorher = z.begonnen_um;
       const jetzt = Date.now();
-      // offene Zeit bis jetzt nachziehen, dann die Bedienung anwenden
-      const r0 = takt(z, steps, letzterTakt, jetzt);
-      uebernehme(r0);
+      // offene Zeit nachziehen, dann die Bedienung anwenden – außer der Tipp galt einer inzwischen beendeten Phase
+      const r = tipp(z, steps, name, letzterTakt, jetzt, letzterWechsel);
       letzterTakt = jetzt;
-      uebernehme(aktion(z, steps, name, jetzt));
+      if (r.uebergaenge > 0) {
+        letzterWechsel = jetzt;
+      }
+      uebernehme(r);
       if (vorher === null && z.begonnen_um !== null) {
         bildschirmAn();
       }
@@ -868,6 +937,7 @@
         vergessen();
         z = neuerZustand(steps, { stand, stumm: z.stumm, jetzt: Date.now() });
         form.reset();
+        letzterWechsel = null;
       } else {
         stelleFelderHer();
         letzterTakt = z.gespeichert_am || null; // Zeit seit dem letzten Merken nachrechnen (Hinweiston, falls eine Phase endete)
@@ -878,6 +948,7 @@
       modus = 'lauf';
       zeigeStumm();
       tick();
+      letzterSchritt = null; // tick() hat schon gezeichnet: Fokus trotzdem auf die Überschrift des Schritts (6.8)
       zeige(true);
     });
 
@@ -905,6 +976,9 @@
     });
 
     form.addEventListener('submit', (e) => {
+      if (modus === 'aus') {
+        return;
+      }
       if (modus !== 'lauf' || !istAbschluss(z, steps)) {
         e.preventDefault(); // gespeichert wird aus dem Abschluss
         return;
@@ -915,18 +989,23 @@
       bildschirmFrei();
     });
 
+    // Umschalter: Name bleibt „Ton und Vibration aus“, gedrückt = stumm (aria-pressed); nur der Titel wechselt
     function zeigeStumm() {
       if (!stummKnopf) {
         return;
       }
       stummKnopf.setAttribute('aria-pressed', z.stumm ? 'true' : 'false');
-      stummKnopf.setAttribute('aria-label', z.stumm ? 'Ton und Vibration an' : 'Ton und Vibration aus');
       stummKnopf.title = z.stumm ? 'Signale einschalten (nur diese Einheit)' : 'Stumm für diese Einheit';
     }
     if (stummKnopf) {
       stummKnopf.addEventListener('click', () => {
         z.stumm = !z.stumm;
         zeigeStumm();
+        try {
+          sessionStorage.setItem(stummSchluessel, z.stumm ? '1' : '0');
+        } catch (e) {
+          // ohne Speicher gilt die Wahl bis zum Neuladen
+        }
         if (gemerkt) {
           speichern();
         }
@@ -934,6 +1013,18 @@
           audioBereit();
         }
       });
+    }
+    /** Stumm-Wahl dieser Einheit aus dem Browser, sonst die Vorgabe aus S8 (E-18). */
+    function stummVorgabe() {
+      try {
+        const w = sessionStorage.getItem(stummSchluessel);
+        if (w === '1' || w === '0') {
+          return w === '1';
+        }
+      } catch (e) {
+        // kein Speicher
+      }
+      return !tonStandard;
     }
 
     document.addEventListener('visibilitychange', () => {
@@ -965,10 +1056,24 @@
       text(document.getElementById('gf-fortsetzen-text'), (st ? 'Übung ' + (z.schritt + 1) + ' von ' + steps.length + ' (' + st.name + ')' : 'Abschluss')
         + (z.abgeschickt ? ' – die Rückmeldung wurde abgeschickt, ist aber noch nicht auf dem Server angekommen (z. B. ohne Netz).' : ' – Fortschritt und Eingaben sind auf diesem Gerät gespeichert.'));
     } else if (geladen.aktion === 'fehler') {
-      // Speichern abgelehnt (422/409): Werte kommen vom Server, Fortschritt bleibt; weiter im Abschluss
-      z = geladen.zustand || neuerZustand(steps, { stand, stumm: !tonStandard, jetzt: Date.now() });
-      z.schritt = steps.length;
-      Object.assign(z, { phase: 'bereit', end_at: null, phase_ms: null, rest_ms: null, vor_anhalten: null });
+      // Speichern abgelehnt (422/409): Werte kommen vom Server, Fortschritt bleibt; weiter im Abschluss bzw. bei einem
+      // ungültigen Ist-Wert in dessen Übung (Erledigt/Übersprungen bleiben, „Weiter“ führt durch erledigte Übungen)
+      z = geladen.zustand || neuerZustand(steps, { stand, stumm: stummVorgabe(), jetzt: Date.now() });
+      if (z.ende_um === null || z.ende_um === undefined) {
+        z.ende_um = Date.now();
+      }
+      const fehlerSchritt = abschnitte.findIndex((a) => a.hasAttribute('data-invalid'));
+      if (fehlerSchritt >= 0) {
+        z = oeffne(z, steps, Number(abschnitte[fehlerSchritt].getAttribute('data-step')));
+      } else if (form.hasAttribute('data-ist-fehler')) {
+        // Ist-Fehler ohne Zuordnung zu einer Übung: alle Schritte zeigen (Formular wie ohne JavaScript)
+        modus = 'aus';
+        document.documentElement.classList.remove('js');
+        return;
+      } else {
+        z.schritt = steps.length;
+        Object.assign(z, { phase: 'bereit', end_at: null, phase_ms: null, rest_ms: null, vor_anhalten: null });
+      }
       z.ist = {};
       Array.from(form.elements).forEach(merkeFeld);
       z.dauer_manuell = true;
@@ -978,7 +1083,14 @@
       if (geladen.grund !== 'leer') {
         vergessen();
       }
-      z = neuerZustand(steps, { stand, stumm: !tonStandard, jetzt: Date.now() });
+      if (geladen.grund === 'gespeichert') {
+        try {
+          sessionStorage.removeItem(stummSchluessel); // Einheit gespeichert: beim nächsten Durchgang gilt wieder S8
+        } catch (e) {
+          // nichts zu tun
+        }
+      }
+      z = neuerZustand(steps, { stand, stumm: stummVorgabe(), jetzt: Date.now() });
     }
     zeigeStumm();
     zeige(false);
