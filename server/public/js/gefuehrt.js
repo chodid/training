@@ -343,10 +343,11 @@
         v.zeit_ms = st.arbeit_s * 1000;
         v.phase_text = 'Bereit';
         v.phase_icon = 'clock';
-        v.satz_text = st.art === 'block' ? 'Block · ' + Math.round(st.arbeit_s / 60) + ' min' : satzVon + (pause !== null ? ' · Pause ' + pause + ' s' : '');
+        // Pause nur nennen, wenn nach diesem Satz noch einer folgt (nach dem letzten Satz gibt es keine)
+        v.satz_text = st.art === 'block' ? 'Block · ' + Math.round(st.arbeit_s / 60) + ' min' : satzVon + (pause !== null && z.satz < st.saetze ? ' · Pause ' + pause + ' s' : '');
         v.haupt = { icon: 'player-play', text: 'Start' };
       } else if (st.art === 'wiederholungen') {
-        v.satz_text = satzVon + (pause !== null ? ' · Pause ' + pause + ' s nach „Satz erledigt“' : '');
+        v.satz_text = satzVon + (pause !== null && z.satz < st.saetze ? ' · Pause ' + pause + ' s nach „Satz erledigt“' : '');
         v.haupt = { icon: 'check', text: 'Satz erledigt' };
       } else {
         v.satz_text = (st.saetze > 1 ? st.saetze + ' Sätze · ' : '') + 'ohne Zeitvorgabe';

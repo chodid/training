@@ -620,7 +620,7 @@ noch_zu_pruefen:
 
 ```yaml
 ap: AP-14
-auftrag: docs/konzept/gefuehrte-einheit.md (Teil C, T3–T7; Nachtrag T8 unter AP-11)
+auftrag: docs/konzept/gefuehrte-einheit.md (Teil C, T3–T7, Nachtrag T9 (E-23); Nachtrag T8 unter AP-11)
 geprueft:
   - was: T3 Ablaufplan – Testfälle 8.1 A-01 bis A-12 (Wiederholungen, Halten s/min/Bereich, max, Hangboard mit und ohne Sätze, Block, offen, Ausdauer/Ruhe ohne Plan, Reihenfolge und Index) und alle übrigen kind-Werte (campus, bouldern_limit, ausdauer_route, zugkraft, antagonisten); A-01 bis A-10, die kind-Fälle und A-12 gültig nach plan_json-Schema, A-11 zusätzlich mit leeren/ungültigen Plänen; Schreibweisen der Haltezeit (s, sek, sec, min, Bereich mit - und –, 0, Komma)
     wie: automatisiert (AblaufplanTest)
@@ -692,6 +692,10 @@ geprueft:
     datum: 2026-09-28
   - was: "T9: Speichern-Leisten auf 375 px beim Scrollen über der unteren Navigation (Unterkante der Leiste = Oberkante der Navigation) in S3, Check-in, Schmerz und S9; Desktop unverändert"
     wie: Browser (Messung der Positionen, Screenshot S3 gescrollt)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "Review T9: letzter Satz ohne Pausenhinweis (Kletterblock 4 Sätze, Halten); Leiste mit simulierter Safe Area 34 px 12 px über der Navigation (vorher 46 px); Woche mit offenem Check-in ohne Überdeckung der Kacheln"
+    wie: automatisiert (node --test, 18 Fälle) + Browser (Messung 390 px mit CDP-Safe-Area, Woche gescrollt)
     ergebnis: ok
     datum: 2026-09-28
 noch_zu_pruefen:

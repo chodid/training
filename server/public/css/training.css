@@ -87,7 +87,12 @@ html.js .gf-step:not(.aktiv){display:none}
 .gf-actions .gf-icon:empty{display:none}
 /* Fixierte Aktionsleisten (S3, S9, Check-in, Schmerz …) auf dem Smartphone über der unteren Navigation (60 px + Rand)
    halten, damit Speichern bzw. die Primäraktion beim Scrollen sichtbar bleibt */
-@media (max-width:767px){.actions-sticky{bottom:calc(61px + env(safe-area-inset-bottom))}}
+@media (max-width:767px){
+  /* Abstand zur Safe Area übernimmt die Navigation; die Leiste braucht unten nur ihren normalen Innenabstand */
+  .actions-sticky{bottom:calc(61px + env(safe-area-inset-bottom));padding-bottom:var(--space-3)}
+  /* Check-in in der Woche: Die Leiste gleicht mit negativem Rand den Seitenabstand aus; hier folgen noch Kacheln */
+  .week-checkin{padding-bottom:var(--space-8)}
+}
 .gf-save{display:flex;flex-wrap:nowrap}
 .timer-ton{flex-wrap:wrap;justify-content:flex-end}
 @media (max-width:479px){.timer-zeile{grid-template-columns:1fr}.timer-ton{justify-content:flex-start}}

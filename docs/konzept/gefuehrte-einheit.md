@@ -1,6 +1,6 @@
 # Auftrag: App-Icon, Begründungstexte der Planung und geführte Trainingseinheit
 
-Ablageort im Repo: `docs/konzept/gefuehrte-einheit.md` (im Hauptkonzept: AP-13 und AP-14, D-55 bis D-59, Q-14; Nachtrag T8: AP-11, D-60)
+Ablageort im Repo: `docs/konzept/gefuehrte-einheit.md` (im Hauptkonzept: AP-13 und AP-14, D-55 bis D-59, Q-14; Nachtrag T8: AP-11, D-60; Nachtrag T9: AP-14)
 Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21, Nachtrag T8 mit E-22, Nachtrag T9 mit E-23); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); T1–T9 umgesetzt (Code-Stand 0.17.0 bis 0.20.0), Abnahme durch den Athleten offen (Stand in Abschnitt 12)
 Versionsnummer: keine im Konzept; wird in der Umsetzung festgelegt
 
@@ -673,6 +673,14 @@ T9:
       loesung: für Kletterblöcke „n Sätze“ groß und das Ziel (target) klein darunter; der Pausentimer steht für beide Arten gemeinsam
     - was: Die Speichern-Leiste lag nicht nur in S3, sondern auch im Check-in und bei „Schmerz“ hinter der Navigation (gemeinsame Regel .actions-sticky)
       loesung: Rückfrage beim Athleten – Korrektur für alle Seiten in training.css (Design-System app.css unverändert)
+    - was: "Review T9: Beim letzten Satz stand „Pause 120 s nach „Satz erledigt““, danach kam keine Pause (bei Kraft schon vorher, jetzt auch bei Kletterblöcken)"
+      loesung: Pausenhinweis in „bereit“ nur, wenn noch ein Satz folgt (auch bei Halten); Node-Test für den letzten Satz
+    - was: "Review T9: Auf iPhones mit Home-Leiste hatte die Leiste unten zusätzlich den Safe-Area-Abstand (46 statt 12 px über der Navigation)"
+      loesung: Innenabstand unten auf den normalen Wert gesetzt, die Navigation hält die Safe Area frei; gemessen mit simulierter Safe Area (34 px)
+    - was: "Review T9: In der Woche überdeckte die Leiste des eingebetteten Check-ins die Kacheln darunter um 16 px (negativer Rand der Leiste, vor T9 schon vorhanden)"
+      loesung: Abstand unter dem eingebetteten Check-in (Klasse week-checkin, nur Smartphone); gemessen ohne Überdeckung
+    - was: "Review T9: S3 – die Leiste gehört zum Rückmeldungs-Abschnitt und erscheint erst, wenn dieser ins Bild scrollt"
+      loesung: so gelassen (Aufbau von S3 unverändert; beim Scrollen durch die Ist-Werte ist Speichern wie vorher nicht fixiert)
 probleme_loesungen: []
 ```
 

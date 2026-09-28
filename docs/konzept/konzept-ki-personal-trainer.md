@@ -2340,9 +2340,9 @@ probleme_loesungen:
 ## AP-14 Geführte Einheit
 
 - **Ziel:** Eine Einheit lässt sich starten und Schritt für Schritt durchführen, mit Timer, Farbwechsel, Signalen und direkter Ist-Eingabe (D-57, D-58).
-- **Umfang:** Auftrag `docs/konzept/gefuehrte-einheit.md`, Teil C, Unterpunkte T3 (Ablaufplan), T4 (S9 ohne Skript), T5 (Skript: Timer, Signale, Farbe, Zustand), T6 (Einstellungen, Offline, Prüfprotokoll), T7 (Dokumentation); Mockup `s9-einheit-gefuehrt.html` (fünf Zustände), S8 angepasst.
+- **Umfang:** Auftrag `docs/konzept/gefuehrte-einheit.md`, Teil C, Unterpunkte T3 (Ablaufplan), T4 (S9 ohne Skript), T5 (Skript: Timer, Signale, Farbe, Zustand), T6 (Einstellungen, Offline, Prüfprotokoll), T7 (Dokumentation); Nachtrag T9 (E-23: Kletterblöcke ohne Haltezeit und Dauer mit mindestens zwei Sätzen satzweise wie Kraft, Speichern-Leisten auf dem Smartphone über der unteren Navigation); Mockup `s9-einheit-gefuehrt.html` (fünf Zustände), S8 angepasst.
 - **Abhängigkeiten:** AP-13 T2 (Kurzsatz im Startschritt), AP-09 (Offline), AP-11 (`app_setting`).
-- **Abnahmekriterien:** Testfälle 8.1 und 8.2 des Auftrags grün; Gerätetest des Athleten auf Android (Töne, Vibration, Grün/Rot, Bildschirm an, Stumm in S8 und in der Einheit); ohne JavaScript vollständig ausfüllbar; Speichern offline landet im Puffer.
+- **Abnahmekriterien:** Testfälle 8.1 und 8.2 des Auftrags grün; Gerätetest des Athleten auf Android (Töne, Vibration, Grün/Rot, Bildschirm an, Stumm in S8 und in der Einheit); ohne JavaScript vollständig ausfüllbar; Speichern offline landet im Puffer; T9: Zugkraft-Block mit Pause wird satzweise mit Pausentimer geführt, Speichern bleibt beim Scrollen auf dem Smartphone sichtbar.
 - **Status:**
 ```yaml
 status: in_arbeit
@@ -2374,6 +2374,9 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: Nachtrag T9 – Entscheidungen zu O-05 bis O-07 und fixierte Speichern-Leisten hinter der unteren Navigation (S3, Check-in, Schmerz)
     loesung: E-23 im Auftrag; Kletterblöcke mit Sätzen satzweise wie Kraft; .actions-sticky auf dem Smartphone über der Navigation (alle Seiten, Rückfrage beim Athleten)
+  - datum: 2026-09-28
+    was: Review T9 – letzter Satz kündigte eine Pause an, die nicht kommt; auf iPhones doppelter Abstand zur Safe Area unter der Speichern-Leiste; in der Woche überdeckte die Check-in-Leiste die Kacheln
+    loesung: Pausenhinweis nur, wenn noch ein Satz folgt; Leiste unten nur mit normalem Innenabstand (die Navigation hält die Safe Area frei); Abstand unter dem eingebetteten Check-in (Einzelheiten Auftrag Abschnitt 12, T9)
 ```
 
 # 16. Prüfprotokoll (separates Dokument)
