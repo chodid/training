@@ -4,7 +4,29 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.5.0] – 2026-09-28
+
+AP-04 Webseite.
+
+### Hinzugefügt
+- App-Rahmen nach Branding: Tab-Leiste (Smartphone), Leiste links (Tablet), Seitenleiste (Desktop); Kopfzeile mit Zurück-Pfeil auf Unterseiten.
+- `/woche` (S2): 7 Tage mit Einheiten (Typ-Icon, Titel, Priorität, Dauer, Status bzw. „Feedback“), heutiger Tag hervorgehoben, Check-in-Status je Tag, ±Woche, Kennzahlen (sRPE, erledigte Einheiten, Check-in-Abdeckung), Hinweis auf offene Rückmeldungen, Leerzustand.
+- `/einheit` (S3): Plan mit Soll je Übung bzw. Block, Ist-Eingabe (vorbelegt mit Soll oder letzter Eingabe), Rückmeldung (Dauer, RPE 0–10, Gefühl 1–5, Schmerz mit Kurzform, Abweichung, Notiz, Status); bei Ausdauer Plan-Text und verknüpfte Aktivität aus Intervals.icu (Dauer, Distanz, Ø HF, Ø Pace, Zeit in Zonen). Speichern in `session_execution` (sRPE berechnet), `session.status`, `pain_event`.
+- `/checkin` (S4): Erholung, Muskelkater, Schmerz (Kurzform), Notiz; ein Eintrag pro Tag (überschreibbar), Liste der Woche.
+- `/schmerz` (S5): Schmerzereignis mit optionaler Einheit der letzten 14 Tage; Hinweis bei wiederholter Meldung, Stärke über 5 oder Schmerz in Ruhe.
+- `/einstellungen` (S8): Abmelden, Zeitzone, Passwort (beendet andere Sessions), Schemastand und Version, Intervals.icu-Status, aktive Claude-Freigaben mit Widerruf, statisches Token; Backup/Migration als Platzhalter bis AP-10.
+- `/verlauf`: Platzhalter bis AP-09.
+- Audit-Log für alle Schreibzugriffe der Webseite (`audit_log`, Hash statt Inhalt).
+- Kurzcache für Intervals.icu-Aktivitäten (`ext_cache`, 5 min) und Zuordnung Aktivität ↔ Ausdauereinheit (`paired_event_id`, sonst gleicher Tag).
+- Web-App-Manifest (`/manifest.webmanifest`, Name „Training“, Farben laut Branding) mit Icons 192/512 px und maskierbarem Icon aus dem Lama-Kopf.
+- Tests: Seiten, Speichern, Validierung, Aktivitätsanzeige, Check-in, Schmerz, Einstellungen.
+
+### Geändert
+- `/` leitet nach dem Login auf `/woche` (vorher Übergangsseite).
+- Status „verschoben“ ohne Icon (passt in die 7-Spalten-Woche).
+
 ### Dokumentation
+- README (Endpunkte), Konzept (AP-04 `in_arbeit`, Befunde), Prüfprotokoll AP-04, Branding-Dokument Abschnitt 8 (Abweichungen).
 - Konzept: Q-09 → D-38 (Refresh-Token 90 Tage), Q-10 → D-39 (`plan_json` für Mobilität wie Kraft, Ruhetag leer) bestätigt.
 
 ## [0.4.0] – 2026-09-27

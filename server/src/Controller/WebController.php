@@ -27,21 +27,11 @@ final class WebController
 
     public function home(Request $request): Response
     {
-        $session = $this->app->sessions()->current($request);
-        if ($session === null) {
+        if ($this->app->sessions()->current($request) === null) {
             return Response::redirect($this->app->users()->exists() ? '/login' : '/setup');
         }
 
-        return $this->page('Training', 'message', [
-            'alert' => [
-                'type' => 'success',
-                'icon' => 'circle-check',
-                'title' => 'Angemeldet.',
-                'text' => 'Claude verbindest Du als Connector mit der Adresse ' . rtrim((string) $this->app->config()->get('APP_URL'), '/') . '/mcp. Verbindung zu Intervals.icu prüfen unter /intervals. Wochenansicht, Einheiten und Check-in folgen.',
-            ],
-            'login' => $session->login,
-            'csrf' => $session->csrfToken(),
-        ]);
+        return Response::redirect('/woche');
     }
 
     // ---------- S0 Setup (D-34) ----------

@@ -138,7 +138,17 @@ Abweichungen in der Umsetzung (nach Hinweis 7.10):
 | S7 | Hinweistext „Prüfe, ob Du die Verbindung gerade selbst eingerichtet hast. Die Freigabe gilt, bis sie widerrufen wird.“ statt Audit-Log/Einstellungen | Audit-Log (AP-03/AP-05) und Einstellungen (AP-04) gibt es noch nicht; Text wird mit AP-04 wieder angeglichen | AP-01, 2026-09-27 |
 | S7 | Fußzeile ohne Link „Abmelden“ | Abmelden braucht ein Formular mit CSRF-Token; auf der Freigabeseite reicht „Ablehnen“ | AP-01, 2026-09-27 |
 | S7 | Zugriffsliste nach Scope gruppiert (erst Lesen, dann Schreiben) | ergibt sich aus der Scope-Zuordnung | AP-01, 2026-09-27 |
-| Startseite | Übergangsseite nach dem Login (Hinweis mit Connector-Adresse, Abmelden) im Auth-Layout | Seitenrahmen mit Navigation kommt mit AP-04 | AP-01, 2026-09-27 |
+| Startseite | ~~Übergangsseite nach dem Login~~ – seit AP-04 Weiterleitung auf `/woche` | Seitenrahmen mit Navigation kommt mit AP-04 | AP-01, 2026-09-27; ersetzt AP-04, 2026-09-28 |
+| S2 | Kennzahl „sRPE bisher“ ohne „≈ geplant“ | geplante sRPE-Last ist im Datenmodell nicht vorhanden (nur geplante Dauer) | AP-04, 2026-09-28 |
+| S2 | Vergangene Tage ohne Check-in als „Check-in fehlt“ (Hinweis-Stil wie „offen“), Tage ohne Einheit als „Keine Einheit“ | Mockup zeigt nur Wochenmitte; fehlende Tage sollen sichtbar sein (Abschnitt 11) | AP-04, 2026-09-28 |
+| S2 | Marke „verschoben“ ohne Icon | passt sonst nicht in die 7-Spalten-Woche | AP-04, 2026-09-28 |
+| S3 | Zusätzliches Feld „Dauer (min)“ im Rückmeldungsblock; Hinweis zu ausgelassen/verschoben unter dem Status | sRPE braucht die Dauer | AP-04, 2026-09-28 |
+| S3 | Ist-Felder Kraft: Sätze, Wdh., Last (Haltezeiten in „Wdh.“, z. B. „30s“); Klettern: Dauer, Sätze (nur wenn geplant), Notiz | folgt dem Schema 7.1; mockup-spezifische Felder wie „Boulder“/„Grad“ gibt es im Schema nicht | AP-04, 2026-09-28 |
+| S3 | Zonenbalken als SVG, Legendenfarben über Klassen | Content-Security-Policy ohne Inline-Styles | AP-04, 2026-09-28 |
+| S3, S4 | Schmerz-Kurzform klappt per CSS `:has()` auf (ohne JavaScript) | Hinweis 7.3 | AP-04, 2026-09-28 |
+| S5 | Warnhinweis erst nach dem Speichern, mit Knöpfen „Zur Woche“/„Weiteres Ereignis“ | Hinweis hängt vom gespeicherten Verlauf ab; Anzeigeregel vorläufig bis AP-07 | AP-04, 2026-09-28 |
+| S8 | Backup und „Migrieren“ als deaktivierte Platzhalter; Zeitzone/Passwort auf eigenen Unterseiten; Widerrufen als Formular | Funktionen aus AP-10; Formulare ohne JavaScript | AP-04, 2026-09-28 |
+| S6 | Platzhalterseite „Verlauf folgt“ | S6 kommt mit AP-09 | AP-04, 2026-09-28 |
 
 Offen (unabhängig von den Mockups):
 - Word-Vorlage mit variablen TTF prüfen (aus dem Ablegen des Design-Systems).

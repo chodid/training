@@ -8,9 +8,9 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 
 | Pfad | Inhalt | Arbeitspaket |
 |---|---|---|
-| `server/public/` | Document Root (einziger per HTTP erreichbarer Ordner), `index.php` als einziger Einstieg; `css/training.css` (Ergänzungen); `assets/` wird gebaut (siehe unten) | AP-00, AP-01 |
-| `server/src/` | PHP-Quellcode (Namespace `Training\`): `Auth/` Login und Session, `OAuth/` Autorisierungsserver, `Mcp/` MCP-Endpunkt, `Intervals/` Intervals.icu-Client, `View/` Seiten | AP-00 ff. |
-| `server/templates/` | Seitenvorlagen (S0 Setup, S1 Login, S7 Freigabe) nach `docs/branding/` | AP-01 |
+| `server/public/` | Document Root (einziger per HTTP erreichbarer Ordner), `index.php` als einziger Einstieg; `css/training.css` (Ergänzungen), `manifest.webmanifest` und `icons/`; `assets/` wird gebaut (siehe unten) | AP-00, AP-01, AP-04 |
+| `server/src/` | PHP-Quellcode (Namespace `Training\`): `Auth/` Login und Session, `OAuth/` Autorisierungsserver, `Mcp/` MCP-Endpunkt, `Intervals/` Intervals.icu-Client, `Data/` Datenzugriff und Audit-Log, `Plan/` Plan-Validierung, `View/` Seiten | AP-00 ff. |
+| `server/templates/` | Seitenvorlagen nach `docs/branding/` (S0, S1, S7 aus AP-01; S2–S5, S8 aus AP-04) | AP-01, AP-04 |
 | `server/bin/build-assets.php` | Kopiert Design-System, `app.css`, Icons und Logo aus `docs/branding/` nach `server/public/assets/` | AP-01 |
 | `server/config/` | Konfiguration ohne Secrets (derzeit leer) | – |
 | `server/migrations/` | Nummerierte Migrationen (D-20) | AP-00, AP-01, AP-03 |
@@ -39,11 +39,18 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 └── .ftp-deploy-sync-state.json  ← Statusdatei des Upload-Schritts
 ```
 
-## Endpunkte (Stand AP-02)
+## Endpunkte (Stand AP-04)
 
 | Methode | Pfad | Zweck |
 |---|---|---|
-| GET | `/` | Startseite; ohne Anmeldung Weiterleitung auf `/login` (bzw. `/setup`, solange kein Benutzer existiert) |
+| GET | `/` | Weiterleitung auf `/woche`; ohne Anmeldung auf `/login` (bzw. `/setup`, solange kein Benutzer existiert) |
+| GET | `/woche` | S2 Wochenansicht (`?start=YYYY-MM-DD` für eine andere Woche) |
+| GET/POST | `/einheit` | S3 Einheit (`?id=…`): Plan, Ist-Werte, Rückmeldung, Schmerz, Status; bei Ausdauer verknüpfte Intervals.icu-Aktivität |
+| GET/POST | `/checkin` | S4 Tages-Check-in (`?datum=…`, nicht in der Zukunft) |
+| GET/POST | `/schmerz` | S5 Schmerzereignis (`?datum=…`, `?einheit=…`) |
+| GET/POST | `/einstellungen` | S8 Konto, Zeitzone, Passwort, Schemastand, Verbindungen, Widerruf von Claude-Freigaben |
+| GET | `/verlauf` | Platzhalter bis AP-09 |
+| GET | `/manifest.webmanifest` | Web-App-Manifest („Zum Startbildschirm“) |
 | GET | `/health` | Zustand als JSON: PHP-Erweiterungen, Konfiguration, `var/` beschreibbar, Datenbank, Schemastand. `200` = in Ordnung, `503` = Handlungsbedarf. Enthält keine Secrets. |
 | POST | `/admin/migrate` | Führt ausstehende Migrationen aus. Header `X-Migration-Secret` muss `MIGRATION_SECRET` entsprechen. `401` ohne Header, `403` bei falschem Secret, `409` wenn bereits eine Migration läuft oder die Datenbank neuer als der Code ist. |
 | GET/POST | `/setup` | S0: legt den einzigen Benutzer an (verlangt `MIGRATION_SECRET`, D-34). Sobald ein Benutzer existiert: `404`. |

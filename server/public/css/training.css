@@ -7,3 +7,22 @@
 .ic-brand{color:var(--plum-600)}
 .btn .ic{margin-right:var(--space-2)}
 .auth-card-wide{max-width:640px}
+/* Schmerz-Kurzform ohne JavaScript aufklappen (Branding 7.3): sichtbar, sobald "Ja" gewählt ist */
+form:has(input[name="pain"][value="ja"]:checked) .reveal{display:grid;gap:var(--space-4)}
+/* Browser ohne :has() zeigen die Kurzform immer */
+@supports not selector(:has(*)){.reveal{display:grid;gap:var(--space-4)}}
+.plan-text{margin:0;white-space:pre-wrap;color:var(--text-secondary);background:var(--bg-page);padding:var(--space-3);border-radius:var(--radius-md)}
+.mt-4{margin-top:var(--space-4)}
+.mt-8x{margin-top:var(--space-8)}
+.label-light{font-weight:400}
+.span-2{grid-column:span 2}
+.link-inline{display:inline-flex;align-items:center;gap:4px}
+.danger-text{color:var(--action-danger)}
+.inline-form{display:inline}
+.zones-svg{display:block;width:100%;height:10px;border-radius:var(--radius-full);overflow:hidden}
+.zones-svg .z1,.legend .z1{fill:var(--plum-300);background:var(--plum-300)}
+.zones-svg .z2,.legend .z2{fill:var(--plum-400);background:var(--plum-400)}
+.zones-svg .z3,.legend .z3{fill:var(--plum-600);background:var(--plum-600)}
+.zones-svg .z4,.legend .z4{fill:var(--plum-700);background:var(--plum-700)}
+.zones-svg .z5,.legend .z5{fill:var(--plum-800);background:var(--plum-800)}
+.link-row{text-decoration:none;color:inherit}

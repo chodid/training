@@ -1187,10 +1187,42 @@ probleme_loesungen:
 - **Abnahmekriterien:** Auf dem Smartphone und auf dem Tablet: Woche sehen, Krafteinheit mit Ist-Werten abschließen, Feedback und Schmerzereignis erfassen, Check-in in ≤ 10 s; alles in DB nachvollziehbar; Ausdauereinheit der Woche mit verknüpfter Aktivität sichtbar.
 - **Status:**
 ```yaml
-status: offen
-begonnen: null
+status: in_arbeit         # Code-Stand 0.5.0: alle Screens umgesetzt, automatisierte Tests und Browser-Durchlauf grün; Abnahme auf Smartphone/Tablet durch den Athleten und mit echten Intervals.icu-Daten offen
+begonnen: 2026-09-28
 abgeschlossen: null
-probleme_loesungen: []
+umsetzung:
+  - Seiten /woche (S2), /einheit (S3), /checkin (S4), /schmerz (S5), /einstellungen (S8), /verlauf (Platzhalter AP-09); / leitet nach Login auf /woche
+  - Datenzugriff server/src/Data/ (WeekRepository, FeedbackRepository, AuditLog); alle Schreibzugriffe der Webseite im audit_log (actor web, payload_hash)
+  - Intervals.icu-Aktivitäten mit 5-Minuten-Cache (ext_cache) und Zuordnung zu Ausdauereinheiten
+  - Web-App-Manifest mit Icons (192, 512, maskierbar)
+probleme_loesungen:
+  - datum: 2026-09-28
+    was: Mockup S3 hat kein Feld für die Dauer; sRPE = RPE × Dauer braucht sie (Abschnitt 11)
+    loesung: Feld „Dauer (min)“ im Rückmeldungsblock, vorbelegt mit gespeicherter Dauer, sonst Dauer der verknüpften Aktivität, sonst geplanter Dauer; Pflicht bei erledigt/teilweise
+  - datum: 2026-09-28
+    was: RPE, Gefühl und Dauer sind bei „ausgelassen“/„verschoben“ sinnlos
+    loesung: nur bei erledigt/teilweise Pflicht und gespeichert; Abweichungsgrund und Notiz werden immer gespeichert
+  - datum: 2026-09-28
+    was: performed_at ist aus der Webseite nicht genau bekannt
+    loesung: bei Eingabe am selben Tag Zeitpunkt der Eingabe, sonst Tag der Einheit 12:00 (Näherung); genaue Zeit liefert bei Ausdauer die Intervals.icu-Aktivität
+  - datum: 2026-09-28
+    was: actual_json „leere Felder = wie geplant“ – vollständige oder nur abweichende Werte speichern?
+    loesung: die angezeigten Ist-Werte werden vollständig gespeichert (eindeutig, ohne Vergleichslogik); das Schema erlaubt 0 Sätze für nicht gemachte Übungen
+  - datum: 2026-09-28
+    was: Zuordnung Aktivität ↔ geplante Ausdauereinheit; Feldnamen der Intervals.icu-Aktivität (paired_event_id, icu_hr_zone_times, average_speed) nicht am Original prüfbar (V-04)
+    loesung: zuerst über paired_event_id = intervals_event_id, sonst erste Ausdauer-Aktivität am selben Tag; fehlende Felder blenden die jeweilige Kennzahl aus; Prüfung mit echten Daten im Prüfprotokoll
+  - datum: 2026-09-28
+    was: Hinweistext nach dem Speichern eines Schmerzereignisses (Mockup S5) braucht eine Auslöseregel; Schmerzregeln entstehen erst in AP-07
+    loesung: vorläufige Anzeigeregel ohne Trainingswirkung – ab der dritten Meldung am selben Ort in 14 Tagen, bei Stärke über 5 oder Schmerz in Ruhe; wird mit AP-07 an die Schmerzregeln angeglichen
+  - datum: 2026-09-28
+    was: Schmerz-Kurzform soll ohne JavaScript funktionieren (Branding 7.3); Content-Security-Policy verbietet Inline-Skripte und Inline-Styles (Zonenbalken im Mockup per style-Attribut)
+    loesung: Aufklappen per CSS :has() (Browser ohne :has() zeigen die Kurzform immer); Zonenbalken als SVG mit Breiten-Attributen und Farbklassen
+  - datum: 2026-09-28
+    was: Einstellungen verlangen Backup, Update und „Verlauf“ – Funktionen aus AP-09/AP-10
+    loesung: Anzeige des Schemastands und der Version jetzt; Backup und Migrationsknopf als deaktivierte Platzhalter; Navigationspunkt Verlauf mit Platzhalterseite
+  - datum: 2026-09-28
+    was: Widerruf einer Claude-Freigabe (S8)
+    loesung: setzt alle Refresh-Tokens des Clients auf revoked; laufende Access-Tokens enden nach ≤ 1 h (D-32); die Client-Registrierung bleibt und wird nach 30 Tagen ohne Nutzung aufgeräumt
 ```
 
 ## AP-05 MCP-Tools produktiv
@@ -1380,3 +1412,4 @@ noch_zu_pruefen:
 | 2026-09-27 | AP-02 umgesetzt (Code-Stand 0.3.0), Status `in_arbeit`: Intervals.icu-Client und Verbindungstest `/intervals`. V-04 vorläufig aus Sekundärquelle (intervals.icu aus der Code-Umgebung nicht erreichbar); Befunde im AP-02-Block. |
 | 2026-09-27 | AP-03 umgesetzt (Code-Stand 0.4.0), Status `in_arbeit` bis CI gegen MySQL 8.4 und Migration auf dem Server. Neu: `docs/konzept/datenmodell.md` (ER-Diagramm), Q-10 (plan_json für mobilitaet/ruhe, vorläufig umgesetzt), Verweise in Abschnitt 7 und 7.1. |
 | 2026-09-28 | Q-09 → D-38 (Refresh-Token 90 Tage) und Q-10 → D-39 (`plan_json` für mobilitaet/ruhe) vom Athleten bestätigt; Umsetzung unverändert. Auslieferung: AP-01 bis AP-03 gemeinsam in einem Pull Request (Entscheidung Athlet). |
+| 2026-09-28 | AP-04 umgesetzt (Code-Stand 0.5.0), Status `in_arbeit` bis zur Abnahme auf Smartphone/Tablet. Befunde im AP-04-Block (Dauerfeld in S3, Speichern bei ausgelassen/verschoben, performed_at, actual_json vollständig, Aktivitätszuordnung, vorläufige Schmerz-Hinweisregel, CSS statt JavaScript, Platzhalter für AP-09/AP-10). |

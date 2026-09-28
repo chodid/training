@@ -231,6 +231,54 @@ noch_zu_pruefen:
     wie: Deployment nach Merge, /health im Browser
 ```
 
+## AP-04 Webseite
+
+```yaml
+ap: AP-04
+geprueft:
+  - was: Seiten nur nach Login (Weiterleitung mit Rücksprung); Woche mit allen sechs Typen, KW, Block/Woche, heute, Check-in-Status, Leerzustand, ±Woche
+    wie: automatisiert (PHPUnit gegen MariaDB, simulierte Uhr)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Krafteinheit mit Ist-Werten abschließen (Soll vorbelegt, geänderte Last, 0 Sätze), RPE/Gefühl/Dauer, Schmerz, Abweichung → session_execution (sRPE 7 × 55 = 385), session.status, pain_event, audit_log; erneutes Öffnen zeigt gespeicherte Werte
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Validierung – fehlende Pflichtwerte, ungültige Ist-Werte, unvollständige Schmerzangabe → 422 mit Meldungen, Eingaben bleiben erhalten, nichts gespeichert; CSRF → 403; ausgelassen ohne RPE; Ruhetag/unbekannte Einheit → 404
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Ausdauereinheit mit verknüpfter Aktivität (paired_event_id) – Dauer, Distanz, Ø HF, Zonen, Link; Dauer vorbelegt; Woche zeigt „Aktivität vorhanden“; Cache verhindert zweiten Abruf
+    wie: automatisiert (simulierter Intervals.icu-Transport)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Check-in anlegen und überschreiben (ein Eintrag pro Tag), mit Schmerz; Zukunftsdatum → heute; ungültige Werte → 422; Schmerzformular mit Einheit, Hinweis bei dritter Meldung
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Einstellungen – Zeitzone, Passwort (falsches aktuelles → 422; Erfolg beendet andere Sessions), Freigabe widerrufen, Audit-Log-Einträge
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Browser-Durchlauf lokal (Setup → Woche → Einheit speichern mit Schmerz → Check-in → Schmerz mit Hinweis → Einstellungen → Verlauf) in 390, 834, 1112 und 1280 px – kein horizontaler Überlauf, keine Konsolenfehler, Schmerz-Kurzform klappt ohne JavaScript auf, Manifest als application/manifest+json
+    wie: automatisiert (Chromium/Playwright) + Sichtvergleich mit den Mockups (Code-Instanz)
+    ergebnis: ok – Abweichungen in branding.md Abschnitt 8
+    datum: 2026-09-28
+  - was: Check-in-Dauer
+    wie: automatisiert (Playwright, zwei Auswahlen + Speichern)
+    ergebnis: ok – 0,2 s ohne Bedienzeit; realistische Bedienung ≤ 10 s durch Athlet zu bestätigen
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: Auf Smartphone und Tablet – Woche sehen, Krafteinheit mit Ist-Werten abschließen, Feedback und Schmerzereignis erfassen, Check-in in ≤ 10 s
+    wie: manuell durch Athlet nach Deployment (Planwoche vorher per SQL oder ab AP-05 per Claude anlegen)
+  - was: Alles in der DB nachvollziehbar
+    wie: manuell (phpMyAdmin bei Lima-City – session_execution, pain_event, checkin, audit_log)
+  - was: Ausdauereinheit der Woche mit verknüpfter Aktivität sichtbar (echte Intervals.icu-Daten, Feldnamen V-04)
+    wie: manuell durch Athlet nach AP-02-Einrichtung – Ausdauereinheit mit intervals_event_id des Test-Events anlegen, Aktivität aufzeichnen, /einheit öffnen
+  - was: „Zum Startbildschirm“ auf dem Smartphone (Icon, Name, Farben)
+    wie: manuell durch Athlet
+```
+
 ## AP-06 Wissensbasis (übernommen aus Konzept)
 
 ```yaml

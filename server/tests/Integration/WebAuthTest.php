@@ -65,27 +65,28 @@ final class WebAuthTest extends AppTestCase
 
         // "Browser-Neustart": nur das persistente Cookie bleibt.
         $this->cookies = [SessionManager::COOKIE => $cookie];
-        $home = $this->request('GET', '/');
+        self::assertSame('/woche', $this->request('GET', '/')->headers['Location']);
+        $home = $this->request('GET', '/woche');
         self::assertSame(200, $home->status);
         self::assertStringContainsString('philipp', $home->body);
 
         // Gleitend: nach 20 Tagen Nutzung weitere 20 Tage gültig.
         $this->clock->advance(20 * 86400);
-        self::assertSame(200, $this->request('GET', '/')->status);
+        self::assertSame(200, $this->request('GET', '/woche')->status);
         $this->clock->advance(20 * 86400);
-        self::assertSame(200, $this->request('GET', '/')->status);
+        self::assertSame(200, $this->request('GET', '/woche')->status);
 
         // Ohne Nutzung nach 30 Tagen abgelaufen.
         $this->clock->advance(31 * 86400);
-        self::assertSame(303, $this->request('GET', '/')->status);
+        self::assertSame(303, $this->request('GET', '/woche')->status);
     }
 
     public function testLogoutNeedsCsrfAndEndsSession(): void
     {
         $this->setupUser();
-        $home = $this->request('GET', '/');
+        $home = $this->request('GET', '/einstellungen');
         self::assertSame(403, $this->request('POST', '/logout', ['csrf' => 'falsch'])->status);
-        self::assertSame(200, $this->request('GET', '/')->status);
+        self::assertSame(200, $this->request('GET', '/woche')->status);
         $out = $this->request('POST', '/logout', ['csrf' => self::csrfFrom($home)]);
         self::assertSame(303, $out->status);
         self::assertArrayNotHasKey(SessionManager::COOKIE, $this->cookies);

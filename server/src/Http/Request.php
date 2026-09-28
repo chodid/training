@@ -106,6 +106,14 @@ final class Request
         return is_string($value) ? $value : null;
     }
 
+    /** Formularfeld als Array (z. B. ist[0][sets]); sonst leeres Array. @return array<mixed> */
+    public function postArray(string $name): array
+    {
+        $value = $this->post[$name] ?? null;
+
+        return is_array($value) ? $value : [];
+    }
+
     public function cookie(string $name): ?string
     {
         return $this->cookies[$name] ?? null;

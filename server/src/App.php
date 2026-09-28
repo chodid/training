@@ -21,7 +21,7 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.4.0';
+    public const VERSION = '0.5.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
     public const SCHEMA_VERSION = 14;
@@ -72,6 +72,12 @@ final class App
             '/setup' => ['GET' => fn (): Response => $web()->setup($request), 'POST' => fn (): Response => $web()->setup($request)],
             '/login' => ['GET' => fn (): Response => $web()->login($request), 'POST' => fn (): Response => $web()->login($request)],
             '/logout' => ['POST' => fn (): Response => $web()->logout($request)],
+            '/woche' => ['GET' => fn (): Response => (new \Training\Controller\WeekController($this))->handle($request)],
+            '/einheit' => ['GET' => fn (): Response => (new \Training\Controller\SessionController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\SessionController($this))->handle($request)],
+            '/checkin' => ['GET' => fn (): Response => (new \Training\Controller\CheckinController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\CheckinController($this))->handle($request)],
+            '/schmerz' => ['GET' => fn (): Response => (new \Training\Controller\PainController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\PainController($this))->handle($request)],
+            '/einstellungen' => ['GET' => fn (): Response => (new \Training\Controller\SettingsController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\SettingsController($this))->handle($request)],
+            '/verlauf' => ['GET' => fn (): Response => (new \Training\Controller\HistoryController($this))->handle($request)],
             '/intervals' => ['GET' => fn (): Response => (new IntervalsController($this, $this->intervalsTransport))->handle($request), 'POST' => fn (): Response => (new IntervalsController($this, $this->intervalsTransport))->handle($request)],
             '/.well-known/oauth-authorization-server' => ['GET' => fn (): Response => $oauth()->metadata(), 'OPTIONS' => $preflight],
             '/.well-known/oauth-authorization-server/mcp' => ['GET' => fn (): Response => $oauth()->metadata(), 'OPTIONS' => $preflight],
@@ -129,6 +135,13 @@ final class App
     public function sessions(): SessionManager
     {
         return $this->sessions ??= new SessionManager($this->pdo(), $this->clock, $this->secureCookies());
+    }
+
+    public function intervalsClient(): \Training\Intervals\IntervalsClient
+    {
+        return $this->intervalsTransport !== null
+            ? \Training\Intervals\IntervalsClient::fromConfig($this->config(), $this->intervalsTransport)
+            : \Training\Intervals\IntervalsClient::fromConfig($this->config());
     }
 
     public function oauthConfig(): OAuthConfig
