@@ -25,6 +25,12 @@ $kurz = trim((string) ($session['coach_summary'] ?? ''));
 $mmss = static fn (int $s): string => sprintf('%02d:%02d', intdiv($s, 60), $s % 60);
 $ohneSoll = static fn (string $soll): string => preg_replace('/^Soll /', '', $soll) ?? $soll;
 $saetze = static function (array $st): string {
+    if ($st['art'] === Ablaufplan::BLOCK) {
+        return 'Block · ' . intdiv((int) $st['arbeit_s'], 60) . ' min'; // Block: ein Timer über die Dauer, Sätze stehen im Soll
+    }
+    if ($st['art'] === Ablaufplan::OFFEN) {
+        return ($st['saetze'] > 1 ? $st['saetze'] . ' Sätze · ' : '') . 'ohne Zeitvorgabe';
+    }
     $parts = [$st['saetze'] === 1 ? '1 Satz' : $st['saetze'] . ' Sätze'];
     if ($st['art'] === Ablaufplan::HALTEN) {
         $parts[] = 'je ' . $st['arbeit_s'] . ' s';

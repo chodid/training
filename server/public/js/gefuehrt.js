@@ -310,7 +310,7 @@
         v.satz_text = satzVon + (pause !== null ? ' · Pause ' + pause + ' s nach „Satz erledigt“' : '');
         v.haupt = { icon: 'check', text: 'Satz erledigt' };
       } else {
-        v.satz_text = 'Ohne Zeitvorgabe';
+        v.satz_text = (st.saetze > 1 ? st.saetze + ' Sätze · ' : '') + 'ohne Zeitvorgabe';
         v.haupt = { icon: 'check', text: 'Erledigt' };
       }
       if (z.satz > 1) {

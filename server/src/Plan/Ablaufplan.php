@@ -112,7 +112,8 @@ final class Ablaufplan
         } elseif ($minutes !== null) {
             [$art, $sets, $work, $rest] = [self::BLOCK, 1, $minutes * 60, null];
         } else {
-            [$art, $sets, $work, $rest] = [self::OFFEN, 1, null, null];
+            // offen: Sätze wie geplant (6.3 „Klettern: sets oder 1“), ohne Timer und ohne Pausenphase
+            [$art, $sets, $work, $rest] = [self::OFFEN, max(1, (int) ($b['sets'] ?? 1)), null, null];
         }
         $kind = (string) ($b['kind'] ?? '');
 

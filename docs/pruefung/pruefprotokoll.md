@@ -601,7 +601,7 @@ noch_zu_pruefen:
 ap: AP-14
 auftrag: docs/konzept/gefuehrte-einheit.md (Teil C, T3–T7)
 geprueft:
-  - was: T3 Ablaufplan – Testfälle 8.1 A-01 bis A-12 (Wiederholungen, Halten s/min/Bereich, max, Hangboard mit und ohne Sätze, Block, offen, Ausdauer/Ruhe ohne Plan, Reihenfolge und Index), jeder Fall gültig nach plan_json-Schema; Schreibweisen der Haltezeit (s, sek, sec, min, Bereich mit - und –, 0, Komma)
+  - was: T3 Ablaufplan – Testfälle 8.1 A-01 bis A-12 (Wiederholungen, Halten s/min/Bereich, max, Hangboard mit und ohne Sätze, Block, offen, Ausdauer/Ruhe ohne Plan, Reihenfolge und Index) und alle übrigen kind-Werte (campus, bouldern_limit, ausdauer_route, zugkraft, antagonisten); A-01 bis A-10, die kind-Fälle und A-12 gültig nach plan_json-Schema, A-11 zusätzlich mit leeren/ungültigen Plänen; Schreibweisen der Haltezeit (s, sek, sec, min, Bereich mit - und –, 0, Komma)
     wie: automatisiert (AblaufplanTest)
     ergebnis: ok
     datum: 2026-09-28
@@ -609,7 +609,7 @@ geprueft:
     wie: automatisiert (WebsiteTest)
     ergebnis: ok
     datum: 2026-09-28
-  - was: T4 – Startknopf nur für Kraft/Haltung/Mobilität/Klettern mit Plan, „Erneut durchgehen“ bei erledigt; A-11 Ausdauer mit modus=start → S3, Ruhetag 404, Einheit ohne Plan → S3
+  - was: T4 – Startknopf nur für Kraft/Haltung/Mobilität/Klettern mit Plan (ohne Plan kein Knopf), „Erneut durchgehen“ bei erledigt; A-11 Ausdauer mit modus=start → S3, Ruhetag 404, Einheit ohne Plan → S3 mit Rückmeldung
     wie: automatisiert (GuidedSessionTest)
     ergebnis: ok
     datum: 2026-09-28

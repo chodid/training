@@ -312,7 +312,7 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 | A-08 | klettern `{kind:"hangboard", hang_s:10, sets:null}` | halten, saetze 1, pause_s null |
 | A-09 | klettern `{kind:"bouldern_volumen", duration_min:40}` | block, arbeit_s 2400, saetze 1 |
 | A-10 | klettern `{kind:"technik"}` (ohne Zeiten) | offen |
-| A-11 | ausdauer / ruhe | kein Ablaufplan; S3 ohne Startknopf; `modus=start` → S3 |
+| A-11 | ausdauer / ruhe | kein Ablaufplan; S3 ohne Startknopf; `modus=start` → S3 (Ruhetag: 404 wie bisher, er hat keine Einheitenseite) |
 | A-12 | Reihenfolge | Schritte in Planreihenfolge, Index = Feldindex `ist[i]` |
 
 ### 8.2 Zustandsautomat und Signale (T5)
@@ -351,6 +351,7 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 | O-04 | Tonhöhen/-längen aus E-17 sind Startwerte; Feinabstimmung nach Gerätetest | Startwerte umgesetzt (T5); Feinabstimmung nach dem Gerätetest des Athleten |
 | O-05 | Screenshots im Manifest (`screenshots` mit `form_factor` wide/narrow) für die ausführlichere Installationsansicht in Chrome; ohne sie zeigt DevTools zwei Hinweise (P-A2) | nicht im Umfang (4.2 verlangt sie nicht); bei Wunsch des Athleten kleiner Nachtrag |
 | O-06 | 30-s-Ton: E-17/6.4 sagen „Phase ≥ 45 s“, Testfall Z-01 „bei 45 s kein 30-s-Ton“ | umgesetzt nach Z-01 („länger als 45 s“, T5); Bestätigung durch den Athleten offen |
+| O-07 | Kletterblöcke mit Sätzen und Pause, aber ohne Haltezeit und Dauer (z. B. Zugkraft 4 Sätze, Pause 120 s) sind nach 6.3 „offen“ (nur „Erledigt“, kein Pausentimer); ein Pausentimer wie bei Kraft-Wiederholungen wäre eine Regeländerung | offen, Entscheidung des Athleten (T3-Review) |
 
 ## 10. Nicht im Umfang
 
@@ -444,7 +445,7 @@ T3:
     kein Plan, leere Liste); geeignet() für E-13; json() für data-ablauf; holdSeconds() für die Regeln aus 6.3.
     Soll-Texte über Training\View\PlanFormat (aus dem S3-Template herausgelöst, S3 nutzt dieselbe Klasse).
     Zusätzlich zum Schema 6.3: Feld notiz (Hinweis der Übung aus plan_json, für die Anzeige in S9).
-  tests: AblaufplanTest (A-01 bis A-12 als Datenfälle, jeder Fall zusätzlich gegen das plan_json-Schema geprüft; Schreibweisen der Haltezeit)
+  tests: AblaufplanTest (A-01 bis A-10 und alle übrigen kind-Werte – campus, bouldern_limit, ausdauer_route, zugkraft, antagonisten – als Datenfälle, jeder zusätzlich gegen das plan_json-Schema geprüft; A-11 und A-12 als eigene Tests, A-11 auch mit leeren bzw. schemawidrigen Plänen, A-12 mit Schemaprüfung; Schreibweisen der Haltezeit)
   probleme_loesungen:
     - was: 6.3 lässt offen, was rest_s = 0 bedeutet
       loesung: 0 = keine Pausenphase (pause_s null), ebenso hang_s/duration_min 0 bzw. Haltezeit 0 → kein Timer
@@ -452,6 +453,10 @@ T3:
       loesung: Bereich akzeptiert zusätzlich „–“ und dieselben Einheiten wie der Einzelwert (s, sek, sec, mit Punkt); alle Testfälle aus 8.1 unverändert
     - was: Klettern-Block mit hang_s und duration_min (z. B. Hangboard 20 min, 10 s, 5 Sätze)
       loesung: Regelreihenfolge aus 6.3 – hang_s geht vor (halten), duration_min bleibt Ist-Feld wie in S3
+    - was: Review nach T3/T4 – offene Kletterblöcke mit geplanten Sätzen (z. B. Zugkraft 4 Sätze) bekamen saetze 1; S9 zeigte „1 Satz“ neben „Soll … 4 Sätze“
+      loesung: offen übernimmt sets (6.3 „Klettern: sets oder 1“), weiter ohne Timer und ohne Pausenphase; Blöcke mit Dauer zeigen „Block · n min“ statt einer Satzzahl (Sätze stehen im Soll)
+    - was: Review nach T3/T4 – solche Blöcke haben oft auch rest_s; ein Pausentimer nach „Satz erledigt“ wie bei Kraft-Wiederholungen (E-03) sieht 6.3 für Klettern nicht vor
+      loesung: nicht umgesetzt (wäre eine Regeländerung), als O-07 zur Entscheidung des Athleten
 T4:
   status: umgesetzt          # Code-Stand 0.18.0; Abnahme (ohne JavaScript ausfüllbar, 375 px) automatisiert und im Browser geprüft
   datum: 2026-09-28
@@ -476,6 +481,8 @@ T4:
       loesung: verstecktes Feld modus=start im S9-Formular; der Controller zeigt dann wieder S9 mit Hinweis und den Eingaben (data-fehler für das Skript)
     - was: Ohne JavaScript steht die Schaltfläche „Zur Einheit“ wie im Mockup neben „Speichern“; der Zurück-Pfeil in der Kopfzeile führt ebenfalls zu S3
       loesung: beibehalten (Mockup); mit JavaScript zusätzlich ein Symbolknopf „Zurück zur letzten Übung“
+    - was: Review nach T3/T4 – „ohne Plan kein Startknopf“ (E-13) war nicht getestet
+      loesung: GuidedSessionTest prüft S3 ohne Plan (kein Knopf) und modus=start ohne Plan (S3 mit Rückmeldung)
 T5:
   status: umgesetzt          # Code-Stand 0.18.0; Gerätetest des Athleten (Android) offen
   datum: 2026-09-28

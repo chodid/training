@@ -36,6 +36,17 @@ final class AblaufplanTest extends TestCase
                 ['art' => 'block', 'arbeit_s' => 2400, 'saetze' => 1, 'pause_s' => null]],
             'A-10 Block ohne Zeiten' => ['klettern', ['kind' => 'technik'],
                 ['art' => 'offen', 'arbeit_s' => null, 'saetze' => 1, 'pause_s' => null]],
+            // alle übrigen kind-Werte (T3: „Unit-Tests für alle Regeln und alle kind-Werte“)
+            'campus mit Haltezeit' => ['klettern', ['kind' => 'campus', 'hang_s' => 5, 'sets' => 6, 'rest_s' => 180],
+                ['name' => 'Campus', 'art' => 'halten', 'arbeit_s' => 5, 'saetze' => 6, 'pause_s' => 180, 'ist_felder' => ['duration_min', 'sets', 'notes'], 'soll' => 'Soll 6 Sätze']],
+            'bouldern_limit ohne Zeiten' => ['klettern', ['kind' => 'bouldern_limit', 'target' => '3 Projekte'],
+                ['name' => 'Bouldern Limit', 'art' => 'offen', 'saetze' => 1, 'arbeit_s' => null, 'ist_felder' => ['duration_min', 'notes'], 'soll' => 'Soll 3 Projekte']],
+            'ausdauer_route mit Dauer und Sätzen' => ['klettern', ['kind' => 'ausdauer_route', 'duration_min' => 30, 'sets' => 3],
+                ['name' => 'Ausdauer Route', 'art' => 'block', 'arbeit_s' => 1800, 'saetze' => 1, 'pause_s' => null, 'ist_felder' => ['duration_min', 'sets', 'notes'], 'soll' => 'Soll 30 min · 3 Sätze']],
+            'zugkraft mit Sätzen, ohne Zeiten' => ['klettern', ['kind' => 'zugkraft', 'sets' => 4, 'rest_s' => 120, 'target' => 'Klimmzüge 5 Wdh.'],
+                ['name' => 'Zugkraft', 'art' => 'offen', 'saetze' => 4, 'arbeit_s' => null, 'pause_s' => null, 'ist_felder' => ['duration_min', 'sets', 'notes'], 'soll' => 'Soll Klimmzüge 5 Wdh. · 4 Sätze']],
+            'antagonisten mit Dauer' => ['klettern', ['kind' => 'antagonisten', 'duration_min' => 15],
+                ['name' => 'Antagonisten', 'art' => 'block', 'arbeit_s' => 900, 'saetze' => 1, 'ist_felder' => ['duration_min', 'notes'], 'soll' => 'Soll 15 min']],
         ];
     }
 
@@ -94,6 +105,7 @@ final class AblaufplanTest extends TestCase
         self::assertSame(['duration_min', 'sets', 'notes'], $climb[0]['ist_felder']);
         self::assertSame(['duration_min', 'notes'], $climb[1]['ist_felder'], 'Sätze nur, wenn geplant (wie S3)');
 
+        self::assertSame([], PlanValidator::default()->validatePlan('kraft', $plan), 'A-12 mit gültigem Plan');
         $json = json_decode(Ablaufplan::json($steps), true);
         self::assertSame($steps, $json);
     }

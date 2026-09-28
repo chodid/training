@@ -46,8 +46,13 @@ final class GuidedSessionTest extends AppTestCase
         self::assertStringContainsString('<h2>Rückmeldung</h2>', $ausdauer->body, 'S3');
         self::assertSame(404, $this->request('GET', '/einheit?id=' . $this->ids['ruhe'] . '&modus=start')->status);
 
+        // E-13: ohne Plan kein Startknopf, modus=start zeigt S3
         $this->pdo->exec('UPDATE `session` SET plan_json = NULL WHERE id = ' . $this->ids['mobilitaet']);
-        self::assertStringNotContainsString('data-gefuehrt', $this->request('GET', '/einheit?id=' . $this->ids['mobilitaet'] . '&modus=start')->body, 'ohne Plan');
+        self::assertStringNotContainsString('modus=start', $this->request('GET', '/einheit?id=' . $this->ids['mobilitaet'])->body, 'kein Startknopf ohne Plan');
+        $ohnePlan = $this->request('GET', '/einheit?id=' . $this->ids['mobilitaet'] . '&modus=start');
+        self::assertSame(200, $ohnePlan->status);
+        self::assertStringNotContainsString('data-gefuehrt', $ohnePlan->body);
+        self::assertStringContainsString('<h2>Rückmeldung</h2>', $ohnePlan->body, 'S3');
     }
 
     public function testStrengthStepsWithRepetitionsAndHolds(): void
@@ -105,6 +110,8 @@ final class GuidedSessionTest extends AppTestCase
         self::assertStringNotContainsString('name="ist[1][sets]"', $body, 'Sätze nur, wenn geplant');
         self::assertStringContainsString('name="ist[2][notes]"', $body);
         self::assertStringContainsString('6 Sätze · je 7 s · Pause 3 s', $body);
+        self::assertStringContainsString('Block · 40 min', $body, 'Block ohne irreführende Satzzahl');
+        self::assertStringContainsString('ohne Zeitvorgabe', $body);
     }
 
     public function testPostFromGuidedFormSavesLikeS3AndShowsErrorsInS9(): void

@@ -210,7 +210,9 @@ test('Block, offen und Bedienung zurück/wiederholen', () => {
   assert.equal(K.anzeige(z, steps, 0).satz_text, 'Block · 40 min');
   z = K.aktion(z, steps, 'rechts', 2400002).zustand;
   let v = K.anzeige(z, steps, 0);
-  assert.deepEqual([v.haupt.text, v.links.label, v.links.aktiv, v.satz_text], ['Erledigt', 'Vorige Übung', true, 'Ohne Zeitvorgabe']);
+  assert.deepEqual([v.haupt.text, v.links.label, v.links.aktiv, v.satz_text], ['Erledigt', 'Vorige Übung', true, 'ohne Zeitvorgabe']);
+  const mitSaetzen = [{ ...OFFEN, saetze: 4 }];
+  assert.equal(K.anzeige(start(mitSaetzen), mitSaetzen, 0).satz_text, '4 Sätze · ohne Zeitvorgabe', 'offen mit geplanten Sätzen');
   z = K.aktion(z, steps, 'links', 2400003).zustand; // vorige Übung: nicht mehr übersprungen
   assert.deepEqual([z.schritt, z.uebersprungen], [0, []]);
   assert.equal(K.anzeige(start(steps), steps, 0).links.aktiv, false, 'erste Übung: kein Zurück');
