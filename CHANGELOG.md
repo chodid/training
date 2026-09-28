@@ -4,6 +4,19 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.20.2] – 2026-09-28
+
+Favicon mit gerundeten Ecken (D-63, Wunsch des Athleten).
+
+### Geändert
+- Browser-Tab: Das Favicon ist jetzt V3 (Lama hell auf Pflaume) mit um 22 % gerundeten, transparenten Ecken – als `favicon-rund.svg`, PNG 32/48/96 (`favicon-rund-*.png`) und `favicon.ico` (16/32/48). Bisher waren im Kopfteil die eckigen V3-PNGs 48/96 und V2 (Papiergrund) als SVG/ICO eingetragen; Firefox nahm die PNGs, der Tab zeigte ein eckiges V3.
+- Startbildschirm-Icons bleiben eckig (`lama-192/512.png`, `lama-512-maskable.png`, `apple-touch-icon-180.png`, Manifest unverändert): Android und iOS schneiden sie selbst zu, iOS färbt transparente Ecken schwarz.
+- `favicon.svg` entfällt (neues Motiv, neuer Dateiname; Icons liegen 7 Tage im Browser-Cache). `favicon.ico` behält seinen Namen; Browser zeigen dort ggf. bis zu 7 Tage noch das alte Bild.
+- Vorlage `docs/branding/mockups/icon-optionen/v3-favicon.svg`; `build-icons.cjs` rendert daraus mit transparentem Hintergrund, die übrigen PNGs unverändert ohne Alpha-Kanal. Mockups verwenden die neue Vorlage als Favicon.
+
+### Hinzugefügt
+- Test: Tab-Favicons mit Alpha-Kanal (auch `favicon.ico`), Startbildschirm-Icons ohne; gerundete SVG-Vorlage.
+
 ### Dokumentation
 - Konzept: Übergabe AP-06 Teil D eingearbeitet – Hypertrophie-Ergänzung zu T2 (L-T2-20 bis L-T2-32, D-62, V-16; D-28 unverändert), L-T2-07 um die 3. Aufl. ergänzt, Beschaffungsliste 13.4 erweitert.
 

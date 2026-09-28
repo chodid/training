@@ -579,6 +579,18 @@ geprueft:
     wie: automatisiert (AppIconTest, AppIconPagesTest); gesamte Suite 198 Tests grün gegen MariaDB
     ergebnis: ok
     datum: 2026-09-28
+  - was: IronFox nach Deployment 0.20.1 – Lama wird ausgeliefert; Firefox Desktop zeigt im Tab das (eckige) V3
+    wie: Athlet (Screenshot im Chat)
+    ergebnis: ok (Anlass für D-63)
+    datum: 2026-09-28
+  - was: D-63 (0.20.2) Vorschau der Rundungen 0/12/22/50 % für V3 und V2 im Tab, 32 und 64 px; Auswahl durch Athlet (22 %, V3, nur Tab-Favicons)
+    wie: Chromium/Playwright (gerendertes Vergleichsbild), Athlet
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: I-06 (0.20.2) favicon-rund-32/48/96.png und ICO-Einträge RGBA mit transparenten Ecken, favicon-rund.svg mit rx 180; lama-192/512, maskable, apple-touch-icon 180 weiter RGB und byte-gleich; Kopfteil 8 Links, jede Datei vorhanden, sizes = PNG-Kopf; Sichtprüfung auf hellem und dunklem Grund
+    wie: automatisiert (AppIconTest, AppIconPagesTest), Kontaktbogen (Playwright); gesamte Suite 199 Tests grün gegen MariaDB
+    ergebnis: ok
+    datum: 2026-09-28
   - was: Icon-Satz gerendert (V3 any/maskable/180, V2 Favicon 16 px), Sichtprüfung Kontaktbogen; Mockups nach Kennungswechsel ohne Überlauf, fehlende Ressourcen oder Skriptfehler
     wie: Chromium/Playwright (build-icons.cjs, screenshots.cjs), manuell
     ergebnis: ok
@@ -614,6 +626,8 @@ noch_zu_pruefen:
     wie: Gerätetest durch Athlet
   - was: P-A6 – curl -I https://training.gen-em.org/manifest.webmanifest und /favicon.ico → 200, application/manifest+json bzw. image/x-icon, Cache-Control max-age=604800 bei /favicon.ico; zusätzlich /app-icons/lama-192.png → 200, image/png, max-age=604800
     wie: manuell (curl oder Browser) nach Deployment 0.20.1
+  - was: P-A8 – Browser-Tab (Firefox Desktop, Chrome) zeigt das gerundete Lama; ggf. Cache leeren, favicon.ico kann bis zu 7 Tage alt bleiben
+    wie: Sichtprüfung durch Athlet (nach Deployment 0.20.2)
   - was: P-A7 – IronFox Android, https://training.gen-em.org/app-icons/lama-192.png zeigt das Lama; alte Verknüpfung entfernen, von /woche neu verknüpfen → Lama-Icon statt „T“
     wie: Gerätetest durch Athlet (nach Deployment 0.20.1)
   - was: P-A1 erneut mit dem neuen Icon (V3) in Chrome Android

@@ -157,15 +157,15 @@ Lokal starten (ohne `.htaccess`): `.env` in `server/` anlegen (für `http://` is
 
 Einzige Quelle der Gestaltung ist `docs/branding/`. `php server/bin/build-assets.php` kopiert Design-System (`styles.css`, `tokens/`, `fonts/`), `mockups/app.css`, die Tabler-Icons und das Lama (`lama-symbol-flaeche.svg` als `assets/lama.svg`, App-Kennung) nach `server/public/assets/`. Der Ordner ist nicht im Repo; CI und Deploy-Workflow bauen ihn. Eigene Ergänzungen stehen in `server/public/css/training.css` (keine Inline-Styles wegen Content-Security-Policy).
 
-### Icons (App-Icon und Favicon, D-59)
+### Icons (App-Icon und Favicon, D-59, D-63)
 
-Der Icon-Satz ist eingecheckt, weil der Server kein SVG rendern kann. Nach einer Änderung an den Vorlagen `docs/branding/mockups/icon-optionen/v3.svg`, `v3-maskable.svg` (App-Icon, V3) oder `v2.svg` (Favicon, V2) neu erzeugen:
+Der Icon-Satz ist eingecheckt, weil der Server kein SVG rendern kann. Nach einer Änderung an den Vorlagen `docs/branding/mockups/icon-optionen/v3.svg`, `v3-maskable.svg` (App-Icon, V3) oder `v3-favicon.svg` (Favicon, V3 mit 22 % gerundeten Ecken) neu erzeugen:
 
 ```bash
 node docs/branding/build-icons.cjs      # braucht Playwright mit Chromium (lokal oder global)
 ```
 
-Ergebnis: `server/public/app-icons/lama-48|96|192|512.png`, `lama-512-maskable.png`, `apple-touch-icon-180.png`, `favicon.svg` und `server/public/favicon.ico`. Ein neues Motiv bekommt neue Dateinamen (Icons liegen 7 Tage im Browser-Cache); Manifest, `templates/_head_icons.php` und `AppIconTest` dann mitziehen.
+Ergebnis: `server/public/app-icons/lama-48|96|192|512.png`, `lama-512-maskable.png`, `apple-touch-icon-180.png` (eckig, für Startbildschirm und Manifest), `favicon-rund.svg`, `favicon-rund-32|48|96.png` (gerundet, transparente Ecken, nur Browser-Tab) und `server/public/favicon.ico` (gerundet, 16/32/48). Ein neues Motiv bekommt neue Dateinamen (Icons liegen 7 Tage im Browser-Cache); Manifest, `templates/_head_icons.php` und `AppIconTest` dann mitziehen.
 
 Der Ordner heißt bewusst `app-icons/`: Den Pfad `/icons/` (ebenso `/error/`, `/manual/`, `/cgi-bin/`) belegt Apache in der Standardkonfiguration serverweit per Alias, noch vor Document Root und `.htaccess`; Dateien darunter werden nie ausgeliefert. `AppIconTest` prüft das.
 

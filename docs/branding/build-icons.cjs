@@ -4,7 +4,8 @@
  *
  *   V3 (Fläche hell auf Pflaume 600)  icon-optionen/v3.svg          → lama-48/96/192/512.png (purpose any), apple-touch-icon-180.png
  *   V3 maskable (Motiv in 64 %)       icon-optionen/v3-maskable.svg → lama-512-maskable.png
- *   V2 (Fläche Pflaume 600 auf Papier) icon-optionen/v2.svg         → favicon.svg, favicon.ico (16/32/48)
+ *   V3 gerundet (Ecken 22 %)          icon-optionen/v3-favicon.svg  → favicon-rund.svg, favicon-rund-32/48/96.png, favicon.ico (16/32/48)
+ *                                     (nur Browser-Tab; Startbildschirm-Icons bleiben eckig, Launcher schneiden selbst zu)
  *
  * Aufruf aus dem Repo-Wurzelverzeichnis: node docs/branding/build-icons.cjs
  * Braucht Playwright mit Chromium (lokal oder global installiert; PLAYWRIGHT_BROWSERS_PATH wird beachtet).
@@ -35,16 +36,22 @@ const PNGS = [
   ['v3.svg', 512, 'lama-512.png'],
   ['v3.svg', 180, 'apple-touch-icon-180.png'],
   ['v3-maskable.svg', 512, 'lama-512-maskable.png'],
+  ['v3-favicon.svg', 32, 'favicon-rund-32.png'],
+  ['v3-favicon.svg', 48, 'favicon-rund-48.png'],
+  ['v3-favicon.svg', 96, 'favicon-rund-96.png'],
 ];
-const ICO = ['v2.svg', [16, 32, 48], 'favicon.ico'];
+const ICO = ['v3-favicon.svg', [16, 32, 48], 'favicon.ico'];
+const SVG = ['v3-favicon.svg', 'favicon-rund.svg'];
 
+/** Gerundete Vorlagen (v3-favicon.svg) mit transparenten Ecken, alle anderen ohne Alpha-Kanal wie bisher. */
 async function render(page, svgFile, size) {
+  const transparent = svgFile === 'v3-favicon.svg';
   const svg = fs.readFileSync(path.join(src, svgFile)).toString('base64');
   await page.setViewportSize({ width: size, height: size });
   await page.setContent('<!doctype html><html><body style="margin:0;background:transparent">'
     + '<img id="i" width="' + size + '" height="' + size + '" style="display:block" src="data:image/svg+xml;base64,' + svg + '"></body></html>');
   await page.waitForFunction(() => document.getElementById('i').complete);
-  return page.screenshot({ type: 'png', clip: { x: 0, y: 0, width: size, height: size } });
+  return page.screenshot({ type: 'png', omitBackground: transparent, clip: { x: 0, y: 0, width: size, height: size } });
 }
 
 /** ICO mit eingebetteten PNG-Bildern (von allen aktuellen Browsern und Windows ab Vista gelesen). */
@@ -85,8 +92,8 @@ function ico(images) {
   }
   fs.writeFileSync(path.join(docroot, icoOut), ico(images));
   console.log(icoOut + ' (' + sizes.join('/') + ' px aus ' + icoSrc + ')');
-  fs.copyFileSync(path.join(src, 'v2.svg'), path.join(icons, 'favicon.svg'));
-  console.log('app-icons/favicon.svg (Kopie von v2.svg)');
+  fs.copyFileSync(path.join(src, SVG[0]), path.join(icons, SVG[1]));
+  console.log('app-icons/' + SVG[1] + ' (Kopie von ' + SVG[0] + ')');
   await browser.close();
 })().catch((e) => {
   console.error(e);
