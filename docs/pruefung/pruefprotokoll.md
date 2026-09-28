@@ -525,11 +525,15 @@ geprueft:
     wie: manuell durch Athlet (nach Deployment 0.16.0)
     ergebnis: ok
     datum: 2026-09-28
-noch_zu_pruefen:
+  - was: get_morning_checks über den Claude-Connector (Format 6.1, Tool-Beschreibung mit Skalen und Ampelregeln)
+    wie: manuell durch Athlet im Trainer-Chat
+    ergebnis: ok
+    datum: 2026-09-28
   - was: Offline erfassen und nachträgliche Änderung am selben Tag auf dem Smartphone
     wie: manuell durch Athlet
-  - was: get_morning_checks über den Claude-Connector (Format 6.1, Tool-Beschreibung mit Skalen und Ampelregeln); Connector ggf. neu verbinden, damit das Tool erscheint
-    wie: manuell durch Athlet im Trainer-Chat
+    ergebnis: ok – Änderung wird beim Wiederverbinden gesendet und überschreibt den vorigen Stand (Abnahme T3)
+    datum: 2026-09-28
+noch_zu_pruefen: []
 ```
 
 ## AP-05 MCP-Tools produktiv

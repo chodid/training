@@ -240,7 +240,7 @@ T5:
     tage_gruen, abdeckung_pct. get_pain_history unverändert (E-10). Briefing: E-12.
 abnahme:
   - 2026-09-28: Erfassung auf dem Smartphone und Ampel auf der Startseite durch Philipp bestätigt
-  - offen: get_morning_checks über den Claude-Connector (T5), Offline-Erfassung
+  - 2026-09-28: get_morning_checks über den Claude-Connector (T5) und Offline-Erfassung mit nachträglicher Änderung am selben Tag (T3) durch Philipp bestätigt; AP-12 vollständig abgenommen
 T6:
   status: erledigt
   ergebnis: CHANGELOG 0.16.0, README, Konzept (D-53, AP-12, 7, 7.2, 8.2, 10), Datenmodell, Branding, Prüfprotokoll

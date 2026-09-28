@@ -1862,10 +1862,10 @@ probleme_loesungen:
 - **Abnahmekriterien:** siehe T1–T6 im Auftragsdokument; Abnahme durch den Athleten auf dem Smartphone und über den Claude-Connector.
 - **Status:**
 ```yaml
-status: in_arbeit
+status: erledigt         # Code-Stand 0.16.0, alle Abnahmekriterien erfüllt (Prüfprotokoll)
 begonnen: 2026-09-28
-abgeschlossen: null
-teilpakete: T1–T6 umgesetzt (Code-Stand 0.16.0, Schema 21), Abnahme offen – Details in docs/konzept/morgen-checkin.md Abschnitt 12
+abgeschlossen: 2026-09-28
+teilpakete: T1–T6 umgesetzt (Code-Stand 0.16.0, Schema 21), vom Athleten abgenommen (Smartphone, offline, Claude-Connector) – Details in docs/konzept/morgen-checkin.md Abschnitt 12
 probleme_loesungen:
   - datum: 2026-09-28
     was: Auftrag nennt ein „bestehendes Morgen-Briefing“, das es im Repo nicht gibt
@@ -1938,3 +1938,4 @@ noch_zu_pruefen:
 | 2026-09-28 | Neu: AP-12 Morgen-Check-in (D-53, Auftrag `docs/konzept/morgen-checkin.md` aus dem Trainer-Chat) umgesetzt, Code-Stand 0.16.0, Schema 21; 7 (`checkin`), 7.2 (Schmerzorte), 8.2 (`get_morning_checks`), 10 (S4/S2) ergänzt. |
 | 2026-09-28 | Übergaben AP-06 Teil B (Verifikation) und Teil A (Haltung/Rücken) eingearbeitet: 13.2.1 L-P10–L-P13 ausgewählt und verifiziert, L-P14 neu (optional); 13.2.3 L-T2-11/-12 ausgewählt, Teilblock Haltung/Rücken mit L-T2-15–L-T2-19, L-T2-13 zurückgestellt, L-T2-14 optional; 13.2.4 L-T3-02 Kernaussagen korrigiert, L-T3-03/-04/-05/-07/-08/-09/-12 bibliografisch ergänzt, L-T3-18 neu; 13.3 vier Ausschlüsse; 13.4 ergänzt. Neu D-54 (Haltung/Rücken, in der Übergabe D-38) und Q-13 (Schmerzschwellen, in der Übergabe Q-09); V-06 und V-14 erledigt, V-07 teilweise (AP-06/AP-07), V-15 weitgehend erledigt; 14.5 Verweis auf Q-13; AP-06 Umfang, Abnahme, Status; AP-07 Vorgaben aus AP-06. |
 | 2026-09-28 | 13.4: L-T2-10 und L-T3-04 auf Wunsch des Athleten in die Beschaffungsliste aufgenommen (Prio 2); Haltung/Rücken nach Merge von AP-12 (D-53) als D-54 geführt. |
+| 2026-09-28 | AP-12 abgenommen (Smartphone, Offline-Erfassung mit nachträglicher Änderung, `get_morning_checks` im Trainer-Chat); Status erledigt. |
