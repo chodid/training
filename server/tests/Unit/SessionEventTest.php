@@ -35,6 +35,16 @@ final class SessionEventTest extends TestCase
         self::assertStringContainsString('STATUS:CANCELLED', $skipped);
         self::assertStringContainsString('SUMMARY:Kraft:', $skipped);
 
+        self::assertStringNotContainsString('VALARM', $ics, 'ohne Erinnerung');
+        $planned = ['status' => 'geplant'] + $s;
+        $alarm = SessionEvent::ics($planned, 'https://training.example', 'training.example', 1790000000, '05:00');
+        self::assertStringContainsString("BEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:Kraft: Kraft\\; Beine\\, schwer\r\nTRIGGER;RELATED=START:PT5H\r\nEND:VALARM\r\nEND:VEVENT", $alarm);
+        self::assertStringContainsString('TRIGGER;RELATED=START:PT6H30M', SessionEvent::ics($planned, 'https://t', 't', 1, '06:30'));
+        self::assertStringContainsString('TRIGGER;RELATED=START:PT0S', SessionEvent::ics($planned, 'https://t', 't', 1, '00:00'));
+        self::assertStringContainsString('TRIGGER;RELATED=START:PT45M', SessionEvent::ics(['status' => 'verschoben'] + $s, 'https://t', 't', 1, '00:45'));
+        self::assertStringNotContainsString('VALARM', SessionEvent::ics($s, 'https://t', 't', 1, '05:00'), 'erledigt: keine Erinnerung');
+        self::assertStringNotContainsString('VALARM', SessionEvent::ics(['status' => 'ausgelassen'] + $s, 'https://t', 't', 1, '05:00'));
+
         self::assertSame(7, SessionEvent::idFromResource('training-session-7.ics'));
         self::assertNull(SessionEvent::idFromResource('fremd.ics'));
     }

@@ -106,6 +106,7 @@ if ($cal['host'] === null) {
         <span class="badge badge-<?= $cal['host'] === null ? 'neutral' : 'error' ?>"><?= $cal['host'] === null ? 'aus' : 'Fehler' ?></span></div>
 <?php else: ?>
         <form method="post" action="/einstellungen"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><input type="hidden" name="action" value="kalender"><button class="btn btn-secondary" type="submit"><?= $this->icon('refresh') ?>Abgleichen</button></form></div>
+      <div class="list-item"><div><div class="t">Erinnerung im Kalender</div><div class="s"><?= $cal['reminder'] !== null ? 'Am Tag der Einheit um ' . $this->e($cal['reminder']) . ' Uhr (geplante und verschobene Einheiten)' : 'Aus' ?></div></div><a class="btn btn-ghost" href="/einstellungen?bereich=erinnerung">Ändern</a></div>
 <?php endif ?>
 <?php if ($clients === []): ?>
       <div class="list-item"><div><div class="t">Claude</div><div class="s">Keine aktive Freigabe. Connector-Adresse: <span class="mono"><?= $this->e($mcpUrl) ?></span></div></div><span class="badge badge-neutral">nicht verbunden</span></div>

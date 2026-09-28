@@ -101,6 +101,38 @@ final class CalendarTest extends AppTestCase
         self::assertStringContainsString('nicht erreichbar', $f->body);
     }
 
+    public function testReminderDefaultChangeAndOff(): void
+    {
+        $plan = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'sessions' => [$this->session('2026-09-24', 'kraft', 'Beine')]]);
+        $id = $plan['data']['einheiten'][0]['id'];
+        $res = 'training-session-' . $id . '.ics';
+        self::assertStringContainsString('TRIGGER;RELATED=START:PT5H', $this->cal->events[$res], 'Standard 05:00');
+
+        $settings = $this->request('GET', '/einstellungen');
+        self::assertStringContainsString('Am Tag der Einheit um 05:00 Uhr', $settings->body);
+        $form = $this->request('GET', '/einstellungen?bereich=erinnerung');
+        self::assertStringContainsString('value="05:00"', $form->body);
+        $csrf = self::csrfFrom($form);
+        self::assertSame(422, $this->request('POST', '/einstellungen', ['csrf' => $csrf, 'action' => 'erinnerung', 'uhrzeit' => '25:00'])->status);
+
+        $r = $this->request('POST', '/einstellungen', ['csrf' => $csrf, 'action' => 'erinnerung', 'uhrzeit' => '06:30']);
+        self::assertSame('/einstellungen?ok=erinnerung&n=1', $r->headers['Location']);
+        self::assertStringContainsString('TRIGGER;RELATED=START:PT6H30M', $this->cal->events[$res], 'sofort neu übertragen');
+        self::assertStringContainsString('1 Termine im Kalender aktualisiert.', $this->request('GET', $r->headers['Location'])->body);
+
+        $this->request('POST', '/einstellungen', ['csrf' => $csrf, 'action' => 'erinnerung', 'uhrzeit' => '06:30', 'aus' => '1']);
+        self::assertStringNotContainsString('VALARM', $this->cal->events[$res]);
+        self::assertStringContainsString('Erinnerung im Kalender</div><div class="s">Aus', $this->request('GET', '/einstellungen')->body);
+        self::assertSame('aus', $this->pdo->query("SELECT value FROM app_setting WHERE setting_key = 'calendar_reminder'")->fetchColumn());
+        self::assertSame(2, (int) $this->pdo->query("SELECT COUNT(*) FROM audit_log WHERE action = 'setting_update'")->fetchColumn());
+
+        // Kalender nicht erreichbar: Einstellung gespeichert, Hinweis
+        $this->cal->networkDown = true;
+        $w = $this->request('POST', '/einstellungen', ['csrf' => $csrf, 'action' => 'erinnerung', 'uhrzeit' => '05:15']);
+        self::assertStringContainsString('Erinnerung gespeichert, Kalender nicht aktualisiert.', $w->body);
+        self::assertSame('05:15', $this->pdo->query("SELECT value FROM app_setting WHERE setting_key = 'calendar_reminder'")->fetchColumn());
+    }
+
     public function testNotConfiguredOrNotHttps(): void
     {
         $this->writeEnv(['MCP_STATIC_TOKEN' => self::STATIC, 'MCP_STATIC_TOKEN_ENABLED' => 'true', 'CRON_SECRET' => str_repeat('c', 32)]);

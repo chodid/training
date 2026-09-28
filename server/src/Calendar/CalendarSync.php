@@ -23,6 +23,8 @@ final class CalendarSync
         private readonly string $appUrl,
         private readonly string $host,
         private readonly string $stateFile,
+        /** Erinnerung 'HH:MM' am Tag der Einheit, null = aus (D-52) */
+        private readonly ?string $reminder = null,
     ) {
     }
 
@@ -45,7 +47,7 @@ final class CalendarSync
             if ($s === null || $s['type'] === 'ruhe') {
                 $this->client->delete(SessionEvent::resource($sessionId));
             } else {
-                $this->client->put(SessionEvent::resource($sessionId), SessionEvent::ics($s, $this->appUrl, $this->host, $this->clock->now()));
+                $this->client->put(SessionEvent::resource($sessionId), SessionEvent::ics($s, $this->appUrl, $this->host, $this->clock->now(), $this->reminder));
             }
             $this->record(null);
 
@@ -90,7 +92,7 @@ final class CalendarSync
                     continue;
                 }
                 $wanted[(int) $s['id']] = true;
-                $this->client->put(SessionEvent::resource((int) $s['id']), SessionEvent::ics($s, $this->appUrl, $this->host, $this->clock->now()));
+                $this->client->put(SessionEvent::resource((int) $s['id']), SessionEvent::ics($s, $this->appUrl, $this->host, $this->clock->now(), $this->reminder));
                 $result['uebertragen']++;
             }
             foreach ($this->client->resources($from, $to) as $name) {

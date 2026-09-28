@@ -8,6 +8,7 @@ use Training\App;
 use Training\Auth\Password;
 use Training\Calendar\CalDavClient;
 use Training\Dates;
+use Training\Data\SettingsRepository;
 use Training\Db;
 use Training\Http\Request;
 use Training\Http\Response;
@@ -31,7 +32,7 @@ final class SettingsController extends AppController
             return Response::error(403, 'Ungültiges Formular.');
         }
 
-        if ($request->method === 'POST' && in_array($action, ['zeitzone', 'passwort'], true) && ($locked = $this->lockedResponse())) {
+        if ($request->method === 'POST' && in_array($action, ['zeitzone', 'passwort', 'erinnerung'], true) && ($locked = $this->lockedResponse())) {
             return $locked;
         }
 
@@ -44,6 +45,7 @@ final class SettingsController extends AppController
             'widerrufen' => $this->revoke($request),
             'passkey_loeschen' => $this->deletePasskey($request),
             'kalender' => $this->calendarSync(),
+            'erinnerung' => $this->reminder($request),
             default => $this->overview($request),
         };
     }
@@ -76,6 +78,7 @@ final class SettingsController extends AppController
             'passkey_geloescht' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Passkey entfernt.', 'text' => ''],
             'passwort' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Passwort geändert.', 'text' => 'Andere Geräte wurden abgemeldet.'],
             'widerrufen' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Freigabe widerrufen.', 'text' => 'Laufende Zugriffe enden spätestens nach einer Stunde.'],
+            'erinnerung' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Erinnerung gespeichert.', 'text' => sprintf('%d Termine im Kalender aktualisiert.', (int) $request->query('n'))],
             'kalender' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Kalender abgeglichen.', 'text' => sprintf('%d Termine übertragen, %d entfernt.', (int) $request->query('n'), (int) $request->query('d'))],
             default => null,
         };
@@ -98,6 +101,7 @@ final class SettingsController extends AppController
             'calendar' => [
                 'host' => CalDavClient::isConfigured($config) ? (string) parse_url((string) $config->get('CALDAV_URL'), PHP_URL_HOST) : null,
                 'https' => str_starts_with(strtolower((string) $config->get('CALDAV_URL')), 'https://'),
+                'reminder' => (new SettingsRepository($this->app->pdo(), $this->app->clock()))->calendarReminder(),
             ] + $this->app->calendar()->state(),
             'mirror' => $this->mirrorStats() + (new CronController($this->app))->syncState(),
         ]);
@@ -180,6 +184,42 @@ final class SettingsController extends AppController
         $this->audit()->write('web', 'calendar_sync', 'session', null, $result, sprintf('Kalender abgeglichen: %d übertragen, %d entfernt', $result['uebertragen'], $result['geloescht']));
 
         return Response::redirect('/einstellungen?ok=kalender&n=' . $result['uebertragen'] . '&d=' . $result['geloescht']);
+    }
+
+    /** Kalender-Erinnerung (D-52): Uhrzeit am Tag der Einheit oder aus; danach Termine im Zeitraum neu übertragen. */
+    private function reminder(Request $request): Response
+    {
+        $settings = new SettingsRepository($this->app->pdo(), $this->app->clock());
+        $current = $settings->calendarReminder();
+        if ($request->method !== 'POST') {
+            return $this->page('settings-reminder', 'Erinnerung', 'einstellungen', ['backHref' => '/einstellungen', 'reminder' => $current ?? SettingsRepository::CALENDAR_REMINDER_DEFAULT, 'off' => $current === null]);
+        }
+        $off = $request->post('aus') === '1';
+        $time = (string) $request->post('uhrzeit');
+        if (!$off && !preg_match('/^([01]\d|2[0-3]):[0-5]\d$/', $time)) {
+            return $this->page('settings-reminder', 'Erinnerung', 'einstellungen', [
+                'backHref' => '/einstellungen', 'reminder' => $current ?? SettingsRepository::CALENDAR_REMINDER_DEFAULT, 'off' => false,
+                'alert' => ['type' => 'error', 'icon' => 'alert-circle', 'title' => 'Nicht gespeichert.', 'text' => 'Bitte eine Uhrzeit im Format HH:MM wählen.'],
+            ], 422);
+        }
+        $value = $off ? 'aus' : $time;
+        $settings->set(SettingsRepository::CALENDAR_REMINDER, $value);
+        $this->audit()->write('web', 'setting_update', 'app_setting', SettingsRepository::CALENDAR_REMINDER, ['value' => $value], 'Kalender-Erinnerung: ' . ($off ? 'aus' : $value . ' Uhr'));
+
+        $calendar = $this->app->calendar();
+        if (!$calendar->enabled()) {
+            return Response::redirect('/einstellungen?ok=erinnerung&n=0');
+        }
+        $today = $this->today();
+        $result = $calendar->syncRange(Dates::addDays($today, -7), Dates::addDays($today, 56), 'web');
+        if ($result['fehler'] !== []) {
+            return $this->overview(new Request('GET', '/einstellungen'), [
+                'type' => 'warning', 'icon' => 'alert-triangle', 'title' => 'Erinnerung gespeichert, Kalender nicht aktualisiert.',
+                'text' => $result['fehler'][0] . ' Der stündliche Abgleich versucht es erneut.',
+            ]);
+        }
+
+        return Response::redirect('/einstellungen?ok=erinnerung&n=' . $result['uebertragen']);
     }
 
     /** Athletenprofil (D-48): ausgefüllte Abschnitte und letzte Änderung; tolerant bei veraltetem Schema. @return array{filled: int, total: int, last: ?string} */
