@@ -4,6 +4,16 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.15.0] – 2026-09-28
+
+AP-11: Erinnerungen an Kalenderterminen (D-52).
+
+### Hinzugefügt
+- Termine geplanter und verschobener Einheiten tragen eine Erinnerung am Tag der Einheit, standardmäßig um 05:00 Uhr; erledigte und ausgelassene Einheiten erinnern nicht.
+- Einstellungen → Verbindungen → „Erinnerung im Kalender“: Uhrzeit wählen oder abschalten; die Termine werden danach sofort neu übertragen.
+- Migration `0019` `app_setting` (Einstellungen als Schlüssel/Wert); `App::SCHEMA_VERSION` = 19.
+- Tests für Erinnerung (Standard, Ändern, Aus, Fehlerfall) und iCalendar-Alarm; Rauchtest gegen Radicale.
+
 ### Dokumentation
 - Literatur-Volltexte (29 PDFs) mit der Literaturliste im Konzept abgeglichen, nach ID umbenannt und in Blockordner unter `docs/literatur/` sortiert (D-51); Bücher zusätzlich als Kapitel-PDFs in `<ID>_kapitel/` (179 Dateien). Verzeichnis `docs/literatur/README.md`; im Konzept Felder `datei`/`kapitel` und in der Beschaffungsliste die Spalte „vorhanden“.
 

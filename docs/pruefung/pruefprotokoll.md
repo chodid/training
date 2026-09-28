@@ -470,8 +470,18 @@ geprueft:
     wie: Rauchtest gegen Radicale 3.8 (lokal, http nur für den Test)
     ergebnis: ok
     datum: 2026-09-28
+  - was: Erinnerung (D-52) – Standard PT5H, Ändern auf 06:30 → sofort neu übertragen (PT6H30M), 00:00 → PT0S, Aus → kein VALARM, erledigt/ausgelassen ohne Erinnerung, ungültige Uhrzeit 422, Kalender nicht erreichbar → Einstellung gespeichert mit Hinweis; Seite 390 px ohne Überlauf; VALARM von Radicale angenommen
+    wie: automatisiert (PHPUnit) + Browser + Radicale
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Nextcloud – App-Passwort und CALDAV_* in der .env, Einstellungen → „Abgleichen“ erfolgreich
+    wie: manuell durch Athlet (nach Deployment 0.14.0)
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
-  - was: Nextcloud – Kalender „Training“ und App-Passwort anlegen, CALDAV_* in die .env, Einstellungen → „Abgleichen“; Termine im Nextcloud-Web und auf dem Handy sichtbar
+  - was: Erinnerung um 05:00 kommt auf dem Handy an (Nextcloud-Kalender per DAVx⁵/iOS-Konto eingebunden); andere Uhrzeit in den Einstellungen wirkt nach dem nächsten Sync
+    wie: manuell durch Athlet (nach Deployment 0.15.0 und erstem Wochenplan)
+  - was: Termine nach dem ersten Wochenplan im Nextcloud-Web und auf dem Handy sichtbar; „zuletzt übertragen“ in den Einstellungen höchstens 1 h alt (stündlicher Cron)
     wie: manuell durch Athlet
   - was: Änderung aus Claude (update_session, Status) erscheint im Kalender; Rückmeldung auf der Webseite setzt „✓“
     wie: manuell durch Athlet

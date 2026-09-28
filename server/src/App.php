@@ -21,10 +21,10 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.14.0';
+    public const VERSION = '0.15.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
-    public const SCHEMA_VERSION = 18;
+    public const SCHEMA_VERSION = 19;
 
     private ?Config $config = null;
     private ?PDO $pdo = null;
@@ -170,7 +170,9 @@ final class App
             }
         }
 
-        return new \Training\Calendar\CalendarSync($this->pdo(), $this->clock, $client, (string) $config->get('APP_URL'), $this->host(), $this->varDir() . '/calendar-sync.json');
+        $reminder = $client !== null ? (new \Training\Data\SettingsRepository($this->pdo(), $this->clock))->calendarReminder() : null;
+
+        return new \Training\Calendar\CalendarSync($this->pdo(), $this->clock, $client, (string) $config->get('APP_URL'), $this->host(), $this->varDir() . '/calendar-sync.json', $reminder);
     }
 
     public function backupDir(): string
