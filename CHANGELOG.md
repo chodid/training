@@ -6,6 +6,7 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ### Dokumentation
 - Literatur-Volltexte (29 PDFs) mit der Literaturliste im Konzept abgeglichen, nach ID umbenannt und in Blockordner unter `docs/literatur/` sortiert (D-51); Bücher zusätzlich als Kapitel-PDFs in `<ID>_kapitel/` (179 Dateien). Verzeichnis `docs/literatur/README.md`; im Konzept Felder `datei`/`kapitel` und in der Beschaffungsliste die Spalte „vorhanden“.
+- L-A02 Ferrauti, Trainingswissenschaft für die Sportpraxis (2. Aufl. 2025) ergänzt: Gesamtbuch ohne doppelt eingebettete Schriften/Bilder (355 → 94 MB, seitengleich geprüft) und 25 Kapitel-PDFs.
 
 ## [0.14.0] – 2026-09-28
 
