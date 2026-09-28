@@ -1,7 +1,7 @@
 # Auftrag: App-Icon, Begründungstexte der Planung und geführte Trainingseinheit
 
 Ablageort im Repo: `docs/konzept/gefuehrte-einheit.md` (im Hauptkonzept: AP-13 und AP-14, D-55 bis D-58, Q-14)
-Status: Konzeptentwurf von Fable am 2026-09-28 auf Basis der Rückfragen an Philipp – **Bestätigung durch Philipp offen**; Auswahl der Logo-Variante offen (Q-14)
+Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); Umsetzung offen
 Versionsnummer: keine im Konzept; wird in der Umsetzung festgelegt
 
 ---
@@ -35,7 +35,7 @@ Drei Wünsche des Athleten, die zusammen bearbeitet werden, weil sie dieselben S
 
 ## 3. Geklärte Entscheidungen
 
-Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 sind Vorschläge von Fable, die mit der Bestätigung dieses Konzepts gelten; abweichende Wünsche bitte vor der Umsetzung nennen.
+Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 waren Vorschläge von Fable und gelten seit der Bestätigung des Konzepts am 2026-09-28. E-21 ist die Logo-Wahl.
 
 | id | entscheidung | begruendung |
 |---|---|---|
@@ -59,6 +59,7 @@ Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 sind Vors
 | E-18 | **Stummschalten zweistufig:** Einstellung `timer_ton` (`an`/`aus`, Standard `an`) in `app_setting`, änderbar in S8; in S9 ein Schalter in der Kopfzeile, der nur für diese Einheit gilt (im Browser gemerkt, nicht auf dem Server). | Wunsch: Einstellungen und in der Einheit. |
 | E-19 | **Fortschritt im Browser:** `sessionStorage`-Eintrag je Einheit (Schritt, Satz, Phase, Endzeit, Ist-Werte, Startzeit, stumm). Neu laden setzt den Stand fort; „Neu starten“ löscht ihn. Nach Speichern gelöscht. Kein Serverzustand (E-07). | Robust gegen versehentliches Neuladen; keine Konflikte mit dem Offline-Puffer. |
 | E-20 | **Farben nur über Statusfarben des Design-Systems:** Arbeit = `--status-success-bg` als Seitengrund, Zeit in `--status-success-text`; Pause/bereit/angehalten = `--status-error-bg` und `--status-error-text`; `theme-color` wird mitgeführt. Neue Branding-Entscheidung B-08 (Statusfarben dürfen als Flächen für den Timer-Zustand dienen). | Rot/Grün mit ausreichendem Kontrast, ohne neue Farben. |
+| E-21 | **Logo-Wahl (Q-14 → D-59):** V3 (Lama Fläche hell `#F4EFF2` auf Pflaume 600 `#7A5C94`, Auge Orange) für App-Icon Android/iOS und `maskable`; V2 (Lama Fläche Pflaume 600 auf Papier) für Favicon 16/32 px, SVG-Favicon und App-Kennung in Topbar, Navigation und Login-Karte. Vorlagen: `docs/branding/mockups/icon-optionen/v3.svg`, `v3-maskable.svg`, `v2.svg`. | Entscheidung des Athleten am 2026-09-28, wie von Fable empfohlen. |
 
 ## 4. Teil A · App-Icon und Logo
 
@@ -105,9 +106,9 @@ Die Mockup-Seite zeigt jede Variante als Android-Icon (Kreis und abgerundetes Qu
 | V4 | Lama Linie hell auf Pflaume 800 | `lama-symbol-linie-negativ.svg` (Auge weiß) bzw. `-dunkel` (Auge Orange) | Pflaume 800 | ruhig, dunkel; Linie bei 16 px schwach |
 | V5 | Kopf (bisher, Vergleich) | `lama-symbol-kopf.svg` | Papier | zum Vergleich |
 
-Empfehlung Fable: **V3** für App-Icon und maskable (Kontrast, Wiedererkennung auf beliebigen Hintergründen), **V2** für Favicon 16/32 px und die App-Kennung in Topbar/Navigation (auf Papier, wie bisher), SVG-Favicon = Fläche. Die Wahl trifft der Athlet (Q-14); auch „eine Variante überall“ ist möglich.
+Entschieden (E-21, D-59): **V3** für App-Icon und maskable, **V2** für Favicon 16/32 px, SVG-Favicon und die App-Kennung in Topbar/Navigation/Login.
 
-Folgen der Wahl: `build-assets.php` kopiert die gewählte SVG als `public/assets/lama.svg` (ersetzt `lama-kopf.svg`); Templates, Login-Karte, Mockups und Branding (B-03) werden angepasst; der Kopf bleibt im Design-System für Avatar-Zwecke.
+Folgen: `build-assets.php` kopiert `lama-symbol-flaeche.svg` als `public/assets/lama.svg` (ersetzt `lama-kopf.svg`); Templates, Login-Karte, Mockups (Kennung in Topbar/Navigation/Login) und Branding (B-03/B-09) werden angepasst; PNG-Icons aus `icon-optionen/v3.svg` (any) und `v3-maskable.svg` (maskable), Favicon aus `v2.svg`; der Kopf bleibt im Design-System für Avatar-Zwecke.
 
 ## 5. Teil B · Begründungstexte der Planung
 
@@ -260,10 +261,10 @@ Bereich „Training“: Zeile „Timer-Signale“ mit Schalter Ton/Vibration `an
 
 ## 7. Unterpunkte
 
-Reihenfolge: T1 (nach Q-14) kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
+Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 
 ### T1 · App-Icon und Logo (Teil A)
-- Voraussetzung: Wahl der Variante (Q-14) durch den Athleten.
+- Variante: V3 App-Icon, V2 Favicon und Kennung (E-21).
 - Icon-Satz nach E-09 erzeugen (Skript einchecken), `build-assets.php` auf das gewählte SVG umstellen, beide Layouts ergänzen, Manifest erweitern, `favicon.ico`, `.htaccess`, Service Worker.
 - Tests: Manifest gültiges JSON mit allen Icon-Dateien vorhanden und Größen stimmig (PHPUnit liest PNG-Header); Layout-Tests auf die Link-Einträge; `HEAD /favicon.ico` 200 über den Dev-Router.
 - **Abnahme:** P-A1 bis P-A6 (4.1) durch den Athleten; Screenshots im Prüfprotokoll.
@@ -344,7 +345,7 @@ Reihenfolge: T1 (nach Q-14) kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T
 
 | id | punkt | status |
 |---|---|---|
-| O-01 | Wahl der Logo-Variante (V1–V5, Mischung möglich) anhand `icon-optionen.html` | offen → Q-14 im Hauptkonzept; T1 wartet darauf |
+| O-01 | Wahl der Logo-Variante (V1–V5, Mischung möglich) anhand `icon-optionen.html` | erledigt 2026-09-28 → E-21 / D-59 |
 | O-02 | Hangboard mit Wiederholungen **und** Sätzen (z. B. Repeaters 7/3 × 6, 3 Sätze) im Schema `plan-klettern.json` (`reps` je Satz, `rest_between_sets_s`) | nicht im Umfang; bei Bedarf eigener kleiner Auftrag |
 | O-03 | Ergebnis von P-A1/P-A3 vor der Umsetzung (Chrome geprüft?) | offen, Athlet |
 | O-04 | Tonhöhen/-längen aus E-17 sind Startwerte; Feinabstimmung nach Gerätetest | in T5 |
@@ -359,14 +360,14 @@ Reihenfolge: T1 (nach Q-14) kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T
 
 ## 11. Arbeitsweise für die Umsetzung
 
-- Unterpunkte T1–T7 in der Reihenfolge aus Abschnitt 7; T1 erst nach Q-14.
+- Unterpunkte T1–T7 in der Reihenfolge aus Abschnitt 7.
 - Nach jedem Unterpunkt: geänderte und neue Dateien als ZIP mit Repo-Ordnerstruktur (nur geänderte/neue Dateien), dieses Dokument (Abschnitt 12) aktualisiert, dazu ein Prüfdokument (was geprüft ist, was noch wie zu prüfen ist; Struktur wie `docs/pruefung/pruefprotokoll.md`).
 - Konzeptänderungen aus der Umsetzung in Abschnitt 12 (`probleme_loesungen`) und im Hauptkonzept (AP-13/AP-14) nachziehen.
 
 ## 12. Umsetzungsstand
 
 ```yaml
-T1: {status: offen, wartet_auf: Q-14}
+T1: {status: offen}
 T2: {status: offen}
 T3: {status: offen}
 T4: {status: offen}

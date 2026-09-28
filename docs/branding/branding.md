@@ -110,7 +110,7 @@ Typ-Icons: Ausdauer `run`, Kraft `barbell`, Klettern `mountain`, Haltung `yoga`,
 | B-06 | Diagramme in einer Farbe (Pflaume) als kleine Vielfache statt gestapelter Mehrfarbenbalken. | Markenpalette hat nur Pflaume und Orange; Orange ist Akzent, Statusfarben sind reserviert. | 2026-09-27 |
 | B-07 | Schriften lokal aus `chadid-design-system/fonts/`, kein Google-Fonts-Aufruf. | Entscheidung des Athleten beim Ablegen des Design-Systems. | 2026-09-27 |
 | B-08 | Statusfarben Erfolg (grün) und Fehler (rot) dürfen im geführten Modus (S9) als Seitenfläche und Timer-Farbe den Zustand tragen: grün = Arbeitsphase, rot = Pause/bereit/angehalten, sonst normale Farbe. Text auf diesen Flächen in der `-700`-Stufe. B-06 bleibt: keine Serien in Statusfarben. | Wunsch des Athleten (Rot → Grün); Zustand ist eine Statusinformation, keine Datenserie. | 2026-09-28 |
-| B-09 | App-Kennung wechselt vom Lama-Kopf auf das ganze Lama (ändert B-03); Variante nach Q-14 im Hauptkonzept (`mockups/icon-optionen.html`, Empfehlung V3 als App-Icon, V2 als Favicon und Kennung). Bis zur Wahl bleibt der Kopf. | Der Kopf gefällt dem Athleten nicht. | 2026-09-28 |
+| B-09 | App-Kennung wechselt vom Lama-Kopf auf das ganze Lama (ändert B-03): V3 (Fläche hell auf Pflaume 600) als App-Icon und `maskable`, V2 (Fläche Pflaume 600 auf Papier) als Favicon, SVG-Favicon und Kennung in Topbar, Navigation und Login (`mockups/icon-optionen.html`, D-59). Umsetzung in AP-13; bis dahin bleibt der Kopf in Code und Mockups. | Der Kopf gefällt dem Athleten nicht; Wahl wie von Fable empfohlen. | 2026-09-28 |
 
 ## 7. Umsetzungshinweise für die Code-Instanz
 
