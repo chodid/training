@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Training\Mcp;
 
 use PDO;
+use Training\Checkin\MorningChecks;
 use Training\Clock;
 use Training\Data\FeedbackRepository;
 use Training\Data\ProfileRepository;
@@ -139,6 +140,20 @@ final class ReadTools
             $checkin['recovery_1_5_mittel'] = round(array_sum(array_column($checkins, 'recovery_1_5')) / count($checkins), 1);
             $checkin['soreness_1_5_mittel'] = round(array_sum(array_column($checkins, 'soreness_1_5')) / count($checkins), 1);
             $checkin['tage_mit_schmerz'] = count(array_filter($checkins, static fn (array $c): bool => (int) $c['pain_flag'] === 1));
+        }
+        // Morgentest (AP-12, 6.3): je bisherigem Tag Steuerwert und Ampel, dazu Tage grün und Abdeckung
+        if ($elapsed > 0) {
+            $days = (new MorningChecks($this->pdo, $this->clock, $this->tz))->range($monday, Dates::addDays($monday, $elapsed - 1), true);
+            $tage = [];
+            foreach (array_reverse($days) as $d) {
+                $tage[$d['datum']] = ['steuerwert' => $d['steuerwert'], 'ampel' => $d['ampel']];
+            }
+            $covered = count(array_filter($days, static fn (array $d): bool => $d['steuerwert'] !== null));
+            $checkin['morgentest'] = [
+                'tage' => $tage,
+                'tage_gruen' => count(array_filter($days, static fn (array $d): bool => $d['ampel'] === 'gruen')),
+                'abdeckung_pct' => (int) round(100 * $covered / $elapsed),
+            ];
         }
 
         $result = [
@@ -421,6 +436,38 @@ final class ReadTools
     private static function author(string $by): string
     {
         return $by === 'mcp' ? 'claude' : 'web';
+    }
+
+    /**
+     * Morgen-Check-ins (AP-12, 6.1): Zusammenfassung für heute und je Tag mit Check-in alle Felder und Ableitungen,
+     * neueste zuerst. Leere Angaben (null, false, leere Liste) sind in „tage“ weggelassen, um das Antwortbudget zu schonen.
+     * @return array<string, mixed>
+     */
+    public function morningChecks(int $days): array
+    {
+        $days = max(7, min(90, $days));
+        $today = Dates::today($this->clock, $this->tz);
+        $mc = new MorningChecks($this->pdo, $this->clock, $this->tz);
+        $keep = ['datum', 'morgentest', 'steuerwert', 'ampel'];
+        $tage = array_map(static fn (array $d): array => array_filter($d, static fn ($v, string $k): bool
+            => in_array($k, $keep, true) || ($v !== null && $v !== false && $v !== [] && $v !== ''), ARRAY_FILTER_USE_BOTH), $mc->range(Dates::addDays($today, -($days - 1)), $today));
+        foreach ($tage as &$t) {
+            if (isset($t['sprunggelenk_links']) && $t['sprunggelenk_links'] === ['umgeknickt' => false, 'schwellung' => false]) {
+                unset($t['sprunggelenk_links']);
+            }
+        }
+        unset($t);
+        $summary = $mc->summary($today);
+        unset($summary['erfasst']);
+
+        return [
+            'heute' => $today,
+            'zusammenfassung' => $summary,
+            'tage' => $tage,
+            'skalen' => MorningChecks::SKALEN,
+            'regeln' => 'Steuerwert = Maximum links/rechts. Ampel: rot bei Steuerwert > 5 oder zwei Tage streng steigend bis ≥ 4; gelb 4–5; grün ≤ 3; keine_daten ohne Morgentest. Wochenausgangswert = erster Steuerwert der Kalenderwoche. Die App ändert den Plan nicht (E-05).',
+            'hinweis' => 'In „tage“ fehlende Felder sind nicht erhoben bzw. leer (null ≠ 0).',
+        ];
     }
 
     /** @param array<string, mixed> $a @return array<string, mixed> */

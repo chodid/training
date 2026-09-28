@@ -1,7 +1,7 @@
 ---
 titel: Datenmodell – ER-Diagramm und Umsetzungsdetails
-bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitt 7, AP-01 (D-35), AP-03, AP-09 (D-43, D-44, D-48), AP-11 (D-52)
-schemastand: 19 (Migrationen 0001–0019)
+bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitt 7, AP-01 (D-35), AP-03, AP-09 (D-43, D-44, D-48), AP-11 (D-52), AP-12 (D-53)
+schemastand: 21 (Migrationen 0001–0021)
 ---
 
 # Datenmodell
@@ -142,6 +142,13 @@ erDiagram
         tinyint soreness_1_5
         tinyint pain_flag
         text notes
+        tinyint mt_links "0-10, null"
+        tinyint mt_rechts "0-10, null"
+        tinyint nacken_bws "0-10, null"
+        tinyint osg_umgeknickt
+        tinyint osg_schwellung
+        tinyint hand_rechts "0-10, null"
+        json warnzeichen
     }
     audit_log {
         bigint id PK
@@ -200,7 +207,7 @@ erDiagram
 |---|---|
 | Zeitwerte | `DATETIME` in UTC (Verbindung mit `time_zone = '+00:00'`); reine Kalendertage als `DATE` in der Zeitzone des Athleten (`user.tz`) |
 | Aufzählungen | als `ENUM`-Spalten mit den Werten aus Abschnitt 7 und 7.2; die Verbindung läuft im strikten Modus (`STRICT_ALL_TABLES`), ungültige Werte werden abgewiesen. Neue Werte brauchen eine Migration. |
-| Wertebereiche | `CHECK`: `rpe_cr10` 0–10, `feel_1_5`, `recovery_1_5`, `soreness_1_5` 1–5, `intensity_0_10` 0–10, `end_date >= start_date` |
+| Wertebereiche | `CHECK`: `rpe_cr10` 0–10, `feel_1_5`, `recovery_1_5`, `soreness_1_5` 1–5, `intensity_0_10` 0–10, `end_date >= start_date`; Morgen-Check-in (D-53) `mt_links`, `mt_rechts`, `nacken_bws`, `hand_rechts` 0–10 oder NULL (nicht erhoben ≠ 0) |
 | sRPE-Last | `session_execution.srpe_load` = `rpe_cr10 × duration_min` als berechnete Spalte (`STORED`); nicht schreibbar (Abschnitt 11) |
 | Eindeutigkeit | eine Woche je `week_start`; eine Durchführung je Einheit; ein Check-in je Tag; ein Intervals.icu-Event je Einheit |
 | Löschen | Woche → Einheiten → Durchführung kaskadierend; Schmerzereignisse bleiben erhalten (`session_id` wird `NULL`); ein Block mit Wochen lässt sich nicht löschen |

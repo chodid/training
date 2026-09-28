@@ -26,6 +26,7 @@ $scopeText = static fn (string $s): string => str_contains($s, 'training:write')
     <div class="card list">
       <div class="list-item"><div><div class="t">Angemeldet als <?= $this->e($login) ?></div><div class="s">Seit <?= $this->e($fmt($since, $tz)) ?> auf diesem Gerät · Sitzung endet nach 30 Tagen ohne Nutzung</div></div>
         <form method="post" action="/logout"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><button class="btn btn-secondary" type="submit"><?= $this->icon('logout') ?>Abmelden</button></form></div>
+      <div class="list-item"><div><div class="t">Morgen-Check-in</div><div class="s">„Hand rechts“ abfragen bis <?= $this->e((new DateTimeImmutable($handBis))->format('d.m.Y')) ?></div></div><a class="btn btn-ghost" href="/einstellungen?bereich=checkin">Ändern</a></div>
       <div class="list-item"><div><div class="t">Zeitzone</div><div class="s mono"><?= $this->e($tz) ?></div></div><a class="btn btn-ghost" href="/einstellungen?bereich=zeitzone">Ändern</a></div>
       <div class="list-item"><div><div class="t">Passwort</div><div class="s">Mindestens 12 Zeichen</div></div><a class="btn btn-ghost" href="/einstellungen?bereich=passwort">Ändern</a></div>
 <?php foreach ($passkeyList as $pk): ?>

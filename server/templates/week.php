@@ -27,6 +27,16 @@ use Training\View\Labels;
 <?php if (!empty($mailError)): ?>
   <div class="alert alert-error mt-4"><?= $this->icon('alert-circle') ?><div><b>Backup per E-Mail fehlgeschlagen.</b> <span class="body"><?= $this->e($mailError) ?> Details unter <a href="/einstellungen">Einstellungen</a>.</span></div></div>
 <?php endif ?>
+<?php if (!empty($morning)): ?>
+  <div class="mt-4">
+<?php if ($morning['summary'] !== null):
+    $summary = $morning['summary']; $editHref = '/checkin'; include __DIR__ . '/_morning_summary.php';
+else: ?>
+  <div class="section-title"><h2>Morgen-Check-in</h2><span class="hint">vor dem Frühstück</span></div>
+<?php extract($morning['form'], EXTR_OVERWRITE); include __DIR__ . '/_checkin_form.php'; ?>
+<?php endif ?>
+  </div>
+<?php endif ?>
 <?php if ($hasSessions): ?>
   <div class="week-sum">
     <div class="stat"><div class="l">sRPE bisher</div><div class="v"><?= number_format($srpe, 0, ',', ' ') ?></div></div>

@@ -119,7 +119,7 @@ abstract class AppTestCase extends TestCase
     }
 
     /** @var array<string, string> MCP-Sitzung je Token */
-    private array $mcpSessions = [];
+    protected array $mcpSessions = [];
 
     /**
      * Ruft ein MCP-Tool über /mcp auf (Protokoll 2025-06-18 mit Handshake) und gibt das Ergebnis zurück.
@@ -146,15 +146,18 @@ abstract class AppTestCase extends TestCase
         return ['isError' => (bool) ($json['result']['isError'] ?? false), 'data' => json_decode($text, true), 'text' => $text];
     }
 
-    /** Setzt die Datenbank um die letzte Migration zurück (Tabelle der letzten Migration löschen, schema_version kürzen). */
+    /**
+     * Setzt die Datenbank um die letzte Migration zurück: Code-Stand > DB-Stand (Schreibsperre). Legt die letzte
+     * Migration eine Tabelle an, wird sie gelöscht; bei Spaltenänderungen wird nur der Schemastand zurückgesetzt.
+     */
     protected function rollbackLastMigration(): void
     {
         $files = glob(dirname(__DIR__, 2) . '/migrations/*.sql') ?: [];
         sort($files);
-        $last = (string) end($files);
-        self::assertMatchesRegularExpression('/CREATE TABLE `?(\w+)`?/', (string) file_get_contents($last), 'letzte Migration legt eine Tabelle an');
-        preg_match('/CREATE TABLE `?(\w+)`?/', (string) file_get_contents($last), $m);
-        $this->pdo->exec('DROP TABLE `' . $m[1] . '`');
+        $sql = (string) file_get_contents((string) end($files));
+        if (preg_match('/^CREATE TABLE `?(\w+)`?/m', $sql, $m)) {
+            $this->pdo->exec('DROP TABLE `' . $m[1] . '`');
+        }
         $this->pdo->exec('DELETE FROM schema_version WHERE version = ' . \Training\App::SCHEMA_VERSION);
     }
 
