@@ -4,6 +4,9 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+### Dokumentation
+- Literatur-Volltexte (29 PDFs) mit der Literaturliste im Konzept abgeglichen, nach ID umbenannt und in Blockordner unter `docs/literatur/` sortiert (D-51); Bücher zusätzlich als Kapitel-PDFs in `<ID>_kapitel/` (179 Dateien). Verzeichnis `docs/literatur/README.md`; im Konzept Felder `datei`/`kapitel` und in der Beschaffungsliste die Spalte „vorhanden“.
+
 ## [0.14.0] – 2026-09-28
 
 AP-11: Einheiten im Nextcloud-Kalender per CalDAV (D-50).
