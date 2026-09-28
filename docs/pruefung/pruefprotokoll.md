@@ -717,6 +717,10 @@ geprueft:
     wie: Code-Instanz, automatisiert
     ergebnis: ok
     datum: 2026-09-28
+  - was: Sechs neue PDFs (Commit „Docs“) zugeordnet – L-P10, L-P12, L-P13, L-T2-17, L-T2-18, L-T3-04; Titel, Autoren, Jahrgang/Seiten und DOI (L-P10 ohne DOI, Zuordnung über Titel, Heft und Seiten) gegen 13.2 abgeglichen
+    wie: Textextraktion der ersten Seiten, Seitenzahl gegen Seitenangabe im Zitat
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
     wie: manuell durch Athlet bei der ersten Kartensitzung
@@ -725,7 +729,7 @@ noch_zu_pruefen:
   - was: Restliche Beschaffung laut 13.4 (L-T1-01, L-T1-07, L-T3-08, L-A01 8./9. Aufl.); neue Dateien nach D-51 ablegen und eintragen
     wie: Athlet (D-26), Eintrag durch Code-Instanz
   - was: Schwellenwerte Schmerzmonitoring-Modell am Volltext L-P13 (V-07), danach Entscheidung Q-13
-    wie: manuell nach Beschaffung; Entscheidung in AP-07
+    wie: manuell in der Kartensitzung, der Volltext liegt vor; Entscheidung in AP-07
   - was: Wiederholungsbereiche L-T3-02 am Volltext (V-15)
     wie: manuell in der Kartensitzung; der Volltext liegt bereits im Repo
   - was: L-T3-08 aktuelle Auflage/ISBN, L-T3-12 Auflage
