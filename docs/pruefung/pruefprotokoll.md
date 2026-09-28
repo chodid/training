@@ -470,8 +470,12 @@ geprueft:
     wie: Rauchtest gegen Radicale 3.8 (lokal, http nur für den Test)
     ergebnis: ok
     datum: 2026-09-28
+  - was: Nextcloud – App-Passwort und CALDAV_* in der .env, Einstellungen → „Abgleichen“ erfolgreich
+    wie: manuell durch Athlet (nach Deployment 0.14.0)
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
-  - was: Nextcloud – Kalender „Training“ und App-Passwort anlegen, CALDAV_* in die .env, Einstellungen → „Abgleichen“; Termine im Nextcloud-Web und auf dem Handy sichtbar
+  - was: Termine nach dem ersten Wochenplan im Nextcloud-Web und auf dem Handy sichtbar; „zuletzt übertragen“ in den Einstellungen höchstens 1 h alt (stündlicher Cron)
     wie: manuell durch Athlet
   - was: Änderung aus Claude (update_session, Status) erscheint im Kalender; Rückmeldung auf der Webseite setzt „✓“
     wie: manuell durch Athlet
