@@ -1,0 +1,27 @@
+{
+  "block": {"name": "Block 2 Grundlage Herbst", "start_date": "2026-09-21", "end_date": "2026-11-15", "status": "aktiv", "doc_ref": "docs/plaene/block-02.md"},
+  "week": {"week_start": "2026-09-21", "focus": "Grundlage, Fingerkraft einführen", "status": "bestaetigt", "created_by": "mcp"},
+  "sessions": [
+    {"date": "2026-09-21", "type": "kraft", "title": "Kraft Unterkörper", "priority": "B", "planned_duration_min": 60,
+     "plan_json": {"exercises": [
+       {"name": "Kniebeuge", "sets": 3, "reps": "6-8", "load": "60 kg", "tempo": "3-1-1", "rest_s": 150, "notes": null},
+       {"name": "Rumänisches Kreuzheben", "sets": 3, "reps": "8", "load": "50 kg", "tempo": null, "rest_s": 120, "notes": null},
+       {"name": "Wadenheben einbeinig", "sets": 2, "reps": "12", "load": "KG", "tempo": null, "rest_s": 60, "notes": null}]}},
+    {"date": "2026-09-22", "type": "ausdauer", "title": "Lauf locker Z2", "priority": "A", "planned_duration_min": 50, "intervals_event_id": 100001,
+     "plan_json": {"intervals_workout_text": "Aufwärmen\n- 10m Z1 HR\n\nHauptteil\n- 35m Z2 HR\n\nAuslaufen\n- 5m Z1 HR", "target_type": "hf_zone", "summary": "50 min locker, überwiegend Zone 2"}},
+    {"date": "2026-09-23", "type": "klettern", "title": "Hangboard + Bouldern Volumen", "priority": "A", "planned_duration_min": 90,
+     "plan_json": {"blocks": [
+       {"kind": "hangboard", "spezifitaet": "spezifisch", "edge_mm": 20, "grip": "halbkrimp", "hang_s": 10, "rest_s": 180, "sets": 5, "added_load_kg": 0, "duration_min": 20, "target": null, "notes": "Max Hangs"},
+       {"kind": "bouldern_volumen", "spezifitaet": "spezifisch", "duration_min": 50, "target": "Grad 5-6, 20 Boulder"},
+       {"kind": "antagonisten", "spezifitaet": "unspezifisch", "duration_min": 15}]}},
+    {"date": "2026-09-24", "type": "haltung", "title": "Haltung und Rumpf", "priority": "C", "planned_duration_min": 30,
+     "plan_json": {"exercises": [
+       {"name": "Face Pulls", "sets": 3, "reps": "15", "load": "Band grün"},
+       {"name": "Seitstütz", "sets": 3, "reps": "30s", "load": "KG"}]}},
+    {"date": "2026-09-25", "type": "mobilitaet", "title": "Mobilität Hüfte und Schulter", "priority": "C", "planned_duration_min": 20,
+     "plan_json": {"exercises": [{"name": "90/90 Hüftrotation", "sets": 2, "reps": "8", "load": "KG"}]}},
+    {"date": "2026-09-26", "type": "ausdauer", "title": "Intervalle Berg", "priority": "A", "planned_duration_min": 60, "intervals_event_id": 100002,
+     "plan_json": {"intervals_workout_text": "Aufwärmen\n- 15m Z1 HR\n\nHauptteil 5x\n- 4m Z4 HR\n- 3m Z1 HR\n\nAuslaufen\n- 10m Z1 HR", "target_type": "hf_zone", "summary": "5 × 4 min Zone 4 bergauf"}},
+    {"date": "2026-09-27", "type": "ruhe", "title": "Ruhetag", "priority": "C", "planned_duration_min": null, "plan_json": null}
+  ]
+}

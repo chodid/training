@@ -55,8 +55,11 @@ jobs:
           composer validate --strict
           composer install --no-interaction --no-progress
 
+      - name: Assets aus docs/branding übernehmen
+        run: php bin/build-assets.php
+
       - name: PHP-Syntax prüfen
-        run: find src public migrations tests -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null
+        run: find src public migrations tests templates bin -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null
 
       - name: Tests
         env:
@@ -86,7 +89,9 @@ jobs:
 
       - name: Build ohne Dev-Abhängigkeiten
         working-directory: server
-        run: composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+        run: |
+          composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+          php bin/build-assets.php
 
       - name: Konfiguration prüfen
         id: cfg
@@ -113,7 +118,7 @@ jobs:
           echo "app_url=${APP_URL%/}" >> "$GITHUB_OUTPUT"
 
       # Lädt nur geänderte Dateien hoch (Statusdatei auf dem Server). Dateien, die der Workflow nie
-      # hochgeladen hat (.env, backups/), werden weder überschrieben noch gelöscht; zusätzlich ausgeschlossen.
+      # hochgeladen hat (.env, backups/, var/), werden weder überschrieben noch gelöscht; zusätzlich ausgeschlossen.
       - name: Upload per FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
@@ -130,6 +135,8 @@ jobs:
             **/.git*/**
             .env
             backups/**
+            var/**
+            bin/**
             tests/**
             phpunit.xml.dist
             .phpunit.cache/**

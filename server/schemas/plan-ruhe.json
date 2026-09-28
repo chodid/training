@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://training.gen-em.org/schemas/plan-ruhe.json",
+  "title": "plan_json ruhe: leer oder nur Notiz",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 1000
+    }
+  }
+}

@@ -13,6 +13,12 @@ server/backups/
 *.sql
 !server/migrations/*.sql
 
+# Build-Ergebnis: Gestaltungsgrundlage aus docs/branding/ (server/bin/build-assets.php)
+server/public/assets/
+
+# Laufzeitdaten (D-17)
+server/var/
+
 # System
 .DS_Store
 Thumbs.db

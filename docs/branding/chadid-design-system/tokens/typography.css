@@ -1,0 +1,49 @@
+/* Schriften: Young Serif (Überschriften, Buttons), Source Sans 3 (Text, UI), Source Code Pro (Mono) – alle SIL OFL.
+   Die @font-face-Regeln (lokale Dateien in fonts/) stehen in tokens/fonts.css. */
+
+:root{
+  --font-display: 'Young Serif', Georgia, 'Times New Roman', serif;
+  --font-body:    'Source Sans 3', 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  --font-mono:    'Source Code Pro', Menlo, Consolas, monospace;
+
+  /* Young Serif hat nur einen Schnitt: Hierarchie über Größe und Farbe, nie über Fettung */
+  --weight-display: 400;
+  --weight-body: 400;
+  --weight-body-strong: 600;
+
+  /* Größen (Bildschirm) */
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-md: 17px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  --text-3xl: 44px;
+  --text-4xl: 64px;
+
+  --leading-tight: 1.05;
+  --leading-heading: 1.15;
+  --leading-body: 1.55;
+  --leading-ui: 1.4;
+
+  --tracking-display: -0.01em;
+  --tracking-label: 0.14em;
+
+  /* Rollen */
+  --type-h1: var(--weight-display) var(--text-3xl)/var(--leading-tight) var(--font-display);
+  --type-h2: var(--weight-display) var(--text-2xl)/var(--leading-tight) var(--font-display);
+  --type-h3: var(--weight-display) var(--text-xl)/var(--leading-heading) var(--font-display);
+  --type-h4: var(--weight-display) var(--text-lg)/var(--leading-heading) var(--font-display);
+  --type-button: var(--weight-display) var(--text-sm)/1 var(--font-display);
+  --type-body: var(--weight-body) var(--text-base)/var(--leading-body) var(--font-body);
+  --type-body-sm: var(--weight-body) var(--text-sm)/var(--leading-ui) var(--font-body);
+  --type-label: var(--weight-body-strong) var(--text-xs)/1 var(--font-body);
+  --type-mono: 400 var(--text-sm)/var(--leading-ui) var(--font-mono);
+
+  /* Druck (pt) */
+  --print-body: 11pt; /* @kind font */
+  --print-small: 9pt; /* @kind font */
+  --print-h1: 20pt; /* @kind font */
+  --print-h2: 15pt; /* @kind font */
+}

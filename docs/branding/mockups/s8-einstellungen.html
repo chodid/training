@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Einstellungen – Training</title>
+<link rel="icon" href="../chadid-design-system/assets/logo/lama-symbol-kopf.svg">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+<style>
+  /* Zustand über ?state=update (Schema-Abweichung, Schreibsperre nach D-20) */
+  .only-update{display:none}
+  body.st-update .only-update{display:flex}
+  body.st-update .not-update{display:none}
+  body.st-update .btn-migrate{opacity:1;cursor:pointer}
+</style>
+</head>
+<body class="app">
+<header class="topbar">
+  <a class="brand" href="s2-woche.html"><img src="../chadid-design-system/assets/logo/lama-symbol-kopf.svg" alt=""><span>Training</span></a>
+  <h1 class="hide-mobile">Einstellungen</h1>
+</header>
+
+<nav class="nav" aria-label="Hauptnavigation">
+  <a class="nav-brand" href="s2-woche.html"><img src="../chadid-design-system/assets/logo/lama-symbol-kopf.svg" alt=""><span class="brand"><span>Training</span></span></a>
+  <a href="s2-woche.html"><svg class="ic"><use href="#i-calendar-week"/></svg>Woche</a>
+  <a href="s4-checkin.html"><svg class="ic"><use href="#i-checkup-list"/></svg>Check-in</a>
+  <a href="s6-verlauf.html"><svg class="ic"><use href="#i-chart-line"/></svg>Verlauf</a>
+  <a href="s8-einstellungen.html" aria-current="page"><svg class="ic"><use href="#i-settings"/></svg>Einstellungen</a>
+  <div class="nav-foot">philipp · Block 2, Woche 6</div>
+</nav>
+
+<main class="main stack-lg">
+  <!-- Einstellungen (AP-04, AP-10): Konto, Backup, Update, Verbindungen -->
+  <div class="alert alert-warning only-update">
+    <svg class="ic"><use href="#i-alert-triangle"/></svg>
+    <div><b>Update erforderlich.</b> <span class="body">Der Code erwartet Schemastand 4, die Datenbank steht auf 3. Bis zur Migration sind alle Schreibzugriffe (Web und MCP) gesperrt. Vor der Migration wird automatisch ein Backup angelegt.</span></div>
+  </div>
+
+  <section>
+    <div class="section-title"><h2>Konto</h2></div>
+    <div class="card list">
+      <div class="list-item"><div><div class="t">Angemeldet als philipp</div><div class="s">Seit 12.09.2026 auf diesem Gerät · Sitzung endet nach 30 Tagen ohne Nutzung</div></div><a class="btn btn-secondary" href="s1-login.html"><svg class="ic"><use href="#i-logout"/></svg>Abmelden</a></div>
+      <div class="list-item"><div><div class="t">Zeitzone</div><div class="s mono">Europe/Berlin</div></div><button class="btn btn-ghost" type="button">Ändern</button></div>
+      <div class="list-item"><div><div class="t">Passwort</div><div class="s">Zuletzt geändert 12.09.2026</div></div><button class="btn btn-ghost" type="button">Ändern</button></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><h2>Backup</h2><span class="hint">verschlüsselt, AES-256</span></div>
+    <div class="card list">
+      <div class="list-item"><div><div class="t">Backup herunterladen</div><div class="s">SQL-Dump, gzip, mit dem Backup-Passwort aus der <span class="mono">.env</span> verschlüsselt</div></div><button class="btn btn-primary" type="button"><svg class="ic"><use href="#i-download"/></svg>Herunterladen</button></div>
+      <div class="list-item"><div><div class="t">Backup per E-Mail</div><div class="s">Wöchentlich, zuletzt Sonntag 21.09., 03:00 Uhr · 184 KB</div></div><span class="badge badge-success"><svg class="ic"><use href="#i-check"/></svg>zugestellt</span></div>
+      <div class="list-item"><div><div class="t">Vor Migrationen</div><div class="s">Automatisch, letzte 5 werden aufbewahrt · zuletzt 12.09.2026</div></div><span class="badge badge-neutral">5 Dateien</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><h2>Update</h2></div>
+    <div class="card list">
+      <div class="list-item"><div><div class="t">Schemastand</div><div class="s not-update">Code 3 · Datenbank 3 · alles aktuell</div><div class="s only-update" style="display:block">Code <b>4</b> · Datenbank <b>3</b> · Migration ausstehend</div></div><span class="badge badge-success not-update"><svg class="ic"><use href="#i-check"/></svg>aktuell</span><span class="badge badge-warning only-update">ausstehend</span></div>
+      <div class="list-item"><div><div class="t">Migration ausführen</div><div class="s">Legt zuerst ein Backup an, dann werden die ausstehenden Migrationen der Reihe nach eingespielt.</div></div><button class="btn btn-secondary btn-migrate" type="button" disabled><svg class="ic"><use href="#i-refresh"/></svg>Migrieren</button></div>
+      <div class="list-item"><div><div class="t">Version</div><div class="s mono">0.4.0 · Deploy 24.09.2026, 06:41 Uhr</div></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><h2>Verbindungen</h2></div>
+    <div class="card list">
+      <div class="list-item"><div><div class="t">Intervals.icu</div><div class="s">Athlet i12345 · letzter Abruf vor 4 Minuten</div></div><span class="badge badge-success"><svg class="ic"><use href="#i-plug-connected"/></svg>verbunden</span></div>
+      <div class="list-item"><div><div class="t">Claude (claude.ai)</div><div class="s">Freigegeben am 14.09.2026 · Lesen und Schreiben · zuletzt genutzt heute 07:40 Uhr</div></div><button class="btn btn-ghost" type="button" style="color:var(--action-danger)">Widerrufen</button></div>
+      <div class="list-item"><div><div class="t">Statisches Token (Fallback)</div><div class="s">Für Claude Desktop, nur aktiv wenn in der <span class="mono">.env</span> eingeschaltet</div></div><span class="badge badge-neutral">aus</span></div>
+    </div>
+  </section>
+
+  <p class="hint">Audit-Log und Wissensbasis liegen im Repo, nicht in der App.</p>
+</main>
+<script>
+  const s=new URLSearchParams(location.search).get('state');if(s){document.body.classList.add('st-'+s);if(s==='update')document.querySelector('.btn-migrate').removeAttribute('disabled')}
+</script>
+</body>
+</html>

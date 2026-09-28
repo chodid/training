@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Zugriff freigeben – Training</title>
+<link rel="icon" href="../chadid-design-system/assets/logo/lama-symbol-kopf.svg">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+</head>
+<body class="auth">
+<!-- S7 OAuth-Freigabe im Authorize-Schritt (D-36): Client-Name, Redirect-Host, Scope; Freigeben / Ablehnen. -->
+<form class="auth-card stack-lg" action="#" onsubmit="return false">
+  <div class="auth-brand">
+    <img src="../chadid-design-system/assets/logo/lama-symbol-kopf.svg" alt="">
+    <div class="name">Training</div>
+  </div>
+
+  <div class="stack">
+    <h1 style="font:var(--type-h3)">Zugriff freigeben?</h1>
+    <p class="muted small">Eine Anwendung möchte über die MCP-Schnittstelle auf Deine Trainingsdaten zugreifen. Ohne Freigabe wird kein Zugang erteilt.</p>
+  </div>
+
+  <div class="subcard">
+    <dl class="kv">
+      <dt>Anwendung</dt><dd><b>Claude</b></dd>
+      <dt>Weiterleitung an</dt><dd class="mono">claude.ai</dd>
+      <dt>Registriert</dt><dd>heute, 14:02 Uhr</dd>
+      <dt>Zugriff</dt>
+      <dd>
+        <div class="stack" style="gap:6px">
+          <span class="row"><svg class="ic ic-sm" style="color:var(--plum-600)"><use href="#i-check"/></svg>Wochenplan, Einheiten und Feedback lesen</span>
+          <span class="row"><svg class="ic ic-sm" style="color:var(--plum-600)"><use href="#i-check"/></svg>Wochenpläne schreiben und Einheiten ändern</span>
+          <span class="row"><svg class="ic ic-sm" style="color:var(--plum-600)"><use href="#i-check"/></svg>Check-ins und Schmerzverlauf lesen</span>
+        </div>
+        <div class="hint mono" style="margin-top:8px">scope: training:read training:write</div>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="alert alert-hint">
+    <svg class="ic"><use href="#i-info-circle"/></svg>
+    <div><b>Hinweis.</b> <span class="body">Jeder Schreibzugriff wird im Audit-Log protokolliert. Die Freigabe kannst Du in den Einstellungen jederzeit widerrufen.</span></div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-secondary" type="button">Ablehnen</button>
+    <button class="btn btn-primary" type="submit">Freigeben</button>
+  </div>
+
+  <div class="auth-foot">Angemeldet als <b>philipp</b> · <a href="s1-login.html">Abmelden</a></div>
+</form>
+</body>
+</html>

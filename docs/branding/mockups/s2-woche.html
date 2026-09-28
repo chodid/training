@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Woche – Training</title>
+<link rel="icon" href="../chadid-design-system/assets/logo/lama-symbol-kopf.svg">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+<style>
+  /* Zustand über ?state=leer (nur für das Mockup) */
+  body.st-leer .has-data{display:none}
+  .only-empty{display:none}
+  body.st-leer .only-empty{display:block}
+</style>
+</head>
+<body class="app">
+<header class="topbar">
+  <a class="brand" href="s2-woche.html"><img src="../chadid-design-system/assets/logo/lama-symbol-kopf.svg" alt=""><span>Training</span></a>
+  <h1 class="hide-mobile">Woche</h1>
+  <div class="topbar-actions">
+    <a class="btn btn-ghost hide-mobile" href="s4-checkin.html"><svg class="ic"><use href="#i-checkup-list"/></svg>Check-in heute</a>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Hauptnavigation">
+  <a class="nav-brand" href="s2-woche.html"><img src="../chadid-design-system/assets/logo/lama-symbol-kopf.svg" alt=""><span class="brand"><span>Training</span></span></a>
+  <a href="s2-woche.html" aria-current="page"><svg class="ic"><use href="#i-calendar-week"/></svg>Woche</a>
+  <a href="s4-checkin.html"><svg class="ic"><use href="#i-checkup-list"/></svg>Check-in</a>
+  <a href="s6-verlauf.html"><svg class="ic"><use href="#i-chart-line"/></svg>Verlauf</a>
+  <a href="s8-einstellungen.html"><svg class="ic"><use href="#i-settings"/></svg>Einstellungen</a>
+  <div class="nav-foot">philipp · Block 2, Woche 6</div>
+</nav>
+
+<main class="main wide">
+  <!-- S2 Woche: 7 Tage, Einheiten je Tag, heutiger Tag hervorgehoben, Check-in-Status je Tag, ±Woche, Wochensumme sRPE -->
+  <div class="week-nav">
+    <a class="btn btn-icon" href="#" aria-label="Vorherige Woche"><svg class="ic ic-lg"><use href="#i-chevron-left"/></svg></a>
+    <div class="title">
+      <h1>21. – 27. September</h1>
+      <div class="muted">KW 39 · Block 2 „Grundlage Herbst“, Woche 6 von 12 · Fokus Ausdauer</div>
+    </div>
+    <a class="btn btn-icon" href="#" aria-label="Nächste Woche"><svg class="ic ic-lg"><use href="#i-chevron-right"/></svg></a>
+  </div>
+
+  <div class="week-sum has-data">
+    <div class="stat"><div class="l">sRPE bisher</div><div class="v">975 <small>/ ≈ 1 900 geplant</small></div></div>
+    <div class="stat"><div class="l">Einheiten</div><div class="v">4 <small>von 8 erledigt</small></div></div>
+    <div class="stat"><div class="l">Check-in</div><div class="v">3 <small>von 4 Tagen</small></div></div>
+  </div>
+
+  <div class="alert alert-hint has-data" style="margin-top:var(--space-4)">
+    <svg class="ic"><use href="#i-note"/></svg>
+    <div><b>Feedback offen.</b> <span class="body">Bouldern Volumen (Dienstag) ist erledigt, aber ohne Rückmeldung. <a href="s3-einheit.html?typ=klettern">Jetzt nachtragen</a></span></div>
+  </div>
+
+  <div class="card only-empty" style="margin-top:var(--space-4)">
+    <div class="empty">
+      <svg class="ic"><use href="#i-calendar"/></svg>
+      <div><b>Noch kein Plan für diese Woche.</b></div>
+      <div class="small">Der Wochenplan entsteht im Projekt-Chat und wird nach Deiner Bestätigung hier eingetragen. Check-ins kannst Du trotzdem erfassen.</div>
+      <a class="btn btn-secondary" href="s4-checkin.html">Check-in für heute</a>
+    </div>
+  </div>
+
+  <div class="days grid7 has-data">
+    <section class="day">
+      <div class="day-head"><div class="d">Montag<small>21.09.</small></div><a class="checkin done" href="#"><svg class="ic ic-sm"><use href="#i-circle-check"/></svg>Check-in</a></div>
+      <a class="session done" href="s3-einheit.html?typ=ausdauer">
+        <div class="tile"><svg class="ic"><use href="#i-run"/></svg></div>
+        <div class="grow"><div class="t">Dauerlauf Zone 1<span class="prio">A</span></div><div class="m"><span>60 min</span><span class="typ"> · Ausdauer</span><span class="extra"> · sRPE 180</span></div></div>
+        <span class="badge badge-success status"><svg class="ic"><use href="#i-check"/></svg>erledigt</span>
+        <svg class="ic chev"><use href="#i-chevron-right"/></svg>
+      </a>
+      <a class="session done" href="s3-einheit.html?typ=kraft">
+        <div class="tile"><svg class="ic"><use href="#i-yoga"/></svg></div>
+        <div class="grow"><div class="t">Haltung Alltag<span class="prio">B</span></div><div class="m"><span>15 min</span><span class="typ"> · Haltung</span><span class="extra"> · sRPE 30</span></div></div>
+        <span class="badge badge-success status"><svg class="ic"><use href="#i-check"/></svg>erledigt</span>
+        <svg class="ic chev"><use href="#i-chevron-right"/></svg>
+      </a>
+    </section>
+
+    <section class="day">
+      <div class="day-head"><div class="d">Dienstag<small>22.09.</small></div><a class="checkin done" href="#"><svg class="ic ic-sm"><use href="#i-circle-check"/></svg>Check-in</a></div>
+      <a class="session done" href="s3-einheit.html?typ=klettern">
+        <div class="tile"><svg class="ic"><use href="#i-mountain"/></svg></div>
+        <div class="grow"><div class="t">Bouldern Volumen<span class="prio">A</span></div><div class="m"><span>90 min</span><span class="typ"> · Klettern</span><span class="extra"> · Feedback offen</span></div></div>
+        <span class="badge badge-hint status"><svg class="ic"><use href="#i-note"/></svg>Feedback</span>
+        <svg class="ic chev"><use href="#i-chevron-right"/></svg>
+      </a>
+    </section>
+
+    <section class="day">
+      <div class="day-head"><div class="d">Mittwoch<small>23.09.</small></div><a class="checkin done" href="#"><svg class="ic ic-sm"><use href="#i-circle-check"/></svg>Check-in</a></div>
+      <a class="session done" href="s3-einheit.html?typ=kraft">
+        <div class="tile"><svg class="ic"><use href="#i-barbell"/></svg></div>
+        <div class="grow"><div class="t">Ganzkörper Kraft 1<span class="prio">B</span></div><div class="m"><span>45 min</span><span class="typ"> · Kraft</span><span class="extra"> · sRPE 225</span></div></div>
+        <span class="badge badge-warning status">teilweise</span>
+        <svg class="ic chev"><use href="#i-chevron-right"/></svg>
+      </a>
+    </section>
+
+    <section class="day today">
+      <div class="day-head"><div class="d">Donnerstag<small>24.09. · heute</small></div><a class="checkin open" href="s4-checkin.html"><svg class="ic ic-sm"><use href="#i-circle-dashed"/></svg>Check-in offen</a></div>
+      <a class="session" href="s3-einheit.html?typ=ausdauer">
+        <div class="tile"><svg class="ic"><use href="#i-run"/></svg></div>
+        <div class="grow"><div class="t">Intervalle 5 × 4 min Zone 3<span class="prio">A</span></div><div class="m"><span>55 min</span><span class="typ"> · Ausdauer</span><span class="extra"> · auf der Uhr</span></div></div>
+        <span class="badge badge-neutral status">geplant</span>
+        <svg class="ic chev"><use href="#i-chevron-right"/></svg>
+      </a>
+      <a class="session" href="s3-einheit.html?typ=kraft">
+        <div class="tile"><svg class="ic"><use href="#i-stretching-2"/></svg></div>
+        <div class="grow"><div class="t">Mobilität Hüfte, Sprunggelenk<span class="prio">C</span></div><div class="m"><span>15 min</span><span class="typ"> · Mobilität</span></div></div>
+        <span class="badge badge-neutral status">geplant</span>
+        <svg class="ic chev"><use href="#i-chevron-right"/></svg>
+      </a>
+    </section>
+
+    <section class="day">
+      <div class="day-head"><div class="d">Freitag<small>25.09.</small></div><span class="checkin none">–</span></div>
+      <div class="rest"><svg class="ic"><use href="#i-zzz"/></svg>Ruhetag</div>
+    </section>
+
+    <section class="day">
+      <div class="day-head"><div class="d">Samstag<small>26.09.</small></div><span class="checkin none">–</span></div>
+      <a class="session" href="s3-einheit.html?typ=klettern">
+        <div class="tile"><svg class="ic"><use href="#i-mountain"/></svg></div>
+        <div class="grow"><div class="t">Hangboard + Limit-Bouldern<span class="prio">A</span></div><div class="m"><span>100 min</span><span class="typ"> · Klettern</span></div></div>
+        <span class="badge badge-neutral status">geplant</span>
+        <svg class="ic chev"><use href="#i-chevron-right"/></svg>
+      </a>
+    </section>
+
+    <section class="day">
+      <div class="day-head"><div class="d">Sonntag<small>27.09.</small></div><span class="checkin none">–</span></div>
+      <a class="session" href="s3-einheit.html?typ=ausdauer">
+        <div class="tile"><svg class="ic"><use href="#i-run"/></svg></div>
+        <div class="grow"><div class="t">Langer Berglauf Zone 1–2<span class="prio">A</span></div><div class="m"><span>120 min</span><span class="typ"> · Ausdauer</span><span class="extra"> · auf der Uhr</span></div></div>
+        <span class="badge badge-info status">verschoben</span>
+        <svg class="ic chev"><use href="#i-chevron-right"/></svg>
+      </a>
+    </section>
+  </div>
+</main>
+<script>
+  const s=new URLSearchParams(location.search).get('state');if(s)document.body.classList.add('st-'+s);
+</script>
+</body>
+</html>

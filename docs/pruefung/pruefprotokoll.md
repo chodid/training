@@ -77,6 +77,448 @@ noch_zu_pruefen:
     wie: Testversand in AP-10
 ```
 
+## AP-01a Design-Mockups
+
+```yaml
+ap: AP-01a
+geprueft:
+  - was: Schriften lokal eingebunden (tokens/fonts.css, fonts/*.ttf)
+    wie: automatisiert (Chromium, document.fonts auf guidelines/type-display, type-body, type-mono)
+    ergebnis: ok – Young Serif, Source Sans 3 (normal, kursiv), Source Code Pro geladen
+    datum: 2026-09-27
+  - was: Keine Verweise auf entfernte Quelldateien (uploads/) und kein Google-Fonts-Import in styles.css-Closure
+    wie: automatisiert (grep)
+    ergebnis: ok – Google Fonts nur noch in explorations/Typografie.dc.html (Schriftvergleich, dokumentiert)
+    datum: 2026-09-27
+  - was: Mockups (13 Seiten/Zustände) in 390, 834, 1112 und 1280 px – horizontaler Überlauf, fehlende Ressourcen, Konsolenfehler
+    wie: automatisiert (Chromium/Playwright, Screenshots in docs/branding/mockups/screenshots/)
+    ergebnis: ok nach Korrekturen (Icon-Laden unter file://, Kennzahl-Umbruch, 7-Spalten-Woche erst ab 1280 px, Segmentwahl im Zweispaltenlayout)
+    datum: 2026-09-27
+  - was: Sichtprüfung Smartphone und Desktop aller Screens
+    wie: manuell (Fable, anhand der Screenshots)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Abnahme der Mockups (Smartphone, Tablet, Desktop) und des Branding-Dokuments
+    wie: Sichtprüfung durch Athlet
+    ergebnis: abgenommen
+    datum: 2026-09-27
+noch_zu_pruefen:
+  - was: Word-Vorlage mit installierten variablen TTF (Source Sans 3)
+    wie: manuell durch Athlet (Brief.docx öffnen, Schriftersetzung prüfen)
+```
+
+## AP-01 MCP-Minimalserver mit OAuth
+
+```yaml
+ap: AP-01
+geprueft:
+  - was: Unit-Tests – Sperrstufen (10 Fehlversuche → 5 min, Verdopplung, max. 24 h, verkürzte Zeitbasis), Redirect-URI-Regeln (https, localhost/127.0.0.1/[::1], kein http sonst, kein Fragment/Userinfo), PKCE S256 (RFC-7636-Beispiel), Scope-Vergabe, JWT gegen SDK-JwtTokenValidator (Claims, abgelaufen, fremd signiert, falsche Audience, ohne exp), statisches Token nur mit Flag, Rücksprungziele ohne Open Redirect, Pflichtwert OAUTH_JWT_SECRET ≥ 32 Zeichen
+    wie: automatisiert (PHPUnit, lokal PHP 8.4)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Integrationstests Web – /setup legt genau einen Benutzer an und ist danach 404 (auch POST); falsches Secret, fehlendes CSRF-Token, kurzes Passwort abgelehnt; Passwort als Argon2id-Hash; Session-Cookie HttpOnly/Secure/SameSite=Lax/30 Tage, Token nur gehasht in der DB; Session überlebt "Browser-Neustart", gleitend 20+20 Tage, abgelaufen nach 31 Tagen ohne Nutzung; Abmelden nur mit CSRF-Token; 10 Fehlversuche → 5 min (auch richtiges Passwort während Sperre abgewiesen, nicht gezählt) → 10 → 20 min; Erfolg setzt Zähler und Sperre zurück; Sperre max. 24 h; falscher Anmeldename zählt; Sicherheitsheader (CSP, X-Frame-Options)
+    wie: automatisiert (PHPUnit gegen lokale MariaDB 10.11, simulierte Uhr)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Integrationstests OAuth/MCP – Metadaten (RFC 8414, Protected Resource, jeweils mit Suffix /mcp); Registrierung lehnt http:// außer localhost ab; Authorize ohne Login → Login mit Rücksprung → Freigabeseite S7 (Client-Name, Redirect-Host, Scope) → Code mit state und iss; Freigabe ohne CSRF → 403; Ablehnen → access_denied; PKCE plain und fehlende Challenge → invalid_request; unbekannter Client / nicht registrierte Redirect-URI → Fehlerseite ohne Weiterleitung; Code einmalig (auch nach falschem Verifier verbraucht), nach 10 min abgelaufen; Token-Antwort (Bearer, 3600 s, Scope); /mcp mit JWT: initialize + ping; Refresh rotiert; Wiederverwendung des alten Refresh-Tokens widerruft die Familie; /mcp ohne Token → 401 mit resource_metadata, abgelaufenes/fremd signiertes JWT → 401, keine Sitzungsdatei ohne gültiges Token; statisches Token ohne Flag / mit false → 401, mit true → ping; GET /mcp → 405
+    wie: automatisiert (PHPUnit gegen lokale MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: MCP mit echtem Client (logiscape-SDK-Client) gegen lokalen Server, Protokoll-Epochen 2026-07-28 (zustandslos) und 2025-11-25 (Handshake) – tools/list, ping
+    wie: manuell (PHP-Built-in-Server, statisches Token)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: S0, S1 (normal, Fehler, gesperrt), S7 und Startseite in 390, 834 und 1280 px – horizontaler Überlauf, Schriften, fehlende Ressourcen; Sichtvergleich mit den Mockups
+    wie: automatisiert (Chromium/Playwright) + Sichtprüfung der Screenshots (Code-Instanz)
+    ergebnis: ok – kein Überlauf, Young Serif/Source Sans 3/Source Code Pro lokal geladen, Darstellung entspricht den Mockups bis auf die in branding.md Abschnitt 8 dokumentierten Abweichungen
+    datum: 2026-09-27
+  - was: Session überlebt Browser-Neustart (gespeicherte Cookies in neuem Browser-Kontext)
+    wie: automatisiert (Playwright, lokal)
+    ergebnis: ok – Startseite 200 mit Anmeldung, Cookie 30 Tage, HttpOnly, SameSite=Lax
+    datum: 2026-09-27
+  - was: HTTP-Header lokal – Set-Cookie, CSP, X-Frame-Options, CORS-Preflight 204, Schriften als font/ttf
+    wie: manuell (curl)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: CI-Job test (PHPUnit gegen MySQL 8.4) auf allen Ständen von PR #7 bis 0.13.0
+    wie: automatisiert (GitHub Actions)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Deployment (Merge PR #7, 0.13.0): Upload per FTPS, Migration, Health-Check – /health status ok, schema code 18 = db 18, var und backups ok, PHP 8.4.25
+    wie: GitHub Actions Lauf 36386578804 + /health durch Athlet
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: /setup legt den Benutzer an
+    wie: manuell durch Athlet im Browser
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Connector in claude.ai verbunden und freigegeben (S7), Tool-Aufruf funktioniert (V-05, Web)
+    wie: manuell durch Athlet
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: .env und var/ überleben ein zweites Deployment; /setup nach Anlage gesperrt (404)
+    wie: nächstes Deployment abwarten, /health; /setup im Browser aufrufen
+  - was: Login auf Smartphone und Tablet nutzbar; Session überlebt Neustart des Browsers
+    wie: manuell durch Athlet (anmelden, Browser/App schließen, erneut öffnen)
+  - was: ping aus der Mobile-App (V-05)
+    wie: manuell durch Athlet – Claude-App, Connector aktiv, "ping aufrufen"
+  - was: Token-Refresh nach Ablauf mit claude.ai (V-05)
+    wie: manuell durch Athlet – nach mehr als 1 h erneut ping aufrufen; Erwartung ohne neuen Login
+  - was: Fallback über Claude Desktop funktioniert nur mit gesetztem Flag
+    wie: manuell durch Athlet – MCP_STATIC_TOKEN setzen, Flag false → Fehler 401; Flag true → ping; danach Flag wieder false
+  - was: Anfrage ohne Token gegen den Server → 401 mit Metadaten
+    wie: manuell (curl.exe -si -X POST https://training.gen-em.org/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{}}") → 401 und www-authenticate mit resource_metadata
+```
+
+## AP-02 Intervals.icu-Anbindung
+
+```yaml
+ap: AP-02
+geprueft:
+  - was: Client – Basic-Auth API_KEY:<key>, URL und Query (oldest/newest, category), Events anlegen/ändern/löschen mit JSON-Körper, Liste/Objekt-Prüfung der Antworten, Fehler 401/403 mit Hinweis und ohne Key in der Meldung, eine Wiederholung bei 429 (Retry-After), zweiter 429 → Fehler, Datumsformat, ungültige Athleten-ID
+    wie: automatisiert (PHPUnit, simulierter Transport)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Seite /intervals – nur nach Login; ohne Konfiguration Hinweis; mit Konfiguration Athlet, Aktivitäten, Wellness, Events; Test-Event anlegen (external_id), ändern, löschen; CSRF-Pflicht; API-Fehler als Meldung (502); /health intervals konfiguriert/nicht_konfiguriert
+    wie: automatisiert (PHPUnit gegen MariaDB, simulierter Transport)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Erreichbarkeit der echten API und Dokumentation aus der Code-Umgebung
+    wie: curl / Web-Abruf
+    ergebnis: fehler – intervals.icu durch Netzwerkrichtlinie gesperrt; Endpunkte aus Sekundärquelle (V-04 vorläufig)
+    datum: 2026-09-27
+  - was: INTERVALS_API_KEY und INTERVALS_ATHLETE_ID in der .env; /health zeigt intervals konfiguriert
+    wie: manuell durch Athlet, Deploy-Log
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Aktivitäten und Wellness der letzten 7 Tage über /intervals abrufbar (V-04 GET)
+    wie: manuell durch Athlet auf dem Server
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Test-Event über /intervals angelegt; in Intervals.icu als strukturiertes Workout übernommen: 10 min Z1, 3 × (3 min Z3, 2 min Z1), 5 min Z1, HF-Bereiche Z1 103–129 und Z3 138–145 bpm, 30 min, Load 21 (V-04 POST, V-01 Syntax in Intervals.icu)
+    wie: manuell durch Athlet, Screenshot aus Intervals.icu
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Test-Event über Garmin Connect auf der Uhr angekommen (V-01)
+    wie: manuell durch Athlet
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: Intervals.icu-Konto – Aktivitäten privat (Q-03)
+    wie: manuell durch Athlet in Intervals.icu (Einstellungen)
+  - was: Zonengrenzen des Test-Workouts auf der Uhr mit Intervals.icu vergleichen (Z1 103–129, Z3 138–145 bpm; V-12)
+    wie: manuell – auf der Uhr die Schritte des Workouts öffnen und HF-Bereiche ablesen
+  - was: Ändern und Löschen werden auf der Uhr nachgezogen (V-02)
+    wie: manuell – „Test-Event ändern“ (Name mit „(geändert)“), synchronisieren, prüfen; „Test-Event löschen“, synchronisieren, prüfen; Zeitverzug notieren
+  - was: V-03 Feldsemantik icu_rpe (Skala) und feel (Richtung 1–5)
+    wie: manuell – nach einer Aktivität RPE und Feel in Intervals.icu setzen, in /intervals ablesen und mit der Eingabe vergleichen
+  - was: V-09 Kraftaktivität von der Uhr (Typ, Dauer, HF)
+    wie: manuell – Krafttraining auf der Uhr aufzeichnen, in /intervals Typ und Dauer ablesen
+```
+
+## AP-03 Datenmodell
+
+```yaml
+ap: AP-03
+geprueft:
+  - was: Migrationen 0001–0014 von leer, zweiter Lauf ohne Änderung (idempotent), alle Tabellen vorhanden
+    wie: automatisiert (PHPUnit gegen MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Beispielwoche mit allen sechs Einheitentypen (kraft, ausdauer, klettern, haltung, mobilitaet, ruhe) validiert und eingefügt; JSON bleibt erhalten, Ruhetag ohne Plan
+    wie: automatisiert (Fixture beispielwoche.json)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: JSON-Validierung lehnt fehlerhafte Pläne ab (leere Übungsliste, Sätze 0, reps als Zahl, unbekanntes Feld, falscher Griff/Blocktyp/Zieltyp, fehlender Workout-Text, Ruhetag mit Übungen, unbekannter Typ, kein Objekt); actual_json erlaubt Teilangaben, lehnt falsche Typen ab
+    wie: automatisiert (PHPUnit)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Datenbank weist ab – ungültige ENUM-Werte (Ort, Seite, Typ, Status), Bereiche (RPE 11, Feel 0, Erholung 6, Schmerz 11), zweites Check-in am selben Tag, zweite Durchführung je Einheit, Schreiben von srpe_load, Enddatum vor Startdatum, ungültiges JSON; srpe_load = 6 × 55 = 330
+    wie: automatisiert (PHPUnit gegen MariaDB 10.11, strikter Modus)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Löschen – Woche entfernt Einheiten und Durchführungen, Schmerzereignis bleibt (session_id NULL), Block mit Wochen nicht löschbar
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: ER-Diagramm rendert
+    wie: automatisiert (Mermaid 11 im Browser)
+    ergebnis: ok
+    datum: 2026-09-27
+  - was: Migrationen und Constraints gegen MySQL 8.4 (CHECK, berechnete Spalte, JSON)
+    wie: automatisiert (CI-Job test, PR #7, Lauf 16)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Migration auf dem Server bis Schema 18, /health schema code 18 = db 18
+    wie: Deployment nach Merge PR #7, /health
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen: []
+```
+
+## AP-04 Webseite
+
+```yaml
+ap: AP-04
+geprueft:
+  - was: Seiten nur nach Login (Weiterleitung mit Rücksprung); Woche mit allen sechs Typen, KW, Block/Woche, heute, Check-in-Status, Leerzustand, ±Woche
+    wie: automatisiert (PHPUnit gegen MariaDB, simulierte Uhr)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Krafteinheit mit Ist-Werten abschließen (Soll vorbelegt, geänderte Last, 0 Sätze), RPE/Gefühl/Dauer, Schmerz, Abweichung → session_execution (sRPE 7 × 55 = 385), session.status, pain_event, audit_log; erneutes Öffnen zeigt gespeicherte Werte
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Validierung – fehlende Pflichtwerte, ungültige Ist-Werte, unvollständige Schmerzangabe → 422 mit Meldungen, Eingaben bleiben erhalten, nichts gespeichert; CSRF → 403; ausgelassen ohne RPE; Ruhetag/unbekannte Einheit → 404
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Ausdauereinheit mit verknüpfter Aktivität (paired_event_id) – Dauer, Distanz, Ø HF, Zonen, Link; Dauer vorbelegt; Woche zeigt „Aktivität vorhanden“; Cache verhindert zweiten Abruf
+    wie: automatisiert (simulierter Intervals.icu-Transport)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Check-in anlegen und überschreiben (ein Eintrag pro Tag), mit Schmerz; Zukunftsdatum → heute; ungültige Werte → 422; Schmerzformular mit Einheit, Hinweis bei dritter Meldung
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Einstellungen – Zeitzone, Passwort (falsches aktuelles → 422; Erfolg beendet andere Sessions), Freigabe widerrufen, Audit-Log-Einträge
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Browser-Durchlauf lokal (Setup → Woche → Einheit speichern mit Schmerz → Check-in → Schmerz mit Hinweis → Einstellungen → Verlauf) in 390, 834, 1112 und 1280 px – kein horizontaler Überlauf, keine Konsolenfehler, Schmerz-Kurzform klappt ohne JavaScript auf, Manifest als application/manifest+json
+    wie: automatisiert (Chromium/Playwright) + Sichtvergleich mit den Mockups (Code-Instanz)
+    ergebnis: ok – Abweichungen in branding.md Abschnitt 8
+    datum: 2026-09-28
+  - was: Check-in-Dauer
+    wie: automatisiert (Playwright, zwei Auswahlen + Speichern)
+    ergebnis: ok – 0,2 s ohne Bedienzeit; realistische Bedienung ≤ 10 s durch Athlet zu bestätigen
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: Auf Smartphone und Tablet – Woche sehen, Krafteinheit mit Ist-Werten abschließen, Feedback und Schmerzereignis erfassen, Check-in in ≤ 10 s
+    wie: manuell durch Athlet nach Deployment (Planwoche vorher per SQL oder ab AP-05 per Claude anlegen)
+  - was: Alles in der DB nachvollziehbar
+    wie: manuell (phpMyAdmin bei Lima-City – session_execution, pain_event, checkin, audit_log)
+  - was: Ausdauereinheit der Woche mit verknüpfter Aktivität sichtbar (echte Intervals.icu-Daten, Feldnamen V-04)
+    wie: manuell durch Athlet nach AP-02-Einrichtung – Ausdauereinheit mit intervals_event_id des Test-Events anlegen, Aktivität aufzeichnen, /einheit öffnen
+  - was: „Zum Startbildschirm“ auf dem Smartphone (Icon, Name, Farben)
+    wie: manuell durch Athlet
+```
+
+## AP-09 Betrieb und Optionen
+
+```yaml
+ap: AP-09
+geprueft:
+  - was: JSON-Export – Format, Schemastand, JSON-Spalten als Objekte (Sonderzeichen), ohne Passwort-Hash/Sessions/Tokens, srpe_load enthalten, Audit-Log
+    wie: automatisiert (PHPUnit gegen MariaDB)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Verlauf S6 – Wochenlast je Bereich (Kraft 5 × 60 = 300, Klettern 6 × 90 = 540), gemeinsame Achse (600), Balkenhöhe, Schmerz-Raster mit stärkster Meldung je Woche und Hinweistext, Tabelle mit Summe, Check-in und Schmerz
+    wie: automatisiert + Browser 390/1280 px (kein Überlauf, Sichtvergleich mit Mockup)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Spiegel – read-through speichert Zusammenfassung ohne Streams, zweiter Abruf innerhalb von 5 min ohne API, Rückfall auf Spiegel bei HTTP 500 mit Hinweis, Lesen ohne Konfiguration
+    wie: automatisiert (PHPUnit, simulierte API)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Cron-Abgleich – Schlüsselprüfung, Zeitraum (tage), Wellness nur bekannte Felder, gelöschte Aktivität entfernt, Status in Einstellungen, Fehlerfall 502 mit Anzeige, ohne Intervals-Konfiguration 503; Spiegel in SQL-Backup enthalten
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Feedback-Rückschreiben – RPE/Gefühl per PUT auf die zugeordnete Aktivität, Notiz als Kommentar, kein Doppelkommentar bei gleicher Notiz, RPE 0 nicht übertragen, Fehler → Rückmeldung gespeichert und Hinweis
+    wie: automatisiert (simulierte API)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Einstellungsseite bei veraltetem Schema erreichbar (Regression gefunden und behoben)
+    wie: automatisiert (Schreibsperren-Test mit allgemeinem Zurücksetzen der letzten Migration)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Passkey – Anlegen nur angemeldet mit CSRF-Header, Anmelden mit Rücksprungziel, Signaturzähler, Wiederholung derselben Antwort, fremder Schlüssel mit gleicher ID, falscher Origin, abgelaufene Challenge (> 5 min) → 401; Anmeldung hebt Passwort-Sperre auf; Entfernen; Login-Knopf nur mit angelegtem Passkey; nicht im JSON-Export
+    wie: automatisiert (PHPUnit mit Software-Authenticator ES256)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Passkey im Browser – Anlegen in den Einstellungen, Abmelden, „Mit Passkey anmelden“ mit Rücksprung auf /verlauf; Darstellung 390 px
+    wie: Chromium mit virtuellem Authenticator (CDP WebAuthn)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Athletenprofil MCP – leeres Profil mit Hinweis, update_athlete_profile legt Fassung an, gleicher Text (auch mit CRLF/Leerraum) keine Fassung, Abschnitt einzeln, as_of (Stand am Tagesende in Zeitzone des Athleten), include_history (neueste zuerst, nur mit section), unbekannter Abschnitt/Datum/zu lang → Fehler, Audit-Log, Schreibsperre
+    wie: automatisiert (PHPUnit über /mcp)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Athletenprofil Web – Übersicht leer/gefüllt, Bearbeiten mit Grund, HTML wird escaped, CSRF, Konflikt bei zwischenzeitlicher Änderung durch Claude (409, eigener Text bleibt, nichts überschrieben), unverändert, zu lang (422), Fassungen, unbekannter Abschnitt 404, Login nötig, Zusammenfassung in Einstellungen
+    wie: automatisiert + Browser 390/1280 px (kein Überlauf)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Offline Server – Stand-Feld in Check-in/Einheit, Konflikt 409 mit erhaltenen Eingaben und ohne Überschreiben, erneutes Speichern mit aktuellem Stand übernimmt; X-Offline-Queue → 204/401/409/422 (Schmerz mit Warnhinweis 204); /offline/token mit und ohne Sitzung; offline_erfasst als performed_at (unplausibel alt → ignoriert); Vorladeliste nur in der aktuellen Woche, ohne Ruhetag; Skript in beiden Layouts
+    wie: automatisiert (PHPUnit)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Offline Browser – Service Worker übernimmt, Vorladen (14 Seiten: 2 Wochen, Check-in/Schmerz heute, alle Einheiten), bei gestopptem Server Einheit aus dem Speicher mit Hinweis, nicht gespeicherte Seite → Hinweisseite, Check-in/Rückmeldung/Schmerz offline gepuffert, nach Serverstart automatisch gesendet; Einheit am „Rechner“ geändert → Konflikt-Hinweis, „Trotzdem übernehmen“ sendet ohne Stand; Sitzung weg → „wartet auf Anmeldung“, Login-Seite löscht gespeicherte Seiten, nach Login gesendet; ungültige Eingabe → „nicht übernommen“; Darstellung 390 px
+    wie: Chromium/Playwright mit echtem Netzfehler (lokaler Server gestoppt; Playwrights Offline-Schalter erfasst den Service Worker nicht)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Cronjob /cron/intervals-sync bei Lima-City eingerichtet, Aufruf liefert status ok
+    wie: manuell durch Athlet
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Passkey auf echtem Gerät angelegt und damit angemeldet
+    wie: manuell durch Athlet auf training.gen-em.org
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Offline auf echtem Gerät (Flugmodus): Seiten lesbar, Eingabe gepuffert und nach Netzrückkehr übernommen
+    wie: manuell durch Athlet auf training.gen-em.org
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: JSON-Export herunterladen und in einem Editor/Programm öffnen
+    wie: manuell durch Athlet
+  - was: Einstellungen zeigen Anzahl und letzten Abgleich des Spiegels; einmalig tage=365 für die Vorgeschichte
+    wie: manuell durch Athlet
+  - was: Rückschreiben mit echtem Konto (V-03/V-04) – nach Rückmeldung zu einer Einheit mit Aktivität in Intervals.icu RPE, Gefühl (Richtung!) und Kommentar prüfen
+    wie: manuell durch Athlet
+  - was: Passkey entfernen; weitere Geräte; Passwort-Login funktioniert weiter
+    wie: manuell durch Athlet
+  - was: Athletenprofil – in AP-08 von Claude über update_athlete_profile befüllen lassen; auf /profil lesen, einen Abschnitt korrigieren, frühere Fassung ansehen; in Claude get_athlete_profile mit as_of prüfen
+    wie: manuell durch Athlet (nach Migration auf Schema 18; Connector ggf. neu verbinden, damit das neue Tool erscheint)
+  - was: Offline-Konflikt auf echtem Gerät (Eintrag am Rechner ändern) und „Trotzdem übernehmen“
+    wie: manuell durch Athlet
+  - was: Verlauf mit echten Daten nach einigen Wochen Nutzung
+    wie: manuell durch Athlet
+```
+
+## AP-10 Backup und Update-Mechanik
+
+```yaml
+ap: AP-10
+geprueft:
+  - was: Verschlüsselung OpenSSL-kompatibel – mit PHP verschlüsselte Datei per openssl 3.0 CLI entschlüsselt (richtiges Passwort ok, falsches "bad decrypt")
+    wie: manuell (Code-Instanz, openssl enc -d …) und automatisiert im Restore-Test
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Restore-Test – Beispieldaten (Block, Woche, Einheit mit Sonderzeichen/Semikolon/Anführungszeichen im JSON, Durchführung, Schmerz, Check-in, Audit-Log, Benutzer) sichern, mit openssl-CLI entschlüsseln, gunzip, alle Tabellen löschen, Dump einspielen → Daten identisch, Schemastand 14, Sessions/Tokens leer, srpe_load neu berechnet
+    wie: automatisiert (PHPUnit gegen MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Pre-Migration-Dump vor ausstehender Migration (Name mit altem Schemastand), kein Dump ohne ausstehende Migration, Rotation auf 5 Dateien
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Fehlgeschlagener Dump verhindert Migration – zu kurzes Passwort, Backup-Ordner nicht anlegbar; /admin/migrate antwortet 500 „keine Migration ausgeführt“, Schemastand unverändert
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Schreibsperre – Datenbank einen Stand zurück → Hinweis auf allen Seiten, Check-in und Zeitzone 503 ohne Speichern; Migrationsknopf legt Dump an und behebt die Abweichung; danach Speichern möglich
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Download aus den Einstellungen (Dateiname, Content-Type, entschlüsselbar, Audit-Log, CSRF)
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Schreibsperre für MCP-Schreibtools (upsert_block bei Abweichung → Fehler „Update erforderlich“)
+    wie: automatisiert (McpToolsTest, AP-05)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Cron-Endpunkt – ohne Secret 503, falscher Schlüssel 403, Versand mit Anhang und Anleitung, Intervall (übersprungen), force, Fehler gespeichert und in Woche/Einstellungen angezeigt
+    wie: automatisiert (simulierter Mailer)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: BACKUP_PASSWORD in der .env; /health backups ok
+    wie: Deploy-Log
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Backup per E-Mail: Test-Mail mit Anhang kam an (21 KB), Cronjob täglich eingerichtet
+    wie: manuell durch Athlet (/cron/backup-mail?…&force=1)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Backup aus der Mail (Schema 18, Anlass mail) außerhalb des Servers mit openssl entschlüsselt: kein bad decrypt, gzip-Prüfsumme ok, SQL-Dump mit allen 18 Tabellen, Sessions/Tokens nur als Struktur
+    wie: openssl enc -d (README) in der Code-Umgebung mit vom Athleten übermitteltem Passwort; entschlüsselte Kopie danach gelöscht
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: Pre-Migration-Dump in backups/ vorhanden
+    wie: manuell (FTP)
+  - was: Dump in eine leere Test-DB einspielbar (Abnahmekriterium Restore)
+    wie: manuell durch Athlet – gunzip, Import in eine leere Test-DB bei Lima-City
+  - was: Neues BACKUP_PASSWORD (das alte wurde im Chat übermittelt) – eintragen, sicher ablegen, ein neues Backup selbst entschlüsseln; altes Passwort für ältere Backups aufbewahren
+    wie: manuell durch Athlet
+```
+
+## AP-11 Kalender (CalDAV)
+
+```yaml
+ap: AP-11
+geprueft:
+  - was: Wochenplan → Termine je Einheit ohne Ruhetag (PUT mit Basic-Auth an CALDAV_URL), update_session (Datum, erledigt → „✓“), Rückmeldung „ausgelassen“ auf der Webseite → STATUS:CANCELLED, Woche ersetzen → ersetzte Termine gelöscht, neue angelegt
+    wie: automatisiert (PHPUnit, simulierter CalDAV-Server)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Fehler (HTTP 401, Netz weg) – Einheit bleibt gespeichert, fehler_kalender mit Hinweis, Audit calendar_error, Anzeige in den Einstellungen; stündlicher Abgleich überträgt nach und löscht verwaiste eigene Termine, fremde bleiben; Knopf „Abgleichen“ mit Anzahl bzw. Fehlermeldung
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Ohne Konfiguration keine Anfragen; http-URL → Kalender aus, Schreib-Tools laufen, /health ungueltig_kein_https, Hinweis in den Einstellungen; Cron ohne Intervals und ohne Kalender 503
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: iCalendar – ganztägig (DTSTART/DTEND VALUE=DATE), UID, Escaping von ; , Zeilenumbruch, Zeilen ≤ 75 Oktette ohne geteilte UTF-8-Zeichen, Beschreibung mit Kurzplan und Link
+    wie: automatisiert (Unit-Test)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Echter CalDAV-Server – Anlegen, Ersetzen (✓ im Titel), REPORT mit Zeitraum (nur passende Termine), Löschen (auch doppelt), iCalendar vom Server angenommen
+    wie: Rauchtest gegen Radicale 3.8 (lokal, http nur für den Test)
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: Nextcloud – Kalender „Training“ und App-Passwort anlegen, CALDAV_* in die .env, Einstellungen → „Abgleichen“; Termine im Nextcloud-Web und auf dem Handy sichtbar
+    wie: manuell durch Athlet
+  - was: Änderung aus Claude (update_session, Status) erscheint im Kalender; Rückmeldung auf der Webseite setzt „✓“
+    wie: manuell durch Athlet
+```
+
+## AP-05 MCP-Tools produktiv
+
+```yaml
+ap: AP-05
+geprueft:
+  - was: tools/list enthält alle zehn Tools; Scope training:read darf lesen, aber nicht schreiben (Fehler mit Hinweis auf training:write)
+    wie: automatisiert (PHPUnit über /mcp)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: write_week_plan – ohne Block abgelehnt; ungültige Einheiten (Datum außerhalb der Woche, Plan ohne Workout-Text) → nichts geschrieben, alle Fehler gemeldet; gültiger Plan mit Kraft, zwei Ausdauer (Sportart TrailRun), Ruhetag → DB, Woche bestätigt, Events 5001/5002 mit external_id, Dauer und Sportart; zweites Schreiben ohne replace_existing abgelehnt
+    wie: automatisiert (simulierte Intervals-API)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: get_week_overview – Block, sRPE je Typ, Compliance, Abweichung, Aktivität per paired_event_id (Zonen in Minuten, Load), Aktivität ohne Plan, Schmerz der Woche, Check-in-Abdeckung, Form (CTL−ATL), Skalen; Antwort < 8 000 Zeichen
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: update_session – Verschieben aktualisiert Event (neues Datum), unbekannte Felder/Woche ohne Plan abgelehnt, „ausgelassen“ löscht Event; replace_existing behält Einheit mit Rückmeldung, ersetzt geplante (Event gelöscht); Intervals-Fehler 500 → Einheit bleibt ohne Event, status teilweise, audit_log intervals_error; erneuter Sync legt Event an
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: get_block, get_pain_history (Trend steigend), get_wellness_trend (Tageswerte, Baseline), get_athlete_profile (ohne/mit Profildatei), get_session_detail unbekannt → Fehler; Schreibsperre
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Audit-Log vollständig für MCP-Schreibzugriffe (block_create, week_plan_write, intervals_event_create …)
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Echter MCP-Client (logiscape SDK) in der zustandslosen Revision 2026-07-28 – tools/list, get_week_overview, write_week_plan mit verschachtelten Argumenten
+    wie: manuell (lokaler Server, statisches Token)
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: Aus dem Projekt-Chat Wochenübersicht abrufen (≤ 2 000 Tokens) mit echten Daten
+    wie: manuell durch Athlet nach Deployment und Connector-Freigabe
+  - was: Wochenplan schreiben → Einheiten in DB (Webseite /woche), Ausdauer-Events in Intervals.icu und auf der Uhr
+    wie: manuell – zuerst upsert_block, dann write_week_plan für eine Testwoche; Webseite, Intervals-Kalender und Uhr prüfen; danach Testwoche per update_session/replace_existing bereinigen
+  - was: Intervals-Feldnamen (ctl, atl, hrv, restingHR, sleepSecs, icu_training_load, paired_event_id) mit echten Daten
+    wie: manuell – get_week_overview/get_wellness_trend mit Werten in Intervals.icu vergleichen
+```
+
 ## AP-06 Wissensbasis (übernommen aus Konzept)
 
 ```yaml

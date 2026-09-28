@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://training.gen-em.org/schemas/actual-kraft_oder_haltung.json",
+  "title": "actual_json kraft/haltung/mobilitaet (Konzept 7.1) – Ist-Werte, fehlende Felder = wie geplant",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "exercises": {
+      "type": "array",
+      "maxItems": 30,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "sets": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 20
+          },
+          "reps": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20,
+            "description": "z. B. \"8\", \"6-8\" oder \"30s\""
+          },
+          "load": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 40,
+            "description": "z. B. \"20 kg\", \"KG\", \"Band grün\""
+          },
+          "tempo": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 20
+          },
+          "rest_s": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 900
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 500
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 1000
+    }
+  }
+}

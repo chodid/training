@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://training.gen-em.org/schemas/actual-klettern.json",
+  "title": "actual_json klettern (Konzept 7.1) – Ist-Werte, fehlende Felder = wie geplant",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "blocks": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": [
+              "hangboard",
+              "campus",
+              "bouldern_volumen",
+              "bouldern_limit",
+              "ausdauer_route",
+              "technik",
+              "zugkraft",
+              "antagonisten"
+            ]
+          },
+          "spezifitaet": {
+            "enum": [
+              "spezifisch",
+              "halbspezifisch",
+              "unspezifisch",
+              null
+            ]
+          },
+          "edge_mm": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 4,
+            "maximum": 60
+          },
+          "grip": {
+            "enum": [
+              "halbkrimp",
+              "offen",
+              "vollkrimp",
+              "zange",
+              null
+            ]
+          },
+          "hang_s": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 120
+          },
+          "rest_s": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 900
+          },
+          "sets": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 30
+          },
+          "added_load_kg": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": -80,
+            "maximum": 80,
+            "description": "negativ = Entlastung"
+          },
+          "duration_min": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 300
+          },
+          "target": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 200
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 500
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 1000
+    }
+  }
+}

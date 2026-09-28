@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Verlauf – Training</title>
+<link rel="icon" href="../chadid-design-system/assets/logo/lama-symbol-kopf.svg">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+</head>
+<body class="app">
+<header class="topbar">
+  <a class="brand" href="s2-woche.html"><img src="../chadid-design-system/assets/logo/lama-symbol-kopf.svg" alt=""><span>Training</span></a>
+  <h1 class="hide-mobile">Verlauf</h1>
+  <div class="topbar-actions"><a class="btn btn-ghost" href="#tabelle"><svg class="ic"><use href="#i-table"/></svg><span class="hide-mobile">Als Tabelle</span></a></div>
+</header>
+
+<nav class="nav" aria-label="Hauptnavigation">
+  <a class="nav-brand" href="s2-woche.html"><img src="../chadid-design-system/assets/logo/lama-symbol-kopf.svg" alt=""><span class="brand"><span>Training</span></span></a>
+  <a href="s2-woche.html"><svg class="ic"><use href="#i-calendar-week"/></svg>Woche</a>
+  <a href="s4-checkin.html"><svg class="ic"><use href="#i-checkup-list"/></svg>Check-in</a>
+  <a href="s6-verlauf.html" aria-current="page"><svg class="ic"><use href="#i-chart-line"/></svg>Verlauf</a>
+  <a href="s8-einstellungen.html"><svg class="ic"><use href="#i-settings"/></svg>Einstellungen</a>
+  <div class="nav-foot">philipp · Block 2, Woche 6</div>
+</nav>
+
+<main class="main wide stack-lg">
+  <!-- S6 Verlauf (AP-09): sRPE-Wochenlast je Typ als kleine Vielfache (eine Achse, eine Farbe), Schmerz je Ort als Raster mit sequenzieller Pflaume-Skala -->
+  <div class="page-head">
+    <div class="eyebrow">Letzte 8 Wochen · KW 32–39</div>
+    <h1>Verlauf</h1>
+  </div>
+
+  <div class="tiles">
+    <div class="stat"><div class="l">sRPE diese Woche</div><div class="v">975 <small>bis Donnerstag</small></div></div>
+    <div class="stat"><div class="l">sRPE Vorwoche</div><div class="v">2 100</div></div>
+    <div class="stat"><div class="l">Check-in-Abdeckung</div><div class="v">89 <small>%</small></div></div>
+    <div class="stat"><div class="l">Schmerzereignisse</div><div class="v">9 <small>in 8 Wochen</small></div></div>
+  </div>
+
+  <section>
+    <div class="section-title"><h2>Wochenlast (sRPE) je Bereich</h2><span class="hint">gleiche Achse, 0 – 900</span></div>
+    <div class="card">
+      <div class="multiples">
+        <div class="chart">
+          <div class="title"><svg class="ic ic-sm" style="color:var(--plum-600)"><use href="#i-run"/></svg><b>Ausdauer</b><span class="muted">Ø 708</span></div>
+          <div class="bars"><i style="height:69%" data-v="620"></i><i style="height:76%" data-v="680"></i><i style="height:80%" data-v="720"></i><i style="height:60%" data-v="540"></i><i style="height:87%" data-v="780"></i><i style="height:91%" data-v="820"></i><i style="height:96%" data-v="860"></i><i class="cur" style="height:71%" data-v="640"></i></div>
+          <div class="xaxis"><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span></div>
+          <div class="end">KW 39: 640 (bis Do)</div>
+        </div>
+        <div class="chart">
+          <div class="title"><svg class="ic ic-sm" style="color:var(--plum-600)"><use href="#i-mountain"/></svg><b>Klettern</b><span class="muted">Ø 545</span></div>
+          <div class="bars"><i style="height:58%" data-v="520"></i><i style="height:62%" data-v="560"></i><i style="height:53%" data-v="480"></i><i style="height:40%" data-v="360"></i><i style="height:67%" data-v="600"></i><i style="height:71%" data-v="640"></i><i style="height:73%" data-v="660"></i><i class="cur" style="height:60%" data-v="540"></i></div>
+          <div class="xaxis"><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span></div>
+          <div class="end">KW 39: 540</div>
+        </div>
+        <div class="chart">
+          <div class="title"><svg class="ic ic-sm" style="color:var(--plum-600)"><use href="#i-barbell"/></svg><b>Kraft</b><span class="muted">Ø 388</span></div>
+          <div class="bars"><i style="height:42%" data-v="380"></i><i style="height:44%" data-v="400"></i><i style="height:47%" data-v="420"></i><i style="height:33%" data-v="300"></i><i style="height:49%" data-v="440"></i><i style="height:50%" data-v="450"></i><i style="height:51%" data-v="460"></i><i class="cur" style="height:28%" data-v="255"></i></div>
+          <div class="xaxis"><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span></div>
+          <div class="end">KW 39: 255</div>
+        </div>
+        <div class="chart">
+          <div class="title"><svg class="ic ic-sm" style="color:var(--plum-600)"><use href="#i-yoga"/></svg><b>Haltung, Mobilität</b><span class="muted">Ø 75</span></div>
+          <div class="bars"><i style="height:7%" data-v="60"></i><i style="height:7%" data-v="60"></i><i style="height:10%" data-v="90"></i><i style="height:7%" data-v="60"></i><i style="height:10%" data-v="90"></i><i style="height:10%" data-v="90"></i><i style="height:13%" data-v="120"></i><i class="cur" style="height:3%" data-v="30"></i></div>
+          <div class="xaxis"><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span></div>
+          <div class="end">KW 39: 30</div>
+        </div>
+      </div>
+      <p class="hint" style="margin-top:var(--space-4)">KW 35 war die Entlastungswoche. Die laufende Woche (dunkler) ist unvollständig. Werte beim Berühren, vollständig in der <a href="#tabelle">Tabelle</a>.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><h2>Schmerz je Ort</h2><span class="hint">stärkste Meldung der Woche, 0–10</span></div>
+    <div class="card">
+      <div class="heat" role="table" aria-label="Schmerz je Ort und Woche">
+        <span></span><span class="ch">32</span><span class="ch">33</span><span class="ch">34</span><span class="ch">35</span><span class="ch">36</span><span class="ch">37</span><span class="ch">38</span><span class="ch">39</span>
+        <span class="rl">Schulter links</span><span class="c"></span><span class="c"></span><span class="c" data-i="2" data-t="KW 34: 2, danach"></span><span class="c"></span><span class="c" data-i="3" data-t="KW 36: 3, nächster Morgen"></span><span class="c" data-i="3" data-t="KW 37: 3, danach"></span><span class="c" data-i="4" data-t="KW 38: 4, während"></span><span class="c" data-i="4" data-t="KW 39: 4, danach"></span>
+        <span class="rl">Finger, Ringband rechts</span><span class="c" data-i="5" data-t="KW 32: 5, während"></span><span class="c" data-i="3" data-t="KW 33: 3, nächster Morgen"></span><span class="c" data-i="2" data-t="KW 34: 2, in Ruhe"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span>
+        <span class="rl">Ellbogen innen rechts</span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c" data-i="2" data-t="KW 37: 2, danach"></span><span class="c"></span><span class="c"></span>
+        <span class="rl">Knie links</span><span class="c" data-i="1" data-t="KW 32: 1, während"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span>
+        <span class="rl">Achillessehne rechts</span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c" data-i="2" data-t="KW 36: 2, nächster Morgen"></span><span class="c" data-i="2" data-t="KW 37: 2, nächster Morgen"></span><span class="c"></span><span class="c"></span>
+      </div>
+      <div class="heat-scale"><span>0</span><i style="background:var(--bg-page);border:1px solid var(--border-subtle)"></i><i style="background:var(--plum-100)"></i><i style="background:var(--plum-200)"></i><i style="background:var(--plum-400)"></i><i style="background:var(--plum-600)"></i><i style="background:var(--plum-800)"></i><span>10</span></div>
+      <div class="alert alert-hint" style="margin-top:var(--space-4)">
+        <svg class="ic"><use href="#i-info-circle"/></svg>
+        <div><b>Schulter links steigt seit vier Wochen.</b> <span class="body">Trend ist in der Wochenplanung sichtbar; die Schmerzregel (Abschnitt 14) greift ab drei Meldungen in 14 Tagen.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tabelle">
+    <div class="section-title"><h2>Tabelle</h2><span class="hint">alle Werte, auch für Kopie und Druck</span></div>
+    <div class="card" style="overflow-x:auto">
+      <table class="plan-table mono" style="min-width:560px">
+        <thead><tr><th>KW</th><th>Ausdauer</th><th>Klettern</th><th>Kraft</th><th>Haltung</th><th>Summe</th><th>Check-in</th><th>Schmerz</th></tr></thead>
+        <tbody>
+          <tr><td>32</td><td>620</td><td>520</td><td>380</td><td>60</td><td>1 580</td><td>7/7</td><td>2</td></tr>
+          <tr><td>33</td><td>680</td><td>560</td><td>400</td><td>60</td><td>1 700</td><td>6/7</td><td>1</td></tr>
+          <tr><td>34</td><td>720</td><td>480</td><td>420</td><td>90</td><td>1 710</td><td>7/7</td><td>2</td></tr>
+          <tr><td>35</td><td>540</td><td>360</td><td>300</td><td>60</td><td>1 260</td><td>5/7</td><td>0</td></tr>
+          <tr><td>36</td><td>780</td><td>600</td><td>440</td><td>90</td><td>1 910</td><td>7/7</td><td>2</td></tr>
+          <tr><td>37</td><td>820</td><td>640</td><td>450</td><td>90</td><td>2 000</td><td>6/7</td><td>3</td></tr>
+          <tr><td>38</td><td>860</td><td>660</td><td>460</td><td>120</td><td>2 100</td><td>7/7</td><td>1</td></tr>
+          <tr><td>39</td><td>640</td><td>540</td><td>255</td><td>30</td><td>975</td><td>3/4</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+</body>
+</html>

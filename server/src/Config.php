@@ -9,7 +9,7 @@ namespace Training;
  */
 final class Config
 {
-    /** Pflichtwerte für den Betrieb; weitere kommen mit AP-01, AP-02 und AP-10. */
+    /** Pflichtwerte für den Betrieb; weitere kommen mit AP-02 und AP-10. */
     public const REQUIRED = [
         'APP_URL',
         'DB_HOST',
@@ -17,6 +17,14 @@ final class Config
         'DB_USER',
         'DB_PASSWORD',
         'MIGRATION_SECRET',
+        'OAUTH_JWT_SECRET',
+        'BACKUP_PASSWORD',
+    ];
+
+    /** Mindestlänge für Secrets (D-32); kürzere Werte gelten als fehlend, der Start wird verweigert. */
+    public const MIN_LENGTH = [
+        'OAUTH_JWT_SECRET' => 32,
+        'BACKUP_PASSWORD' => 16,
     ];
 
     /** @param array<string, string> $values */
@@ -38,6 +46,15 @@ final class Config
         $missing = array_values(array_filter($required, static fn (string $key): bool => ($values[$key] ?? '') === ''));
         if ($missing !== []) {
             throw new ConfigException('Pflichtwerte in .env fehlen: ' . implode(', ', $missing), $missing);
+        }
+        $tooShort = [];
+        foreach (self::MIN_LENGTH as $key => $min) {
+            if (in_array($key, $required, true) && strlen($values[$key] ?? '') < $min) {
+                $tooShort[] = $key;
+            }
+        }
+        if ($tooShort !== []) {
+            throw new ConfigException('Werte in .env zu kurz (OAUTH_JWT_SECRET mind. 32, BACKUP_PASSWORD mind. 16 Zeichen): ' . implode(', ', $tooShort), $tooShort);
         }
 
         return new self($values);
@@ -93,6 +110,11 @@ final class Config
         $value = $this->values[$key] ?? '';
 
         return $value === '' ? $default : $value;
+    }
+
+    public function bool(string $key): bool
+    {
+        return in_array(strtolower((string) $this->get($key, '')), ['1', 'true', 'yes', 'on'], true);
     }
 
     public function require(string $key): string
