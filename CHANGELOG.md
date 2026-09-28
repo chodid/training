@@ -4,6 +4,24 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.17.0] – 2026-09-28
+
+AP-13: App-Icon und Logo (D-55, D-59) – Auftrag `docs/konzept/gefuehrte-einheit.md`, Unterpunkt T1.
+
+### Hinzugefügt
+- App-Icon „ganzes Lama“ (D-59): V3 (Fläche hell auf Pflaume 600) als PNG 48, 96, 192, 512 (`any`), 512 `maskable` und `apple-touch-icon` 180; V2 (Fläche Pflaume auf Papier) als SVG-Favicon und `favicon.ico` (16/32/48) im Docroot. Das Skript `docs/branding/build-icons.cjs` (Playwright/Chromium) rendert den Satz aus `docs/branding/mockups/icon-optionen/`; das Ergebnis ist eingecheckt, weil der Server kein SVG rendern kann.
+- Login, Setup und Freigabeseite tragen jetzt wie die App-Seiten Manifest, PNG-Icons mit Größenangabe, `apple-touch-icon` und `theme-color` (gemeinsamer Kopfteil `_head_icons.php`). „Zum Startbildschirm“ zeigt damit auch in LibreWolf/Firefox (Verknüpfung über die Seiten-Icons) und von der Login-Seite aus das Logo.
+- Manifest mit `id` und `description`, getrennte Einträge `any`/`maskable`.
+- `.htaccess`: `image/x-icon` für `.ico`, Icons und Favicon 7 Tage im Browser-Cache. Service Worker liefert `/favicon.ico` wie das Manifest aus dem Versions-Cache. Der Dev-Router setzt für `.ico` und `.webmanifest` dieselben Content-Types wie Apache.
+- Skript `docs/branding/mockups/screenshots.cjs` erzeugt die Mockup-Screenshots neu (und prüft Überlauf, fehlende Ressourcen, Skriptfehler).
+- Tests: Manifest (JSON, jede Datei vorhanden, `sizes` = PNG-Kopf), Kopfteil-Links, `favicon.ico` (16/32/48), beide Seitenrahmen, `HEAD /favicon.ico` über den Dev-Router.
+
+### Geändert
+- App-Kennung in Kopfzeile, Navigation und Login-Karte: ganzes Lama (`/assets/lama.svg` aus `lama-symbol-flaeche.svg`) statt Lama-Kopf; Mockups und Screenshots entsprechend (Branding B-09).
+
+### Entfernt
+- `server/public/icons/icon-192.png`, `icon-512.png`, `icon-512-maskable.png` (Lama-Kopf); der Build kopiert `lama-kopf.svg` nicht mehr (der Kopf bleibt im Design-System).
+
 ### Dokumentation
 - Konzeptentwurf `docs/konzept/gefuehrte-einheit.md` (Fable): App-Icon und Logo auf das ganze Lama (D-55, Q-14), Begründungstexte je Woche und Einheit mit Kurzsatz und „mehr“ (D-56), geführte Einheit mit Timer, Farbwechsel und Signalen (D-57, D-58); AP-13 und AP-14 im Hauptkonzept; vom Athleten bestätigt, Logo-Variante D-59 (V3 App-Icon, V2 Favicon und Kennung). Mockups `s9-einheit-gefuehrt.html` (fünf Zustände) und `icon-optionen.html` (fünf Logo-Varianten), S2/S3/S8 angepasst, Icons `player-play`, `player-pause`, `player-skip-back`, `volume`, `volume-off` ergänzt (Branding B-08, B-09).
 - Konzept: Übergaben AP-06 Teil B (Verifikation L-P10–L-P14, L-T2-11/-12, T3) und Teil A (Haltung/Rücken, L-T2-15–L-T2-19) eingearbeitet; neu D-54 und Q-13; Beschaffungsliste 13.4 ergänzt.

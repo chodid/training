@@ -1,7 +1,7 @@
 # Auftrag: App-Icon, Begründungstexte der Planung und geführte Trainingseinheit
 
 Ablageort im Repo: `docs/konzept/gefuehrte-einheit.md` (im Hauptkonzept: AP-13 und AP-14, D-55 bis D-58, Q-14)
-Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); Umsetzung offen
+Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); Umsetzung in Arbeit (Stand in Abschnitt 12)
 Versionsnummer: keine im Konzept; wird in der Umsetzung festgelegt
 
 ---
@@ -367,7 +367,34 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 ## 12. Umsetzungsstand
 
 ```yaml
-T1: {status: offen}
+T1:
+  status: umgesetzt          # Code-Stand 0.17.0; Abnahme P-A2 bis P-A6 durch den Athleten offen
+  datum: 2026-09-28
+  ergebnis: >
+    Icon-Satz nach E-09/E-21: V3 als lama-48/96/192/512.png (any), lama-512-maskable.png, apple-touch-icon-180.png;
+    V2 als icons/favicon.svg und favicon.ico (16/32/48, PNG-Einträge) im Docroot. Skript docs/branding/build-icons.cjs
+    (Playwright/Chromium) rendert aus docs/branding/mockups/icon-optionen/; Ergebnis eingecheckt. Kopfteil
+    templates/_head_icons.php in layout-app und layout-auth (theme-color, SVG-Favicon, PNG-Icons mit sizes,
+    apple-touch-icon 180, Manifest). Manifest mit id /woche und description. build-assets.php kopiert
+    lama-symbol-flaeche.svg als assets/lama.svg (Kennung in Topbar, Navigation, Login-Karte). .htaccess: AddType
+    image/x-icon, Cache-Control 7 Tage für Icons/Favicon. Service Worker: /favicon.ico wie das Manifest aus dem
+    Versions-Cache, PRECACHE lama.svg. Dev-Router liefert .ico/.webmanifest mit Apache-Typen. Mockups (Kennung,
+    Favicon) angepasst; alle 38 Screenshots neu gerendert, 27 davon geändert (docs/branding/mockups/screenshots.cjs).
+  tests: AppIconTest (I-01 Manifest und PNG-Köpfe, Kopfteil-Links, favicon.ico, I-03 HEAD /favicon.ico über den Dev-Router), AppIconPagesTest (I-02 beide Layouts)
+  abnahme_offen: P-A2 bis P-A6 (Abschnitt 4.1), Screenshots ins Prüfprotokoll
+  probleme_loesungen:
+    - was: SVG lässt sich auf dem Server (PHP ohne Imagick) nicht rendern; ein PHP-Skript build-icons.php ist damit nicht möglich
+      loesung: Node-Skript mit Playwright/Chromium in docs/branding/ (im Auftrag als Alternative genannt); ICO wird im Skript aus PNG-Einträgen zusammengesetzt
+    - was: Die alten Icon-Dateien icon-192/512(-maskable).png hätten beim Motivwechsel denselben Namen behalten; Browser und Launcher halten Icons lange im Cache
+      loesung: neue Dateinamen lama-*.png (4.2 Punkt 5 „Icons ändern sich mit Dateinamen“), alte Dateien entfernt
+    - was: Apache (mime.types) liefert .ico als image/vnd.microsoft.icon, der PHP-Dev-Server ebenso; P-A6 und I-03 erwarten image/x-icon
+      loesung: AddType image/x-icon .ico in public/.htaccess; der Dev-Router setzt den Typ für .ico und .webmanifest selbst
+    - was: Welche Datei ist das SVG-Favicon – die freigestellte Kennung oder V2 mit Papiergrund?
+      loesung: V2 mit Papiergrund (icons/favicon.svg, E-21 „V2 … auf Papier“ für das SVG-Favicon), damit das Lama auch in dunklen Browserleisten lesbar bleibt; die Kennung in der App ist freigestellt (lama-symbol-flaeche.svg, 4.3 „Folgen“)
+    - was: Cache-Regel nur für /icons/ per eigener .htaccess im Unterordner würde die Rewrite-Regeln des Docroots für diesen Ordner aufheben
+      loesung: FilesMatch auf die Icon-Dateinamen in public/.htaccess
+    - was: Versionsnummer je Unterpunkt oder je AP?
+      loesung: je AP (CLAUDE.md „nach jedem AP“): AP-13 (T1, T2) = 0.17.0, AP-14 (T3–T7) = 0.18.0; Changelog, README, Konzept und Prüfprotokoll werden nach jedem Unterpunkt nachgezogen
 T2: {status: offen}
 T3: {status: offen}
 T4: {status: offen}

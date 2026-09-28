@@ -8,7 +8,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 
 | Pfad | Inhalt | Arbeitspaket |
 |---|---|---|
-| `server/public/` | Document Root (einziger per HTTP erreichbarer Ordner), `index.php` als einziger Einstieg; `css/training.css` (Ergänzungen), `manifest.webmanifest` und `icons/`; `assets/` wird gebaut (siehe unten) | AP-00, AP-01, AP-04 |
+| `server/public/` | Document Root (einziger per HTTP erreichbarer Ordner), `index.php` als einziger Einstieg; `css/training.css` (Ergänzungen), `manifest.webmanifest`, `favicon.ico` und `icons/` (App-Icon, eingecheckt, siehe „Icons“); `assets/` wird gebaut (siehe unten) | AP-00, AP-01, AP-04, AP-13 |
 | `server/src/` | PHP-Quellcode (Namespace `Training\`): `Auth/` Login und Session, `OAuth/` Autorisierungsserver, `Mcp/` MCP-Endpunkt, `Intervals/` Intervals.icu-Client, `Data/` Datenzugriff und Audit-Log, `Plan/` Plan-Validierung, `View/` Seiten | AP-00 ff. |
 | `server/templates/` | Seitenvorlagen nach `docs/branding/` (S0, S1, S7 aus AP-01; S2–S5, S8 aus AP-04) | AP-01, AP-04 |
 | `server/bin/build-assets.php` | Kopiert Design-System, `app.css`, Icons und Logo aus `docs/branding/` nach `server/public/assets/` | AP-01 |
@@ -23,7 +23,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | `docs/literatur/` | Literatur-Volltexte als PDF, Open Access und gekauft (D-31), je Block in Unterordnern, Bücher zusätzlich als Kapitel-PDFs (D-51); Verzeichnis `README.md`; nie ins Projektwissen | AP-06 |
 | `docs/regeln/` | Trainerregeln (Abschnitt 14) | AP-07 |
 | `docs/plaene/` | Blockpläne | AP-08 |
-| `docs/branding/` | Branding-Dokument `branding.md` (D-19), Gestaltungsvorgaben in `chadid-design-system/` (Einstieg `readme.md`, `SKILL.md`), Mockups in `mockups/` (Einstieg `index.html`) | AP-01a |
+| `docs/branding/` | Branding-Dokument `branding.md` (D-19), Gestaltungsvorgaben in `chadid-design-system/` (Einstieg `readme.md`, `SKILL.md`), Mockups in `mockups/` (Einstieg `index.html`, Screenshots mit `mockups/screenshots.cjs`), Icon-Skript `build-icons.cjs` | AP-01a, AP-13 |
 
 ## Server-Layout (Lima-City, D-17)
 
@@ -53,7 +53,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | GET/POST | `/profil` | Athletenprofil (D-48): Abschnitte lesen und bearbeiten (`?abschnitt=…`), frühere Fassungen (`&verlauf=1`) |
 | GET | `/offline/token` | Frisches CSRF-Token für offline gepufferte Eingaben (nur für den Service Worker, D-45) |
 | GET | `/verlauf` | S6 Verlauf: Wochenlast je Bereich und Schmerz je Ort über 8 Wochen, Tabelle |
-| GET | `/manifest.webmanifest` | Web-App-Manifest („Zum Startbildschirm“) |
+| GET | `/manifest.webmanifest` | Web-App-Manifest („Zum Startbildschirm“, `id` `/woche`); Icons unter `/icons/`, `/favicon.ico` (16/32/48) – statische Dateien, von Apache direkt ausgeliefert |
 | GET | `/health` | Zustand als JSON: PHP-Erweiterungen, Konfiguration, `var/` beschreibbar, Datenbank, Schemastand. `200` = in Ordnung, `503` = Handlungsbedarf. Enthält keine Secrets. |
 | POST | `/admin/migrate` | Führt ausstehende Migrationen aus, vorher verschlüsselter Pre-Migration-Dump nach `backups/` (die letzten 5 bleiben). Header `X-Migration-Secret` muss `MIGRATION_SECRET` entsprechen. `401` ohne Header, `403` bei falschem Secret, `409` wenn bereits eine Migration läuft oder die Datenbank neuer als der Code ist, `500` wenn der Dump fehlschlägt (dann keine Migration). |
 | GET | `/cron/backup-mail?key=…` | Backup per E-Mail für den Lima-City-Cronjob (`CRON_SECRET`); versendet nur nach Ablauf des Intervalls, `&force=1` sofort |
@@ -152,7 +152,17 @@ Lokal starten (ohne `.htaccess`): `.env` in `server/` anlegen (für `http://` is
 
 ### Assets (Branding)
 
-Einzige Quelle der Gestaltung ist `docs/branding/`. `php server/bin/build-assets.php` kopiert Design-System (`styles.css`, `tokens/`, `fonts/`), `mockups/app.css`, die Tabler-Icons und den Lama-Kopf nach `server/public/assets/`. Der Ordner ist nicht im Repo; CI und Deploy-Workflow bauen ihn. Eigene Ergänzungen stehen in `server/public/css/training.css` (keine Inline-Styles wegen Content-Security-Policy).
+Einzige Quelle der Gestaltung ist `docs/branding/`. `php server/bin/build-assets.php` kopiert Design-System (`styles.css`, `tokens/`, `fonts/`), `mockups/app.css`, die Tabler-Icons und das Lama (`lama-symbol-flaeche.svg` als `assets/lama.svg`, App-Kennung) nach `server/public/assets/`. Der Ordner ist nicht im Repo; CI und Deploy-Workflow bauen ihn. Eigene Ergänzungen stehen in `server/public/css/training.css` (keine Inline-Styles wegen Content-Security-Policy).
+
+### Icons (App-Icon und Favicon, D-59)
+
+Der Icon-Satz ist eingecheckt, weil der Server kein SVG rendern kann. Nach einer Änderung an den Vorlagen `docs/branding/mockups/icon-optionen/v3.svg`, `v3-maskable.svg` (App-Icon, V3) oder `v2.svg` (Favicon, V2) neu erzeugen:
+
+```bash
+node docs/branding/build-icons.cjs      # braucht Playwright mit Chromium (lokal oder global)
+```
+
+Ergebnis: `server/public/icons/lama-48|96|192|512.png`, `lama-512-maskable.png`, `apple-touch-icon-180.png`, `favicon.svg` und `server/public/favicon.ico`. Ein neues Motiv bekommt neue Dateinamen (Icons liegen 7 Tage im Browser-Cache); Manifest, `templates/_head_icons.php` und `AppIconTest` dann mitziehen.
 
 ### Migrationen (D-20)
 

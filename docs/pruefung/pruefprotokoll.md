@@ -528,6 +528,47 @@ noch_zu_pruefen:
     wie: manuell durch Athlet im Trainer-Chat
 ```
 
+## AP-13 App-Icon und Begründungstexte
+
+```yaml
+ap: AP-13
+auftrag: docs/konzept/gefuehrte-einheit.md (Teile A und B, T1–T2)
+geprueft:
+  - was: P-A1 – Chrome Android installiert die App mit Lama-Icon (noch mit dem Kopf, vor der Umsetzung)
+    wie: Gerätetest durch Athlet
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: I-01 Manifest – gültiges JSON, id /woche, description, jede Icon-Datei vorhanden, sizes = PNG-Kopf (48/96/192/512 any, 512 maskable getrennt)
+    wie: automatisiert (AppIconTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: I-02 beide Seitenrahmen (Setup und Login = layout-auth, Woche = layout-app) mit theme-color, Manifest, SVG-Favicon, PNG-Icons mit sizes, apple-touch-icon 180; Kennung /assets/lama.svg in Topbar, Navigation und Login-Karte; kein Verweis mehr auf lama-kopf
+    wie: automatisiert (AppIconPagesTest, AppIconTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: I-03 HEAD /favicon.ico über den Dev-Router → 200, Content-Type image/x-icon, Länge stimmt; Manifest application/manifest+json; favicon.ico enthält 16/32/48
+    wie: automatisiert (AppIconTest, PHP-Built-in-Server)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Icon-Satz gerendert (V3 any/maskable/180, V2 Favicon 16 px), Sichtprüfung Kontaktbogen; Mockups nach Kennungswechsel ohne Überlauf, fehlende Ressourcen oder Skriptfehler
+    wie: Chromium/Playwright (build-icons.cjs, screenshots.cjs), manuell
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: P-A2 – Chrome Desktop, DevTools → Application → Manifest ohne Warnungen, alle Icons geladen
+    wie: manuell durch Athlet (nach Deployment 0.17.0)
+  - was: P-A3 – LibreWolf Android, von /login und von /woche „Zum Startbildschirm“ → beide Male Lama-Icon (V3)
+    wie: Gerätetest durch Athlet (alte Verknüpfung vorher entfernen); Screenshot ins Prüfprotokoll
+  - was: P-A4 – LibreWolf about:config dom.serviceWorkers.enabled, dom.manifest.enabled notieren
+    wie: manuell durch Athlet (nur Befund)
+  - was: P-A5 – iOS Safari „Zum Home-Bildschirm“ → Lama 180 px (falls Gerät vorhanden)
+    wie: Gerätetest durch Athlet
+  - was: P-A6 – curl -I https://training.gen-em.org/manifest.webmanifest und /favicon.ico → 200, application/manifest+json bzw. image/x-icon, Cache-Control max-age=604800 bei /favicon.ico
+    wie: manuell (curl) nach Deployment
+  - was: P-A1 erneut mit dem neuen Icon (V3) in Chrome Android
+    wie: Gerätetest durch Athlet
+```
+
 ## AP-05 MCP-Tools produktiv
 
 ```yaml

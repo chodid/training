@@ -1890,10 +1890,17 @@ probleme_loesungen:
 - **Abnahmekriterien:** Prüfschritte P-A1 bis P-A6 des Auftrags (Lama-Icon in Chrome und LibreWolf, von `/login` und `/woche`); Plan aus dem Projekt-Chat mit Kurzsatz und Begründung erscheint in S2 und S3, „mehr“ klappt ohne JavaScript auf.
 - **Status:**
 ```yaml
-status: offen
-begonnen: null
+status: in_arbeit
+begonnen: 2026-09-28
 abgeschlossen: null
-probleme_loesungen: []
+teilpakete: T1 umgesetzt (Code-Stand 0.17.0), T2 offen – Details in docs/konzept/gefuehrte-einheit.md Abschnitt 12
+probleme_loesungen:
+  - datum: 2026-09-28
+    was: Icon-Erzeugung als PHP-Skript nicht möglich (kein SVG-Renderer auf Server und in PHP)
+    loesung: Playwright-Skript docs/branding/build-icons.cjs, Ergebnis eingecheckt (Alternative aus Auftrag 4.2 Punkt 7)
+  - datum: 2026-09-28
+    was: Motivwechsel bei gleichbleibenden Icon-Dateinamen bliebe in Browser-Caches hängen
+    loesung: neue Dateinamen lama-*.png, alte icon-*.png entfernt; Icons 7 Tage im Cache
 ```
 
 ## AP-14 Geführte Einheit
@@ -1976,3 +1983,4 @@ noch_zu_pruefen:
 | 2026-09-28 | Neu (Fable, Konzeptentwurf, Bestätigung offen): Auftrag `docs/konzept/gefuehrte-einheit.md` mit Teil A App-Icon/Logo (D-55, Q-14 Logo-Variante), Teil B Begründungstexte je Woche/Einheit (D-56, `coach_summary`), Teil C geführte Einheit S9 (D-57, D-58); AP-13 und AP-14 angelegt; 7, 8.2, 10, 15 ergänzt. Mockups: `s9-einheit-gefuehrt.html`, `icon-optionen.html`, S2/S3/S8 angepasst, fünf Tabler-Icons ergänzt (Branding B-08, Abschnitt 8). |
 | 2026-09-28 | Auftrag `gefuehrte-einheit.md` vom Athleten bestätigt (E-08 bis E-20 gelten); Q-14 → D-59 (V3 App-Icon, V2 Favicon und App-Kennung); AP-13 kann ohne Wartepunkt starten. |
 | 2026-09-28 | Icon-Befund (Auftrag gefuehrte-einheit.md, E-05/O-03): Chrome auf Android zeigt das App-Icon; Fehler ist auf den Favicon-Weg von LibreWolf eingegrenzt, Manifest ausgeschlossen. |
+| 2026-09-28 | AP-13 begonnen: T1 App-Icon und Logo umgesetzt (Code-Stand 0.17.0, D-59); AP-13 `in_arbeit`, Befunde im AP-13-Block und im Auftrag (Abschnitt 12). |
