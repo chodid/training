@@ -310,13 +310,23 @@ geprueft:
     wie: automatisiert (Schreibsperren-Test mit allgemeinem Zurücksetzen der letzten Migration)
     ergebnis: ok
     datum: 2026-09-28
+  - was: Passkey – Anlegen nur angemeldet mit CSRF-Header, Anmelden mit Rücksprungziel, Signaturzähler, Wiederholung derselben Antwort, fremder Schlüssel mit gleicher ID, falscher Origin, abgelaufene Challenge (> 5 min) → 401; Anmeldung hebt Passwort-Sperre auf; Entfernen; Login-Knopf nur mit angelegtem Passkey; nicht im JSON-Export
+    wie: automatisiert (PHPUnit mit Software-Authenticator ES256)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Passkey im Browser – Anlegen in den Einstellungen, Abmelden, „Mit Passkey anmelden“ mit Rücksprung auf /verlauf; Darstellung 390 px
+    wie: Chromium mit virtuellem Authenticator (CDP WebAuthn)
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: JSON-Export herunterladen und in einem Editor/Programm öffnen
+    wie: manuell durch Athlet
   - was: Cronjob stündlich /cron/intervals-sync bei Lima-City; einmalig tage=365; Einstellungen zeigen Anzahl und letzten Abgleich
     wie: manuell durch Athlet
   - was: Rückschreiben mit echtem Konto (V-03/V-04) – nach Rückmeldung zu einer Einheit mit Aktivität in Intervals.icu RPE, Gefühl (Richtung!) und Kommentar prüfen
     wie: manuell durch Athlet
-    wie: manuell durch Athlet
+  - was: Passkey auf echten Geräten – in den Einstellungen je Gerät anlegen (iPhone/iPad, Android bzw. Passwort-Manager), abmelden, „Mit Passkey anmelden“; Passkey entfernen; Passwort-Login funktioniert weiter
+    wie: manuell durch Athlet (auf training.gen-em.org, Passkeys sind an den Host gebunden)
   - was: Verlauf mit echten Daten nach einigen Wochen Nutzung
     wie: manuell durch Athlet
 ```

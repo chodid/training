@@ -34,3 +34,4 @@ form:has(input[name="pain"][value="ja"]:checked) .reveal{display:grid;gap:var(--
 .heat-scale .hs0{background:var(--bg-page);border:1px solid var(--border-subtle)}.heat-scale .hs1{background:var(--plum-100)}.heat-scale .hs2{background:var(--plum-200)}.heat-scale .hs3{background:var(--plum-400)}.heat-scale .hs4{background:var(--plum-600)}.heat-scale .hs5{background:var(--plum-800)}
 .heat-scroll{overflow-x:auto}.heat-scroll .heat{min-width:420px}
 .table-scroll{overflow-x:auto}.table-wide{min-width:560px}
+[hidden]{display:none!important}

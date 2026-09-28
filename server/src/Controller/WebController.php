@@ -170,6 +170,7 @@ final class WebController
             'invalid' => $invalid,
             'login' => $login,
             'next' => $next,
+            'passkeys' => (new PasskeyController($this->app))->passkeys()->count() > 0,
         ], $status);
 
         return $csrf['setCookie'] !== null ? $response->withCookie($csrf['setCookie']) : $response;

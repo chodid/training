@@ -48,7 +48,9 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | GET/POST | `/einheit` | S3 Einheit (`?id=…`): Plan, Ist-Werte, Rückmeldung, Schmerz, Status; bei Ausdauer verknüpfte Intervals.icu-Aktivität |
 | GET/POST | `/checkin` | S4 Tages-Check-in (`?datum=…`, nicht in der Zukunft) |
 | GET/POST | `/schmerz` | S5 Schmerzereignis (`?datum=…`, `?einheit=…`) |
-| GET/POST | `/einstellungen` | S8 Konto, Zeitzone, Passwort, Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
+| GET/POST | `/einstellungen` | S8 Konto, Zeitzone, Passwort, Passkeys, Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
+| POST | `/passkey/register/options`, `/passkey/register` | Passkey anlegen (angemeldet, Header `X-CSRF-Token`; D-44) |
+| POST | `/passkey/login/options`, `/passkey/login` | Anmelden mit Passkey; Relying-Party-ID ist der Host aus `APP_URL` |
 | GET | `/verlauf` | S6 Verlauf: Wochenlast je Bereich und Schmerz je Ort über 8 Wochen, Tabelle |
 | GET | `/manifest.webmanifest` | Web-App-Manifest („Zum Startbildschirm“) |
 | GET | `/health` | Zustand als JSON: PHP-Erweiterungen, Konfiguration, `var/` beschreibbar, Datenbank, Schemastand. `200` = in Ordnung, `503` = Handlungsbedarf. Enthält keine Secrets. |
@@ -117,6 +119,8 @@ Pull Requests durchlaufen nur die Tests.
 ### 4. Benutzer anlegen (einmalig)
 
 `https://training.gen-em.org/setup` öffnen, `MIGRATION_SECRET` aus der `.env`, Anmeldename, Passwort (mindestens 12 Zeichen) und Zeitzone eintragen. Danach ist `/setup` dauerhaft gesperrt. Zurücksetzen nur über die Datenbank (Tabelle `user` leeren).
+
+Optional unter Einstellungen → Konto → „Passkey hinzufügen“ einen Passkey je Gerät anlegen (Fingerabdruck, Gesicht oder Geräte-PIN). Das Passwort bleibt gültig und ist der Rückfallweg, wenn das Gerät verloren geht. Passkeys sind an den Host aus `APP_URL` gebunden; ändert sich die Adresse, müssen sie neu angelegt werden.
 
 ### 5. Claude verbinden
 

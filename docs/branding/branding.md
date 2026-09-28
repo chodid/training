@@ -148,6 +148,7 @@ Abweichungen in der Umsetzung (nach Hinweis 7.10):
 | S3, S4 | Schmerz-Kurzform klappt per CSS `:has()` auf (ohne JavaScript) | Hinweis 7.3 | AP-04, 2026-09-28 |
 | S5 | Warnhinweis erst nach dem Speichern, mit Knöpfen „Zur Woche“/„Weiteres Ereignis“ | Hinweis hängt vom gespeicherten Verlauf ab; Anzeigeregel vorläufig bis AP-07 | AP-04, 2026-09-28 |
 | S8 | Backup und „Migrieren“ als deaktivierte Platzhalter; Zeitzone/Passwort auf eigenen Unterseiten; Widerrufen als Formular | Funktionen aus AP-10; Formulare ohne JavaScript | AP-04, 2026-09-28 |
+| S1, S8 | Passkey (D-44): S1 zusätzlicher Sekundärknopf „Mit Passkey anmelden“ (Icon `key`) unter „Anmelden“; S8 Konto mit je einer Zeile pro Passkey („Entfernen“ in Fehlerfarbe) und „Passkey hinzufügen“ mit Namensfeld. Knöpfe nur sichtbar, wenn der Browser WebAuthn kann | nicht in den Mockups (AP-09); Gestaltung mit vorhandenen Bausteinen | AP-09, 2026-09-28 |
 | S6 | ~~Platzhalterseite~~ – seit 0.8.0 umgesetzt; Balkenhöhen als Klassen in 5-%-Schritten, Legende über Klassen; Hinweis „steigt seit … Wochen“ weggelassen (Trendregel erst mit AP-07); Raster scrollt auf dem Smartphone waagrecht innerhalb der Karte | CSP ohne Inline-Styles; Trendregel fehlt noch | AP-04, 2026-09-28; AP-09, 2026-09-28 |
 
 Offen (unabhängig von den Mockups):

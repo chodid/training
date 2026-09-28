@@ -169,6 +169,7 @@ final class BackupTest extends AppTestCase
         self::assertArrayNotHasKey('password_hash', $data['tables']['user'][0]);
         self::assertArrayNotHasKey('web_session', $data['tables']);
         self::assertArrayNotHasKey('oauth_token', $data['tables']);
+        self::assertArrayNotHasKey('webauthn_credential', $data['tables']);
         self::assertSame(330, (int) $data['tables']['session_execution'][0]['srpe_load']);
         self::assertSame('json_export', $this->pdo->query("SELECT action FROM audit_log WHERE action = 'json_export'")->fetchColumn());
     }

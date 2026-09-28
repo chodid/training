@@ -26,6 +26,10 @@
   </div>
 
   <button class="btn btn-primary btn-block" type="submit">Anmelden</button>
+<?php if (!empty($passkeys)): ?>
+  <button class="btn btn-secondary btn-block" type="button" data-passkey="login" data-next="<?= $this->e($next) ?>" hidden><?= $this->icon('key') ?>Mit Passkey anmelden</button>
+  <div class="alert alert-error" id="passkey-error" role="alert" hidden></div>
+<?php endif ?>
   <p class="hint center">Angemeldet bleiben für 30 Tage auf diesem Gerät.</p>
 <?php else: ?>
   <a class="btn btn-secondary btn-block" href="<?= $this->e('/login' . ($next !== '' ? '?next=' . rawurlencode($next) : '')) ?>">Erneut versuchen</a>
@@ -33,3 +37,4 @@
 
   <div class="auth-foot"><?= $this->e($host) ?></div>
 </form>
+<?php if (!empty($passkeys)): ?><script src="/js/passkey.js" defer></script><?php endif ?>

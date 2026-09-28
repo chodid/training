@@ -21,10 +21,10 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.10.0';
+    public const VERSION = '0.11.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
-    public const SCHEMA_VERSION = 16;
+    public const SCHEMA_VERSION = 17;
 
     private ?Config $config = null;
     private ?PDO $pdo = null;
@@ -80,6 +80,10 @@ final class App
             '/checkin' => ['GET' => fn (): Response => (new \Training\Controller\CheckinController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\CheckinController($this))->handle($request)],
             '/schmerz' => ['GET' => fn (): Response => (new \Training\Controller\PainController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\PainController($this))->handle($request)],
             '/einstellungen' => ['GET' => fn (): Response => (new \Training\Controller\SettingsController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\SettingsController($this))->handle($request)],
+            '/passkey/register/options' => ['POST' => fn (): Response => (new \Training\Controller\PasskeyController($this))->registerOptions($request)],
+            '/passkey/register' => ['POST' => fn (): Response => (new \Training\Controller\PasskeyController($this))->register($request)],
+            '/passkey/login/options' => ['POST' => fn (): Response => (new \Training\Controller\PasskeyController($this))->loginOptions()],
+            '/passkey/login' => ['POST' => fn (): Response => (new \Training\Controller\PasskeyController($this))->login($request)],
             '/cron/intervals-sync' => ['GET' => fn (): Response => (new \Training\Controller\CronController($this))->intervalsSync($request)],
             '/cron/backup-mail' => ['GET' => fn (): Response => (new \Training\Controller\CronController($this))->backupMail($request)],
             '/verlauf' => ['GET' => fn (): Response => (new \Training\Controller\HistoryController($this))->handle($request)],

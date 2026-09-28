@@ -20,6 +20,14 @@ $scopeText = static fn (string $s): string => str_contains($s, 'training:write')
         <form method="post" action="/logout"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><button class="btn btn-secondary" type="submit"><?= $this->icon('logout') ?>Abmelden</button></form></div>
       <div class="list-item"><div><div class="t">Zeitzone</div><div class="s mono"><?= $this->e($tz) ?></div></div><a class="btn btn-ghost" href="/einstellungen?bereich=zeitzone">Ändern</a></div>
       <div class="list-item"><div><div class="t">Passwort</div><div class="s">Mindestens 12 Zeichen</div></div><a class="btn btn-ghost" href="/einstellungen?bereich=passwort">Ändern</a></div>
+<?php foreach ($passkeyList as $pk): ?>
+      <div class="list-item"><div><div class="t">Passkey „<?= $this->e($pk['name']) ?>“</div><div class="s">Angelegt <?= $this->e($fmtDb((string) $pk['created_at'], $tz)) ?><?= $pk['last_used_at'] !== null ? ' · zuletzt genutzt ' . $this->e($fmtDb((string) $pk['last_used_at'], $tz)) : '' ?></div></div>
+        <form method="post" action="/einstellungen"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><input type="hidden" name="action" value="passkey_loeschen"><input type="hidden" name="passkey_id" value="<?= $this->e($pk['id']) ?>"><button class="btn btn-ghost danger-text" type="submit">Entfernen</button></form></div>
+<?php endforeach ?>
+      <div class="list-item"><div class="stack"><div><div class="t">Passkey hinzufügen</div><div class="s">Anmelden mit Fingerabdruck, Gesicht oder Geräte-PIN; das Passwort bleibt als Rückfallweg.</div></div>
+        <input class="input" id="passkey-name" maxlength="100" placeholder="Name, z. B. iPhone" aria-label="Name des Passkeys">
+        <div class="alert alert-error" id="passkey-error" role="alert" hidden></div></div>
+        <button class="btn btn-secondary" type="button" data-passkey="register" data-csrf="<?= $this->e($csrf) ?>" hidden><?= $this->icon('key') ?>Hinzufügen</button></div>
     </div>
   </section>
 
@@ -47,7 +55,7 @@ if (!empty($mail['to']) && !empty($mail['cron'])) {
       <div class="list-item"><div><div class="t">Daten exportieren (JSON)</div><div class="s">Alle Trainingsdaten lesbar für andere Programme – <b>unverschlüsselt</b>, enthält Gesundheitsdaten</div></div>
         <form method="post" action="/einstellungen"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><input type="hidden" name="action" value="export"><button class="btn btn-secondary" type="submit"><?= $this->icon('download') ?>Exportieren</button></form></div>
       <div class="list-item"><div><div class="t">Backup per E-Mail</div><div class="s"><?= $this->e($mailText) ?></div></div><span class="badge badge-<?= $mailBadge[0] ?>"><?= $mailBadge[0] === 'success' ? $this->icon('check') : '' ?><?= $this->e($mailBadge[1]) ?></span></div>
-      <div class="list-item"><div><div class="t">Vor Migrationen</div><div class="s">Automatisch, die letzten 5 werden aufbewahrt<?= $preMigration['last'] !== null ? ' · zuletzt ' . $this->e($preMigration['last']) : '' ?></div></div><span class="badge badge-neutral"><?= (int) $preMigration['count'] ?> Dateien</span></div>
+      <div class="list-item"><div><div class="t">Vor Migrationen</div><div class="s">Automatisch, die letzten 5 werden aufbewahrt<?= $preMigration['last'] !== null ? ' · zuletzt ' . $this->e($preMigration['last']) : '' ?></div></div><span class="badge badge-neutral"><?= (int) $preMigration['count'] ?> Datei<?= (int) $preMigration['count'] === 1 ? '' : 'en' ?></span></div>
     </div>
   </section>
 
@@ -90,3 +98,4 @@ if (!empty($mirror['error'])) { $mirrorText .= ' · Fehler: ' . $mirror['error']
 
   <p class="hint">Audit-Log und Wissensbasis liegen in Datenbank bzw. Repo, nicht in der App.</p>
 </div>
+<script src="/js/passkey.js" defer></script>

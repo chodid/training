@@ -18,7 +18,7 @@ final class JsonExporter
 {
     public const FORMAT = 'training-export';
     public const FORMAT_VERSION = 1;
-    private const EXCLUDED = ['web_session', 'oauth_token', 'oauth_auth_code', 'ext_cache'];
+    private const EXCLUDED = ['web_session', 'oauth_token', 'oauth_auth_code', 'ext_cache', 'webauthn_credential'];
     private const JSON_COLUMNS = ['plan_json', 'actual_json', 'goal_events_json', 'redirect_uris_json'];
     private const HIDDEN_COLUMNS = ['user' => ['password_hash', 'failed_logins', 'locked_until']];
 

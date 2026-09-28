@@ -40,6 +40,7 @@ final class SettingsController extends AppController
             'zeitzone' => $this->timezone($request),
             'passwort' => $this->password($request),
             'widerrufen' => $this->revoke($request),
+            'passkey_loeschen' => $this->deletePasskey($request),
             default => $this->overview($request),
         };
     }
@@ -68,6 +69,8 @@ final class SettingsController extends AppController
 
         $notice = match ($request->query('ok')) {
             'zeitzone' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Zeitzone gespeichert.', 'text' => ''],
+            'passkey' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Passkey angelegt.', 'text' => 'Beim nächsten Login „Mit Passkey anmelden“ wählen.'],
+            'passkey_geloescht' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Passkey entfernt.', 'text' => ''],
             'passwort' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Passwort geändert.', 'text' => 'Andere Geräte wurden abgemeldet.'],
             'widerrufen' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Freigabe widerrufen.', 'text' => 'Laufende Zugriffe enden spätestens nach einer Stunde.'],
             default => null,
@@ -86,6 +89,7 @@ final class SettingsController extends AppController
             'mcpUrl' => OAuthConfig::fromConfig($config)->resource(),
             'mail' => $this->app->mailBackup()->state() + ['to' => $config->get('BACKUP_MAIL_TO'), 'cron' => $config->get('CRON_SECRET') !== null, 'interval' => (int) $config->get('BACKUP_MAIL_INTERVAL_DAYS', '7')],
             'preMigration' => $this->preMigration(),
+            'passkeyList' => $this->passkeyList(),
             'mirror' => $this->mirrorStats() + (new CronController($this->app))->syncState(),
         ]);
     }
@@ -145,6 +149,26 @@ final class SettingsController extends AppController
         } catch (\PDOException) {
             return ['aktivitaeten' => 0, 'wellness_tage' => 0, 'erste' => null, 'letzte' => null];
         }
+    }
+
+    /** @return list<array<string, mixed>> */
+    private function passkeyList(): array
+    {
+        try {
+            return (new PasskeyController($this->app))->passkeys()->list($this->session->userId);
+        } catch (\PDOException) {
+            return [];
+        }
+    }
+
+    private function deletePasskey(Request $request): Response
+    {
+        $id = (string) $request->post('passkey_id');
+        if ((new PasskeyController($this->app))->passkeys()->delete($this->session->userId, $id)) {
+            $this->audit()->write('web', 'passkey_delete', 'webauthn_credential', mb_substr($id, 0, 64), null, 'Passkey entfernt');
+        }
+
+        return Response::redirect('/einstellungen?ok=passkey_geloescht');
     }
 
     /** @return array{count: int, last: ?string} */

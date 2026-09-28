@@ -1,7 +1,7 @@
 ---
 titel: Datenmodell – ER-Diagramm und Umsetzungsdetails
-bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitt 7, AP-01 (D-35), AP-03
-schemastand: 14 (Migrationen 0001–0014)
+bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitt 7, AP-01 (D-35), AP-03, AP-09 (D-43, D-44)
+schemastand: 17 (Migrationen 0001–0017)
 ---
 
 # Datenmodell
@@ -15,6 +15,7 @@ erDiagram
     user ||--o{ web_session : "meldet an"
     user ||--o{ oauth_auth_code : "gibt frei"
     user ||--o{ oauth_token : "besitzt"
+    user ||--o{ webauthn_credential : "Passkey"
     oauth_client ||--o{ oauth_auth_code : "erhält"
     oauth_client ||--o{ oauth_token : "erhält"
     training_block ||--o{ training_week : "enthält"
@@ -38,6 +39,15 @@ erDiagram
         datetime created_at
         datetime last_seen_at
         datetime expires_at
+    }
+    webauthn_credential {
+        varchar id PK "Credential-ID base64url"
+        int user_id FK
+        varchar name
+        text public_key "PEM"
+        int sign_count
+        datetime created_at
+        datetime last_used_at
     }
     oauth_client {
         varchar client_id PK
@@ -153,9 +163,23 @@ erDiagram
         longtext payload_json
         datetime fetched_at
     }
+    ext_activity {
+        varchar id PK "Intervals.icu"
+        date date
+        datetime start_date_local
+        varchar type
+        bigint paired_event_id
+        json data_json
+        datetime updated_at
+    }
+    ext_wellness {
+        date date PK
+        json data_json
+        datetime updated_at
+    }
 ```
 
-`audit_log`, `schema_version` und `ext_cache` stehen für sich; `audit_log` verweist über `entity`/`entity_id` lose auf die geänderte Zeile, damit Einträge das Löschen überdauern.
+`audit_log`, `schema_version`, `ext_cache` und die Spiegeltabellen `ext_activity`/`ext_wellness` (D-43) stehen für sich (`ext_activity.paired_event_id` entspricht lose `session.intervals_event_id`); `audit_log` verweist über `entity`/`entity_id` lose auf die geänderte Zeile, damit Einträge das Löschen überdauern.
 
 ## Umsetzungsdetails
 

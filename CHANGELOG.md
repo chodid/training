@@ -4,6 +4,24 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.11.0] – 2026-09-28
+
+AP-09 Teil 4: Passkey-Login zusätzlich zum Passwort (D-44).
+
+### Hinzugefügt
+- Passkeys (WebAuthn) über `lbuchs/webauthn`: in den Einstellungen anlegen (mit Namen) und entfernen, auf der Login-Seite „Mit Passkey anmelden“ (nur sichtbar, wenn ein Passkey angelegt ist und der Browser WebAuthn kann). Das Passwort bleibt Rückfallweg.
+- Migration `0017` `webauthn_credential` (öffentlicher Schlüssel, Signaturzähler, zuletzt genutzt); `App::SCHEMA_VERSION` = 17.
+- Endpunkte `POST /passkey/register/options`, `/passkey/register` (angemeldet, CSRF-Header), `/passkey/login/options`, `/passkey/login`; Challenge im signierten, 5 Minuten gültigen Cookie; Relying-Party-ID ist der Host aus `APP_URL`.
+- Anmelden mit Passkey hebt eine Passwort-Sperre auf; Anlegen und Entfernen im Audit-Log.
+- `public/js/passkey.js` (erstes JavaScript der App, nur für Passkeys; Seiten funktionieren weiter ohne).
+- Tests mit Software-Authenticator: Registrieren, Anmelden, Wiederholung, fremder Schlüssel, falscher Origin, abgelaufene Challenge, Sperre, Entfernen.
+
+### Geändert
+- Passkeys sind im SQL-Backup enthalten (nach einem Restore weiter nutzbar), nicht im JSON-Export.
+
+### Behoben
+- Einstellungen: „1 Dateien“ → „1 Datei“ bei den Pre-Migration-Dumps.
+
 ## [0.10.0] – 2026-09-28
 
 AP-09 Teil 3: Feedback nach Intervals.icu (Q-02 → D-46).
