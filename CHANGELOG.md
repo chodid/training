@@ -4,6 +4,9 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+### Dokumentation
+- Konzept: Übergabe AP-06 Teil C eingearbeitet – neuer Literaturblock R Reha/Prävention (13.2.5, L-R-01 bis L-R-28: Patellasehne, Sprunggelenk, Laufumfang); neu D-61, Q-15, Q-16; Q-13 ergänzt; Beschaffungsliste 13.4 erweitert.
+
 ## [0.19.0] – 2026-09-28
 
 AP-11 geändert (D-60, ändert D-50): ein Sammeltermin je Tag im Kalender – Unterpunkt T8 des Auftrags `docs/konzept/gefuehrte-einheit.md` (Wunsch des Athleten).
