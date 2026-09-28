@@ -112,7 +112,7 @@ final class ToolRegistry
                 'changes' => ['type' => 'object', 'properties' => [
                     'date' => $date, 'title' => ['type' => 'string'], 'priority' => ['enum' => ['A', 'B', 'C']],
                     'planned_duration_min' => ['type' => 'integer'], 'plan_json' => ['type' => ['object', 'null']],
-                    'coach_summary' => ['type' => 'string', 'minLength' => 1, 'maxLength' => WriteTools::SUMMARY_MAX, 'description' => $summaryRule],
+                    'coach_summary' => ['type' => 'string', 'maxLength' => WriteTools::SUMMARY_MAX, 'description' => $summaryRule . ' Leer nur bei ruhe (entfernt ihn).'],
                     'coach_rationale' => ['type' => 'string', 'maxLength' => WriteTools::TEXT_MAX, 'description' => 'Ausführliche Begründung: ' . $textRule . ' Leerer Text entfernt sie.'],
                     'status' => ['enum' => ['geplant', 'erledigt', 'teilweise', 'ausgelassen', 'verschoben']],
                     'sort_order' => ['type' => 'integer'],

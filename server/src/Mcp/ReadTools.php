@@ -85,7 +85,7 @@ final class ReadTools
                 $row['kurz'] = $s['coach_summary']; // Kurzsatz der Einheit (AP-13)
             }
             if ($s['type'] === 'ruhe') {
-                $out[] = ['id' => $row['id'], 'datum' => $row['datum'], 'typ' => 'ruhe'];
+                $out[] = ['id' => $row['id'], 'datum' => $row['datum'], 'typ' => 'ruhe'] + (isset($row['kurz']) ? ['kurz' => $row['kurz']] : []);
                 continue;
             }
             $planned++;

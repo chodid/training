@@ -223,9 +223,9 @@ final class McpToolsTest extends AppTestCase
         }
 
         $ok = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => ' ' . str_repeat('ä', 255) . ' ', 'coach_notes' => str_repeat('ö', 1500),
-            'sessions' => [['coach_summary' => str_repeat('ü', 200), 'coach_rationale' => str_repeat('ß', 1500)] + $this->kraft('2026-09-21'), $ruhe]]);
+            'sessions' => [['coach_summary' => str_repeat('ü', 200), 'coach_rationale' => str_repeat('ß', 1500)] + $this->kraft('2026-09-21'), $ruhe, ['date' => '2026-09-26', 'type' => 'ruhe', 'title' => 'Ruhe', 'coach_summary' => 'Ruhe vor dem langen Lauf']]]);
         self::assertFalse($ok['isError'], $ok['text']);
-        [$kraftId, $ruheId] = array_column($ok['data']['einheiten'], 'id');
+        [$kraftId, $ruheId, $ruhe2Id] = array_column($ok['data']['einheiten'], 'id');
         $week = $this->pdo->query('SELECT focus, coach_notes FROM training_week')->fetch();
         self::assertSame(str_repeat('ä', 255), $week['focus'], 'getrimmt gespeichert');
         self::assertSame(1500, mb_strlen((string) $week['coach_notes']));
@@ -237,7 +237,9 @@ final class McpToolsTest extends AppTestCase
         self::assertSame(str_repeat('ä', 255), $o['woche']['fokus']);
         self::assertSame(str_repeat('ö', 1500), $o['woche']['begruendung']);
         self::assertSame(str_repeat('ü', 200), $o['einheiten'][0]['kurz']);
-        self::assertArrayNotHasKey('kurz', $o['einheiten'][1], 'Ruhetag ohne Kurzsatz');
+        $rows = array_column($o['einheiten'], null, 'id');
+        self::assertArrayNotHasKey('kurz', $rows[$ruheId], 'Ruhetag ohne Kurzsatz');
+        self::assertSame(['id' => $ruhe2Id, 'datum' => '2026-09-26', 'typ' => 'ruhe', 'kurz' => 'Ruhe vor dem langen Lauf'], $rows[$ruhe2Id], 'Ruhetag mit Kurzsatz');
         $d = $this->mcpTool(self::STATIC, 'get_session_detail', ['session_id' => $kraftId])['data'];
         self::assertSame([str_repeat('ü', 200), str_repeat('ß', 1500)], [$d['coach_summary'], $d['coach_rationale']]);
 
@@ -248,6 +250,8 @@ final class McpToolsTest extends AppTestCase
         $row = $this->pdo->query('SELECT coach_summary, coach_rationale FROM `session` WHERE id = ' . $kraftId)->fetch();
         self::assertSame(['Last bleibt, Tiefe sauber', null], [$row['coach_summary'], $row['coach_rationale']]);
         self::assertStringContainsString('coach_summary darf nicht leer sein', $this->mcpTool(self::STATIC, 'update_session', ['session_id' => $kraftId, 'changes' => ['coach_summary' => ' ']])['text']);
+        self::assertFalse($this->mcpTool(self::STATIC, 'update_session', ['session_id' => $ruhe2Id, 'changes' => ['coach_summary' => '']])['isError'], 'Ruhetag: leer entfernt den Kurzsatz');
+        self::assertNull($this->pdo->query('SELECT coach_summary FROM `session` WHERE id = ' . $ruhe2Id)->fetchColumn());
         self::assertStringContainsString('201 Zeichen', $this->mcpTool(self::STATIC, 'update_session', ['session_id' => $kraftId, 'changes' => ['coach_summary' => str_repeat('x', 201)]])['text']);
         self::assertStringContainsString('Unbekannte Felder: focus', $this->mcpTool(self::STATIC, 'update_session', ['session_id' => $kraftId, 'changes' => ['focus' => 'x']])['text']);
 

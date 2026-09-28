@@ -48,7 +48,7 @@ details.more>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex
 details.more>summary .hint{font-weight:400}
 
 /* Begründung der Planung (AP-13, D-56): Kurzsatz sichtbar, „mehr“ klappt ohne JavaScript auf (details) */
-.kurz{color:var(--text-secondary)}
+.kurz{color:var(--text-secondary);overflow-wrap:anywhere}
 details.mehr>summary{color:var(--text-brand);list-style:none;gap:var(--space-1)}
 details.mehr>summary::-webkit-details-marker{display:none}
 details.mehr>summary .ic{transition:transform 150ms ease-out}

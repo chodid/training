@@ -558,11 +558,11 @@ geprueft:
     wie: automatisiert (McpToolsTest)
     ergebnis: ok
     datum: 2026-09-28
-  - was: T2 Lese-Tools und update_session – get_week_overview fokus/begruendung/kurz, get_session_detail coach_summary; update_session ändert Kurzsatz, leerer Kurzsatz abgelehnt, leere Begründung entfernt, focus dort unbekannt; überlange Altdaten blockieren andere Änderungen nicht und fehlen in der Übersicht
+  - was: T2 Lese-Tools und update_session – get_week_overview fokus/begruendung/kurz (auch Ruhetag mit Kurzsatz), get_session_detail coach_summary; update_session ändert Kurzsatz, leerer Kurzsatz abgelehnt (Ruhetag: entfernt), leere Begründung entfernt, focus dort unbekannt; überlange Altdaten blockieren andere Änderungen nicht und fehlen in der Übersicht
     wie: automatisiert (McpToolsTest)
     ergebnis: ok
     datum: 2026-09-28
-  - was: T2 Anzeige – S2 Kurzsatz in eigener Karte ohne „Fokus …“ in der Kopfzeile, „mehr“ als details (ohne JavaScript) nur mit ausführlichem Text, Woche ohne Plan unverändert, Altdaten „Begründung der Woche“; S3 Kurzsatz und „mehr“, Altdaten „Trainer-Notiz“, HTML maskiert; 375 px ohne Überlauf
+  - was: T2 Anzeige – S2 Kurzsatz in eigener Karte ohne „Fokus …“ in der Kopfzeile, „mehr“ als details (ohne JavaScript) nur mit ausführlichem Text, Woche ohne Plan unverändert, Altdaten „Begründung der Woche“; S3 Kurzsatz und „mehr“, Altdaten „Trainer-Notiz“, HTML maskiert; 375 px ohne Überlauf, auch mit einem langen Wort (Adresse) im Kurzsatz (Review, Umbruch nachgezogen)
     wie: automatisiert (WebsiteTest) + Browser (Chromium, lokale Instanz)
     ergebnis: ok
     datum: 2026-09-28

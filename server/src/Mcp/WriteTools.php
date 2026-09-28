@@ -184,7 +184,8 @@ final class WriteTools
                 $merged[$k] = $v;
             }
         }
-        if (array_key_exists('coach_summary', $changes) && self::text($changes['coach_summary']) === null) {
+        // Kurzsatz: Pflicht außer bei Ruhetagen (E-10); dort entfernt ein leerer Text ihn
+        if (array_key_exists('coach_summary', $changes) && self::text($changes['coach_summary']) === null && $s['type'] !== 'ruhe') {
             throw new ToolError('coach_summary darf nicht leer sein (1–' . self::SUMMARY_MAX . ' Zeichen).');
         }
         // Unveränderte Begründungstexte nicht erneut prüfen (Altdaten vor AP-13 können länger sein)

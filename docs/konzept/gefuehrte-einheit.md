@@ -428,6 +428,10 @@ T2:
       loesung: analog S3 („Trainer-Notiz“): Summary „Begründung der Woche“
     - was: Wochen-Kurzsatz focus: E-10 nennt 200 Zeichen für Kurzsätze, 5.1/5.2 für focus 1–255 (Spaltenlänge)
       loesung: Prüfung 1–255 wie 5.2 und Testfall „Grenzlängen 200/255/1500“; die Tool-Beschreibung nennt 255
+    - was: Review nach T2 – ein Kurzsatz an einem Ruhetag (erlaubt, E-10) fehlte in get_week_overview und ließ sich mit update_session nicht mehr entfernen
+      loesung: Ruhetag-Zeile der Übersicht trägt kurz, wenn vorhanden; update_session entfernt den Kurzsatz eines Ruhetags mit leerem Text (bei anderen Typen bleibt leer ein Fehler)
+    - was: Review nach T2 – ein langes Wort (z. B. eine Adresse) im Kurzsatz ließ S2/S3 auf 375 px seitlich scrollen
+      loesung: .kurz bricht lange Wörter um (overflow-wrap:anywhere)
     - was: Test-Hilfe rollbackLastMigration setzte bei Spaltenänderungen nur den Schemastand zurück; 0022 (ADD COLUMN) ließ sich danach nicht erneut einspielen (BackupTest rot)
       loesung: die Hilfe entfernt beim Zurücksetzen neu angelegte Spalten (ADD COLUMN); Seiten und Lese-Tools vertragen die fehlende Spalte während der Schreibsperre
 T3:
