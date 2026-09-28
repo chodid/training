@@ -4,6 +4,9 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+### Dokumentation
+- Konzept: Übergabe AP-06 Teil D eingearbeitet – Hypertrophie-Ergänzung zu T2 (L-T2-20 bis L-T2-32, D-62, V-16; D-28 unverändert), L-T2-07 um die 3. Aufl. ergänzt, Beschaffungsliste 13.4 erweitert.
+
 ## [0.20.1] – 2026-09-28
 
 Nachtrag zu AP-13 T1: Das App-Icon kam nie beim Browser an.
