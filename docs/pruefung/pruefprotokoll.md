@@ -575,7 +575,7 @@ geprueft:
     ergebnis: ok
     datum: 2026-09-28
 noch_zu_pruefen:
-  - was: P-A2 – Chrome Desktop, DevTools → Application → Manifest ohne Warnungen, alle Icons geladen
+  - was: P-A2 – Chrome Desktop, DevTools → Application → Manifest ohne Fehler, alle Icons geladen; erwartet nur die zwei Hinweise „Richer PWA Install UI … desktop/mobile“ (keine Screenshots im Manifest, Auftrag O-05)
     wie: manuell durch Athlet (nach Deployment 0.17.0)
   - was: P-A3 – LibreWolf Android, von /login und von /woche „Zum Startbildschirm“ → beide Male Lama-Icon (V3)
     wie: Gerätetest durch Athlet (alte Verknüpfung vorher entfernen); Screenshot ins Prüfprotokoll

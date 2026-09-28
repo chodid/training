@@ -89,20 +89,31 @@ final class AppIconTest extends TestCase
         $server = null;
         $port = 0;
         for ($try = 0; $try < 5 && $server === null; $try++) {
-            $port = 20000 + (getmypid() * 7 + $try * 131) % 20000;
+            // Freien Port vom System holen; gilt nur, solange der gestartete Server selbst läuft (sonst belegt ihn ein anderer)
+            $probe = stream_socket_server('tcp://127.0.0.1:0');
+            self::assertNotFalse($probe);
+            $port = (int) substr((string) strrchr((string) stream_socket_get_name($probe, false), ':'), 1);
+            fclose($probe);
             $proc = proc_open([PHP_BINARY, '-S', '127.0.0.1:' . $port, '-t', $root . '/public', $root . '/bin/dev-router.php'],
                 [0 => ['pipe', 'r'], 1 => ['file', '/dev/null', 'w'], 2 => ['file', '/dev/null', 'w']], $pipes);
+            self::assertIsResource($proc);
             for ($i = 0; $i < 50; $i++) {
+                if (!proc_get_status($proc)['running']) {
+                    break;
+                }
                 $socket = @fsockopen('127.0.0.1', $port, $errno, $errstr, 0.1);
                 if ($socket !== false) {
                     fclose($socket);
-                    $server = $proc;
+                    if (proc_get_status($proc)['running']) {
+                        $server = $proc;
+                    }
                     break;
                 }
                 usleep(100_000);
             }
-            if ($server === null && is_resource($proc)) {
+            if ($server === null) {
                 proc_terminate($proc);
+                proc_close($proc);
             }
         }
         self::assertNotNull($server, 'Dev-Server startet nicht');

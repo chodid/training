@@ -78,7 +78,7 @@ Prüfschritte (Athlet, vor und nach der Umsetzung, je Browser):
 | schritt | wie | erwartung |
 |---|---|---|
 | P-A1 | Chrome Android: `training.gen-em.org/woche` öffnen → Menü → „App installieren“ / „Zum Startbildschirm“ | Lama-Icon; App öffnet ohne Browserleiste – **ok, 2026-09-28** (vor der Umsetzung, noch mit dem Kopf) |
-| P-A2 | Chrome Desktop: DevTools → Application → Manifest | keine Warnungen, alle Icons geladen |
+| P-A2 | Chrome Desktop: DevTools → Application → Manifest | keine Fehler, alle Icons geladen; erwartet sind nur die zwei Hinweise „Richer PWA Install UI won't be available on desktop/mobile“ (keine `screenshots` im Manifest, O-05) |
 | P-A3 | LibreWolf Android: von `/login` **und** von `/woche` verknüpfen | beide Male Lama-Icon |
 | P-A4 | LibreWolf `about:config`: `dom.serviceWorkers.enabled`, `dom.manifest.enabled` | nur Befund für die Doku, keine Änderung nötig |
 | P-A5 | iOS Safari (falls vorhanden): „Zum Home-Bildschirm“ | Lama-Icon 180 px, kein Screenshot-Icon |
@@ -349,6 +349,7 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 | O-02 | Hangboard mit Wiederholungen **und** Sätzen (z. B. Repeaters 7/3 × 6, 3 Sätze) im Schema `plan-klettern.json` (`reps` je Satz, `rest_between_sets_s`) | nicht im Umfang; bei Bedarf eigener kleiner Auftrag |
 | O-03 | Ergebnis von P-A1/P-A3 vor der Umsetzung | P-A1 erledigt 2026-09-28: Chrome zeigt das Icon; Fehler ist LibreWolf-spezifisch (Favicon-Weg). P-A3 nach T1 |
 | O-04 | Tonhöhen/-längen aus E-17 sind Startwerte; Feinabstimmung nach Gerätetest | in T5 |
+| O-05 | Screenshots im Manifest (`screenshots` mit `form_factor` wide/narrow) für die ausführlichere Installationsansicht in Chrome; ohne sie zeigt DevTools zwei Hinweise (P-A2) | nicht im Umfang (4.2 verlangt sie nicht); bei Wunsch des Athleten kleiner Nachtrag |
 
 ## 10. Nicht im Umfang
 
@@ -368,7 +369,7 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 
 ```yaml
 T1:
-  status: umgesetzt          # Code-Stand 0.17.0; Abnahme P-A2 bis P-A6 durch den Athleten offen
+  status: umgesetzt          # Code-Stand 0.17.0; Abnahme P-A1 (erneut mit V3) bis P-A6 durch den Athleten offen
   datum: 2026-09-28
   ergebnis: >
     Icon-Satz nach E-09/E-21: V3 als lama-48/96/192/512.png (any), lama-512-maskable.png, apple-touch-icon-180.png;
@@ -381,7 +382,7 @@ T1:
     Versions-Cache, PRECACHE lama.svg. Dev-Router liefert .ico/.webmanifest mit Apache-Typen. Mockups (Kennung,
     Favicon) angepasst; alle 38 Screenshots neu gerendert, 27 davon geändert (docs/branding/mockups/screenshots.cjs).
   tests: AppIconTest (I-01 Manifest und PNG-Köpfe, Kopfteil-Links, favicon.ico, I-03 HEAD /favicon.ico über den Dev-Router), AppIconPagesTest (I-02 beide Layouts)
-  abnahme_offen: P-A2 bis P-A6 (Abschnitt 4.1), Screenshots ins Prüfprotokoll
+  abnahme_offen: P-A1 erneut mit V3, P-A2 bis P-A6 (Abschnitt 4.1), Screenshots ins Prüfprotokoll
   probleme_loesungen:
     - was: SVG lässt sich auf dem Server (PHP ohne Imagick) nicht rendern; ein PHP-Skript build-icons.php ist damit nicht möglich
       loesung: Node-Skript mit Playwright/Chromium in docs/branding/ (im Auftrag als Alternative genannt); ICO wird im Skript aus PNG-Einträgen zusammengesetzt
@@ -393,6 +394,10 @@ T1:
       loesung: V2 mit Papiergrund (icons/favicon.svg, E-21 „V2 … auf Papier“ für das SVG-Favicon), damit das Lama auch in dunklen Browserleisten lesbar bleibt; die Kennung in der App ist freigestellt (lama-symbol-flaeche.svg, 4.3 „Folgen“)
     - was: Cache-Regel nur für /icons/ per eigener .htaccess im Unterordner würde die Rewrite-Regeln des Docroots für diesen Ordner aufheben
       loesung: FilesMatch auf die Icon-Dateinamen in public/.htaccess
+    - was: Review nach T1 – P-A2 erwartet „keine Warnungen“; Chrome-DevTools meldet ohne `screenshots` im Manifest immer zwei Hinweise zur ausführlicheren Installationsansicht (Desktop/Mobil). 4.2 verlangt keine Screenshots
+      loesung: Erwartung in P-A2 präzisiert (keine Fehler, nur diese zwei Hinweise); Screenshots als O-05 offen, nicht umgesetzt
+    - was: Review nach T1 – Dev-Router-Test nahm jeden erreichbaren Port als eigenen Server an, auch wenn php -S wegen belegtem Port sofort endete
+      loesung: freier Port vom System (stream_socket_server Port 0), Server gilt nur als gestartet, solange der Prozess läuft; fehlgeschlagene Versuche werden beendet
     - was: Versionsnummer je Unterpunkt oder je AP?
       loesung: je AP (CLAUDE.md „nach jedem AP“): AP-13 (T1, T2) = 0.17.0, AP-14 (T3–T7) = 0.18.0; Changelog, README, Konzept und Prüfprotokoll werden nach jedem Unterpunkt nachgezogen
 T2:
