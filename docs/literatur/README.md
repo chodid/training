@@ -59,7 +59,7 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T2-04 | C | Low 2016 – Overcoming Gravity, 2. Aufl. | [`L-T2-04_Low-2016_Overcoming-Gravity_2ed.pdf`](t2-kraft/L-T2-04_Low-2016_Overcoming-Gravity_2ed.pdf) | 600 | Scan mit fehlerhafter Texterkennung (z. B. „ANO“ statt „AND“), ohne Lesezeichen; Druckseite = PDF-Seite − 14; PDF-Seiten 577/578 sind vertauscht (Druckseiten 564/563). Kapitel-PDFs in `L-T2-04_kapitel/` |
 | L-T2-08 | A | Kotarsky et al. 2018 – Progressive Push-up Training | [`L-T2-08_Kotarsky-2018_Progressive-Push-up-Training.pdf`](t2-kraft/L-T2-08_Kotarsky-2018_Progressive-Push-up-Training.pdf) | 9 |  |
 | L-T2-09 | A | van den Tillaar 2019 – Push-up vs. Bench Press | [`L-T2-09_vandenTillaar-2019_Push-up-vs-Bench-Press.pdf`](t2-kraft/L-T2-09_vandenTillaar-2019_Push-up-vs-Bench-Press.pdf) | 8 |  |
-| L-T2-14 | A | Cowley et al. 2026 – Advanced Resistance Training Methods (Kandidat) | [`L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf`](t2-kraft/L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf) | 23 | Status weiter `kandidat`, Bewertung im Teilblock T2 offen |
+| L-T2-14 | A | Cowley et al. 2026 – Advanced Resistance Training Methods (optional) | [`L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf`](t2-kraft/L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf) | 23 | optional (D-54) |
 
 ### T3 Klettern/Bouldern (13.2.4)
 
@@ -74,16 +74,42 @@ Summe: 30 Werke (davon 7 Bücher mit Kapitel-PDFs).
 
 ## Noch nicht vorhanden
 
-Laut Beschaffungsliste 13.4 fehlen noch:
+Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A und B eingearbeitet).
 
-| ID | Quelle | Bemerkung |
-|---|---|---|
-| L-A01 | Kenney/Wilmore/Costill, 8. (2022) oder 9. Aufl. (2024) | vorläufig durch die 7. Aufl. ersetzt (D-51) |
-| L-T1-01 | Hottenrott/Seidel, Handbuch Trainingswissenschaft – Trainingslehre, 2. Aufl. 2025 | |
-| L-T1-07 | Laursen/Buchheit, Science and Application of HIIT | kein VitalSource-DRM |
-| L-T3-08 | Köstermeyer, Peak Performance | Auflage klären (V-15) |
+### Kaufen oder über die Bibliothek (nicht frei verfügbar)
 
-Ausgewählt bzw. verifiziert, aber nicht auf der Beschaffungsliste und nicht vorhanden: L-T2-10 (Wiedenmann 2025), L-T3-04 (Draper 2015, IRCRA), L-T3-05 (López-Rivera 2012, Bibliografie offen, V-15). Optionale Titel (13.4, „bei Bedarf“) nur, wenn sie aktiviert werden.
+| Prio | ID | Quelle | Wofür |
+|---|---|---|---|
+| 1 | L-P13 | Silbernagel et al. 2007, Am J Sports Med 35(6):897–906 | **Pflicht für V-07** (Schmerzschwellen, Q-13) |
+| 1 | L-P10 | Foster et al. 2001, J Strength Cond Res 15(1):109–115 | sRPE-Methode |
+| 1 | L-P12 | Impellizzeri et al. 2020, Int J Sports Physiol Perform 15(6):907–913 | ACWR-Kritik; Open-Access-Ersatz siehe Konzept |
+| 1 | L-T2-17 | Shiri et al. 2018, Am J Epidemiol 187(5):1093–1101 | Kreuzschmerz-Prävention, Dosierung |
+| 1 | L-T2-18 | Steffens et al. 2016, JAMA Intern Med 176(2):199–208 | Kreuzschmerz-Prävention |
+| 1 | L-T1-01 | Hottenrott/Seidel, Handbuch Trainingswissenschaft – Trainingslehre, 2. Aufl. 2025 (Buch) | T1 Kern; durchsuchbares PDF |
+| 1 | L-A01 | Kenney/Wilmore/Costill, 8. (2022) oder 9. Aufl. (2024) (Buch) | ersetzt die vorläufige 7. Aufl. (D-51) |
+| 2 | L-T2-11 | Rønnestad & Mujika 2014, Scand J Med Sci Sports 24(4):603–612 | Kraft für Läufer |
+| 2 | L-T1-07 | Laursen/Buchheit, Science and Application of HIIT, 2019 (Buch) | Intervallprogrammierung; kein VitalSource-DRM |
+| 2 | L-T3-08 | Köstermeyer, Peak Performance, 8. Aufl. 2017 (Buch) | T3 Kern; Auflage/ISBN beim Kauf klären (tmms-Shop) |
+| 2 | L-T2-10 | Wiedenmann et al. 2025, Gerontology 71(7):576–588 | Beleg Körpergewichtstraining (D-29); Zugang nicht geprüft |
+| 2 | L-T3-04 | Draper et al. 2015, Sports Technology 8(3-4):88–94 | IRCRA-Positionspapier, Graduierung (Datenmodell); Zugang nicht geprüft |
+
+### Frei verfügbar (PubMed Central)
+
+| ID | Quelle | PMC | Hinweis |
+|---|---|---|---|
+| L-P11 | Saw et al. 2016, Br J Sports Med | PMC4789708 | BMJ, keine CC-Lizenz |
+| L-T2-12 | Blagrove et al. 2018, Sports Med | PMC5889786 | CC BY 4.0 |
+| L-T2-15 | Warneke et al. 2024, Sports Med Open | PMC11150224 | Lizenz laut PubMed nicht ausgewiesen |
+| L-T2-16 | Khorramroo et al. 2026, BMC Sports Sci Med Rehabil | PMC13326462 | Lizenz laut PubMed nicht ausgewiesen |
+| L-T3-18 | López-Rivera & González-Badillo 2019, J Hum Kinet | PMC6458579 | Open Access |
+
+### Nur bei Bedarf
+
+- L-P14 Impellizzeri et al. 2021 (optional, Ergänzung zu L-P12)
+- L-T2-19 Carrasco-Uribarren et al. 2026 (optional)
+- L-T3-05 López-Rivera & González-Badillo 2012 (nur falls L-T3-18 nicht genügt)
+- optionale Bücher aus 13.4 („bei Bedarf“): L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-09, L-T3-10, L-T3-11
+
 
 ## Kapitel-PDFs
 
