@@ -294,8 +294,22 @@ geprueft:
     wie: automatisiert + Browser 390/1280 px (kein Überlauf, Sichtvergleich mit Mockup)
     ergebnis: ok
     datum: 2026-09-28
+  - was: Spiegel – read-through speichert Zusammenfassung ohne Streams, zweiter Abruf innerhalb von 5 min ohne API, Rückfall auf Spiegel bei HTTP 500 mit Hinweis, Lesen ohne Konfiguration
+    wie: automatisiert (PHPUnit, simulierte API)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Cron-Abgleich – Schlüsselprüfung, Zeitraum (tage), Wellness nur bekannte Felder, gelöschte Aktivität entfernt, Status in Einstellungen, Fehlerfall 502 mit Anzeige, ohne Intervals-Konfiguration 503; Spiegel in SQL-Backup enthalten
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Einstellungsseite bei veraltetem Schema erreichbar (Regression gefunden und behoben)
+    wie: automatisiert (Schreibsperren-Test mit allgemeinem Zurücksetzen der letzten Migration)
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: JSON-Export herunterladen und in einem Editor/Programm öffnen
+  - was: Cronjob stündlich /cron/intervals-sync bei Lima-City; einmalig tage=365; Einstellungen zeigen Anzahl und letzten Abgleich
+    wie: manuell durch Athlet
     wie: manuell durch Athlet
   - was: Verlauf mit echten Daten nach einigen Wochen Nutzung
     wie: manuell durch Athlet

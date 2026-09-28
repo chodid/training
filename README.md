@@ -53,7 +53,8 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | GET | `/manifest.webmanifest` | Web-App-Manifest („Zum Startbildschirm“) |
 | GET | `/health` | Zustand als JSON: PHP-Erweiterungen, Konfiguration, `var/` beschreibbar, Datenbank, Schemastand. `200` = in Ordnung, `503` = Handlungsbedarf. Enthält keine Secrets. |
 | POST | `/admin/migrate` | Führt ausstehende Migrationen aus, vorher verschlüsselter Pre-Migration-Dump nach `backups/` (die letzten 5 bleiben). Header `X-Migration-Secret` muss `MIGRATION_SECRET` entsprechen. `401` ohne Header, `403` bei falschem Secret, `409` wenn bereits eine Migration läuft oder die Datenbank neuer als der Code ist, `500` wenn der Dump fehlschlägt (dann keine Migration). |
-| GET | `/cron/backup-mail?key=…` | Backup per E-Mail für den Lima-City-Cronjob (`BACKUP_CRON_SECRET`); versendet nur nach Ablauf des Intervalls, `&force=1` sofort |
+| GET | `/cron/backup-mail?key=…` | Backup per E-Mail für den Lima-City-Cronjob (`CRON_SECRET`); versendet nur nach Ablauf des Intervalls, `&force=1` sofort |
+| GET | `/cron/intervals-sync?key=…` | Spiegel Intervals.icu → MySQL (D-43): Aktivitäten und Wellness der letzten 14 Tage (`&tage=…` bis 400), entfernt dort gelöschte Aktivitäten |
 | GET/POST | `/setup` | S0: legt den einzigen Benutzer an (verlangt `MIGRATION_SECRET`, D-34). Sobald ein Benutzer existiert: `404`. |
 | GET/POST | `/login` | S1: Anmeldung, Session 30 Tage gleitend. Nach 10 Fehlversuchen 5 min Sperre, jeder weitere Fehlversuch verdoppelt bis 24 h (D-33). |
 | POST | `/logout` | Abmelden (mit CSRF-Token) |
@@ -122,7 +123,9 @@ Pull Requests durchlaufen nur die Tests.
 - **claude.ai (Web und Mobile-App):** Einstellungen → Connectors → Custom Connector hinzufügen, URL `https://training.gen-em.org/mcp`, keine Client-ID/Secret eintragen (Claude registriert sich selbst). Beim Verbinden öffnet sich die Anmeldung, danach die Freigabeseite: „Freigeben“ wählen. Der Connector steht dann auch in der Mobile-App zur Verfügung.
 - **Claude Desktop / Claude Code (Fallback, D-06):** in der `.env` `MCP_STATIC_TOKEN` (z. B. `openssl rand -hex 32`) und `MCP_STATIC_TOKEN_ENABLED=true` setzen; im Client den Server `https://training.gen-em.org/mcp` mit Header `Authorization: Bearer <MCP_STATIC_TOKEN>` eintragen. Nach dem Test `MCP_STATIC_TOKEN_ENABLED` wieder auf `false` setzen.
 - **Intervals.icu (AP-02):** In Intervals.icu Garmin verbinden (Aktivitäten, Wellness, „Upload planned workouts“), Aktivitäten auf privat stellen (Q-03). Unter Einstellungen → Developer Settings API-Key erzeugen und Athleten-ID (z. B. `i12345`) ablesen; beide als `INTERVALS_API_KEY` und `INTERVALS_ATHLETE_ID` in die `.env`. Danach `https://training.gen-em.org/intervals` öffnen: zeigt Aktivitäten und Wellness der letzten 7 Tage und legt auf Knopfdruck ein Test-Event für morgen an.
-- **Backup per E-Mail (AP-10):** `BACKUP_CRON_SECRET` (mindestens 32 Zeichen), `BACKUP_MAIL_TO` und `SMTP_*` (Mailkonto bei Lima-City) in die `.env`; bei Lima-City einen Cronjob anlegen, der täglich `https://training.gen-em.org/cron/backup-mail?key=<BACKUP_CRON_SECRET>` aufruft. Der Stand steht unter Einstellungen → Backup; Fehler erscheinen zusätzlich in der Wochenansicht.
+- **Cronjobs bei Lima-City:** `CRON_SECRET` (mindestens 32 Zeichen) in die `.env`, dann zwei zeitgesteuerte URL-Aufrufe anlegen:
+  - täglich `https://training.gen-em.org/cron/backup-mail?key=<CRON_SECRET>` – Backup per E-Mail (zusätzlich `BACKUP_MAIL_TO` und `SMTP_*` des Mailkontos). Stand unter Einstellungen → Backup; Fehler erscheinen auch in der Wochenansicht.
+  - stündlich `https://training.gen-em.org/cron/intervals-sync?key=<CRON_SECRET>` – Spiegel Intervals.icu → MySQL (D-43). Einmalig `…&tage=365` im Browser aufrufen, um die Vorgeschichte zu übernehmen. Stand unter Einstellungen → Verbindungen.
 - **Notbremse:** `OAUTH_JWT_SECRET` wechseln macht alle Access-Tokens sofort ungültig; Refresh-Tokens lassen sich in der Tabelle `oauth_token` (`revoked = 1`) sperren.
 
 ## Entwicklung

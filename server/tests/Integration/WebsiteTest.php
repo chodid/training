@@ -191,7 +191,7 @@ final class WebsiteTest extends AppTestCase
     {
         $page = $this->request('GET', '/einstellungen');
         self::assertSame(200, $page->status);
-        foreach (['Angemeldet als philipp', 'Code 14 · Datenbank 14', 'Nicht eingerichtet', 'nicht verbunden'] as $s) {
+        foreach (['Angemeldet als philipp', 'Code ' . \Training\App::SCHEMA_VERSION . ' · Datenbank ' . \Training\App::SCHEMA_VERSION, 'Nicht eingerichtet', 'nicht verbunden'] as $s) {
             self::assertStringContainsString($s, $page->body);
         }
         $csrf = self::csrfFrom($page);

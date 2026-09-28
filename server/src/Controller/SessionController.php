@@ -75,10 +75,11 @@ final class SessionController extends AppController
     /** @param array<string, mixed> $session @return array<string, mixed>|null */
     private function activity(array $session): ?array
     {
-        if ($session['type'] !== 'ausdauer' || !IntervalsClient::isConfigured($this->app->config()) || $session['date'] > $this->today()) {
+        if ($session['type'] !== 'ausdauer' || $session['date'] > $this->today()) {
             return null;
         }
-        $lookup = new ActivityLookup($this->app->intervalsClient(), $this->app->pdo(), $this->app->clock());
+        $client = IntervalsClient::isConfigured($this->app->config()) ? $this->app->intervalsClient() : null;
+        $lookup = new ActivityLookup($client, $this->app->pdo(), $this->app->clock());
 
         return ActivityLookup::match($session, $lookup->activities((string) $session['date'], (string) $session['date']));
     }

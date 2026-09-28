@@ -84,8 +84,9 @@ final class SettingsController extends AppController
             'intervals' => IntervalsClient::isConfigured($config) ? (string) $config->get('INTERVALS_ATHLETE_ID') : null,
             'staticToken' => OAuthConfig::fromConfig($config)->staticToken !== null,
             'mcpUrl' => OAuthConfig::fromConfig($config)->resource(),
-            'mail' => $this->app->mailBackup()->state() + ['to' => $config->get('BACKUP_MAIL_TO'), 'cron' => $config->get('BACKUP_CRON_SECRET') !== null, 'interval' => (int) $config->get('BACKUP_MAIL_INTERVAL_DAYS', '7')],
+            'mail' => $this->app->mailBackup()->state() + ['to' => $config->get('BACKUP_MAIL_TO'), 'cron' => $config->get('CRON_SECRET') !== null, 'interval' => (int) $config->get('BACKUP_MAIL_INTERVAL_DAYS', '7')],
             'preMigration' => $this->preMigration(),
+            'mirror' => $this->mirrorStats() + (new CronController($this->app))->syncState(),
         ]);
     }
 
@@ -134,6 +135,16 @@ final class SettingsController extends AppController
         return $this->overview(new Request('GET', '/einstellungen'), $result['applied'] === []
             ? ['type' => 'info', 'icon' => 'info-circle', 'title' => 'Keine Migration nötig.', 'text' => 'Datenbank ist aktuell.']
             : ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Migration ausgeführt.', 'text' => sprintf('Schemastand %d → %d. Backup vorher: %s', $result['before'], $result['after'], $result['backup'] ?? '–')]);
+    }
+
+    /** Spiegel-Kennzahlen; bei veraltetem Schema (Tabellen fehlen noch) leer, damit die Seite zum Migrieren erreichbar bleibt. @return array<string, mixed> */
+    private function mirrorStats(): array
+    {
+        try {
+            return (new \Training\Intervals\Mirror(null, $this->app->pdo(), $this->app->clock()))->stats();
+        } catch (\PDOException) {
+            return ['aktivitaeten' => 0, 'wellness_tage' => 0, 'erste' => null, 'letzte' => null];
+        }
     }
 
     /** @return array{count: int, last: ?string} */

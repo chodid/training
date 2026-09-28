@@ -29,7 +29,7 @@ final class WeekController extends AppController
 
         // Ausdauer: verknüpfte Aktivität aus Intervals.icu (nur für vergangene/heutige Tage).
         $lookup = $this->activityLookup();
-        $activities = $monday <= $today && $lookup !== null ? $lookup->activities($monday, min($sunday, $today)) : [];
+        $activities = $monday <= $today ? $lookup->activities($monday, min($sunday, $today)) : [];
         $taken = [];
         foreach ($sessions as &$s) {
             $s['activity'] = null;
@@ -87,19 +87,17 @@ final class WeekController extends AppController
             'openFeedback' => $openFeedback,
             'prev' => $prev,
             'next' => $next,
-            'intervalsError' => $lookup?->error,
+            'intervalsError' => $lookup->error,
             'mailError' => $this->app->mailBackup()->state()['error'] ?? null,
         ]);
     }
 
-    private function activityLookup(): ?ActivityLookup
+    /** Aktivitäten aus dem Spiegel (D-43); ohne Intervals-Konfiguration nur der vorhandene Spiegel. */
+    private function activityLookup(): ActivityLookup
     {
-        $config = $this->app->config();
-        if (!IntervalsClient::isConfigured($config)) {
-            return null;
-        }
+        $client = IntervalsClient::isConfigured($this->app->config()) ? $this->app->intervalsClient() : null;
 
-        return new ActivityLookup($this->app->intervalsClient(), $this->app->pdo(), $this->app->clock());
+        return new ActivityLookup($client, $this->app->pdo(), $this->app->clock());
     }
 
     /** @return ?array<string, string> Rückmeldung nach dem Speichern (Weiterleitung mit ?ok=…) */

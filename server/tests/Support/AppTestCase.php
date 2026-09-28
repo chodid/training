@@ -145,6 +145,18 @@ abstract class AppTestCase extends TestCase
         return ['isError' => (bool) ($json['result']['isError'] ?? false), 'data' => json_decode($text, true), 'text' => $text];
     }
 
+    /** Setzt die Datenbank um die letzte Migration zurück (Tabelle der letzten Migration löschen, schema_version kürzen). */
+    protected function rollbackLastMigration(): void
+    {
+        $files = glob(dirname(__DIR__, 2) . '/migrations/*.sql') ?: [];
+        sort($files);
+        $last = (string) end($files);
+        self::assertMatchesRegularExpression('/CREATE TABLE `?(\w+)`?/', (string) file_get_contents($last), 'letzte Migration legt eine Tabelle an');
+        preg_match('/CREATE TABLE `?(\w+)`?/', (string) file_get_contents($last), $m);
+        $this->pdo->exec('DROP TABLE `' . $m[1] . '`');
+        $this->pdo->exec('DELETE FROM schema_version WHERE version = ' . \Training\App::SCHEMA_VERSION);
+    }
+
     /** CSRF-Token aus dem versteckten Feld einer HTML-Seite. */
     protected static function csrfFrom(Response $response): string
     {

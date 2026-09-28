@@ -11,7 +11,7 @@ use Training\Data\WeekRepository;
 use Training\Dates;
 use Training\Intervals\ActivityLookup;
 use Training\Intervals\IntervalsClient;
-use Training\Intervals\IntervalsException;
+use Training\Intervals\Mirror;
 
 /**
  * Lese-Tools der MCP-Schnittstelle (Abschnitt 8.2, AP-05). Antworten sind aggregiert und kompakt (8.3):
@@ -51,16 +51,16 @@ final class ReadTools
 
         $activities = [];
         $wellness = [];
-        if ($this->intervals !== null && $monday <= $today) {
+        if ($monday <= $today) {
             $lookup = new ActivityLookup($this->intervals, $this->pdo, $this->clock);
             $activities = $lookup->activities($monday, min($sunday, $today));
             if ($lookup->error !== null) {
                 $errors[] = $lookup->error;
             }
-            try {
-                $wellness = $this->intervals->wellness($monday, min($sunday, $today));
-            } catch (IntervalsException $e) {
-                $errors[] = $e->getMessage();
+            $mirror = new Mirror($this->intervals, $this->pdo, $this->clock);
+            $wellness = $mirror->wellness($monday, min($sunday, $today));
+            if ($mirror->error !== null) {
+                $errors[] = $mirror->error;
             }
         }
 
@@ -216,7 +216,7 @@ final class ReadTools
             ],
             'schmerz' => $stmt->fetchAll(),
         ];
-        if ($s['type'] === 'ausdauer' && $this->intervals !== null && $s['date'] <= Dates::today($this->clock, $this->tz)) {
+        if ($s['type'] === 'ausdauer' && $s['date'] <= Dates::today($this->clock, $this->tz)) {
             $lookup = new ActivityLookup($this->intervals, $this->pdo, $this->clock);
             $a = ActivityLookup::match($s, $lookup->activities((string) $s['date'], (string) $s['date']));
             $result['aktivitaet'] = $a !== null ? self::activity($a) : null;
@@ -277,15 +277,11 @@ final class ReadTools
         $checkins = (new FeedbackRepository($this->pdo, $this->clock))->checkins($from, $today);
         $wellness = [];
         $error = null;
-        if ($this->intervals !== null) {
-            try {
-                foreach ($this->intervals->wellness(min($from, Dates::addDays($today, -27)), $today) as $w) {
-                    $wellness[(string) ($w['id'] ?? '')] = $w;
-                }
-            } catch (IntervalsException $e) {
-                $error = $e->getMessage();
-            }
+        $mirror = new Mirror($this->intervals, $this->pdo, $this->clock);
+        foreach ($mirror->wellness(min($from, Dates::addDays($today, -27)), $today) as $w) {
+            $wellness[(string) ($w['id'] ?? '')] = $w;
         }
+        $error = $mirror->error;
         $rows = [];
         for ($d = $from; $d <= $today; $d = Dates::addDays($d, 1)) {
             $w = $wellness[$d] ?? [];
@@ -322,7 +318,7 @@ final class ReadTools
             'checkin_abdeckung_pct' => (int) round(100 * count($checkins) / $days),
             'skalen' => ['recovery_1_5' => self::SCALES['recovery_1_5'], 'soreness_1_5' => self::SCALES['soreness_1_5']],
         ];
-        if ($this->intervals === null) {
+        if ($this->intervals === null && $wellness === []) {
             $result['hinweis'] = 'Intervals.icu nicht eingerichtet – nur Check-in-Werte.';
         }
         if ($error !== null) {

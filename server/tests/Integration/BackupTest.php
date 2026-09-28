@@ -101,8 +101,7 @@ final class BackupTest extends AppTestCase
     {
         $this->setupUser();
         // Datenbank einen Stand zurück: letzte Migration entfernen
-        $this->pdo->exec('DROP TABLE ext_cache');
-        $this->pdo->exec('DELETE FROM schema_version WHERE version = ' . App::SCHEMA_VERSION);
+        $this->rollbackLastMigration();
 
         $week = $this->request('GET', '/woche');
         self::assertStringContainsString('Update erforderlich', $week->body);
@@ -128,8 +127,7 @@ final class BackupTest extends AppTestCase
 
     public function testMigrateEndpointReportsBackupAndAbortsWhenDumpFails(): void
     {
-        $this->pdo->exec('DROP TABLE ext_cache');
-        $this->pdo->exec('DELETE FROM schema_version WHERE version = ' . App::SCHEMA_VERSION);
+        $this->rollbackLastMigration();
         file_put_contents($this->baseDir . '/backups', 'kein Ordner');
         $r = $this->request('POST', '/admin/migrate', [], ['X-Migration-Secret' => self::MIGRATION_SECRET]);
         self::assertSame(500, $r->status);
@@ -178,9 +176,9 @@ final class BackupTest extends AppTestCase
     public function testCronMailIntervalAndErrorDisplay(): void
     {
         $this->mailer = new FakeMailer();
-        self::assertSame(503, $this->request('GET', '/cron/backup-mail?key=x')->status, 'ohne BACKUP_CRON_SECRET');
+        self::assertSame(503, $this->request('GET', '/cron/backup-mail?key=x')->status, 'ohne CRON_SECRET');
         $secret = str_repeat('c', 40);
-        $this->writeEnv(['BACKUP_CRON_SECRET' => $secret, 'BACKUP_MAIL_TO' => 'athlet@example.org', 'BACKUP_MAIL_INTERVAL_DAYS' => '7']);
+        $this->writeEnv(['CRON_SECRET' => $secret, 'BACKUP_MAIL_TO' => 'athlet@example.org', 'BACKUP_MAIL_INTERVAL_DAYS' => '7']);
         self::assertSame(403, $this->request('GET', '/cron/backup-mail?key=falsch')->status);
 
         $r = $this->request('GET', '/cron/backup-mail?key=' . $secret);

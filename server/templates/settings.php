@@ -29,7 +29,7 @@ $scopeText = static fn (string $s): string => str_contains($s, 'training:write')
       <div class="list-item"><div><div class="t">Backup herunterladen</div><div class="s">SQL-Dump, gzip, mit dem Backup-Passwort aus der <span class="mono">.env</span> verschlüsselt</div></div>
         <form method="post" action="/einstellungen"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><input type="hidden" name="action" value="backup"><button class="btn btn-primary" type="submit"><?= $this->icon('download') ?>Herunterladen</button></form></div>
 <?php
-$mailText = 'Nicht eingerichtet: BACKUP_MAIL_TO, BACKUP_CRON_SECRET und SMTP_* in der .env, Cronjob bei Lima-City';
+$mailText = 'Nicht eingerichtet: BACKUP_MAIL_TO, CRON_SECRET und SMTP_* in der .env, Cronjob bei Lima-City';
 $mailBadge = ['neutral', 'aus'];
 if (!empty($mail['to']) && !empty($mail['cron'])) {
     $mailText = 'Alle ' . (int) $mail['interval'] . ' Tage an ' . $mail['to'];
@@ -67,6 +67,13 @@ if (!empty($mail['to']) && !empty($mail['cron'])) {
     <div class="card list">
       <div class="list-item"><div><div class="t">Intervals.icu</div><div class="s"><?= $intervals !== null ? 'Athlet ' . $this->e($intervals) . ' · <a href="/intervals">Verbindung prüfen</a>' : 'Nicht eingerichtet: INTERVALS_API_KEY und INTERVALS_ATHLETE_ID in der <span class="mono">.env</span>' ?></div></div>
         <?php if ($intervals !== null): ?><span class="badge badge-success"><?= $this->icon('plug-connected') ?>eingerichtet</span><?php else: ?><span class="badge badge-neutral">aus</span><?php endif ?></div>
+<?php
+$mirrorText = (int) $mirror['aktivitaeten'] . ' Aktivitäten, ' . (int) $mirror['wellness_tage'] . ' Wellness-Tage';
+if (!empty($mirror['erste'])) { $mirrorText .= ' · ' . $mirror['erste'] . ' bis ' . $mirror['letzte']; }
+if (!empty($mirror['last_success'])) { $mirrorText .= ' · Abgleich ' . $fmtDb(gmdate('Y-m-d H:i:s', (int) $mirror['last_success']), $tz); }
+if (!empty($mirror['error'])) { $mirrorText .= ' · Fehler: ' . $mirror['error']; }
+?>
+      <div class="list-item"><div><div class="t">Spiegel Intervals.icu</div><div class="s"><?= $this->e($mirrorText) ?></div></div><span class="badge badge-<?= !empty($mirror['error']) ? 'error' : (!empty($mirror['last_success']) ? 'success' : 'neutral') ?>"><?= !empty($mirror['error']) ? 'Fehler' : (!empty($mirror['last_success']) ? 'aktiv' : 'kein Cronjob') ?></span></div>
 <?php if ($clients === []): ?>
       <div class="list-item"><div><div class="t">Claude</div><div class="s">Keine aktive Freigabe. Connector-Adresse: <span class="mono"><?= $this->e($mcpUrl) ?></span></div></div><span class="badge badge-neutral">nicht verbunden</span></div>
 <?php endif ?>

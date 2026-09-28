@@ -191,8 +191,7 @@ final class McpToolsTest extends AppTestCase
         self::assertTrue($this->mcpTool(self::STATIC, 'get_session_detail', ['session_id' => 999])['isError']);
 
         // Schreibsperre
-        $this->pdo->exec('DROP TABLE ext_cache');
-        $this->pdo->exec('DELETE FROM schema_version WHERE version = ' . \Training\App::SCHEMA_VERSION);
+        $this->rollbackLastMigration();
         $locked = $this->mcpTool(self::STATIC, 'upsert_block', ['block' => ['name' => 'C', 'start_date' => '2026-10-12', 'end_date' => '2026-11-08']]);
         self::assertTrue($locked['isError']);
         self::assertStringContainsString('Update erforderlich', $locked['text']);

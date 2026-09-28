@@ -21,10 +21,10 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.8.0';
+    public const VERSION = '0.9.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
-    public const SCHEMA_VERSION = 14;
+    public const SCHEMA_VERSION = 16;
 
     private ?Config $config = null;
     private ?PDO $pdo = null;
@@ -80,6 +80,7 @@ final class App
             '/checkin' => ['GET' => fn (): Response => (new \Training\Controller\CheckinController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\CheckinController($this))->handle($request)],
             '/schmerz' => ['GET' => fn (): Response => (new \Training\Controller\PainController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\PainController($this))->handle($request)],
             '/einstellungen' => ['GET' => fn (): Response => (new \Training\Controller\SettingsController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\SettingsController($this))->handle($request)],
+            '/cron/intervals-sync' => ['GET' => fn (): Response => (new \Training\Controller\CronController($this))->intervalsSync($request)],
             '/cron/backup-mail' => ['GET' => fn (): Response => (new \Training\Controller\CronController($this))->backupMail($request)],
             '/verlauf' => ['GET' => fn (): Response => (new \Training\Controller\HistoryController($this))->handle($request)],
             '/intervals' => ['GET' => fn (): Response => (new IntervalsController($this, $this->intervalsTransport))->handle($request), 'POST' => fn (): Response => (new IntervalsController($this, $this->intervalsTransport))->handle($request)],

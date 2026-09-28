@@ -4,6 +4,23 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.9.0] – 2026-09-28
+
+AP-09 Teil 2: Spiegel Intervals.icu → MySQL (D-43).
+
+### Hinzugefügt
+- Migrationen `0015` `ext_activity`, `0016` `ext_wellness` (Zusammenfassungen, keine Streams); `App::SCHEMA_VERSION` = 16.
+- Spiegel mit read-through: Webseite und MCP lesen aus MySQL; ein Zeitraum wird höchstens alle 5 Minuten live abgefragt und übernommen (in Intervals.icu gelöschte Aktivitäten werden entfernt); fällt Intervals.icu aus, kommen die Daten aus dem Spiegel.
+- `GET /cron/intervals-sync?key=…` für einen stündlichen Lima-City-Cronjob; Status (Anzahl, Zeitraum, letzter Abgleich, Fehler) in den Einstellungen.
+- Spiegeldaten sind in SQL-Backup und JSON-Export enthalten.
+- Tests für read-through, Rückfall, Cron-Abgleich und Löschungen.
+
+### Geändert
+- `BACKUP_CRON_SECRET` heißt jetzt `CRON_SECRET` (gilt für alle Cron-Endpunkte).
+
+### Behoben
+- Einstellungsseite war bei veraltetem Schema nicht erreichbar, sobald neue Tabellen abgefragt wurden (gefunden durch den Schreibsperren-Test); Spiegelzugriffe tolerieren fehlende Tabellen.
+
 ## [0.8.0] – 2026-09-28
 
 AP-09 Teil 1: JSON-Export und Verlauf (D-42).

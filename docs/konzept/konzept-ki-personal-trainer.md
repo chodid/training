@@ -372,7 +372,7 @@ Regeln für fehlende Daten:
 
 1. HTTPS (Zertifikat über Lima-City; TLS endet am vorgeschalteten Proxy, der auch auf HTTPS umleitet); HSTS.
 1a. Auf dem Webspace ist `open_basedir` nicht gesetzt: PHP-Skripte anderer Websites desselben Lima-City-Accounts können `.env`, `backups/` und `var/` lesen. Hinnehmbar, solange im Account keine fremde oder veraltete Software läuft; Backups sind zusätzlich verschlüsselt. Zusätzlich sperrt eine `.htaccess` im Subdomain-Ordner jeden HTTP-Zugriff, falls der Document Root versehentlich auf den Ordner selbst zeigt.
-2. Secrets ausschließlich in `.env` außerhalb des Docroots, nie im Repo: Intervals.icu-Key, `OAUTH_JWT_SECRET` (Pflicht, ≥ 32 Zeichen, D-32), `MCP_STATIC_TOKEN` mit `MCP_STATIC_TOKEN_ENABLED` (D-06), `MIGRATION_SECRET` (D-17, D-34), Backup-Passwort (D-18).
+2. Secrets ausschließlich in `.env` außerhalb des Docroots, nie im Repo: Intervals.icu-Key, `OAUTH_JWT_SECRET` (Pflicht, ≥ 32 Zeichen, D-32), `CRON_SECRET` (Cron-Endpunkte), `MCP_STATIC_TOKEN` mit `MCP_STATIC_TOKEN_ENABLED` (D-06), `MIGRATION_SECRET` (D-17, D-34), Backup-Passwort (D-18).
 3. OAuth 2.1 Single-User: Authorize nur nach Webseiten-Login und ausdrücklicher Freigabe (D-36); Access-Tokens = JWT HS256, 1 h, ohne DB-Eintrag; Refresh-Tokens zufällig, nur gehasht, rotierend, Familien-Widerruf bei Wiederverwendung (D-32); PKCE S256 Pflicht, Codes 10 min einmalig, Redirect-URIs nur https bzw. localhost (D-36). Tradeoff: Widerruf greift für laufende Access-Tokens erst nach Ablauf (≤ 1 h); Notbremse ist der Wechsel von `OAUTH_JWT_SECRET`.
 3a. Webseiten-Login (D-33): Passwort-Hash per `password_hash()`; Session 30 Tage in `web_session`, Cookie `HttpOnly`/`Secure`/`SameSite=Lax`, CSRF-Schutz über `csrf_secret` je Session; Kontosperre nach 10 Fehlversuchen für 5 Minuten, bei weiteren Fehlversuchen Verdopplung bis maximal 24 h, Rücksetzung des Zählers bei erfolgreichem Login (`failed_logins`, `locked_until`; D-33). Erstanlage nur über `/setup` mit `MIGRATION_SECRET`, danach dauerhaft gesperrt (D-34).
 4. Audit-Log für alle Schreibzugriffe über MCP und Web.
@@ -1391,7 +1391,7 @@ abgeschlossen: null
 teilpakete:
   - JSON-Export: erledigt (Code-Stand 0.8.0, Abnahme durch Athlet offen)
   - Verlauf S6: erledigt (Code-Stand 0.8.0, Abnahme durch Athlet offen)
-  - Cron-Spiegel (D-43): offen
+  - Cron-Spiegel (D-43): erledigt (Code-Stand 0.9.0, Cronjob und Abnahme durch Athlet offen)
   - Feedback-Rückschreiben (Q-02): offen
   - Passkey (D-44): offen
   - Asymmetrische Backups: offen
@@ -1410,6 +1410,18 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: Hinweis „steigt seit vier Wochen“ im Mockup braucht eine Trendregel (AP-07)
     loesung: vorerst weggelassen; Trend liefert get_pain_history an Claude
+  - datum: 2026-09-28
+    was: Spiegel – wann live, wann aus MySQL? (D-43 „Live-Abfrage nur als Rückfall“)
+    loesung: read-through – ein Zeitraum wird höchstens alle 5 Minuten live geholt und dabei gespiegelt (auch heute aufgezeichnete Aktivitäten sofort sichtbar); sonst Spiegel; bei API-Fehlern Spiegel mit Hinweis. Stündlicher Cronjob hält die letzten 14 Tage aktuell, einmalig tage=365 für die Vorgeschichte
+  - datum: 2026-09-28
+    was: In Intervals.icu gelöschte oder zusammengeführte Aktivitäten blieben sonst im Spiegel
+    loesung: bei jedem Abgleich eines Zeitraums werden dort nicht mehr vorhandene Aktivitäten entfernt
+  - datum: 2026-09-28
+    was: Zweiter Cron-Endpunkt bräuchte ein weiteres Secret
+    loesung: ein gemeinsames CRON_SECRET für alle Cron-Endpunkte (vorher BACKUP_CRON_SECRET; noch nicht produktiv, daher umbenannt)
+  - datum: 2026-09-28
+    was: Einstellungsseite (mit dem Migrationsknopf) stürzte bei veraltetem Schema ab, weil sie die neue Spiegeltabelle abfragte
+    loesung: Spiegelzugriffe fangen fehlende Tabellen ab; Test „Schreibsperre“ setzt jetzt allgemein die letzte Migration zurück und hat den Fehler aufgedeckt
 ```
 
 ## AP-10 Backup und Update-Mechanik
@@ -1433,8 +1445,8 @@ abgeschlossen: null
 umsetzung:
   - server/src/Backup/ – Dumper, Encryptor (OpenSSL-Format, PBKDF2-SHA256 200 000 Iterationen), BackupService, UpdateService (Dump vor Migration, Schreibsperre), MailBackup + SmtpMailer (PHPMailer)
   - Einstellungen – Download, Migrationsknopf, Status Backup-Mail und Pre-Migration-Dumps; Seite „Update erforderlich“ für gesperrte Schreibzugriffe
-  - GET /cron/backup-mail?key=… (BACKUP_CRON_SECRET), Intervall BACKUP_MAIL_INTERVAL_DAYS (Standard 7); Zustand var/backup-mail.json
-  - .env – BACKUP_PASSWORD (Pflicht, ≥ 16 Zeichen), BACKUP_CRON_SECRET, BACKUP_MAIL_TO, BACKUP_MAIL_INTERVAL_DAYS, SMTP_HOST/PORT/SECURE/USER/PASSWORD/FROM
+  - GET /cron/backup-mail?key=… (CRON_SECRET), Intervall BACKUP_MAIL_INTERVAL_DAYS (Standard 7); Zustand var/backup-mail.json
+  - .env – BACKUP_PASSWORD (Pflicht, ≥ 16 Zeichen), CRON_SECRET, BACKUP_MAIL_TO, BACKUP_MAIL_INTERVAL_DAYS, SMTP_HOST/PORT/SECURE/USER/PASSWORD/FROM
 probleme_loesungen:
   - datum: 2026-09-28
     was: „Migration bricht ab, wenn der Dump fehlschlägt“ – ohne Backup-Passwort kann kein Dump entstehen
@@ -1444,7 +1456,7 @@ probleme_loesungen:
     loesung: 200 000 Iterationen, SHA-256 (Encryptor::ITERATIONS); Befehl zum Entschlüsseln im README, in jeder Backup-Mail und im Code; Kompatibilität mit openssl 3.0 getestet
   - datum: 2026-09-28
     was: Lima-City-Cronjob kann nur URLs aufrufen (V-10), keine eigenen Header
-    loesung: Secret als Query-Parameter (BACKUP_CRON_SECRET ≥ 32 Zeichen, Vergleich mit hash_equals); Endpunkt versendet nur nach Ablauf des Intervalls, damit ein täglicher Cronjob reicht
+    loesung: Secret als Query-Parameter (CRON_SECRET ≥ 32 Zeichen, Vergleich mit hash_equals); Endpunkt versendet nur nach Ablauf des Intervalls, damit ein täglicher Cronjob reicht
   - datum: 2026-09-28
     was: Wo speichern, wann zuletzt versendet wurde und ob ein Fehler auftrat (Anzeige „beim nächsten Login“)?
     loesung: Datei var/backup-mail.json statt Tabelle (keine Migration, überlebt Restore unabhängig); Fehler als Hinweis in Wochenansicht und Einstellungen
@@ -1505,3 +1517,4 @@ noch_zu_pruefen:
 | 2026-09-28 | Q-11 → D-40 (Tool `upsert_block`) und Q-12 → D-41 (Feld `sport` im Ausdauerplan) vom Athleten bestätigt; Umsetzung unverändert. |
 | 2026-09-28 | AP-09 entschieden (D-42): alle Optionen; Cron-Spiegel (D-43, ändert D-09), Passkey zusätzlich (D-44), Offline lesen + Eingaben puffern (D-45, ändert Abschnitt 10). AP-09 `in_arbeit` mit Teilpaketen. |
 | 2026-09-28 | AP-09 Teil 1 umgesetzt (Code-Stand 0.8.0): JSON-Export, Verlauf S6. |
+| 2026-09-28 | AP-09 Teil 2 umgesetzt (Code-Stand 0.9.0): Spiegel Intervals.icu → MySQL (D-43) mit read-through und Cron-Abgleich; CRON_SECRET statt BACKUP_CRON_SECRET. |
