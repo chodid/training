@@ -4,6 +4,9 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+### Dokumentation
+- Konzept: Q-09 → D-38 (Refresh-Token 90 Tage), Q-10 → D-39 (`plan_json` für Mobilität wie Kraft, Ruhetag leer) bestätigt.
+
 ## [0.4.0] – 2026-09-27
 
 AP-03 Datenmodell.

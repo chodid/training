@@ -229,8 +229,6 @@ noch_zu_pruefen:
     wie: automatisiert (CI-Job test im Pull Request)
   - was: Migration auf dem Server 6 → 14, /health schema code 14 = db 14
     wie: Deployment nach Merge, /health im Browser
-  - was: Q-10 plan_json für mobilitaet/ruhe
-    wie: Entscheidung Athlet
 ```
 
 ## AP-06 Wissensbasis (übernommen aus Konzept)

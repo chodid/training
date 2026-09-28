@@ -13,7 +13,7 @@ final class OAuthConfig
 {
     public const ACCESS_TOKEN_TTL = 3600;
     public const AUTH_CODE_TTL = 600;
-    /** Laufzeit eines Refresh-Tokens; jede Rotation beginnt neu (vorläufiger Wert, siehe Konzept AP-01). */
+    /** Laufzeit eines Refresh-Tokens; jede Rotation beginnt neu (D-38). */
     public const REFRESH_TOKEN_TTL = 90 * 86400;
     /** Unbenutzte Client-Registrierungen werden nach 30 Tagen aufgeräumt (D-36). */
     public const UNUSED_CLIENT_TTL = 30 * 86400;

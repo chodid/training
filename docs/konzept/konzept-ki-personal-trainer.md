@@ -162,6 +162,8 @@ flowchart LR
 | D-35 | Die Tabellen `user`, `web_session`, `oauth_client`, `oauth_auth_code`, `oauth_token` werden in **AP-01** als Migrationen angelegt (vorgezogen aus AP-03). AP-03 legt nur noch die Trainingstabellen an (`training_block`, `training_week`, `session`, `session_execution`, `pain_event`, `checkin`, `audit_log`, optional `ext_cache`). | AP-01 braucht Login und OAuth-Persistenz produktiv; Q-05 ist entschieden (D-33), damit entfällt die frühere Wartebedingung für AP-03. | 2026-09-27 |
 | D-36 | Dynamic Client Registration (`/oauth/register`) ist **offen** (jeder Client darf sich registrieren, RFC 7591, ohne Vorab-Secret). Schutz liegt im Authorize-Schritt: Login (D-33) und eine **ausdrückliche Freigabeseite**, die Client-Name und Redirect-Host anzeigt und eine Bestätigung verlangt; ohne Bestätigung kein Code. Regeln: Redirect-URIs nur `https://` oder `http://localhost` bzw. `http://127.0.0.1` (exakter Vergleich gegen die registrierte URI); **PKCE mit `S256` Pflicht** (`plain` abgelehnt); Autorisierungscodes 10 min gültig, einmalig, gehasht gespeichert; unbenutzte Client-Registrierungen dürfen nach 30 Tagen aufgeräumt werden. | claude.ai registriert seinen Client selbst und erwartet offene DCR; eine Registrierung allein verschafft keinen Zugriff, weil jeder Zugriff die Freigabe des angemeldeten Athleten braucht. Localhost-Ausnahme für Claude Desktop/Code und lokale Tests. | 2026-09-27 |
 | D-37 | **Design-Mockups vor AP-01** (eigenes Vorpaket AP-01a, Fable): Mockups aller Screens – S0 Setup, S1 Login, S2 Woche, S3 Einheit, S4 Check-in, S5 Schmerz, S7 OAuth-Freigabe – mobil- und tabletfreundlich, auf Grundlage der Gestaltungsvorgaben des Athleten (werden noch geliefert). Ergebnis ist das Branding-Dokument unter `docs/branding/` (D-19); Abnahme durch den Athleten ist Voraussetzung für AP-01. | Bereits AP-01 baut drei sichtbare Seiten (Setup, Login, Freigabe); eine spätere Umgestaltung wäre doppelte Arbeit. Die Code-Instanz setzt Mockups um, entwirft sie aber nicht (Rollenverteilung Abschnitt 0). | 2026-09-27 |
+| D-38 | Laufzeit der Refresh-Tokens (Q-09): **90 Tage**, jede Rotation beginnt die Laufzeit neu. Nach Ablauf muss der Connector in Claude neu verbunden werden (Login + Freigabe). | Bei wöchentlicher Nutzung nie ein erneuter Login; ein verlorenes oder vergessenes Gerät verliert den Zugang spätestens nach 90 Tagen ohne Nutzung. Bestätigt durch Athlet. | 2026-09-28 |
+| D-39 | `plan_json` für die in 7.1 fehlenden Typen (Q-10): `mobilitaet` nutzt das Schema `kraft_oder_haltung` (Übungsliste; Haltezeiten als `reps` z. B. „30s“); `ruhe` hat kein `plan_json` (leer oder nur `notes`). | Passt zu den Mockups (S3) und hält Webseite und MCP-Schnittstelle einfach. Bestätigt durch Athlet. | 2026-09-28 |
 
 # 5. Offene Fragen und Verifikationen
 
@@ -177,8 +179,8 @@ flowchart LR
 | Q-06 | Welche Literatur ist bereits vorhanden (PDF/ePub/Print)? | Antwort: keine. Auswahl, Priorisierung und Beschaffung vollständig in AP-06; Kandidatenliste 13.2 ist Ausgangspunkt, nicht Vorgabe. | beantwortet |
 | Q-07 | Einheitliches Evidenzschema über alle Blöcke: Block T3 schlägt Stufen A/B/C vor (E3) und will Stufe C ohne Begründungsfunktion (E4); Block T1 führt Praxisquellen mit `konfidenz: niedrig` in Karten (D-25); Block T2 nutzt eine Stufe-C-Quelle als Übungskatalog mit Dosierung aus Stufe A (D-29). | Vereinheitlichen als D-31: A = Paper/Konsens (konfidenz hoch), B = wissenschaftliche Lehrbücher (mittel), C = Praxisquellen (niedrig). Stufe C darf in Karten als Übungs-/Ideenfundus und mit Kennzeichnung zitiert werden, aber nie allein einen Belastungsparameter (Dosierung, Progression, Schwelle) begründen. Damit sind D-25, D-29 und E4 deckungsgleich. Ebenso E5: Open-Access-Volltexte (nur CC BY) dürfen im privaten Repo unter `docs/literatur/` liegen, nie im Projektwissen (D-12, Budget 13.1). E6 (Evidenzkern T3) übernehmen. | entschieden → D-31 |
 | Q-08 | Klettermedizin: deutsche (L-T3-07, 2020) oder englische Ausgabe (L-T3-06, 2022)? Nur eine wird beschafft. | Englische Ausgabe (neuer, ISBN/DOI verifiziert, Springer-Kapitel-PDFs); deutsche nur, wenn Sprache im Alltag wichtiger ist als Aktualität. | entschieden → D-31: 2022 bevorzugt, 2020 als Alternative |
-| Q-09 | Laufzeit der Refresh-Tokens (D-32 legt keine fest). Jede Rotation beginnt die Laufzeit neu; nach Ablauf muss der Connector in Claude neu verbunden werden (Login + Freigabe). | 90 Tage: bei regelmäßiger Nutzung (wöchentlicher Zyklus) nie ein erneuter Login, ein verlorenes Gerät verliert den Zugang spätestens nach 90 Tagen ohne Nutzung. Kürzer (30 Tage) nur, wenn Pausen > 30 Tage einen neuen Login rechtfertigen. | offen (vorläufig 90 Tage umgesetzt, Code-Stand 0.2.0) |
-| Q-10 | `plan_json` für `mobilitaet` und `ruhe` (Abschnitt 7.1 definiert nur kraft/haltung, klettern, ausdauer). | `mobilitaet` wie kraft/haltung (Übungsliste mit Sätzen/Wiederholungen bzw. Haltezeit „30s“); `ruhe` ohne Plan, höchstens Notiz. Passt zu den Mockups (S3) und hält die Webseite einfach. | offen (vorläufig so umgesetzt, Code-Stand 0.4.0) |
+| Q-09 | Laufzeit der Refresh-Tokens (D-32 legt keine fest). Jede Rotation beginnt die Laufzeit neu; nach Ablauf muss der Connector in Claude neu verbunden werden (Login + Freigabe). | 90 Tage: bei regelmäßiger Nutzung (wöchentlicher Zyklus) nie ein erneuter Login, ein verlorenes Gerät verliert den Zugang spätestens nach 90 Tagen ohne Nutzung. Kürzer (30 Tage) nur, wenn Pausen > 30 Tage einen neuen Login rechtfertigen. | entschieden → D-38 (2026-09-28) |
+| Q-10 | `plan_json` für `mobilitaet` und `ruhe` (Abschnitt 7.1 definiert nur kraft/haltung, klettern, ausdauer). | `mobilitaet` wie kraft/haltung (Übungsliste mit Sätzen/Wiederholungen bzw. Haltezeit „30s“); `ruhe` ohne Plan, höchstens Notiz. Passt zu den Mockups (S3) und hält die Webseite einfach. | entschieden → D-39 (2026-09-28) |
 
 ## 5.2 Zu verifizieren (vor/in dem jeweiligen AP)
 
@@ -268,7 +270,7 @@ ausdauer:
 
 `actual_json` spiegelt die Struktur von `plan_json` mit Ist-Werten; leere Felder = wie geplant.
 
-Zuordnung der übrigen Typen (vorläufig, Q-10): `mobilitaet` nutzt das Schema `kraft_oder_haltung`; `ruhe` hat kein `plan_json` (leer oder nur `notes`). Umsetzung als JSON-Schema in `server/schemas/` (AP-03).
+Zuordnung der übrigen Typen (D-39): `mobilitaet` nutzt das Schema `kraft_oder_haltung`; `ruhe` hat kein `plan_json` (leer oder nur `notes`). Umsetzung als JSON-Schema in `server/schemas/` (AP-03).
 
 ## 7.2 Enum `pain_event.location`
 
@@ -1077,7 +1079,7 @@ umsetzung:
   - Migrationen 0002–0006 (user, web_session, oauth_client, oauth_auth_code, oauth_token), App::SCHEMA_VERSION = 6
   - .env: OAUTH_JWT_SECRET (Pflicht, ≥ 32 Zeichen), MCP_STATIC_TOKEN, MCP_STATIC_TOKEN_ENABLED (Standard aus)
   - Scopes training:read, training:write (Bezeichnungen aus Mockup S7); ohne Angabe beide
-  - Laufzeiten: Access-Token 1 h, Code 10 min, Refresh-Token vorläufig 90 Tage je Rotation (Q-09), Web-Session 30 Tage gleitend (Verlängerung höchstens stündlich)
+  - Laufzeiten: Access-Token 1 h, Code 10 min, Refresh-Token 90 Tage je Rotation (D-38), Web-Session 30 Tage gleitend (Verlängerung höchstens stündlich)
   - Deploy: var/** und bin/** vom Upload ausgeschlossen; Assets aus docs/branding/ per server/bin/build-assets.php in CI gebaut
   - Tests: 68 (Unit + Integration gegen MariaDB 10.11 lokal, MySQL 8.4 in CI); zusätzlich lokal SDK-Client in beiden Protokoll-Epochen (2026-07-28 zustandslos, 2025-11-25 mit Handshake) und Browser-Durchlauf S0/S1/S7 in 390/834/1280 px
 probleme_loesungen:
@@ -1092,7 +1094,7 @@ probleme_loesungen:
     loesung: Token vorab mit demselben Validator prüfen; ohne gültiges Token nutzt das SDK nur einen flüchtigen Speicher (die 401-Antwort erzeugt weiterhin das SDK), Mcp-Session-Id wird dann nicht ausgegeben; Sitzungsdateien älter als ein Tag werden gelegentlich gelöscht (Test)
   - datum: 2026-09-27
     was: D-32 legt keine Laufzeit für Refresh-Tokens fest
-    loesung: vorläufig 90 Tage, jede Rotation beginnt neu (bei regelmäßiger Nutzung kein erneuter Login); als Q-09 dem Athleten zur Bestätigung vorgelegt
+    loesung: 90 Tage, jede Rotation beginnt neu (bei regelmäßiger Nutzung kein erneuter Login); als Q-09 vorgelegt, vom Athleten bestätigt → D-38 (2026-09-28)
   - datum: 2026-09-27
     was: Scope-Namen waren im Konzept nicht festgelegt; Clients fordern teils eigene Scopes an
     loesung: training:read und training:write aus Mockup S7 übernommen; unbekannte Scopes werden ignoriert statt abgelehnt, ohne bekannte Angabe werden beide vergeben (verhindert Abbruch bei Clients mit Standardwerten); geprüft wird am /mcp derzeit nur aud/iss/exp, eine Scope-Prüfung je Tool folgt mit AP-05
@@ -1149,7 +1151,7 @@ probleme_loesungen:
 - **Abnahmekriterien:** Migrationen idempotent; Beispiel-Woche mit allen Session-Typen einfügbar; JSON-Validierung lehnt fehlerhafte Pläne ab.
 - **Status:**
 ```yaml
-status: in_arbeit         # Code-Stand 0.4.0, alle Abnahmekriterien lokal automatisiert erfüllt (MariaDB 10.11); offen: CI gegen MySQL 8.4, Migration auf dem Server, Q-10
+status: in_arbeit         # Code-Stand 0.4.0, alle Abnahmekriterien lokal automatisiert erfüllt (MariaDB 10.11); offen: CI gegen MySQL 8.4, Migration auf dem Server
 begonnen: 2026-09-27
 abgeschlossen: null
 umsetzung:
@@ -1165,7 +1167,7 @@ probleme_loesungen:
     loesung: Verbindung setzt sql_mode STRICT_ALL_TABLES u. a. und time_zone +00:00 selbst (Database::connect); Tests prüfen die Ablehnung
   - datum: 2026-09-27
     was: Abschnitt 7.1 definiert kein plan_json für mobilitaet und ruhe
-    loesung: vorläufig mobilitaet = Schema kraft_oder_haltung, ruhe = leer oder nur notes; als Q-10 dem Athleten vorgelegt
+    loesung: mobilitaet = Schema kraft_oder_haltung, ruhe = leer oder nur notes; als Q-10 vorgelegt, vom Athleten bestätigt → D-39 (2026-09-28)
   - datum: 2026-09-27
     was: srpe_load „berechnet, nie manuell“ (Abschnitt 11)
     loesung: berechnete Spalte (STORED) rpe_cr10 × duration_min; Schreiben wird von der Datenbank abgewiesen (Test)
@@ -1377,3 +1379,4 @@ noch_zu_pruefen:
 | 2026-09-27 | AP-01 umgesetzt (Code-Stand 0.2.0), Status `in_arbeit` bis zur Abnahme auf dem Server und mit claude.ai. Befunde im AP-01-Block (SDK-Einbindung über HttpServerRunner, Sitzungsdateien nur mit gültigem Token, Scope-Namen, Client-Authentifizierung `none`, Assets-Build, CSP). Neu: Q-09 Laufzeit Refresh-Token (vorläufig 90 Tage). 8.1 um Scopes und Pfad-Suffix-Metadaten ergänzt; V-05 in Arbeit. |
 | 2026-09-27 | AP-02 umgesetzt (Code-Stand 0.3.0), Status `in_arbeit`: Intervals.icu-Client und Verbindungstest `/intervals`. V-04 vorläufig aus Sekundärquelle (intervals.icu aus der Code-Umgebung nicht erreichbar); Befunde im AP-02-Block. |
 | 2026-09-27 | AP-03 umgesetzt (Code-Stand 0.4.0), Status `in_arbeit` bis CI gegen MySQL 8.4 und Migration auf dem Server. Neu: `docs/konzept/datenmodell.md` (ER-Diagramm), Q-10 (plan_json für mobilitaet/ruhe, vorläufig umgesetzt), Verweise in Abschnitt 7 und 7.1. |
+| 2026-09-28 | Q-09 → D-38 (Refresh-Token 90 Tage) und Q-10 → D-39 (`plan_json` für mobilitaet/ruhe) vom Athleten bestätigt; Umsetzung unverändert. Auslieferung: AP-01 bis AP-03 gemeinsam in einem Pull Request (Entscheidung Athlet). |
