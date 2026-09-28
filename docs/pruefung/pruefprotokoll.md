@@ -367,8 +367,6 @@ noch_zu_pruefen:
     wie: manuell – zuerst upsert_block, dann write_week_plan für eine Testwoche; Webseite, Intervals-Kalender und Uhr prüfen; danach Testwoche per update_session/replace_existing bereinigen
   - was: Intervals-Feldnamen (ctl, atl, hrv, restingHR, sleepSecs, icu_training_load, paired_event_id) mit echten Daten
     wie: manuell – get_week_overview/get_wellness_trend mit Werten in Intervals.icu vergleichen
-  - was: Q-11 (upsert_block) und Q-12 (sport) bestätigen
-    wie: Entscheidung Athlet
 ```
 
 ## AP-06 Wissensbasis (übernommen aus Konzept)
