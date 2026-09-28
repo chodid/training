@@ -2,7 +2,7 @@
  * Service Worker der Training-App (D-45): Offline lesen und Eingaben puffern.
  * - Seiten /woche, /einheit (auch geführt: ?modus=start), /checkin, /schmerz: erst Netz (5 s), sonst gespeicherter Stand
  *   (markiert mit data-offline-stand).
- * - Gestaltung (/assets, /css, /js, /icons, Manifest, /favicon.ico): aus dem Cache der jeweiligen Version.
+ * - Gestaltung (/assets, /css, /js, /app-icons, Manifest, /favicon.ico): aus dem Cache der jeweiligen Version.
  * - Formulare Check-in, Rückmeldung, Schmerz: ohne Netz in IndexedDB gepuffert und später mit frischem CSRF-Token gesendet
  *   (Kopfzeile X-Offline-Queue; Server antwortet 204/401/409/422). Geänderte Einträge werden nicht überschrieben (409).
  * Die Seite /login löscht die gespeicherten Seiten (Abmelden); der Puffer bleibt und wird nach dem Login gesendet.
@@ -14,7 +14,7 @@ const STATIC = 'training-static-' + VERSION;
 const PAGES = 'training-pages';
 const PAGE_PATHS = ['/woche', '/einheit', '/checkin', '/schmerz'];
 const FORM_PATHS = ['/checkin', '/einheit', '/schmerz'];
-const STATIC_PREFIXES = ['/assets/', '/css/', '/js/', '/icons/'];
+const STATIC_PREFIXES = ['/assets/', '/css/', '/js/', '/app-icons/'];
 const STATIC_FILES = ['/manifest.webmanifest', '/favicon.ico'];
 const PRECACHE = ['/assets/ds/styles.css', '/assets/app.css', '/css/training.css', '/js/offline.js?v=' + VERSION, '/js/gefuehrt.js?v=' + VERSION, '/assets/lama.svg'];
 const NET_TIMEOUT_MS = 5000;

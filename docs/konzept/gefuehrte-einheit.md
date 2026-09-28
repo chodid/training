@@ -1,7 +1,7 @@
 # Auftrag: App-Icon, Begründungstexte der Planung und geführte Trainingseinheit
 
 Ablageort im Repo: `docs/konzept/gefuehrte-einheit.md` (im Hauptkonzept: AP-13 und AP-14, D-55 bis D-59, Q-14; Nachtrag T8: AP-11, D-60; Nachtrag T9: AP-14)
-Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21, Nachtrag T8 mit E-22, Nachtrag T9 mit E-23); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); T1–T9 umgesetzt (Code-Stand 0.17.0 bis 0.20.0), Abnahme durch den Athleten offen (Stand in Abschnitt 12)
+Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21, Nachtrag T8 mit E-22, Nachtrag T9 mit E-23); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); T1–T9 umgesetzt (Code-Stand 0.17.0 bis 0.20.0; Nachtrag zu T1: Icon-Pfad 0.20.1), Abnahme durch den Athleten offen (Stand in Abschnitt 12)
 Versionsnummer: keine im Konzept; wird in der Umsetzung festgelegt
 
 ---
@@ -21,7 +21,7 @@ Drei Wünsche des Athleten (dazu ein Nachtrag D während der Umsetzung), die zus
 
 | bereich | bestand | relevanz |
 |---|---|---|
-| Manifest und Icons | `server/public/manifest.webmanifest` (Name „Training“, `display: standalone`, `start_url: /woche`, `theme_color #7A5C94`, Icons 192/512 `any` und 512 `maskable`, PNG aus dem Lama-Kopf, RGB ohne Alpha). Apache liefert Manifest und `/icons/` direkt aus (`.htaccess`: `AddType application/manifest+json .webmanifest`, keine Anmeldung nötig). | A |
+| Manifest und Icons | `server/public/manifest.webmanifest` (Name „Training“, `display: standalone`, `start_url: /woche`, `theme_color #7A5C94`, Icons 192/512 `any` und 512 `maskable`, PNG aus dem Lama-Kopf, RGB ohne Alpha). Apache liefert Manifest und `/icons/` direkt aus (`.htaccess`: `AddType application/manifest+json .webmanifest`, keine Anmeldung nötig). **Nachtrag 0.20.1:** für `/icons/` falsch – der Pfad ist durch einen serverweiten Apache-Alias verdeckt (4.1 Punkt 4), Icons liegen jetzt unter `/app-icons/`. | A |
 | Seitenrahmen | `layout-app.php` (angemeldete Seiten): `theme-color`, SVG-Favicon `/assets/lama-kopf.svg`, `apple-touch-icon` 192, `manifest`. `layout-auth.php` (Login, Setup, Freigabe): **nur** SVG-Favicon, kein Manifest, kein `apple-touch-icon`, keine `theme-color`. | A – wahrscheinliche Ursache, siehe 4.1 |
 | Logo-Quellen | `docs/branding/chadid-design-system/assets/logo/`: `lama-symbol-linie.svg`, `-flaeche.svg`, `-linie-negativ.svg` (hell auf Pflaume 800), `-linie-dunkel.svg`, `-linie-schwarz.svg`, `lama-symbol-kopf.svg` (Ausschnitt viewBox 440 10 280 360). `server/bin/build-assets.php` kopiert nur den Kopf nach `public/assets/lama-kopf.svg`; die App-Kennung (Topbar, Navigation, Login-Karte) nutzt diese Datei. | A |
 | Service Worker | `sw.js` (D-45): Seiten `/woche`, `/einheit`, `/checkin`, `/schmerz` erst Netz, dann Cache; Schlüssel ist Pfad + Query ohne `ok`/`offline`/`intervals`; statische Pfade inkl. `/icons/` und `/manifest.webmanifest` aus dem Versions-Cache; Formulare per POST-Puffer (`X-Offline-Queue`). | A, C |
@@ -74,7 +74,8 @@ Wahrscheinlichste Ursachen, in dieser Reihenfolge:
 
 1. **Login-Seite ohne Manifest und PNG-Icon.** Wer die Seite vom Login aus (abgelaufene Sitzung, erster Aufruf) verknüpft, bietet dem Browser nur ein SVG-Favicon. Android-Browser der Firefox-Familie rendern SVG-Favicons nicht als Verknüpfungs-Icon und fallen auf einen Buchstaben-Platzhalter zurück.
 2. **Verknüpfung statt Installation.** Firefox-Abkömmlinge (LibreWolf, Mull, IronFox) schalten Service Worker oder die Manifest-Verarbeitung teils ab. Dann entsteht keine „installierte“ Web-App aus dem Manifest, sondern eine einfache Verknüpfung, deren Icon aus den `<link rel="icon">`-Einträgen der Seite kommt – dort fehlt ein PNG mit `sizes`.
-3. ~~Manifest wird nicht verwendet~~ – ausgeschlossen: Chrome auf Android zeigt das Icon (P-A1, 2026-09-28). Manifest, Icons und Auslieferung sind in Ordnung.
+3. ~~Manifest wird nicht verwendet~~ – ausgeschlossen: Chrome auf Android zeigt das Icon (P-A1, 2026-09-28). Manifest, Icons und Auslieferung sind in Ordnung. **Nachtrag 0.20.1:** Der Schluss auf „Auslieferung in Ordnung“ war falsch (Punkt 4); woher Chrome das Icon damals hatte, ist nicht geklärt.
+4. **Icons werden nicht ausgeliefert (Befund 2026-09-28, nach 0.20.0).** IronFox legt beim „Zum Startbildschirm“ ein „T“ auf der `background_color` des Manifests an, liest also das Manifest, bekommt aber kein Icon. `https://training.gen-em.org/icons/lama-192.png` liefert die nackte Apache-Seite „Not Found“ (nicht die 404-Seite der App), `/icons/folder.gif` dagegen das Ordnersymbol von Apache: Der Hoster hat den Standard-Alias `/icons/` aus `autoindex.conf` aktiv. Er greift vor Document Root und `.htaccess` und lässt sich dort nicht aufheben. Lösung: Ordner `app-icons/` (T1, `probleme_loesungen`).
 
 Prüfschritte (Athlet, vor und nach der Umsetzung, je Browser):
 
@@ -86,16 +87,17 @@ Prüfschritte (Athlet, vor und nach der Umsetzung, je Browser):
 | P-A4 | LibreWolf `about:config`: `dom.serviceWorkers.enabled`, `dom.manifest.enabled` | nur Befund für die Doku, keine Änderung nötig |
 | P-A5 | iOS Safari (falls vorhanden): „Zum Home-Bildschirm“ | Lama-Icon 180 px, kein Screenshot-Icon |
 | P-A6 | `curl -I https://training.gen-em.org/manifest.webmanifest` und `/favicon.ico` | 200, `Content-Type: application/manifest+json` bzw. `image/x-icon` (Apache setzt beide) |
+| P-A7 | IronFox Android (ab 0.20.1): `https://training.gen-em.org/app-icons/lama-192.png` im Browser öffnen, dann alte Verknüpfung entfernen und von `/woche` neu verknüpfen | Lama-Bild; Verknüpfung mit Lama-Icon statt „T“ |
 
 ### 4.2 Maßnahmen (unabhängig von der Logo-Wahl)
 
 1. `layout-auth.php` erhält dieselben Kopf-Einträge wie `layout-app.php`: `theme-color`, `manifest`, `apple-touch-icon`, PNG-Icon-Links.
-2. Beide Layouts: `<link rel="icon" type="image/png" sizes="48x48|96x96|192x192|512x512">` zusätzlich zum SVG; `<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180.png">`.
+2. Beide Layouts: `<link rel="icon" type="image/png" sizes="48x48|96x96|192x192|512x512">` zusätzlich zum SVG; `<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180.png">` (seit 0.20.1 unter `/app-icons/`, 4.1 Punkt 4).
 3. Manifest: `id: "/woche"`, `description`, Icons 48/96/192/512 `any` und 512 `maskable` (getrennte Einträge, kein `any maskable` in einem Eintrag), PNG mit Alpha-Kanal, wo das Motiv freigestellt ist; `maskable` mit vollflächigem Grund.
 4. `server/public/favicon.ico` (16/32/48) – wird von Apache direkt ausgeliefert (Datei vorhanden → kein `index.php`).
-5. `.htaccess`: `AddType image/x-icon .ico` (falls nicht global gesetzt) und `Cache-Control` für `/icons/` (z. B. 7 Tage) – Icons ändern sich mit Dateinamen.
+5. `.htaccess`: `AddType image/x-icon .ico` (falls nicht global gesetzt) und `Cache-Control` für `/icons/` (seit 0.20.1 `/app-icons/`; z. B. 7 Tage) – Icons ändern sich mit Dateinamen.
 6. Service Worker: `/favicon.ico` in `STATIC_PREFIXES`-Behandlung aufnehmen (Pfadgleichheit wie beim Manifest).
-7. Icon-Erzeugung als reproduzierbarer Schritt: Skript `server/bin/build-icons.php` (oder Playwright-Skript in `docs/branding/`) rendert die gewählte SVG-Variante in alle Größen; Ergebnis wird eingecheckt (`server/public/icons/`), weil der Deploy-Server kein Rendering hat.
+7. Icon-Erzeugung als reproduzierbarer Schritt: Skript `server/bin/build-icons.php` (oder Playwright-Skript in `docs/branding/`) rendert die gewählte SVG-Variante in alle Größen; Ergebnis wird eingecheckt (`server/public/icons/`, seit 0.20.1 `server/public/app-icons/`), weil der Deploy-Server kein Rendering hat.
 
 ### 4.3 Logo-Varianten (Mockup `docs/branding/mockups/icon-optionen.html`)
 
@@ -274,7 +276,7 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nacht
 - Variante: V3 App-Icon, V2 Favicon und Kennung (E-21).
 - Icon-Satz nach E-09 erzeugen (Skript einchecken), `build-assets.php` auf das gewählte SVG umstellen, beide Layouts ergänzen, Manifest erweitern, `favicon.ico`, `.htaccess`, Service Worker.
 - Tests: Manifest gültiges JSON mit allen Icon-Dateien vorhanden und Größen stimmig (PHPUnit liest PNG-Header); Layout-Tests auf die Link-Einträge; `HEAD /favicon.ico` 200 über den Dev-Router.
-- **Abnahme:** P-A1 bis P-A6 (4.1) durch den Athleten; Screenshots im Prüfprotokoll.
+- **Abnahme:** P-A1 bis P-A7 (4.1) durch den Athleten; Screenshots im Prüfprotokoll.
 
 ### T2 · Begründungstexte (Teil B)
 - Migration `coach_summary`; Repositories; `PlanValidator`/Schreibtools mit Längen- und Pflichtprüfung (E-10); Lese-Tools; Tool-Beschreibungen; Kalenderbeschreibung; S2/S3 mit `<details class="more">`.
@@ -363,7 +365,8 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nacht
 | I-01 | Manifest-Test | JSON gültig, jede `src` existiert, `sizes` = PNG-Kopf |
 | I-02 | Layout-Tests | beide Layouts enthalten Manifest, PNG-Icons mit `sizes`, `apple-touch-icon`, `theme-color` |
 | I-03 | Dev-Router | `HEAD /favicon.ico` 200, `Content-Type image/x-icon` |
-| I-04 | Gerätetests P-A1 bis P-A6 | Lama-Icon in Chrome, LibreWolf (von `/login` und `/woche`), iOS |
+| I-04 | Gerätetests P-A1 bis P-A7 | Lama-Icon in Chrome, LibreWolf (von `/login` und `/woche`), IronFox, iOS |
+| I-05 | Test: kein Pfad unter serverweiten Apache-Aliasen (`/icons/`, `/error/`, `/manual/`, `/cgi-bin/`), seit 0.20.1 | Document Root und Icon-Verweise frei davon |
 
 ### 8.4 Kalender (T8)
 
@@ -407,11 +410,11 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nacht
 
 ```yaml
 T1:
-  status: umgesetzt          # Code-Stand 0.17.0; Abnahme P-A1 (erneut mit V3) bis P-A6 durch den Athleten offen
+  status: umgesetzt          # Code-Stand 0.17.0, Icon-Pfad korrigiert in 0.20.1; Abnahme P-A1 (erneut mit V3) bis P-A7 durch den Athleten offen
   datum: 2026-09-28
   ergebnis: >
     Icon-Satz nach E-09/E-21: V3 als lama-48/96/192/512.png (any), lama-512-maskable.png, apple-touch-icon-180.png;
-    V2 als icons/favicon.svg und favicon.ico (16/32/48, PNG-Einträge) im Docroot. Skript docs/branding/build-icons.cjs
+    V2 als app-icons/favicon.svg (bis 0.20.0 icons/, siehe probleme_loesungen) und favicon.ico (16/32/48, PNG-Einträge) im Docroot. Skript docs/branding/build-icons.cjs
     (Playwright/Chromium) rendert aus docs/branding/mockups/icon-optionen/; Ergebnis eingecheckt. Kopfteil
     templates/_head_icons.php in layout-app und layout-auth (theme-color, SVG-Favicon, PNG-Icons mit sizes,
     apple-touch-icon 180, Manifest). Manifest mit id /woche und description. build-assets.php kopiert
@@ -419,8 +422,8 @@ T1:
     image/x-icon, Cache-Control 7 Tage für Icons/Favicon. Service Worker: /favicon.ico wie das Manifest aus dem
     Versions-Cache, PRECACHE lama.svg. Dev-Router liefert .ico/.webmanifest mit Apache-Typen. Mockups (Kennung,
     Favicon) angepasst; alle 38 Screenshots neu gerendert, 27 davon geändert (docs/branding/mockups/screenshots.cjs).
-  tests: AppIconTest (I-01 Manifest und PNG-Köpfe, Kopfteil-Links, favicon.ico, I-03 HEAD /favicon.ico über den Dev-Router), AppIconPagesTest (I-02 beide Layouts)
-  abnahme_offen: P-A1 erneut mit V3, P-A2 bis P-A6 (Abschnitt 4.1), Screenshots ins Prüfprotokoll
+  tests: AppIconTest (I-01 Manifest und PNG-Köpfe, Kopfteil-Links, favicon.ico, I-03 HEAD /favicon.ico über den Dev-Router, I-05 kein Pfad unter Apache-Aliasen), AppIconPagesTest (I-02 beide Layouts)
+  abnahme_offen: P-A1 erneut mit V3, P-A2 bis P-A7 (Abschnitt 4.1), Screenshots ins Prüfprotokoll
   probleme_loesungen:
     - was: SVG lässt sich auf dem Server (PHP ohne Imagick) nicht rendern; ein PHP-Skript build-icons.php ist damit nicht möglich
       loesung: Node-Skript mit Playwright/Chromium in docs/branding/ (im Auftrag als Alternative genannt); ICO wird im Skript aus PNG-Einträgen zusammengesetzt
@@ -438,6 +441,8 @@ T1:
       loesung: freier Port vom System (stream_socket_server Port 0), Server gilt nur als gestartet, solange der Prozess läuft; fehlgeschlagene Versuche werden beendet
     - was: Versionsnummer je Unterpunkt oder je AP?
       loesung: je AP (CLAUDE.md „nach jedem AP“): AP-13 (T1, T2) = 0.17.0, AP-14 (T3–T7) = 0.18.0; Changelog, README, Konzept und Prüfprotokoll werden nach jedem Unterpunkt nachgezogen
+    - was: Nach dem Deployment zeigte IronFox beim „Zum Startbildschirm“ weiter ein „T“ (Athlet, 2026-09-28). /icons/lama-192.png lieferte die Apache-Seite „Not Found“, /icons/folder.gif das Apache-Ordnersymbol – der Hoster hat den serverweiten Alias /icons/ (autoindex.conf) aktiv, der vor Document Root und .htaccess greift. Kein Icon unter /icons/ wurde je ausgeliefert
+      loesung: Ordner umbenannt in public/app-icons/ (Dateinamen gleich), Manifest, _head_icons.php, Service Worker und build-icons.cjs angepasst (0.20.1); neuer Test I-05 verhindert Pfade unter /icons/, /error/, /manual/, /cgi-bin/; Prüfschritt P-A7 (IronFox) ergänzt. Rückfrage beim Athleten vor der Umsetzung (Diagnose zuerst, Ordnername app-icons bestätigt)
 T2:
   status: umgesetzt          # Code-Stand 0.17.0; Abnahme (Plan aus dem Projekt-Chat, S2/S3, Kalender) durch den Athleten offen
   datum: 2026-09-28

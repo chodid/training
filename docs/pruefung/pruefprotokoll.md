@@ -571,6 +571,14 @@ geprueft:
     wie: automatisiert (AppIconTest, PHP-Built-in-Server)
     ergebnis: ok
     datum: 2026-09-28
+  - was: Befund IronFox Android (nach 0.20.0) – „Zum Startbildschirm“ legt ein „T“ auf der Manifest-Hintergrundfarbe an; /icons/lama-192.png liefert Apache-„Not Found“, /icons/folder.gif das Apache-Ordnersymbol → serverweiter Alias /icons/ verdeckt den Icon-Ordner
+    wie: Gerätetest durch Athlet (Screenshots im Chat)
+    ergebnis: Fehler gefunden, behoben in 0.20.1 (Ordner app-icons/)
+    datum: 2026-09-28
+  - was: I-05 (0.20.1) kein Ordner im Document Root und kein Icon-Verweis aus Manifest/Kopfteil unter /icons/, /error/, /manual/, /cgi-bin/; I-01 bis I-03 mit den neuen Pfaden (/app-icons/…, Dev-Router liefert /app-icons/lama-192.png als image/png)
+    wie: automatisiert (AppIconTest, AppIconPagesTest); gesamte Suite 198 Tests grün gegen MariaDB
+    ergebnis: ok
+    datum: 2026-09-28
   - was: Icon-Satz gerendert (V3 any/maskable/180, V2 Favicon 16 px), Sichtprüfung Kontaktbogen; Mockups nach Kennungswechsel ohne Überlauf, fehlende Ressourcen oder Skriptfehler
     wie: Chromium/Playwright (build-icons.cjs, screenshots.cjs), manuell
     ergebnis: ok
@@ -604,8 +612,10 @@ noch_zu_pruefen:
     wie: manuell durch Athlet (nur Befund)
   - was: P-A5 – iOS Safari „Zum Home-Bildschirm“ → Lama 180 px (falls Gerät vorhanden)
     wie: Gerätetest durch Athlet
-  - was: P-A6 – curl -I https://training.gen-em.org/manifest.webmanifest und /favicon.ico → 200, application/manifest+json bzw. image/x-icon, Cache-Control max-age=604800 bei /favicon.ico
-    wie: manuell (curl) nach Deployment
+  - was: P-A6 – curl -I https://training.gen-em.org/manifest.webmanifest und /favicon.ico → 200, application/manifest+json bzw. image/x-icon, Cache-Control max-age=604800 bei /favicon.ico; zusätzlich /app-icons/lama-192.png → 200, image/png, max-age=604800
+    wie: manuell (curl oder Browser) nach Deployment 0.20.1
+  - was: P-A7 – IronFox Android, https://training.gen-em.org/app-icons/lama-192.png zeigt das Lama; alte Verknüpfung entfernen, von /woche neu verknüpfen → Lama-Icon statt „T“
+    wie: Gerätetest durch Athlet (nach Deployment 0.20.1)
   - was: P-A1 erneut mit dem neuen Icon (V3) in Chrome Android
     wie: Gerätetest durch Athlet
   - was: T2 – Wochenplan aus dem Projekt-Chat mit focus, coach_notes, coach_summary und coach_rationale schreiben (Connector ggf. neu verbinden); ohne Kurzsatz meldet das Tool die fehlenden Felder

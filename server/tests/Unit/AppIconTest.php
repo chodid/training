@@ -6,7 +6,7 @@ namespace Training\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-/** AP-13 T1 (I-01, I-03): Manifest, Icon-Dateien und Favicon über den Dev-Router. */
+/** AP-13 T1 (I-01, I-03): Manifest, Icon-Dateien und Favicon über den Dev-Router; Icon-Pfad außerhalb der Apache-Aliase (0.20.1). */
 final class AppIconTest extends TestCase
 {
     private static function public(): string
@@ -63,9 +63,28 @@ final class AppIconTest extends TestCase
                 self::assertSame([(int) $link[4], (int) $link[5]], self::pngSize((string) file_get_contents($file)), $link[2]);
             }
         }
-        self::assertStringContainsString('<link rel="apple-touch-icon" href="/icons/apple-touch-icon-180.png" sizes="180x180">', $partial);
-        self::assertStringContainsString('<link rel="icon" href="/icons/favicon.svg" type="image/svg+xml">', $partial);
+        self::assertStringContainsString('<link rel="apple-touch-icon" href="/app-icons/apple-touch-icon-180.png" sizes="180x180">', $partial);
+        self::assertStringContainsString('<link rel="icon" href="/app-icons/favicon.svg" type="image/svg+xml">', $partial);
         self::assertStringContainsString('<meta name="theme-color" content="#7A5C94">', $partial);
+    }
+
+    /**
+     * Apache belegt in der Standardkonfiguration serverweit /icons/ (autoindex.conf) und oft /error/, /manual/, /cgi-bin/.
+     * Solche Aliase greifen vor dem Document Root und der .htaccess: Dateien darunter liefert der Server nie aus (0.20.1).
+     */
+    public function testNoPublicPathUnderApacheServerWideAliases(): void
+    {
+        $reserved = ['icons', 'error', 'manual', 'cgi-bin'];
+        foreach (scandir(self::public()) ?: [] as $entry) {
+            self::assertNotContains(strtolower($entry), $reserved, 'public/' . $entry . ' wird von einem Apache-Alias verdeckt');
+        }
+
+        $manifest = json_decode((string) file_get_contents(self::public() . '/manifest.webmanifest'), true, flags: JSON_THROW_ON_ERROR);
+        preg_match_all('/href="([^"]+)"/', (string) file_get_contents(dirname(__DIR__, 2) . '/templates/_head_icons.php'), $m);
+        foreach ([...array_column($manifest['icons'], 'src'), ...$m[1]] as $url) {
+            $first = strtolower(explode('/', ltrim($url, '/'))[0]);
+            self::assertNotContains($first, $reserved, $url);
+        }
     }
 
     public function testFaviconIcoContainsSixteenThirtyTwoAndFortyEightPixels(): void
@@ -123,7 +142,7 @@ final class AppIconTest extends TestCase
             self::assertContains('Content-Type: image/x-icon', $head);
             self::assertContains('Content-Length: ' . filesize($root . '/public/favicon.ico'), $head);
             self::assertContains('Content-Type: application/manifest+json', self::head('http://127.0.0.1:' . $port . '/manifest.webmanifest'));
-            $png = self::head('http://127.0.0.1:' . $port . '/icons/lama-192.png');
+            $png = self::head('http://127.0.0.1:' . $port . '/app-icons/lama-192.png');
             self::assertStringContainsString(' 200 ', $png[0]);
             self::assertContains('Content-Type: image/png', $png);
         } finally {
