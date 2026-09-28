@@ -4,6 +4,23 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.14.0] – 2026-09-28
+
+AP-11: Einheiten im Nextcloud-Kalender per CalDAV (D-50).
+
+### Hinzugefügt
+- Jede Einheit außer Ruhetagen wird als ganztägiger Termin in einen CalDAV-Kalender geschrieben (Nextcloud; `CALDAV_URL`, `CALDAV_USER`, `CALDAV_PASSWORD` in der `.env`, nur https): Titel „Typ: Titel“, Beschreibung mit Priorität, Dauer, Kurzplan, Trainer-Begründung und Link zur App; „✓“ bei erledigt/teilweise, abgesagter Termin bei ausgelassen.
+- Übertragung bei jedem Wochenplan, `update_session`, Ersetzen einer Woche und jeder Rückmeldung auf der Webseite; Fehler brechen nichts ab (`fehler_kalender` in der Tool-Antwort, Audit-Log, Einstellungen).
+- Abgleich 7 Tage zurück bis 8 Wochen voraus im stündlichen Cronjob `/cron/intervals-sync` und per Knopf „Abgleichen“ in den Einstellungen; entfernt verwaiste eigene Termine, fremde bleiben.
+- `/health` meldet `kalender` (konfiguriert, nicht konfiguriert, ungültig ohne https).
+- Tests mit simuliertem CalDAV-Server und iCalendar-Prüfung (Escaping, Zeilenfaltung); Rauchtest gegen Radicale.
+
+### Geändert
+- `/cron/intervals-sync` läuft auch ohne Intervals.icu-Konfiguration, wenn der Kalender eingerichtet ist.
+
+### Behoben
+- Konzept 3.1/3.3: Athletenprofil lag laut Text in K2 (Intervals.icu) statt K3 (MySQL); Spiegel (D-43) nachgetragen.
+
 ## [0.13.0] – 2026-09-28
 
 AP-09 Teil 6: Offline-Fähigkeit (D-45, D-49). Damit sind alle AP-09-Teilpakete umgesetzt.

@@ -12,7 +12,8 @@ use Training\Http\Response;
 /**
  * Zeitgesteuerte Aufgaben per URL-Aufruf (Lima-City-Cronjob, V-10: keine PHP-CLI).
  * GET /cron/backup-mail?key=<CRON_SECRET>[&force=1] – Backup per E-Mail, wenn das Intervall abgelaufen ist.
- * GET /cron/intervals-sync?key=<CRON_SECRET>[&tage=14] – Spiegel Intervals.icu → MySQL (D-43), Standard 14 Tage, höchstens 400.
+ * GET /cron/intervals-sync?key=<CRON_SECRET>[&tage=14] – Spiegel Intervals.icu → MySQL (D-43), Standard 14 Tage, höchstens 400;
+ *   gleicht außerdem den CalDAV-Kalender ab (AP-11, D-50), wenn CALDAV_* gesetzt ist.
  */
 final class CronController
 {
@@ -26,12 +27,19 @@ final class CronController
             return $denied;
         }
         $config = $this->app->config();
-        if (!\Training\Intervals\IntervalsClient::isConfigured($config)) {
+        $calendar = $this->app->calendar();
+        $intervals = \Training\Intervals\IntervalsClient::isConfigured($config);
+        if (!$intervals && !$calendar->enabled()) {
             return Response::error(503, 'INTERVALS_API_KEY und INTERVALS_ATHLETE_ID in .env fehlen.');
         }
-        $days = max(1, min(400, (int) ($request->query('tage') ?? '14')));
         $user = $this->app->users()->first();
         $today = \Training\Dates::today($this->app->clock(), $user?->tz ?? 'Europe/Berlin');
+        // Kalender (AP-11, D-50): 7 Tage zurück bis 8 Wochen voraus abgleichen.
+        $calendarResult = $calendar->enabled() ? $calendar->syncRange(\Training\Dates::addDays($today, -7), \Training\Dates::addDays($today, 56)) : null;
+        if (!$intervals) {
+            return Response::json($calendarResult['fehler'] === [] ? 200 : 502, ['status' => $calendarResult['fehler'] === [] ? 'ok' : 'error', 'kalender' => $calendarResult]);
+        }
+        $days = max(1, min(400, (int) ($request->query('tage') ?? '14')));
         $state = $this->syncState();
         $state['last_attempt'] = $this->app->clock()->now();
         try {
@@ -40,11 +48,12 @@ final class CronController
             $state['last_success'] = $state['last_attempt'];
             $state['last_result'] = $result;
             unset($state['error']);
-            $response = Response::json(200, ['status' => 'ok'] + $result);
+            $response = Response::json($calendarResult !== null && $calendarResult['fehler'] !== [] ? 502 : 200,
+                ['status' => $calendarResult !== null && $calendarResult['fehler'] !== [] ? 'error' : 'ok'] + $result + ($calendarResult !== null ? ['kalender' => $calendarResult] : []));
         } catch (\Training\Intervals\IntervalsException $e) {
             $state['error'] = $e->getMessage();
             error_log('[training] Intervals-Spiegel: ' . $e->getMessage());
-            $response = Response::json(502, ['status' => 'error', 'message' => $e->getMessage()]);
+            $response = Response::json(502, ['status' => 'error', 'message' => $e->getMessage()] + ($calendarResult !== null ? ['kalender' => $calendarResult] : []));
         }
         $this->writeSyncState($state);
 

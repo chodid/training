@@ -90,6 +90,23 @@ if (!empty($mirror['last_success'])) { $mirrorText .= ' · Abgleich ' . $fmtDb(g
 if (!empty($mirror['error'])) { $mirrorText .= ' · Fehler: ' . $mirror['error']; }
 ?>
       <div class="list-item"><div><div class="t">Spiegel Intervals.icu</div><div class="s"><?= $this->e($mirrorText) ?></div></div><span class="badge badge-<?= !empty($mirror['error']) ? 'error' : (!empty($mirror['last_success']) ? 'success' : 'neutral') ?>"><?= !empty($mirror['error']) ? 'Fehler' : (!empty($mirror['last_success']) ? 'aktiv' : 'kein Cronjob') ?></span></div>
+<?php
+$cal = $calendar;
+if ($cal['host'] === null) {
+    $calText = 'Nicht eingerichtet: CALDAV_URL, CALDAV_USER und CALDAV_PASSWORD (Nextcloud-App-Passwort) in der .env';
+} elseif (!$cal['https']) {
+    $calText = 'CALDAV_URL muss mit https:// beginnen – Kalender ist aus.';
+} else {
+    $calText = $cal['host'] . (!empty($cal['last_success']) ? ' · zuletzt übertragen ' . (new DateTimeImmutable('@' . (int) $cal['last_success']))->setTimezone(new DateTimeZone($tz))->format('d.m.Y, H:i') . ' Uhr' : ' · noch nichts übertragen');
+    if (!empty($cal['last_error'])) { $calText .= ' · Fehler: ' . $cal['last_error']; }
+}
+?>
+      <div class="list-item"><div><div class="t">Kalender (CalDAV)</div><div class="s"><?= $this->e($calText) ?></div></div>
+<?php if ($cal['host'] === null || !$cal['https']): ?>
+        <span class="badge badge-<?= $cal['host'] === null ? 'neutral' : 'error' ?>"><?= $cal['host'] === null ? 'aus' : 'Fehler' ?></span></div>
+<?php else: ?>
+        <form method="post" action="/einstellungen"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><input type="hidden" name="action" value="kalender"><button class="btn btn-secondary" type="submit"><?= $this->icon('refresh') ?>Abgleichen</button></form></div>
+<?php endif ?>
 <?php if ($clients === []): ?>
       <div class="list-item"><div><div class="t">Claude</div><div class="s">Keine aktive Freigabe. Connector-Adresse: <span class="mono"><?= $this->e($mcpUrl) ?></span></div></div><span class="badge badge-neutral">nicht verbunden</span></div>
 <?php endif ?>

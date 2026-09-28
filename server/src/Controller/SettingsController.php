@@ -6,6 +6,8 @@ namespace Training\Controller;
 
 use Training\App;
 use Training\Auth\Password;
+use Training\Calendar\CalDavClient;
+use Training\Dates;
 use Training\Db;
 use Training\Http\Request;
 use Training\Http\Response;
@@ -41,6 +43,7 @@ final class SettingsController extends AppController
             'passwort' => $this->password($request),
             'widerrufen' => $this->revoke($request),
             'passkey_loeschen' => $this->deletePasskey($request),
+            'kalender' => $this->calendarSync(),
             default => $this->overview($request),
         };
     }
@@ -73,6 +76,7 @@ final class SettingsController extends AppController
             'passkey_geloescht' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Passkey entfernt.', 'text' => ''],
             'passwort' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Passwort geändert.', 'text' => 'Andere Geräte wurden abgemeldet.'],
             'widerrufen' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Freigabe widerrufen.', 'text' => 'Laufende Zugriffe enden spätestens nach einer Stunde.'],
+            'kalender' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Kalender abgeglichen.', 'text' => sprintf('%d Termine übertragen, %d entfernt.', (int) $request->query('n'), (int) $request->query('d'))],
             default => null,
         };
 
@@ -91,6 +95,10 @@ final class SettingsController extends AppController
             'preMigration' => $this->preMigration(),
             'passkeyList' => $this->passkeyList(),
             'profile' => $this->profileSummary(),
+            'calendar' => [
+                'host' => CalDavClient::isConfigured($config) ? (string) parse_url((string) $config->get('CALDAV_URL'), PHP_URL_HOST) : null,
+                'https' => str_starts_with(strtolower((string) $config->get('CALDAV_URL')), 'https://'),
+            ] + $this->app->calendar()->state(),
             'mirror' => $this->mirrorStats() + (new CronController($this->app))->syncState(),
         ]);
     }
@@ -150,6 +158,28 @@ final class SettingsController extends AppController
         } catch (\PDOException) {
             return ['aktivitaeten' => 0, 'wellness_tage' => 0, 'erste' => null, 'letzte' => null];
         }
+    }
+
+    /** Kalender abgleichen (AP-11): 7 Tage zurück bis 8 Wochen voraus. */
+    private function calendarSync(): Response
+    {
+        $calendar = $this->app->calendar();
+        if (!$calendar->enabled()) {
+            return Response::redirect('/einstellungen');
+        }
+        if ($locked = $this->lockedResponse()) {
+            return $locked;
+        }
+        $today = $this->today();
+        $result = $calendar->syncRange(Dates::addDays($today, -7), Dates::addDays($today, 56), 'web');
+        if ($result['fehler'] !== []) {
+            return $this->overview(new Request('GET', '/einstellungen'), [
+                'type' => 'error', 'icon' => 'alert-circle', 'title' => 'Kalender-Abgleich fehlgeschlagen.', 'text' => $result['fehler'][0],
+            ]);
+        }
+        $this->audit()->write('web', 'calendar_sync', 'session', null, $result, sprintf('Kalender abgeglichen: %d übertragen, %d entfernt', $result['uebertragen'], $result['geloescht']));
+
+        return Response::redirect('/einstellungen?ok=kalender&n=' . $result['uebertragen'] . '&d=' . $result['geloescht']);
     }
 
     /** Athletenprofil (D-48): ausgefüllte Abschnitte und letzte Änderung; tolerant bei veraltetem Schema. @return array{filled: int, total: int, last: ?string} */

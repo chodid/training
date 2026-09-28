@@ -21,7 +21,7 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.13.0';
+    public const VERSION = '0.14.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
     public const SCHEMA_VERSION = 18;
@@ -43,6 +43,8 @@ final class App
         private readonly ?\Training\Intervals\HttpTransport $intervalsTransport = null,
         /** Nur für Tests: Ersatz für den SMTP-Versand */
         private readonly ?\Training\Backup\Mailer $mailer = null,
+        /** Nur für Tests: Ersatz für den HTTP-Transport zum CalDAV-Kalender */
+        private readonly ?\Training\Intervals\HttpTransport $calendarTransport = null,
     ) {
         $this->clock = $clock ?? new SystemClock();
     }
@@ -153,6 +155,22 @@ final class App
         return $this->intervalsTransport !== null
             ? \Training\Intervals\IntervalsClient::fromConfig($this->config(), $this->intervalsTransport)
             : \Training\Intervals\IntervalsClient::fromConfig($this->config());
+    }
+
+    /** Kalender-Abgleich (AP-11, D-50); ohne CALDAV_*-Konfiguration wirkungslos. */
+    public function calendar(): \Training\Calendar\CalendarSync
+    {
+        $config = $this->config();
+        $client = null;
+        if (\Training\Calendar\CalDavClient::isConfigured($config)) {
+            try {
+                $client = \Training\Calendar\CalDavClient::fromConfig($config, $this->calendarTransport);
+            } catch (ConfigException $e) {
+                error_log('[training] Kalender aus: ' . $e->getMessage()); // Anzeige in Einstellungen und /health
+            }
+        }
+
+        return new \Training\Calendar\CalendarSync($this->pdo(), $this->clock, $client, (string) $config->get('APP_URL'), $this->host(), $this->varDir() . '/calendar-sync.json');
     }
 
     public function backupDir(): string

@@ -6,6 +6,11 @@ namespace Training\Intervals;
 
 final class CurlTransport implements HttpTransport
 {
+    /** @param string $label Name des Dienstes für Fehlermeldungen */
+    public function __construct(private readonly string $label = 'Intervals.icu')
+    {
+    }
+
     public function request(string $method, string $url, array $headers, ?string $body, int $timeout): array
     {
         $ch = curl_init($url);
@@ -40,7 +45,7 @@ final class CurlTransport implements HttpTransport
         $result = curl_exec($ch);
         if ($result === false) {
             $error = curl_error($ch);
-            throw new IntervalsException('Intervals.icu nicht erreichbar: ' . $error);
+            throw new IntervalsException($this->label . ' nicht erreichbar: ' . $error);
         }
 
         return ['status' => (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE), 'body' => (string) $result, 'headers' => $responseHeaders];

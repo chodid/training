@@ -184,6 +184,6 @@ final class ToolRegistry
 
     private function writes(): WriteTools
     {
-        return new WriteTools($this->app->pdo(), $this->clock, $this->intervals(), PlanValidator::default());
+        return new WriteTools($this->app->pdo(), $this->clock, $this->intervals(), PlanValidator::default(), $this->app->calendar());
     }
 }

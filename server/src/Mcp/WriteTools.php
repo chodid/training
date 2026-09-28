@@ -30,6 +30,7 @@ final class WriteTools
         private readonly Clock $clock,
         private readonly ?IntervalsClient $intervals,
         private readonly PlanValidator $validator,
+        private readonly ?\Training\Calendar\CalendarSync $calendar = null,
     ) {
     }
 
@@ -127,6 +128,7 @@ final class WriteTools
             $out[] = $row;
         }
         $failed = count(array_filter($out, static fn (array $r): bool => isset($r['fehler_intervals'])));
+        $calendarErrors = $this->calendarSync($ids, $replaced);
 
         return array_filter([
             'woche' => $weekStart,
@@ -136,7 +138,8 @@ final class WriteTools
             'ersetzt' => $replaced,
             'behalten' => $kept,
             'fehler_intervals' => array_merge($intervalsErrors, $failed > 0 ? [$failed . ' Ausdauereinheit(en) ohne Event – mit update_session (sync_intervals) erneut versuchen.'] : []),
-            'status' => $failed > 0 || $intervalsErrors !== [] ? 'teilweise' : 'ok',
+            'fehler_kalender' => $calendarErrors,
+            'status' => $failed > 0 || $intervalsErrors !== [] || $calendarErrors !== [] ? 'teilweise' : 'ok',
         ], static fn ($v): bool => $v !== []);
     }
 
@@ -212,6 +215,10 @@ final class WriteTools
                 $result['intervals'] = $err === null ? ($s['intervals_event_id'] !== null ? 'event_aktualisiert' : 'event_angelegt') : 'fehler: ' . $err;
             }
         }
+        $calendarErrors = $this->calendarSync([$sessionId], []);
+        if ($calendarErrors !== []) {
+            $result['fehler_kalender'] = $calendarErrors;
+        }
         $after = $weeks->session($sessionId);
         $result['einheit'] = ['datum' => $after['date'], 'titel' => $after['title'], 'status' => $after['status'], 'prio' => $after['priority'], 'plan_min' => $after['planned_duration_min']];
 
@@ -271,6 +278,35 @@ final class WriteTools
         }
 
         return ['id' => $blockId, 'name' => $values[0], 'start' => $values[1], 'ende' => $values[2], 'status' => $status];
+    }
+
+    /**
+     * Kalender nachziehen (AP-11): Termine der Einheiten anlegen/aktualisieren, ersetzte entfernen. Fehler werden nur
+     * gemeldet (einmal je Aufruf zusammengefasst); der stündliche Abgleich holt sie nach.
+     * @param list<int> $push
+     * @param list<int> $remove
+     * @return list<string>
+     */
+    private function calendarSync(array $push, array $remove): array
+    {
+        if ($this->calendar === null || !$this->calendar->enabled()) {
+            return [];
+        }
+        $errors = [];
+        foreach ($remove as $id) {
+            if (($e = $this->calendar->remove($id)) !== null) {
+                $errors[] = $e;
+                break;
+            }
+        }
+        foreach ($errors === [] ? $push : [] as $id) {
+            if (($e = $this->calendar->push($id)) !== null) {
+                $errors[] = $e;
+                break;
+            }
+        }
+
+        return $errors === [] ? [] : [$errors[0] . ' Der stündliche Abgleich überträgt die Termine erneut.'];
     }
 
     /**
