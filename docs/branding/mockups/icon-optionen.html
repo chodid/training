@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Icon-Optionen – Training</title>
+<link rel="icon" href="icon-optionen/v2.svg">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+<style>
+  /* Icon-Optionen (Konzept gefuehrte-einheit.md, Teil A, 4.3 / Q-14): jede Variante so, wie sie auf dem Gerät erscheint. */
+  body{padding:var(--space-6) var(--space-4);background:var(--bg-page)}
+  .wrap{max-width:1100px;margin:0 auto;display:grid;gap:var(--space-8)}
+  .intro{display:grid;gap:var(--space-2)}
+  .intro h1{font:var(--type-h1)}
+  .variante{display:grid;gap:var(--space-4);padding:var(--space-5);background:var(--bg-surface);border:var(--border-default);border-radius:var(--radius-xl);box-shadow:var(--shadow-card)}
+  .variante header{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--space-2) var(--space-4)}
+  .variante h2{font:var(--type-h3)}
+  .variante .desc{color:var(--text-tertiary);font:var(--type-body-sm);max-width:70ch}
+  .previews{display:flex;flex-wrap:wrap;gap:var(--space-6);align-items:flex-end}
+  .preview{display:grid;gap:6px;justify-items:center}
+  .preview .cap{font:var(--type-label);text-transform:uppercase;letter-spacing:var(--tracking-label);color:var(--text-tertiary);text-align:center}
+  .home{display:flex;flex-wrap:wrap;gap:20px 24px;max-width:100%;padding:22px 26px 14px;border-radius:24px;background:linear-gradient(160deg,#2b2536 0%,#5a4a6e 55%,#8a6fa3 100%);align-items:flex-start}
+  .home .hs-app{display:grid;gap:8px;justify-items:center;width:64px}
+  .home .hs-app span{font:600 12px/1 system-ui,sans-serif;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .ico{display:block;background-size:cover;background-position:center}
+  .ico.circle{width:56px;height:56px;border-radius:50%}
+  .ico.squircle{width:56px;height:56px;border-radius:16px}
+  .ico.ios{width:60px;height:60px;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+  .ico.fav32{width:32px;height:32px;image-rendering:auto}
+  .ico.fav16{width:16px;height:16px}
+  .tab{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:8px 8px 0 0;background:#fff;border:1px solid #d8d3dc;border-bottom:0;font:13px/1 system-ui,sans-serif;color:#26212A;width:190px}
+  .tab .ico{width:16px;height:16px;flex:none}
+  .tab span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tabbar{background:#e9e5ec;padding:8px 8px 0;border-radius:10px 10px 0 0}
+  .topbar-demo{display:flex;align-items:center;gap:var(--space-3);padding:0 var(--space-4);height:56px;width:260px;background:var(--bg-surface);border:var(--border-default);border-radius:var(--radius-lg)}
+  .topbar-demo img{height:28px;width:auto}
+  .topbar-demo .name{font:700 var(--text-lg)/1 var(--font-display);color:var(--text-brand)}
+  .login-demo{display:grid;justify-items:center;gap:6px;padding:var(--space-4);width:180px;background:var(--bg-surface);border:var(--border-default);border-radius:var(--radius-lg)}
+  .login-demo img{height:64px}
+  .login-demo .name{font:700 var(--text-xl)/1 var(--font-display);color:var(--text-brand)}
+  .login-demo .sub{font:var(--type-body-sm);color:var(--text-tertiary)}
+  .empfehlung{font:var(--type-body-sm);padding:2px 10px;border-radius:var(--radius-full);background:var(--orange-100);color:var(--orange-800)}
+  .mix{display:grid;gap:var(--space-2);padding:var(--space-4);border:var(--border-default);border-radius:var(--radius-lg);background:var(--bg-surface)}
+  .mix h2{font:var(--type-h3)}
+  .mix .scroll{overflow-x:auto}
+  .mix table{border-collapse:collapse;font:var(--type-body-sm);min-width:560px}
+  .mix td,.mix th{text-align:left;padding:6px 12px 6px 0;border-bottom:var(--border-default);vertical-align:top}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="intro">
+    <div class="label">Teil A · Logo und App-Icon</div>
+    <h1>Icon-Optionen: das ganze Lama</h1>
+    <p class="muted">Fünf Varianten, jeweils so gezeigt, wie Android (Kreis und abgerundetes Quadrat aus dem <span class="mono">maskable</span>-Icon), iOS (180 px), Favicon (32 und 16 px), Browser-Tab, Topbar der App und Login-Karte sie darstellen. Der Startbildschirm-Streifen zeigt alle fünf nebeneinander. Die Wahl ist Q-14 im Hauptkonzept; Mischungen sind möglich (Tabelle unten).</p>
+  </div>
+
+  <section class="variante">
+    <header><h2>Startbildschirm (Android, maskable-Icons)</h2><span class="desc">Motiv in der sicheren Zone (64 %), Grund je Variante vollflächig.</span></header>
+    <div class="previews">
+      <div class="preview"><div class="home" id="home"></div><div class="cap">Startbildschirm, Kreismaske</div></div>
+    </div>
+  </section>
+
+  <div id="varianten"></div>
+
+  <section class="mix">
+    <h2>Empfehlung Fable</h2>
+    <div class="scroll"><table>
+      <tr><th>Einsatz</th><th>Variante</th><th>Grund</th></tr>
+      <tr><td>App-Icon Android/iOS, maskable</td><td><b>V3</b> Fläche hell auf Pflaume</td><td>Hoher Kontrast auf jedem Hintergrund, passt zur <span class="mono">theme_color</span>, kein Rand nötig</td></tr>
+      <tr><td>Favicon 16/32 px, SVG-Favicon</td><td><b>V2</b> Fläche auf Papier</td><td>Fläche bleibt bei 16 px lesbar; Linie wird zu dünn</td></tr>
+      <tr><td>Topbar, Navigation, Login-Karte</td><td><b>V2</b> Fläche (oder V1 Linie auf großen Flächen)</td><td>Auf Papier wie bisher; Linie ist die Hauptform der Marke</td></tr>
+    </table></div>
+    <p class="hint">Alternativ eine Variante überall (z. B. V3 für alles): dann Topbar und Login mit dem Pflaume-Quadrat als Kachel.</p>
+  </section>
+</div>
+<script>
+  const V=[
+    {id:'v1',name:'V1 · Lama Linie auf Papier',desc:'Hauptform der Marke (lama-symbol-linie.svg), Pflaume 600, Auge Orange, Grund Papier #F6F3F0. Bei 16 px wird die Linie dünn.'},
+    {id:'v2',name:'V2 · Lama Fläche auf Papier',desc:'Design-System-Empfehlung für App-Icons und kleine Größen (lama-symbol-flaeche.svg). Kräftig, gut lesbar bei 16 px.',emp:'Empfehlung Favicon / App-Kennung'},
+    {id:'v3',name:'V3 · Lama Fläche hell auf Pflaume 600',desc:'Fläche in #F4EFF2, Auge Orange, Grund Pflaume 600 #7A5C94 (= theme_color). Höchster Kontrast auf dem Startbildschirm; maskable ohne sichtbaren Rand.',emp:'Empfehlung App-Icon'},
+    {id:'v4',name:'V4 · Lama Linie hell auf Pflaume 800',desc:'Linie in #F4EFF2 mit Auge Orange auf Pflaume 800 #4B3D57 (Negativ-Variante). Ruhig und dunkel; Linie bei 16 px schwach.'},
+    {id:'v5',name:'V5 · Kopf (bisher, zum Vergleich)',desc:'Aktueller Stand: Kopf-Ausschnitt auf Papier (lama-symbol-kopf.svg).'},
+  ];
+  const home=document.getElementById('home');
+  const root=document.getElementById('varianten');
+  for(const v of V){
+    const m=`icon-optionen/${v.id}-maskable.svg`,a=`icon-optionen/${v.id}.svg`;
+    home.insertAdjacentHTML('beforeend',`<div class="hs-app"><i class="ico circle" style="background-image:url(${m})"></i><span>Training</span></div>`);
+    root.insertAdjacentHTML('beforeend',`<section class="variante" id="${v.id}">
+      <header><h2>${v.name}</h2>${v.emp?`<span class="empfehlung">${v.emp}</span>`:''}<span class="desc">${v.desc}</span></header>
+      <div class="previews">
+        <div class="preview"><i class="ico circle" style="background-image:url(${m})"></i><div class="cap">Android Kreis</div></div>
+        <div class="preview"><i class="ico squircle" style="background-image:url(${m})"></i><div class="cap">Android Quadrat</div></div>
+        <div class="preview"><i class="ico ios" style="background-image:url(${a})"></i><div class="cap">iOS 180</div></div>
+        <div class="preview"><i class="ico fav32" style="background-image:url(${a})"></i><div class="cap">Favicon 32</div></div>
+        <div class="preview"><i class="ico fav16" style="background-image:url(${a})"></i><div class="cap">Favicon 16</div></div>
+        <div class="preview"><div class="tabbar"><div class="tab"><i class="ico" style="background-image:url(${a})"></i><span>Woche – Training</span></div></div><div class="cap">Browser-Tab</div></div>
+        <div class="preview"><div class="topbar-demo"><img src="${a}" alt=""><span class="name">Training</span></div><div class="cap">Topbar der App</div></div>
+        <div class="preview"><div class="login-demo"><img src="${a}" alt=""><span class="name">Training</span><span class="sub">Anmelden</span></div><div class="cap">Login-Karte</div></div>
+      </div>
+    </section>`);
+  }
+</script>
+</body>
+</html>

@@ -31,7 +31,7 @@
 <body>
 <div class="wrap">
   <div class="intro">
-    <div class="label">AP-01a · Design-Mockups</div>
+    <div class="label">AP-01a · Design-Mockups (ergänzt um S9 und Icon-Optionen, AP-13/AP-14)</div>
     <h1>Trainings-Web-App</h1>
     <p class="muted">Jede Seite ist eine eigene HTML-Datei auf Basis des Chadid Design-Systems und hier in vier Größen eingebettet: Smartphone 390 × 844, Tablet hoch 834 × 1112, Tablet quer 1112 × 834, Desktop 1280 × 800. Öffne eine Seite direkt, um Touch-Ziele, Hover und Zustände auszuprobieren. Beschreibung der Bausteine und Umsetzungshinweise in <span class="mono">../branding.md</span>.</p>
     <div class="toc" id="toc"></div>
@@ -45,9 +45,9 @@
     {id:'s1f',title:'S1 Login · Fehler',file:'s1-login.html?state=fehler',desc:'Falsche Eingabe: Fehlerhinweis mit verbleibenden Versuchen. Feld bleibt gefüllt.'},
     {id:'s1g',title:'S1 Login · gesperrt',file:'s1-login.html?state=gesperrt',desc:'Nach zehn Fehlversuchen: Sperrhinweis mit Uhrzeit, Passwortfeld ausgeblendet.'},
     {id:'s7',title:'S7 OAuth-Freigabe',file:'s7-freigabe.html',desc:'Freigabeseite im Authorize-Schritt (D-36): Client-Name, Redirect-Host, Scope in Klartext. Freigeben ist die Primäraktion, Ablehnen sekundär.'},
-    {id:'s2',title:'S2 Woche',file:'s2-woche.html',desc:'Sieben Tage mit Einheiten (Typ-Icon, Titel, Dauer, Priorität, Status), heutiger Tag mit Orange-Punkt und Pflaume-Rahmen, Check-in-Status je Tag, ±Woche, Wochensumme sRPE. Auf dem Desktop sieben Spalten.'},
+    {id:'s2',title:'S2 Woche',file:'s2-woche.html',desc:'Sieben Tage mit Einheiten (Typ-Icon, Titel, Dauer, Priorität, Status), heutiger Tag mit Orange-Punkt und Pflaume-Rahmen, Check-in-Status je Tag, ±Woche, Wochensumme sRPE. Auf dem Desktop sieben Spalten. Neu (Teil B): Kurzsatz der Woche mit „mehr“ unter der Kopfzeile.'},
     {id:'s2l',title:'S2 Woche · leer',file:'s2-woche.html?state=leer',desc:'Noch kein Plan: Leerzustand mit Erklärung und Weg zum Check-in.'},
-    {id:'s3k',title:'S3 Einheit · Kraft',file:'s3-einheit.html?typ=kraft',desc:'Plan mit Soll je Übung, Ist-Felder vorbelegt, Rückmeldung (RPE, Gefühl, Schmerz, Abweichung, Notiz, Status). Auf dem Desktop Plan links, Rückmeldung rechts.'},
+    {id:'s3k',title:'S3 Einheit · Kraft',file:'s3-einheit.html?typ=kraft',desc:'Plan mit Soll je Übung, Ist-Felder vorbelegt, Rückmeldung (RPE, Gefühl, Schmerz, Abweichung, Notiz, Status). Auf dem Desktop Plan links, Rückmeldung rechts. Neu (Teil B/C): Kurzsatz der Planung mit „mehr“ und Knopf „Einheit starten“.'},
     {id:'s3a',title:'S3 Einheit · Ausdauer',file:'s3-einheit.html?typ=ausdauer',desc:'Workout-Text für Intervals.icu, verknüpfte Aktivität mit Kennzahlen und Zeit in Zonen.'},
     {id:'s3c',title:'S3 Einheit · Klettern mit Schmerz',file:'s3-einheit.html?typ=klettern&schmerz=ja',desc:'Blöcke mit Spezifität; Schmerz „Ja“ klappt die S5-Kurzform ein.'},
     {id:'s4',title:'S4 Check-in',file:'s4-checkin.html',desc:'Drei Felder (D-16), jede Stufe ein Touch-Ziel. Darunter die Woche als Kontrolle.'},
@@ -56,6 +56,12 @@
     {id:'s6',title:'S6 Verlauf',file:'s6-verlauf.html',desc:'Kennzahlen, sRPE je Bereich als kleine Vielfache auf einer gemeinsamen Achse, Schmerz je Ort als Raster mit Pflaume-Stufen, vollständige Tabelle.'},
     {id:'s8',title:'Einstellungen',file:'s8-einstellungen.html',desc:'Konto, Backup, Update, Verbindungen (AP-04, AP-10).'},
     {id:'s8u',title:'Einstellungen · Update erforderlich',file:'s8-einstellungen.html?state=update',desc:'Schema-Abweichung (D-20): Warnung, Schreibsperre, Migrations-Schaltfläche aktiv.'},
+    {id:'s9b',title:'S9 Einheit geführt · bereit',file:'s9-einheit-gefuehrt.html?state=bereit',desc:'Geführter Modus (Teil C): Fortschritt, aktuelle Übung mit Satz und Soll, Timer noch nicht gestartet (rot), Ist-Felder, „Als Nächstes“, Aktionen unten fixiert, Stummschalter in der Kopfzeile.'},
+    {id:'s9l',title:'S9 Einheit geführt · Arbeit läuft',file:'s9-einheit-gefuehrt.html?state=laeuft',desc:'Arbeitsphase: Seite grün (E-02), Timer groß, Anhalten als Primäraktion.'},
+    {id:'s9p',title:'S9 Einheit geführt · Pause',file:'s9-einheit-gefuehrt.html?state=pause',desc:'Pausenphase: Seite rot, Restzeit bis zum nächsten Satz, Pause vorzeitig beenden.'},
+    {id:'s9o',title:'S9 Einheit geführt · ohne Timer',file:'s9-einheit-gefuehrt.html?state=offen',desc:'Übung mit Wiederholungen: keine Zeit, Wiederholungen und Last groß, „Satz erledigt“ startet den Pausentimer (E-03).'},
+    {id:'s9a',title:'S9 Einheit geführt · Abschluss',file:'s9-einheit-gefuehrt.html?state=abschluss',desc:'Zusammenfassung der Übungen, Dauer vorbelegt, Rückmeldung wie S3, Status „teilweise“ vorbelegt nach Überspringen.'},
+    {id:'ico',title:'Icon-Optionen',file:'icon-optionen.html',desc:'Teil A (Q-14): fünf Varianten des Lama als Android-, iOS-, Favicon-, Tab-, Topbar- und Login-Darstellung; Empfehlung Fable: V3 als App-Icon, V2 als Favicon und App-Kennung.'},
   ];
   const devices=[
     {name:'Smartphone',w:390,h:844,s:0.5},

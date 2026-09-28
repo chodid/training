@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Einheit geführt – Training</title>
+<link rel="icon" href="../chadid-design-system/assets/logo/lama-symbol-kopf.svg">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+<style>
+  /* S9 Einheit geführt (Konzept docs/konzept/gefuehrte-einheit.md, Abschnitt 6).
+     Zustand über ?state=bereit (Standard) | laeuft | pause | offen | abschluss (nur für das Mockup).
+     Farben E-02/E-20: Arbeit grün, Pause/bereit/angehalten rot, sonst normal. */
+  [hidden]{display:none!important}
+  .main.gefuehrt{max-width:720px}
+  .progress{display:grid;gap:var(--space-2);margin-bottom:var(--space-4)}
+  .progress .bar{height:6px;border-radius:var(--radius-full);background:var(--plum-100);overflow:hidden}
+  .progress .bar i{display:block;height:100%;background:var(--plum-600)}
+  .phase-card{display:grid;gap:var(--space-2);text-align:center;padding:var(--space-6) var(--space-4);border-width:2px}
+  .phase-card .satz{font:var(--type-label);text-transform:uppercase;letter-spacing:var(--tracking-label);color:var(--text-tertiary)}
+  .phase-card h2{font:var(--type-h2)}
+  .phase-card .phase{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);margin:0 auto;padding:4px 12px;border-radius:var(--radius-full);font:var(--type-label);text-transform:uppercase;letter-spacing:var(--tracking-label);background:var(--bg-page);color:var(--text-secondary)}
+  .phase-card .timer{font:700 64px/1 var(--font-mono);font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:var(--text-primary)}
+  .phase-card .reps{font:700 40px/1.1 var(--font-display);color:var(--text-primary)}
+  .phase-card .reps small{display:block;font:var(--type-body);color:var(--text-tertiary);margin-top:var(--space-1)}
+  .phase-card .soll{font:var(--type-body-sm);color:var(--text-tertiary)}
+  .next{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);border:var(--border-default);border-radius:var(--radius-lg);background:var(--bg-surface);color:var(--text-secondary);font:var(--type-body-sm)}
+  .next .ic{color:var(--text-tertiary);flex:none}
+  .next b{color:var(--text-primary)}
+  .actions-sticky.gf{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--space-2);align-items:center}
+  .actions-sticky.gf .btn{min-width:0;padding:0 var(--space-3)}
+  .actions-sticky.gf .btn-primary{min-height:52px;font-size:var(--text-lg)}
+  .kurz{font:var(--type-body);color:var(--text-secondary)}
+  details.more>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center;gap:var(--space-2);color:var(--text-brand);list-style:none}
+  details.more>summary::-webkit-details-marker{display:none}
+  details.more[open]>summary .ic{transform:rotate(90deg)}
+  details.more>p{color:var(--text-secondary);padding-bottom:var(--space-2)}
+  .done-list{display:grid;gap:var(--space-2)}
+  .done-list .row{justify-content:space-between;font:var(--type-body-sm)}
+  .done-list .row .ic{color:var(--status-success)}
+  /* Farbzustände: Seitenfarbe, Timer-Karte, Phase-Marke */
+  body[data-phase="arbeit"]{--bg-page:var(--status-success-bg)}
+  body[data-phase="arbeit"] .phase-card{border-color:var(--status-success)}
+  body[data-phase="arbeit"] .phase-card .timer,body[data-phase="arbeit"] .phase-card .phase{color:var(--status-success-text)}
+  body[data-phase="arbeit"] .phase-card .phase{background:var(--status-success-bg)}
+  body[data-phase="pause"],body[data-phase="bereit"],body[data-phase="angehalten"]{--bg-page:var(--status-error-bg)}
+  body[data-phase="pause"] .phase-card,body[data-phase="bereit"] .phase-card,body[data-phase="angehalten"] .phase-card{border-color:var(--status-error)}
+  body[data-phase="pause"] .phase-card .timer,body[data-phase="pause"] .phase-card .phase,body[data-phase="bereit"] .phase-card .timer,body[data-phase="bereit"] .phase-card .phase{color:var(--status-error-text)}
+  body[data-phase="pause"] .phase-card .phase,body[data-phase="bereit"] .phase-card .phase{background:var(--status-error-bg)}
+  .topbar .btn-icon[aria-pressed="true"]{color:var(--text-brand);background:var(--plum-100)}
+</style>
+</head>
+<body class="app" data-phase="bereit">
+<header class="topbar">
+  <a class="btn btn-icon" href="s3-einheit.html?typ=kraft" aria-label="Zurück zur Einheit"><svg class="ic ic-lg"><use href="#i-arrow-left"/></svg></a>
+  <h1>Ganzkörper Kraft 1</h1>
+  <div class="topbar-actions">
+    <button class="btn btn-icon" type="button" aria-pressed="false" aria-label="Ton und Vibration aus" title="Stumm für diese Einheit" id="mute"><svg class="ic ic-lg"><use href="#i-volume"/></svg></button>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Hauptnavigation">
+  <a class="nav-brand" href="s2-woche.html"><img src="../chadid-design-system/assets/logo/lama-symbol-kopf.svg" alt=""><span class="brand"><span>Training</span></span></a>
+  <a href="s2-woche.html" aria-current="page"><svg class="ic"><use href="#i-calendar-week"/></svg>Woche</a>
+  <a href="s4-checkin.html"><svg class="ic"><use href="#i-checkup-list"/></svg>Check-in</a>
+  <a href="s6-verlauf.html"><svg class="ic"><use href="#i-chart-line"/></svg>Verlauf</a>
+  <a href="s8-einstellungen.html"><svg class="ic"><use href="#i-settings"/></svg>Einstellungen</a>
+  <div class="nav-foot">philipp · Block 2, Woche 6</div>
+</nav>
+
+<main class="main gefuehrt">
+  <form action="#" onsubmit="return false">
+
+  <!-- Fortschritt (alle Zustände außer Abschluss) -->
+  <div class="progress" data-st="bereit laeuft pause offen">
+    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="2" aria-label="Fortschritt"><i style="width:40%"></i></div>
+    <div class="between small muted"><span data-st="bereit laeuft pause">Übung 2 von 5</span><span data-st="offen">Übung 1 von 5</span><span>≈ 32 min verbleibend</span></div>
+  </div>
+  <div class="progress" data-st="abschluss">
+    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="5" aria-label="Fortschritt"><i style="width:100%"></i></div>
+    <div class="between small muted"><span>Alle 5 Übungen durch</span><span>41 min</span></div>
+  </div>
+
+  <div class="stack-lg">
+
+    <!-- Zustand bereit: getimte Übung, Timer noch nicht gestartet (rot) -->
+    <section class="card phase-card" data-st="bereit" aria-live="polite">
+      <div class="satz">Satz 1 von 3 · Pause 60 s</div>
+      <h2>Unterarmstütz</h2>
+      <span class="phase"><svg class="ic ic-sm"><use href="#i-clock"/></svg>Bereit</span>
+      <div class="timer">00:45</div>
+      <div class="soll">Soll 3 × 45 s · KG · Pause 60 s</div>
+    </section>
+
+    <!-- Zustand laeuft: Arbeitsphase (grün) -->
+    <section class="card phase-card" data-st="laeuft" aria-live="polite">
+      <div class="satz">Satz 2 von 3 · dann 60 s Pause</div>
+      <h2>Unterarmstütz</h2>
+      <span class="phase"><svg class="ic ic-sm"><use href="#i-player-play"/></svg>Arbeit</span>
+      <div class="timer">00:37</div>
+      <div class="soll">Soll 3 × 45 s · KG · Pause 60 s</div>
+    </section>
+
+    <!-- Zustand pause: Pausenphase (rot) -->
+    <section class="card phase-card" data-st="pause" aria-live="polite">
+      <div class="satz">Pause · dann Satz 3 von 3</div>
+      <h2>Unterarmstütz</h2>
+      <span class="phase"><svg class="ic ic-sm"><use href="#i-player-pause"/></svg>Pause</span>
+      <div class="timer">00:52</div>
+      <div class="soll">Nächster Satz 45 s · Töne bei 30 s, 10 s und 3-2-1</div>
+    </section>
+
+    <!-- Zustand offen: Übung mit Wiederholungen, kein Timer (normale Farbe) -->
+    <section class="card phase-card" data-st="offen" aria-live="polite">
+      <div class="satz">Satz 2 von 3 · Pause 120 s nach „Satz erledigt“</div>
+      <h2>Kniebeuge</h2>
+      <div class="reps">8 Wdh. <small>40 kg · Tempo 3-1-1</small></div>
+      <div class="soll">Soll 3 × 8 · 40 kg · Tempo 3-1-1 · Pause 120 s</div>
+    </section>
+
+    <!-- Ist-Felder der aktuellen Übung (wie S3, vorbelegt mit Soll) -->
+    <section class="card" data-st="bereit laeuft pause">
+      <div class="card-head"><h2>Ist</h2><span class="hint">vorbelegt mit Soll</span></div>
+      <div class="exercise">
+        <div class="ist">
+          <div class="field"><label>Sätze</label><input class="input mono" value="3" inputmode="numeric"></div>
+          <div class="field"><label>Dauer</label><input class="input mono" value="45 s"></div>
+          <div class="field"><label>Notiz</label><input class="input" placeholder="optional"></div>
+        </div>
+      </div>
+    </section>
+    <section class="card" data-st="offen">
+      <div class="card-head"><h2>Ist</h2><span class="hint">vorbelegt mit Soll</span></div>
+      <div class="exercise">
+        <div class="ist">
+          <div class="field"><label>Sätze</label><input class="input mono" value="3" inputmode="numeric"></div>
+          <div class="field"><label>Wdh.</label><input class="input mono" value="8" inputmode="numeric"></div>
+          <div class="field"><label>Last</label><input class="input mono" value="40 kg"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Als Nächstes -->
+    <div class="next" data-st="bereit laeuft pause"><svg class="ic"><use href="#i-arrow-right"/></svg><span>Als Nächstes: <b>Rudern mit Band</b> · 3 × 10 · Band grün</span></div>
+    <div class="next" data-st="offen"><svg class="ic"><use href="#i-arrow-right"/></svg><span>Als Nächstes: <b>Unterarmstütz</b> · 3 × 45 s · Pause 60 s</span></div>
+
+    <!-- Abschluss: Zusammenfassung + Rückmeldung wie S3 -->
+    <section class="card stack" data-st="abschluss">
+      <div class="card-head"><h2>Geschafft</h2><span class="badge badge-success"><svg class="ic"><use href="#i-check"/></svg>41 min</span></div>
+      <div class="done-list">
+        <div class="row"><span>Kniebeuge</span><span class="muted">3 × 8 · 40 kg</span><svg class="ic ic-sm"><use href="#i-check"/></svg></div>
+        <div class="row"><span>Unterarmstütz</span><span class="muted">3 × 45 s</span><svg class="ic ic-sm"><use href="#i-check"/></svg></div>
+        <div class="row"><span>Rudern mit Band</span><span class="muted">3 × 10 · Band grün</span><svg class="ic ic-sm"><use href="#i-check"/></svg></div>
+        <div class="row"><span>Liegestütz</span><span class="muted">2 × 8 · KG</span><span class="badge badge-warning">geändert</span></div>
+        <div class="row"><span>Seitstütz</span><span class="muted">übersprungen</span><span class="badge badge-neutral">–</span></div>
+      </div>
+      <p class="hint">Ist-Werte kannst Du in der Einheit nachträglich ändern.</p>
+    </section>
+    <section class="card stack-lg" data-st="abschluss">
+      <div class="card-head"><h2>Rückmeldung</h2><span class="hint">Dauer aus der geführten Einheit vorbelegt</span></div>
+      <div class="field">
+        <label for="duration">Dauer (min)</label>
+        <input class="input mono" id="duration" value="41" inputmode="numeric">
+      </div>
+      <div class="field">
+        <div class="field-label">Anstrengung (RPE 0–10)</div>
+        <div class="scale scale-11" role="radiogroup" aria-label="RPE">
+          <label><input type="radio" name="rpe" value="0"><span>0</span></label><label><input type="radio" name="rpe" value="1"><span>1</span></label><label><input type="radio" name="rpe" value="2"><span>2</span></label><label><input type="radio" name="rpe" value="3"><span>3</span></label><label><input type="radio" name="rpe" value="4"><span>4</span></label><label><input type="radio" name="rpe" value="5"><span>5</span></label><label><input type="radio" name="rpe" value="6" checked><span>6</span></label><label><input type="radio" name="rpe" value="7"><span>7</span></label><label><input type="radio" name="rpe" value="8"><span>8</span></label><label><input type="radio" name="rpe" value="9"><span>9</span></label><label><input type="radio" name="rpe" value="10"><span>10</span></label>
+        </div>
+        <div class="scale-ends"><span>0 Ruhe</span><span>10 maximal</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Wie hat sich die Einheit angefühlt?</div>
+        <div class="scale" role="radiogroup" aria-label="Gefühl">
+          <label><input type="radio" name="feel" value="1"><span>1</span></label><label><input type="radio" name="feel" value="2" checked><span>2</span></label><label><input type="radio" name="feel" value="3"><span>3</span></label><label><input type="radio" name="feel" value="4"><span>4</span></label><label><input type="radio" name="feel" value="5"><span>5</span></label>
+        </div>
+        <div class="scale-ends"><span>1 sehr gut</span><span>5 sehr schlecht</span></div>
+      </div>
+      <div class="field">
+        <div class="field-label">Schmerz während oder nach der Einheit?</div>
+        <div class="seg" role="radiogroup" aria-label="Schmerz"><label><input type="radio" name="pain" value="nein" checked><span>Nein</span></label><label><input type="radio" name="pain" value="ja"><span>Ja</span></label></div>
+      </div>
+      <div class="field">
+        <label for="dev">Abweichung vom Plan</label>
+        <div class="select-wrap"><select class="select" id="dev"><option>Keine Abweichung</option><option>Zeit</option><option>Ermüdung</option><option>Schmerz</option><option>Wetter</option><option>Sonstiges</option></select><svg class="ic"><use href="#i-chevron-right"/></svg></div>
+      </div>
+      <div class="field">
+        <label for="note">Notiz</label>
+        <textarea class="textarea" id="note" placeholder="Was war anders, was ist aufgefallen?"></textarea>
+      </div>
+      <div class="field">
+        <div class="field-label">Status</div>
+        <div class="seg wrap">
+          <label><input type="radio" name="status" value="erledigt"><svg class="ic ic-sm"><use href="#i-check"/></svg><span>Erledigt</span></label>
+          <label><input type="radio" name="status" value="teilweise" checked><span>Teilweise</span></label>
+          <label><input type="radio" name="status" value="ausgelassen"><span>Ausgelassen</span></label>
+          <label><input type="radio" name="status" value="verschoben"><svg class="ic ic-sm"><use href="#i-player-skip-forward"/></svg><span>Verschoben</span></label>
+        </div>
+        <div class="hint">„Teilweise“ vorbelegt, weil eine Übung übersprungen wurde.</div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Aktionen je Zustand -->
+  <div class="actions-sticky gf" data-st="bereit">
+    <button class="btn btn-secondary btn-icon" type="button" aria-label="Zurück zur vorigen Übung"><svg class="ic"><use href="#i-player-skip-back"/></svg></button>
+    <button class="btn btn-primary" type="button"><svg class="ic"><use href="#i-player-play"/></svg>Start</button>
+    <button class="btn btn-secondary" type="button" aria-label="Übung überspringen" title="Übung überspringen"><svg class="ic"><use href="#i-player-skip-forward"/></svg><span class="hide-mobile">Überspringen</span></button>
+  </div>
+  <div class="actions-sticky gf" data-st="laeuft">
+    <button class="btn btn-secondary btn-icon" type="button" aria-label="Satz neu starten"><svg class="ic"><use href="#i-player-skip-back"/></svg></button>
+    <button class="btn btn-primary" type="button"><svg class="ic"><use href="#i-player-pause"/></svg>Anhalten</button>
+    <button class="btn btn-secondary" type="button" aria-label="Übung überspringen" title="Übung überspringen"><svg class="ic"><use href="#i-player-skip-forward"/></svg><span class="hide-mobile">Überspringen</span></button>
+  </div>
+  <div class="actions-sticky gf" data-st="pause">
+    <button class="btn btn-secondary btn-icon" type="button" aria-label="Satz wiederholen"><svg class="ic"><use href="#i-player-skip-back"/></svg></button>
+    <button class="btn btn-primary" type="button"><svg class="ic"><use href="#i-player-play"/></svg>Pause beenden</button>
+    <button class="btn btn-secondary" type="button" aria-label="Übung überspringen" title="Übung überspringen"><svg class="ic"><use href="#i-player-skip-forward"/></svg><span class="hide-mobile">Überspringen</span></button>
+  </div>
+  <div class="actions-sticky gf" data-st="offen">
+    <button class="btn btn-secondary btn-icon" type="button" aria-label="Satz zurück"><svg class="ic"><use href="#i-player-skip-back"/></svg></button>
+    <button class="btn btn-primary" type="button"><svg class="ic"><use href="#i-check"/></svg>Satz erledigt</button>
+    <button class="btn btn-secondary" type="button"><svg class="ic"><use href="#i-player-skip-forward"/></svg><span class="hide-mobile">Weiter</span></button>
+  </div>
+  <div class="actions-sticky btn-row" data-st="abschluss">
+    <a class="btn btn-secondary" href="s3-einheit.html?typ=kraft">Zur Einheit</a>
+    <button class="btn btn-primary" type="submit">Speichern</button>
+  </div>
+  </form>
+</main>
+<script>
+  const st=new URLSearchParams(location.search).get('state')||'bereit';
+  const phase={bereit:'bereit',laeuft:'arbeit',pause:'pause',offen:'',abschluss:''}[st]||'';
+  if(phase)document.body.setAttribute('data-phase',phase);else document.body.removeAttribute('data-phase');
+  document.querySelectorAll('[data-st]').forEach(e=>{if(!e.getAttribute('data-st').split(' ').includes(st))e.hidden=true});
+  document.getElementById('mute').addEventListener('click',function(){const on=this.getAttribute('aria-pressed')!=='true';this.setAttribute('aria-pressed',on);this.querySelector('use').setAttribute('href',on?'#i-volume-off':'#i-volume');this.setAttribute('aria-label',on?'Ton und Vibration an':'Ton und Vibration aus')});
+</script>
+</body>
+</html>
