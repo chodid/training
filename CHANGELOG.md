@@ -16,6 +16,7 @@ AP-14 Nachtrag T9: Entscheidungen des Athleten zu den offenen Punkten O-05 bis O
 
 ### Dokumentation
 - Entscheidungen E-23: 30-s-Ton erst bei Phasen über 45 s (wie umgesetzt, E-17 und 6.4 angeglichen), keine Screenshots im Manifest, Kletterblöcke satzweise; Testfälle A-13/A-14; D-57 ergänzt.
+- Konzept: Übergabe AP-06 Teil C eingearbeitet – neuer Literaturblock R Reha/Prävention (13.2.5, L-R-01 bis L-R-28: Patellasehne, Sprunggelenk, Laufumfang); neu D-61, Q-15, Q-16; Q-13 ergänzt; Beschaffungsliste 13.4 erweitert.
 
 ## [0.19.0] – 2026-09-28
 

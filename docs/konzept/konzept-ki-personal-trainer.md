@@ -189,6 +189,7 @@ flowchart LR
 | D-58 | Timer und Signale in S9: Grün nur in der Arbeitsphase, Rot in Pause/bereit/angehalten, sonst normale Farbe (Statusfarben des Design-Systems, B-08). Töne über Web Audio (Start, 30 s und 10 s vor Ende, letzte 3 s, Abschlusston) plus Vibration; Bildschirm bleibt an (Wake Lock). Stumm: Einstellung `timer_ton` in `app_setting` (S8) und Schalter in der Einheit. Zeit zeitstempelbasiert, Fortschritt im Browser (`sessionStorage`, 12 h). | Vorgabe des Athleten (Rot → Grün, Signalzeitpunkte, stummschaltbar an zwei Stellen); Grün = Arbeit, Wake Lock und Vibration am 2026-09-28 bestätigt. | 2026-09-28 |
 | D-59 | Logo-Variante (Q-14): V3 (Lama Fläche hell auf Pflaume 600) als App-Icon Android/iOS und `maskable`; V2 (Lama Fläche Pflaume 600 auf Papier) als Favicon 16/32 px, SVG-Favicon und App-Kennung in Topbar, Navigation und Login. Vorlagen in `docs/branding/mockups/icon-optionen/`. | Entscheidung des Athleten, wie von Fable empfohlen: Kontrast auf dem Startbildschirm, Lesbarkeit bei 16 px, Kennung auf Papier wie bisher. | 2026-09-28 |
 | D-60 | Ein Sammeltermin je Tag im Kalender (ändert D-50, passt D-52 an): Statt eines Termins je Einheit schreibt die App je Trainingstag einen ganztägigen Termin (Ressource `training-tag-<Datum>.ics`, feste UID je Tag; nach dem Löschen eines Tagestermins bekommt der nächste eine neue Fassung `-1`, `-2` … mit eigener UID, weil Nextcloud Gelöschtes im Papierkorb hält). Titel „Typ: Titel“ bei einer Einheit, sonst „Training: Titel 1 + Titel 2“ in Planreihenfolge; kein Status-Zeichen im Titel, der Termin wird nie abgesagt – der Status steht je Einheit in der Beschreibung. Beschreibung: alle Einheiten des Tages ohne Ruhetage, je Einheit Überschrift (bei mehreren), Kurzsatz, Kurzplan mit Priorität/Dauer/Status, Trainer-Begründung (gekürzt) und Link; der Termin verlinkt die Woche. Erinnerung einmal je Tag, solange eine Einheit geplant oder verschoben ist. Bei jeder Änderung wird der ganze Tag neu geschrieben (beim Verschieben alter und neuer Tag); Tage ohne Einheiten verlieren ihren Termin. Der Abgleich ersetzt die alten Einzeltermine im Abgleichzeitraum; ändert die App eine Einheit, entfernt sie deren Einzeltermin sofort, auch außerhalb des Zeitraums; ältere Einzeltermine unberührter Einheiten bleiben. | Wunsch des Athleten (ein Termin je Tag, übersichtlicher Kalender); Titel aus den Einheitentiteln, kein Status-Zeichen und Umfang (Unterpunkt T8, eigener Code-Stand) am 2026-09-28 gewählt. | 2026-09-28 |
+| D-61 | Neuer Literaturblock R Reha/Prävention (13.2.5), themenübergreifend zu T1 und T2, IDs L-R-nn, Wissenskarte docs/wissen/r-reha-praevention.md (Dateiname Vorschlag). Teilthemen: Patellatendinopathie (Übungstherapie, Lastdosierung, Messinstrument VISA-P), Sprunggelenksinstabilität/Rezidivprophylaxe, Laufumfang und Verletzungsrisiko. Kern: L-R-01 bis L-R-09, L-R-13 bis L-R-17, L-R-23 bis L-R-25. Optional: L-R-10 bis L-R-12, L-R-18 bis L-R-22, L-R-26 bis L-R-28. Planungsfolgen (in AP-07 als Regeln auszuformulieren, nicht hier entschieden): (a) Sehnentraining: progressive Belastung, Lasthöhe moderat bis schwer gleichwertig; 1 Trainingstag/Woche als Einzelstudienbefund (TEREX) kennzeichnen; (b) Isometrik als verträglicher Einstieg, nicht als überlegene Schmerztherapie; (c) Sprunggelenk: neuromuskuläres/Balance-Training zur Rezidivprophylaxe; Dosis nach Tang gilt für Funktion/Balance, nicht für Rezidivschutz; Gerätetyp zweitrangig; (d) Laufprogression: Einzellauf-Spitzen statt Wochenprozent (→ Q-15); (e) Karte führt unter „Grenzen": Übungstherapie vs. keine Behandlung laut Cochrane sehr unsicher (L-R-23); Dorsalextension als Risikofaktor nur begrenzt/widersprüchlich belegt (L-R-11). | Begründung in den Einträgen 13.2.5 und im Prüfprotokoll AP-06. Bestätigt durch Athlet (Literatur-Sitzung AP-06 Teil C; dort als D-39 vergeben, wegen Kollision umnummeriert). | 2026-09-28 |
 
 # 5. Offene Fragen und Verifikationen
 
@@ -208,8 +209,10 @@ flowchart LR
 | Q-10 | `plan_json` für `mobilitaet` und `ruhe` (Abschnitt 7.1 definiert nur kraft/haltung, klettern, ausdauer). | `mobilitaet` wie kraft/haltung (Übungsliste mit Sätzen/Wiederholungen bzw. Haltezeit „30s“); `ruhe` ohne Plan, höchstens Notiz. Passt zu den Mockups (S3) und hält die Webseite einfach. | entschieden → D-39 (2026-09-28) |
 | Q-11 | Neues MCP-Tool `upsert_block` (Block anlegen/ändern: Name, Zeitraum, Status, Zielevents, Phasen, Verweis auf docs/plaene/). Abschnitt 8.2 sieht kein Tool dafür vor, `write_week_plan` braucht aber einen Block. | Tool aufnehmen (so umgesetzt): Blockplan entsteht im Projekt-Chat (AP-08), Claude legt ihn nach Bestätigung per Tool an. Alternative: Block per SQL/Webseite anlegen. | entschieden → D-40 (2026-09-28) |
 | Q-12 | Sportart für Intervals.icu-Events: optionales Feld `sport` in `plan_json.ausdauer` (Run, TrailRun, Hike, Walk, Ride, MountainBikeRide, GravelRide, BackcountrySki, NordicSki, Snowshoe, Swim, Rowing; Standard Run). | Aufnehmen (so umgesetzt): Skitour und Wandern brauchen eigene Typen, damit Garmin das richtige Sportprofil (und die Zonen, V-12) nutzt. | entschieden → D-41 (2026-09-28) |
-| Q-13 | Schmerzregeln 14.5 (≤ 3/10 fortfahren; 4–5/10 reduzieren; > 5/10 stoppen) sind strenger als das Schmerzmonitoring-Modell nach L-P13 (laut Sekundärquelle ≤ 5/10 zulässig, Abklingen bis Folgemorgen, keine Zunahme von Woche zu Woche). Beibehalten, an das Modell angleichen oder je Struktur unterscheiden (Sehnen untere Extremität vs. Finger/Ringbänder)? | Entscheidung in AP-07 nach Volltextprüfung L-P13. Für Finger/Ringbänder strengere Schwellen beibehalten, da das Modell dort nicht validiert ist (Einschätzung); für Sehnen der unteren Extremität Angleichung an das Modell prüfen. (Literatur-Sitzung AP-06 Teil B; dort als Q-09 vergeben, wegen Kollision umnummeriert.) | offen (AP-07) |
+| Q-13 | Schmerzregeln 14.5 (≤ 3/10 fortfahren; 4–5/10 reduzieren; > 5/10 stoppen) sind strenger als das Schmerzmonitoring-Modell nach L-P13 (laut Sekundärquelle ≤ 5/10 zulässig, Abklingen bis Folgemorgen, keine Zunahme von Woche zu Woche). Beibehalten, an das Modell angleichen oder je Struktur unterscheiden (Sehnen untere Extremität vs. Finger/Ringbänder)? Zusätzlich: Schmerzregel aus L-R-02 (Kongsgaard 2009, laut Reha-Chat VAS ≤ 30/100 während Belastung) – nicht im Abstract; am Volltext verifizieren und mit 14.5 und L-P13 abgleichen (Ergänzung Teil C). | Entscheidung in AP-07 nach Volltextprüfung L-P13. Für Finger/Ringbänder strengere Schwellen beibehalten, da das Modell dort nicht validiert ist (Einschätzung); für Sehnen der unteren Extremität Angleichung an das Modell prüfen. (Literatur-Sitzung AP-06 Teil B; dort als Q-09 vergeben, wegen Kollision umnummeriert.) | offen (AP-07) |
 | Q-14 | Welche Lama-Variante als App-Icon, Favicon und App-Kennung (Topbar, Navigation, Login)? Mockup `docs/branding/mockups/icon-optionen.html` mit V1 Linie auf Papier, V2 Fläche auf Papier, V3 Fläche hell auf Pflaume 600, V4 Linie hell auf Pflaume 800, V5 Kopf (bisher). | Empfehlung Fable: V3 als App-Icon (Android/iOS, maskable), V2 als Favicon 16/32 px und App-Kennung. Mischung oder eine Variante überall möglich. AP-13 Teil A wartet auf die Wahl. | entschieden → D-59 (2026-09-28) |
+| Q-15 | Laufprogression als Regel je Einheit statt als Wochenprozent? Vorschlag laut L-R-24 – Einzellauf höchstens 10 % länger als der längste Lauf der letzten 30 Tage; Wochenumfang nur noch als grobe Leitplanke. Automatische Prüfung aus Intervals.icu-/Garmin-Daten in der WebApp (Hinweis bei Planung oder nach Import)? | Regel in AP-07 übernehmen (mit Kennzeichnung „explorativer Kohortenbefund“); automatische Prüfung als Kandidat für AP-09 bzw. eigenes Arbeitspaket, Entscheidung durch Athlet. Einschätzung: Garmin-Streckendaten liegen bereits vor, Aufwand gering. (Teil C: Q-10) | offen (AP-07 Regel, AP-09 Automatik) |
+| Q-16 | Orthese oder Tape beim Trailrunning (und ggf. weiteren Sportarten mit Umknickrisiko) als Rezidivschutz zusätzlich zum Balancetraining? | In AP-07 als Option aufnehmen; L-R-26 bewertet die Evidenz für Orthesen zur Rezidivprophylaxe als stark. Entscheidung durch Athlet; Details (Orthesentyp, Einsatzbereich) am Volltext L-R-13/L-R-26 prüfen. (Teil C: Q-11) | offen (AP-07) |
 
 ## 5.2 Zu verifizieren (vor/in dem jeweiligen AP)
 
@@ -427,7 +430,7 @@ Literatur wird blockweise ausgewählt (ein Block je Bereich), in eigenen Sitzung
 
 ID-Konvention:
 - übergreifend: `L-A<nn>` Bücher, `L-P<nn>` Paper
-- Bereiche: `L-T1-<nn>` (Ausdauer), `L-T2-<nn>` (Kraft/Haltung), `L-T3-<nn>` (Klettern); der Quellentyp steht im Feld `typ`
+- Bereiche: `L-T1-<nn>` (Ausdauer), `L-T2-<nn>` (Kraft/Haltung), `L-T3-<nn>` (Klettern), `L-R-<nn>` (Reha/Prävention, themenübergreifend, D-61); der Quellentyp steht im Feld `typ`
 - Verweise auf einen Eintrag eines anderen Blocks: eigenes `id` mit `status: verweis` und Feld `verweis: <id>`, nie eine zweite Definition
 
 Statuswerte: `kandidat` (unverifiziert) · `verifiziert` (bibliografisch bzw. PubMed) · `vorgeschlagen` (von der Sitzung empfohlen, vom Athleten noch nicht bestätigt) · `ausgewaehlt` (vom Athleten bestätigt) · `optional` · `zurueckgestellt` · `verweis` · `nicht_aufgenommen`
@@ -1159,6 +1162,339 @@ Nummernlücke: L-T3-13 (MacLeod) und L-T3-14 (Neumann U) stehen als ausgeschloss
 
 Themenfeld-Vokabular T3 (für Karten und Datenmodell): fingerkraft, maximalkraft, hypertrophie, kraftausdauer, kraftanstiegsrate, unterarmausdauer, periodisierung, leistungsdiagnostik, leistungsniveau_klassifikation, verletzungspraevention, verletzungen_therapie, physiologie, biomechanik, technik, taktik, mental, bouldern_spezifisch.
 
+### 13.2.5 R Reha/Prävention (Block bestätigt 2026-09-28, D-61)
+
+Themenübergreifender Block zu T1 und T2: Patellatendinopathie, Sprunggelenksinstabilität/Rezidivprophylaxe, Laufumfang und Verletzungsrisiko. Ausgangsmaterial ist der Reha-Chat „Trainingsgeräte für Sprunggelenksinstabilität nach Supinationstrauma“ (Plan Rev. 6); alle Quellen per PubMed geprüft (Literatur-Sitzung AP-06 Teil C).
+
+Evidenzlage: Übungstherapie Patellasehne und Balancetraining Sprunggelenk sind durch RCTs und Reviews gestützt, aber mit niedriger bis moderater Evidenzsicherheit; Einzelbefunde (TEREX, Donovan, Frandsen) sind als solche zu kennzeichnen.
+
+Patellatendinopathie:
+
+```yaml
+- id: L-R-01
+  status: ausgewaehlt
+  stufe: A
+  typ: rct
+  zitat: "Breda SJ, Oei EHG, Zwerver J, et al. Effectiveness of progressive tendon-loading exercise therapy in patients with patellar tendinopathy: a randomised clinical trial. Br J Sports Med. 2021;55(9):501-509."
+  pmid: "33219115"
+  pmcid: PMC8070614
+  doi: 10.1136/bjsports-2020-103403
+  zugang: Volltext in PMC; Lizenz nicht geprüft
+  themenfelder: [patellasehne, progressive_belastung]
+  kernaussagen_abstract: n = 76; PTLE vs. exzentrisch nach 24 Wochen VISA-P +28 vs. +18 (Differenz 9, p = 0,023); Return to Sport 43 % vs. 27 % (Trend, p = 0,13); Adhärenz 40 % vs. 49 %
+  rolle: Stufenmodell (isometrisch → isotonisch → energiespeichernd → sportspezifisch)
+- id: L-R-02
+  status: ausgewaehlt
+  stufe: A
+  typ: rct
+  zitat: "Kongsgaard M, Kovanen V, Aagaard P, et al. Corticosteroid injections, eccentric decline squat training and heavy slow resistance training in patellar tendinopathy. Scand J Med Sci Sports. 2009;19(6):790-802."
+  pmid: "19793213"
+  doi: 10.1111/j.1600-0838.2009.00949.x
+  zugang: kein PMC-Volltext → Beschaffung
+  themenfelder: [patellasehne, hsr]
+  kernaussagen_abstract: n = 39 Männer, 12 Wochen; HSR mit guten kurz- und langfristigen Effekten, höchste Zufriedenheit; Kortison kurzfristig gut, langfristig schlechter
+  hinweis: Schmerzregel (VAS ≤ 30/100) und Protokolldetails nicht im Abstract → Volltext (Q-13)
+- id: L-R-03
+  status: ausgewaehlt
+  stufe: A
+  typ: rct
+  zitat: "Agergaard AS, Svensson RB, Malmgaard-Clausen NM, et al. Clinical Outcomes, Structure, and Function Improve With Both Heavy and Moderate Loads in the Treatment of Patellar Tendinopathy: A Randomized Clinical Trial. Am J Sports Med. 2021;49(4):982-993."
+  pmid: "33616456"
+  doi: 10.1177/0363546520988741
+  zugang: kein PMC-Volltext → Beschaffung
+  themenfelder: [patellasehne, lastdosierung]
+  kernaussagen_abstract: n = 44; 55 % vs. 90 % 1RM bei gleichem Volumen; keine Unterschiede in Klinik, Struktur, Funktion; Verbesserung bis 52 Wochen, Normalwerte nicht erreicht
+- id: L-R-04
+  status: ausgewaehlt
+  stufe: A
+  typ: rct
+  zitat: "Agergaard AS, Svensson RB, Hoeffner R, Gillani SZ, Magnusson SP. Extended Restitution Between Sessions Does Not Enhance the Benefits of 12 Weeks Exercise-Based Treatment for Patellar Tendinopathy: A Randomized Controlled Clinical Trial (The TEREX Trial). Scand J Med Sci Sports. 2026;36(3):e70235."
+  pmid: "41796988"
+  pmcid: PMC12968374
+  doi: 10.1111/sms.70235
+  zugang: Volltext in PMC; Lizenz nicht geprüft
+  themenfelder: [patellasehne, trainingsfrequenz]
+  kernaussagen_abstract: n = 52; 1 vs. 3 Trainingstage/Woche (Beinpresse, Knieextension, ~60 → ~75 % 1RM; Impact in beiden Gruppen eingeschränkt); gleiche klinische und Kraftverbesserung; keine Verbesserung von Sprunghöhe und Sehnenstruktur
+  konfidenz: mittel – Einzelstudie, keine Replikation gefunden (Gegenrecherche 2026-09-28)
+- id: L-R-05
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_netzwerk_metaanalyse
+  zitat: "Challoumas D, Crosbie G, O'Neill S, Pedret C, Millar NL. Effectiveness of Exercise Treatments with or without Adjuncts for Common Lower Limb Tendinopathies: A Living Systematic Review and Network Meta-analysis. Sports Med Open. 2023;9(1):71."
+  pmid: "37553459"
+  pmcid: PMC10409676
+  doi: 10.1186/s40798-023-00616-1
+  zugang: Volltext in PMC; Lizenz nicht geprüft
+  themenfelder: [patellasehne, erstlinie]
+  kernaussagen_abstract: 68 RCTs; kein Zusatzverfahren überzeugend besser als Übungstherapie allein; Empfehlung Übungstherapie allein mindestens 3 Monate als Erstlinie; Stoßwelle zusätzlich zu exzentrischem Training ohne Kurzzeitnutzen (moderate Evidenz)
+- id: L-R-06
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_netzwerk_metaanalyse
+  zitat: "Liu Y, Li C, Yang F. Comparative effectiveness of exercise interventions for patellar tendinopathy: a systematic review and network meta-analysis of randomized controlled trials. BMC Sports Sci Med Rehabil. 2026;18(1)."
+  pmid: "42192475"
+  pmcid: PMC13308153
+  doi: 10.1186/s13102-026-01743-4
+  zugang: Volltext in PMC; Lizenz nicht geprüft
+  themenfelder: [patellasehne, methodenvergleich]
+  kernaussagen_abstract: 17 RCTs, Primärnetz 10 Studien/313 Teilnehmer; keine Methode HSR überlegen; keine klinisch bedeutsame Rangfolge; Flywheel, exzentrisches Step-Training und konzentrisches Training schlechter als HSR geschätzt
+  hinweis: Artikelnummer in PubMed nicht hinterlegt
+- id: L-R-07
+  status: ausgewaehlt
+  stufe: A
+  typ: validierungsstudie
+  zitat: "Visentini PJ, Khan KM, Cook JL, Kiss ZS, Harcourt PR, Wark JD. The VISA score: an index of severity of symptoms in patients with jumper's knee (patellar tendinosis). J Sci Med Sport. 1998;1(1):22-28."
+  pmid: "9732118"
+  doi: 10.1016/s1440-2440(98)80005-4
+  zugang: kein PMC-Volltext
+  themenfelder: [messinstrument, visa_p]
+  kernaussagen_abstract: 0–100 Punkte; Test-Retest und Inter-Tester r > 0,95; Gesunde 95, Klinikpatienten 55, präoperativ 22 Punkte
+- id: L-R-08
+  status: ausgewaehlt
+  stufe: A
+  typ: validierungsstudie
+  zitat: "Lohrer H, Nauck T. Cross-cultural adaptation and validation of the VISA-P questionnaire for German-speaking patients with patellar tendinopathy. J Orthop Sports Phys Ther. 2011;41(3):180-190."
+  pmid: "21289458"
+  doi: 10.2519/jospt.2011.3354
+  zugang: kein PMC-Volltext → Beschaffung (Wortlaut VISA-P-G)
+  themenfelder: [messinstrument, visa_p]
+  kernaussagen_abstract: VISA-P-G reliabel (ICC 0,88) und valide
+  hinweis: Der VISA-P-Rechner aus dem Reha-Artefakt nutzt eine sinngemäße Übersetzung, nicht den validierten Wortlaut (dort bereits vermerkt)
+- id: L-R-09
+  status: ausgewaehlt
+  stufe: A
+  typ: validierungsstudie
+  zitat: "Hernandez-Sanchez S, Hidalgo MD, Gomez A. Responsiveness of the VISA-P scale for patellar tendinopathy in athletes. Br J Sports Med. 2014;48(6):453-457."
+  pmid: "23012320"
+  doi: 10.1136/bjsports-2012-091163
+  zugang: kein PMC-Volltext
+  themenfelder: [messinstrument, visa_p, mcid]
+  kernaussagen_abstract: n = 98; MCID > 13 Punkte absolut bzw. 15,4–27 % relativ; abhängig vom Ausgangswert
+  hinweis: Online-Vorabveröffentlichung 2012, Heft 2014; im Reha-Artefakt bereits korrekt zitiert
+- id: L-R-10
+  status: optional
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Clifford C, Challoumas D, Paul L, Syme G, Millar NL. Effectiveness of isometric exercise in the management of tendinopathy: a systematic review and meta-analysis of randomised trials. BMJ Open Sport Exerc Med. 2020;6(1):e000760."
+  pmid: "32818059"
+  pmcid: PMC7406028
+  doi: 10.1136/bmjsem-2020-000760
+  zugang: Volltext in PMC
+  themenfelder: [patellasehne, isometrie]
+  kernaussagen_abstract: 10 RCTs (4 Patellasehne); Isometrik bei chronischer Tendinopathie nicht überlegen gegenüber isotonischem Training; Ansprechen variabel; als Teil progressiver Belastung nutzbar
+- id: L-R-11
+  status: optional
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Sprague AL, Smith AH, Knox P, Pohlig RT, Grävare Silbernagel K. Modifiable risk factors for patellar tendinopathy in athletes: a systematic review and meta-analysis. Br J Sports Med. 2018;52(24):1575-1585."
+  pmid: "30054341"
+  pmcid: PMC6269217
+  doi: 10.1136/bjsports-2017-099000
+  zugang: Volltext in PMC
+  themenfelder: [patellasehne, risikofaktoren]
+  kernaussagen_abstract: 31 Studien; keine starke Evidenz für irgendeinen Risikofaktor; begrenzte/widersprüchliche Evidenz u. a. für verminderte Dorsalextension und hohes Sprung-/Aktivitätsvolumen
+- id: L-R-12
+  status: optional
+  stufe: A
+  typ: prospektive_kohorte
+  zitat: "Backman LJ, Danielson P. Low range of ankle dorsiflexion predisposes for patellar tendinopathy in junior elite basketball players: a 1-year prospective study. Am J Sports Med. 2011;39(12):2626-2633."
+  pmid: "21917610"
+  doi: 10.1177/0363546511420552
+  zugang: kein PMC-Volltext
+  themenfelder: [patellasehne, dorsalextension]
+  kernaussagen_abstract: n = 75 Junioren-Basketballer; 12 entwickelten Patellatendinopathie; Dorsalextension < 36,5° mit Risiko 18,5–29,4 % vs. 1,8–2,1 %
+  konfidenz: niedrig für Übertragung (Population, kleine Fallzahl)
+- id: L-R-23
+  status: ausgewaehlt
+  stufe: A
+  typ: cochrane_review
+  zitat: "Lopes AD, Rizzo RR, Hespanhol L, Costa LO, Kamper SJ. Exercise for patellar tendinopathy. Cochrane Database Syst Rev. 2025;5(5):CD013078."
+  pmid: "40421598"
+  pmcid: PMC12107522
+  doi: 10.1002/14651858.CD013078.pub2
+  zugang: Volltext in PMC
+  themenfelder: [patellasehne, evidenzgrenzen]
+  kernaussagen_abstract: 7 RCTs, 211 Athleten; Training vs. keine Behandlung – Schmerz sehr unsicher (sehr niedrige Evidenz), Funktion evtl. kein Unterschied (niedrige Evidenz); vs. Kortison und vs. Operation kaum Unterschiede; keine Placebo-Studien; keine Unerwünschte-Ereignis-Daten
+  rolle: Pflichtinhalt „Grenzen" der Karte (D-61 e); vergleicht nicht Trainingsformen untereinander
+- id: L-R-27
+  status: optional
+  stufe: A
+  typ: kohorte_5_jahre
+  zitat: "Deng J, Oosterhof JJ, Eygendaal D, Breda SJ, Oei EHG, de Vos RJ. Long-term Prognosis of Athletes With Patellar Tendinopathy Receiving Physical Therapy: Patient-Reported Outcomes at 5-Year Follow-up. Am J Sports Med. 2025;53(7):1568-1576."
+  pmid: "40356204"
+  pmcid: PMC12125489
+  doi: 10.1177/03635465251336466
+  zugang: Volltext in PMC
+  themenfelder: [patellasehne, prognose]
+  kernaussagen_abstract: 58 von 76 Teilnehmern der Breda-Studie; nach 5 Jahren 76 % genesen, VISA-P Median 57 → 82, 71 % zurück im gewünschten Sport; keine Prognosefaktoren identifiziert
+- id: L-R-28
+  status: optional
+  stufe: A
+  typ: rct
+  zitat: "Hjortshoej MH, Juneja H, Svensson RB, et al. Effect of Low-Load Blood-Flow Restricted Training Versus Heavy Slow Resistance Training in Unilateral Patellar Tendinopathy: A Randomized Clinical Trial. Scand J Med Sci Sports. 2025;35(12):e70186."
+  pmid: "41452311"
+  doi: 10.1111/sms.70186
+  zugang: kein PMC-Volltext
+  themenfelder: [patellasehne, lastdosierung, blutflussrestriktion]
+  kernaussagen_abstract: n = 36 Männer; Niedriglast mit Blutflussrestriktion und HSR vergleichbar bis 52 Wochen (Schmerz, VISA-P)
+  rolle: stützt D-61 (a) Lasthöhe nicht entscheidend
+```
+
+Sprunggelenksinstabilität:
+
+```yaml
+- id: L-R-13
+  status: ausgewaehlt
+  stufe: A
+  typ: leitlinie
+  zitat: "Martin RL, Davenport TE, Fraser JJ, et al. Ankle Stability and Movement Coordination Impairments: Lateral Ankle Ligament Sprains Revision 2021. J Orthop Sports Phys Ther. 2021;51(4):CPG1-CPG80."
+  pmid: "33789434"
+  doi: 10.2519/jospt.2021.0302
+  zugang: kein PMC-Volltext → Beschaffung
+  themenfelder: [sprunggelenk, leitlinie]
+  hinweis: Abstract enthält keine Einzelempfehlungen; Empfehlungen (Balance-/Übungstherapie, Orthesen) am Volltext prüfen
+- id: L-R-14
+  status: ausgewaehlt
+  stufe: A
+  typ: rct
+  zitat: "Hupperets MD, Verhagen EA, van Mechelen W. Effect of unsupervised home based proprioceptive training on recurrences of ankle sprain: randomised controlled trial. BMJ. 2009;339:b2684."
+  pmid: "19589822"
+  pmcid: PMC2714677
+  doi: 10.1136/bmj.b2684
+  zugang: Volltext in PMC
+  themenfelder: [sprunggelenk, rezidivprophylaxe]
+  kernaussagen_abstract: n = 522; 8 Wochen Heimprogramm; Rezidive 22 % vs. 33 %; RR 0,63; NNT 9; Effekt v. a. bei nicht ärztlich behandelten Erstverletzungen
+- id: L-R-15
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Schiftan GS, Ross LA, Hahne AJ. The effectiveness of proprioceptive training in preventing ankle sprains in sporting populations: a systematic review and meta-analysis. J Sci Med Sport. 2015;18(3):238-244."
+  pmid: "24831756"
+  doi: 10.1016/j.jsams.2014.04.005
+  zugang: kein PMC-Volltext
+  themenfelder: [sprunggelenk, rezidivprophylaxe]
+  kernaussagen_abstract: 7 RCTs, 3726 Teilnehmer; RR 0,65 gesamt, 0,64 bei vorheriger Verstauchung (NNT 13 laut Rivera et al. J Athl Train 2017), Primärprävention nicht schlüssig
+- id: L-R-16
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Tang F, Xiang M, Yin S, Li X, Gao P. Meta-analysis of the dosage of balance training on ankle function and dynamic balance ability in patients with chronic ankle instability. BMC Musculoskelet Disord. 2024;25(1):689."
+  pmid: "39217316"
+  pmcid: PMC11365157
+  doi: 10.1186/s12891-024-07800-8
+  zugang: Volltext in PMC
+  themenfelder: [sprunggelenk, dosierung]
+  kernaussagen_abstract: 20 Studien, 682 Teilnehmer; wirksamste Kombination 3×/Woche, 20–30 min, 4–6 Wochen (Funktionsscores, SEBT); Einheitsdauer wichtigster Einflussfaktor
+  konfidenz: mittel – Subgruppenanalysen, hohe Heterogenität (I² 55–84 %); gilt für Funktion/Balance, nicht für Rezidive (vgl. L-R-25)
+- id: L-R-17
+  status: ausgewaehlt
+  stufe: A
+  typ: rct
+  zitat: "Donovan L, Hart JM, Saliba SA, et al. Rehabilitation for Chronic Ankle Instability With or Without Destabilization Devices: A Randomized Controlled Trial. J Athl Train. 2016;51(3):233-251."
+  pmid: "26934211"
+  pmcid: PMC4852529
+  doi: 10.4085/1062-6050-51.3.09
+  zugang: Volltext in PMC
+  themenfelder: [sprunggelenk, geraete]
+  kernaussagen_abstract: n = 26; 4 Wochen Reha mit vs. ohne Destabilisierungsgeräte; keine Gruppenunterschiede; beide Gruppen große Verbesserung von Funktion und Kraft
+  konfidenz: mittel – kleine Stichprobe
+- id: L-R-19
+  status: optional
+  stufe: A
+  typ: laborstudie
+  zitat: "Kiers H, Brumagne S, van Dieën J, van der Wees P, Vanhees L. Ankle proprioception is not targeted by exercises on an unstable surface. Eur J Appl Physiol. 2012;112(4):1577-1585."
+  pmid: "21858665"
+  doi: 10.1007/s00421-011-2124-8
+  zugang: kein PMC-Volltext
+  themenfelder: [sprunggelenk, unterlage, propriozeption]
+  kernaussagen_abstract: n = 100 Gesunde; auf Schaumstoff geringerer Einfluss der Wadenvibration, größerer der Rückenvibration → Übungen auf weicher Unterlage adressieren nicht primär die periphere Sprunggelenkspropriozeption
+  konfidenz: niedrig für Trainingsableitung – Gesunde, Akutmessung, kein Trainingseffekt
+- id: L-R-20
+  status: optional
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Fakontis C, Iakovidis P, Kasimis K, et al. Efficacy of resistance training with elastic bands compared to proprioceptive training on balance and self-report measures in patients with chronic ankle instability: A systematic review and meta-analysis. Phys Ther Sport. 2023;64:74-84."
+  pmid: "37801793"
+  doi: 10.1016/j.ptsp.2023.09.009
+  zugang: kein PMC-Volltext
+  themenfelder: [sprunggelenk, kraeftigung, balance]
+  kernaussagen_abstract: 5 Studien, 259 Patienten; Theraband- und propriozeptives Training bei SEBT und FAAM gleich; CAIT-Vorteil für Propriozeption unter MCID; niedrige Evidenzqualität
+- id: L-R-21
+  status: optional
+  stufe: A
+  typ: kontrollierte_studie
+  zitat: "Giboin LS, Gruber M, Kramer A. Three months of slackline training elicit only task-specific improvements in balance performance. PLoS One. 2018;13(11):e0207542."
+  pmid: "30475850"
+  pmcid: PMC6261037
+  doi: 10.1371/journal.pone.0207542
+  zugang: Volltext in PMC
+  themenfelder: [balance, aufgabenspezifitaet]
+  kernaussagen_abstract: n = 12 vs. 14; große Verbesserung auf der Slackline, kein Transfer auf 5 untrainierte Balanceaufgaben
+- id: L-R-22
+  status: optional
+  stufe: A
+  typ: konsensus
+  zitat: "Delahunt E, Bleakley CM, Bossard DS, et al. Clinical assessment of acute lateral ankle sprain injuries (ROAST): 2019 consensus statement and recommendations of the International Ankle Consortium. Br J Sports Med. 2018;52(20):1304-1310."
+  pmid: "29886432"
+  doi: 10.1136/bjsports-2017-098885
+  zugang: kein PMC-Volltext
+  themenfelder: [sprunggelenk, befunderhebung]
+  zweck: Struktur der Befunderhebung mechanischer und sensomotorischer Defizite → Ausgangstests AP-08
+- id: L-R-25
+  status: ausgewaehlt
+  stufe: A
+  typ: systematischer_review_metaanalyse
+  zitat: "Wagemans J, Bleakley C, Taeymans J, et al. Exercise-based rehabilitation reduces reinjury following acute lateral ankle sprain: A systematic review update with meta-analysis. PLoS One. 2022;17(2):e0262023."
+  pmid: "35134061"
+  pmcid: PMC8824326
+  doi: 10.1371/journal.pone.0262023
+  zugang: Volltext in PMC
+  themenfelder: [sprunggelenk, rezidivprophylaxe]
+  kernaussagen_abstract: 14 RCTs, 2182 Teilnehmer; erneute Verletzung nach 12 Monaten OR 0,60 vs. übliche Versorgung; Trainingsumfang ohne Zusammenhang mit Rezidivrisiko (Meta-Regression); optimaler Inhalt unklar
+- id: L-R-26
+  status: optional
+  stufe: A
+  typ: overview_of_reviews
+  zitat: "Doherty C, Bleakley C, Delahunt E, Holden S. Treatment and prevention of acute and recurrent ankle sprain: an overview of systematic reviews with meta-analysis. Br J Sports Med. 2017;51(2):113-125."
+  pmid: "28053200"
+  doi: 10.1136/bjsports-2016-096178
+  zugang: kein PMC-Volltext
+  themenfelder: [sprunggelenk, rezidivprophylaxe, orthese]
+  kernaussagen_abstract: 46 Reviews; Rezidivprophylaxe – starke Evidenz für Orthesen, moderate für neuromuskuläres Training
+  rolle: Grundlage Q-16
+```
+
+Laufumfang und Verletzungsrisiko:
+
+```yaml
+- id: L-R-18
+  status: optional
+  stufe: A
+  typ: prospektive_kohorte
+  zitat: "Nielsen RØ, Parner ET, Nohr EA, Sørensen H, Lind M, Rasmussen S. Excessive progression in weekly running distance and risk of running-related injuries: an association which varies according to type of injury. J Orthop Sports Phys Ther. 2014;44(10):739-747."
+  pmid: "25155475"
+  doi: 10.2519/jospt.2014.5164
+  zugang: kein PMC-Volltext
+  themenfelder: [laufumfang, verletzungsrisiko]
+  kernaussagen_abstract: 874 Laufanfänger (selbst gestaltetes Training), explorativ; keine Unterschiede über alle Verletzungen; distanzbezogene Verletzungen (inkl. Patellatendinopathie) bei > 30 % vs. < 10 % Steigerung HR 1,59 (95 % KI 0,96–2,66; p = 0,07)
+  statuswechsel: Kern → optional (durch L-R-24 ersetzt; Population Anfänger)
+- id: L-R-24
+  status: ausgewaehlt
+  stufe: A
+  typ: prospektive_kohorte
+  zitat: "Schuster Brandt Frandsen J, Hulme A, Parner ET, et al. How much running is too much? Identifying high-risk running sessions in a 5200-person cohort study. Br J Sports Med. 2025;59(17):1203-1210."
+  pmid: "40623829"
+  pmcid: PMC12421110
+  doi: 10.1136/bjsports-2024-109380
+  zugang: Volltext in PMC; Lizenz nicht geprüft
+  themenfelder: [laufumfang, verletzungsrisiko, belastungssteuerung]
+  kernaussagen_abstract: 5205 Läufer (Mittel 45,8 Jahre), 588 071 Einheiten, Garmin-Daten, 18 Monate; Einzellauf > 10 % länger als längster Lauf der letzten 30 Tage → HRR 1,64 (> 10–30 %), 1,52 (> 30–100 %), 2,28 (> 100 %); Woche-zu-Woche-Verhältnis ohne Zusammenhang; ACWR negative Dosis-Wirkung
+  konfidenz: mittel – explorativ, beobachtend, Verletzungen selbst berichtet
+  bezug: stützt L-P12 (keine ACWR-Automatik); Grundlage Q-15
+```
+
+Themenfeld-Vokabular R (für Karten und Datenmodell): patellasehne, progressive_belastung, hsr, lastdosierung, trainingsfrequenz, isometrie, erstlinie, methodenvergleich, evidenzgrenzen, prognose, risikofaktoren, dorsalextension, blutflussrestriktion, messinstrument, visa_p, mcid, sprunggelenk, rezidivprophylaxe, dosierung, geraete, unterlage, propriozeption, kraeftigung, balance, aufgabenspezifitaet, befunderhebung, orthese, leitlinie, laufumfang, verletzungsrisiko, belastungssteuerung.
+
 ## 13.3 Bewusst nicht aufgenommen
 
 ```yaml
@@ -1186,6 +1522,42 @@ Themenfeld-Vokabular T3 (für Karten und Datenmodell): fingerkraft, maximalkraft
   grund: Netzwerk-Metaanalyse, 40 RCTs; bestätigt L-T2-17/18; redundant
 - werk: "Sepehri S, Sheikhhoseini R, Piri H, Sayyadi P. BMC Musculoskelet Disord. 2024;25(1):105. DOI 10.1186/s12891-024-07224-4"
   grund: Upper Crossed Syndrome, 22 Studien inkl. nicht indexierter Google-Scholar-Funde; durch L-T2-16 überholt
+- werk: "Challoumas D, et al. Management of patellar tendinopathy: a systematic review and network meta-analysis of randomised studies. BMJ Open Sport Exerc Med. 2021;7(4):e001110. DOI 10.1136/bmjsem-2021-001110"
+  grund: durch L-R-05 (Living Review 2023) überholt; nennt exzentrisches Training als Erstlinie, was durch L-R-01 relativiert ist
+- werk: "Rio E, et al. Br J Sports Med. 2015;49(19):1277-83. DOI 10.1136/bjsports-2014-094386"
+  grund: n = 6 (Crossover); Replikation (Holden 2020) und Reviews (L-R-10, Soliman 2026) ohne Überlegenheit der Isometrik
+- werk: "Holden S, et al. J Sci Med Sport. 2020;23(3):208-214. DOI 10.1016/j.jsams.2019.09.015"
+  grund: durch L-R-10 abgedeckt
+- werk: "Soliman EFF, et al. Isometric Exercises for Tendinopathies. Clin Ther. 2026;48(10):952-957. DOI 10.1016/j.clinthera.2026.04.027"
+  grund: bestätigt L-R-10; redundant
+- werk: "Malliaras P, Cook JL, Kent P. J Sci Med Sport. 2006;9(4):304-9. DOI 10.1016/j.jsams.2006.03.015"
+  grund: Querschnittstudie; durch L-R-11/L-R-12 abgedeckt
+- werk: "van der Worp H, et al. Risk factors for patellar tendinopathy: a systematic review. Br J Sports Med. 2011;45(5):446-52. DOI 10.1136/bjsm.2011.084079"
+  grund: durch L-R-11 überholt; im Reha-Chat als „KSSTA 2011" zitiert – passt zu keiner Arbeit exakt (KSSTA-Arbeit von van der Worp ist ein Stoßwellen-Review 2013, DOI 10.1007/s00167-012-2009-3)
+- werk: "Guo NY, et al. ESWT in Tendinopathy: Network Meta-Analysis. Orthop Surg. 2026. DOI 10.1111/os.70408"
+  grund: bestätigt L-R-05 (Stoßwelle bei Patellasehne ohne Effekt); Nebenthema
+- werk: "Metaanalyse „9 RCTs, 341 Patienten, CAIT MD 3,95“ (Reha-Chat, ohne Autor/Journal)"
+  grund: per PubMed nicht identifizierbar; Aussagen durch L-R-16, L-R-20 abgedeckt
+- werk: "Metaanalyse „33 RCTs, 1154 CAI-Patienten, kombiniertes Training tendenziell besser“ (Reha-Chat, ohne Autor/Journal)"
+  grund: per PubMed nicht identifizierbar; Aussagen durch L-R-16, L-R-20 abgedeckt
+- werk: "Sánchez-Barbadora M, et al. PeerJ. 2025;13:e19461. DOI 10.7717/peerj.19461"
+  grund: vermutliche Quelle der Reha-Chat-Aussage zur „anatomisch kippenden Unterlage"; Akut-EMG an 30 Gesunden, kein Trainingseffekt, kein Vergleich mit Schaumstoff im Abstract
+- werk: "Donovan L, Hart JM, Hertel J. J Orthop Sports Phys Ther. 2015;45(3):220-32. DOI 10.2519/jospt.2015.5222"
+  grund: Akut-EMG mit Destabilisierungsschuhen; durch L-R-17 (Trainingsstudie) abgedeckt
+- werk: "Donovan L, et al. Phys Ther Sport. 2016;21:46-56. DOI 10.1016/j.ptsp.2016.02.006"
+  grund: Gangbild-Auswertung derselben Studie wie L-R-17
+- werk: "Liu S, et al. Exploratory Analysis of Unstable Surface Training for CAI. Arch Rehabil Res Clin Transl. 2024;6(4):100365. DOI 10.1016/j.arrct.2024.100365"
+  grund: explorativ; kein direkter Vergleich stabil vs. instabil; bestätigt Balanceeffekt, keinen Effekt auf Sprungfunktion
+- werk: "Giboin LS, et al. NeuroImage. 2019;202:116061. DOI 10.1016/j.neuroimage.2019.116061"
+  grund: bestätigt L-R-21 (Aufgabenspezifität); redundant
+- werk: "Buist I, et al. Am J Sports Med. 2008;36(1):33-9. DOI 10.1177/0363546507307505"
+  grund: RCT, 10-%-Regel ohne präventive Wirkung bei Anfängern; durch L-R-24 abgedeckt
+- werk: "Damsted C, et al. Int J Sports Phys Ther. 2018;13(6):931-942. PMC6253751"
+  grund: systematischer Review, sehr begrenzte Evidenz für Laststeigerung als Risikofaktor; durch L-R-24 abgedeckt
+- werk: "Metaanalysen zu Blutflussrestriktion (Liu J 2026, Wu 2026, Liu M 2025), Hüftkräftigung (Chen 2026), stroboskopischem Training (Luo 2025), Balance mit geschlossenen Augen (Chen 2025), Gangtraining (Ortega 2025), manueller Therapie (Salminen 2026) bei CAI"
+  grund: Randthemen, überwiegend niedrige Evidenzqualität; Tokenbudget 13.1
+- werk: "Breda SJ, et al. J Sci Med Sport. 2022;25(5):372-378; Fendri T, et al. J ISAKOS. 2026;18:101105; López-Royo MP, et al. 2021/2024; Herrero C, et al. 2024 (PRP)"
+  grund: Nebenfragen (Sehnensteifigkeit, Nadelverfahren, PRP) ohne Planungsrelevanz
 hinweis: Auflagen der nicht aufgenommenen Werke wurden nicht geprüft.
 ```
 
@@ -1221,8 +1593,14 @@ Formatprüfung je Titel vor dem Kauf (V-13). Alle Blöcke sind bestätigt (D-31)
 | bei Bedarf | – | L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-09, L-T3-10, L-T3-11 | – | – | nur wenn optional aktiviert | – |
 | bei Bedarf | übergreifend | L-P14 Impellizzeri 2021 | Artikel | PDF | optional | – |
 | bei Bedarf | T2 | L-T2-14 Cowley 2026 (PMC), L-T2-19 Carrasco-Uribarren 2026 | – | PDF | optional | L-T2-14 ✓ |
+| 1 | R | L-R-02 Kongsgaard 2009 | Artikel | PDF | Schmerzregel für Q-13 | offen |
+| 1 | R | L-R-13 Martin 2021 (JOSPT-Leitlinie) | Artikel | PDF | Einzelempfehlungen, Q-16 | offen |
+| 1 | R | L-R-08 Lohrer & Nauck 2011 | Artikel | PDF | validierter Wortlaut VISA-P-G für WebApp | offen |
+| 2 | R | L-R-03 Agergaard 2021, L-R-26 Doherty 2017 | Artikel | PDF | nicht in PMC | offen |
+| frei | R | L-R-01, -04, -05, -06, -10, -11, -14, -16, -17, -21, -23, -24, -25, -27 | – | PDF aus PMC | Lizenzen vor Ablage im Repo prüfen (D-31) | offen |
+| bei Bedarf | R | L-R-07, -09, -12, -15, -18, -19, -20, -22, -28 | Artikel | PDF | optional bzw. Kernaussage aus Abstract ausreichend | – |
 
-Stand 2026-09-28: 36 Volltexte vorhanden (D-51), Verzeichnis in `docs/literatur/README.md`. Offen sind 4 Bücher (L-T1-01, L-T1-07, L-T3-08 sowie L-A01 in 8./9. Aufl.), 2 Artikel ohne freien Zugang (L-T2-10, L-T2-11; dazu L-T3-05 nur bei Bedarf) und 5 frei verfügbare Artikel (L-P11, L-T2-12, L-T2-15, L-T2-16, L-T3-18).
+Stand 2026-09-28: 36 Volltexte vorhanden (D-51), Verzeichnis in `docs/literatur/README.md`. Offen sind 4 Bücher (L-T1-01, L-T1-07, L-T3-08 sowie L-A01 in 8./9. Aufl.), 7 Artikel ohne freien Zugang (L-T2-10, L-T2-11, L-R-02, L-R-03, L-R-08, L-R-13, L-R-26; dazu L-T3-05 nur bei Bedarf) und 19 frei verfügbare Artikel (L-P11, L-T2-12, L-T2-15, L-T2-16, L-T3-18 sowie 14 aus Block R). Block R „bei Bedarf“: 9 Titel.
 
 # 14. Trainerregeln (Struktur; Inhalte in AP-07)
 
@@ -1532,14 +1910,15 @@ probleme_loesungen:
 
 - **Ziel:** Literaturauswahl je Block, Beschaffung, Wissenskarten gemäß 13.1.
 - **Umfang:**
-  1. Literaturblöcke: übergreifend (bestätigt), T1 Ausdauer (bestätigt), T2 Kraft/Calisthenics (bestätigt) und Haltung/Rücken (bestätigt, D-54), T3 Klettern/Bouldern (bestätigt; E3–E6 → D-31). Regel für weitere Sitzungen: aktuelle Konzeptfassung laden, Übergabedokument liefern, Konzept nicht direkt editieren.
+  1. Literaturblöcke: übergreifend (bestätigt), T1 Ausdauer (bestätigt), T2 Kraft/Calisthenics (bestätigt) und Haltung/Rücken (bestätigt, D-54), T3 Klettern/Bouldern (bestätigt; E3–E6 → D-31), R Reha/Prävention (bestätigt, D-61: Patellasehne, Sprunggelenk, Laufumfang). Regel für weitere Sitzungen: aktuelle Konzeptfassung laden, Übergabedokument liefern, Konzept nicht direkt editieren.
   2. Beschaffung nach 13.4 (Athlet, D-26); Formatprüfung je Titel (V-13).
-  3. Kartenzuschnitt (Bündelungsregel 13.1, Zielzahl 5 Dateien):
+  3. Kartenzuschnitt (Bündelungsregel 13.1, Zielzahl 6 Dateien):
      - `docs/wissen/uebergreifend-belastung-monitoring-erholung.md` ← L-P03, L-P04, L-P05, L-P06, L-A01, L-A02, L-P10, L-P11, L-P12, L-P13
      - `docs/wissen/uebergreifend-planung-kombiniertes-training.md` ← L-P01, L-P02, L-P07, L-P08, L-P09, L-A01, L-A02
      - `docs/wissen/t1-ausdauer.md` ← L-T1-01 bis L-T1-08 (Karten: Intensitätsverteilung und Zonenmodell D-27; Bergauf-Ausdauer und Skitour-Spezifik; Intervallprogrammierung); optionale Quellen nur bei konkreter Planungsfrage; Budget ca. 8 000–10 000 Tokens
      - `docs/wissen/t2-kraft-haltung.md` ← L-P08, L-A03, L-T2-03 (Karten: Dosierung und Progression; kombiniertes Training Kraft/Ausdauer), L-T2-11, L-T2-12 (Kraft für Läufer), Abschnitt `uebungskatalog_calisthenics` aus L-T2-04 mit Belegen L-T2-08 bis L-T2-10 (D-29), Karte Haltung und Rücken aus L-T2-15 bis L-T2-18 (D-54); optional L-T2-14, L-T2-19
      - `docs/wissen/t3-klettern.md` ← L-T3-01, -02, -03, -06 (bzw. -07), -08; optional -09 (Karten: kletterspezifisches Krafttraining und Spezifitätsschema; Leistungsdiagnostik und Verlaufstests; Verletzungsprävention/Schmerz); L-T3-18 als Beleg für Hangboard-Protokolle, L-T3-05 mit konfidenz niedrig; Stufe-C-Quellen nur als Ideenfundus (D-31); Kennzeichnung „Evidenz: begrenzt"
+     - `docs/wissen/r-reha-praevention.md` ← L-R-01 bis L-R-09, L-R-13 bis L-R-17, L-R-23 bis L-R-25 (Kern); optional L-R-10 bis L-R-12, L-R-18 bis L-R-22, L-R-26 bis L-R-28; Pflichtabschnitt „Grenzen“ gemäß D-61 (e)
   4. Offene Punkte: Auflage L-A01 (7. Aufl. vorläufig vorhanden, 8. oder 9. beschaffen, D-51); V-07 Rest (Schwellen am Volltext L-P13, Entscheidung Q-13 in AP-07); V-15 Rest (L-T3-02 Wiederholungsbereiche, L-T3-08, L-T3-12); Lizenz L-T2-15, L-T2-16 vor Ablage prüfen; Karten-Template (Schema: Kernaussage + Quelle + Seite + Stufe + konfidenz + Themenfeld); Kartenerstellung nach Beschaffung.
 - **Abhängigkeiten:** keine (Chat-Arbeit); Kartenerstellung erst nach Beschaffung.
 - **Abnahmekriterien:** Karten liegen in `docs/wissen/` und im Projekt-Wissen; jede Kernaussage hat Quelle mit Seite bzw. DOI/PMID und Evidenzstufe; V-06, V-07 (Literaturteil), V-14, V-15 erledigt; Gesamtbudget 13.1 eingehalten.
@@ -1554,6 +1933,7 @@ teilschritte:
   - Literaturauswahl T2 Kraft/Calisthenics: erledigt (D-28–D-30)
   - Literaturauswahl T2 Haltung/Rücken: erledigt (D-54)
   - Literaturauswahl T3 Klettern/Bouldern: erledigt (D-31)
+  - Literaturauswahl Block R Reha/Prävention: erledigt (D-61)
   - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-28 – 36 Volltexte sortiert und umbenannt, Kapitel-PDFs für 7 Bücher, D-51; offen nach 13.4 sind L-T1-01, L-T1-07, L-T3-08 und L-A01 in 8./9. Aufl.)
   - Primärquellen verifizieren: weitgehend erledigt (V-06, V-14 erledigt; V-07, V-15 teilweise, Rest nach Beschaffung)
   - Karten-Template und Karten: offen
@@ -1639,13 +2019,34 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: Übergaben Teil A und B beruhten auf einem älteren Konzeptstand (letzte IDs D-37, Q-08); D-38 und Q-09 waren inzwischen vergeben
     loesung: bei der Einarbeitung umnummeriert – D-38 → D-54 (zunächst D-53; AP-12 hat D-53 parallel belegt und wurde zuerst gemergt), Q-09 → Q-13; übrige neue IDs (L-P14, L-T2-15 bis L-T2-19, L-T3-18) waren frei
+  - datum: 2026-09-28
+    was: Befunde aus Durchgang 1 zunächst gegen die Chat-Zusammenfassung statt gegen den Chatverlauf geprüft; zwei „Abweichungen" (Isometrik überschätzt, MCID-Quelle falsch) waren im Reha-Chat bereits korrekt dargestellt
+    loesung: Gegenprüfung am Chatverlauf (conversation_search innerhalb des Chats); beide Befunde zurückgezogen; Regel für Folgesitzungen – Aussagen aus Vorchats nur am Verlauf, nie an Zusammenfassungen prüfen
+  - datum: 2026-09-28
+    was: Zwei Metaanalysen und eine EMG-Aussage aus dem Reha-Chat ohne Autor/Journal zitiert, per PubMed nicht identifizierbar
+    loesung: nach 13.3 mit Vermerk; Aussagen durch verifizierte Quellen (L-R-16, L-R-20) ersetzt
+  - datum: 2026-09-28
+    was: Zitat „van der Worp, KSSTA 2011" passt zu keiner Arbeit exakt
+    loesung: beide Kandidaten (BJSM 2011, KSSTA 2013) in 13.3; inhaltlich durch L-R-11 abgedeckt
+  - datum: 2026-09-28
+    was: Nielsen 2014 als Beleg der 30-%-Wochenregel untersuchte Laufanfänger; Übertragung unsicher
+    loesung: Gegenrecherche ergab Frandsen 2025 (erfahrene Läufer, Einzellauf-Spitzen) → Kern L-R-24, Nielsen optional, Regelfrage Q-15
+  - datum: 2026-09-28
+    was: Evidenz für Übungstherapie bei Patellatendinopathie laut Cochrane 2025 deutlich unsicherer als in Einzelreviews dargestellt
+    loesung: L-R-23 als Kern; Pflichtabschnitt „Grenzen" in der Karte (D-61 e)
+  - datum: 2026-09-28
+    was: Dosis nach Tang 2024 wurde im Reha-Chat als Rezidivschutz-Dosis gelesen; Wagemans 2022 findet keinen Zusammenhang Umfang–Rezidiv
+    loesung: Geltungsbereich in L-R-16 präzisiert (Funktion/Balance, nicht Rezidiv)
+  - datum: 2026-09-28
+    was: Übergabe Teil C beruhte auf einem älteren Konzeptstand; D-39, Q-10, Q-11 waren inzwischen vergeben, Q-09 aus Teil B war bereits Q-13
+    loesung: umnummeriert – D-39 → D-61, Q-10 → Q-15, Q-11 → Q-16, Ergänzung Q-09 → Q-13; Kartenzuschnitt von 5 auf 6 Sammeldateien (13.1 erlaubt 4–6)
 ```
 Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage von `docs/pruefung/pruefprotokoll.md` als AP-06-Block zu übernehmen.
 
 ## AP-07 Trainerregeln (Projekt-Chat)
 
 - **Ziel:** `docs/regeln/trainerregeln.md` gemäß Abschnitt 14.
-- **Vorgaben aus AP-06** (Kapitel 2 und 3 in 14; D-54, Q-13):
+- **Vorgaben aus AP-06** (Kapitel 2 und 3 in 14; D-54, D-61, Q-13, Q-15, Q-16):
 ```yaml
 - regelvorschlag: Haltungsarbeit = Kräftigung BWS/HWS-Extensoren und Schulterblattmuskulatur, kombiniert HWS + BWS; Dehnen nicht als Haltungskorrektur einplanen
   quelle: L-T2-15, L-T2-16, L-T2-19
@@ -1654,6 +2055,19 @@ Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage
 - regelvorschlag: Erfolgskriterium Haltungsarbeit nicht über Schmerzfreiheit definieren
   quelle: L-T2-16
 - offene_frage: Q-13 Schmerzschwellen 14.5 vs. Modell L-P13 (nach Volltextprüfung L-P13)
+- regelvorschlag: Sehnentraining progressiv (Stufenmodell L-R-01); Last moderat bis schwer gleichwertig (L-R-03, L-R-28); 1 schwerer Tag/Woche möglich, als Einzelstudienbefund gekennzeichnet (L-R-04)
+  quelle: D-61 (a)
+- regelvorschlag: Isometrik als Einstieg und an schmerzhaften Tagen, nicht als Hauptstrategie (L-R-10)
+  quelle: D-61 (b)
+- regelvorschlag: Verlaufsmessung VISA-P (L-R-07/08), klinisch relevante Änderung ≥ 13 Punkte (L-R-09)
+  quelle: L-R-07, L-R-08, L-R-09
+- regelvorschlag: Balance-/neuromuskuläres Training zur Rezidivprophylaxe beibehalten (L-R-14, L-R-15, L-R-25); Dosis für Funktion 3×/Woche 20–30 min (L-R-16); Gerätetyp zweitrangig (L-R-17, L-R-20)
+  quelle: D-61 (c)
+- regelvorschlag: Laufprogression je Einheit (Q-15, L-R-24)
+  quelle: D-61 (d)
+- regelvorschlag: Orthese/Tape als Option (Q-16, L-R-26)
+- regelvorschlag: Schmerzschwellen erst nach Klärung Q-13 (L-P13, L-R-02)
+- hinweis: Bestehender Plan Rev. 6 (WebApp) nutzt Wochen-km-Progression mit Morgentest-Bedingung; bei Annahme von Q-15 ist die Laufprogression im laufenden Block zu prüfen
 ```
 - **Abhängigkeiten:** AP-06 (Quellen).
 - **Abnahmekriterien:** Jede Regel mit Quelle oder Kennzeichnung „Einschätzung"; Schmerz- und Deload-Regeln vom Athleten bestätigt.
@@ -2041,3 +2455,4 @@ noch_zu_pruefen:
 | 2026-09-28 | Abschluss-Review eingearbeitet: Timer-Einstellung auch für offline gezeigte S9 (AP-14 T6), AP-11 Umfang ohne Versionsnummern und mit UID je Fassung, D-60 zu alten Einzelterminen präzisiert. |
 | 2026-09-28 | AP-14 Nachtrag T9 (Code-Stand 0.20.0): Entscheidungen zu O-05 bis O-07 (Auftrag E-23), D-57 um Kletterblöcke mit Sätzen ergänzt; Speichern-Leisten über der unteren Navigation. |
 | 2026-09-28 | Sechs weitere Volltexte einsortiert (L-P10, L-P12, L-P13, L-T2-17, L-T2-18, L-T3-04; D-51): Felder `datei`, `zugang`, 13.4 „vorhanden“, V-07 (Volltext liegt vor), AP-06 Teilschritt Beschaffung. |
+| 2026-09-28 | Übergabe AP-06 Teil C eingearbeitet: neuer Block 13.2.5 R Reha/Prävention (L-R-01 bis L-R-28; Patellasehne, Sprunggelenk, Laufumfang), ID-Konvention `L-R-<nn>`, 13.3 Ausschlüsse, 13.4 ergänzt. Neu D-61 (in der Übergabe D-39), Q-15 und Q-16 (dort Q-10, Q-11), Q-13 um Kongsgaard-Schmerzregel ergänzt; AP-06 Umfang, Kartenzuschnitt (6 Sammeldateien), Teilschritt, `probleme_loesungen`; AP-07 Vorgaben ergänzt. |

@@ -833,6 +833,27 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: Übergaben Teil A und B beruhten auf einem älteren Konzeptstand (letzte IDs D-37, Q-08); D-38 und Q-09 waren inzwischen vergeben
     loesung: bei der Einarbeitung umnummeriert – D-38 → D-54 (zunächst D-53; AP-12 hat D-53 parallel belegt und wurde zuerst gemergt), Q-09 → Q-13; übrige neue IDs (L-P14, L-T2-15 bis L-T2-19, L-T3-18) waren frei
+  - datum: 2026-09-28
+    was: Befunde aus Durchgang 1 zunächst gegen die Chat-Zusammenfassung statt gegen den Chatverlauf geprüft; zwei „Abweichungen" (Isometrik überschätzt, MCID-Quelle falsch) waren im Reha-Chat bereits korrekt dargestellt
+    loesung: Gegenprüfung am Chatverlauf (conversation_search innerhalb des Chats); beide Befunde zurückgezogen; Regel für Folgesitzungen – Aussagen aus Vorchats nur am Verlauf, nie an Zusammenfassungen prüfen
+  - datum: 2026-09-28
+    was: Zwei Metaanalysen und eine EMG-Aussage aus dem Reha-Chat ohne Autor/Journal zitiert, per PubMed nicht identifizierbar
+    loesung: nach 13.3 mit Vermerk; Aussagen durch verifizierte Quellen (L-R-16, L-R-20) ersetzt
+  - datum: 2026-09-28
+    was: Zitat „van der Worp, KSSTA 2011" passt zu keiner Arbeit exakt
+    loesung: beide Kandidaten (BJSM 2011, KSSTA 2013) in 13.3; inhaltlich durch L-R-11 abgedeckt
+  - datum: 2026-09-28
+    was: Nielsen 2014 als Beleg der 30-%-Wochenregel untersuchte Laufanfänger; Übertragung unsicher
+    loesung: Gegenrecherche ergab Frandsen 2025 (erfahrene Läufer, Einzellauf-Spitzen) → Kern L-R-24, Nielsen optional, Regelfrage Q-15
+  - datum: 2026-09-28
+    was: Evidenz für Übungstherapie bei Patellatendinopathie laut Cochrane 2025 deutlich unsicherer als in Einzelreviews dargestellt
+    loesung: L-R-23 als Kern; Pflichtabschnitt „Grenzen" in der Karte (D-61 e)
+  - datum: 2026-09-28
+    was: Dosis nach Tang 2024 wurde im Reha-Chat als Rezidivschutz-Dosis gelesen; Wagemans 2022 findet keinen Zusammenhang Umfang–Rezidiv
+    loesung: Geltungsbereich in L-R-16 präzisiert (Funktion/Balance, nicht Rezidiv)
+  - datum: 2026-09-28
+    was: Übergabe Teil C beruhte auf einem älteren Konzeptstand; D-39, Q-10, Q-11 waren inzwischen vergeben, Q-09 aus Teil B war bereits Q-13
+    loesung: umnummeriert – D-39 → D-61, Q-10 → Q-15, Q-11 → Q-16, Ergänzung Q-09 → Q-13; Kartenzuschnitt von 5 auf 6 Sammeldateien (13.1 erlaubt 4–6)
 geprueft:
   - was: Zuordnung der 29 PDFs zu IDs aus 13.2 – Titel, Autoren und DOI auf den ersten Seiten gegen 13.2 abgeglichen
     wie: Textextraktion (pypdf) aller Dateien, Abgleich je Datei
@@ -898,6 +919,22 @@ geprueft:
     wie: Textextraktion der ersten Seiten, Seitenzahl gegen Seitenangabe im Zitat
     ergebnis: ok
     datum: 2026-09-28
+  - was: Teil C (Block R) – Bibliografie aller Quellen aus dem Reha-Chat (Patellasehne 14, Sprunggelenk/Laufumfang 11)
+    wie: PubMed-Connector (Suche nach Autor/Titel, Metadaten)
+    ergebnis: 22 verifiziert; 3 nicht identifizierbar (2 Metaanalysen, 1 EMG-Aussage); 1 Journalangabe unstimmig (van der Worp)
+    datum: 2026-09-28
+  - was: Befunde Durchgang 1 gegen Reha-Chat
+    wie: conversation_search im Reha-Chat
+    ergebnis: 2 Befunde zurückgezogen, 2 als Bestätigung umgewertet, 2 bestätigt
+    datum: 2026-09-28
+  - was: Lückensuche Patellasehne, Sprunggelenk, Laufumfang
+    wie: PubMed-Suche nach Reviews/RCTs 2021–2026 und Konsensuspapieren
+    ergebnis: neu aufgenommen L-R-06, L-R-09, L-R-20, L-R-22 bis L-R-28
+    datum: 2026-09-28
+  - was: Gegenrecherche je These (belegen/widerlegen)
+    wie: PubMed-Suche nach widersprechenden oder neueren Arbeiten; Frandsen 2025 per Websuche identifiziert, danach PubMed-Metadaten
+    ergebnis: Thesen A2, A4, B1, B3, B5 gestützt; A1 relativiert (Cochrane); A3 nicht repliziert; B2 eingeschränkt (Wagemans); B4 nur mechanistisch; C1 korrigiert (Frandsen)
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
     wie: manuell durch Athlet bei der ersten Kartensitzung
@@ -919,4 +956,12 @@ noch_zu_pruefen:
     wie: bei Beschaffung
   - was: Kernaussagen L-T2-15 bis L-T2-18 am Volltext (Dosierungsdetails für Karten)
     wie: manuell nach Beschaffung, Kartenerstellung 13.1
+  - was: Schmerzregel L-R-02 am Volltext (Q-13)
+    wie: manuell nach Beschaffung
+  - was: Einzelempfehlungen L-R-13 (Balance, Orthese) am Volltext
+    wie: manuell nach Beschaffung
+  - was: Artikelnummer L-R-06; Lizenzen der PMC-Volltexte (Abschnitt 8)
+    wie: Verlagsseiten
+  - was: Wortlaut VISA-P-G (L-R-08) gegen WebApp-Rechner
+    wie: manuell nach Beschaffung; ggf. Code-Auftrag
 ```
