@@ -21,7 +21,7 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.7.0';
+    public const VERSION = '0.8.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
     public const SCHEMA_VERSION = 14;

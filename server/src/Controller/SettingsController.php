@@ -35,6 +35,7 @@ final class SettingsController extends AppController
 
         return match ($action) {
             'backup' => $this->download(),
+            'export' => $this->export(),
             'migrieren' => $this->migrate(),
             'zeitzone' => $this->timezone($request),
             'passwort' => $this->password($request),
@@ -103,6 +104,18 @@ final class SettingsController extends AppController
             'Content-Type' => 'application/octet-stream',
             'Content-Disposition' => 'attachment; filename="' . $backup['name'] . '"',
             'Content-Length' => (string) strlen($backup['data']),
+            'Cache-Control' => 'no-store',
+        ]);
+    }
+
+    private function export(): Response
+    {
+        $export = (new \Training\Backup\JsonExporter($this->app->pdo(), $this->app->clock(), $this->app->migrationsDir()))->export();
+        $this->audit()->write('web', 'json_export', 'export', null, null, $export['name'] . ' (' . strlen($export['data']) . ' Byte)');
+
+        return new Response(200, $export['data'], [
+            'Content-Type' => 'application/json; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="' . $export['name'] . '"',
             'Cache-Control' => 'no-store',
         ]);
     }

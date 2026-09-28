@@ -226,9 +226,24 @@ final class WebsiteTest extends AppTestCase
         self::assertSame(['oauth_revoke', 'user_password', 'user_timezone'], $this->pdo->query('SELECT action FROM audit_log ORDER BY action')->fetchAll(PDO::FETCH_COLUMN));
     }
 
-    public function testHistoryPlaceholder(): void
+    public function testHistoryShowsWeeklyLoadPainHeatAndTable(): void
     {
-        self::assertStringContainsString('Verlauf folgt', $this->request('GET', '/verlauf')->body);
+        $now = Db::ts($this->clock->now());
+        // Krafteinheit (Mo 21.09.) und Klettern (Mi 23.09.) mit Rückmeldung
+        $this->pdo->exec("INSERT INTO session_execution (session_id, duration_min, rpe_cr10, source, created_at, updated_at) VALUES ({$this->ids[0]}, 60, 5, 'web', '$now', '$now'), ({$this->ids[2]}, 90, 6, 'web', '$now', '$now')");
+        $this->pdo->exec("INSERT INTO pain_event (date, location, side, intensity_0_10, timing, created_at) VALUES ('2026-09-22', 'schulter', 'L', 4, 'danach', '$now'), ('2026-09-23', 'schulter', 'L', 2, 'waehrend', '$now'), ('2026-09-01', 'knie', 'na', 7, 'ruhe', '$now')");
+        $this->pdo->exec("INSERT INTO checkin (date, recovery_1_5, soreness_1_5, pain_flag, created_at, updated_at) VALUES ('2026-09-22', 2, 2, 1, '$now', '$now')");
+        $r = $this->request('GET', '/verlauf');
+        self::assertSame(200, $r->status, $r->body);
+        self::assertStringContainsString('KW 32–39', $r->body);
+        self::assertStringContainsString('data-v="300"', $r->body, 'Kraft 5 × 60');
+        self::assertStringContainsString('data-v="540"', $r->body, 'Klettern 6 × 90');
+        self::assertStringContainsString('gleiche Achse, 0 – 600', $r->body);
+        self::assertMatchesRegularExpression('/class="h50 cur" data-v="300"/', $r->body, 'Achse 600 → 50 %');
+        self::assertStringContainsString('Schulter links', $r->body);
+        self::assertStringContainsString('data-i="4" data-t="KW 39: 4, danach"', $r->body, 'stärkste Meldung der Woche');
+        self::assertStringContainsString('data-i="7" data-t="KW 36: 7, in ruhe"', $r->body);
+        self::assertStringContainsString('<td>39</td><td>0</td><td>540</td><td>300</td><td>0</td><td>840</td><td>1/3</td><td>2</td>', str_replace(' ', '', $r->body) === '' ? '' : preg_replace('/\s+(?=<)/', '', $r->body));
     }
 
     private function html(string $s): string

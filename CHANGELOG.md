@@ -4,6 +4,15 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.8.0] – 2026-09-28
+
+AP-09 Teil 1: JSON-Export und Verlauf (D-42).
+
+### Hinzugefügt
+- JSON-Export aller Trainingsdaten in den Einstellungen (unverschlüsselt, ohne Sessions, Tokens, Cache und Passwort-Hash; JSON-Spalten als Objekte; im Audit-Log).
+- `/verlauf` (S6): Kennzahlen (sRPE diese Woche/Vorwoche, Check-in-Abdeckung, Schmerzereignisse), Wochenlast je Bereich über 8 Wochen als kleine Vielfache mit gemeinsamer Achse, Schmerz je Ort und Seite als Raster (stärkste Meldung der Woche, Hinweis beim Berühren), Tabelle aller Werte.
+- Tests für Export und Verlauf.
+
 ### Dokumentation
 - Konzept: Q-11 → D-40 (`upsert_block`), Q-12 → D-41 (Feld `sport`) bestätigt.
 

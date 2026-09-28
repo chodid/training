@@ -155,6 +155,26 @@ final class BackupTest extends AppTestCase
         self::assertSame(403, $this->request('POST', '/einstellungen', ['csrf' => 'x', 'action' => 'backup'])->status);
     }
 
+    public function testJsonExport(): void
+    {
+        $this->setupUser();
+        $this->seed();
+        $page = $this->request('GET', '/einstellungen');
+        self::assertStringContainsString('Daten exportieren (JSON)', $page->body);
+        $r = $this->request('POST', '/einstellungen', ['csrf' => self::csrfFrom($page), 'action' => 'export']);
+        self::assertSame(200, $r->status);
+        self::assertMatchesRegularExpression('/attachment; filename="training-export-\d{8}-\d{6}-s\d+\.json"/', $r->headers['Content-Disposition']);
+        $data = json_decode($r->body, true);
+        self::assertSame('training-export', $data['format']);
+        self::assertSame(\Training\App::SCHEMA_VERSION, $data['schema_version']);
+        self::assertSame("Knie'beuge \\ \"x\"", $data['tables']['session'][0]['plan_json']['exercises'][0]['name'], 'JSON-Spalten als Objekte');
+        self::assertArrayNotHasKey('password_hash', $data['tables']['user'][0]);
+        self::assertArrayNotHasKey('web_session', $data['tables']);
+        self::assertArrayNotHasKey('oauth_token', $data['tables']);
+        self::assertSame(330, (int) $data['tables']['session_execution'][0]['srpe_load']);
+        self::assertSame('json_export', $this->pdo->query("SELECT action FROM audit_log WHERE action = 'json_export'")->fetchColumn());
+    }
+
     public function testCronMailIntervalAndErrorDisplay(): void
     {
         $this->mailer = new FakeMailer();

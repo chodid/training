@@ -44,6 +44,8 @@ if (!empty($mail['to']) && !empty($mail['cron'])) {
     }
 }
 ?>
+      <div class="list-item"><div><div class="t">Daten exportieren (JSON)</div><div class="s">Alle Trainingsdaten lesbar für andere Programme – <b>unverschlüsselt</b>, enthält Gesundheitsdaten</div></div>
+        <form method="post" action="/einstellungen"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><input type="hidden" name="action" value="export"><button class="btn btn-secondary" type="submit"><?= $this->icon('download') ?>Exportieren</button></form></div>
       <div class="list-item"><div><div class="t">Backup per E-Mail</div><div class="s"><?= $this->e($mailText) ?></div></div><span class="badge badge-<?= $mailBadge[0] ?>"><?= $mailBadge[0] === 'success' ? $this->icon('check') : '' ?><?= $this->e($mailBadge[1]) ?></span></div>
       <div class="list-item"><div><div class="t">Vor Migrationen</div><div class="s">Automatisch, die letzten 5 werden aufbewahrt<?= $preMigration['last'] !== null ? ' · zuletzt ' . $this->e($preMigration['last']) : '' ?></div></div><span class="badge badge-neutral"><?= (int) $preMigration['count'] ?> Dateien</span></div>
     </div>

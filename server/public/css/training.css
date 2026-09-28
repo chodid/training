@@ -27,3 +27,10 @@ form:has(input[name="pain"][value="ja"]:checked) .reveal{display:grid;gap:var(--
 .zones-svg .z5,.legend .z5{fill:var(--plum-800);background:var(--plum-800)}
 .link-row{text-decoration:none;color:inherit}
 .update-banner{margin-bottom:var(--space-4)}
+
+/* S6 Verlauf: Balkenhöhen in 5-%-Schritten (statt Inline-Styles, CSP) */
+.bars i.h0{height:0%}.bars i.h5{height:5%}.bars i.h10{height:10%}.bars i.h15{height:15%}.bars i.h20{height:20%}.bars i.h25{height:25%}.bars i.h30{height:30%}.bars i.h35{height:35%}.bars i.h40{height:40%}.bars i.h45{height:45%}.bars i.h50{height:50%}.bars i.h55{height:55%}.bars i.h60{height:60%}.bars i.h65{height:65%}.bars i.h70{height:70%}.bars i.h75{height:75%}.bars i.h80{height:80%}.bars i.h85{height:85%}.bars i.h90{height:90%}.bars i.h95{height:95%}.bars i.h100{height:100%}
+.bars i.h0{height:2px}
+.heat-scale .hs0{background:var(--bg-page);border:1px solid var(--border-subtle)}.heat-scale .hs1{background:var(--plum-100)}.heat-scale .hs2{background:var(--plum-200)}.heat-scale .hs3{background:var(--plum-400)}.heat-scale .hs4{background:var(--plum-600)}.heat-scale .hs5{background:var(--plum-800)}
+.heat-scroll{overflow-x:auto}.heat-scroll .heat{min-width:420px}
+.table-scroll{overflow-x:auto}.table-wide{min-width:560px}

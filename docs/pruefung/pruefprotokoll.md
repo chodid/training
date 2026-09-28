@@ -281,6 +281,26 @@ noch_zu_pruefen:
     wie: manuell durch Athlet
 ```
 
+## AP-09 Betrieb und Optionen
+
+```yaml
+ap: AP-09
+geprueft:
+  - was: JSON-Export – Format, Schemastand, JSON-Spalten als Objekte (Sonderzeichen), ohne Passwort-Hash/Sessions/Tokens, srpe_load enthalten, Audit-Log
+    wie: automatisiert (PHPUnit gegen MariaDB)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Verlauf S6 – Wochenlast je Bereich (Kraft 5 × 60 = 300, Klettern 6 × 90 = 540), gemeinsame Achse (600), Balkenhöhe, Schmerz-Raster mit stärkster Meldung je Woche und Hinweistext, Tabelle mit Summe, Check-in und Schmerz
+    wie: automatisiert + Browser 390/1280 px (kein Überlauf, Sichtvergleich mit Mockup)
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: JSON-Export herunterladen und in einem Editor/Programm öffnen
+    wie: manuell durch Athlet
+  - was: Verlauf mit echten Daten nach einigen Wochen Nutzung
+    wie: manuell durch Athlet
+```
+
 ## AP-10 Backup und Update-Mechanik
 
 ```yaml

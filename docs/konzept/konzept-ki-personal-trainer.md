@@ -133,7 +133,7 @@ flowchart LR
 | D-06 | Fallback bis OAuth-Flow stabil: Claude Desktop (oder Claude Code) mit statischem Bearer-Token-Header gegen denselben MCP-Endpunkt. Konkretisierung: Das statische Token steht in `.env` als `MCP_STATIC_TOKEN` und wird nur akzeptiert, wenn zusätzlich `MCP_STATIC_TOKEN_ENABLED=true` gesetzt ist (Standard: nicht gesetzt = aus). Die Prüfung erfolgt im selben Validator-Pfad vor der JWT-Prüfung (D-32); ein akzeptiertes statisches Token gilt mit vollem Scope. | Bekannte Flakiness des claude.ai-OAuth-Handshakes; Desktop/Code erlauben Header. Fallback ist nicht mobil. Eigenes Aktivierungsflag verhindert, dass ein vergessenes Token dauerhaft eine zweite Tür offenhält. | 2026-09-27 |
 | D-07 | Ausdauereinheiten werden in den Intervals.icu-Kalender geschrieben und erscheinen auf der Uhr; alle anderen Einheiten leben auf der Webseite. | Nutzeranforderung; Garmin-Push für strukturierte Kraft-Workouts ist unklar und nicht nötig. | 2026-09-27 |
 | D-08 | Die Webseite zeigt eine Wochenansicht für alle Einheiten inkl. Ausdauer (serverseitig aus Intervals.icu geladen) und nimmt Feedback für alle Einheiten auf. | Ein Eingabeort; vermeidet doppelte Erfassung. | 2026-09-27 |
-| D-09 | Phase 1: Live-Proxy auf Intervals.icu (kein Cron-Spiegel). Cron-Spiegel nach MySQL optional in AP-09. | Vermeidet Sync-Logik; Rate-Limit (10 req/s) ist unkritisch. Spiegel nur bei Backup-/Performance-Bedarf. | 2026-09-27 |
+| D-09 | Phase 1: Live-Proxy auf Intervals.icu (kein Cron-Spiegel). Cron-Spiegel nach MySQL optional in AP-09 (entschieden: D-43). | Vermeidet Sync-Logik; Rate-Limit (10 req/s) ist unkritisch. Spiegel nur bei Backup-/Performance-Bedarf. | 2026-09-27 |
 | D-10 | Der Trainingsplan ist Daten, kein Code. Trainerregeln und Literatur sind Dokumente im Projekt-Wissen. GitHub/Claude Code dienen nur dem Bau des Werkzeugs. | Regeln bleiben lesbar, versionierbar, im Chat hinterfragbar; keine Logik-Duplikation im Server. | 2026-09-27 |
 | D-11 | Claude schreibt Pläne erst nach expliziter Bestätigung im Chat in DB und Intervals.icu. Jeder Schreibzugriff wird im Audit-Log protokolliert. | Nutzerpräferenz (Bestätigung vor Umsetzung); Nachvollziehbarkeit. | 2026-09-27 |
 | D-12 | Literatur wird als strukturierte Wissenskarten (Markdown mit Quellenangabe) hinterlegt, nicht als vollständige Bücher. PubMed-Connector für Primärstudien. | Größe, Urheberrecht, Zitierfähigkeit. | 2026-09-27 |
@@ -166,6 +166,10 @@ flowchart LR
 | D-39 | `plan_json` für die in 7.1 fehlenden Typen (Q-10): `mobilitaet` nutzt das Schema `kraft_oder_haltung` (Übungsliste; Haltezeiten als `reps` z. B. „30s“); `ruhe` hat kein `plan_json` (leer oder nur `notes`). | Passt zu den Mockups (S3) und hält Webseite und MCP-Schnittstelle einfach. Bestätigt durch Athlet. | 2026-09-28 |
 | D-40 | MCP-Tool `upsert_block` (Q-11): legt einen Trainingsblock an oder ändert ihn (Name, Zeitraum, Status, Zielevents, Phasen, Verweis auf `docs/plaene/`); Status „aktiv“ schließt andere aktive Blöcke ab. Voraussetzung für `write_week_plan`. | Der Blockplan entsteht im Projekt-Chat (AP-08); Claude legt ihn nach Bestätigung selbst an, ohne Handarbeit in der Datenbank. Bestätigt durch Athlet. | 2026-09-28 |
 | D-41 | Optionales Feld `sport` in `plan_json.ausdauer` (Q-12): Intervals.icu-Sportart des Events (Run, TrailRun, Hike, Walk, Ride, MountainBikeRide, GravelRide, BackcountrySki, NordicSki, Snowshoe, Swim, Rowing; Standard Run). | Skitour und Wandern kommen mit dem richtigen Sportprofil und den passenden Zonen (V-12) auf die Uhr. Bestätigt durch Athlet. | 2026-09-28 |
+| D-42 | AP-09 wird umgesetzt mit: asymmetrischer Backup-Verschlüsselung, JSON-Export, Cron-Spiegel Intervals.icu → MySQL, Feedback-Rückschreiben nach Intervals.icu (Q-02), Verlauf S6, Passkey-Login, Athletenprofil als DB-Objekt, Offline-Fähigkeit. Vorgehen: direkte Umsetzung in der Reihenfolge JSON-Export → S6 → Spiegel → Rückschreiben → Passkey → asymmetrische Backups → Profil → Offline; Detailfragen zu einzelnen Punkten vorab einzeln. | Entscheidung des Athleten nach Erklärung der Optionen. | 2026-09-28 |
+| D-43 | Cron-Spiegel (ändert D-09): Aktivitäten und Wellness werden zusätzlich regelmäßig per Lima-City-Cronjob in eigene Tabellen übernommen; Webseite und MCP lesen aus dem Spiegel, Live-Abfrage nur als Rückfall. | Datenhoheit (auch im Backup), schnellere Seiten, Verläufe über lange Zeiträume (S6). | 2026-09-28 |
+| D-44 | Passkey (WebAuthn) zusätzlich zum Passwort (ergänzt D-33); das Passwort bleibt Rückfallweg bei Geräteverlust. | Komfort im Alltag ohne Aussperr-Risiko. | 2026-09-28 |
+| D-45 | Offline-Fähigkeit (ändert Abschnitt 10 „kein Offline-Modus in Phase 1“): Woche und Einheiten offline lesbar; Check-in, Rückmeldung und Schmerz offline erfassbar, werden gepuffert und bei Netz automatisch gesendet. Dafür Service Worker und JavaScript über das bisherige Minimum hinaus. | Nutzung in Halle/Gebirge ohne Netz. | 2026-09-28 |
 
 # 5. Offene Fragen und Verifikationen
 
@@ -330,7 +334,7 @@ Rechte (AP-05): Lese-Tools verlangen den Scope `training:read`, Schreib-Tools `t
 
 # 10. Webseite (mobil und Tablet)
 
-Technik: serverseitig gerenderte PHP-Seiten, responsive, minimales JS (Formulare ohne Reload optional), Web-App-Manifest für „Zum Startbildschirm", kein Offline-Modus in Phase 1.
+Technik: serverseitig gerenderte PHP-Seiten, responsive, minimales JS (Formulare ohne Reload optional), Web-App-Manifest für „Zum Startbildschirm", kein Offline-Modus in Phase 1 (ab AP-09 Offline-Fähigkeit nach D-45).
 
 Anforderung Gestaltung: Alle Screens sind **mobil- und tabletfreundlich** (Smartphone hochkant als Primärfall; Tablet hoch und quer ohne Layoutbrüche; Touch-Ziele, lesbare Schrift, keine horizontalen Scrollbereiche). Gestaltung nach Branding-Dokument und Mockups (D-19, D-37, AP-01a).
 
@@ -1378,12 +1382,34 @@ probleme_loesungen: []
 - **Ziel:** Betriebsreife und optionale Erweiterungen nach Praxiserfahrung.
 - **Umfang (jeweils einzeln zu entscheiden):** Asymmetrische Backup-Verschlüsselung (Public Key auf dem Server) statt Passwort; JSON-Export aller Daten für Portabilität; Cron-Spiegel Intervals.icu → MySQL (D-09); Feedback-Rückschreiben nach Intervals.icu (Q-02); Verlauf-Screen S6; Passkey-Login (D-33); Athletenprofil als DB-Objekt; Offline-Fähigkeit der Webseite.
 - **Abhängigkeiten:** AP-05.
+- **Entscheidung (2026-09-28, D-42–D-45):** alle Optionen außer keiner werden umgesetzt; Reihenfolge und Detailfragen siehe D-42.
 - **Status:**
 ```yaml
-status: offen
-begonnen: null
+status: in_arbeit
+begonnen: 2026-09-28
 abgeschlossen: null
-probleme_loesungen: []
+teilpakete:
+  - JSON-Export: erledigt (Code-Stand 0.8.0, Abnahme durch Athlet offen)
+  - Verlauf S6: erledigt (Code-Stand 0.8.0, Abnahme durch Athlet offen)
+  - Cron-Spiegel (D-43): offen
+  - Feedback-Rückschreiben (Q-02): offen
+  - Passkey (D-44): offen
+  - Asymmetrische Backups: offen
+  - Athletenprofil als DB-Objekt: offen
+  - Offline-Fähigkeit (D-45): offen
+probleme_loesungen:
+  - datum: 2026-09-28
+    was: JSON-Export enthält Gesundheitsdaten unverschlüsselt
+    loesung: bewusst unverschlüsselt (Portabilität ist der Zweck); nur nach Login, Hinweis „unverschlüsselt, enthält Gesundheitsdaten“ am Knopf, Audit-Log; Passwort-Hash, Sessions, Tokens und Cache sind nicht enthalten
+  - datum: 2026-09-28
+    was: S6-Mockup setzt Balkenhöhen und Legendenfarben per Inline-Style (CSP verbietet das)
+    loesung: Höhenklassen in 5-%-Schritten und Farbklassen in training.css; Rasterzellen über die vorhandenen data-i-Selektoren aus app.css
+  - datum: 2026-09-28
+    was: Wochenlast Ausdauer in S6 – aus Rückmeldung (sRPE) oder aus Intervals-Load?
+    loesung: einheitlich sRPE aus der Rückmeldung (RPE × Dauer) für alle Bereiche, damit die Achse vergleichbar bleibt; Intervals-Load folgt mit dem Cron-Spiegel optional
+  - datum: 2026-09-28
+    was: Hinweis „steigt seit vier Wochen“ im Mockup braucht eine Trendregel (AP-07)
+    loesung: vorerst weggelassen; Trend liefert get_pain_history an Claude
 ```
 
 ## AP-10 Backup und Update-Mechanik
@@ -1477,3 +1503,5 @@ noch_zu_pruefen:
 | 2026-09-28 | AP-10 umgesetzt (Code-Stand 0.6.0), Status `in_arbeit` bis Entschlüsseln beim Athleten, E-Mail-Test über Lima-City und MCP-Schreibsperre (AP-05). Befunde im AP-10-Block (BACKUP_PASSWORD Pflicht, 200 000 Iterationen, Cron-Secret im Query, Zustand in var/, Umfang der Sperre). |
 | 2026-09-28 | AP-05 umgesetzt (Code-Stand 0.7.0), Status `in_arbeit`. Neu vorgeschlagen: Q-11 Tool `upsert_block` (8.2 ergänzt), Q-12 Feld `sport` in `plan_json.ausdauer` (7.1 ergänzt); Rechte je Tool über Scopes. Befunde im AP-05-Block. |
 | 2026-09-28 | Q-11 → D-40 (Tool `upsert_block`) und Q-12 → D-41 (Feld `sport` im Ausdauerplan) vom Athleten bestätigt; Umsetzung unverändert. |
+| 2026-09-28 | AP-09 entschieden (D-42): alle Optionen; Cron-Spiegel (D-43, ändert D-09), Passkey zusätzlich (D-44), Offline lesen + Eingaben puffern (D-45, ändert Abschnitt 10). AP-09 `in_arbeit` mit Teilpaketen. |
+| 2026-09-28 | AP-09 Teil 1 umgesetzt (Code-Stand 0.8.0): JSON-Export, Verlauf S6. |

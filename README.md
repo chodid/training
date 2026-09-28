@@ -48,8 +48,8 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | GET/POST | `/einheit` | S3 Einheit (`?id=…`): Plan, Ist-Werte, Rückmeldung, Schmerz, Status; bei Ausdauer verknüpfte Intervals.icu-Aktivität |
 | GET/POST | `/checkin` | S4 Tages-Check-in (`?datum=…`, nicht in der Zukunft) |
 | GET/POST | `/schmerz` | S5 Schmerzereignis (`?datum=…`, `?einheit=…`) |
-| GET/POST | `/einstellungen` | S8 Konto, Zeitzone, Passwort, Backup herunterladen, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
-| GET | `/verlauf` | Platzhalter bis AP-09 |
+| GET/POST | `/einstellungen` | S8 Konto, Zeitzone, Passwort, Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
+| GET | `/verlauf` | S6 Verlauf: Wochenlast je Bereich und Schmerz je Ort über 8 Wochen, Tabelle |
 | GET | `/manifest.webmanifest` | Web-App-Manifest („Zum Startbildschirm“) |
 | GET | `/health` | Zustand als JSON: PHP-Erweiterungen, Konfiguration, `var/` beschreibbar, Datenbank, Schemastand. `200` = in Ordnung, `503` = Handlungsbedarf. Enthält keine Secrets. |
 | POST | `/admin/migrate` | Führt ausstehende Migrationen aus, vorher verschlüsselter Pre-Migration-Dump nach `backups/` (die letzten 5 bleiben). Header `X-Migration-Secret` muss `MIGRATION_SECRET` entsprechen. `401` ohne Header, `403` bei falschem Secret, `409` wenn bereits eine Migration läuft oder die Datenbank neuer als der Code ist, `500` wenn der Dump fehlschlägt (dann keine Migration). |
