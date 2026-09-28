@@ -42,6 +42,9 @@ final class SessionController extends AppController
         if (!$this->csrfOk($request)) {
             return Response::error(403, 'Ungültiges Formular.');
         }
+        if ($locked = $this->lockedResponse()) {
+            return $locked;
+        }
 
         [$data, $invalid, $message] = $this->parse($request, $session);
         if ($message !== null) {

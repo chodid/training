@@ -33,6 +33,9 @@ final class PainController extends AppController
         if (!$this->csrfOk($request)) {
             return Response::error(403, 'Ungültiges Formular.');
         }
+        if ($locked = $this->lockedResponse()) {
+            return $locked;
+        }
 
         $invalid = [];
         $fields = [

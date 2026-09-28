@@ -6,6 +6,8 @@ namespace Training\Controller;
 
 use PDO;
 use Training\App;
+use Training\Backup\BackupException;
+use Training\Backup\UpdateService;
 use Training\ConfigException;
 use Training\Http\Request;
 use Training\Http\Response;
@@ -57,6 +59,7 @@ final class MigrateController
         $pdo = $this->app->pdo();
         $migrator = new Migrator($pdo, $this->app->migrationsDir());
         $before = $migrator->currentVersion();
+        $backup = null;
         if ($before > App::SCHEMA_VERSION) {
             return Response::error(409, sprintf(
                 'Datenbank (Schema %d) ist neuer als der Code (Schema %d). Richtigen Stand deployen.',
@@ -66,7 +69,13 @@ final class MigrateController
         }
 
         try {
-            $applied = $migrator->migrate();
+            $result = $this->app->updates()->migrate();
+            $applied = $result['applied'];
+            $backup = $result['backup'];
+        } catch (BackupException $e) {
+            error_log('[training] Pre-Migration-Dump: ' . $e->getMessage());
+
+            return Response::error(500, 'Pre-Migration-Dump fehlgeschlagen, keine Migration ausgeführt: ' . $e->getMessage());
         } catch (MigrationLockedException $e) {
             return Response::error(409, $e->getMessage());
         } catch (MigrationException $e) {
@@ -85,6 +94,7 @@ final class MigrateController
             'schema_before' => $before,
             'schema_version' => $migrator->currentVersion(),
             'applied' => $applied,
+            'backup' => $backup,
             'db_server' => (string) $pdo->getAttribute(PDO::ATTR_SERVER_VERSION),
         ]);
     }

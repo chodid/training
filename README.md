@@ -39,7 +39,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 └── .ftp-deploy-sync-state.json  ← Statusdatei des Upload-Schritts
 ```
 
-## Endpunkte (Stand AP-04)
+## Endpunkte (Stand AP-10)
 
 | Methode | Pfad | Zweck |
 |---|---|---|
@@ -48,11 +48,12 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | GET/POST | `/einheit` | S3 Einheit (`?id=…`): Plan, Ist-Werte, Rückmeldung, Schmerz, Status; bei Ausdauer verknüpfte Intervals.icu-Aktivität |
 | GET/POST | `/checkin` | S4 Tages-Check-in (`?datum=…`, nicht in der Zukunft) |
 | GET/POST | `/schmerz` | S5 Schmerzereignis (`?datum=…`, `?einheit=…`) |
-| GET/POST | `/einstellungen` | S8 Konto, Zeitzone, Passwort, Schemastand, Verbindungen, Widerruf von Claude-Freigaben |
+| GET/POST | `/einstellungen` | S8 Konto, Zeitzone, Passwort, Backup herunterladen, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
 | GET | `/verlauf` | Platzhalter bis AP-09 |
 | GET | `/manifest.webmanifest` | Web-App-Manifest („Zum Startbildschirm“) |
 | GET | `/health` | Zustand als JSON: PHP-Erweiterungen, Konfiguration, `var/` beschreibbar, Datenbank, Schemastand. `200` = in Ordnung, `503` = Handlungsbedarf. Enthält keine Secrets. |
-| POST | `/admin/migrate` | Führt ausstehende Migrationen aus. Header `X-Migration-Secret` muss `MIGRATION_SECRET` entsprechen. `401` ohne Header, `403` bei falschem Secret, `409` wenn bereits eine Migration läuft oder die Datenbank neuer als der Code ist. |
+| POST | `/admin/migrate` | Führt ausstehende Migrationen aus, vorher verschlüsselter Pre-Migration-Dump nach `backups/` (die letzten 5 bleiben). Header `X-Migration-Secret` muss `MIGRATION_SECRET` entsprechen. `401` ohne Header, `403` bei falschem Secret, `409` wenn bereits eine Migration läuft oder die Datenbank neuer als der Code ist, `500` wenn der Dump fehlschlägt (dann keine Migration). |
+| GET | `/cron/backup-mail?key=…` | Backup per E-Mail für den Lima-City-Cronjob (`BACKUP_CRON_SECRET`); versendet nur nach Ablauf des Intervalls, `&force=1` sofort |
 | GET/POST | `/setup` | S0: legt den einzigen Benutzer an (verlangt `MIGRATION_SECRET`, D-34). Sobald ein Benutzer existiert: `404`. |
 | GET/POST | `/login` | S1: Anmeldung, Session 30 Tage gleitend. Nach 10 Fehlversuchen 5 min Sperre, jeder weitere Fehlversuch verdoppelt bis 24 h (D-33). |
 | POST | `/logout` | Abmelden (mit CSRF-Token) |
@@ -71,7 +72,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 1. Subdomain `training.gen-em.org` auf das Verzeichnis `/training.jennym.org/public` zeigen lassen, HTTPS-Zertifikat aktivieren.
 2. PHP-Version 8.4 wählen.
 3. MySQL-Datenbank mit eigenem Benutzer anlegen.
-4. Per FTP die Datei `/training.jennym.org/.env` anlegen, Vorlage: [`server/.env.example`](server/.env.example). `MIGRATION_SECRET` und `OAUTH_JWT_SECRET` jeweils z. B. mit `openssl rand -hex 32` erzeugen (mindestens 32 Zeichen, zwei verschiedene Werte). **Ab Version 0.2.0 ist `OAUTH_JWT_SECRET` Pflicht** – vor dem ersten Deployment von 0.2.0 eintragen, sonst schlagen Migration und Health-Check fehl.
+4. Per FTP die Datei `/training.jennym.org/.env` anlegen, Vorlage: [`server/.env.example`](server/.env.example). `MIGRATION_SECRET` und `OAUTH_JWT_SECRET` jeweils z. B. mit `openssl rand -hex 32` erzeugen (mindestens 32 Zeichen, zwei verschiedene Werte), `BACKUP_PASSWORD` mit mindestens 16 Zeichen (z. B. `openssl rand -base64 24`) und zusätzlich sicher außerhalb des Servers aufbewahren. **Ab Version 0.2.0 ist `OAUTH_JWT_SECRET` Pflicht, ab 0.6.0 auch `BACKUP_PASSWORD`** – beide vor dem Deployment eintragen, sonst schlagen Migration und Health-Check fehl.
 
 ### 2. GitHub
 
@@ -104,6 +105,7 @@ Pull Requests durchlaufen nur die Tests.
 - **claude.ai (Web und Mobile-App):** Einstellungen → Connectors → Custom Connector hinzufügen, URL `https://training.gen-em.org/mcp`, keine Client-ID/Secret eintragen (Claude registriert sich selbst). Beim Verbinden öffnet sich die Anmeldung, danach die Freigabeseite: „Freigeben“ wählen. Der Connector steht dann auch in der Mobile-App zur Verfügung.
 - **Claude Desktop / Claude Code (Fallback, D-06):** in der `.env` `MCP_STATIC_TOKEN` (z. B. `openssl rand -hex 32`) und `MCP_STATIC_TOKEN_ENABLED=true` setzen; im Client den Server `https://training.gen-em.org/mcp` mit Header `Authorization: Bearer <MCP_STATIC_TOKEN>` eintragen. Nach dem Test `MCP_STATIC_TOKEN_ENABLED` wieder auf `false` setzen.
 - **Intervals.icu (AP-02):** In Intervals.icu Garmin verbinden (Aktivitäten, Wellness, „Upload planned workouts“), Aktivitäten auf privat stellen (Q-03). Unter Einstellungen → Developer Settings API-Key erzeugen und Athleten-ID (z. B. `i12345`) ablesen; beide als `INTERVALS_API_KEY` und `INTERVALS_ATHLETE_ID` in die `.env`. Danach `https://training.gen-em.org/intervals` öffnen: zeigt Aktivitäten und Wellness der letzten 7 Tage und legt auf Knopfdruck ein Test-Event für morgen an.
+- **Backup per E-Mail (AP-10):** `BACKUP_CRON_SECRET` (mindestens 32 Zeichen), `BACKUP_MAIL_TO` und `SMTP_*` (Mailkonto bei Lima-City) in die `.env`; bei Lima-City einen Cronjob anlegen, der täglich `https://training.gen-em.org/cron/backup-mail?key=<BACKUP_CRON_SECRET>` aufruft. Der Stand steht unter Einstellungen → Backup; Fehler erscheinen zusätzlich in der Wochenansicht.
 - **Notbremse:** `OAUTH_JWT_SECRET` wechseln macht alle Access-Tokens sofort ungültig; Refresh-Tokens lassen sich in der Tabelle `oauth_token` (`revoked = 1`) sperren.
 
 ## Entwicklung
@@ -133,4 +135,18 @@ Einzige Quelle der Gestaltung ist `docs/branding/`. `php server/bin/build-assets
 
 ## Wiederherstellung
 
-Folgt mit AP-10 (Backup und Update-Mechanik).
+Backups (Download, E-Mail, `backups/*-vor-migration.sql.gz.enc`) sind gzip-komprimierte SQL-Dumps, verschlüsselt mit `BACKUP_PASSWORD` (AES-256-CBC, PBKDF2-SHA256 mit 200 000 Iterationen, OpenSSL-Format). Sessions, OAuth-Tokens und der Intervals-Cache sind nur als Struktur enthalten: nach einem Restore neu anmelden und den Connector in Claude neu freigeben.
+
+1. Entschlüsseln (auf jedem Rechner mit OpenSSL ≥ 1.1.1; unter Windows z. B. über Git Bash):
+   ```bash
+   openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -md sha256 -in training-backup-….sql.gz.enc -out backup.sql.gz
+   ```
+   Falsches Passwort → „bad decrypt“. Eine beschädigte Datei fällt spätestens im nächsten Schritt auf (gzip-Prüfsumme).
+2. Entpacken: `gunzip backup.sql.gz` → `backup.sql`.
+3. Einspielen in die (leere oder zu ersetzende) Datenbank: phpMyAdmin bei Lima-City → Datenbank wählen → Importieren → `backup.sql`; oder `mysql -h … -u … -p datenbank < backup.sql`. Der Dump löscht und erstellt jede Tabelle neu (`DROP TABLE IF EXISTS`).
+4. `/health` prüfen: `schema` muss `aktuell` sein.
+
+**Rückweg nach einem fehlgeschlagenen Update** (D-20, kein automatisches Rollback):
+1. Den vorherigen Stand deployen: auf GitHub den letzten funktionierenden Commit (oder Tag) nach `main` zurückholen (Revert-PR) – das Deployment läuft automatisch.
+2. Den passenden Pre-Migration-Dump aus `backups/` (per FTP) wie oben entschlüsseln und einspielen; der Schemastand im Dateinamen (`-s<N>-`) muss zum Code passen.
+3. `/health` prüfen.

@@ -56,6 +56,13 @@ final class HealthController
         $checks['var'] = is_dir($var) && is_writable($var) ? 'ok' : 'nicht_beschreibbar';
         $ok = $ok && $checks['var'] === 'ok';
 
+        $backups = $this->app->backupDir();
+        if (!is_dir($backups)) {
+            @mkdir($backups, 0750, true);
+        }
+        $checks['backups'] = is_dir($backups) && is_writable($backups) ? 'ok' : 'nicht_beschreibbar';
+        $ok = $ok && $checks['backups'] === 'ok';
+
         // Intervals.icu (AP-02): nur Konfiguration, kein Netzwerkaufruf; Fehlen macht Health nicht rot.
         if ($checks['config'] === 'ok') {
             $checks['intervals'] = IntervalsClient::isConfigured($this->app->config()) ? 'konfiguriert' : 'nicht_konfiguriert';

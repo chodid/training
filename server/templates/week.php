@@ -24,6 +24,9 @@ use Training\View\Labels;
   <div class="mt-4"><?php include __DIR__ . '/_alert.php'; ?></div>
 <?php endif ?>
 
+<?php if (!empty($mailError)): ?>
+  <div class="alert alert-error mt-4"><?= $this->icon('alert-circle') ?><div><b>Backup per E-Mail fehlgeschlagen.</b> <span class="body"><?= $this->e($mailError) ?> Details unter <a href="/einstellungen">Einstellungen</a>.</span></div></div>
+<?php endif ?>
 <?php if ($hasSessions): ?>
   <div class="week-sum">
     <div class="stat"><div class="l">sRPE bisher</div><div class="v"><?= number_format($srpe, 0, ',', ' ') ?></div></div>

@@ -88,6 +88,7 @@ final class WeekController extends AppController
             'prev' => $prev,
             'next' => $next,
             'intervalsError' => $lookup?->error,
+            'mailError' => $this->app->mailBackup()->state()['error'] ?? null,
         ]);
     }
 

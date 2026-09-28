@@ -224,10 +224,12 @@ geprueft:
     wie: automatisiert (Mermaid 11 im Browser)
     ergebnis: ok
     datum: 2026-09-27
-noch_zu_pruefen:
   - was: Migrationen und Constraints gegen MySQL 8.4 (CHECK, berechnete Spalte, JSON)
-    wie: automatisiert (CI-Job test im Pull Request)
-  - was: Migration auf dem Server 6 → 14, /health schema code 14 = db 14
+    wie: automatisiert (CI-Job test, PR #7, Lauf 16)
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: Migration auf dem Server 1 → 14, /health schema code 14 = db 14
     wie: Deployment nach Merge, /health im Browser
 ```
 
@@ -277,6 +279,50 @@ noch_zu_pruefen:
     wie: manuell durch Athlet nach AP-02-Einrichtung – Ausdauereinheit mit intervals_event_id des Test-Events anlegen, Aktivität aufzeichnen, /einheit öffnen
   - was: „Zum Startbildschirm“ auf dem Smartphone (Icon, Name, Farben)
     wie: manuell durch Athlet
+```
+
+## AP-10 Backup und Update-Mechanik
+
+```yaml
+ap: AP-10
+geprueft:
+  - was: Verschlüsselung OpenSSL-kompatibel – mit PHP verschlüsselte Datei per openssl 3.0 CLI entschlüsselt (richtiges Passwort ok, falsches "bad decrypt")
+    wie: manuell (Code-Instanz, openssl enc -d …) und automatisiert im Restore-Test
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Restore-Test – Beispieldaten (Block, Woche, Einheit mit Sonderzeichen/Semikolon/Anführungszeichen im JSON, Durchführung, Schmerz, Check-in, Audit-Log, Benutzer) sichern, mit openssl-CLI entschlüsseln, gunzip, alle Tabellen löschen, Dump einspielen → Daten identisch, Schemastand 14, Sessions/Tokens leer, srpe_load neu berechnet
+    wie: automatisiert (PHPUnit gegen MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Pre-Migration-Dump vor ausstehender Migration (Name mit altem Schemastand), kein Dump ohne ausstehende Migration, Rotation auf 5 Dateien
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Fehlgeschlagener Dump verhindert Migration – zu kurzes Passwort, Backup-Ordner nicht anlegbar; /admin/migrate antwortet 500 „keine Migration ausgeführt“, Schemastand unverändert
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Schreibsperre – Datenbank einen Stand zurück → Hinweis auf allen Seiten, Check-in und Zeitzone 503 ohne Speichern; Migrationsknopf legt Dump an und behebt die Abweichung; danach Speichern möglich
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Download aus den Einstellungen (Dateiname, Content-Type, entschlüsselbar, Audit-Log, CSRF)
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Cron-Endpunkt – ohne Secret 503, falscher Schlüssel 403, Versand mit Anhang und Anleitung, Intervall (übersprungen), force, Fehler gespeichert und in Woche/Einstellungen angezeigt
+    wie: automatisiert (simulierter Mailer)
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: BACKUP_PASSWORD in der .env (vor dem Deployment); Pre-Migration-Dump beim ersten Deployment in backups/
+    wie: manuell (FTP, /health backups ok, Datei in backups/)
+  - was: Heruntergeladene Datei auf einem anderen Rechner nur mit dem Passwort entschlüsselbar, Dump in leere DB einspielbar (Abnahmekriterium)
+    wie: manuell durch Athlet – Einstellungen → Herunterladen, openssl enc -d … (README), gunzip, Import in eine leere Test-DB bei Lima-City
+  - was: E-Mail mit Anhang kommt an (V-10 Anhang-Limit)
+    wie: manuell – SMTP_* und BACKUP_* in .env, Aufruf /cron/backup-mail?key=…&force=1, Postfach prüfen; Cronjob bei Lima-City täglich einrichten
+  - was: Schreibsperre für MCP-Schreibtools
+    wie: automatisiert mit AP-05
 ```
 
 ## AP-06 Wissensbasis (übernommen aus Konzept)

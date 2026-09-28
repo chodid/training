@@ -35,6 +35,16 @@ abstract class AppController
         return null;
     }
 
+    /** Antwort bei Schreibsperre (D-20): Code- und Datenbankstand weichen ab, Schreiben erst nach der Migration. */
+    protected function lockedResponse(): ?Response
+    {
+        if (!$this->app->writeLocked()) {
+            return null;
+        }
+
+        return $this->page('locked', 'Update erforderlich', '', [], 503);
+    }
+
     protected function csrfOk(Request $request): bool
     {
         return $this->session !== null && $this->session->verifyCsrf($request->post('csrf'));
@@ -72,6 +82,7 @@ abstract class AppController
             'login' => $this->session?->login ?? '',
             'csrf' => $this->session?->csrfToken() ?? '',
             'navFoot' => $navFoot,
+            'writeLocked' => $this->app->writeLocked(),
             'alert' => null,
             ...$vars,
         ], 'layout-app'));

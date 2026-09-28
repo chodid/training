@@ -18,11 +18,13 @@ final class Config
         'DB_PASSWORD',
         'MIGRATION_SECRET',
         'OAUTH_JWT_SECRET',
+        'BACKUP_PASSWORD',
     ];
 
     /** Mindestlänge für Secrets (D-32); kürzere Werte gelten als fehlend, der Start wird verweigert. */
     public const MIN_LENGTH = [
         'OAUTH_JWT_SECRET' => 32,
+        'BACKUP_PASSWORD' => 16,
     ];
 
     /** @param array<string, string> $values */
@@ -52,7 +54,7 @@ final class Config
             }
         }
         if ($tooShort !== []) {
-            throw new ConfigException('Werte in .env zu kurz (mindestens 32 Zeichen): ' . implode(', ', $tooShort), $tooShort);
+            throw new ConfigException('Werte in .env zu kurz (OAUTH_JWT_SECRET mind. 32, BACKUP_PASSWORD mind. 16 Zeichen): ' . implode(', ', $tooShort), $tooShort);
         }
 
         return new self($values);

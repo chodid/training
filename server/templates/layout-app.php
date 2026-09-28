@@ -48,6 +48,9 @@ $items = [
 </nav>
 
 <main class="main<?= !empty($wide) ? ' wide' : '' ?>">
+<?php if (!empty($writeLocked) && !in_array($nav ?? '', ['', 'einstellungen'], true)): ?>
+  <div class="alert alert-warning update-banner"><?= $this->icon('alert-triangle') ?><div><b>Update erforderlich.</b> <span class="body">Code- und Datenbankstand weichen ab; Speichern ist gesperrt, bis migriert ist. <a href="/einstellungen">Zu den Einstellungen</a></span></div></div>
+<?php endif ?>
 <?= $content ?>
 </main>
 </body>

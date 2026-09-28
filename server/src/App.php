@@ -21,7 +21,7 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.5.0';
+    public const VERSION = '0.6.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
     public const SCHEMA_VERSION = 14;
@@ -31,6 +31,7 @@ final class App
     private ?SessionManager $sessions = null;
     private ?UserRepository $users = null;
     private ?View $view = null;
+    private ?bool $writeLocked = null;
     private readonly Clock $clock;
 
     /** @param string $baseDir Subdomain-Ordner (enthält .env, src/, migrations/, public/, var/) */
@@ -40,6 +41,8 @@ final class App
         private readonly LoginThrottle $loginThrottle = new LoginThrottle(),
         /** Nur für Tests: Ersatz für den HTTP-Transport zu Intervals.icu */
         private readonly ?\Training\Intervals\HttpTransport $intervalsTransport = null,
+        /** Nur für Tests: Ersatz für den SMTP-Versand */
+        private readonly ?\Training\Backup\Mailer $mailer = null,
     ) {
         $this->clock = $clock ?? new SystemClock();
     }
@@ -77,6 +80,7 @@ final class App
             '/checkin' => ['GET' => fn (): Response => (new \Training\Controller\CheckinController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\CheckinController($this))->handle($request)],
             '/schmerz' => ['GET' => fn (): Response => (new \Training\Controller\PainController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\PainController($this))->handle($request)],
             '/einstellungen' => ['GET' => fn (): Response => (new \Training\Controller\SettingsController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\SettingsController($this))->handle($request)],
+            '/cron/backup-mail' => ['GET' => fn (): Response => (new \Training\Controller\CronController($this))->backupMail($request)],
             '/verlauf' => ['GET' => fn (): Response => (new \Training\Controller\HistoryController($this))->handle($request)],
             '/intervals' => ['GET' => fn (): Response => (new IntervalsController($this, $this->intervalsTransport))->handle($request), 'POST' => fn (): Response => (new IntervalsController($this, $this->intervalsTransport))->handle($request)],
             '/.well-known/oauth-authorization-server' => ['GET' => fn (): Response => $oauth()->metadata(), 'OPTIONS' => $preflight],
@@ -142,6 +146,32 @@ final class App
         return $this->intervalsTransport !== null
             ? \Training\Intervals\IntervalsClient::fromConfig($this->config(), $this->intervalsTransport)
             : \Training\Intervals\IntervalsClient::fromConfig($this->config());
+    }
+
+    public function backupDir(): string
+    {
+        return $this->baseDir . '/backups';
+    }
+
+    public function updates(): \Training\Backup\UpdateService
+    {
+        return new \Training\Backup\UpdateService($this->pdo(), $this->clock, $this->migrationsDir(), $this->backupDir(), $this->config()->get('BACKUP_PASSWORD'));
+    }
+
+    public function backups(): \Training\Backup\BackupService
+    {
+        return new \Training\Backup\BackupService($this->pdo(), $this->clock, $this->config()->require('BACKUP_PASSWORD'), $this->migrationsDir());
+    }
+
+    public function mailBackup(): \Training\Backup\MailBackup
+    {
+        return new \Training\Backup\MailBackup($this->backups(), $this->mailer ?? new \Training\Backup\SmtpMailer($this->config()), $this->clock, $this->varDir() . '/backup-mail.json');
+    }
+
+    /** Schreibsperre bei Abweichung Code/Datenbank (D-20); einmal je Request ermittelt. */
+    public function writeLocked(): bool
+    {
+        return $this->writeLocked ??= \Training\Backup\UpdateService::writeLocked($this->pdo(), $this->migrationsDir());
     }
 
     public function oauthConfig(): OAuthConfig

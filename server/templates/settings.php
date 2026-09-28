@@ -10,7 +10,7 @@ $scopeText = static fn (string $s): string => str_contains($s, 'training:write')
 <div class="stack-lg">
 <?php if ($alert !== null) { include __DIR__ . '/_alert.php'; } ?>
 <?php if ($schemaDb !== null && $schemaDb !== $schemaCode): ?>
-  <div class="alert alert-warning"><?= $this->icon('alert-triangle') ?><div><b>Update erforderlich.</b> <span class="body">Der Code erwartet Schemastand <?= $schemaCode ?>, die Datenbank steht auf <?= $schemaDb ?>. Das Deployment führt die Migration normalerweise selbst aus.</span></div></div>
+  <div class="alert alert-warning"><?= $this->icon('alert-triangle') ?><div><b>Update erforderlich.</b> <span class="body">Der Code erwartet Schemastand <?= $schemaCode ?>, die Datenbank steht auf <?= $schemaDb ?>. Bis zur Migration sind alle Schreibzugriffe (Web und MCP) gesperrt. Vor der Migration wird automatisch ein Backup angelegt.</span></div></div>
 <?php endif ?>
 
   <section>
@@ -24,10 +24,28 @@ $scopeText = static fn (string $s): string => str_contains($s, 'training:write')
   </section>
 
   <section>
-    <div class="section-title"><h2>Backup</h2><span class="hint">folgt mit AP-10</span></div>
+    <div class="section-title"><h2>Backup</h2><span class="hint">verschlüsselt, AES-256</span></div>
     <div class="card list">
-      <div class="list-item"><div><div class="t">Backup herunterladen</div><div class="s">SQL-Dump, gzip, verschlüsselt mit dem Backup-Passwort aus der <span class="mono">.env</span></div></div><span class="badge badge-neutral">noch nicht verfügbar</span></div>
-      <div class="list-item"><div><div class="t">Backup per E-Mail</div><div class="s">Wöchentlich, zeitgesteuert über Lima-City</div></div><span class="badge badge-neutral">noch nicht eingerichtet</span></div>
+      <div class="list-item"><div><div class="t">Backup herunterladen</div><div class="s">SQL-Dump, gzip, mit dem Backup-Passwort aus der <span class="mono">.env</span> verschlüsselt</div></div>
+        <form method="post" action="/einstellungen"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><input type="hidden" name="action" value="backup"><button class="btn btn-primary" type="submit"><?= $this->icon('download') ?>Herunterladen</button></form></div>
+<?php
+$mailText = 'Nicht eingerichtet: BACKUP_MAIL_TO, BACKUP_CRON_SECRET und SMTP_* in der .env, Cronjob bei Lima-City';
+$mailBadge = ['neutral', 'aus'];
+if (!empty($mail['to']) && !empty($mail['cron'])) {
+    $mailText = 'Alle ' . (int) $mail['interval'] . ' Tage an ' . $mail['to'];
+    $mailBadge = ['neutral', 'wartet auf Cronjob'];
+    if (!empty($mail['last_success'])) {
+        $mailText .= ' · zuletzt ' . $fmtDb(gmdate('Y-m-d H:i:s', (int) $mail['last_success']), $tz) . ' · ' . number_format(((int) ($mail['last_size'] ?? 0)) / 1024, 0, ',', '.') . ' KB';
+        $mailBadge = ['success', 'zugestellt'];
+    }
+    if (!empty($mail['error'])) {
+        $mailText .= ' · Fehler: ' . $mail['error'];
+        $mailBadge = ['error', 'fehlgeschlagen'];
+    }
+}
+?>
+      <div class="list-item"><div><div class="t">Backup per E-Mail</div><div class="s"><?= $this->e($mailText) ?></div></div><span class="badge badge-<?= $mailBadge[0] ?>"><?= $mailBadge[0] === 'success' ? $this->icon('check') : '' ?><?= $this->e($mailBadge[1]) ?></span></div>
+      <div class="list-item"><div><div class="t">Vor Migrationen</div><div class="s">Automatisch, die letzten 5 werden aufbewahrt<?= $preMigration['last'] !== null ? ' · zuletzt ' . $this->e($preMigration['last']) : '' ?></div></div><span class="badge badge-neutral"><?= (int) $preMigration['count'] ?> Dateien</span></div>
     </div>
   </section>
 
@@ -36,7 +54,8 @@ $scopeText = static fn (string $s): string => str_contains($s, 'training:write')
     <div class="card list">
       <div class="list-item"><div><div class="t">Schemastand</div><div class="s">Code <?= $schemaCode ?> · Datenbank <?= $schemaDb ?? '?' ?><?= $schemaDb === $schemaCode ? ' · alles aktuell' : ' · Migration ausstehend' ?></div></div>
         <?php if ($schemaDb === $schemaCode): ?><span class="badge badge-success"><?= $this->icon('check') ?>aktuell</span><?php else: ?><span class="badge badge-warning">ausstehend</span><?php endif ?></div>
-      <div class="list-item"><div><div class="t">Migration ausführen</div><div class="s">Über die Webseite mit vorherigem Backup ab AP-10; bis dahin durch das Deployment.</div></div><button class="btn btn-secondary" type="button" disabled><?= $this->icon('refresh') ?>Migrieren</button></div>
+      <div class="list-item"><div><div class="t">Migration ausführen</div><div class="s">Legt zuerst ein Backup an, dann werden die ausstehenden Migrationen der Reihe nach eingespielt.</div></div>
+        <form method="post" action="/einstellungen"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><input type="hidden" name="action" value="migrieren"><button class="btn btn-secondary" type="submit"<?= $schemaDb === $schemaCode ? ' disabled' : '' ?>><?= $this->icon('refresh') ?>Migrieren</button></form></div>
       <div class="list-item"><div><div class="t">Version</div><div class="s mono"><?= $this->e($version) ?></div></div></div>
     </div>
   </section>

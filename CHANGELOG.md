@@ -4,6 +4,24 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.6.0] – 2026-09-28
+
+AP-10 Backup und Update-Mechanik.
+
+### Hinzugefügt
+- Backup (D-18): SQL-Dump per PHP (Struktur aller Tabellen; Daten ohne Sessions, OAuth-Tokens/-Codes und Cache; ohne berechnete Spalten) → gzip → Verschlüsselung kompatibel zu `openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -md sha256`. Dateiname mit Zeitstempel, Schemastand und Anlass.
+- Download in den Einstellungen (nur angemeldet, im Audit-Log).
+- Backup per E-Mail: `GET /cron/backup-mail?key=…` für den Lima-City-Cronjob, SMTP über PHPMailer, Intervall in `.env`; Zustand in `var/backup-mail.json`, Fehler in Einstellungen und Wochenansicht.
+- Pre-Migration-Dump (D-20): vor jeder ausstehenden Migration (Deploy und Einstellungen) nach `backups/`, die letzten 5 bleiben; schlägt der Dump fehl, wird nicht migriert.
+- Schreibsperre (D-20): Weichen Code- und Datenbankstand ab, sind alle Schreibzugriffe der Webseite gesperrt (Seite „Update erforderlich“ mit Migrationsknopf, Hinweis auf allen Seiten); Migrationsknopf in den Einstellungen.
+- `/health` prüft `backups/`.
+- Restore-Anleitung im README; Tests für Restore in eine leere Datenbank (inkl. Entschlüsseln mit der openssl-Kommandozeile), Rotation, Abbruch bei fehlgeschlagenem Dump, Schreibsperre, Download und E-Mail.
+
+### Geändert
+- Neuer Pflichtwert `BACKUP_PASSWORD` (mindestens 16 Zeichen). **Vor dem Deployment in die `.env` eintragen.**
+- `/admin/migrate` legt vor Migrationen einen Dump an und meldet dessen Namen.
+
+
 ## [0.5.0] – 2026-09-28
 
 AP-04 Webseite.

@@ -29,7 +29,13 @@ final class SettingsController extends AppController
             return Response::error(403, 'Ungültiges Formular.');
         }
 
+        if ($request->method === 'POST' && in_array($action, ['zeitzone', 'passwort'], true) && ($locked = $this->lockedResponse())) {
+            return $locked;
+        }
+
         return match ($action) {
+            'backup' => $this->download(),
+            'migrieren' => $this->migrate(),
             'zeitzone' => $this->timezone($request),
             'passwort' => $this->password($request),
             'widerrufen' => $this->revoke($request),
@@ -77,7 +83,53 @@ final class SettingsController extends AppController
             'intervals' => IntervalsClient::isConfigured($config) ? (string) $config->get('INTERVALS_ATHLETE_ID') : null,
             'staticToken' => OAuthConfig::fromConfig($config)->staticToken !== null,
             'mcpUrl' => OAuthConfig::fromConfig($config)->resource(),
+            'mail' => $this->app->mailBackup()->state() + ['to' => $config->get('BACKUP_MAIL_TO'), 'cron' => $config->get('BACKUP_CRON_SECRET') !== null, 'interval' => (int) $config->get('BACKUP_MAIL_INTERVAL_DAYS', '7')],
+            'preMigration' => $this->preMigration(),
         ]);
+    }
+
+    private function download(): Response
+    {
+        try {
+            $backup = $this->app->backups()->create('download');
+        } catch (\Throwable $e) {
+            error_log('[training] Backup-Download: ' . $e->getMessage());
+
+            return $this->overview(new Request('GET', '/einstellungen'), ['type' => 'error', 'icon' => 'alert-circle', 'title' => 'Backup fehlgeschlagen.', 'text' => $e->getMessage()]);
+        }
+        $this->audit()->write('web', 'backup_download', 'backup', null, null, $backup['name'] . ' (' . strlen($backup['data']) . ' Byte)');
+
+        return new Response(200, $backup['data'], [
+            'Content-Type' => 'application/octet-stream',
+            'Content-Disposition' => 'attachment; filename="' . $backup['name'] . '"',
+            'Content-Length' => (string) strlen($backup['data']),
+            'Cache-Control' => 'no-store',
+        ]);
+    }
+
+    private function migrate(): Response
+    {
+        try {
+            $result = $this->app->updates()->migrate();
+        } catch (\Throwable $e) {
+            error_log('[training] Migration (Einstellungen): ' . $e->getMessage());
+
+            return $this->overview(new Request('GET', '/einstellungen'), ['type' => 'error', 'icon' => 'alert-circle', 'title' => 'Migration nicht ausgeführt.', 'text' => $e->getMessage()]);
+        }
+        $this->audit()->write('web', 'migrate', 'schema_version', $result['after'], $result, sprintf('Migration %d → %d, Backup %s', $result['before'], $result['after'], $result['backup'] ?? '–'));
+
+        return $this->overview(new Request('GET', '/einstellungen'), $result['applied'] === []
+            ? ['type' => 'info', 'icon' => 'info-circle', 'title' => 'Keine Migration nötig.', 'text' => 'Datenbank ist aktuell.']
+            : ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Migration ausgeführt.', 'text' => sprintf('Schemastand %d → %d. Backup vorher: %s', $result['before'], $result['after'], $result['backup'] ?? '–')]);
+    }
+
+    /** @return array{count: int, last: ?string} */
+    private function preMigration(): array
+    {
+        $files = glob($this->app->backupDir() . '/training-backup-*-vor-migration.sql.gz.enc') ?: [];
+        rsort($files);
+
+        return ['count' => count($files), 'last' => $files === [] ? null : basename($files[0])];
     }
 
     private function timezone(Request $request): Response

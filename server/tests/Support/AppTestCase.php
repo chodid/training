@@ -23,6 +23,7 @@ abstract class AppTestCase extends TestCase
     protected const MIGRATION_SECRET = 'migration-secret-migration-secret-0123';
     protected const JWT_SECRET = 'jwt-secret-jwt-secret-jwt-secret-0123456';
     protected const APP_URL = 'https://training.example';
+    protected const BACKUP_PASSWORD = 'backup-passwort-backup-passwort';
 
     protected PDO $pdo;
     protected FakeClock $clock;
@@ -65,6 +66,7 @@ abstract class AppTestCase extends TestCase
             'APP_URL' => self::APP_URL,
             'MIGRATION_SECRET' => self::MIGRATION_SECRET,
             'OAUTH_JWT_SECRET' => self::JWT_SECRET,
+            'BACKUP_PASSWORD' => self::BACKUP_PASSWORD,
             ...$extra,
         ];
         $lines = [];
@@ -75,10 +77,11 @@ abstract class AppTestCase extends TestCase
     }
 
     protected ?\Training\Intervals\HttpTransport $intervalsTransport = null;
+    protected ?FakeMailer $mailer = null;
 
     protected function app(): App
     {
-        return new App($this->baseDir, $this->clock, new LoginThrottle(), $this->intervalsTransport);
+        return new App($this->baseDir, $this->clock, new LoginThrottle(), $this->intervalsTransport, $this->mailer);
     }
 
     /**

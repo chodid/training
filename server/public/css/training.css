@@ -26,3 +26,4 @@ form:has(input[name="pain"][value="ja"]:checked) .reveal{display:grid;gap:var(--
 .zones-svg .z4,.legend .z4{fill:var(--plum-700);background:var(--plum-700)}
 .zones-svg .z5,.legend .z5{fill:var(--plum-800);background:var(--plum-800)}
 .link-row{text-decoration:none;color:inherit}
+.update-banner{margin-bottom:var(--space-4)}

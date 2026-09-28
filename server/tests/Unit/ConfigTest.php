@@ -43,7 +43,7 @@ final class ConfigTest extends TestCase
             Config::fromFile($file);
             self::fail('ConfigException erwartet');
         } catch (ConfigException $e) {
-            self::assertSame(['DB_HOST', 'DB_NAME', 'DB_USER', 'MIGRATION_SECRET', 'OAUTH_JWT_SECRET'], $e->missingKeys);
+            self::assertSame(['DB_HOST', 'DB_NAME', 'DB_USER', 'MIGRATION_SECRET', 'OAUTH_JWT_SECRET', 'BACKUP_PASSWORD'], $e->missingKeys);
             self::assertStringNotContainsString('geheim', $e->getMessage());
         } finally {
             unlink($file);
@@ -53,7 +53,7 @@ final class ConfigTest extends TestCase
     public function testShortJwtSecretIsRejected(): void
     {
         $file = tempnam(sys_get_temp_dir(), 'env');
-        file_put_contents($file, "APP_URL=https://example.org\nDB_HOST=h\nDB_NAME=n\nDB_USER=u\nDB_PASSWORD=p\nMIGRATION_SECRET=m\nOAUTH_JWT_SECRET=" . str_repeat('x', 31) . "\n");
+        file_put_contents($file, "APP_URL=https://example.org\nDB_HOST=h\nDB_NAME=n\nDB_USER=u\nDB_PASSWORD=p\nMIGRATION_SECRET=m\nBACKUP_PASSWORD=" . str_repeat('b', 16) . "\nOAUTH_JWT_SECRET=" . str_repeat('x', 31) . "\n");
         try {
             Config::fromFile($file);
             self::fail('ConfigException erwartet');

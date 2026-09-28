@@ -1363,10 +1363,33 @@ probleme_loesungen: []
 - **Abnahmekriterien:** Manuell heruntergeladene Datei lässt sich auf einem anderen Rechner nur mit dem Passwort entschlüsseln und ergibt einen Dump, aus dem die Beispiel-Woche in eine leere DB zurückgespielt werden kann (Restore-Test dokumentiert im Prüfprotokoll); E-Mail mit Anhang kommt an; absichtliche Code/Schema-Abweichung blockiert Web- und MCP-Schreibzugriffe und wird durch die Migrations-Schaltfläche behoben; vor der Migration liegt ein neuer Pre-Migration-Dump; fehlgeschlagener Dump verhindert die Migration.
 - **Status:**
 ```yaml
-status: offen
-begonnen: null
+status: in_arbeit         # Code-Stand 0.6.0; Restore-Test, Schreibsperre, Pre-Migration-Dump und Abbruch automatisiert geprüft; offen: Entschlüsseln auf dem Rechner des Athleten, E-Mail über Lima-City-SMTP (Anhang-Limit V-10), MCP-Schreibsperre mit AP-05
+begonnen: 2026-09-28
 abgeschlossen: null
-probleme_loesungen: []
+umsetzung:
+  - server/src/Backup/ – Dumper, Encryptor (OpenSSL-Format, PBKDF2-SHA256 200 000 Iterationen), BackupService, UpdateService (Dump vor Migration, Schreibsperre), MailBackup + SmtpMailer (PHPMailer)
+  - Einstellungen – Download, Migrationsknopf, Status Backup-Mail und Pre-Migration-Dumps; Seite „Update erforderlich“ für gesperrte Schreibzugriffe
+  - GET /cron/backup-mail?key=… (BACKUP_CRON_SECRET), Intervall BACKUP_MAIL_INTERVAL_DAYS (Standard 7); Zustand var/backup-mail.json
+  - .env – BACKUP_PASSWORD (Pflicht, ≥ 16 Zeichen), BACKUP_CRON_SECRET, BACKUP_MAIL_TO, BACKUP_MAIL_INTERVAL_DAYS, SMTP_HOST/PORT/SECURE/USER/PASSWORD/FROM
+probleme_loesungen:
+  - datum: 2026-09-28
+    was: „Migration bricht ab, wenn der Dump fehlschlägt“ – ohne Backup-Passwort kann kein Dump entstehen
+    loesung: BACKUP_PASSWORD ist Pflichtwert der Konfiguration (≥ 16 Zeichen); fehlt er, meldet /health config fehlt und das Deployment schlägt sichtbar fehl, statt ohne Dump zu migrieren. Erstinstallation (Schemastand 0) braucht keinen Dump
+  - datum: 2026-09-28
+    was: Iterationszahl PBKDF2 und Hash waren nicht festgelegt (D-18 „dokumentierte Iterationszahl“)
+    loesung: 200 000 Iterationen, SHA-256 (Encryptor::ITERATIONS); Befehl zum Entschlüsseln im README, in jeder Backup-Mail und im Code; Kompatibilität mit openssl 3.0 getestet
+  - datum: 2026-09-28
+    was: Lima-City-Cronjob kann nur URLs aufrufen (V-10), keine eigenen Header
+    loesung: Secret als Query-Parameter (BACKUP_CRON_SECRET ≥ 32 Zeichen, Vergleich mit hash_equals); Endpunkt versendet nur nach Ablauf des Intervalls, damit ein täglicher Cronjob reicht
+  - datum: 2026-09-28
+    was: Wo speichern, wann zuletzt versendet wurde und ob ein Fehler auftrat (Anzeige „beim nächsten Login“)?
+    loesung: Datei var/backup-mail.json statt Tabelle (keine Migration, überlebt Restore unabhängig); Fehler als Hinweis in Wochenansicht und Einstellungen
+  - datum: 2026-09-28
+    was: ext_cache ist im Umfang nicht als ausgenommen genannt
+    loesung: nur Struktur gesichert (Cache-Daten sind nach 5 Minuten wertlos)
+  - datum: 2026-09-28
+    was: Schreibsperre – welche Schreibzugriffe?
+    loesung: gesperrt sind alle fachlichen Schreibzugriffe (Einheit, Check-in, Schmerz, Zeitzone, Passwort); erlaubt bleiben Anmelden/Abmelden, OAuth, Backup-Download, Freigabe widerrufen und der Migrationsknopf selbst. MCP-Schreibtools prüfen die Sperre ab AP-05 (App::writeLocked)
 ```
 
 # 16. Prüfprotokoll (separates Dokument)
@@ -1413,3 +1436,4 @@ noch_zu_pruefen:
 | 2026-09-27 | AP-03 umgesetzt (Code-Stand 0.4.0), Status `in_arbeit` bis CI gegen MySQL 8.4 und Migration auf dem Server. Neu: `docs/konzept/datenmodell.md` (ER-Diagramm), Q-10 (plan_json für mobilitaet/ruhe, vorläufig umgesetzt), Verweise in Abschnitt 7 und 7.1. |
 | 2026-09-28 | Q-09 → D-38 (Refresh-Token 90 Tage) und Q-10 → D-39 (`plan_json` für mobilitaet/ruhe) vom Athleten bestätigt; Umsetzung unverändert. Auslieferung: AP-01 bis AP-03 gemeinsam in einem Pull Request (Entscheidung Athlet). |
 | 2026-09-28 | AP-04 umgesetzt (Code-Stand 0.5.0), Status `in_arbeit` bis zur Abnahme auf Smartphone/Tablet. Befunde im AP-04-Block (Dauerfeld in S3, Speichern bei ausgelassen/verschoben, performed_at, actual_json vollständig, Aktivitätszuordnung, vorläufige Schmerz-Hinweisregel, CSS statt JavaScript, Platzhalter für AP-09/AP-10). |
+| 2026-09-28 | AP-10 umgesetzt (Code-Stand 0.6.0), Status `in_arbeit` bis Entschlüsseln beim Athleten, E-Mail-Test über Lima-City und MCP-Schreibsperre (AP-05). Befunde im AP-10-Block (BACKUP_PASSWORD Pflicht, 200 000 Iterationen, Cron-Secret im Query, Zustand in var/, Umfang der Sperre). |
