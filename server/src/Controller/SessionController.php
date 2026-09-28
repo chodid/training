@@ -80,7 +80,7 @@ final class SessionController extends AppController
         unset($executionId);
 
         $pushed = $this->pushFeedback($session, $activity, $data['execution'], $previousNotes);
-        $this->app->calendar()->push((int) $session['id'], 'web');
+        $this->app->calendar()->pushDays([(string) $session['date']], 'web');
 
         return self::saved($request, '/woche?start=' . Dates::monday((string) $session['date']) . '&ok=einheit' . ($pushed === false ? '&intervals=fehler' : ($pushed ? '&intervals=ok' : '')));
     }

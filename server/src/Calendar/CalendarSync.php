@@ -10,7 +10,7 @@ use Training\Data\AuditLog;
 use Training\Data\WeekRepository;
 
 /**
- * Überträgt Einheiten in den CalDAV-Kalender (AP-11, D-50). Fehler brechen nichts ab: sie werden gemeldet,
+ * Überträgt die Einheiten als Sammeltermin je Tag in den CalDAV-Kalender (AP-11, D-50, D-60). Fehler brechen nichts ab: sie werden gemeldet,
  * im Audit-Log und im Zustand (var/calendar-sync.json) festgehalten; der Abgleich (Cron, Knopf) holt Verpasstes nach.
  * Ohne Konfiguration (Client null) tut die Klasse nichts.
  */
@@ -23,7 +23,7 @@ final class CalendarSync
         private readonly string $appUrl,
         private readonly string $host,
         private readonly string $stateFile,
-        /** Erinnerung 'HH:MM' am Tag der Einheit, null = aus (D-52) */
+        /** Erinnerung 'HH:MM' am Trainingstag, null = aus (D-52) */
         private readonly ?string $reminder = null,
     ) {
     }
@@ -34,48 +34,34 @@ final class CalendarSync
     }
 
     /**
-     * Termin einer Einheit anlegen/aktualisieren; Ruhetage und gelöschte Einheiten werden entfernt.
+     * Sammeltermine der genannten Tage neu schreiben (D-60): Tage ohne Einheiten bzw. nur mit Ruhetag werden entfernt.
+     * Beim ersten Fehler bricht die Übertragung ab (eine Meldung je Aufruf); der Abgleich holt den Rest nach.
+     * @param list<string> $dates Tage im Format Y-m-d (doppelte werden zusammengefasst)
      * @return ?string Fehlermeldung, null bei Erfolg oder ohne Konfiguration
      */
-    public function push(int $sessionId, string $actor = 'mcp'): ?string
+    public function pushDays(array $dates, string $actor = 'mcp'): ?string
     {
-        if ($this->client === null) {
+        if ($this->client === null || $dates === []) {
             return null;
         }
-        $s = (new WeekRepository($this->pdo, $this->clock))->session($sessionId);
-        try {
-            if ($s === null || $s['type'] === 'ruhe') {
-                $this->client->delete(SessionEvent::resource($sessionId));
-            } else {
-                $this->client->put(SessionEvent::resource($sessionId), SessionEvent::ics($s, $this->appUrl, $this->host, $this->clock->now(), $this->reminder));
+        $dates = array_values(array_unique($dates));
+        sort($dates);
+        $weeks = new WeekRepository($this->pdo, $this->clock);
+        foreach ($dates as $date) {
+            try {
+                $this->writeDay($date, DayEvent::relevant($weeks->sessions($date, $date)));
+            } catch (CalendarException $e) {
+                return $this->fail($e, $actor, $date);
             }
-            $this->record(null);
-
-            return null;
-        } catch (CalendarException $e) {
-            return $this->fail($e, $actor, $sessionId);
         }
-    }
+        $this->record(null);
 
-    /** @return ?string Fehlermeldung */
-    public function remove(int $sessionId, string $actor = 'mcp'): ?string
-    {
-        if ($this->client === null) {
-            return null;
-        }
-        try {
-            $this->client->delete(SessionEvent::resource($sessionId));
-            $this->record(null);
-
-            return null;
-        } catch (CalendarException $e) {
-            return $this->fail($e, $actor, $sessionId);
-        }
+        return null;
     }
 
     /**
-     * Abgleich eines Zeitraums: alle Einheiten (ohne Ruhetage) übertragen, eigene Termine ohne Einheit entfernen.
-     * Fremde Termine im Kalender bleiben unberührt.
+     * Abgleich eines Zeitraums: je Tag mit Einheiten (ohne Ruhetage) einen Sammeltermin übertragen, eigene Termine ohne
+     * Einheiten entfernen – auch die Einzeltermine je Einheit aus der Zeit vor D-60. Fremde Termine bleiben unberührt.
      * @return array{uebertragen: int, geloescht: int, fehler: list<string>}
      */
     public function syncRange(string $from, string $to, string $actor = 'cron'): array
@@ -84,20 +70,19 @@ final class CalendarSync
         if ($this->client === null) {
             return $result;
         }
-        $sessions = (new WeekRepository($this->pdo, $this->clock))->sessions($from, $to);
+        $days = [];
+        foreach (DayEvent::relevant((new WeekRepository($this->pdo, $this->clock))->sessions($from, $to)) as $s) {
+            $days[(string) $s['date']][] = $s;
+        }
         $wanted = [];
         try {
-            foreach ($sessions as $s) {
-                if ($s['type'] === 'ruhe') {
-                    continue;
-                }
-                $wanted[(int) $s['id']] = true;
-                $this->client->put(SessionEvent::resource((int) $s['id']), SessionEvent::ics($s, $this->appUrl, $this->host, $this->clock->now(), $this->reminder));
+            foreach ($days as $date => $sessions) {
+                $wanted[DayEvent::resource((string) $date)] = true;
+                $this->writeDay((string) $date, $sessions);
                 $result['uebertragen']++;
             }
             foreach ($this->client->resources($from, $to) as $name) {
-                $id = SessionEvent::idFromResource($name);
-                if ($id !== null && !isset($wanted[$id])) {
+                if (DayEvent::isOwn($name) && !isset($wanted[$name])) {
                     $this->client->delete($name);
                     $result['geloescht']++;
                 }
@@ -118,11 +103,24 @@ final class CalendarSync
         return is_array($data) ? $data : [];
     }
 
-    private function fail(CalendarException $e, string $actor, ?int $sessionId): string
+    /**
+     * Sammeltermin eines Tages schreiben oder – ohne Einheiten – entfernen.
+     * @param list<array<string, mixed>> $sessions Einheiten des Tages ohne Ruhetage
+     */
+    private function writeDay(string $date, array $sessions): void
+    {
+        if ($sessions === []) {
+            $this->client?->delete(DayEvent::resource($date));
+        } else {
+            $this->client?->put(DayEvent::resource($date), DayEvent::ics($date, $sessions, $this->appUrl, $this->host, $this->clock->now(), $this->reminder));
+        }
+    }
+
+    private function fail(CalendarException $e, string $actor, ?string $date): string
     {
         $message = $e->getMessage();
         error_log('[training] Kalender: ' . $message);
-        (new AuditLog($this->pdo, $this->clock))->write($actor, 'calendar_error', 'session', $sessionId, null, mb_substr($message, 0, 400));
+        (new AuditLog($this->pdo, $this->clock))->write($actor, 'calendar_error', 'kalender_tag', $date, null, mb_substr($message, 0, 400));
         $this->record($message);
 
         return $message;

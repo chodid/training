@@ -449,8 +449,9 @@ noch_zu_pruefen:
 
 ```yaml
 ap: AP-11
+nachtrag: Sammeltermin je Tag (D-60, 0.19.0) – Unterpunkt T8 in docs/konzept/gefuehrte-einheit.md; die Einträge bis 0.18.0 beschreiben den Termin je Einheit
 geprueft:
-  - was: Wochenplan → Termine je Einheit ohne Ruhetag (PUT mit Basic-Auth an CALDAV_URL), update_session (Datum, erledigt → „✓“), Rückmeldung „ausgelassen“ auf der Webseite → STATUS:CANCELLED, Woche ersetzen → ersetzte Termine gelöscht, neue angelegt
+  - was: (bis 0.18.0) Wochenplan → Termine je Einheit ohne Ruhetag (PUT mit Basic-Auth an CALDAV_URL), update_session (Datum, erledigt → „✓“), Rückmeldung „ausgelassen“ auf der Webseite → STATUS:CANCELLED, Woche ersetzen → ersetzte Termine gelöscht, neue angelegt
     wie: automatisiert (PHPUnit, simulierter CalDAV-Server)
     ergebnis: ok
     datum: 2026-09-28
@@ -478,12 +479,28 @@ geprueft:
     wie: manuell durch Athlet (nach Deployment 0.14.0)
     ergebnis: ok
     datum: 2026-09-28
+  - was: "T8/D-60 (0.19.0): Sammeltermin je Tag – eine Einheit „Typ: Titel“ ohne „✓“, mehrere „Training: A + B + C“ in Planreihenfolge, STATUS immer CONFIRMED (auch ausgelassen), URL zur Woche, CATEGORIES je Typ einmal, Beschreibung je Einheit mit Überschrift, Kurzsatz, Kurzplan mit Status, Begründung, Link und Trennlinie; Erinnerung nur, solange eine Einheit geplant/verschoben ist; Ruhetage nie im Termin (Testfälle K-01 bis K-07)"
+    wie: automatisiert (DayEventTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "T8/D-60: Wochenplan mit zwei Einheiten an einem Tag → ein Termin; update_session verschiebt eine Einheit → alter und neuer Tag neu geschrieben, letzte Einheit weg → Termin gelöscht; Rückmeldung „ausgelassen“ → Termin bleibt, Status in der Beschreibung; Woche ersetzen → Tage ersetzter Einheiten neu bzw. gelöscht; Abgleich löscht alte Einzeltermine (auch zu bestehenden Einheiten) und verwaiste Sammeltermine, fremde bleiben, Zählung in Tagen; Erinnerungstexte in S8"
+    wie: automatisiert (CalendarTest, simulierter CalDAV-Server)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "T8/D-60: Echter CalDAV-Server – Sammeltermin mit drei Einheiten, Sonderzeichen, Faltung und VALARM angenommen; Ersetzen; REPORT mit Zeitraum; alter Einzeltermin training-session-<id>.ics gelöscht, fremder Termin bleibt"
+    wie: Rauchtest gegen Radicale (lokal, http nur für den Test)
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: Erinnerung um 05:00 kommt auf dem Handy an (Nextcloud-Kalender per DAVx⁵/iOS-Konto eingebunden); andere Uhrzeit in den Einstellungen wirkt nach dem nächsten Sync
     wie: manuell durch Athlet (nach Deployment 0.15.0 und erstem Wochenplan)
   - was: Termine nach dem ersten Wochenplan im Nextcloud-Web und auf dem Handy sichtbar; „zuletzt übertragen“ in den Einstellungen höchstens 1 h alt (stündlicher Cron)
     wie: manuell durch Athlet
-  - was: Änderung aus Claude (update_session, Status) erscheint im Kalender; Rückmeldung auf der Webseite setzt „✓“
+  - was: Änderung aus Claude (update_session, Status) erscheint im Kalender; Rückmeldung auf der Webseite erscheint als Status in der Beschreibung des Tagestermins (seit 0.19.0 kein „✓“ im Titel)
+    wie: manuell durch Athlet
+  - was: "T8/D-60 nach Deploy 0.19.0: „Abgleichen“ in den Einstellungen (oder nächster stündlicher Abgleich) – im Nextcloud-Kalender (Web und Handy) je Trainingstag genau ein Termin, alte Einzeltermine im Zeitraum 7 Tage zurück bis 8 Wochen voraus verschwunden, ältere bleiben; Tag mit zwei Einheiten zeigt „Training: … + …“ und beide Einheiten in der Beschreibung; Erinnerung einmal je Tag"
+    wie: manuell durch Athlet (Nextcloud-Web, Handy-Kalender per DAVx⁵/iOS-Konto)
+  - was: "T8/D-60: Beschreibung mit mehreren Einheiten und Trennlinie auf dem Handy gut lesbar (Zeilenumbrüche, Links antippbar)"
     wie: manuell durch Athlet
 ```
 
@@ -567,7 +584,7 @@ geprueft:
     ergebnis: ok
     datum: 2026-09-28
   - was: T2 Kalender – Beschreibung beginnt mit dem Kurzsatz, dann Kurzplan mit Priorität/Dauer, „Trainer: …“ gekürzt auf 1 000 Zeichen, Link; Altdaten ohne Kurzsatz beginnen mit dem Kurzplan
-    wie: automatisiert (SessionEventTest)
+    wie: automatisiert (SessionEventTest; seit T8/0.19.0 DayEventTest, je Einheit im Sammeltermin)
     ergebnis: ok
     datum: 2026-09-28
   - was: Migration 0022 auf leerer Datenbank (jeder Testlauf) und auf befüllter Datenbank (Rückweg 0020–0022 angewendet, erneut migriert)

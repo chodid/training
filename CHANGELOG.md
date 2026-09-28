@@ -4,6 +4,22 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.19.0] – 2026-09-28
+
+AP-11 geändert (D-60, ändert D-50): ein Sammeltermin je Tag im Kalender – Unterpunkt T8 des Auftrags `docs/konzept/gefuehrte-einheit.md` (Wunsch des Athleten).
+
+**Hinweis zum Umstieg:** Der nächste stündliche Abgleich (oder „Abgleichen“ in den Einstellungen) ersetzt die bisherigen Einzeltermine je Einheit im Zeitraum 7 Tage zurück bis 8 Wochen voraus durch die Sammeltermine. Ältere Einzeltermine bleiben unverändert im Kalender.
+
+### Geändert
+- Kalender (CalDAV): statt eines Termins je Einheit ein ganztägiger Termin je Trainingstag (Ressource `training-tag-JJJJ-MM-TT.ics`, feste UID je Tag). Titel „Typ: Titel“ bei einer Einheit, bei mehreren „Training: Titel 1 + Titel 2“ in Planreihenfolge; kein „✓“ mehr im Titel und kein abgesagter Termin – der Status steht je Einheit in der Beschreibung. Die Beschreibung führt alle Einheiten des Tages (ohne Ruhetage) mit Überschrift, Kurzsatz, Kurzplan mit Priorität, Dauer und Status, Trainer-Begründung und Link zur Einheit auf; der Termin selbst verlinkt die Woche. Kletterblöcke erscheinen mit ihrem Namen („Bouldern Volumen“ statt `bouldern_volumen`).
+- Erinnerung (D-52): eine je Tag, solange mindestens eine Einheit des Tages geplant oder verschoben ist. Texte in den Einstellungen angepasst („Am Trainingstag um …“).
+- Übertragen wird jeweils der ganze Tag: neue und ersetzte Einheiten, bei `update_session` alter und neuer Tag, bei der Rückmeldung auf der Webseite der Tag der Einheit. Tage ohne Einheiten (oder nur mit Ruhetag) verlieren ihren Termin. Der Abgleich zählt Termine (Tage) und entfernt außer verwaisten Sammelterminen auch die alten Einzeltermine (`training-session-<id>.ics`); fremde Termine bleiben unberührt.
+- Audit-Eintrag `calendar_error` bezieht sich auf den Tag (`kalender_tag`, Datum) statt auf eine Einheit.
+- Tests: `DayEventTest` (Testfälle K-01 bis K-07 des Auftrags) und `CalendarTest` auf Sammeltermine umgestellt (zwei Einheiten an einem Tag, Verschieben, leerer Tag, Woche ersetzen, Abgleich mit alten Einzelterminen); Rauchtest gegen Radicale.
+
+### Entfernt
+- `Training\Calendar\SessionEvent` (Termin je Einheit) und `CalendarSync::push()`/`remove()` für einzelne Einheiten; ersetzt durch `Training\Calendar\DayEvent` und `CalendarSync::pushDays()`. Test `SessionEventTest` durch `DayEventTest` ersetzt.
+
 ## [0.18.0] – 2026-09-28
 
 AP-14: Geführte Einheit (D-57, D-58) – Auftrag `docs/konzept/gefuehrte-einheit.md`, Unterpunkte T3–T7.

@@ -5,7 +5,7 @@
 /** @var string $reminder */
 /** @var bool $off */
 ?>
-  <div class="page-head"><div class="eyebrow"><a href="/einstellungen">Einstellungen</a></div><h1>Erinnerung im Kalender</h1><p class="muted small">Benachrichtigung am Tag der Einheit, z. B. um 05:00 Uhr. Erledigte und ausgelassene Einheiten erinnern nicht.</p></div>
+  <div class="page-head"><div class="eyebrow"><a href="/einstellungen">Einstellungen</a></div><h1>Erinnerung im Kalender</h1><p class="muted small">Benachrichtigung am Trainingstag, z. B. um 05:00 Uhr. Sind alle Einheiten des Tages erledigt oder ausgelassen, entfällt sie.</p></div>
 <?php if ($alert !== null) { include __DIR__ . '/_alert.php'; } ?>
   <form class="stack-lg mt-4" method="post" action="/einstellungen">
     <input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>">

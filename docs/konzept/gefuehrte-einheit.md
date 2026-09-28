@@ -1,20 +1,21 @@
 # Auftrag: App-Icon, Begründungstexte der Planung und geführte Trainingseinheit
 
-Ablageort im Repo: `docs/konzept/gefuehrte-einheit.md` (im Hauptkonzept: AP-13 und AP-14, D-55 bis D-58, Q-14)
-Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); Umsetzung in Arbeit (Stand in Abschnitt 12)
+Ablageort im Repo: `docs/konzept/gefuehrte-einheit.md` (im Hauptkonzept: AP-13 und AP-14, D-55 bis D-59, Q-14; Nachtrag T8: AP-11, D-60)
+Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21, Nachtrag T8 mit E-22); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); Umsetzung in Arbeit (Stand in Abschnitt 12)
 Versionsnummer: keine im Konzept; wird in der Umsetzung festgelegt
 
 ---
 
 ## 1. Ziel
 
-Drei Wünsche des Athleten, die zusammen bearbeitet werden, weil sie dieselben Seiten berühren (Woche, Einheit, Einstellungen) und gemeinsame Mockups brauchen:
+Drei Wünsche des Athleten (dazu ein Nachtrag D während der Umsetzung), die zusammen bearbeitet werden, weil sie dieselben Seiten berühren (Woche, Einheit, Einstellungen) und gemeinsame Mockups brauchen:
 
 | teil | ziel |
 |---|---|
 | A · App-Icon und Logo | „Zum Startbildschirm“ zeigt auf Android (LibreWolf, idealerweise alle Browser) das App-Logo statt eines Platzhalters. Das Logo der App wechselt vom Lama-Kopf auf das **ganze Lama**; die Variante wählt der Athlet anhand einer Mockup-Seite mit mehreren Optionen. |
 | B · Begründungstexte | Die planende Instanz (Claude im Projekt-Chat) schreibt je **Woche** und je **Einheit** einen kurzen Text zu „Was und warum“. Ein zusammenfassender Satz steht sichtbar bei Woche bzw. Einheit; „mehr“ daneben öffnet den restlichen Text. Klein gehalten: Ziele und Pläne, die dem Training zugrunde liegen, keine Abhandlung. |
 | C · Geführte Einheit | Eine Einheit lässt sich „starten“. Die App führt dann Schritt für Schritt durch das Training: aktuelle Übung mit Dauer/Wiederholungen, was als Nächstes kommt, Timer für getimte Übungen (App wird grün, solange gearbeitet wird; Tonsignale beim Start, 30 s und 10 s vor Ende sowie in den letzten 3 Sekunden; stummschaltbar in den Einstellungen und in der laufenden Einheit). Ohne Timer wird zumindest die aktuelle Übung angezeigt, und die Ist-Werte (Wiederholungen, Gewicht …) lassen sich direkt eintragen – wie sonst in der Einheitenübersicht. |
+| D · Kalender (Nachtrag T8) | Im CalDAV-Kalender erscheint je Tag nur **ein** Sammeltermin statt eines Termins je Einheit; alle Einheiten des Tages stehen in dessen Beschreibung (Wunsch des Athleten während der Umsetzung, 2026-09-28). |
 
 ## 2. Kontext und Bestand (Code-Stand 0.16.0, Schema 21)
 
@@ -35,7 +36,7 @@ Drei Wünsche des Athleten, die zusammen bearbeitet werden, weil sie dieselben S
 
 ## 3. Geklärte Entscheidungen
 
-Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 waren Vorschläge von Fable und gelten seit der Bestätigung des Konzepts am 2026-09-28. E-21 ist die Logo-Wahl.
+Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 waren Vorschläge von Fable und gelten seit der Bestätigung des Konzepts am 2026-09-28. E-21 ist die Logo-Wahl. E-22 (Nachtrag T8) hat der Athlet während der Umsetzung am 2026-09-28 festgelegt.
 
 | id | entscheidung | begruendung |
 |---|---|---|
@@ -60,6 +61,7 @@ Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 waren Vor
 | E-19 | **Fortschritt im Browser:** `sessionStorage`-Eintrag je Einheit (Schritt, Satz, Phase, Endzeit, Ist-Werte, Startzeit, stumm). Neu laden setzt den Stand fort; „Neu starten“ löscht ihn. Nach Speichern gelöscht. Kein Serverzustand (E-07). | Robust gegen versehentliches Neuladen; keine Konflikte mit dem Offline-Puffer. |
 | E-20 | **Farben nur über Statusfarben des Design-Systems:** Arbeit = `--status-success-bg` als Seitengrund, Zeit in `--status-success-text`; Pause/bereit/angehalten = `--status-error-bg` und `--status-error-text`; `theme-color` wird mitgeführt. Neue Branding-Entscheidung B-08 (Statusfarben dürfen als Flächen für den Timer-Zustand dienen). | Rot/Grün mit ausreichendem Kontrast, ohne neue Farben. |
 | E-21 | **Logo-Wahl (Q-14 → D-59):** V3 (Lama Fläche hell `#F4EFF2` auf Pflaume 600 `#7A5C94`, Auge Orange) für App-Icon Android/iOS und `maskable`; V2 (Lama Fläche Pflaume 600 auf Papier) für Favicon 16/32 px, SVG-Favicon und App-Kennung in Topbar, Navigation und Login-Karte. Vorlagen: `docs/branding/mockups/icon-optionen/v3.svg`, `v3-maskable.svg`, `v2.svg`. | Entscheidung des Athleten am 2026-09-28, wie von Fable empfohlen. |
+| E-22 | **Ein Sammeltermin je Tag (Nachtrag T8 → D-60):** Je Trainingstag ein ganztägiger Termin statt eines Termins je Einheit (Ruhetage weiter ohne Termin). Titel aus den Einheitentiteln: eine Einheit „Typ: Titel“ wie bisher, mehrere „Training: Titel 1 + Titel 2“ in Planreihenfolge. **Kein Status-Zeichen im Titel**, der Termin wird nie abgesagt; der Status steht je Einheit in der Beschreibung. Beschreibung: alle Einheiten mit Kurzsatz, Kurzplan, Begründung und Link; Erinnerung einmal je Tag, solange eine Einheit geplant oder verschoben ist. Umfang: Unterpunkt T8 in diesem Auftrag, eigener Code-Stand, derselbe Pull Request wie T1–T7. | Wunsch des Athleten („pro Tag nur ein Sammeltermin“); Titel, Status-Darstellung und Umfang am 2026-09-28 per Rückfrage gewählt (Titel und Umfang wie empfohlen; beim Status „kein Zeichen im Titel“ statt der Empfehlung „✓, sobald der Tag abgeschlossen ist; abgesagt, wenn alle ausgelassen“). |
 
 ## 4. Teil A · App-Icon und Logo
 
@@ -261,7 +263,7 @@ Bereich „Training“: Zeile „Timer-Signale“ mit Schalter Ton/Vibration `an
 
 ## 7. Unterpunkte
 
-Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
+Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nachtrag, unabhängig von T3–T6) nach T7.
 
 ### T1 · App-Icon und Logo (Teil A)
 - Variante: V3 App-Icon, V2 Favicon und Kennung (E-21).
@@ -295,6 +297,14 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 ### T7 · Dokumentation, Changelog, Version
 - Version hochstufen; CHANGELOG; README (neue Seite, neue Einstellung, neues Skript, Icons); Hauptkonzept (Statusblöcke AP-13/AP-14, Abschnitte 7, 8.2, 10, Änderungsprotokoll); `datenmodell.md` (`coach_summary`); `branding.md` (B-03 angepasst, B-08, Abschnitt 8); dieses Dokument (Abschnitt 12) je erledigtem Unterpunkt.
 - **Abnahme:** Dokumente konsistent (Feldnamen, Tool-Namen, Screens); Changelog nennt alle drei Teile.
+
+### T8 · Sammeltermin je Tag im Kalender (Nachtrag, Teil D)
+- `Training\Calendar\DayEvent` ersetzt `SessionEvent`: ein Termin je Tag (Ressource `training-tag-<Datum>.ics`, UID je Tag), Titel und Beschreibung nach E-22, `STATUS:CONFIRMED`, `URL` = Woche, `CATEGORIES` = Typen des Tages, Erinnerung nach E-22.
+- `CalendarSync`: `pushDays(Daten)` statt `push`/`remove` je Einheit; Abgleich je Tag, löscht verwaiste Sammeltermine und die alten Einzeltermine (`training-session-<id>.ics`) im Zeitraum.
+- Aufrufer: `write_week_plan` (Tage der neuen und ersetzten Einheiten), `update_session` (alter und neuer Tag), Rückmeldung auf der Webseite (Tag der Einheit); Einstellungen und Cron unverändert (Abgleich).
+- Texte in S8 („Am Trainingstag um …“), Hauptkonzept (D-60, AP-11, K8), README, Changelog, Prüfprotokoll; Version hochstufen.
+- Tests: Testfälle 8.4.
+- **Abnahme:** Nach dem Deploy und einem Abgleich zeigt der Nextcloud-Kalender je Trainingstag genau einen Termin; Tage mit zwei Einheiten tragen „Training: … + …“; Status und Verschieben wirken; alte Einzeltermine sind im Abgleichzeitraum verschwunden.
 
 ## 8. Testfälle
 
@@ -341,6 +351,18 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 | I-03 | Dev-Router | `HEAD /favicon.ico` 200, `Content-Type image/x-icon` |
 | I-04 | Gerätetests P-A1 bis P-A6 | Lama-Icon in Chrome, LibreWolf (von `/login` und `/woche`), iOS |
 
+### 8.4 Kalender (T8)
+
+| nr | eingabe | erwartung |
+|---|---|---|
+| K-01 | Tag mit einer Einheit (Kraft „Beine“, erledigt) | ein Termin, `SUMMARY:Kraft: Beine` ohne „✓“, `STATUS:CONFIRMED`, Beschreibung ohne Überschrift/Trennlinie, Status „erledigt“ in der Kopfzeile des Kurzplans |
+| K-02 | Tag mit drei Einheiten (Kraft, Ausdauer, Klettern) | ein Termin `Training: A + B + C` in Planreihenfolge, `CATEGORIES` mit drei Typen, je Einheit ein Abschnitt mit Überschrift „Typ: Titel“, Link zur Einheit, Trennlinie dazwischen |
+| K-03 | Erinnerung 05:00; eine Einheit geplant, übrige erledigt | ein `VALARM` `PT5H`; alle erledigt/teilweise/ausgelassen → kein `VALARM` |
+| K-04 | `update_session` verschiebt eine von zwei Einheiten | alter Tag mit einer Einheit (`Typ: Titel`), neuer Tag angelegt; letzte Einheit weg → Termin des Tages gelöscht |
+| K-05 | Woche ersetzen | Tage ersetzter Einheiten neu geschrieben bzw. gelöscht, neue Tage angelegt; Tage mit behaltenen Einheiten bleiben |
+| K-06 | Abgleich mit alten Einzelterminen, verwaistem Sammeltermin und fremdem Termin | alte `training-session-<id>.ics` und verwaister Sammeltermin gelöscht, fremder bleibt; Zählung in Tagen |
+| K-07 | Ruhetag allein bzw. neben einer Einheit | kein Termin bzw. Ruhetag nicht in Titel und Beschreibung |
+
 ## 9. Offene Punkte
 
 | id | punkt | status |
@@ -363,7 +385,7 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 
 ## 11. Arbeitsweise für die Umsetzung
 
-- Unterpunkte T1–T7 in der Reihenfolge aus Abschnitt 7.
+- Unterpunkte T1–T8 in der Reihenfolge aus Abschnitt 7.
 - Nach jedem Unterpunkt: geänderte und neue Dateien als ZIP mit Repo-Ordnerstruktur (nur geänderte/neue Dateien), dieses Dokument (Abschnitt 12) aktualisiert, dazu ein Prüfdokument (was geprüft ist, was noch wie zu prüfen ist; Struktur wie `docs/pruefung/pruefprotokoll.md`).
 - Konzeptänderungen aus der Umsetzung in Abschnitt 12 (`probleme_loesungen`) und im Hauptkonzept (AP-13/AP-14) nachziehen.
 
@@ -417,7 +439,7 @@ T2:
     Zeile), „Trainer: …“ (≤ 1000 Zeichen), Link. S2: Karte .begruendung unter der Kopfzeile (Kurzsatz, details.more.mehr),
     „Fokus …“ in der Kopfzeile entfällt. S3: Kurzsatz im Seitenkopf, „mehr“ bzw. „Trainer-Notiz“ bei Altdaten.
     CSS in training.css (.kurz, details.mehr mit drehendem Chevron, Zeilenumbrüche des Texts bleiben).
-  tests: McpToolsTest::testPlanTextsAreRequiredLimitedAndReadable, WebsiteTest::testWeekAndSessionShowSummaryWithMore, SessionEventTest::testDescriptionStartsWithSummaryAndShortensLongRationale; bestehende Tests um focus/coach_summary ergänzt, Migrationstest AP-12 um den Rückweg von 0022
+  tests: McpToolsTest::testPlanTextsAreRequiredLimitedAndReadable, WebsiteTest::testWeekAndSessionShowSummaryWithMore, SessionEventTest::testDescriptionStartsWithSummaryAndShortensLongRationale (seit T8 DayEventTest); bestehende Tests um focus/coach_summary ergänzt, Migrationstest AP-12 um den Rückweg von 0022
   abnahme_offen: Plan aus dem Projekt-Chat mit beiden Texten erscheint in S2 und S3; „mehr“ klappt ohne JavaScript auf; Kalendertermin zeigt den Kurzsatz
   probleme_loesungen:
     - was: update_session prüft die zusammengeführte Einheit; eine überlange Begründung aus der Zeit vor AP-13 hätte danach jede Änderung (z. B. Status) blockiert
@@ -546,6 +568,32 @@ T6:
     - was: 6.6 sieht einen Schalter ohne JavaScript vor; ein Radio-Segment speichert ohne Skript nicht von selbst
       loesung: kleines Formular in der Zeile mit Segment An/Aus und Knopf „Speichern“; auf schmalen Geräten steht die Bedienung unter dem Text
 T7: {status: offen}
+T8:
+  status: umgesetzt          # Code-Stand 0.19.0; Abnahme im Nextcloud-Kalender durch den Athleten offen
+  datum: 2026-09-28
+  ergebnis: >
+    Ein Sammeltermin je Tag (E-22, D-60): Training\Calendar\DayEvent ersetzt SessionEvent – Ressource
+    training-tag-<Datum>.ics, UID je Tag, SUMMARY „Typ: Titel“ bzw. „Training: Titel 1 + Titel 2“ (Planreihenfolge,
+    ohne Ruhetage), STATUS immer CONFIRMED, URL zur Woche, CATEGORIES mit den Typen des Tages, LAST-MODIFIED/SEQUENCE
+    aus der jüngsten Änderung der Einheiten; Beschreibung je Einheit mit Überschrift (bei mehreren), Kurzsatz, Kurzplan
+    (Priorität, Dauer, Status, Übungen/Blöcke mit Namen), Begründung (≤ 1 000 Zeichen) und Link, Trennlinie zwischen
+    den Einheiten; VALARM einmal je Tag, solange eine Einheit geplant oder verschoben ist.
+    CalendarSync::pushDays(Daten) schreibt die Tage aus der Datenbank neu (Tag ohne Einheiten → Termin gelöscht);
+    syncRange überträgt je Tag und löscht verwaiste Sammeltermine sowie alte Einzeltermine training-session-<id>.ics.
+    Aufrufer: write_week_plan (Tage der neuen und ersetzten Einheiten), update_session (alter und neuer Tag),
+    Rückmeldung auf der Webseite (Tag der Einheit). S8-Texte zur Erinnerung („Am Trainingstag um …“).
+  tests: DayEventTest (eine Einheit, mehrere Einheiten, Kurzsatz/Kürzung, Ressourcennamen und Ruhetage), CalendarTest (Wochenplan mit zwei Einheiten an einem Tag, Verschieben, letzter Termin eines Tages, ausgelassen, Woche ersetzen, Abgleich mit alten Einzelterminen, Erinnerung); Testfälle K-01 bis K-07; Rauchtest gegen Radicale
+  abnahme: automatisiert (PHPUnit 191 Tests grün) und Rauchtest gegen einen echten CalDAV-Server (Radicale, lokal) – Anlegen, Ersetzen, Zeitraum-Abfrage, Löschen des alten Einzeltermins, fremder Termin bleibt, iCalendar mit Erinnerung angenommen
+  abnahme_offen: Nextcloud-Kalender nach Deploy und Abgleich (Web und Handy) durch den Athleten
+  probleme_loesungen:
+    - was: Bestehende Einzeltermine je Einheit im Kalender des Athleten
+      loesung: der Abgleich erkennt training-session-<id>.ics weiter als eigene Termine und löscht sie im Zeitraum (7 Tage zurück bis 8 Wochen voraus); bis zum nächsten stündlichen Abgleich (oder Knopf in S8) kann ein Tag doppelt erscheinen; ältere Einzeltermine bleiben als Verlauf
+    - was: Nach Verschieben oder Ersetzen muss auch der alte Tag neu gebildet werden
+      loesung: Termine werden nicht je Einheit, sondern je Tag aus der Datenbank gebildet; die Tools übergeben alle betroffenen Tage (alt und neu), ein leerer Tag verliert seinen Termin
+    - was: Audit-Eintrag calendar_error bezog sich auf eine Einheit
+      loesung: Bezug jetzt auf den Tag (entity kalender_tag, Datum; beim Abgleich ohne Bezug)
+    - was: Kurzplan der Kletterblöcke zeigte den internen Schlüssel (bouldern_volumen)
+      loesung: Anzeige mit dem Namen wie in S3 („Bouldern Volumen“), da die Beschreibung ohnehin neu aufgebaut wurde
 probleme_loesungen: []
 ```
 

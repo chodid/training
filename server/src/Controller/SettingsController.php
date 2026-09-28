@@ -229,7 +229,7 @@ final class SettingsController extends AppController
         return Response::redirect('/einstellungen?ok=timer');
     }
 
-    /** Kalender-Erinnerung (D-52): Uhrzeit am Tag der Einheit oder aus; danach Termine im Zeitraum neu übertragen. */
+    /** Kalender-Erinnerung (D-52): Uhrzeit am Trainingstag oder aus; danach Termine im Zeitraum neu übertragen. */
     private function reminder(Request $request): Response
     {
         $settings = new SettingsRepository($this->app->pdo(), $this->app->clock());

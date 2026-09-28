@@ -11,7 +11,7 @@ use Training\Db;
 /** Einstellungen der App (Tabelle app_setting, D-52); fehlende Schlüssel und fehlende Tabelle liefern den Standardwert. */
 final class SettingsRepository
 {
-    /** Kalender-Erinnerung am Tag der Einheit: 'HH:MM' oder 'aus' (AP-11, D-52) */
+    /** Kalender-Erinnerung am Trainingstag: 'HH:MM' oder 'aus' (AP-11, D-52) */
     public const CALENDAR_REMINDER = 'calendar_reminder';
     public const CALENDAR_REMINDER_DEFAULT = '05:00';
     /** Check-in: „Hand rechts“ abfragen bis einschließlich (Y-m-d; AP-12, E-08) */

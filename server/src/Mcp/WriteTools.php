@@ -88,11 +88,13 @@ final class WriteTools
 
         // Ersetzen: nur geplante Einheiten ohne Rückmeldung; alles mit Durchführung bleibt.
         $replaced = [];
+        $replacedDates = [];
         $kept = [];
         $eventsToDelete = [];
         foreach ($existing as $s) {
             if ($s['status'] === 'geplant' && $s['execution_id'] === null) {
                 $replaced[] = (int) $s['id'];
+                $replacedDates[] = (string) $s['date'];
                 if ($s['intervals_event_id'] !== null) {
                     $eventsToDelete[] = (int) $s['intervals_event_id'];
                 }
@@ -143,7 +145,7 @@ final class WriteTools
             $out[] = $row;
         }
         $failed = count(array_filter($out, static fn (array $r): bool => isset($r['fehler_intervals'])));
-        $calendarErrors = $this->calendarSync($ids, $replaced);
+        $calendarErrors = $this->calendarSync([...array_column($clean, 'date'), ...$replacedDates]);
 
         return array_filter([
             'woche' => $weekStart,
@@ -240,7 +242,7 @@ final class WriteTools
                 $result['intervals'] = $err === null ? ($s['intervals_event_id'] !== null ? 'event_aktualisiert' : 'event_angelegt') : 'fehler: ' . $err;
             }
         }
-        $calendarErrors = $this->calendarSync([$sessionId], []);
+        $calendarErrors = $this->calendarSync([(string) $s['date'], (string) $clean['date']]);
         if ($calendarErrors !== []) {
             $result['fehler_kalender'] = $calendarErrors;
         }
@@ -306,32 +308,20 @@ final class WriteTools
     }
 
     /**
-     * Kalender nachziehen (AP-11): Termine der Einheiten anlegen/aktualisieren, ersetzte entfernen. Fehler werden nur
-     * gemeldet (einmal je Aufruf zusammengefasst); der stündliche Abgleich holt sie nach.
-     * @param list<int> $push
-     * @param list<int> $remove
+     * Kalender nachziehen (AP-11, D-60): Sammeltermine der betroffenen Tage neu schreiben (neue, geänderte, verschobene
+     * und ersetzte Einheiten; beim Verschieben alter und neuer Tag). Fehler werden nur gemeldet (einmal je Aufruf); der
+     * stündliche Abgleich holt sie nach.
+     * @param list<string> $dates
      * @return list<string>
      */
-    private function calendarSync(array $push, array $remove): array
+    private function calendarSync(array $dates): array
     {
         if ($this->calendar === null || !$this->calendar->enabled()) {
             return [];
         }
-        $errors = [];
-        foreach ($remove as $id) {
-            if (($e = $this->calendar->remove($id)) !== null) {
-                $errors[] = $e;
-                break;
-            }
-        }
-        foreach ($errors === [] ? $push : [] as $id) {
-            if (($e = $this->calendar->push($id)) !== null) {
-                $errors[] = $e;
-                break;
-            }
-        }
+        $error = $this->calendar->pushDays($dates);
 
-        return $errors === [] ? [] : [$errors[0] . ' Der stündliche Abgleich überträgt die Termine erneut.'];
+        return $error === null ? [] : [$error . ' Der stündliche Abgleich überträgt die Termine erneut.'];
     }
 
     /**
