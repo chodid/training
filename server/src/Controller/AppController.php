@@ -26,6 +26,9 @@ abstract class AppController
     protected function requireLogin(Request $request): ?Response
     {
         $this->session = $this->app->sessions()->current($request);
+        if ($this->session === null && self::queued($request)) {
+            return new Response(401, '');
+        }
         if ($this->session === null) {
             $target = $request->uri !== '' ? $request->uri : $request->path;
 
@@ -43,6 +46,41 @@ abstract class AppController
         }
 
         return $this->page('locked', 'Update erforderlich', '', [], 503);
+    }
+
+    /** Gepufferte Offline-Sendung des Service Workers (D-45): Antwort als Status statt Seite bzw. Weiterleitung. */
+    protected static function queued(Request $request): bool
+    {
+        return $request->header('X-Offline-Queue') === '1';
+    }
+
+    /** Nach erfolgreichem Speichern: Weiterleitung, bei gepufferter Sendung 204. */
+    protected static function saved(Request $request, string $location): Response
+    {
+        return self::queued($request) ? new Response(204, '', ['Cache-Control' => 'no-store']) : Response::redirect($location);
+    }
+
+    /** Änderungsstand eines Eintrags für das Formular (D-45): kurzer Hash, leer wenn es den Eintrag noch nicht gibt. */
+    protected static function stand(mixed $row): string
+    {
+        return $row === null ? '' : substr(hash('sha256', json_encode($row, JSON_THROW_ON_ERROR)), 0, 16);
+    }
+
+    /** Wurde der Eintrag seit dem Laden des Formulars geändert? Formulare ohne Feld „stand“ werden nicht geprüft. */
+    protected static function standConflict(Request $request, string $current): bool
+    {
+        $sent = $request->post('stand');
+
+        return $sent !== null && !hash_equals($current, $sent);
+    }
+
+    /** Erfassungszeit einer offline gepufferten Eingabe (Unix-Sekunden), nur wenn plausibel (höchstens 14 Tage alt). */
+    protected function offlineTime(Request $request): ?int
+    {
+        $at = self::intField($request->post('offline_erfasst'), 0, PHP_INT_MAX);
+        $now = $this->app->clock()->now();
+
+        return $at !== null && $at <= $now && $at >= $now - 14 * 86400 ? $at : null;
     }
 
     protected function csrfOk(Request $request): bool

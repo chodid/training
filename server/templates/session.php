@@ -49,9 +49,11 @@ $meta = $typeLabel . ' · ' . Dates::long($session['date']) . ' · Priorität ' 
   <div class="mt-4"><?php include __DIR__ . '/_alert.php'; ?></div>
 <?php endif ?>
 
-  <form class="two-col mt-4" method="post" action="/einheit">
+  <form class="two-col mt-4" method="post" action="/einheit" data-offline-form>
     <input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>">
     <input type="hidden" name="id" value="<?= (int) $session['id'] ?>">
+    <input type="hidden" name="stand" value="<?= $this->e($stand) ?>">
+    <input type="hidden" name="offline_label" value="<?= $this->e($offlineLabel) ?>">
     <div class="stack-lg">
 <?php if (isset($plan['exercises'])): ?>
       <section class="card<?= !empty($invalid['ist']) ? ' invalid' : '' ?>">

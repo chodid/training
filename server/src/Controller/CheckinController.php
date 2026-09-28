@@ -61,6 +61,12 @@ final class CheckinController extends AppController
             $errors = [...$errors, ...SessionController::validatePain($painFields, $invalid)];
         }
         $notes = self::textField($request->post('notes'), 500);
+        if (self::standConflict($request, self::stand($existing))) {
+            return $this->form($date, [
+                'recovery' => $recovery, 'soreness' => $soreness, 'pain_choice' => $painYes ? 'ja' : 'nein',
+                'pain_fields' => $painFields, 'notes' => (string) $notes,
+            ], $invalid, 'Der Check-in für diesen Tag wurde inzwischen geändert (z. B. auf einem anderen Gerät). Deine Eingaben stehen unten; Speichern übernimmt sie.', true, 409);
+        }
         if ($errors !== []) {
             return $this->form($date, [
                 'recovery' => $recovery, 'soreness' => $soreness, 'pain_choice' => $painYes ? 'ja' : 'nein',
@@ -90,7 +96,7 @@ final class CheckinController extends AppController
             throw $e;
         }
 
-        return Response::redirect('/woche?start=' . Dates::monday($date) . '&ok=checkin');
+        return self::saved($request, '/woche?start=' . Dates::monday($date) . '&ok=checkin');
     }
 
     /**
@@ -109,7 +115,11 @@ final class CheckinController extends AppController
         $elapsed = min(7, Dates::weekdayIndex(min($today, Dates::addDays($monday, 6))) + 1);
 
         return $this->page('checkin', 'Check-in', 'checkin', [
-            'alert' => $message === null ? null : ['type' => 'error', 'icon' => 'alert-circle', 'title' => 'Nicht gespeichert.', 'text' => $message],
+            'alert' => $message === null ? null : ($status === 409
+                ? ['type' => 'warning', 'icon' => 'alert-triangle', 'title' => 'Inzwischen geändert.', 'text' => $message]
+                : ['type' => 'error', 'icon' => 'alert-circle', 'title' => 'Nicht gespeichert.', 'text' => $message]),
+            'stand' => self::stand($this->feedback()->checkin($date)),
+            'offlineLabel' => 'Check-in ' . Dates::short($date),
             'date' => $date,
             'today' => $today,
             'data' => $data,

@@ -173,6 +173,7 @@ flowchart LR
 | D-46 | Feedback-Rückschreiben nach Intervals.icu (Q-02): beim Speichern einer Rückmeldung auf der Webseite werden RPE (nur 1–10; RPE 0 wird nicht übertragen) und Gefühl (1–5, gleiche Richtung wie D-16/Abschnitt 11, V-03) automatisch auf die zugeordnete Intervals.icu-Aktivität geschrieben; die Notiz wird als Kommentar an die Aktivität angehängt, nur wenn sie neu oder geändert ist. Fehler brechen das Speichern nicht ab und werden angezeigt. | Intervals.icu-Diagramme vollständig; eigene Beschreibung in Intervals.icu bleibt unberührt. Entscheidung des Athleten. | 2026-09-28 |
 | D-47 | Asymmetrische Backup-Verschlüsselung wird nicht umgesetzt (ändert D-42); Backups bleiben passwortverschlüsselt nach D-18 (`openssl enc`, AES-256-CBC, PBKDF2). Auch kein Wechsel auf AES-ZIP. | Ein Serverkompromiss legt die Live-Datenbank ohnehin offen, ein Postfachkompromiss enthält das Passwort nicht; Gewinn nur im Randfall „.env und alte Backups“ (ältere/gelöschte Stände). Kosten: Verwaltung eines privaten Schlüssels, dessen Verlust alle Backups unlesbar macht, umständlicherer Restore. ZIP wäre ebenfalls symmetrisch; der Restore braucht ohnehin die Kommandozeile, zum Ansehen gibt es den JSON-Export. Entscheidung des Athleten nach Erklärung. | 2026-09-28 |
 | D-48 | Athletenprofil als DB-Objekt (ersetzt D-15): Tabelle `athlete_profile` mit festen Abschnitten `ziele`, `zeitbudget`, `ausruestung`, `einschraenkungen`, `leistungswerte`, `sonstiges`, je Abschnitt Markdown-Text (höchstens 6 000 Zeichen). Jede Änderung legt eine neue Fassung an (Datum, Urheber Claude/Web, optionaler Grund); frühere Stände bleiben lesbar. Die DB ist die einzige Quelle: `docs/athlet/profil.md` und die Kopie im Projekt-Wissen entfallen. Bearbeiten durch Claude (`update_athlete_profile`, Scope `training:write`) und auf der Webseite (`/profil`, erreichbar über S8); Schutz gegen gegenseitiges Überschreiben. | Profil ändert sich mit Tests und Lebensumständen; Claude kann Werte direkt im Chat eintragen, ohne Repo und Deployment. Abschnitte statt eines Dokuments, damit Änderungen gezielt sind; Fassungen, damit spätere Auswertungen den damaligen Stand kennen. Entscheidung des Athleten (Struktur, Bearbeiter, Quelle, Verlauf). | 2026-09-28 |
+| D-49 | Ausgestaltung Offline (konkretisiert D-45): (a) Vorgeladen werden beim Öffnen der aktuellen Woche die aktuelle und die nächste Woche mit allen Einheiten sowie Check-in und Schmerz für heute; weitere besuchte Seiten dieser Art werden beim Aufruf gespeichert, andere Seiten sind offline nicht verfügbar. (b) Abmelden löscht die gespeicherten Seiten auf dem Gerät; noch nicht gesendete Eingaben bleiben und werden nach dem nächsten Login gesendet. (c) Wurde ein Eintrag (Check-in, Rückmeldung) seit dem Laden des Formulars geändert, wird eine gepufferte Eingabe nicht übernommen, sondern als Hinweis mit „Öffnen“, „Trotzdem übernehmen“ und „Verwerfen“ angezeigt; dieselbe Prüfung gilt online (Formular bleibt mit den Eingaben stehen, erneutes Speichern übernimmt). Schmerzereignisse sind immer neue Einträge und kollidieren nicht. | Entscheidung des Athleten (Umfang, Abmelden, Konflikt); „Trotzdem übernehmen“ ergänzt in der Umsetzung, damit eine Eingabe nach Prüfung nicht neu getippt werden muss. | 2026-09-28 |
 
 # 5. Offene Fragen und Verifikationen
 
@@ -340,7 +341,7 @@ Rechte (AP-05): Lese-Tools verlangen den Scope `training:read`, Schreib-Tools `t
 
 # 10. Webseite (mobil und Tablet)
 
-Technik: serverseitig gerenderte PHP-Seiten, responsive, minimales JS (Formulare ohne Reload optional), Web-App-Manifest für „Zum Startbildschirm", kein Offline-Modus in Phase 1 (ab AP-09 Offline-Fähigkeit nach D-45).
+Technik: serverseitig gerenderte PHP-Seiten, responsive, minimales JS (Formulare ohne Reload optional), Web-App-Manifest für „Zum Startbildschirm", kein Offline-Modus in Phase 1 (ab AP-09 Offline-Fähigkeit nach D-45/D-49: Service Worker `/sw.js`, Seitenskript `/js/offline.js`; Seiten funktionieren weiterhin ohne JavaScript).
 
 Anforderung Gestaltung: Alle Screens sind **mobil- und tabletfreundlich** (Smartphone hochkant als Primärfall; Tablet hoch und quer ohne Layoutbrüche; Touch-Ziele, lesbare Schrift, keine horizontalen Scrollbereiche). Gestaltung nach Branding-Dokument und Mockups (D-19, D-37, AP-01a).
 
@@ -1403,7 +1404,7 @@ teilpakete:
   - Passkey (D-44): erledigt (Code-Stand 0.11.0, Anlegen und Anmelden auf Smartphone/Tablet durch Athlet offen)
   - Asymmetrische Backups: gestrichen (D-47)
   - Athletenprofil als DB-Objekt (D-48): erledigt (Code-Stand 0.12.0, Befüllen in AP-08, Abnahme durch Athlet offen)
-  - Offline-Fähigkeit (D-45): offen
+  - Offline-Fähigkeit (D-45, D-49): erledigt (Code-Stand 0.13.0, Prüfung auf iPhone/Android im Funkloch durch Athlet offen)
 probleme_loesungen:
   - datum: 2026-09-28
     was: JSON-Export enthält Gesundheitsdaten unverschlüsselt
@@ -1465,6 +1466,30 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: Build-Schritt docs/athlet → server/resources/athlet und App::profileFile
     loesung: entfernt (DB ist einzige Quelle); docs/athlet/profil.md existierte noch nicht, daher kein Import nötig
+  - datum: 2026-09-28
+    was: Offline gepufferte Formulare tragen ein CSRF-Token, das nach Abmelden/neuer Sitzung nicht mehr gilt
+    loesung: der Service Worker holt vor dem Senden ein frisches Token (GET /offline/token, nur gleiche Herkunft lesbar) und ersetzt es; ohne Sitzung bleiben Eingaben „wartet auf Anmeldung“
+  - datum: 2026-09-28
+    was: Gepufferte Sendungen brauchen eine auswertbare Antwort statt Seite/Weiterleitung
+    loesung: Kopfzeile X-Offline-Queue – Server antwortet 204 (übernommen), 401 (Anmeldung), 409 (inzwischen geändert), 422 (ungültig), 503 (Schreibsperre, später erneut)
+  - datum: 2026-09-28
+    was: Konflikterkennung ohne Versionsspalten
+    loesung: Feld „stand“ im Formular = gekürzter SHA-256 über den gespeicherten Eintrag (Check-in-Zeile bzw. Status + Durchführung der Einheit); leer, wenn es noch keinen Eintrag gibt; Formulare ohne das Feld werden nicht geprüft
+  - datum: 2026-09-28
+    was: Zwei Offline-Eingaben zum selben Eintrag würden mit sich selbst kollidieren
+    loesung: eine neuere Offline-Eingabe zum selben Check-in-Tag bzw. zur selben Einheit ersetzt die ältere im Puffer
+  - datum: 2026-09-28
+    was: Gespeichertes Formular „heute“ (Check-in, Schmerz) an einem späteren Tag offline genutzt
+    loesung: Seitenskript setzt bei Formularen ohne ?datum= das Datum auf den heutigen Gerätetag und passt Überschrift und Stand an (Hinweis „Datum auf heute gesetzt“)
+  - datum: 2026-09-28
+    was: Zeitpunkt der Durchführung bei spätem Senden
+    loesung: Service Worker ergänzt offline_erfasst (Erfassungszeit); der Server übernimmt sie für performed_at, wenn sie höchstens 14 Tage alt ist und auf den Tag der Einheit fällt
+  - datum: 2026-09-28
+    was: Safari (iPhone/iPad) kennt keine Hintergrund-Synchronisation
+    loesung: Senden zusätzlich bei jedem Seitenaufruf und beim Ereignis „online“; auf dem iPhone gehen Eingaben also raus, sobald die App mit Netz geöffnet ist
+  - datum: 2026-09-28
+    was: Playwrights Offline-Schalter erfasst den Service Worker nicht (Seiten kamen weiter aus dem Netz)
+    loesung: Browser-Prüfung mit gestopptem lokalen Server (echter Netzfehler); dabei Vorladen, Offline-Lesen, Puffern, Konflikt, Erzwingen, Abmelden und Senden nach Login geprüft
 ```
 
 ## AP-10 Backup und Update-Mechanik
@@ -1564,3 +1589,4 @@ noch_zu_pruefen:
 | 2026-09-28 | AP-09 Teil 3 umgesetzt (Code-Stand 0.10.0): Feedback-Rückschreiben nach Intervals.icu; Q-02 → D-46. |
 | 2026-09-28 | AP-09 Teil 4 umgesetzt (Code-Stand 0.11.0): Passkey-Login zusätzlich zum Passwort (D-44); Befunde im AP-09-Block. |
 | 2026-09-28 | Asymmetrische Backups gestrichen (D-47, ändert D-42/D-18). Athletenprofil als DB-Objekt entschieden (D-48, ersetzt D-15) und umgesetzt (AP-09 Teil 5, Code-Stand 0.12.0): Abschnitt 3.1/3.3, Ablauf Wochenplanung, 8.2 (`get_athlete_profile` neu, `update_athlete_profile`), Abschnitt 10 (Profilseite), AP-08 angepasst. |
+| 2026-09-28 | AP-09 Teil 6 umgesetzt (Code-Stand 0.13.0): Offline-Fähigkeit (D-45) mit D-49 (Umfang, Abmelden, Konflikt); alle AP-09-Teilpakete umgesetzt, Abnahme durch Athlet offen. |

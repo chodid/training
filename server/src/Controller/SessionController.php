@@ -47,6 +47,9 @@ final class SessionController extends AppController
         }
 
         [$data, $invalid, $message] = $this->parse($request, $session);
+        if (self::standConflict($request, $this->standOf($session))) {
+            return $this->form($session, $activity, $data, $invalid, 'Die Rückmeldung zu dieser Einheit wurde inzwischen geändert (z. B. auf einem anderen Gerät). Deine Eingaben stehen unten; Speichern übernimmt sie.', 409);
+        }
         if ($message !== null) {
             return $this->form($session, $activity, $data, $invalid, $message, 422);
         }
@@ -72,7 +75,7 @@ final class SessionController extends AppController
 
         $pushed = $this->pushFeedback($session, $activity, $data['execution'], $previousNotes);
 
-        return Response::redirect('/woche?start=' . Dates::monday((string) $session['date']) . '&ok=einheit' . ($pushed === false ? '&intervals=fehler' : ($pushed ? '&intervals=ok' : '')));
+        return self::saved($request, '/woche?start=' . Dates::monday((string) $session['date']) . '&ok=einheit' . ($pushed === false ? '&intervals=fehler' : ($pushed ? '&intervals=ok' : '')));
     }
 
     /**
@@ -265,10 +268,12 @@ final class SessionController extends AppController
             }
         }
 
-        $today = $this->today();
+        // Zeitpunkt der Eingabe; bei offline gepufferten Eingaben der Moment der Erfassung, nicht des Sendens (D-45).
+        $at = $this->offlineTime($request) ?? $this->app->clock()->now();
+        $atDate = (new \DateTimeImmutable('@' . $at))->setTimezone(new \DateTimeZone($this->session->tz ?? 'Europe/Berlin'))->format('Y-m-d');
         $performed = null;
         if ($done) {
-            $performed = $session['date'] === $today ? gmdate('Y-m-d H:i:s', $this->app->clock()->now()) : $session['date'] . ' 12:00:00';
+            $performed = $session['date'] === $atDate ? gmdate('Y-m-d H:i:s', $at) : $session['date'] . ' 12:00:00';
         }
 
         $data = [
@@ -320,6 +325,12 @@ final class SessionController extends AppController
         return $errors;
     }
 
+    /** @param array<string, mixed> $session */
+    private function standOf(array $session): string
+    {
+        return self::stand(['status' => $session['status'], 'execution' => $this->feedback()->execution((int) $session['id'])]);
+    }
+
     /**
      * @param array<string, mixed> $session
      * @param ?array<string, mixed> $activity
@@ -335,7 +346,11 @@ final class SessionController extends AppController
             'backHref' => '/woche?start=' . Dates::monday((string) $session['date']),
             'backLabel' => 'Zurück zur Woche',
             'topAction' => '<span class="badge badge-' . $statusClass . ' hide-mobile">' . $statusLabel . '</span>',
-            'alert' => $message === null ? null : ['type' => 'error', 'icon' => 'alert-circle', 'title' => 'Nicht gespeichert.', 'text' => $message],
+            'alert' => $message === null ? null : ($status === 409
+                ? ['type' => 'warning', 'icon' => 'alert-triangle', 'title' => 'Inzwischen geändert.', 'text' => $message]
+                : ['type' => 'error', 'icon' => 'alert-circle', 'title' => 'Nicht gespeichert.', 'text' => $message]),
+            'stand' => $this->standOf($this->weeks()->session((int) $session['id']) ?? $session),
+            'offlineLabel' => 'Rückmeldung „' . $session['title'] . '“ (' . Dates::short((string) $session['date']) . ')',
             'session' => $session,
             'activity' => $activity,
             'data' => $data,

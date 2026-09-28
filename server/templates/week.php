@@ -100,3 +100,6 @@ use Training\View\Labels;
     </div>
   </div>
 <?php endif ?>
+<?php if (!empty($prefetch)): ?>
+<div id="offline-prefetch" data-urls="<?= $this->e(json_encode($prefetch, JSON_UNESCAPED_SLASHES)) ?>" hidden></div>
+<?php endif ?>

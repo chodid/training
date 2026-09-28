@@ -278,6 +278,84 @@ final class WebsiteTest extends AppTestCase
         self::assertStringContainsString('<td>39</td><td>0</td><td>540</td><td>300</td><td>0</td><td>840</td><td>1/3</td><td>2</td>', str_replace(' ', '', $r->body) === '' ? '' : preg_replace('/\s+(?=<)/', '', $r->body));
     }
 
+    public function testOfflineStandConflictKeepsInputAndResubmitOverwrites(): void
+    {
+        $form = $this->request('GET', '/checkin');
+        self::assertStringContainsString('name="stand" value=""', $form->body);
+        self::assertStringContainsString('name="offline_label" value="Check-in Mi 23.09."', $form->body);
+        self::assertStringContainsString('data-offline-form', $form->body);
+        $csrf = self::csrfFrom($form);
+        // Anderes Gerät speichert zuerst
+        $this->request('POST', '/checkin', ['csrf' => $csrf, 'datum' => '2026-09-23', 'stand' => '', 'recovery' => '2', 'soreness' => '2', 'pain' => 'nein']);
+        $conflict = $this->request('POST', '/checkin', ['csrf' => $csrf, 'datum' => '2026-09-23', 'stand' => '', 'recovery' => '5', 'soreness' => '4', 'pain' => 'nein', 'notes' => 'vom Handy']);
+        self::assertSame(409, $conflict->status);
+        self::assertStringContainsString('Inzwischen geändert.', $conflict->body);
+        self::assertStringContainsString('vom Handy', $conflict->body);
+        self::assertSame(2, (int) $this->pdo->query('SELECT recovery_1_5 FROM checkin')->fetchColumn(), 'nicht überschrieben');
+        preg_match('/name="stand" value="([0-9a-f]{16})"/', $conflict->body, $m);
+        $r = $this->request('POST', '/checkin', ['csrf' => $csrf, 'datum' => '2026-09-23', 'stand' => $m[1], 'recovery' => '5', 'soreness' => '4', 'pain' => 'nein']);
+        self::assertSame(303, $r->status, 'mit aktuellem Stand übernimmt Speichern die Eingaben');
+        self::assertSame(5, (int) $this->pdo->query('SELECT recovery_1_5 FROM checkin')->fetchColumn());
+
+        // Einheit: Konflikt nach zwischenzeitlicher Rückmeldung
+        $id = $this->ids[2];
+        $old = $this->request('GET', '/einheit?id=' . $id);
+        preg_match('/name="stand" value="([0-9a-f]{16})"/', $old->body, $m);
+        self::assertStringContainsString('name="offline_label" value="Rückmeldung „Hangboard + Bouldern Volumen“ (Mi 23.09.)"', html_entity_decode($old->body));
+        $fields = ['csrf' => $csrf, 'id' => (string) $id, 'status' => 'ausgelassen', 'deviation' => 'zeit', 'pain' => 'nein'];
+        self::assertSame(303, $this->request('POST', '/einheit', $fields + ['stand' => $m[1]])->status);
+        $c = $this->request('POST', '/einheit', ['status' => 'ausgelassen', 'deviation' => 'wetter', 'notes' => 'Regen'] + $fields + ['stand' => $m[1]]);
+        self::assertSame(409, $c->status);
+        self::assertStringContainsString('Regen', $c->body);
+        self::assertSame('zeit', $this->pdo->query('SELECT deviation_reason FROM session_execution WHERE session_id = ' . $id)->fetchColumn());
+    }
+
+    public function testOfflineQueueResponsesTokenAndCaptureTime(): void
+    {
+        $q = ['X-Offline-Queue' => '1'];
+        $form = $this->request('GET', '/checkin');
+        $csrf = self::csrfFrom($form);
+        self::assertSame(['csrf' => $csrf], json_decode($this->request('GET', '/offline/token')->body, true));
+
+        $ok = $this->request('POST', '/checkin', ['csrf' => $csrf, 'datum' => '2026-09-22', 'stand' => '', 'recovery' => '2', 'soreness' => '2', 'pain' => 'nein'], $q);
+        self::assertSame(204, $ok->status);
+        self::assertSame(409, $this->request('POST', '/checkin', ['csrf' => $csrf, 'datum' => '2026-09-22', 'stand' => '', 'recovery' => '3', 'soreness' => '2', 'pain' => 'nein'], $q)->status);
+        self::assertSame(422, $this->request('POST', '/checkin', ['csrf' => $csrf, 'datum' => '2026-09-21', 'recovery' => '9', 'pain' => 'nein'], $q)->status);
+        $pain = ['csrf' => $csrf, 'datum' => '2026-09-22', 'pain_location' => 'knie', 'pain_side' => 'L', 'pain_intensity' => '7', 'pain_timing' => 'danach'];
+        self::assertSame(204, $this->request('POST', '/schmerz', $pain, $q)->status, 'auch mit Warnhinweis (Stärke > 5)');
+
+        // Einheit von heute, offline 3 Stunden vorher erfasst → performed_at = Erfassungszeit
+        $id = $this->ids[2];
+        $fields = ['csrf' => $csrf, 'id' => (string) $id, 'status' => 'erledigt', 'duration_min' => '90', 'rpe' => '6', 'feel' => '2', 'pain' => 'nein'];
+        self::assertSame(204, $this->request('POST', '/einheit', $fields + ['offline_erfasst' => (string) (self::NOW - 3 * 3600)], $q)->status);
+        self::assertSame('2026-09-23 09:00:00', $this->pdo->query('SELECT performed_at FROM session_execution WHERE session_id = ' . $id)->fetchColumn());
+        // Unplausible Erfassungszeit (älter als 14 Tage) wird ignoriert
+        $id2 = $this->ids[0];
+        $this->request('POST', '/einheit', ['id' => (string) $id2, 'duration_min' => '60'] + $fields + ['offline_erfasst' => '1000'], $q);
+        self::assertSame('2026-09-21 12:00:00', $this->pdo->query('SELECT performed_at FROM session_execution WHERE session_id = ' . $id2)->fetchColumn());
+
+        // Ohne Anmeldung
+        $this->cookies = [];
+        self::assertSame(401, $this->request('GET', '/offline/token')->status);
+        self::assertSame(401, $this->request('POST', '/checkin', ['csrf' => $csrf, 'datum' => '2026-09-23', 'recovery' => '2', 'soreness' => '2', 'pain' => 'nein'], $q)->status);
+        self::assertSame(303, $this->request('POST', '/checkin', ['csrf' => $csrf], [])->status, 'ohne Puffer-Kopfzeile weiter Weiterleitung zum Login');
+        $login = $this->request('GET', '/login');
+        self::assertStringContainsString('data-auth defer', $login->body);
+    }
+
+    public function testWeekListsPagesForOfflinePrefetch(): void
+    {
+        $week = $this->request('GET', '/woche');
+        self::assertMatchesRegularExpression('#<script src="/js/offline\.js\?v=[0-9.]+" data-version="[0-9.]+" defer></script>#', $week->body);
+        self::assertSame(1, preg_match('/id="offline-prefetch" data-urls="([^"]+)"/', $week->body, $m));
+        $urls = json_decode(html_entity_decode($m[1]), true);
+        self::assertContains('/woche?start=2026-09-28', $urls);
+        self::assertContains('/checkin?datum=2026-09-23', $urls);
+        self::assertContains('/einheit?id=' . $this->ids[0], $urls);
+        self::assertNotContains('/einheit?id=' . $this->ids[6], $urls, 'Ruhetag hat keine Einheitenseite');
+        self::assertStringNotContainsString('offline-prefetch', $this->request('GET', '/woche?start=2026-09-14')->body, 'nur aktuelle Woche lädt vor');
+    }
+
     private function html(string $s): string
     {
         return htmlspecialchars($s, ENT_QUOTES);

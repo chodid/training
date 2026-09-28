@@ -9,15 +9,17 @@ use Training\Dates;
 use Training\View\Labels;
 ?>
   <div class="page-head">
-    <div class="eyebrow"><?= $this->e(Dates::long($date, true)) ?><?= $date === $today ? ' · heute' : '' ?></div>
+    <div class="eyebrow" data-date-label><?= $this->e(Dates::long($date, true)) ?><?= $date === $today ? ' · heute' : '' ?></div>
     <h1><?= $date === $today ? 'Wie geht es Dir heute?' : 'Wie ging es Dir an diesem Tag?' ?></h1>
     <p class="muted small">Drei Angaben, dann ist der Tag erfasst. Fehlende Tage zählen als fehlend, nicht als beschwerdefrei.<?= $exists ? ' Für diesen Tag gibt es schon einen Eintrag; Speichern überschreibt ihn.' : '' ?></p>
   </div>
 <?php if ($alert !== null) { include __DIR__ . '/_alert.php'; } ?>
 
-  <form class="stack-lg mt-4" method="post" action="/checkin">
+  <form class="stack-lg mt-4" method="post" action="/checkin" data-offline-form>
     <input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>">
     <input type="hidden" name="datum" value="<?= $this->e($date) ?>">
+    <input type="hidden" name="stand" value="<?= $this->e($stand) ?>">
+    <input type="hidden" name="offline_label" value="<?= $this->e($offlineLabel) ?>">
     <section class="card stack-lg">
       <div class="field<?= !empty($invalid['recovery']) ? ' invalid' : '' ?>">
         <div class="field-label">Erholt und leistungsbereit</div>

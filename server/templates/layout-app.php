@@ -26,6 +26,7 @@ $items = [
 <link rel="stylesheet" href="/assets/ds/styles.css">
 <link rel="stylesheet" href="/assets/app.css">
 <link rel="stylesheet" href="/css/training.css">
+<script src="/js/offline.js?v=<?= $this->e(\Training\App::VERSION) ?>" data-version="<?= $this->e(\Training\App::VERSION) ?>" defer></script>
 </head>
 <body class="app">
 <header class="topbar">
@@ -48,6 +49,7 @@ $items = [
 </nav>
 
 <main class="main<?= !empty($wide) ? ' wide' : '' ?>">
+  <div id="offline-status" class="stack update-banner" aria-live="polite" hidden></div>
 <?php if (!empty($writeLocked) && !in_array($nav ?? '', ['', 'einstellungen'], true)): ?>
   <div class="alert alert-warning update-banner"><?= $this->icon('alert-triangle') ?><div><b>Update erforderlich.</b> <span class="body">Code- und Datenbankstand weichen ab; Speichern ist gesperrt, bis migriert ist. <a href="/einstellungen">Zu den Einstellungen</a></span></div></div>
 <?php endif ?>

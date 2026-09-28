@@ -4,6 +4,22 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.13.0] – 2026-09-28
+
+AP-09 Teil 6: Offline-Fähigkeit (D-45, D-49). Damit sind alle AP-09-Teilpakete umgesetzt.
+
+### Hinzugefügt
+- Service Worker `/sw.js` und Seitenskript `/js/offline.js`: Woche, Einheiten, Check-in und Schmerz sind ohne Netz lesbar (erst Netz mit 5 s Wartezeit, sonst gespeicherter Stand mit Hinweis „Offline – Stand vom …“); Gestaltung liegt je Version im Cache.
+- Beim Öffnen der aktuellen Woche werden aktuelle und nächste Woche mit allen Einheiten sowie Check-in und Schmerz für heute vorgeladen (höchstens alle 10 Minuten je Seite).
+- Check-in, Rückmeldung und Schmerz werden ohne Netz auf dem Gerät gepuffert und automatisch gesendet, sobald Netz da ist (Android/Chrome auch im Hintergrund, iPhone beim nächsten Öffnen); Anzeige wartender, abgelehnter und kollidierender Eingaben mit „Öffnen“, „Trotzdem übernehmen“, „Verwerfen“.
+- Schutz gegen Überschreiben: Check-in- und Einheitenformular tragen den Stand des Eintrags; wurde er inzwischen geändert, wird nicht gespeichert (409), die Eingaben bleiben im Formular.
+- `GET /offline/token` (frisches CSRF-Token für gepufferte Eingaben); Kopfzeile `X-Offline-Queue` liefert Statuscodes statt Seiten.
+- Erfassungszeit gepufferter Rückmeldungen wird als Durchführungszeit übernommen.
+- Tests für Konflikt, Statusantworten, Token, Erfassungszeit und Vorladeliste.
+
+### Geändert
+- Die Login-Seite löscht die offline gespeicherten Seiten (Abmelden); ungesendete Eingaben bleiben und werden nach dem Login gesendet.
+
 ## [0.12.0] – 2026-09-28
 
 AP-09 Teil 5: Athletenprofil als DB-Objekt (D-48, ersetzt D-15). Asymmetrische Backups gestrichen (D-47).

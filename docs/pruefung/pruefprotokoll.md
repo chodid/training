@@ -326,6 +326,14 @@ geprueft:
     wie: automatisiert + Browser 390/1280 px (kein Überlauf)
     ergebnis: ok
     datum: 2026-09-28
+  - was: Offline Server – Stand-Feld in Check-in/Einheit, Konflikt 409 mit erhaltenen Eingaben und ohne Überschreiben, erneutes Speichern mit aktuellem Stand übernimmt; X-Offline-Queue → 204/401/409/422 (Schmerz mit Warnhinweis 204); /offline/token mit und ohne Sitzung; offline_erfasst als performed_at (unplausibel alt → ignoriert); Vorladeliste nur in der aktuellen Woche, ohne Ruhetag; Skript in beiden Layouts
+    wie: automatisiert (PHPUnit)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Offline Browser – Service Worker übernimmt, Vorladen (14 Seiten: 2 Wochen, Check-in/Schmerz heute, alle Einheiten), bei gestopptem Server Einheit aus dem Speicher mit Hinweis, nicht gespeicherte Seite → Hinweisseite, Check-in/Rückmeldung/Schmerz offline gepuffert, nach Serverstart automatisch gesendet; Einheit am „Rechner“ geändert → Konflikt-Hinweis, „Trotzdem übernehmen“ sendet ohne Stand; Sitzung weg → „wartet auf Anmeldung“, Login-Seite löscht gespeicherte Seiten, nach Login gesendet; ungültige Eingabe → „nicht übernommen“; Darstellung 390 px
+    wie: Chromium/Playwright mit echtem Netzfehler (lokaler Server gestoppt; Playwrights Offline-Schalter erfasst den Service Worker nicht)
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: JSON-Export herunterladen und in einem Editor/Programm öffnen
     wie: manuell durch Athlet
@@ -337,6 +345,8 @@ noch_zu_pruefen:
     wie: manuell durch Athlet (auf training.gen-em.org, Passkeys sind an den Host gebunden)
   - was: Athletenprofil – in AP-08 von Claude über update_athlete_profile befüllen lassen; auf /profil lesen, einen Abschnitt korrigieren, frühere Fassung ansehen; in Claude get_athlete_profile mit as_of prüfen
     wie: manuell durch Athlet (nach Migration auf Schema 18; Connector ggf. neu verbinden, damit das neue Tool erscheint)
+  - was: Offline auf echten Geräten – iPhone (Safari, vom Home-Bildschirm) und ggf. Android: Woche mit Netz öffnen, Flugmodus, Einheit und Check-in öffnen, Rückmeldung und Check-in speichern („Offline gespeichert“), Flugmodus aus, App öffnen → Eingaben übernommen; einmal Konflikt (Eintrag am Rechner ändern) und „Trotzdem übernehmen“
+    wie: manuell durch Athlet (auf training.gen-em.org, Service Worker braucht https)
   - was: Verlauf mit echten Daten nach einigen Wochen Nutzung
     wie: manuell durch Athlet
 ```

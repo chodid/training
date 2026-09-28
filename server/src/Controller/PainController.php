@@ -75,13 +75,17 @@ final class PainController extends AppController
         if ($count >= 3 || $pain['intensity_0_10'] > 5 || $pain['timing'] === 'ruhe') {
             $title = $count >= 2 ? self::ordinal($count) . ' Meldung an dieser Stelle in 14 Tagen.' : 'Schmerzereignis gespeichert.';
 
+            if (self::queued($request)) {
+                return self::saved($request, '');
+            }
+
             return $this->form($date, $sessions, ['session_id' => null, 'pain_fields' => [], 'notes' => ''], [], null, 200, [
                 'type' => 'warning', 'icon' => 'alert-triangle', 'title' => $title,
                 'text' => 'Claude wird das bei der nächsten Wochenplanung berücksichtigen. Bei Stärke über 5 oder Schmerz in Ruhe bitte ärztlich abklären.',
             ]);
         }
 
-        return Response::redirect('/woche?start=' . Dates::monday($date) . '&ok=schmerz');
+        return self::saved($request, '/woche?start=' . Dates::monday($date) . '&ok=schmerz');
     }
 
     private static function ordinal(int $n): string
@@ -102,6 +106,7 @@ final class PainController extends AppController
             'backLabel' => 'Zurück zum Check-in',
             'alert' => $message === null ? $notice : ['type' => 'error', 'icon' => 'alert-circle', 'title' => 'Nicht gespeichert.', 'text' => $message],
             'saved' => $notice !== null,
+            'offlineLabel' => 'Schmerz ' . Dates::short($date),
             'date' => $date,
             'today' => $this->today(),
             'sessions' => array_reverse($sessions),

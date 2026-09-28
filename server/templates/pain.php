@@ -10,7 +10,7 @@
 use Training\Dates;
 ?>
   <div class="page-head">
-    <div class="eyebrow"><?= $this->e(Dates::long($date, true)) ?><?= $date === $today ? ' · heute' : '' ?></div>
+    <div class="eyebrow" data-date-label><?= $this->e(Dates::long($date, true)) ?><?= $date === $today ? ' · heute' : '' ?></div>
     <h1>Schmerzereignis erfassen</h1>
     <p class="muted small">Ort, Seite, Stärke und Zeitpunkt reichen. Die Schmerzregeln des Trainers greifen auf diese Angaben zu.</p>
   </div>
@@ -20,9 +20,10 @@ use Training\Dates;
   <div class="btn-row mt-4"><a class="btn btn-primary" href="/woche?start=<?= Dates::monday($date) ?>">Zur Woche</a><a class="btn btn-secondary" href="/schmerz?datum=<?= $this->e($date) ?>">Weiteres Ereignis</a></div>
 <?php else: ?>
 
-  <form class="stack-lg mt-4" method="post" action="/schmerz">
+  <form class="stack-lg mt-4" method="post" action="/schmerz" data-offline-form>
     <input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>">
     <input type="hidden" name="datum" value="<?= $this->e($date) ?>">
+    <input type="hidden" name="offline_label" value="<?= $this->e($offlineLabel) ?>">
     <section class="card stack-lg">
 <?php $pain = $data['pain_fields']; include __DIR__ . '/_pain_fields.php'; ?>
 

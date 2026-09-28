@@ -51,6 +51,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | POST | `/passkey/register/options`, `/passkey/register` | Passkey anlegen (angemeldet, Header `X-CSRF-Token`; D-44) |
 | POST | `/passkey/login/options`, `/passkey/login` | Anmelden mit Passkey; Relying-Party-ID ist der Host aus `APP_URL` |
 | GET/POST | `/profil` | Athletenprofil (D-48): Abschnitte lesen und bearbeiten (`?abschnitt=…`), frühere Fassungen (`&verlauf=1`) |
+| GET | `/offline/token` | Frisches CSRF-Token für offline gepufferte Eingaben (nur für den Service Worker, D-45) |
 | GET | `/verlauf` | S6 Verlauf: Wochenlast je Bereich und Schmerz je Ort über 8 Wochen, Tabelle |
 | GET | `/manifest.webmanifest` | Web-App-Manifest („Zum Startbildschirm“) |
 | GET | `/health` | Zustand als JSON: PHP-Erweiterungen, Konfiguration, `var/` beschreibbar, Datenbank, Schemastand. `200` = in Ordnung, `503` = Handlungsbedarf. Enthält keine Secrets. |
@@ -131,6 +132,7 @@ Optional unter Einstellungen → Konto → „Passkey hinzufügen“ einen Passk
 - **Cronjobs bei Lima-City:** `CRON_SECRET` (mindestens 32 Zeichen) in die `.env`, dann zwei zeitgesteuerte URL-Aufrufe anlegen:
   - täglich `https://training.gen-em.org/cron/backup-mail?key=<CRON_SECRET>` – Backup per E-Mail (zusätzlich `BACKUP_MAIL_TO` und `SMTP_*` des Mailkontos). Stand unter Einstellungen → Backup; Fehler erscheinen auch in der Wochenansicht.
   - stündlich `https://training.gen-em.org/cron/intervals-sync?key=<CRON_SECRET>` – Spiegel Intervals.icu → MySQL (D-43). Einmalig `…&tage=365` im Browser aufrufen, um die Vorgeschichte zu übernehmen. Stand unter Einstellungen → Verbindungen.
+- **Offline nutzen (D-45, D-49):** Die Seite auf dem Smartphone „Zum Home-Bildschirm“ hinzufügen und die Woche einmal mit Netz öffnen – dann sind aktuelle und nächste Woche mit allen Einheiten sowie Check-in und Schmerz für heute auch im Funkloch verfügbar. Eingaben ohne Netz werden auf dem Gerät gepuffert („Offline gespeichert“) und automatisch gesendet, sobald Netz da ist; auf dem iPhone beim nächsten Öffnen der App. Wurde ein Eintrag inzwischen anders geändert, erscheint ein Hinweis mit „Öffnen“, „Trotzdem übernehmen“ und „Verwerfen“. Abmelden löscht die gespeicherten Seiten, nicht aber ungesendete Eingaben.
 - **Notbremse:** `OAUTH_JWT_SECRET` wechseln macht alle Access-Tokens sofort ungültig; Refresh-Tokens lassen sich in der Tabelle `oauth_token` (`revoked = 1`) sperren.
 
 ## Entwicklung

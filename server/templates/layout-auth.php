@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/assets/ds/styles.css">
 <link rel="stylesheet" href="/assets/app.css">
 <link rel="stylesheet" href="/css/training.css">
+<script src="/js/offline.js?v=<?= $this->e(\Training\App::VERSION) ?>" data-version="<?= $this->e(\Training\App::VERSION) ?>" data-auth defer></script>
 </head>
 <body class="auth">
 <?= $content ?>

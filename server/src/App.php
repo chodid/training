@@ -21,7 +21,7 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.12.0';
+    public const VERSION = '0.13.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
     public const SCHEMA_VERSION = 18;
@@ -81,6 +81,7 @@ final class App
             '/schmerz' => ['GET' => fn (): Response => (new \Training\Controller\PainController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\PainController($this))->handle($request)],
             '/einstellungen' => ['GET' => fn (): Response => (new \Training\Controller\SettingsController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\SettingsController($this))->handle($request)],
             '/profil' => ['GET' => fn (): Response => (new \Training\Controller\ProfileController($this))->handle($request), 'POST' => fn (): Response => (new \Training\Controller\ProfileController($this))->handle($request)],
+            '/offline/token' => ['GET' => fn (): Response => (new \Training\Controller\OfflineController($this))->token($request)],
             '/passkey/register/options' => ['POST' => fn (): Response => (new \Training\Controller\PasskeyController($this))->registerOptions($request)],
             '/passkey/register' => ['POST' => fn (): Response => (new \Training\Controller\PasskeyController($this))->register($request)],
             '/passkey/login/options' => ['POST' => fn (): Response => (new \Training\Controller\PasskeyController($this))->loginOptions()],

@@ -87,9 +87,28 @@ final class WeekController extends AppController
             'openFeedback' => $openFeedback,
             'prev' => $prev,
             'next' => $next,
+            'prefetch' => $monday === Dates::monday($today) ? $this->prefetch($monday, $next, $today, $sessions) : [],
             'intervalsError' => $lookup->error,
             'mailError' => $this->app->mailBackup()->state()['error'] ?? null,
         ]);
+    }
+
+    /**
+     * Seiten, die der Service Worker für die Offline-Nutzung vorlädt (D-45): aktuelle und nächste Woche mit ihren
+     * Einheiten, Check-in und Schmerz für heute. Nur in der Ansicht der aktuellen Woche.
+     * @param list<array<string, mixed>> $sessions
+     * @return list<string>
+     */
+    private function prefetch(string $monday, string $next, string $today, array $sessions): array
+    {
+        $urls = ['/woche', '/woche?start=' . $monday, '/woche?start=' . $next, '/checkin', '/checkin?datum=' . $today, '/schmerz', '/schmerz?datum=' . $today];
+        foreach ([...$sessions, ...$this->weeks()->sessions($next, Dates::addDays($next, 6))] as $s) {
+            if ($s['type'] !== 'ruhe') {
+                $urls[] = '/einheit?id=' . (int) $s['id'];
+            }
+        }
+
+        return $urls;
     }
 
     /** Aktivitäten aus dem Spiegel (D-43); ohne Intervals-Konfiguration nur der vorhandene Spiegel. */
