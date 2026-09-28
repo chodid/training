@@ -238,6 +238,9 @@ T5:
     MCP-Tool get_morning_checks (days 7–90, Standard 14) im Format 6.1 plus „regeln“ und „hinweis“; in „tage“ sind leere
     Angaben weggelassen (Antwortbudget 8.3). get_week_overview: checkin.morgentest mit tage (Steuerwert, Ampel),
     tage_gruen, abdeckung_pct. get_pain_history unverändert (E-10). Briefing: E-12.
+abnahme:
+  - 2026-09-28: Erfassung auf dem Smartphone und Ampel auf der Startseite durch Philipp bestätigt
+  - offen: get_morning_checks über den Claude-Connector (T5), Offline-Erfassung
 T6:
   status: erledigt
   ergebnis: CHANGELOG 0.16.0, README, Konzept (D-53, AP-12, 7, 7.2, 8.2, 10), Datenmodell, Branding, Prüfprotokoll

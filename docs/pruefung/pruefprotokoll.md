@@ -521,9 +521,13 @@ geprueft:
     wie: 18 volle Läufe lokal (MariaDB)
     ergebnis: 17 grün; 1 Lauf mit einem einzelnen Fehler, nicht reproduzierbar und mangels Protokoll nicht zuzuordnen – beobachten (CI)
     datum: 2026-09-28
-noch_zu_pruefen:
-  - was: Morgens auf dem Smartphone erfassen (auch offline), Ampel ansehen; nachträgliche Änderung am selben Tag
+  - was: Morgen-Check-in auf dem Smartphone erfasst, Ampel auf der Startseite angezeigt
     wie: manuell durch Athlet (nach Deployment 0.16.0)
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: Offline erfassen und nachträgliche Änderung am selben Tag auf dem Smartphone
+    wie: manuell durch Athlet
   - was: get_morning_checks über den Claude-Connector (Format 6.1, Tool-Beschreibung mit Skalen und Ampelregeln); Connector ggf. neu verbinden, damit das Tool erscheint
     wie: manuell durch Athlet im Trainer-Chat
 ```
