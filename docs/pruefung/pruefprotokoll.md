@@ -140,17 +140,27 @@ geprueft:
     wie: manuell (curl)
     ergebnis: ok
     datum: 2026-09-27
+  - was: CI-Job test (PHPUnit gegen MySQL 8.4) auf allen Ständen von PR #7 bis 0.13.0
+    wie: automatisiert (GitHub Actions)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Deployment (Merge PR #7, 0.13.0): Upload per FTPS, Migration, Health-Check – /health status ok, schema code 18 = db 18, var und backups ok, PHP 8.4.25
+    wie: GitHub Actions Lauf 36386578804 + /health durch Athlet
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: /setup legt den Benutzer an
+    wie: manuell durch Athlet im Browser
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Connector in claude.ai verbunden und freigegeben (S7), Tool-Aufruf funktioniert (V-05, Web)
+    wie: manuell durch Athlet
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
-  - was: CI-Job test (PHPUnit inkl. neuer Integrationstests gegen MySQL 8.4)
-    wie: automatisiert (GitHub Actions im Pull Request)
-  - was: Deployment von 0.2.0 – vorher OAUTH_JWT_SECRET in die .env auf dem Server eintragen; danach /health status ok, schema code 6 = db 6, var ok; .env und var/ überleben ein zweites Deployment
-    wie: Merge auf main, /health im Browser, zweites Deployment (z. B. "Run workflow") und erneut /health
-  - was: /setup legt den Benutzer an und ist danach gesperrt (404)
-    wie: manuell durch Athlet im Browser (Smartphone), danach /setup erneut aufrufen
+  - was: .env und var/ überleben ein zweites Deployment; /setup nach Anlage gesperrt (404)
+    wie: nächstes Deployment abwarten, /health; /setup im Browser aufrufen
   - was: Login auf Smartphone und Tablet nutzbar; Session überlebt Neustart des Browsers
     wie: manuell durch Athlet (anmelden, Browser/App schließen, erneut öffnen)
-  - was: ping aus dem Projekt-Chat (Web) nach Freigabe auf S7 (V-05)
-    wie: manuell durch Athlet – claude.ai → Connector https://training.gen-em.org/mcp hinzufügen, verbinden, anmelden, freigeben; im Chat "ping aufrufen"
   - was: ping aus der Mobile-App (V-05)
     wie: manuell durch Athlet – Claude-App, Connector aktiv, "ping aufrufen"
   - was: Token-Refresh nach Ablauf mit claude.ai (V-05)
@@ -178,15 +188,23 @@ geprueft:
     wie: curl / Web-Abruf
     ergebnis: fehler – intervals.icu durch Netzwerkrichtlinie gesperrt; Endpunkte aus Sekundärquelle (V-04 vorläufig)
     datum: 2026-09-27
-noch_zu_pruefen:
-  - was: Intervals.icu-Konto – Garmin-Verknüpfung (Aktivitäten, Wellness, geplante Workouts hochladen) aktiv, Aktivitäten privat (Q-03)
-    wie: manuell durch Athlet in Intervals.icu (Einstellungen)
   - was: INTERVALS_API_KEY und INTERVALS_ATHLETE_ID in der .env; /health zeigt intervals konfiguriert
-    wie: manuell durch Athlet (FTP, Browser)
-  - was: Aktivitäten und Wellness der letzten 7 Tage abrufbar (Abnahmekriterium, bestätigt V-04)
-    wie: manuell – /intervals öffnen, Werte mit Intervals.icu vergleichen (HRV, Ruhepuls, Schlaf, Aktivitäten)
-  - was: Test-Event erscheint auf der Uhr mit korrekten Zielen (V-01, V-12)
-    wie: manuell – /intervals → „Test-Event anlegen“, Garmin Connect synchronisieren, auf der Uhr Training für morgen öffnen: 10 min Z1, 3 × (3 min Z3, 2 min Z1), 5 min Z1 als HF-Ziele; Zonengrenzen auf der Uhr mit Intervals.icu vergleichen
+    wie: manuell durch Athlet, Deploy-Log
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Aktivitäten und Wellness der letzten 7 Tage über /intervals abrufbar (V-04 GET)
+    wie: manuell durch Athlet auf dem Server
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Test-Event über /intervals angelegt; in Intervals.icu als strukturiertes Workout übernommen: 10 min Z1, 3 × (3 min Z3, 2 min Z1), 5 min Z1, HF-Bereiche Z1 103–129 und Z3 138–145 bpm, 30 min, Load 21 (V-04 POST, V-01 Syntax in Intervals.icu)
+    wie: manuell durch Athlet, Screenshot aus Intervals.icu
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: Intervals.icu-Konto – Aktivitäten privat (Q-03)
+    wie: manuell durch Athlet in Intervals.icu (Einstellungen)
+  - was: Test-Event erscheint auf der Uhr mit korrekten Zielen (V-01, V-12) – in Intervals.icu bestätigt, Uhr offen
+    wie: manuell – Garmin Connect synchronisieren, auf der Uhr Trainingskalender für den 29.09. öffnen: 10 min Z1, 3 × (3 min Z3, 2 min Z1), 5 min Z1 als HF-Ziele; Zonengrenzen auf der Uhr mit Intervals.icu vergleichen
   - was: Ändern und Löschen werden auf der Uhr nachgezogen (V-02)
     wie: manuell – „Test-Event ändern“ (Name mit „(geändert)“), synchronisieren, prüfen; „Test-Event löschen“, synchronisieren, prüfen; Zeitverzug notieren
   - was: V-03 Feldsemantik icu_rpe (Skala) und feel (Richtung 1–5)
@@ -228,9 +246,11 @@ geprueft:
     wie: automatisiert (CI-Job test, PR #7, Lauf 16)
     ergebnis: ok
     datum: 2026-09-28
-noch_zu_pruefen:
-  - was: Migration auf dem Server 1 → 14, /health schema code 14 = db 14
-    wie: Deployment nach Merge, /health im Browser
+  - was: Migration auf dem Server bis Schema 18, /health schema code 18 = db 18
+    wie: Deployment nach Merge PR #7, /health
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen: []
 ```
 
 ## AP-04 Webseite
@@ -334,19 +354,31 @@ geprueft:
     wie: Chromium/Playwright mit echtem Netzfehler (lokaler Server gestoppt; Playwrights Offline-Schalter erfasst den Service Worker nicht)
     ergebnis: ok
     datum: 2026-09-28
+  - was: Cronjob /cron/intervals-sync bei Lima-City eingerichtet, Aufruf liefert status ok
+    wie: manuell durch Athlet
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Passkey auf echtem Gerät angelegt und damit angemeldet
+    wie: manuell durch Athlet auf training.gen-em.org
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Offline auf echtem Gerät (Flugmodus): Seiten lesbar, Eingabe gepuffert und nach Netzrückkehr übernommen
+    wie: manuell durch Athlet auf training.gen-em.org
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: JSON-Export herunterladen und in einem Editor/Programm öffnen
     wie: manuell durch Athlet
-  - was: Cronjob stündlich /cron/intervals-sync bei Lima-City; einmalig tage=365; Einstellungen zeigen Anzahl und letzten Abgleich
+  - was: Einstellungen zeigen Anzahl und letzten Abgleich des Spiegels; einmalig tage=365 für die Vorgeschichte
     wie: manuell durch Athlet
   - was: Rückschreiben mit echtem Konto (V-03/V-04) – nach Rückmeldung zu einer Einheit mit Aktivität in Intervals.icu RPE, Gefühl (Richtung!) und Kommentar prüfen
     wie: manuell durch Athlet
-  - was: Passkey auf echten Geräten – in den Einstellungen je Gerät anlegen (iPhone/iPad, Android bzw. Passwort-Manager), abmelden, „Mit Passkey anmelden“; Passkey entfernen; Passwort-Login funktioniert weiter
-    wie: manuell durch Athlet (auf training.gen-em.org, Passkeys sind an den Host gebunden)
+  - was: Passkey entfernen; weitere Geräte; Passwort-Login funktioniert weiter
+    wie: manuell durch Athlet
   - was: Athletenprofil – in AP-08 von Claude über update_athlete_profile befüllen lassen; auf /profil lesen, einen Abschnitt korrigieren, frühere Fassung ansehen; in Claude get_athlete_profile mit as_of prüfen
     wie: manuell durch Athlet (nach Migration auf Schema 18; Connector ggf. neu verbinden, damit das neue Tool erscheint)
-  - was: Offline auf echten Geräten – iPhone (Safari, vom Home-Bildschirm) und ggf. Android: Woche mit Netz öffnen, Flugmodus, Einheit und Check-in öffnen, Rückmeldung und Check-in speichern („Offline gespeichert“), Flugmodus aus, App öffnen → Eingaben übernommen; einmal Konflikt (Eintrag am Rechner ändern) und „Trotzdem übernehmen“
-    wie: manuell durch Athlet (auf training.gen-em.org, Service Worker braucht https)
+  - was: Offline-Konflikt auf echtem Gerät (Eintrag am Rechner ändern) und „Trotzdem übernehmen“
+    wie: manuell durch Athlet
   - was: Verlauf mit echten Daten nach einigen Wochen Nutzung
     wie: manuell durch Athlet
 ```
@@ -388,13 +420,25 @@ geprueft:
     wie: automatisiert (simulierter Mailer)
     ergebnis: ok
     datum: 2026-09-28
+  - was: BACKUP_PASSWORD in der .env; /health backups ok
+    wie: Deploy-Log
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Backup per E-Mail: Test-Mail mit Anhang kam an (21 KB), Cronjob täglich eingerichtet
+    wie: manuell durch Athlet (/cron/backup-mail?…&force=1)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Backup aus der Mail (Schema 18, Anlass mail) außerhalb des Servers mit openssl entschlüsselt: kein bad decrypt, gzip-Prüfsumme ok, SQL-Dump mit allen 18 Tabellen, Sessions/Tokens nur als Struktur
+    wie: openssl enc -d (README) in der Code-Umgebung mit vom Athleten übermitteltem Passwort; entschlüsselte Kopie danach gelöscht
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
-  - was: BACKUP_PASSWORD in der .env (vor dem Deployment); Pre-Migration-Dump beim ersten Deployment in backups/
-    wie: manuell (FTP, /health backups ok, Datei in backups/)
-  - was: Heruntergeladene Datei auf einem anderen Rechner nur mit dem Passwort entschlüsselbar, Dump in leere DB einspielbar (Abnahmekriterium)
-    wie: manuell durch Athlet – Einstellungen → Herunterladen, openssl enc -d … (README), gunzip, Import in eine leere Test-DB bei Lima-City
-  - was: E-Mail mit Anhang kommt an (V-10 Anhang-Limit)
-    wie: manuell – SMTP_* und BACKUP_* in .env, Aufruf /cron/backup-mail?key=…&force=1, Postfach prüfen; Cronjob bei Lima-City täglich einrichten
+  - was: Pre-Migration-Dump in backups/ vorhanden
+    wie: manuell (FTP)
+  - was: Dump in eine leere Test-DB einspielbar (Abnahmekriterium Restore)
+    wie: manuell durch Athlet – gunzip, Import in eine leere Test-DB bei Lima-City
+  - was: Neues BACKUP_PASSWORD (das alte wurde im Chat übermittelt) – eintragen, sicher ablegen, ein neues Backup selbst entschlüsseln; altes Passwort für ältere Backups aufbewahren
+    wie: manuell durch Athlet
 ```
 
 ## AP-05 MCP-Tools produktiv
