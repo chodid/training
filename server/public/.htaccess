@@ -3,7 +3,7 @@ AddType image/x-icon .ico
 
 # App-Icons und Favicon (AP-13, E-09): ein neues Motiv bekommt neue Dateinamen, daher 7 Tage im Browser-Cache
 <IfModule mod_headers.c>
-    <FilesMatch "^(favicon\.ico|favicon\.svg|lama-[0-9a-z-]+\.png|apple-touch-icon-[0-9]+\.png)$">
+    <FilesMatch "^(favicon\.ico|favicon-[0-9a-z-]+\.(png|svg)|lama-[0-9a-z-]+\.png|apple-touch-icon-[0-9]+\.png)$">
         Header set Cache-Control "public, max-age=604800"
     </FilesMatch>
 </IfModule>

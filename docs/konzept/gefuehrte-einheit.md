@@ -1,7 +1,7 @@
 # Auftrag: App-Icon, Begründungstexte der Planung und geführte Trainingseinheit
 
 Ablageort im Repo: `docs/konzept/gefuehrte-einheit.md` (im Hauptkonzept: AP-13 und AP-14, D-55 bis D-59, Q-14; Nachtrag T8: AP-11, D-60; Nachtrag T9: AP-14)
-Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21, Nachtrag T8 mit E-22, Nachtrag T9 mit E-23); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); T1–T9 umgesetzt (Code-Stand 0.17.0 bis 0.20.0; Nachtrag zu T1: Icon-Pfad 0.20.1), Abnahme durch den Athleten offen (Stand in Abschnitt 12)
+Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21, Nachtrag T8 mit E-22, Nachtrag T9 mit E-23, Nachtrag zu T1 mit E-24); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); T1–T9 umgesetzt (Code-Stand 0.17.0 bis 0.20.0; Nachtrag zu T1: Icon-Pfad 0.20.1, Favicon gerundet 0.20.2), Abnahme durch den Athleten offen (Stand in Abschnitt 12)
 Versionsnummer: keine im Konzept; wird in der Umsetzung festgelegt
 
 ---
@@ -63,6 +63,7 @@ Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 waren Vor
 | E-21 | **Logo-Wahl (Q-14 → D-59):** V3 (Lama Fläche hell `#F4EFF2` auf Pflaume 600 `#7A5C94`, Auge Orange) für App-Icon Android/iOS und `maskable`; V2 (Lama Fläche Pflaume 600 auf Papier) für Favicon 16/32 px, SVG-Favicon und App-Kennung in Topbar, Navigation und Login-Karte. Vorlagen: `docs/branding/mockups/icon-optionen/v3.svg`, `v3-maskable.svg`, `v2.svg`. | Entscheidung des Athleten am 2026-09-28, wie von Fable empfohlen. |
 | E-22 | **Ein Sammeltermin je Tag (Nachtrag T8 → D-60):** Je Trainingstag ein ganztägiger Termin statt eines Termins je Einheit (Ruhetage weiter ohne Termin). Titel aus den Einheitentiteln: eine Einheit „Typ: Titel“ wie bisher, mehrere „Training: Titel 1 + Titel 2“ in Planreihenfolge. **Kein Status-Zeichen im Titel**, der Termin wird nie abgesagt; der Status steht je Einheit in der Beschreibung. Beschreibung: alle Einheiten mit Kurzsatz, Kurzplan, Begründung und Link; Erinnerung einmal je Tag, solange eine Einheit geplant oder verschoben ist. Umfang: Unterpunkt T8 in diesem Auftrag, eigener Code-Stand, derselbe Pull Request wie T1–T7. | Wunsch des Athleten („pro Tag nur ein Sammeltermin“); Titel, Status-Darstellung und Umfang am 2026-09-28 per Rückfrage gewählt (Titel und Umfang wie empfohlen; beim Status „kein Zeichen im Titel“ statt der Empfehlung „✓, sobald der Tag abgeschlossen ist; abgesagt, wenn alle ausgelassen“). |
 | E-23 | **Offene Punkte aus der Umsetzung (Nachtrag T9):** O-06 – der 30-s-Ton kommt erst bei Phasen über 45 s (wie Testfall Z-01 und die Umsetzung; E-17 und 6.4 angeglichen). O-07 – Kletterblöcke ohne Haltezeit und ohne Dauer mit mindestens zwei Sätzen werden wie Kraftübungen satzweise geführt: „Satz erledigt“ je Satz, danach Pausentimer, wenn `rest_s` geplant ist (auch ohne Pause satzweise); ein Satz ohne Zeiten bleibt „offen“. O-05 – keine Screenshots im Manifest. Zusätzlich: Die fixierten Speichern-Leisten (S3, Check-in, Schmerz …) sitzen auf dem Smartphone über der unteren Navigation wie in S9. | Entscheidung des Athleten am 2026-09-28 nach der Rückfrage zu den offenen Punkten, jeweils wie empfohlen; für die Leisten „alle Seiten“ statt nur S3, weil dieselbe Regel die Ursache war. |
+| E-24 | **Favicon gerundet (Nachtrag zu T1 → D-62):** Im Browser-Tab V3 mit um 22 % gerundeten, transparenten Ecken (SVG, PNG 32/48/96, ICO 16/32/48; Vorlage `icon-optionen/v3-favicon.svg`), ändert E-21/D-59 für das Favicon. Startbildschirm-Icons (192/512, maskable, Apple 180) bleiben eckig. Rückfrage mit gerenderter Vorschau; gewählt: Rundung „mittel“, Variante V3, nur Browser-Favicons. | Wunsch des Athleten; Papiergrund von V2 verschwindet im hellen Tab; Launcher schneiden selbst zu, iOS färbt Transparenz schwarz. |
 
 ## 4. Teil A · App-Icon und Logo
 
@@ -88,6 +89,7 @@ Prüfschritte (Athlet, vor und nach der Umsetzung, je Browser):
 | P-A5 | iOS Safari (falls vorhanden): „Zum Home-Bildschirm“ | Lama-Icon 180 px, kein Screenshot-Icon |
 | P-A6 | `curl -I https://training.gen-em.org/manifest.webmanifest` und `/favicon.ico` | 200, `Content-Type: application/manifest+json` bzw. `image/x-icon` (Apache setzt beide) |
 | P-A7 | IronFox Android (ab 0.20.1): `https://training.gen-em.org/app-icons/lama-192.png` im Browser öffnen, dann alte Verknüpfung entfernen und von `/woche` neu verknüpfen | Lama-Bild; Verknüpfung mit Lama-Icon statt „T“ |
+| P-A8 | Gerätetest (ab 0.20.2): Browser-Tab in Firefox Desktop und Chrome | Lama hell auf Pflaume mit runden Ecken; ggf. Cache leeren (`favicon.ico` bis 7 Tage) |
 
 ### 4.2 Maßnahmen (unabhängig von der Logo-Wahl)
 
@@ -276,7 +278,7 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nacht
 - Variante: V3 App-Icon, V2 Favicon und Kennung (E-21).
 - Icon-Satz nach E-09 erzeugen (Skript einchecken), `build-assets.php` auf das gewählte SVG umstellen, beide Layouts ergänzen, Manifest erweitern, `favicon.ico`, `.htaccess`, Service Worker.
 - Tests: Manifest gültiges JSON mit allen Icon-Dateien vorhanden und Größen stimmig (PHPUnit liest PNG-Header); Layout-Tests auf die Link-Einträge; `HEAD /favicon.ico` 200 über den Dev-Router.
-- **Abnahme:** P-A1 bis P-A7 (4.1) durch den Athleten; Screenshots im Prüfprotokoll.
+- **Abnahme:** P-A1 bis P-A8 (4.1) durch den Athleten; Screenshots im Prüfprotokoll.
 
 ### T2 · Begründungstexte (Teil B)
 - Migration `coach_summary`; Repositories; `PlanValidator`/Schreibtools mit Längen- und Pflichtprüfung (E-10); Lese-Tools; Tool-Beschreibungen; Kalenderbeschreibung; S2/S3 mit `<details class="more">`.
@@ -365,8 +367,9 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nacht
 | I-01 | Manifest-Test | JSON gültig, jede `src` existiert, `sizes` = PNG-Kopf |
 | I-02 | Layout-Tests | beide Layouts enthalten Manifest, PNG-Icons mit `sizes`, `apple-touch-icon`, `theme-color` |
 | I-03 | Dev-Router | `HEAD /favicon.ico` 200, `Content-Type image/x-icon` |
-| I-04 | Gerätetests P-A1 bis P-A7 | Lama-Icon in Chrome, LibreWolf (von `/login` und `/woche`), IronFox, iOS |
+| I-04 | Gerätetests P-A1 bis P-A8 | Lama-Icon in Chrome, LibreWolf (von `/login` und `/woche`), IronFox, iOS |
 | I-05 | Test: kein Pfad unter serverweiten Apache-Aliasen (`/icons/`, `/error/`, `/manual/`, `/cgi-bin/`), seit 0.20.1 | Document Root und Icon-Verweise frei davon |
+| I-06 | Test: Tab-Favicons (PNG 32/48/96, ICO) mit Alpha-Kanal, SVG mit gerundetem Grund; 192/512, maskable, Apple 180 ohne Alpha (E-24), seit 0.20.2 | gerundet im Tab, eckig auf dem Startbildschirm |
 
 ### 8.4 Kalender (T8)
 
@@ -410,7 +413,7 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nacht
 
 ```yaml
 T1:
-  status: umgesetzt          # Code-Stand 0.17.0, Icon-Pfad korrigiert in 0.20.1; Abnahme P-A1 (erneut mit V3) bis P-A7 durch den Athleten offen
+  status: umgesetzt          # Code-Stand 0.17.0, Icon-Pfad korrigiert in 0.20.1, Favicon gerundet in 0.20.2 (E-24); Abnahme P-A1 (erneut mit V3) bis P-A8 durch den Athleten offen
   datum: 2026-09-28
   ergebnis: >
     Icon-Satz nach E-09/E-21: V3 als lama-48/96/192/512.png (any), lama-512-maskable.png, apple-touch-icon-180.png;
@@ -422,8 +425,8 @@ T1:
     image/x-icon, Cache-Control 7 Tage für Icons/Favicon. Service Worker: /favicon.ico wie das Manifest aus dem
     Versions-Cache, PRECACHE lama.svg. Dev-Router liefert .ico/.webmanifest mit Apache-Typen. Mockups (Kennung,
     Favicon) angepasst; alle 38 Screenshots neu gerendert, 27 davon geändert (docs/branding/mockups/screenshots.cjs).
-  tests: AppIconTest (I-01 Manifest und PNG-Köpfe, Kopfteil-Links, favicon.ico, I-03 HEAD /favicon.ico über den Dev-Router, I-05 kein Pfad unter Apache-Aliasen), AppIconPagesTest (I-02 beide Layouts)
-  abnahme_offen: P-A1 erneut mit V3, P-A2 bis P-A7 (Abschnitt 4.1), Screenshots ins Prüfprotokoll
+  tests: AppIconTest (I-01 Manifest und PNG-Köpfe, Kopfteil-Links, favicon.ico, I-03 HEAD /favicon.ico über den Dev-Router, I-05 kein Pfad unter Apache-Aliasen, I-06 Tab-Favicons gerundet mit Alpha, Startbildschirm-Icons eckig ohne Alpha), AppIconPagesTest (I-02 beide Layouts)
+  abnahme_offen: P-A1 erneut mit V3, P-A2 bis P-A8 (Abschnitt 4.1), Screenshots ins Prüfprotokoll
   probleme_loesungen:
     - was: SVG lässt sich auf dem Server (PHP ohne Imagick) nicht rendern; ein PHP-Skript build-icons.php ist damit nicht möglich
       loesung: Node-Skript mit Playwright/Chromium in docs/branding/ (im Auftrag als Alternative genannt); ICO wird im Skript aus PNG-Einträgen zusammengesetzt
@@ -443,6 +446,8 @@ T1:
       loesung: je AP (CLAUDE.md „nach jedem AP“): AP-13 (T1, T2) = 0.17.0, AP-14 (T3–T7) = 0.18.0; Changelog, README, Konzept und Prüfprotokoll werden nach jedem Unterpunkt nachgezogen
     - was: Nach dem Deployment zeigte IronFox beim „Zum Startbildschirm“ weiter ein „T“ (Athlet, 2026-09-28). /icons/lama-192.png lieferte die Apache-Seite „Not Found“, /icons/folder.gif das Apache-Ordnersymbol – der Hoster hat den serverweiten Alias /icons/ (autoindex.conf) aktiv, der vor Document Root und .htaccess greift. Kein Icon unter /icons/ wurde je ausgeliefert
       loesung: Ordner umbenannt in public/app-icons/ (Dateinamen gleich), Manifest, _head_icons.php, Service Worker und build-icons.cjs angepasst (0.20.1); neuer Test I-05 verhindert Pfade unter /icons/, /error/, /manual/, /cgi-bin/; Prüfschritt P-A7 (IronFox) ergänzt. Rückfrage beim Athleten vor der Umsetzung (Diagnose zuerst, Ordnername app-icons bestätigt)
+    - was: Nach 0.20.1 zeigte der Browser-Tab (Firefox Desktop) ein eckiges V3, nicht das V2-Favicon aus E-21 – Firefox wählt die PNG-Links (V3) statt SVG/ICO; der Athlet wünscht abgerundete Ecken
+      loesung: E-24 (D-62): Vorlage v3-favicon.svg (rx 180 von 820), build-icons.cjs rendert sie mit transparentem Hintergrund zu favicon-rund.svg/-32/-48/-96.png und favicon.ico; Kopfteil verweist für bis 96 px auf die gerundeten Dateien, 192/512 und Apple 180 bleiben eckig und ohne Alpha (Test); favicon.svg entfernt (neuer Name wegen 7-Tage-Cache); Mockups nutzen v3-favicon.svg (0.20.2)
 T2:
   status: umgesetzt          # Code-Stand 0.17.0; Abnahme (Plan aus dem Projekt-Chat, S2/S3, Kalender) durch den Athleten offen
   datum: 2026-09-28

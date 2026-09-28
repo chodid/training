@@ -55,7 +55,7 @@ final class AppIconTest extends TestCase
     public function testHeadIconsReferenceExistingFilesWithMatchingSizes(): void
     {
         $partial = (string) file_get_contents(dirname(__DIR__, 2) . '/templates/_head_icons.php');
-        self::assertSame(7, preg_match_all('/<link rel="([a-z-]+)" href="([^"]+)"(?: type="([^"]+)")?(?: sizes="(\d+)x(\d+)")?>/', $partial, $m, PREG_SET_ORDER));
+        self::assertSame(8, preg_match_all('/<link rel="([a-z-]+)" href="([^"]+)"(?: type="([^"]+)")?(?: sizes="(\d+)x(\d+)")?>/', $partial, $m, PREG_SET_ORDER));
         foreach ($m as $link) {
             $file = self::public() . $link[2];
             self::assertFileExists($file, $link[2]);
@@ -64,8 +64,25 @@ final class AppIconTest extends TestCase
             }
         }
         self::assertStringContainsString('<link rel="apple-touch-icon" href="/app-icons/apple-touch-icon-180.png" sizes="180x180">', $partial);
-        self::assertStringContainsString('<link rel="icon" href="/app-icons/favicon.svg" type="image/svg+xml">', $partial);
+        self::assertStringContainsString('<link rel="icon" href="/app-icons/favicon-rund.svg" type="image/svg+xml">', $partial);
         self::assertStringContainsString('<meta name="theme-color" content="#7A5C94">', $partial);
+    }
+
+    /** D-62: Browser-Favicons gerundet mit transparenten Ecken (RGBA); Startbildschirm-Icons eckig ohne Alpha (iOS färbt Transparenz schwarz). */
+    public function testTabFaviconsAreRoundedAndLauncherIconsStaySquare(): void
+    {
+        $colorType = static fn (string $file): int => ord(((string) file_get_contents(self::public() . $file))[25]);
+        foreach (['/app-icons/favicon-rund-32.png', '/app-icons/favicon-rund-48.png', '/app-icons/favicon-rund-96.png'] as $file) {
+            self::assertSame(6, $colorType($file), $file . ' mit Alpha-Kanal');
+        }
+        foreach (['/app-icons/lama-192.png', '/app-icons/lama-512.png', '/app-icons/lama-512-maskable.png', '/app-icons/apple-touch-icon-180.png'] as $file) {
+            self::assertSame(2, $colorType($file), $file . ' ohne Alpha-Kanal');
+        }
+        self::assertMatchesRegularExpression('/<rect width="820" height="820" rx="180" ry="180" fill="#7A5C94"\/>/', (string) file_get_contents(self::public() . '/app-icons/favicon-rund.svg'));
+
+        $ico = (string) file_get_contents(self::public() . '/favicon.ico');
+        $entry = unpack('Vbytes/Voffset', substr($ico, 6 + 8, 8));
+        self::assertSame(6, ord(substr($ico, $entry['offset'], $entry['bytes'])[25]), 'favicon.ico 16 px mit Alpha-Kanal');
     }
 
     /**
