@@ -186,7 +186,7 @@ final class SettingsController extends AppController
         return Response::redirect('/einstellungen?ok=kalender&n=' . $result['uebertragen'] . '&d=' . $result['geloescht']);
     }
 
-    /** Kalender-Erinnerung (D-51): Uhrzeit am Tag der Einheit oder aus; danach Termine im Zeitraum neu übertragen. */
+    /** Kalender-Erinnerung (D-52): Uhrzeit am Tag der Einheit oder aus; danach Termine im Zeitraum neu übertragen. */
     private function reminder(Request $request): Response
     {
         $settings = new SettingsRepository($this->app->pdo(), $this->app->clock());

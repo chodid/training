@@ -20,7 +20,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | `docs/konzept/` | Konzeptdokument; `datenmodell.md` mit ER-Diagramm | – , AP-03 |
 | `docs/pruefung/` | Prüfprotokoll (Konzept Abschnitt 16) | alle |
 | `docs/wissen/` | Wissenskarten (Sammeldateien, 13.1) | AP-06 |
-| `docs/literatur/` | Literatur-Volltexte als PDF, Open Access und gekauft (D-31); nie ins Projektwissen | AP-06 |
+| `docs/literatur/` | Literatur-Volltexte als PDF, Open Access und gekauft (D-31), je Block in Unterordnern, Bücher zusätzlich als Kapitel-PDFs (D-51); Verzeichnis `README.md`; nie ins Projektwissen | AP-06 |
 | `docs/regeln/` | Trainerregeln (Abschnitt 14) | AP-07 |
 | `docs/plaene/` | Blockpläne | AP-08 |
 | `docs/branding/` | Branding-Dokument `branding.md` (D-19), Gestaltungsvorgaben in `chadid-design-system/` (Einstieg `readme.md`, `SKILL.md`), Mockups in `mockups/` (Einstieg `index.html`) | AP-01a |

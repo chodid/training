@@ -23,7 +23,7 @@ final class CalendarSync
         private readonly string $appUrl,
         private readonly string $host,
         private readonly string $stateFile,
-        /** Erinnerung 'HH:MM' am Tag der Einheit, null = aus (D-51) */
+        /** Erinnerung 'HH:MM' am Tag der Einheit, null = aus (D-52) */
         private readonly ?string $reminder = null,
     ) {
     }

@@ -1,4 +1,4 @@
--- Einstellungen der App als Schlüssel/Wert (D-51), z. B. calendar_reminder = 'HH:MM' oder 'aus'.
+-- Einstellungen der App als Schlüssel/Wert (D-52), z. B. calendar_reminder = 'HH:MM' oder 'aus'.
 -- Fehlender Schlüssel = Standardwert im Code.
 CREATE TABLE app_setting (
     setting_key VARCHAR(64)  NOT NULL PRIMARY KEY,

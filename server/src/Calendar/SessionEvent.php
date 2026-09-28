@@ -11,7 +11,7 @@ use Training\View\Labels;
  * Termin (iCalendar, RFC 5545) für eine Einheit (AP-11, D-50): ganztägig am Datum der Einheit, Titel mit Typ und
  * Status-Markierung (✓ erledigt/teilweise, ausgelassen = abgesagt), Beschreibung mit Kurzplan und Link zur App.
  * Eine Einheit = eine Ressource mit fester UID, damit Änderungen denselben Termin ersetzen.
- * Erinnerung (D-51): am Tag der Einheit zur eingestellten Uhrzeit, nur für geplante und verschobene Einheiten.
+ * Erinnerung (D-52): am Tag der Einheit zur eingestellten Uhrzeit, nur für geplante und verschobene Einheiten.
  */
 final class SessionEvent
 {

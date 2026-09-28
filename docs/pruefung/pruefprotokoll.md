@@ -470,7 +470,7 @@ geprueft:
     wie: Rauchtest gegen Radicale 3.8 (lokal, http nur für den Test)
     ergebnis: ok
     datum: 2026-09-28
-  - was: Erinnerung (D-51) – Standard PT5H, Ändern auf 06:30 → sofort neu übertragen (PT6H30M), 00:00 → PT0S, Aus → kein VALARM, erledigt/ausgelassen ohne Erinnerung, ungültige Uhrzeit 422, Kalender nicht erreichbar → Einstellung gespeichert mit Hinweis; Seite 390 px ohne Überlauf; VALARM von Radicale angenommen
+  - was: Erinnerung (D-52) – Standard PT5H, Ändern auf 06:30 → sofort neu übertragen (PT6H30M), 00:00 → PT0S, Aus → kein VALARM, erledigt/ausgelassen ohne Erinnerung, ungültige Uhrzeit 422, Kalender nicht erreichbar → Einstellung gespeichert mit Hinweis; Seite 390 px ohne Überlauf; VALARM von Radicale angenommen
     wie: automatisiert (PHPUnit) + Browser + Radicale
     ergebnis: ok
     datum: 2026-09-28
@@ -570,4 +570,50 @@ probleme_loesungen:
   - datum: 2026-09-27
     was: Block T3 – abweichendes Evidenzschema (A/B/C) und strengere Regel für Praxisquellen (E4) gegenüber D-25/D-29
     loesung: Vereinheitlicht als D-31 (bestätigt); Feld `stufe` in 13.2 eingeführt
+  - datum: 2026-09-28
+    was: 29 PDFs unsortiert in docs/literatur/ mit Verlags- und Archivdateinamen (z. B. s40279-017-0823-y.pdf, „… Anna’s Archive.pdf“)
+    loesung: jede Datei am Inhalt (Titel, Autoren, DOI) identifiziert und einer ID aus 13.2 zugeordnet; alle DOIs stimmen mit 13.2 überein; nach D-51 umbenannt und in Blockordner sortiert; Felder `datei`/`kapitel` und Spalte „vorhanden“ in 13.4 ergänzt
+  - datum: 2026-09-28
+    was: Kenney/Wilmore/Costill liegt in der 7. Aufl. (2019) vor, ausgewählt ist die 8. (2022)
+    loesung: Athlet entscheidet – 7. Aufl. vorläufig, 8./9. Aufl. bleibt auf der Beschaffungsliste (D-51)
+  - datum: 2026-09-28
+    was: Bücher bis 1876 Seiten und 65 MB, für Chat-Sitzungen zu groß (13.1 Schritt 1)
+    loesung: Kapitel-PDFs nach Lesezeichen (NSCA, Kenney, Climbing Medicine, Concurrent Training) bzw. nach im Text gefundenen Kapitelanfängen (Scans Uphill Athlete, Overcoming Gravity); 179 Dateien mit 4–59 Seiten, Seitensummen je Buch geprüft
+  - datum: 2026-09-28
+    was: Kapitel-PDFs der E-Books zunächst bis dreimal so groß wie das Buch (Vorspann Kenney 45 MB bei 34 Seiten)
+    loesung: interne Sprungverweise (Inhaltsverzeichnis, Index) zogen die Zielseiten samt Ressourcen mit; Kapitel-PDFs ohne Link-Annotationen erzeugt → zusammen 258 MB, größte Datei 11 MB; Links bleiben im Original
+  - datum: 2026-09-28
+    was: Scans ohne Lesezeichen mit Unregelmäßigkeiten – Uphill Athlete – PDF-Seiten 88–89 wiederholen 86–87, Druckseiten 149–150 fehlen; Overcoming Gravity – fehlerhafte Texterkennung (z. B. „ANO“ statt „AND“), PDF-Seiten 577/578 vertauscht
+    loesung: Druckseiten je Abschnitt aus dem Versatz berechnet und in docs/literatur/README.md dokumentiert; bei Zitaten aus Overcoming Gravity Wortlaut gegen das Seitenbild prüfen
+  - datum: 2026-09-28
+    was: Die Kapitel-PDFs vergrößern das Repo um 258 MB (zusammen mit den Originalen rund 540 MB PDFs); der CI-Lauf checkt das ganze Repo aus
+    loesung: Deployment lädt nur server/ hoch (geprüft); beobachten, bei Bedarf Sparse-Checkout ohne docs/literatur im Workflow
+geprueft:
+  - was: Zuordnung der 29 PDFs zu IDs aus 13.2 – Titel, Autoren und DOI auf den ersten Seiten gegen 13.2 abgeglichen
+    wie: Textextraktion (pypdf) aller Dateien, Abgleich je Datei
+    ergebnis: ok; alle DOIs stimmen; Abweichung nur L-A01 (7. statt 8. Aufl.) → D-51
+    datum: 2026-09-28
+  - was: Kapitel-PDFs vollständig – Summe der Seiten je Buch = Seitenzahl des Originals (NSCA 1876, Kenney 1379, Overcoming Gravity 600, Concurrent 408, Uphill 380, Climbing Medicine 319)
+    wie: automatisiert beim Erzeugen
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Jede Kapiteldatei beginnt mit dem richtigen Kapitel (erster Teil je Kapitel, 152 Dateien); Text ist extrahierbar; Lesezeichen des Kapitels vorhanden (außer bei den Scans)
+    wie: Textextraktion der ersten Seiten, Vergleich mit dem Kapiteltitel
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Dateigröße – keine Datei über 100 MB (D-31); Kapitel-PDFs höchstens 11 MB
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Deployment lädt docs/literatur nicht auf den Webspace
+    wie: Durchsicht .github/workflows/deploy.yml (FTPS-Upload nur ./server/)
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
+    wie: manuell durch Athlet bei der ersten Kartensitzung
+  - was: Druckseiten der Scans (Uphill Athlete, Overcoming Gravity) an zwei, drei Stellen gegen das Seitenbild prüfen, bevor Seitenangaben in Karten übernommen werden
+    wie: manuell in der Kartensitzung
+  - was: Restliche Beschaffung laut 13.4 (L-A02, L-T1-01, L-T1-07, L-T3-08, L-A01 8./9. Aufl.); neue Dateien nach D-51 ablegen und eintragen
+    wie: Athlet (D-26), Eintrag durch Code-Instanz
 ```

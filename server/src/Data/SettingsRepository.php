@@ -8,10 +8,10 @@ use PDO;
 use Training\Clock;
 use Training\Db;
 
-/** Einstellungen der App (Tabelle app_setting, D-51); fehlende Schlüssel und fehlende Tabelle liefern den Standardwert. */
+/** Einstellungen der App (Tabelle app_setting, D-52); fehlende Schlüssel und fehlende Tabelle liefern den Standardwert. */
 final class SettingsRepository
 {
-    /** Kalender-Erinnerung am Tag der Einheit: 'HH:MM' oder 'aus' (AP-11, D-51) */
+    /** Kalender-Erinnerung am Tag der Einheit: 'HH:MM' oder 'aus' (AP-11, D-52) */
     public const CALENDAR_REMINDER = 'calendar_reminder';
     public const CALENDAR_REMINDER_DEFAULT = '05:00';
 
