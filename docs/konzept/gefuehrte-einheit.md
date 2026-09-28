@@ -43,7 +43,7 @@ Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 waren Vor
 | E-02 | **Grün = Arbeitsphase.** Grün nur, während gehalten/gehangen/gearbeitet wird. Rot in jeder Pause, im Zustand „bereit“ (Timer vorhanden, noch nicht gestartet) und wenn angehalten. Schritte ohne Timer behalten die normale Farbe (Pflaume). | Auf einen Blick erkennbar, ob man gerade dran ist. |
 | E-03 | **Automatik innerhalb einer Übung, manuell dazwischen.** Innerhalb einer getimten Übung laufen Arbeit/Pause/Sätze automatisch durch. Zwischen Übungen wechselt der Athlet mit „Weiter“. Bei Übungen mit Wiederholungen startet nach „Satz erledigt“ automatisch der Pausentimer (`rest_s`), sofern gesetzt. | Wenige Tipps im Training, aber kein ungewolltes Weiterspringen zur nächsten Übung. |
 | E-04 | **Mockups:** neuer Screen S9 „Einheit geführt“ mit Zuständen (bereit, Arbeit läuft, Pause, Übung ohne Timer, Abschluss); S2 Woche und S3 Einheit mit Kurzsatz + „mehr“; S8 mit Ton-Schalter; zusätzlich eine Seite „Icon-Optionen“ (Teil A). | Wunsch des Athleten. |
-| E-05 | **Icon-Befund:** Chrome auf Android ist noch nicht geprüft. Das Konzept enthält daher robuste Icons für alle Browser **und** Prüfschritte je Browser (4.1). | Diagnose ohne Gerät nicht abschließbar. |
+| E-05 | **Icon-Befund:** Chrome auf Android zeigt das Lama als App-Icon (Athlet, 2026-09-28). Manifest und PNG-Icons sind damit in Ordnung; das Problem liegt am Verknüpfungsweg von LibreWolf über das Favicon (4.1, Ursachen 1 und 2). Der Icon-Satz nach E-09 bleibt, weil er genau diesen Weg abdeckt; Ursache 3 entfällt. | Prüfschritt P-A1 erledigt. |
 | E-06 | **Bildschirm an und Vibration.** Im geführten Modus bleibt der Bildschirm an (Wake Lock); Signale kommen als Ton und – wo der Browser es kann – als Vibration. Stummschalten deaktiviert beides. | Ohne Wake Lock kommen Töne im Hintergrund nicht sicher; Vibration hilft im lauten Raum. |
 | E-07 | **Einmal am Ende speichern.** Die geführte Einheit ist dasselbe Rückmelde-Formular wie S3, nur schrittweise angezeigt. Fortschritt und Eingaben liegen bis zum Abschluss im Browser (überleben Neuladen), ein Speichern am Ende. Offline-Puffer und Konfliktschutz bleiben unverändert. | Kein neuer Endpunkt, keine Zwischenzustände auf dem Server. |
 | E-08 | **Logo überall:** Die gewählte Lama-Variante ersetzt den Kopf als App-Icon, Favicon und App-Kennung (Topbar, Navigation, Login-Karte). Bis zur Wahl (Q-14) bleibt der Kopf; Teil A wird erst nach der Wahl umgesetzt. | Wunsch des Athleten („der Kopf gefällt mir nicht“); eine Kennung, nicht zwei. |
@@ -71,13 +71,13 @@ Wahrscheinlichste Ursachen, in dieser Reihenfolge:
 
 1. **Login-Seite ohne Manifest und PNG-Icon.** Wer die Seite vom Login aus (abgelaufene Sitzung, erster Aufruf) verknüpft, bietet dem Browser nur ein SVG-Favicon. Android-Browser der Firefox-Familie rendern SVG-Favicons nicht als Verknüpfungs-Icon und fallen auf einen Buchstaben-Platzhalter zurück.
 2. **Verknüpfung statt Installation.** Firefox-Abkömmlinge (LibreWolf, Mull, IronFox) schalten Service Worker oder die Manifest-Verarbeitung teils ab. Dann entsteht keine „installierte“ Web-App aus dem Manifest, sondern eine einfache Verknüpfung, deren Icon aus den `<link rel="icon">`-Einträgen der Seite kommt – dort fehlt ein PNG mit `sizes`.
-3. **Manifest wird nicht verwendet** (nur falls auch Chrome kein Logo zeigt): `purpose`-Angaben, fehlende `id`, Icons ohne Alpha-Kanal oder Auslieferung mit falschem Inhaltstyp.
+3. ~~Manifest wird nicht verwendet~~ – ausgeschlossen: Chrome auf Android zeigt das Icon (P-A1, 2026-09-28). Manifest, Icons und Auslieferung sind in Ordnung.
 
 Prüfschritte (Athlet, vor und nach der Umsetzung, je Browser):
 
 | schritt | wie | erwartung |
 |---|---|---|
-| P-A1 | Chrome Android: `training.gen-em.org/woche` öffnen → Menü → „App installieren“ / „Zum Startbildschirm“ | Lama-Icon; App öffnet ohne Browserleiste |
+| P-A1 | Chrome Android: `training.gen-em.org/woche` öffnen → Menü → „App installieren“ / „Zum Startbildschirm“ | Lama-Icon; App öffnet ohne Browserleiste – **ok, 2026-09-28** (vor der Umsetzung, noch mit dem Kopf) |
 | P-A2 | Chrome Desktop: DevTools → Application → Manifest | keine Warnungen, alle Icons geladen |
 | P-A3 | LibreWolf Android: von `/login` **und** von `/woche` verknüpfen | beide Male Lama-Icon |
 | P-A4 | LibreWolf `about:config`: `dom.serviceWorkers.enabled`, `dom.manifest.enabled` | nur Befund für die Doku, keine Änderung nötig |
@@ -347,7 +347,7 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 |---|---|---|
 | O-01 | Wahl der Logo-Variante (V1–V5, Mischung möglich) anhand `icon-optionen.html` | erledigt 2026-09-28 → E-21 / D-59 |
 | O-02 | Hangboard mit Wiederholungen **und** Sätzen (z. B. Repeaters 7/3 × 6, 3 Sätze) im Schema `plan-klettern.json` (`reps` je Satz, `rest_between_sets_s`) | nicht im Umfang; bei Bedarf eigener kleiner Auftrag |
-| O-03 | Ergebnis von P-A1/P-A3 vor der Umsetzung (Chrome geprüft?) | offen, Athlet |
+| O-03 | Ergebnis von P-A1/P-A3 vor der Umsetzung | P-A1 erledigt 2026-09-28: Chrome zeigt das Icon; Fehler ist LibreWolf-spezifisch (Favicon-Weg). P-A3 nach T1 |
 | O-04 | Tonhöhen/-längen aus E-17 sind Startwerte; Feinabstimmung nach Gerätetest | in T5 |
 
 ## 10. Nicht im Umfang
