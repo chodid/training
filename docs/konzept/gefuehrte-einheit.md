@@ -1,7 +1,7 @@
 # Auftrag: App-Icon, Begründungstexte der Planung und geführte Trainingseinheit
 
-Ablageort im Repo: `docs/konzept/gefuehrte-einheit.md` (im Hauptkonzept: AP-13 und AP-14, D-55 bis D-59, Q-14; Nachtrag T8: AP-11, D-60)
-Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21, Nachtrag T8 mit E-22); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); T1–T8 umgesetzt (Code-Stand 0.17.0 bis 0.19.0), Abnahme durch den Athleten offen (Stand in Abschnitt 12)
+Ablageort im Repo: `docs/konzept/gefuehrte-einheit.md` (im Hauptkonzept: AP-13 und AP-14, D-55 bis D-59, Q-14; Nachtrag T8: AP-11, D-60; Nachtrag T9: AP-14)
+Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21, Nachtrag T8 mit E-22, Nachtrag T9 mit E-23); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); T1–T9 umgesetzt (Code-Stand 0.17.0 bis 0.20.0), Abnahme durch den Athleten offen (Stand in Abschnitt 12)
 Versionsnummer: keine im Konzept; wird in der Umsetzung festgelegt
 
 ---
@@ -36,7 +36,7 @@ Drei Wünsche des Athleten (dazu ein Nachtrag D während der Umsetzung), die zus
 
 ## 3. Geklärte Entscheidungen
 
-Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 waren Vorschläge von Fable und gelten seit der Bestätigung des Konzepts am 2026-09-28. E-21 ist die Logo-Wahl. E-22 (Nachtrag T8) hat der Athlet während der Umsetzung am 2026-09-28 festgelegt.
+Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 waren Vorschläge von Fable und gelten seit der Bestätigung des Konzepts am 2026-09-28. E-21 ist die Logo-Wahl. E-22 (Nachtrag T8) und E-23 (offene Punkte O-05 bis O-07, Nachtrag T9) hat der Athlet während bzw. nach der Umsetzung am 2026-09-28 festgelegt.
 
 | id | entscheidung | begruendung |
 |---|---|---|
@@ -56,12 +56,13 @@ Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 waren Vor
 | E-14 | **Adresse:** `GET /einheit?id=<id>&modus=start` rendert S9; `POST /einheit` bleibt der einzige Speicherweg (gleiche Feldnamen wie S3). Kein neuer Controller-Endpunkt, nur ein zweites Template. | Konfliktschutz (`stand`), Offline-Puffer und Validierung werden wiederverwendet. |
 | E-15 | **Ablaufplan serverseitig:** Der Server leitet aus `plan_json` deterministisch die Schrittfolge ab (Abschnitt 6.3) und gibt sie als HTML (ein Abschnitt je Übung) plus JSON in einem `data-ablauf`-Attribut aus. Das Skript zeigt jeweils einen Schritt; ohne JavaScript sind alle Abschnitte sichtbar und die Einheit bleibt wie S3 ausfüllbar. | Reine, testbare PHP-Funktion; Fallback ohne JS. |
 | E-16 | **Timer zeitstempelbasiert:** Endzeit als Zeitstempel, Anzeige alle 250 ms; nach Bildschirm aus / Tabwechsel wird nachgerechnet, verpasste Signale werden nicht nachgeholt (ein Hinweiston beim Zurückkehren, wenn eine Phase inzwischen endete). | Browser drosseln Timer im Hintergrund; so bleibt die Zeit richtig. |
-| E-17 | **Signale ohne Audiodateien:** Web Audio (Oszillator) mit vier Mustern: Start (zwei kurze hohe Töne), 30 s vor Ende (ein Ton, nur bei Phasen ≥ 45 s), 10 s vor Ende (ein Ton, nur bei Phasen ≥ 15 s), letzte 3 s (drei kurze Ticks bei 3, 2, 1). Ende der letzten Phase einer Übung: ein längerer Abschlusston. Vibration mit denselben Mustern (`navigator.vibrate`). Audio wird beim ersten Tipp auf „Start“ freigeschaltet. | Keine Dateien, kein Cache, CSP-konform (`script-src 'self'`); Browser verlangen eine Nutzergeste für Audio. |
+| E-17 | **Signale ohne Audiodateien:** Web Audio (Oszillator) mit vier Mustern: Start (zwei kurze hohe Töne), 30 s vor Ende (ein Ton, nur bei Phasen über 45 s; E-23), 10 s vor Ende (ein Ton, nur bei Phasen ≥ 15 s), letzte 3 s (drei kurze Ticks bei 3, 2, 1). Ende der letzten Phase einer Übung: ein längerer Abschlusston. Vibration mit denselben Mustern (`navigator.vibrate`). Audio wird beim ersten Tipp auf „Start“ freigeschaltet. | Keine Dateien, kein Cache, CSP-konform (`script-src 'self'`); Browser verlangen eine Nutzergeste für Audio. |
 | E-18 | **Stummschalten zweistufig:** Einstellung `timer_ton` (`an`/`aus`, Standard `an`) in `app_setting`, änderbar in S8; in S9 ein Schalter in der Kopfzeile, der nur für diese Einheit gilt (im Browser gemerkt, nicht auf dem Server). | Wunsch: Einstellungen und in der Einheit. |
 | E-19 | **Fortschritt im Browser:** `sessionStorage`-Eintrag je Einheit (Schritt, Satz, Phase, Endzeit, Ist-Werte, Startzeit, stumm). Neu laden setzt den Stand fort; „Neu starten“ löscht ihn. Nach Speichern gelöscht. Kein Serverzustand (E-07). | Robust gegen versehentliches Neuladen; keine Konflikte mit dem Offline-Puffer. |
 | E-20 | **Farben nur über Statusfarben des Design-Systems:** Arbeit = `--status-success-bg` als Seitengrund, Zeit in `--status-success-text`; Pause/bereit/angehalten = `--status-error-bg` und `--status-error-text`; `theme-color` wird mitgeführt. Neue Branding-Entscheidung B-08 (Statusfarben dürfen als Flächen für den Timer-Zustand dienen). | Rot/Grün mit ausreichendem Kontrast, ohne neue Farben. |
 | E-21 | **Logo-Wahl (Q-14 → D-59):** V3 (Lama Fläche hell `#F4EFF2` auf Pflaume 600 `#7A5C94`, Auge Orange) für App-Icon Android/iOS und `maskable`; V2 (Lama Fläche Pflaume 600 auf Papier) für Favicon 16/32 px, SVG-Favicon und App-Kennung in Topbar, Navigation und Login-Karte. Vorlagen: `docs/branding/mockups/icon-optionen/v3.svg`, `v3-maskable.svg`, `v2.svg`. | Entscheidung des Athleten am 2026-09-28, wie von Fable empfohlen. |
 | E-22 | **Ein Sammeltermin je Tag (Nachtrag T8 → D-60):** Je Trainingstag ein ganztägiger Termin statt eines Termins je Einheit (Ruhetage weiter ohne Termin). Titel aus den Einheitentiteln: eine Einheit „Typ: Titel“ wie bisher, mehrere „Training: Titel 1 + Titel 2“ in Planreihenfolge. **Kein Status-Zeichen im Titel**, der Termin wird nie abgesagt; der Status steht je Einheit in der Beschreibung. Beschreibung: alle Einheiten mit Kurzsatz, Kurzplan, Begründung und Link; Erinnerung einmal je Tag, solange eine Einheit geplant oder verschoben ist. Umfang: Unterpunkt T8 in diesem Auftrag, eigener Code-Stand, derselbe Pull Request wie T1–T7. | Wunsch des Athleten („pro Tag nur ein Sammeltermin“); Titel, Status-Darstellung und Umfang am 2026-09-28 per Rückfrage gewählt (Titel und Umfang wie empfohlen; beim Status „kein Zeichen im Titel“ statt der Empfehlung „✓, sobald der Tag abgeschlossen ist; abgesagt, wenn alle ausgelassen“). |
+| E-23 | **Offene Punkte aus der Umsetzung (Nachtrag T9):** O-06 – der 30-s-Ton kommt erst bei Phasen über 45 s (wie Testfall Z-01 und die Umsetzung; E-17 und 6.4 angeglichen). O-07 – Kletterblöcke ohne Haltezeit und ohne Dauer mit mindestens zwei Sätzen werden wie Kraftübungen satzweise geführt: „Satz erledigt“ je Satz, danach Pausentimer, wenn `rest_s` geplant ist (auch ohne Pause satzweise); ein Satz ohne Zeiten bleibt „offen“. O-05 – keine Screenshots im Manifest. Zusätzlich: Die fixierten Speichern-Leisten (S3, Check-in, Schmerz …) sitzen auf dem Smartphone über der unteren Navigation wie in S9. | Entscheidung des Athleten am 2026-09-28 nach der Rückfrage zu den offenen Punkten, jeweils wie empfohlen; für die Leisten „alle Seiten“ statt nur S3, weil dieselbe Regel die Ursache war. |
 
 ## 4. Teil A · App-Icon und Logo
 
@@ -197,6 +198,7 @@ regeln:
   klettern:
     hang_s gesetzt                     -> halten, arbeit_s = hang_s, saetze = sets ?? 1, pause_s = rest_s
     sonst duration_min gesetzt         -> block, arbeit_s = duration_min*60, saetze = 1, pause_s = null
+    sonst sets ≥ 2                     -> wiederholungen wie Kraft, saetze = sets, pause_s = rest_s (E-23)
     sonst                              -> offen (nur Anzeige + Ist-Felder, „Erledigt“)
   ausdauer, ruhe:                      -> kein Ablaufplan (S9 nicht angeboten, E-13)
 
@@ -214,7 +216,7 @@ Hinweis Hangboard: Wiederholungen innerhalb eines Satzes (z. B. Repeaters 7 s/3 
 | ereignis | ton (Web Audio) | vibration | bedingung |
 |---|---|---|---|
 | Start einer Arbeitsphase | 2 × 80 ms, 880 Hz | 2 × 80 ms | immer |
-| 30 s vor Ende | 1 × 150 ms, 660 Hz | 150 ms | Phase ≥ 45 s |
+| 30 s vor Ende | 1 × 150 ms, 660 Hz | 150 ms | Phase über 45 s (E-23, Z-01) |
 | 10 s vor Ende | 1 × 150 ms, 660 Hz | 150 ms | Phase ≥ 15 s |
 | 3, 2, 1 s vor Ende | je 1 × 60 ms, 990 Hz | je 60 ms | immer |
 | Ende der letzten Phase einer Übung | 1 × 400 ms, 523 Hz | 300 ms | immer |
@@ -266,7 +268,7 @@ Bereich „Training“: Zeile „Timer-Signale“ mit Schalter Ton/Vibration `an
 
 ## 7. Unterpunkte
 
-Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nachtrag, unabhängig von T3–T6) nach T7.
+Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nachtrag, unabhängig von T3–T6) nach T7, T9 (Nachtrag zu den offenen Punkten) nach T8.
 
 ### T1 · App-Icon und Logo (Teil A)
 - Variante: V3 App-Icon, V2 Favicon und Kennung (E-21).
@@ -309,6 +311,13 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nacht
 - Tests: Testfälle 8.4.
 - **Abnahme:** Nach dem Deploy und einem Abgleich zeigt der Nextcloud-Kalender je Trainingstag genau einen Termin; Tage mit zwei Einheiten tragen „Training: … + …“; Status und Verschieben wirken; alte Einzeltermine sind im Abgleichzeitraum verschwunden.
 
+### T9 · Offene Punkte O-05 bis O-07 und Speichern-Leisten (Nachtrag, E-23)
+- `Ablaufplan`: Kletterblock ohne `hang_s` und `duration_min` mit `sets` ≥ 2 → `wiederholungen` (Sätze wie geplant, `pause_s` = `rest_s`); S9 zeigt „n Sätze“ mit dem Ziel des Blocks darunter und den Pausentimer; Skript unverändert (Wiederholungslogik).
+- CSS: `.actions-sticky` auf dem Smartphone über der unteren Navigation (alle Seiten mit fixierter Leiste).
+- Dokumente: E-17, 6.3, 6.4, offene Punkte, Testfälle A-13/A-14; Hauptkonzept (D-57, AP-14), Changelog, Prüfprotokoll; Version hochstufen.
+- Tests: Testfälle A-13/A-14 (AblaufplanTest), Aufbau in S9 (GuidedSessionTest); Sichtprüfung der Leisten auf 375 px (S3, Check-in, Schmerz, S9).
+- **Abnahme:** Zugkraft-Block mit Pause wird satzweise mit Pausentimer geführt; Speichern bleibt beim Scrollen auf dem Smartphone sichtbar.
+
 ## 8. Testfälle
 
 ### 8.1 Ablaufplan (T3)
@@ -325,6 +334,8 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nacht
 | A-08 | klettern `{kind:"hangboard", hang_s:10, sets:null}` | halten, saetze 1, pause_s null |
 | A-09 | klettern `{kind:"bouldern_volumen", duration_min:40}` | block, arbeit_s 2400, saetze 1 |
 | A-10 | klettern `{kind:"technik"}` (ohne Zeiten) | offen |
+| A-13 | klettern `{kind:"zugkraft", sets:4, rest_s:120}` (ohne Haltezeit und Dauer, E-23) | wiederholungen, saetze 4, pause_s 120 |
+| A-14 | klettern `{kind:"campus", sets:3}` (ohne Pause) bzw. `{kind:"technik", sets:1, rest_s:60}` | wiederholungen, saetze 3, pause_s null bzw. offen, saetze 1 |
 | A-11 | ausdauer / ruhe | kein Ablaufplan; S3 ohne Startknopf; `modus=start` → S3 (Ruhetag: 404 wie bisher, er hat keine Einheitenseite) |
 | A-12 | Reihenfolge | Schritte in Planreihenfolge, Index = Feldindex `ist[i]` |
 
@@ -374,9 +385,9 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nacht
 | O-02 | Hangboard mit Wiederholungen **und** Sätzen (z. B. Repeaters 7/3 × 6, 3 Sätze) im Schema `plan-klettern.json` (`reps` je Satz, `rest_between_sets_s`) | nicht im Umfang; bei Bedarf eigener kleiner Auftrag |
 | O-03 | Ergebnis von P-A1/P-A3 vor der Umsetzung | P-A1 erledigt 2026-09-28: Chrome zeigt das Icon; Fehler ist LibreWolf-spezifisch (Favicon-Weg). P-A3 nach T1 |
 | O-04 | Tonhöhen/-längen aus E-17 sind Startwerte; Feinabstimmung nach Gerätetest | Startwerte umgesetzt (T5); Feinabstimmung nach dem Gerätetest des Athleten |
-| O-05 | Screenshots im Manifest (`screenshots` mit `form_factor` wide/narrow) für die ausführlichere Installationsansicht in Chrome; ohne sie zeigt DevTools zwei Hinweise (P-A2) | nicht im Umfang (4.2 verlangt sie nicht); bei Wunsch des Athleten kleiner Nachtrag |
-| O-06 | 30-s-Ton: E-17/6.4 sagen „Phase ≥ 45 s“, Testfall Z-01 „bei 45 s kein 30-s-Ton“ | umgesetzt nach Z-01 („länger als 45 s“, T5); Bestätigung durch den Athleten offen |
-| O-07 | Kletterblöcke mit Sätzen und Pause, aber ohne Haltezeit und Dauer (z. B. Zugkraft 4 Sätze, Pause 120 s) sind nach 6.3 „offen“ (nur „Erledigt“, kein Pausentimer); ein Pausentimer wie bei Kraft-Wiederholungen wäre eine Regeländerung | offen, Entscheidung des Athleten (T3-Review) |
+| O-05 | Screenshots im Manifest (`screenshots` mit `form_factor` wide/narrow) für die ausführlichere Installationsansicht in Chrome; ohne sie zeigt DevTools zwei Hinweise (P-A2) | erledigt 2026-09-28 → E-23: nicht umsetzen |
+| O-06 | 30-s-Ton: E-17/6.4 sagen „Phase ≥ 45 s“, Testfall Z-01 „bei 45 s kein 30-s-Ton“ | erledigt 2026-09-28 → E-23: 30-s-Ton erst bei Phasen über 45 s (wie umgesetzt) |
+| O-07 | Kletterblöcke mit Sätzen und Pause, aber ohne Haltezeit und Dauer (z. B. Zugkraft 4 Sätze, Pause 120 s) sind nach 6.3 „offen“ (nur „Erledigt“, kein Pausentimer); ein Pausentimer wie bei Kraft-Wiederholungen wäre eine Regeländerung | erledigt 2026-09-28 → E-23: satzweise wie Kraft, umgesetzt in T9 |
 
 ## 10. Nicht im Umfang
 
@@ -388,7 +399,7 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nacht
 
 ## 11. Arbeitsweise für die Umsetzung
 
-- Unterpunkte T1–T8 in der Reihenfolge aus Abschnitt 7.
+- Unterpunkte T1–T9 in der Reihenfolge aus Abschnitt 7.
 - Nach jedem Unterpunkt: geänderte und neue Dateien als ZIP mit Repo-Ordnerstruktur (nur geänderte/neue Dateien), dieses Dokument (Abschnitt 12) aktualisiert, dazu ein Prüfdokument (was geprüft ist, was noch wie zu prüfen ist; Struktur wie `docs/pruefung/pruefprotokoll.md`).
 - Konzeptänderungen aus der Umsetzung in Abschnitt 12 (`probleme_loesungen`) und im Hauptkonzept (AP-13/AP-14) nachziehen.
 
@@ -644,6 +655,32 @@ T8:
       loesung: bei jeder direkten Änderung löscht die App auch den Einzeltermin der betroffenen Einheiten (ein DELETE, 404 ist kein Fehler)
     - was: "Review T8: Doku – Datenfluss 3.2 („Termine je Einheit“), „Kurzsatz als erste Zeile“ (D-56, E-11, 5.3, Prüfprotokoll) und „mit Überschrift“ im Changelog passten nicht mehr; Testfälle K-01–K-07 nur DayEventTest zugeschrieben"
       loesung: nachgezogen (Überschrift nur bei mehreren Einheiten, Kurzsatz dann je Abschnitt nach der Überschrift); Zuordnung der Testfälle zu DayEventTest und CalendarTest; fehlende Tests ergänzt
+T9:
+  status: umgesetzt          # Code-Stand 0.20.0; Abnahme auf dem Gerät durch den Athleten offen
+  datum: 2026-09-28
+  ergebnis: >
+    Entscheidungen zu O-05 bis O-07 als E-23 festgehalten (O-05 nicht umsetzen, O-06 wie umgesetzt, O-07 satzweise).
+    Ablaufplan: Kletterblock ohne hang_s und duration_min mit sets ≥ 2 → wiederholungen (Sätze wie geplant, pause_s =
+    rest_s), ein Satz ohne Zeiten bleibt offen. S9 zeigt „n Sätze“ mit dem Ziel darunter und – mit Pause – den
+    Pausentimer nach „Satz erledigt“; das Skript nutzt die vorhandene Wiederholungslogik. CSS: .actions-sticky auf dem
+    Smartphone über der unteren Navigation (vorher nur .gf-actions/.gf-save in S9), damit Speichern in S3, Check-in und
+    Schmerz beim Scrollen sichtbar bleibt. E-17, 6.3, 6.4 und Testfälle A-13/A-14 angepasst.
+  tests: AblaufplanTest (A-13, A-14), GuidedSessionTest::testClimbingStepsHangboardBlockAndOpen (Zugkraft mit Pause, Antagonisten ohne Pause); Messung der Leisten gegenüber der Navigation auf 375 px (S3, Check-in, Schmerz, S9) und Screenshots (S3 gescrollt, S9 Zugkraft bereit und Pause)
+  abnahme: automatisiert und im Browser (Leisten enden über der Navigation, Zugkraft 4 Sätze mit 2-min-Pause, kein Überlauf auf 375 px)
+  abnahme_offen: Gerätetest des Athleten (Kletterblock mit Sätzen im Training, Speichern-Leisten beim Scrollen)
+  probleme_loesungen:
+    - was: S9 zeigte bei Wiederholungen „<reps> Wdh.“ – Kletterblöcke haben kein reps
+      loesung: für Kletterblöcke „n Sätze“ groß und das Ziel (target) klein darunter; der Pausentimer steht für beide Arten gemeinsam
+    - was: Die Speichern-Leiste lag nicht nur in S3, sondern auch im Check-in und bei „Schmerz“ hinter der Navigation (gemeinsame Regel .actions-sticky)
+      loesung: Rückfrage beim Athleten – Korrektur für alle Seiten in training.css (Design-System app.css unverändert)
+    - was: "Review T9: Beim letzten Satz stand „Pause 120 s nach „Satz erledigt““, danach kam keine Pause (bei Kraft schon vorher, jetzt auch bei Kletterblöcken)"
+      loesung: Pausenhinweis in „bereit“ nur, wenn noch ein Satz folgt (auch bei Halten); Node-Test für den letzten Satz
+    - was: "Review T9: Auf iPhones mit Home-Leiste hatte die Leiste unten zusätzlich den Safe-Area-Abstand (46 statt 12 px über der Navigation)"
+      loesung: Innenabstand unten auf den normalen Wert gesetzt, die Navigation hält die Safe Area frei; gemessen mit simulierter Safe Area (34 px)
+    - was: "Review T9: In der Woche überdeckte die Leiste des eingebetteten Check-ins die Kacheln darunter um 16 px (negativer Rand der Leiste, vor T9 schon vorhanden)"
+      loesung: Abstand unter dem eingebetteten Check-in (Klasse week-checkin, nur Smartphone); gemessen ohne Überdeckung
+    - was: "Review T9: S3 – die Leiste gehört zum Rückmeldungs-Abschnitt und erscheint erst, wenn dieser ins Bild scrollt"
+      loesung: so gelassen (Aufbau von S3 unverändert; beim Scrollen durch die Ist-Werte ist Speichern wie vorher nicht fixiert)
 probleme_loesungen: []
 ```
 

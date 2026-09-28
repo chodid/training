@@ -318,3 +318,21 @@ test('Review T5: Schritt öffnen nach Ist-Fehler; Fortsetzen nach Speichern ohne
   const r = K.takt(lauf, [HALTEN], 300000, 301000);
   assert.deepEqual(r.signale, ['hinweis'], 'nur der Hinweiston, keine 23 Töne');
 });
+
+test('Review T9: letzter Satz nennt keine Pause mehr (Wiederholungen, Kletterblock satzweise, Halten)', () => {
+  const zug = { index: 0, name: 'Zugkraft', art: 'wiederholungen', saetze: 4, arbeit_s: null, pause_s: 120 };
+  let z = start([zug]);
+  assert.equal(K.anzeige(z, [zug], 0).satz_text, 'Satz 1 von 4 · Pause 120 s nach „Satz erledigt“');
+  for (let i = 0; i < 3; i++) {
+    z = K.aktion(z, [zug], 'haupt', i * 200000).zustand; // Satz erledigt → Pause
+    z = K.takt(z, [zug], i * 200000, i * 200000 + 121000).zustand; // Pause vorbei → nächster Satz bereit
+  }
+  const v = K.anzeige(z, [zug], 700000);
+  assert.deepEqual([z.satz, z.phase, v.satz_text, v.haupt.text], [4, 'bereit', 'Satz 4 von 4', 'Satz erledigt']);
+  z = K.aktion(z, [zug], 'haupt', 700001).zustand;
+  assert.equal(z.phase, 'fertig', 'nach dem letzten Satz keine Pause');
+  const halten = { ...HALTEN, saetze: 2 };
+  const letzter = { ...start([halten]), satz: 2 };
+  assert.equal(K.anzeige(letzter, [halten], 0).satz_text, 'Satz 2 von 2');
+  assert.equal(K.anzeige(start([halten]), [halten], 0).satz_text, 'Satz 1 von 2 · Pause 60 s');
+});

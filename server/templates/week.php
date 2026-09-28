@@ -42,7 +42,7 @@ if ($kurz !== '' || $mehr !== ''): ?>
   <div class="alert alert-error mt-4"><?= $this->icon('alert-circle') ?><div><b>Backup per E-Mail fehlgeschlagen.</b> <span class="body"><?= $this->e($mailError) ?> Details unter <a href="/einstellungen">Einstellungen</a>.</span></div></div>
 <?php endif ?>
 <?php if (!empty($morning)): ?>
-  <div class="mt-4">
+  <div class="mt-4<?= $morning['summary'] === null ? ' week-checkin' : '' ?>">
 <?php if ($morning['summary'] !== null):
     $summary = $morning['summary']; $editHref = '/checkin'; include __DIR__ . '/_morning_summary.php';
 else: ?>

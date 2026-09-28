@@ -14,6 +14,8 @@ use Training\View\PlanFormat;
  *
  * Arten: wiederholungen („Satz erledigt“, danach Pausentimer), halten (Timer Arbeit/Pause je Satz),
  * block (ein Timer über die Blockdauer), offen (nur Anzeige und Ist-Felder, „Erledigt“).
+ * Kletterblöcke ohne Haltezeit und Dauer mit mindestens zwei Sätzen werden wie Kraftübungen satzweise geführt
+ * (E-23, O-07): „Satz erledigt“ je Satz, Pausentimer bei rest_s.
  */
 final class Ablaufplan
 {
@@ -111,9 +113,12 @@ final class Ablaufplan
             [$art, $sets, $work, $rest] = [self::HALTEN, max(1, (int) ($b['sets'] ?? 1)), $hang, self::seconds($b['rest_s'] ?? null)];
         } elseif ($minutes !== null) {
             [$art, $sets, $work, $rest] = [self::BLOCK, 1, $minutes * 60, null];
+        } elseif (is_int($b['sets'] ?? null) && $b['sets'] >= 2) {
+            // satzweise wie Kraft (E-23): „Satz erledigt“, danach Pausentimer, falls rest_s geplant
+            [$art, $sets, $work, $rest] = [self::WIEDERHOLUNGEN, $b['sets'], null, self::seconds($b['rest_s'] ?? null)];
         } else {
-            // offen: Sätze wie geplant (6.3 „Klettern: sets oder 1“), ohne Timer und ohne Pausenphase
-            [$art, $sets, $work, $rest] = [self::OFFEN, max(1, (int) ($b['sets'] ?? 1)), null, null];
+            // offen: ein „Erledigt“, ohne Timer und ohne Pausenphase
+            [$art, $sets, $work, $rest] = [self::OFFEN, 1, null, null];
         }
         $kind = (string) ($b['kind'] ?? '');
 

@@ -4,7 +4,19 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.20.0] – 2026-09-28
+
+AP-14 Nachtrag T9: Entscheidungen des Athleten zu den offenen Punkten O-05 bis O-07 (Auftrag `docs/konzept/gefuehrte-einheit.md`, E-23).
+
+### Geändert
+- Geführte Einheit: Kletterblöcke ohne Haltezeit und ohne Dauer mit mindestens zwei Sätzen (z. B. Zugkraft 4 Sätze, Pause 120 s) werden wie Kraftübungen satzweise geführt – „Satz erledigt“ je Satz, danach der Pausentimer, wenn eine Pause geplant ist. S9 zeigt „n Sätze“ mit dem Ziel darunter. Ein Satz ohne Zeiten bleibt „offen“ mit einem „Erledigt“.
+
+### Behoben
+- Die fixierte Speichern-Leiste lag auf dem Smartphone beim Scrollen hinter der unteren Navigation (S3 Einheit, Check-in, Schmerz und weitere Formulare); sie sitzt jetzt wie in der geführten Einheit darüber, auf iPhones ohne doppelten Abstand zur Home-Leiste. In der Woche überdeckt die Leiste des Check-ins nicht mehr die Kacheln darunter.
+- Geführte Einheit: Beim letzten Satz steht kein Hinweis auf eine Pause mehr, die danach nicht kommt.
+
 ### Dokumentation
+- Entscheidungen E-23: 30-s-Ton erst bei Phasen über 45 s (wie umgesetzt, E-17 und 6.4 angeglichen), keine Screenshots im Manifest, Kletterblöcke satzweise; Testfälle A-13/A-14; D-57 ergänzt.
 - Konzept: Übergabe AP-06 Teil C eingearbeitet – neuer Literaturblock R Reha/Prävention (13.2.5, L-R-01 bis L-R-28: Patellasehne, Sprunggelenk, Laufumfang); neu D-61, Q-15, Q-16; Q-13 ergänzt; Beschaffungsliste 13.4 erweitert.
 
 ## [0.19.0] – 2026-09-28

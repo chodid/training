@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Training\Plan\Ablaufplan;
 use Training\Plan\PlanValidator;
 
-/** AP-14 T3: Ablaufplan aus plan_json (docs/konzept/gefuehrte-einheit.md 6.3, Testfälle 8.1 A-01 bis A-12). */
+/** AP-14 T3/T9: Ablaufplan aus plan_json (docs/konzept/gefuehrte-einheit.md 6.3, Testfälle 8.1 A-01 bis A-14). */
 final class AblaufplanTest extends TestCase
 {
     /** @return array<string, array{0: string, 1: array<string, mixed>, 2: array<string, mixed>}> */
@@ -43,8 +43,13 @@ final class AblaufplanTest extends TestCase
                 ['name' => 'Bouldern Limit', 'art' => 'offen', 'saetze' => 1, 'arbeit_s' => null, 'ist_felder' => ['duration_min', 'notes'], 'soll' => 'Soll 3 Projekte']],
             'ausdauer_route mit Dauer und Sätzen' => ['klettern', ['kind' => 'ausdauer_route', 'duration_min' => 30, 'sets' => 3],
                 ['name' => 'Ausdauer Route', 'art' => 'block', 'arbeit_s' => 1800, 'saetze' => 1, 'pause_s' => null, 'ist_felder' => ['duration_min', 'sets', 'notes'], 'soll' => 'Soll 30 min · 3 Sätze']],
-            'zugkraft mit Sätzen, ohne Zeiten' => ['klettern', ['kind' => 'zugkraft', 'sets' => 4, 'rest_s' => 120, 'target' => 'Klimmzüge 5 Wdh.'],
-                ['name' => 'Zugkraft', 'art' => 'offen', 'saetze' => 4, 'arbeit_s' => null, 'pause_s' => null, 'ist_felder' => ['duration_min', 'sets', 'notes'], 'soll' => 'Soll Klimmzüge 5 Wdh. · 4 Sätze']],
+            // E-23 (O-07): Sätze ohne Haltezeit und Dauer – satzweise wie Kraft, Pausentimer bei rest_s
+            'A-13 zugkraft mit Sätzen und Pause, ohne Zeiten' => ['klettern', ['kind' => 'zugkraft', 'sets' => 4, 'rest_s' => 120, 'target' => 'Klimmzüge 5 Wdh.'],
+                ['name' => 'Zugkraft', 'art' => 'wiederholungen', 'saetze' => 4, 'arbeit_s' => null, 'pause_s' => 120, 'ist_felder' => ['duration_min', 'sets', 'notes'], 'soll' => 'Soll Klimmzüge 5 Wdh. · 4 Sätze']],
+            'A-14 campus mit Sätzen ohne Pause und Zeiten' => ['klettern', ['kind' => 'campus', 'sets' => 3],
+                ['art' => 'wiederholungen', 'saetze' => 3, 'arbeit_s' => null, 'pause_s' => null]],
+            'A-14 technik mit einem Satz und Pause bleibt offen' => ['klettern', ['kind' => 'technik', 'sets' => 1, 'rest_s' => 60],
+                ['art' => 'offen', 'saetze' => 1, 'arbeit_s' => null, 'pause_s' => null]],
             'antagonisten mit Dauer' => ['klettern', ['kind' => 'antagonisten', 'duration_min' => 15],
                 ['name' => 'Antagonisten', 'art' => 'block', 'arbeit_s' => 900, 'saetze' => 1, 'ist_felder' => ['duration_min', 'notes'], 'soll' => 'Soll 15 min']],
         ];
