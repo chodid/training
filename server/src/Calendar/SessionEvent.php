@@ -11,6 +11,7 @@ use Training\View\Labels;
  * Termin (iCalendar, RFC 5545) für eine Einheit (AP-11, D-50): ganztägig am Datum der Einheit, Titel mit Typ und
  * Status-Markierung (✓ erledigt/teilweise, ausgelassen = abgesagt), Beschreibung mit Kurzplan und Link zur App.
  * Eine Einheit = eine Ressource mit fester UID, damit Änderungen denselben Termin ersetzen.
+ * Erinnerung (D-51): am Tag der Einheit zur eingestellten Uhrzeit, nur für geplante und verschobene Einheiten.
  */
 final class SessionEvent
 {
@@ -27,8 +28,11 @@ final class SessionEvent
         return preg_match('/^' . preg_quote(self::PREFIX, '/') . '(\d+)\.ics$/', $name, $m) ? (int) $m[1] : null;
     }
 
-    /** @param array<string, mixed> $s Einheit wie WeekRepository::session() (plan dekodiert) */
-    public static function ics(array $s, string $appUrl, string $host, int $now): string
+    /**
+     * @param array<string, mixed> $s Einheit wie WeekRepository::session() (plan dekodiert)
+     * @param ?string $reminder Uhrzeit 'HH:MM' am Tag der Einheit, null = keine Erinnerung
+     */
+    public static function ics(array $s, string $appUrl, string $host, int $now, ?string $reminder = null): string
     {
         $id = (int) $s['id'];
         $date = (string) $s['date'];
@@ -56,11 +60,29 @@ final class SessionEvent
             'CATEGORIES:' . self::text($type),
             'STATUS:' . ($s['status'] === 'ausgelassen' ? 'CANCELLED' : 'CONFIRMED'),
             'TRANSP:TRANSPARENT',
+            ...self::alarm($s, $summary, $reminder),
             'END:VEVENT',
             'END:VCALENDAR',
         ];
 
         return implode("\r\n", array_map(self::fold(...), $lines)) . "\r\n";
+    }
+
+    /**
+     * VALARM relativ zum Beginn des ganztägigen Termins (00:00 Ortszeit des Kalenders), z. B. PT5H = 05:00 am Tag.
+     * @param array<string, mixed> $s
+     * @return list<string>
+     */
+    private static function alarm(array $s, string $summary, ?string $reminder): array
+    {
+        if ($reminder === null || !in_array($s['status'], ['geplant', 'verschoben'], true) || !preg_match('/^(\d{2}):(\d{2})$/', $reminder, $m)) {
+            return [];
+        }
+        $h = (int) $m[1];
+        $min = (int) $m[2];
+        $trigger = 'PT' . ($h === 0 && $min === 0 ? '0S' : ($h > 0 ? $h . 'H' : '') . ($min > 0 ? $min . 'M' : ''));
+
+        return ['BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' . self::text($summary), 'TRIGGER;RELATED=START:' . $trigger, 'END:VALARM'];
     }
 
     /** @param array<string, mixed> $s */

@@ -1,7 +1,7 @@
 ---
 titel: Datenmodell – ER-Diagramm und Umsetzungsdetails
-bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitt 7, AP-01 (D-35), AP-03, AP-09 (D-43, D-44, D-48)
-schemastand: 18 (Migrationen 0001–0018)
+bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitt 7, AP-01 (D-35), AP-03, AP-09 (D-43, D-44, D-48), AP-11 (D-51)
+schemastand: 19 (Migrationen 0001–0019)
 ---
 
 # Datenmodell
@@ -177,6 +177,11 @@ erDiagram
         json data_json
         datetime updated_at
     }
+    app_setting {
+        varchar setting_key PK
+        varchar value
+        datetime updated_at
+    }
     athlete_profile {
         int id PK
         enum section
@@ -187,7 +192,7 @@ erDiagram
     }
 ```
 
-`audit_log`, `schema_version`, `ext_cache`, `athlete_profile` (D-48, nur Einfügen; jüngste Fassung je Abschnitt gilt) und die Spiegeltabellen `ext_activity`/`ext_wellness` (D-43) stehen für sich (`ext_activity.paired_event_id` entspricht lose `session.intervals_event_id`); `audit_log` verweist über `entity`/`entity_id` lose auf die geänderte Zeile, damit Einträge das Löschen überdauern.
+`audit_log`, `schema_version`, `ext_cache`, `app_setting` (Einstellungen als Schlüssel/Wert, z. B. `calendar_reminder`; D-51), `athlete_profile` (D-48, nur Einfügen; jüngste Fassung je Abschnitt gilt) und die Spiegeltabellen `ext_activity`/`ext_wellness` (D-43) stehen für sich (`ext_activity.paired_event_id` entspricht lose `session.intervals_event_id`); `audit_log` verweist über `entity`/`entity_id` lose auf die geänderte Zeile, damit Einträge das Löschen überdauern.
 
 ## Umsetzungsdetails
 
