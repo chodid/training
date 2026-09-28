@@ -36,6 +36,9 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-P07 | A | Schumann et al. 2022 – Concurrent Training (Meta-Analyse) | [`L-P07_Schumann-2022_Concurrent-Training-Meta-Analysis.pdf`](uebergreifend/L-P07_Schumann-2022_Concurrent-Training-Meta-Analysis.pdf) | 12 | Open Access |
 | L-P08 | A | Currier et al. 2026 – ACSM Position Stand Resistance Training | [`L-P08_Currier-2026_ACSM-Resistance-Training-Prescription.pdf`](uebergreifend/L-P08_Currier-2026_ACSM-Resistance-Training-Prescription.pdf) | 22 | CC BY-NC-ND 4.0 |
 | L-P09 | A | Held et al. 2026 – Concurrent Training (Umbrella-Review) | [`L-P09_Held-2026_Concurrent-Training-Umbrella-Review.pdf`](uebergreifend/L-P09_Held-2026_Concurrent-Training-Umbrella-Review.pdf) | 24 |  |
+| L-P10 | A | Foster et al. 2001 – A New Approach to Monitoring Exercise Training (sRPE) | [`L-P10_Foster-2001_Monitoring-Exercise-Training-sRPE.pdf`](uebergreifend/L-P10_Foster-2001_Monitoring-Exercise-Training-sRPE.pdf) | 7 |  |
+| L-P12 | A | Impellizzeri et al. 2020 – Acute:Chronic Workload Ratio, Conceptual Issues | [`L-P12_Impellizzeri-2020_ACWR-Conceptual-Issues.pdf`](uebergreifend/L-P12_Impellizzeri-2020_ACWR-Conceptual-Issues.pdf) | 7 |  |
+| L-P13 | A | Silbernagel et al. 2007 – Pain-Monitoring Model, Achilles Tendinopathy (RCT) | [`L-P13_Silbernagel-2007_Pain-Monitoring-Model-Achilles.pdf`](uebergreifend/L-P13_Silbernagel-2007_Pain-Monitoring-Model-Achilles.pdf) | 10 | Grundlage Schmerzregeln (V-07, Q-13) |
 
 ### T1 Ausdauer (13.2.2)
 
@@ -60,6 +63,8 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T2-08 | A | Kotarsky et al. 2018 – Progressive Push-up Training | [`L-T2-08_Kotarsky-2018_Progressive-Push-up-Training.pdf`](t2-kraft/L-T2-08_Kotarsky-2018_Progressive-Push-up-Training.pdf) | 9 |  |
 | L-T2-09 | A | van den Tillaar 2019 – Push-up vs. Bench Press | [`L-T2-09_vandenTillaar-2019_Push-up-vs-Bench-Press.pdf`](t2-kraft/L-T2-09_vandenTillaar-2019_Push-up-vs-Bench-Press.pdf) | 8 |  |
 | L-T2-14 | A | Cowley et al. 2026 – Advanced Resistance Training Methods (optional) | [`L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf`](t2-kraft/L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf) | 23 | optional (D-54) |
+| L-T2-17 | A | Shiri et al. 2018 – Exercise for the Prevention of Low Back Pain | [`L-T2-17_Shiri-2018_Exercise-Prevention-Low-Back-Pain.pdf`](t2-kraft/L-T2-17_Shiri-2018_Exercise-Prevention-Low-Back-Pain.pdf) | 9 |  |
+| L-T2-18 | A | Steffens et al. 2016 – Prevention of Low Back Pain | [`L-T2-18_Steffens-2016_Prevention-of-Low-Back-Pain.pdf`](t2-kraft/L-T2-18_Steffens-2016_Prevention-of-Low-Back-Pain.pdf) | 10 |  |
 
 ### T3 Klettern/Bouldern (13.2.4)
 
@@ -68,9 +73,10 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T3-01 | A | Stien et al. 2023 – Climbing and Resistance Training (Meta-Analyse) | [`L-T3-01_Stien-2023_Climbing-and-Resistance-Training-Meta-Analysis.pdf`](t3-klettern/L-T3-01_Stien-2023_Climbing-and-Resistance-Training-Meta-Analysis.pdf) | 13 | CC BY 4.0 |
 | L-T3-02 | A | Langer, Simon, Wiemeyer 2023 – Strength Training in Climbing | [`L-T3-02_Langer-2023_Strength-Training-in-Climbing.pdf`](t3-klettern/L-T3-02_Langer-2023_Strength-Training-in-Climbing.pdf) | 17 |  |
 | L-T3-03 | A | Langer, Simon, Wiemeyer 2023 – Performance Testing in Climbing | [`L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf`](t3-klettern/L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf) | 23 | CC BY; Front Sports Act Living Bd. 5, Art. 1130812 |
+| L-T3-04 | A | Draper et al. 2015 – IRCRA Position Statement (Grading Scales, Ability Grouping) | [`L-T3-04_Draper-2015_IRCRA-Grading-Position-Statement.pdf`](t3-klettern/L-T3-04_Draper-2015_IRCRA-Grading-Position-Statement.pdf) | 8 |  |
 | L-T3-06 | B | Schöffl et al. (Hrsg.) 2022 – Climbing Medicine | [`L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf`](t3-klettern/L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf) | 319 | Kapitel-PDFs in `L-T3-06_kapitel/` |
 
-Summe: 30 Werke (davon 7 Bücher mit Kapitel-PDFs).
+Summe: 36 Werke (davon 7 Bücher mit Kapitel-PDFs).
 
 ## Noch nicht vorhanden
 
@@ -80,18 +86,12 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A und B eingearbeitet).
 
 | Prio | ID | Quelle | Wofür |
 |---|---|---|---|
-| 1 | L-P13 | Silbernagel et al. 2007, Am J Sports Med 35(6):897–906 | **Pflicht für V-07** (Schmerzschwellen, Q-13) |
-| 1 | L-P10 | Foster et al. 2001, J Strength Cond Res 15(1):109–115 | sRPE-Methode |
-| 1 | L-P12 | Impellizzeri et al. 2020, Int J Sports Physiol Perform 15(6):907–913 | ACWR-Kritik; Open-Access-Ersatz siehe Konzept |
-| 1 | L-T2-17 | Shiri et al. 2018, Am J Epidemiol 187(5):1093–1101 | Kreuzschmerz-Prävention, Dosierung |
-| 1 | L-T2-18 | Steffens et al. 2016, JAMA Intern Med 176(2):199–208 | Kreuzschmerz-Prävention |
 | 1 | L-T1-01 | Hottenrott/Seidel, Handbuch Trainingswissenschaft – Trainingslehre, 2. Aufl. 2025 (Buch) | T1 Kern; durchsuchbares PDF |
 | 1 | L-A01 | Kenney/Wilmore/Costill, 8. (2022) oder 9. Aufl. (2024) (Buch) | ersetzt die vorläufige 7. Aufl. (D-51) |
 | 2 | L-T2-11 | Rønnestad & Mujika 2014, Scand J Med Sci Sports 24(4):603–612 | Kraft für Läufer |
 | 2 | L-T1-07 | Laursen/Buchheit, Science and Application of HIIT, 2019 (Buch) | Intervallprogrammierung; kein VitalSource-DRM |
 | 2 | L-T3-08 | Köstermeyer, Peak Performance, 8. Aufl. 2017 (Buch) | T3 Kern; Auflage/ISBN beim Kauf klären (tmms-Shop) |
 | 2 | L-T2-10 | Wiedenmann et al. 2025, Gerontology 71(7):576–588 | Beleg Körpergewichtstraining (D-29); Zugang nicht geprüft |
-| 2 | L-T3-04 | Draper et al. 2015, Sports Technology 8(3-4):88–94 | IRCRA-Positionspapier, Graduierung (Datenmodell); Zugang nicht geprüft |
 
 ### Frei verfügbar (PubMed Central)
 
