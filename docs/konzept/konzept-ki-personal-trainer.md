@@ -1230,6 +1230,9 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: Widerruf einer Claude-Freigabe (S8)
     loesung: setzt alle Refresh-Tokens des Clients auf revoked; laufende Access-Tokens enden nach ≤ 1 h (D-32); die Client-Registrierung bleibt und wird nach 30 Tagen ohne Nutzung aufgeräumt
+  - datum: 2026-09-28
+    was: CI (MySQL 8.4) rot, lokal (MariaDB) grün – MySQL speichert JSON-Objekte mit sortierten Schlüsseln, ein Test verglich die Reihenfolge
+    loesung: Test vergleicht ohne Reihenfolge; fachlich ohne Folgen (Zugriff immer über Schlüssel)
 ```
 
 ## AP-05 MCP-Tools produktiv

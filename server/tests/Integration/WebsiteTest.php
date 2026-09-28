@@ -76,7 +76,7 @@ final class WebsiteTest extends AppTestCase
         self::assertSame(385, (int) $e['srpe_load']);
         self::assertSame('zeit', $e['deviation_reason']);
         $actual = json_decode((string) $e['actual_json'], true);
-        self::assertSame(['name' => 'Kniebeuge', 'sets' => 2, 'reps' => '8', 'load' => '62,5 kg'], $actual['exercises'][0]);
+        self::assertEquals(['name' => 'Kniebeuge', 'sets' => 2, 'reps' => '8', 'load' => '62,5 kg'], $actual['exercises'][0], 'Schlüsselreihenfolge egal (MySQL sortiert JSON-Schlüssel)');
         self::assertSame(0, $actual['exercises'][2]['sets']);
         self::assertSame('teilweise', $this->pdo->query('SELECT status FROM `session` WHERE id = ' . $id)->fetchColumn());
         $pain = $this->pdo->query('SELECT * FROM pain_event')->fetch();
