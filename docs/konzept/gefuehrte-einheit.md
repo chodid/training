@@ -529,7 +529,22 @@ T5:
       loesung: Test tippt auf die Beschriftung wie ein Nutzer und lässt die Uhr zum Ausfüllen wieder laufen
     - was: Mockup zeigt „≈ 32 min verbleibend“; die Dauer von Wiederholungsübungen ist unbekannt
       loesung: stattdessen die Zeit seit dem ersten Start (mm:ss) rechts über dem Fortschritt
-T6: {status: offen}
+T6:
+  status: umgesetzt          # Code-Stand 0.18.0; Abnahme auf dem Gerät (Flugmodus) durch den Athleten offen
+  datum: 2026-09-28
+  ergebnis: >
+    S8: Bereich „Training“ nach „Konto“ mit Zeile „Timer-Signale“ (Segment An/Aus mit Icons volume/volume-off und
+    Knopf „Speichern“, Formular ohne JavaScript, action=timer); SettingsRepository::TIMER_TON (Standard an), Prüfung
+    an/aus, Audit setting_update, Schreibsperre wie bei den übrigen Einstellungen; S9 liest die Vorgabe (data-ton).
+    Offline: WeekController::prefetch nimmt /einheit?id=…&modus=start für heutige und morgige geeignete Einheiten auf
+    (Ablaufplan::geeignet); sw.js PRECACHE enthält /js/gefuehrt.js?v=VERSION; Seiten-Cache und Formular-Puffer
+    unverändert (Schlüssel enthält modus=start). Prüfprotokoll: Einträge zu T1–T6 (AP-13, AP-14).
+  tests: GuidedSessionTest::testTimerSettingInS8 (Standard, Speichern, ungültiger Wert, Wirkung in S9, Audit), ::testWeekPrefetchesGuidedPagesForTodayAndTomorrow; Browser-Durchlauf Z-09 (S8 aus → S9 stumm, Umschalten in S9 ändert S8 nicht) und S9 ohne Netz aus dem Cache
+  abnahme: Einstellung wirkt als Standard in S9 (automatisiert und im Browser); S9 öffnet ohne Netz aus dem Cache (Browser, Netzausfall über Proxy); Speichern ohne Netz landet im Puffer und wird nachgesendet (Z-12, Browser)
+  abnahme_offen: dieselben Punkte auf dem Smartphone im Flugmodus durch den Athleten
+  probleme_loesungen:
+    - was: 6.6 sieht einen Schalter ohne JavaScript vor; ein Radio-Segment speichert ohne Skript nicht von selbst
+      loesung: kleines Formular in der Zeile mit Segment An/Aus und Knopf „Speichern“; auf schmalen Geräten steht die Bedienung unter dem Text
 T7: {status: offen}
 probleme_loesungen: []
 ```

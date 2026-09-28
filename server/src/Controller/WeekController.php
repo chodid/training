@@ -9,6 +9,7 @@ use Training\Http\Request;
 use Training\Http\Response;
 use Training\Intervals\ActivityLookup;
 use Training\Intervals\IntervalsClient;
+use Training\Plan\Ablaufplan;
 
 /** S2 Woche (Abschnitt 10): 7 Tage mit Einheiten, Check-in-Status, ±Woche, sRPE-Summe, offene Rückmeldungen. */
 final class WeekController extends AppController
@@ -96,16 +97,21 @@ final class WeekController extends AppController
 
     /**
      * Seiten, die der Service Worker für die Offline-Nutzung vorlädt (D-45): aktuelle und nächste Woche mit ihren
-     * Einheiten, Check-in und Schmerz für heute. Nur in der Ansicht der aktuellen Woche.
+     * Einheiten, Check-in und Schmerz für heute, dazu die geführte Einheit (S9) für heutige und morgige geeignete
+     * Einheiten (AP-14, 6.7). Nur in der Ansicht der aktuellen Woche.
      * @param list<array<string, mixed>> $sessions
      * @return list<string>
      */
     private function prefetch(string $monday, string $next, string $today, array $sessions): array
     {
         $urls = ['/woche', '/woche?start=' . $monday, '/woche?start=' . $next, '/checkin', '/checkin?datum=' . $today, '/schmerz', '/schmerz?datum=' . $today];
+        $tomorrow = Dates::addDays($today, 1);
         foreach ([...$sessions, ...$this->weeks()->sessions($next, Dates::addDays($next, 6))] as $s) {
             if ($s['type'] !== 'ruhe') {
                 $urls[] = '/einheit?id=' . (int) $s['id'];
+            }
+            if (in_array($s['date'], [$today, $tomorrow], true) && Ablaufplan::geeignet((string) $s['type'], $s['plan'] ?? null)) {
+                $urls[] = '/einheit?id=' . (int) $s['id'] . '&modus=start';
             }
         }
 

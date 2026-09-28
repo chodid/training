@@ -252,6 +252,20 @@ async function haupt(page) {
   assert.deepEqual([s.phase, s.satz, s.timer], ['arbeit', 'Satz 2 von 3 · dann 60 s Pause', '00:30']);
   ok('Z-05 Hintergrund: Folgephase richtig, nur ein Hinweiston');
 
+  // ---------- Z-09: Einstellung S8 „aus“ → S9 startet stumm; Umschalten in S9 gilt nur für diese Einheit ----------
+  await page.goto(BASE + '/einstellungen');
+  await page.locator('label:has(input[name="timer_ton"][value="aus"])').click();
+  await Promise.all([page.waitForURL(/ok=timer/), page.click('form:has(input[name="timer_ton"]) button[type=submit]')]);
+  await page.goto(BASE + '/einheit?id=' + haltungId + '&modus=start');
+  assert.equal(await page.getAttribute('#gf-stumm', 'aria-pressed'), 'true', 'startet stumm');
+  await page.click('#gf-stumm');
+  assert.equal(await page.getAttribute('#gf-stumm', 'aria-pressed'), 'false');
+  await page.goto(BASE + '/einstellungen');
+  assert.ok(await page.isChecked('input[name="timer_ton"][value="aus"]'), 'S8 unverändert');
+  await page.locator('label:has(input[name="timer_ton"][value="an"])').click();
+  await Promise.all([page.waitForURL(/ok=timer/), page.click('form:has(input[name="timer_ton"]) button[type=submit]')]);
+  ok('Z-09 Vorgabe aus S8, Schalter in S9 nur für die Einheit');
+
   // ---------- Z-12: Speichern ohne Netz über den Puffer ----------
   // Playwrights Offline-Emulation erfasst Anfragen des Service Workers nicht; ein Proxy vor der App kappt deshalb
   // auf Kommando jede Verbindung (echter Netzausfall für Seite und Service Worker).
@@ -284,6 +298,11 @@ async function haupt(page) {
   await offline.evaluate(() => navigator.serviceWorker.ready);
   await offline.reload(); // jetzt vom Service Worker kontrolliert
   assert.ok(await offline.evaluate(() => !!navigator.serviceWorker.controller), 'Service Worker aktiv');
+  netzAus = true; // T6: S9 öffnet ohne Netz aus dem Seiten-Cache
+  await offline.reload();
+  assert.ok(await offline.evaluate(() => document.body.hasAttribute('data-offline-stand')), 'gespeicherter Stand');
+  assert.equal(await offline.textContent('#gf-aktionen [data-aktion="haupt"] .gf-text'), 'Satz erledigt', 'Skript läuft offline');
+  netzAus = false;
   await offline.click('#gf-aktionen [data-aktion="haupt"]'); // Satz erledigt → fertig
   await offline.click('#gf-aktionen [data-aktion="haupt"]'); // Zum Abschluss
   await waehle(offline, 'rpe', '4');

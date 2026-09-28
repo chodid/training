@@ -155,6 +155,45 @@ final class GuidedSessionTest extends AppTestCase
         self::assertStringContainsString('data-ton="aus"', $this->request('GET', '/einheit?id=' . $this->ids['kraft'] . '&modus=start')->body);
     }
 
+    /** AP-14 T6 (6.6): Timer-Signale in S8 als Formular ohne JavaScript; wirkt als Vorgabe in S9 (Z-09). */
+    public function testTimerSettingInS8(): void
+    {
+        $page = $this->request('GET', '/einstellungen');
+        self::assertStringContainsString('<h2>Training</h2>', $page->body);
+        self::assertStringContainsString('<div class="t">Timer-Signale</div>', $page->body);
+        self::assertMatchesRegularExpression('/name="timer_ton" value="an" checked>/', $page->body, 'Standard an');
+
+        $r = $this->request('POST', '/einstellungen', ['csrf' => self::csrfFrom($page), 'action' => 'timer', 'timer_ton' => 'aus']);
+        self::assertSame(303, $r->status);
+        self::assertSame('/einstellungen?ok=timer', $r->headers['Location']);
+        $after = $this->request('GET', '/einstellungen?ok=timer');
+        self::assertStringContainsString('Timer-Signale gespeichert.', $after->body);
+        self::assertMatchesRegularExpression('/name="timer_ton" value="aus" checked>/', $after->body);
+        self::assertStringContainsString('data-ton="aus"', $this->request('GET', '/einheit?id=' . $this->ids['kraft'] . '&modus=start')->body);
+        self::assertSame('timer_ton', $this->pdo->query("SELECT entity_id FROM audit_log WHERE action = 'setting_update'")->fetchColumn());
+
+        $bad = $this->request('POST', '/einstellungen', ['csrf' => self::csrfFrom($page), 'action' => 'timer', 'timer_ton' => 'laut']);
+        self::assertStringContainsString('Bitte „An“ oder „Aus“ wählen.', html_entity_decode($bad->body));
+        self::assertSame('aus', $this->pdo->query("SELECT value FROM app_setting WHERE setting_key = 'timer_ton'")->fetchColumn(), 'unverändert');
+
+        $this->request('POST', '/einstellungen', ['csrf' => self::csrfFrom($page), 'action' => 'timer', 'timer_ton' => 'an']);
+        self::assertStringContainsString('data-ton="an"', $this->request('GET', '/einheit?id=' . $this->ids['kraft'] . '&modus=start')->body);
+    }
+
+    /** AP-14 T6 (6.7): Die Woche lädt S9 für heutige und morgige geeignete Einheiten vor. */
+    public function testWeekPrefetchesGuidedPagesForTodayAndTomorrow(): void
+    {
+        $week = $this->request('GET', '/woche');
+        self::assertSame(1, preg_match('/id="offline-prefetch" data-urls="([^"]+)"/', $week->body, $m));
+        $urls = json_decode(html_entity_decode($m[1]), true);
+        self::assertContains('/einheit?id=' . $this->ids['klettern'] . '&modus=start', $urls, 'heute (Mi)');
+        self::assertContains('/einheit?id=' . $this->ids['haltung'] . '&modus=start', $urls, 'morgen (Do)');
+        self::assertNotContains('/einheit?id=' . $this->ids['kraft'] . '&modus=start', $urls, 'Montag liegt zurück');
+        self::assertNotContains('/einheit?id=' . $this->ids['mobilitaet'] . '&modus=start', $urls, 'übermorgen');
+        self::assertContains('/einheit?id=' . $this->ids['ausdauer'], $urls);
+        self::assertSame(2, count(array_filter($urls, static fn (string $u): bool => str_contains($u, 'modus=start'))));
+    }
+
     /** @return array<string, int> */
     private function insertExampleWeek(): array
     {

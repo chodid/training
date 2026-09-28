@@ -1917,7 +1917,7 @@ probleme_loesungen:
 status: in_arbeit
 begonnen: 2026-09-28
 abgeschlossen: null
-teilpakete: T3, T4 und T5 umgesetzt (Code-Stand 0.18.0), T6–T7 offen – Details in docs/konzept/gefuehrte-einheit.md Abschnitt 12
+teilpakete: T3 bis T6 umgesetzt (Code-Stand 0.18.0), T7 offen – Details in docs/konzept/gefuehrte-einheit.md Abschnitt 12
 probleme_loesungen:
   - datum: 2026-09-28
     was: Haltebereiche mit Halbgeviertstrich („30–45 s“) und rest_s = 0 sind in 6.3 nicht geregelt
@@ -2007,3 +2007,4 @@ noch_zu_pruefen:
 | 2026-09-28 | AP-14 begonnen: T3 Ablaufplan umgesetzt (Code-Stand 0.18.0); AP-14 `in_arbeit`. |
 | 2026-09-28 | AP-14 T4: Seite S9 ohne Skript (`/einheit?id=…&modus=start`, Template `session-start.php`), Startknopf in S3. |
 | 2026-09-28 | AP-14 T5: Seitenskript `js/gefuehrt.js` (Timer, Signale, Farben, Wake Lock, Stumm, Fortschritt im Browser), Node- und Browser-Tests in der CI; offener Punkt O-06 (30-s-Ton) im Auftrag. |
+| 2026-09-28 | AP-14 T6: Einstellungen → Training (Timer-Signale, `timer_ton`), Vorladen der geführten Einheit für heute und morgen, Skript im Versions-Cache. |

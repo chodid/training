@@ -633,13 +633,21 @@ geprueft:
     wie: Browser (Chromium, lokale Instanz), manuell
     ergebnis: ok
     datum: 2026-09-28
+  - was: T6 – S8 Bereich „Training“ mit Timer-Signalen (Standard an, Speichern aus/an, ungültiger Wert abgelehnt, Audit), Vorgabe wirkt in S9 (data-ton); Woche lädt S9 für heute und morgen vor (nicht für vergangene oder spätere Tage); 375/1280 px ohne Überlauf
+    wie: automatisiert (GuidedSessionTest) + Browser
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T6 Browser – Z-09 (S8 aus → S9 stumm, Umschalten in S9 ändert S8 nicht); S9 öffnet bei Netzausfall aus dem Seiten-Cache (gespeicherter Stand, Skript läuft); Z-12 Speichern ohne Netz im Puffer, Nachsenden bei Netz, Fortschritt danach gelöscht
+    wie: automatisiert (Playwright, tests/e2e/run.sh, Netzausfall über Proxy)
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: T5 Gerätetest Android – Töne und Vibration bei Start, 30 s, 10 s, 3-2-1 und Abschluss hörbar/spürbar; Grün/Rot und Browserleiste; Bildschirm bleibt während der Einheit an; Stumm in der Einheit; Fortsetzen nach versehentlichem Neuladen
     wie: Gerätetest durch Athlet (nach Deployment 0.18.0), am besten mit einer Einheit mit Haltezeiten (z. B. Unterarmstütz 45 s)
   - was: O-06 – 30-s-Ton erst bei Phasen über 45 s (Z-01) statt ab 45 s (E-17) bestätigen; Tonhöhen/-längen nach Gehör anpassen (O-04)
     wie: Rückmeldung des Athleten nach dem Gerätetest
-  - was: T6 (Einstellungen, Offline-Vorladen)
-    wie: siehe Auftrag Abschnitt 7 und 8.2
+  - was: T6 im Flugmodus auf dem Smartphone – Woche mit Netz öffnen, dann Flugmodus; geführte Einheit von heute öffnen (aus dem Cache), durchgehen, speichern („Offline gespeichert“), Netz an → Rückmeldung erscheint in der Woche; Einstellung „Timer-Signale aus“ → S9 startet stumm
+    wie: Gerätetest durch Athlet (nach Deployment 0.18.0)
 ```
 
 ## AP-05 MCP-Tools produktiv

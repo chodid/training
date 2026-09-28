@@ -17,8 +17,9 @@ use Training\Migration\Migrator;
 use Training\OAuth\OAuthConfig;
 
 /**
- * S8 Einstellungen (Abschnitt 10): Konto (Abmelden, Zeitzone, Passwort), Backup und Update (Anzeige; Funktionen
- * folgen mit AP-10), Verbindungen (Intervals.icu, freigegebene OAuth-Clients mit Widerruf, statisches Token).
+ * S8 Einstellungen (Abschnitt 10): Konto (Abmelden, Zeitzone, Passwort), Training (Timer-Signale der geführten
+ * Einheit, AP-14), Backup und Update, Verbindungen (Intervals.icu, freigegebene OAuth-Clients mit Widerruf,
+ * statisches Token).
  */
 final class SettingsController extends AppController
 {
@@ -32,7 +33,7 @@ final class SettingsController extends AppController
             return Response::error(403, 'Ungültiges Formular.');
         }
 
-        if ($request->method === 'POST' && in_array($action, ['zeitzone', 'passwort', 'erinnerung', 'checkin'], true) && ($locked = $this->lockedResponse())) {
+        if ($request->method === 'POST' && in_array($action, ['zeitzone', 'passwort', 'erinnerung', 'checkin', 'timer'], true) && ($locked = $this->lockedResponse())) {
             return $locked;
         }
 
@@ -47,6 +48,7 @@ final class SettingsController extends AppController
             'kalender' => $this->calendarSync(),
             'erinnerung' => $this->reminder($request),
             'checkin' => $this->checkinSettings($request),
+            'timer' => $this->timerSettings($request),
             default => $this->overview($request),
         };
     }
@@ -80,6 +82,7 @@ final class SettingsController extends AppController
             'passwort' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Passwort geändert.', 'text' => 'Andere Geräte wurden abgemeldet.'],
             'widerrufen' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Freigabe widerrufen.', 'text' => 'Laufende Zugriffe enden spätestens nach einer Stunde.'],
             'checkin' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Check-in-Einstellung gespeichert.', 'text' => ''],
+            'timer' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Timer-Signale gespeichert.', 'text' => 'Gilt ab der nächsten geführten Einheit.'],
             'erinnerung' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Erinnerung gespeichert.', 'text' => sprintf('%d Termine im Kalender aktualisiert.', (int) $request->query('n'))],
             'kalender' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Kalender abgeglichen.', 'text' => sprintf('%d Termine übertragen, %d entfernt.', (int) $request->query('n'), (int) $request->query('d'))],
             default => null,
@@ -101,6 +104,7 @@ final class SettingsController extends AppController
             'passkeyList' => $this->passkeyList(),
             'profile' => $this->profileSummary(),
             'handBis' => (new SettingsRepository($this->app->pdo(), $this->app->clock()))->handRechtsBis(),
+            'timerTon' => (new SettingsRepository($this->app->pdo(), $this->app->clock()))->timerTon(),
             'calendar' => [
                 'host' => CalDavClient::isConfigured($config) ? (string) parse_url((string) $config->get('CALDAV_URL'), PHP_URL_HOST) : null,
                 'https' => str_starts_with(strtolower((string) $config->get('CALDAV_URL')), 'https://'),
@@ -207,6 +211,22 @@ final class SettingsController extends AppController
         $this->audit()->write('web', 'setting_update', 'app_setting', SettingsRepository::CHECKIN_HAND_BIS, ['value' => $date], 'Check-in: Hand rechts abfragen bis ' . $date);
 
         return Response::redirect('/einstellungen?ok=checkin');
+    }
+
+    /** Timer-Signale im geführten Modus (AP-14, E-18): Ton und Vibration an oder aus als Vorgabe für S9. */
+    private function timerSettings(Request $request): Response
+    {
+        if ($request->method !== 'POST') {
+            return Response::redirect('/einstellungen');
+        }
+        $value = (string) $request->post('timer_ton');
+        if (!in_array($value, ['an', 'aus'], true)) {
+            return $this->overview($request, ['type' => 'error', 'icon' => 'alert-circle', 'title' => 'Nicht gespeichert.', 'text' => 'Bitte „An“ oder „Aus“ wählen.']);
+        }
+        (new SettingsRepository($this->app->pdo(), $this->app->clock()))->set(SettingsRepository::TIMER_TON, $value);
+        $this->audit()->write('web', 'setting_update', 'app_setting', SettingsRepository::TIMER_TON, ['value' => $value], 'Timer-Signale im geführten Modus: ' . $value);
+
+        return Response::redirect('/einstellungen?ok=timer');
     }
 
     /** Kalender-Erinnerung (D-52): Uhrzeit am Tag der Einheit oder aus; danach Termine im Zeitraum neu übertragen. */

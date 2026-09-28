@@ -88,6 +88,8 @@ html.js .gf-step:not(.aktiv){display:none}
 /* Aktionsleisten über der unteren Navigation (60 px + Rand) halten, damit die Primäraktion immer sichtbar ist */
 @media (max-width:767px){.gf-actions,.gf-save{bottom:calc(61px + env(safe-area-inset-bottom))}}
 .gf-save{display:flex;flex-wrap:nowrap}
+.timer-ton{flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:479px){.timer-zeile{grid-template-columns:1fr}.timer-ton{justify-content:flex-start}}
 .gf-save .btn-icon{flex:none}
 .done-list{display:grid;gap:var(--space-2)}
 .done-list .row{font:var(--type-body-sm)}
