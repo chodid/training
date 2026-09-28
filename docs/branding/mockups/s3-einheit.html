@@ -13,6 +13,12 @@
   [data-typ]{display:none}
   body.typ-kraft [data-typ="kraft"],body.typ-ausdauer [data-typ="ausdauer"],body.typ-klettern [data-typ="klettern"]{display:block}
   body.typ-kraft .page-head[data-typ="kraft"],body.typ-ausdauer .page-head[data-typ="ausdauer"],body.typ-klettern .page-head[data-typ="klettern"]{display:grid}
+  .page-head .kurz{color:var(--text-secondary)}
+  details.more>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center;gap:var(--space-1);color:var(--text-brand);list-style:none}
+  details.more>summary::-webkit-details-marker{display:none}
+  details.more[open]>summary .ic{transform:rotate(90deg)}
+  details.more>p{color:var(--text-secondary);padding-bottom:var(--space-2);max-width:70ch}
+  .start-row{margin-top:var(--space-2)}
 </style>
 </head>
 <body class="app typ-kraft">
@@ -36,17 +42,31 @@
   <div class="page-head" data-typ="kraft">
     <div class="eyebrow"><svg class="ic" style="color:var(--plum-600)"><use href="#i-barbell"/></svg>Kraft · Mittwoch, 23.09. · Priorität B · 45 min</div>
     <h1>Ganzkörper Kraft 1</h1>
-    <p class="muted small">Trainer-Notiz: Zweite Krafteinheit im Block, Last wie letzte Woche, Fokus saubere Tiefe in der Kniebeuge. Rudern mit Band, weil die Schulter links noch reagiert.</p>
+    <p class="kurz">Zweite Krafteinheit im Block, Last wie letzte Woche, Fokus saubere Tiefe in der Kniebeuge.</p>
+    <details class="more">
+      <summary><svg class="ic ic-sm"><use href="#i-chevron-right"/></svg>mehr</summary>
+      <p>Die Sehne hat die erste Krafteinheit gut vertragen (Morgentest 1–2), deshalb bleibt die Last gleich und die Bewegungstiefe wird sauberer statt schwerer. Rudern mit Band, weil die Schulter links noch reagiert. Ziel des Blocks ist die belastbare Basis für die Skitourensaison, nicht Maximalkraft.</p>
+    </details>
+    <div class="btn-row start-row"><a class="btn btn-primary" href="s9-einheit-gefuehrt.html"><svg class="ic"><use href="#i-player-play"/></svg>Einheit starten</a></div>
   </div>
   <div class="page-head" data-typ="ausdauer">
     <div class="eyebrow"><svg class="ic" style="color:var(--plum-600)"><use href="#i-run"/></svg>Ausdauer · Donnerstag, 24.09. · Priorität A · 55 min</div>
     <h1>Intervalle 5 × 4 min Zone 3</h1>
-    <p class="muted small">Trainer-Notiz: Erste Intervalleinheit im Block. Ziel ist die Zeit in Zone 3, nicht das Tempo. Pausen locker traben.</p>
+    <p class="kurz">Erste Intervalleinheit im Block: Zeit in Zone 3 zählt, nicht das Tempo.</p>
+    <details class="more">
+      <summary><svg class="ic ic-sm"><use href="#i-chevron-right"/></svg>mehr</summary>
+      <p>Die Intervalle bauen die Schwellenausdauer für lange Anstiege auf. Fünf Wiederholungen sind bewusst kurz gehalten, weil die Woche zwei Intervalleinheiten hat. Pausen locker traben; bei Knieschmerz über 3 abbrechen und als „teilweise“ melden.</p>
+    </details>
   </div>
   <div class="page-head" data-typ="klettern">
     <div class="eyebrow"><svg class="ic" style="color:var(--plum-600)"><use href="#i-mountain"/></svg>Klettern · Dienstag, 22.09. · Priorität A · 90 min</div>
     <h1>Bouldern Volumen</h1>
-    <p class="muted small">Trainer-Notiz: Volumen unterhalb des Limits, viele Züge, keine Fingerkraft-Blöcke. Bei Ringband-Ziehen sofort abbrechen.</p>
+    <p class="kurz">Volumen unterhalb des Limits, viele Züge, keine Fingerkraft-Blöcke.</p>
+    <details class="more">
+      <summary><svg class="ic ic-sm"><use href="#i-chevron-right"/></svg>mehr</summary>
+      <p>Der Block baut Technik und Kletterausdauer auf, bevor im nächsten Block Fingerkraft dazukommt. Viele leichte Züge bei niedriger Ermüdung sind dafür der wirksamste Reiz. Bei Ringband-Ziehen sofort abbrechen.</p>
+    </details>
+    <div class="btn-row start-row"><a class="btn btn-primary" href="s9-einheit-gefuehrt.html?state=offen"><svg class="ic"><use href="#i-player-play"/></svg>Einheit starten</a></div>
   </div>
 
   <form class="two-col" action="#" onsubmit="return false">

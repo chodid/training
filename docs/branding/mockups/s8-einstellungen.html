@@ -48,6 +48,15 @@
   </section>
 
   <section>
+    <div class="section-title"><h2>Training</h2></div>
+    <div class="card list">
+      <!-- Teil C, E-18: Standard für den geführten Modus; in der Einheit jederzeit umschaltbar -->
+      <div class="list-item"><div><div class="t">Timer-Signale</div><div class="s">Ton und Vibration im geführten Modus (Start, 30 s, 10 s, 3-2-1) · in der Einheit jederzeit umschaltbar</div></div>
+        <div class="seg" role="radiogroup" aria-label="Timer-Signale"><label><input type="radio" name="timer_ton" value="an" checked><svg class="ic ic-sm"><use href="#i-volume"/></svg><span>An</span></label><label><input type="radio" name="timer_ton" value="aus"><svg class="ic ic-sm"><use href="#i-volume-off"/></svg><span>Aus</span></label></div></div>
+    </div>
+  </section>
+
+  <section>
     <div class="section-title"><h2>Backup</h2><span class="hint">verschlüsselt, AES-256</span></div>
     <div class="card list">
       <div class="list-item"><div><div class="t">Backup herunterladen</div><div class="s">SQL-Dump, gzip, mit dem Backup-Passwort aus der <span class="mono">.env</span> verschlüsselt</div></div><button class="btn btn-primary" type="button"><svg class="ic"><use href="#i-download"/></svg>Herunterladen</button></div>

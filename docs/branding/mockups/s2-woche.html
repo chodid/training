@@ -13,6 +13,12 @@
   body.st-leer .has-data{display:none}
   .only-empty{display:none}
   body.st-leer .only-empty{display:block}
+  .begruendung{display:grid;gap:var(--space-1);margin-bottom:var(--space-4)}
+  .begruendung .kurz{color:var(--text-secondary)}
+  details.more>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center;gap:var(--space-1);color:var(--text-brand);list-style:none}
+  details.more>summary::-webkit-details-marker{display:none}
+  details.more[open]>summary .ic{transform:rotate(90deg)}
+  details.more>p{color:var(--text-secondary);padding-bottom:var(--space-2)}
 </style>
 </head>
 <body class="app">
@@ -39,9 +45,18 @@
     <a class="btn btn-icon" href="#" aria-label="Vorherige Woche"><svg class="ic ic-lg"><use href="#i-chevron-left"/></svg></a>
     <div class="title">
       <h1>21. – 27. September</h1>
-      <div class="muted">KW 39 · Block 2 „Grundlage Herbst“, Woche 6 von 12 · Fokus Ausdauer</div>
+      <div class="muted">KW 39 · Block 2 „Grundlage Herbst“, Woche 6 von 12</div>
     </div>
     <a class="btn btn-icon" href="#" aria-label="Nächste Woche"><svg class="ic ic-lg"><use href="#i-chevron-right"/></svg></a>
+  </div>
+
+  <!-- Begründung der Woche (Teil B, E-11): Kurzsatz sichtbar, ausführlicher Text hinter „mehr“ (details, ohne JavaScript) -->
+  <div class="card has-data begruendung">
+    <p class="kurz">Ausdauerwoche mit zwei Intervalleinheiten, Kraft nur erhaltend – die Sehne war die letzten Tage ruhig.</p>
+    <details class="more">
+      <summary><svg class="ic ic-sm"><use href="#i-chevron-right"/></svg>mehr</summary>
+      <p>Block 2 zielt auf die Grundlage für die Skitourensaison. Nach zwei ruhigen Morgentest-Wochen steigt das Ausdauervolumen um etwa zehn Prozent, die Intervalle bleiben in Zone 3. Kraft und Haltung laufen mit unveränderter Last weiter, damit die Patellasehne nicht zwei Reize gleichzeitig bekommt. Klettern bleibt Volumen unter dem Limit. Bei Morgentest über 3 wird die zweite Intervalleinheit zum lockeren Lauf.</p>
+    </details>
   </div>
 
   <div class="week-sum has-data">

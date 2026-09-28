@@ -5,6 +5,7 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ## [Unreleased]
 
 ### Dokumentation
+- Konzeptentwurf `docs/konzept/gefuehrte-einheit.md` (Fable): App-Icon und Logo auf das ganze Lama (D-55, Q-14), Begründungstexte je Woche und Einheit mit Kurzsatz und „mehr“ (D-56), geführte Einheit mit Timer, Farbwechsel und Signalen (D-57, D-58); AP-13 und AP-14 im Hauptkonzept. Mockups `s9-einheit-gefuehrt.html` (fünf Zustände) und `icon-optionen.html` (fünf Logo-Varianten), S2/S3/S8 angepasst, Icons `player-play`, `player-pause`, `player-skip-back`, `volume`, `volume-off` ergänzt (Branding B-08, B-09).
 - Konzept: Übergaben AP-06 Teil B (Verifikation L-P10–L-P14, L-T2-11/-12, T3) und Teil A (Haltung/Rücken, L-T2-15–L-T2-19) eingearbeitet; neu D-54 und Q-13; Beschaffungsliste 13.4 ergänzt.
 
 ## [0.16.0] – 2026-09-28

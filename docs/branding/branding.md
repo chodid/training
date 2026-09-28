@@ -43,12 +43,14 @@ Ablage: `docs/branding/mockups/`. Jede Seite ist eine eigenständige HTML-Datei,
 | S0 Setup | `s0-setup.html` | – | AP-01 |
 | S1 Login | `s1-login.html` | `?state=fehler`, `?state=gesperrt` | AP-01 |
 | S7 OAuth-Freigabe | `s7-freigabe.html` | – | AP-01 |
-| S2 Woche | `s2-woche.html` | `?state=leer` | AP-04 |
-| S3 Einheit | `s3-einheit.html` | `?typ=kraft` (Standard), `?typ=ausdauer`, `?typ=klettern`, zusätzlich `&schmerz=ja` | AP-04 |
+| S2 Woche | `s2-woche.html` | `?state=leer` | AP-04; Kurzsatz mit „mehr“ ergänzt (AP-13) |
+| S3 Einheit | `s3-einheit.html` | `?typ=kraft` (Standard), `?typ=ausdauer`, `?typ=klettern`, zusätzlich `&schmerz=ja` | AP-04; Kurzsatz mit „mehr“ und „Einheit starten“ ergänzt (AP-13/AP-14) |
 | S4 Check-in | `s4-checkin.html` | `?schmerz=ja` | AP-04 |
 | S5 Schmerz | `s5-schmerz.html` | – | AP-04 |
 | S6 Verlauf | `s6-verlauf.html` | – | AP-09 |
 | S8 Einstellungen | `s8-einstellungen.html` | `?state=update` | AP-04 (Backup/Update AP-10) |
+| S9 Einheit geführt | `s9-einheit-gefuehrt.html` | `?state=bereit` (Standard), `laeuft`, `pause`, `offen`, `abschluss` | AP-14 (Fable, 2026-09-28) |
+| Icon-Optionen | `icon-optionen.html` (Varianten-SVGs in `icon-optionen/`) | – | AP-13, Q-14 (Fable, 2026-09-28) |
 
 Die Beispieldaten (Block 2 „Grundlage Herbst“, KW 39, Athlet „philipp“) sind erfunden und zeigen typische Fälle: erledigte Einheit ohne Feedback, teilweise erledigte Krafteinheit, verschobene Ausdauereinheit, Ruhetag, wiederholte Schmerzmeldung an einer Stelle.
 
@@ -107,6 +109,8 @@ Typ-Icons: Ausdauer `run`, Kraft `barbell`, Klettern `mountain`, Haltung `yoga`,
 | B-05 | Icons als lokales Inline-Sprite (`icons.js`), nicht per CSS-Mask oder CDN. | CSS-Mask lädt unter `file://` nicht (CORS), CDN ist im Betrieb nicht nötig. | 2026-09-27 |
 | B-06 | Diagramme in einer Farbe (Pflaume) als kleine Vielfache statt gestapelter Mehrfarbenbalken. | Markenpalette hat nur Pflaume und Orange; Orange ist Akzent, Statusfarben sind reserviert. | 2026-09-27 |
 | B-07 | Schriften lokal aus `chadid-design-system/fonts/`, kein Google-Fonts-Aufruf. | Entscheidung des Athleten beim Ablegen des Design-Systems. | 2026-09-27 |
+| B-08 | Statusfarben Erfolg (grün) und Fehler (rot) dürfen im geführten Modus (S9) als Seitenfläche und Timer-Farbe den Zustand tragen: grün = Arbeitsphase, rot = Pause/bereit/angehalten, sonst normale Farbe. Text auf diesen Flächen in der `-700`-Stufe. B-06 bleibt: keine Serien in Statusfarben. | Wunsch des Athleten (Rot → Grün); Zustand ist eine Statusinformation, keine Datenserie. | 2026-09-28 |
+| B-09 | App-Kennung wechselt vom Lama-Kopf auf das ganze Lama (ändert B-03); Variante nach Q-14 im Hauptkonzept (`mockups/icon-optionen.html`, Empfehlung V3 als App-Icon, V2 als Favicon und Kennung). Bis zur Wahl bleibt der Kopf. | Der Kopf gefällt dem Athleten nicht. | 2026-09-28 |
 
 ## 7. Umsetzungshinweise für die Code-Instanz
 
@@ -156,6 +160,9 @@ Abweichungen in der Umsetzung (nach Hinweis 7.10):
 | S4 | Morgentest oben, übrige neue Felder unter „Weitere Angaben“ (`details`), Warnzeichen als Kontrollkästchen; 0–10-Skala bricht bei 375 px in zwei Zeilen um (wie die Schmerzstärke) | AP-12 | AP-12, 2026-09-28 |
 | S8 | Unterseite „Erinnerung im Kalender“ wie „Zeitzone ändern“: Uhrzeitfeld (Browser-Zeitauswahl, 5-Minuten-Schritte), Kontrollkästchen „Keine Erinnerung“, fixierte Knopfleiste; Zeile in Verbindungen mit „Ändern“ | AP-11, D-52 | AP-11, 2026-09-28 |
 | S8 | Verbindungen: Zeile „Kalender (CalDAV)“ mit Host, letzter Übertragung bzw. Fehler und Sekundärknopf „Abgleichen“ (Icon `refresh`); ohne Konfiguration Marke „aus“ | AP-11 kam nach AP-01a; vorhandene Bausteine | AP-11, 2026-09-28 |
+| S2, S3 | Begründung der Planung (D-56): S2 Karte unter der Kopfzeile mit Kurzsatz und `details.more` „mehr“ (Chevron dreht sich beim Öffnen); die Angabe „Fokus …“ in der Kopfzeile entfällt. S3 Kurzsatz im Seitenkopf statt „Trainer-Notiz“, darunter „mehr“ und Primärknopf „Einheit starten“ (Icon `player-play`) | AP-13 (Mockup Fable) | geplant, AP-13 |
+| S8 | Bereich „Training“ vor „Backup“: Zeile „Timer-Signale“ mit Segment An/Aus (Icons `volume`/`volume-off`) | AP-14 (D-58) | geplant, AP-14 |
+| S9 (neu) | Geführte Einheit: Fortschrittsbalken, Phase-Karte (Satz, Übung, Phase-Marke, Timer 64 px mono bzw. Wiederholungen 40 px, Soll), Ist-Karte, „Als Nächstes“, fixierte Aktionsleiste (Zurück-Icon, Primäraktion, Überspringen/Weiter als Icon mit Text ab Tablet), Stummschalter in der Kopfzeile (`aria-pressed`). Neue Icons `player-play`, `player-pause`, `player-skip-back`, `volume`, `volume-off` (Tabler) | AP-14 (D-57, D-58) | geplant, AP-14 |
 | S6 | ~~Platzhalterseite~~ – seit 0.8.0 umgesetzt; Balkenhöhen als Klassen in 5-%-Schritten, Legende über Klassen; Hinweis „steigt seit … Wochen“ weggelassen (Trendregel erst mit AP-07); Raster scrollt auf dem Smartphone waagrecht innerhalb der Karte | CSP ohne Inline-Styles; Trendregel fehlt noch | AP-04, 2026-09-28; AP-09, 2026-09-28 |
 
 Offen (unabhängig von den Mockups):
@@ -166,6 +173,8 @@ Offen (unabhängig von den Mockups):
 | was | wie | ergebnis | datum |
 |---|---|---|---|
 | Alle 13 Seiten/Zustände in 390, 834, 1112 und 1280 px gerendert | automatisiert (Chromium/Playwright, Screenshots in `mockups/screenshots/`) | kein horizontaler Überlauf, keine fehlenden Ressourcen | 2026-09-27 |
+| S9 (5 Zustände), Icon-Optionen, S2, S3 (3 Varianten), S8 in 390 und 1280 px gerendert | automatisiert (Chromium/Playwright, Screenshots in `mockups/screenshots/`) | kein horizontaler Überlauf nach Korrektur (Aktionsleiste S9, Startbildschirm-Streifen), keine fehlenden Ressourcen, keine Skriptfehler | 2026-09-28 |
+| Sichtprüfung S9, Icon-Optionen, S2, S3, S8 | manuell (Fable) | Befunde behoben: Icon-SVGs mit ungeschlossenen Pfaden, Klassenkollision `.app` im Startbildschirm-Streifen; Abnahme durch Athlet offen | 2026-09-28 |
 | Schriften laden lokal | automatisiert (`document.fonts`) | ok | 2026-09-27 |
 | Sichtprüfung Smartphone/Desktop | manuell (Fable) | Befunde behoben: Kennzahl-Umbruch auf Smartphone, 7-Spalten-Woche unter 1280 px zu eng (jetzt zwei Spalten), Segmentwahl im Zweispaltenlayout | 2026-09-27 |
 | Sichtprüfung und Abnahme | manuell durch Athlet | abgenommen | 2026-09-27 |
