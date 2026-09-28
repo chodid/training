@@ -32,7 +32,7 @@ final class SettingsController extends AppController
             return Response::error(403, 'Ungültiges Formular.');
         }
 
-        if ($request->method === 'POST' && in_array($action, ['zeitzone', 'passwort', 'erinnerung'], true) && ($locked = $this->lockedResponse())) {
+        if ($request->method === 'POST' && in_array($action, ['zeitzone', 'passwort', 'erinnerung', 'checkin'], true) && ($locked = $this->lockedResponse())) {
             return $locked;
         }
 
@@ -46,6 +46,7 @@ final class SettingsController extends AppController
             'passkey_loeschen' => $this->deletePasskey($request),
             'kalender' => $this->calendarSync(),
             'erinnerung' => $this->reminder($request),
+            'checkin' => $this->checkinSettings($request),
             default => $this->overview($request),
         };
     }
@@ -78,6 +79,7 @@ final class SettingsController extends AppController
             'passkey_geloescht' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Passkey entfernt.', 'text' => ''],
             'passwort' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Passwort geändert.', 'text' => 'Andere Geräte wurden abgemeldet.'],
             'widerrufen' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Freigabe widerrufen.', 'text' => 'Laufende Zugriffe enden spätestens nach einer Stunde.'],
+            'checkin' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Check-in-Einstellung gespeichert.', 'text' => ''],
             'erinnerung' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Erinnerung gespeichert.', 'text' => sprintf('%d Termine im Kalender aktualisiert.', (int) $request->query('n'))],
             'kalender' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Kalender abgeglichen.', 'text' => sprintf('%d Termine übertragen, %d entfernt.', (int) $request->query('n'), (int) $request->query('d'))],
             default => null,
@@ -98,6 +100,7 @@ final class SettingsController extends AppController
             'preMigration' => $this->preMigration(),
             'passkeyList' => $this->passkeyList(),
             'profile' => $this->profileSummary(),
+            'handBis' => (new SettingsRepository($this->app->pdo(), $this->app->clock()))->handRechtsBis(),
             'calendar' => [
                 'host' => CalDavClient::isConfigured($config) ? (string) parse_url((string) $config->get('CALDAV_URL'), PHP_URL_HOST) : null,
                 'https' => str_starts_with(strtolower((string) $config->get('CALDAV_URL')), 'https://'),
@@ -184,6 +187,26 @@ final class SettingsController extends AppController
         $this->audit()->write('web', 'calendar_sync', 'session', null, $result, sprintf('Kalender abgeglichen: %d übertragen, %d entfernt', $result['uebertragen'], $result['geloescht']));
 
         return Response::redirect('/einstellungen?ok=kalender&n=' . $result['uebertragen'] . '&d=' . $result['geloescht']);
+    }
+
+    /** Morgen-Check-in (AP-12, E-08): „Hand rechts“ abfragen bis einschließlich Datum. */
+    private function checkinSettings(Request $request): Response
+    {
+        $settings = new SettingsRepository($this->app->pdo(), $this->app->clock());
+        if ($request->method !== 'POST') {
+            return $this->page('settings-checkin', 'Check-in', 'einstellungen', ['backHref' => '/einstellungen', 'handBis' => $settings->handRechtsBis()]);
+        }
+        $date = (string) $request->post('hand_bis');
+        if (!Dates::isDate($date)) {
+            return $this->page('settings-checkin', 'Check-in', 'einstellungen', [
+                'backHref' => '/einstellungen', 'handBis' => $settings->handRechtsBis(),
+                'alert' => ['type' => 'error', 'icon' => 'alert-circle', 'title' => 'Nicht gespeichert.', 'text' => 'Bitte ein Datum wählen.'],
+            ], 422);
+        }
+        $settings->set(SettingsRepository::CHECKIN_HAND_BIS, $date);
+        $this->audit()->write('web', 'setting_update', 'app_setting', SettingsRepository::CHECKIN_HAND_BIS, ['value' => $date], 'Check-in: Hand rechts abfragen bis ' . $date);
+
+        return Response::redirect('/einstellungen?ok=checkin');
     }
 
     /** Kalender-Erinnerung (D-52): Uhrzeit am Tag der Einheit oder aus; danach Termine im Zeitraum neu übertragen. */

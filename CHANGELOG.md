@@ -4,6 +4,22 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.16.0] – 2026-09-28
+
+AP-12: Morgen-Check-in mit Morgentest (D-53, `docs/konzept/morgen-checkin.md`).
+
+### Hinzugefügt
+- Check-in um den Morgentest Patellasehne erweitert: links/rechts je 0–10 ohne Vorauswahl, leer = nicht erhoben (erneutes Tippen leert), Anleitung im Formular; unter „Weitere Angaben“ Nacken/BWS, Sprunggelenk links (umgeknickt, Schwellung), Hand rechts (bis Stichtag, Einstellung, Standard 23.11.2026) und Warnzeichen.
+- Karte „Morgen-Check-in“ oben in der Wochenansicht: Formular, bis heute ein Morgentest erfasst ist, danach Zusammenfassung mit Ampel und Grund, Werten, Wochenausgangswert (24-Stunden-Regel) und hervorgehobenem Hinweis „Abklärung empfohlen“.
+- Ampel nach festen Regeln (rot > 5 oder zwei Tage streng steigend bis ≥ 4, gelb 4–5, grün ≤ 3), Steuerwert = Maximum links/rechts.
+- MCP-Tool `get_morning_checks`; `get_week_overview` liefert je Tag Steuerwert und Ampel, Tage grün und Abdeckung.
+- Schmerzorte Patellasehne, Sprunggelenk und Brustwirbelsäule.
+- Migrationen `0020` (Spalten in `checkin`) und `0021` (Schmerzorte); `App::SCHEMA_VERSION` = 21.
+- Tests: alle 10 Ampelfälle, Wochenausgangswert, Zeitumstellung 25.10.2026, Formular (null ≠ 0, Überschreiben, Hand-Stichtag), Wochenkarte, MCP, Migration auf befüllter Datenbank.
+
+### Geändert
+- Erholung und Muskelkater bleiben Pflicht (E-11); der bisherige Check-in speichert weiter wie gewohnt.
+
 ### Dokumentation
 - L-A02 Ferrauti, Trainingswissenschaft für die Sportpraxis (2. Aufl. 2025) ergänzt: Gesamtbuch ohne doppelt eingebettete Schriften/Bilder (355 → 94 MB, seitengleich geprüft) und 25 Kapitel-PDFs.
 

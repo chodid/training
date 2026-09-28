@@ -40,7 +40,28 @@ final class Labels
         'wade' => 'Wade',
         'schienbein' => 'Schienbein',
         'fuss' => 'Fuß',
+        'patellasehne' => 'Patellasehne',
+        'sprunggelenk' => 'Sprunggelenk',
+        'bws' => 'Brustwirbelsäule',
         'sonstiges' => 'Sonstiges',
+    ];
+
+    /** Warnzeichen im Morgen-Check-in (AP-12, E-07): Wert → Text. Gesetzt → abklaerung_empfohlen. */
+    public const WARNINGS = [
+        'sehne_scharfer_schmerz_kraftverlust' => 'Sehne: plötzlicher scharfer Schmerz, Bein gestreckt nicht anhebbar',
+        'knie_schwellung_erguss' => 'Knie: Schwellung oder Erguss',
+        'knie_ruhe_oder_nachtschmerz' => 'Knie: Ruhe- oder Nachtschmerz',
+        'blockade_knie_oder_osg' => 'Blockade im Knie oder Sprunggelenk',
+        'arm_ausstrahlung_kribbeln_schwaeche' => 'Arm: Ausstrahlung, Kribbeln oder Schwäche',
+        'schwindel_sehstoerung_bei_nackenuebung' => 'Schwindel oder Sehstörung bei Nackenübung',
+    ];
+
+    /** Ampel des Morgentests → [Text, Badge-Klasse] */
+    public const AMPEL = [
+        'gruen' => ['grün', 'success'],
+        'gelb' => ['gelb', 'warning'],
+        'rot' => ['rot', 'error'],
+        'keine_daten' => ['keine Daten', 'neutral'],
     ];
 
     public const SIDES = ['L' => 'Links', 'R' => 'Rechts', 'beide' => 'Beide', 'na' => 'n. z.'];

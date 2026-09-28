@@ -96,12 +96,22 @@ final class FeedbackRepository
         return $out;
     }
 
-    public function saveCheckin(string $date, int $recovery, int $soreness, bool $pain, ?string $notes): int
+    /**
+     * Ein Check-in je Tag; erneutes Speichern ersetzt alle Werte (E-06, letzte Fassung gilt).
+     * @param array{mt_links?: ?int, mt_rechts?: ?int, nacken_bws?: ?int, osg_umgeknickt?: bool, osg_schwellung?: bool, hand_rechts?: ?int, warnzeichen?: list<string>} $morning Morgen-Check-in (AP-12)
+     */
+    public function saveCheckin(string $date, int $recovery, int $soreness, bool $pain, ?string $notes, array $morning = []): int
     {
         $now = Db::ts($this->clock->now());
-        $this->pdo->prepare('INSERT INTO checkin (date, recovery_1_5, soreness_1_5, pain_flag, notes, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)
-            ON DUPLICATE KEY UPDATE recovery_1_5 = VALUES(recovery_1_5), soreness_1_5 = VALUES(soreness_1_5), pain_flag = VALUES(pain_flag), notes = VALUES(notes), updated_at = VALUES(updated_at)')
-            ->execute([$date, $recovery, $soreness, $pain ? 1 : 0, $notes, $now, $now]);
+        $warn = $morning['warnzeichen'] ?? [];
+        $this->pdo->prepare('INSERT INTO checkin (date, recovery_1_5, soreness_1_5, pain_flag, notes, mt_links, mt_rechts, nacken_bws, osg_umgeknickt, osg_schwellung, hand_rechts, warnzeichen, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE recovery_1_5 = VALUES(recovery_1_5), soreness_1_5 = VALUES(soreness_1_5), pain_flag = VALUES(pain_flag), notes = VALUES(notes),
+                mt_links = VALUES(mt_links), mt_rechts = VALUES(mt_rechts), nacken_bws = VALUES(nacken_bws), osg_umgeknickt = VALUES(osg_umgeknickt),
+                osg_schwellung = VALUES(osg_schwellung), hand_rechts = VALUES(hand_rechts), warnzeichen = VALUES(warnzeichen), updated_at = VALUES(updated_at)')
+            ->execute([$date, $recovery, $soreness, $pain ? 1 : 0, $notes, $morning['mt_links'] ?? null, $morning['mt_rechts'] ?? null, $morning['nacken_bws'] ?? null,
+                !empty($morning['osg_umgeknickt']) ? 1 : 0, !empty($morning['osg_umgeknickt']) && !empty($morning['osg_schwellung']) ? 1 : 0,
+                $morning['hand_rechts'] ?? null, $warn === [] ? null : json_encode(array_values($warn), JSON_THROW_ON_ERROR), $now, $now]);
         $stmt = $this->pdo->prepare('SELECT id FROM checkin WHERE date = ?');
         $stmt->execute([$date]);
 

@@ -21,10 +21,10 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.15.0';
+    public const VERSION = '0.16.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
-    public const SCHEMA_VERSION = 19;
+    public const SCHEMA_VERSION = 21;
 
     private ?Config $config = null;
     private ?PDO $pdo = null;

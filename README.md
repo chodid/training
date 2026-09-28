@@ -45,9 +45,9 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | GET | `/` | Weiterleitung auf `/woche`; ohne Anmeldung auf `/login` (bzw. `/setup`, solange kein Benutzer existiert) |
 | GET | `/woche` | S2 Wochenansicht (`?start=YYYY-MM-DD` für eine andere Woche) |
 | GET/POST | `/einheit` | S3 Einheit (`?id=…`): Plan, Ist-Werte, Rückmeldung, Schmerz, Status; bei Ausdauer verknüpfte Intervals.icu-Aktivität |
-| GET/POST | `/checkin` | S4 Tages-Check-in (`?datum=…`, nicht in der Zukunft) |
+| GET/POST | `/checkin` | S4 Tages-Check-in mit Morgentest (`?datum=…`, nicht in der Zukunft); Formular bzw. Ampel auch oben in `/woche` |
 | GET/POST | `/schmerz` | S5 Schmerzereignis (`?datum=…`, `?einheit=…`) |
-| GET/POST | `/einstellungen` | S8 Athletenprofil (Link), Konto, Zeitzone, Passwort, Passkeys, Kalender-Abgleich und -Erinnerung (`?bereich=erinnerung`), Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
+| GET/POST | `/einstellungen` | S8 Athletenprofil (Link), Konto, Zeitzone, Passwort, Passkeys, Kalender-Abgleich und -Erinnerung (`?bereich=erinnerung`), Morgen-Check-in „Hand rechts bis“ (`?bereich=checkin`), Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
 | POST | `/passkey/register/options`, `/passkey/register` | Passkey anlegen (angemeldet, Header `X-CSRF-Token`; D-44) |
 | POST | `/passkey/login/options`, `/passkey/login` | Anmelden mit Passkey; Relying-Party-ID ist der Host aus `APP_URL` |
 | GET/POST | `/profil` | Athletenprofil (D-48): Abschnitte lesen und bearbeiten (`?abschnitt=…`), frühere Fassungen (`&verlauf=1`) |
@@ -83,6 +83,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | `upsert_block` | `training:write` | Block anlegen/ändern (Voraussetzung für Wochenpläne) |
 | `write_week_plan` | `training:write` | Wochenplan schreiben, Ausdauer als Workout nach Intervals.icu |
 | `update_session` | `training:write` | Einheit ändern, Event nachziehen |
+| `get_morning_checks` | `training:read` | Morgen-Check-ins: Ampel mit Grund, Morgentest links/rechts, Wochenausgangswert, Warnzeichen/Abklärung, je Tag alle Werte (Standard 14 Tage) |
 | `update_athlete_profile` | `training:write` | Profilabschnitt ersetzen (neue Fassung, frühere bleiben erhalten) |
 
 Schreib-Tools sind bei „Update erforderlich“ gesperrt; alle Schreibzugriffe stehen im `audit_log`.

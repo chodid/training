@@ -487,6 +487,47 @@ noch_zu_pruefen:
     wie: manuell durch Athlet
 ```
 
+## AP-12 Morgen-Check-in (Morgentest)
+
+```yaml
+ap: AP-12
+auftrag: docs/konzept/morgen-checkin.md
+geprueft:
+  - was: Ampel – alle 10 Testfälle aus Abschnitt 8 (u. a. steigend 2→3→4 rot, steigend < 4 grün, Vortag fehlt, eine Seite, nicht streng steigend, 0/0 grün und als 0 gespeichert), Steuerwert null ≠ 0, Wochenausgangswert (Mo 2/Mi 3 → über; Mo leer/Di 1 → 1; Vorwoche zählt nicht), Abklärung
+    wie: automatisiert (Unit-Test MorningStatusTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Formular – ohne Vorauswahl, Pflicht Erholung/Muskelkater (422), Wert 11 abgelehnt, 0/0 als 0 und leere Felder als NULL gespeichert, Schwellung nur mit umgeknickt, unbekannte Warnzeichen verworfen, Überschreiben am selben Tag inkl. Leeren eines Werts, Audit-Zusammenfassung, Hand rechts nach Stichtag ausgeblendet und ignoriert, Einstellung Stichtag
+    wie: automatisiert (MorningCheckinTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Startseite – Formular solange kein Morgentest, danach Zusammenfassung (Ampel, Grund, Wochenausgangswert-Hinweis, Abklärung hervorgehoben); MCP get_morning_checks (Format 6.1, neueste zuerst, Vortagseinheiten, grüne Tage, Abdeckung, leere Felder weggelassen) und get_week_overview (Steuerwert/Ampel je Tag, Tage grün, Abdeckung)
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Zeitzone über die Umstellung am 25.10.2026 (00:30 MESZ bzw. MEZ → richtiger Kalendertag, Steigung über die Umstellung)
+    wie: automatisiert
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Migration 0020/0021 auf befüllter Datenbank (Rückweg angewendet, Altbestand angelegt, erneut migriert – Altwerte unverändert, neue Spalten leer); neue Schmerzorte speicherbar; Export mit Warnzeichen als Liste
+    wie: automatisiert; Migration auf leerer Datenbank in jedem Testlauf
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: 375 px – kein horizontales Scrollen, erneutes Tippen leert den Morgentest, Schwellung erscheint nach „umgeknickt“, nach dem Speichern Ampel auf der Startseite
+    wie: Browser (Chromium/Playwright)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Stabilität der Testsuite (155 Tests)
+    wie: 18 volle Läufe lokal (MariaDB)
+    ergebnis: 17 grün; 1 Lauf mit einem einzelnen Fehler, nicht reproduzierbar und mangels Protokoll nicht zuzuordnen – beobachten (CI)
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: Morgens auf dem Smartphone erfassen (auch offline), Ampel ansehen; nachträgliche Änderung am selben Tag
+    wie: manuell durch Athlet (nach Deployment 0.16.0)
+  - was: get_morning_checks über den Claude-Connector (Format 6.1, Tool-Beschreibung mit Skalen und Ampelregeln); Connector ggf. neu verbinden, damit das Tool erscheint
+    wie: manuell durch Athlet im Trainer-Chat
+```
+
 ## AP-05 MCP-Tools produktiv
 
 ```yaml
