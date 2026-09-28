@@ -80,7 +80,7 @@ Summe: 36 Werke (davon 7 Bücher mit Kapitel-PDFs).
 
 ## Noch nicht vorhanden
 
-Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A und B eingearbeitet).
+Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A, B und C eingearbeitet).
 
 ### Kaufen oder über die Bibliothek (nicht frei verfügbar)
 
@@ -88,10 +88,15 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A und B eingearbeitet).
 |---|---|---|---|
 | 1 | L-T1-01 | Hottenrott/Seidel, Handbuch Trainingswissenschaft – Trainingslehre, 2. Aufl. 2025 (Buch) | T1 Kern; durchsuchbares PDF |
 | 1 | L-A01 | Kenney/Wilmore/Costill, 8. (2022) oder 9. Aufl. (2024) (Buch) | ersetzt die vorläufige 7. Aufl. (D-51) |
+| 1 | L-R-02 | Kongsgaard et al. 2009, Scand J Med Sci Sports 19(6):790–802 | Schmerzregel für Q-13 |
+| 1 | L-R-13 | Martin et al. 2021, J Orthop Sports Phys Ther 51(4):CPG1–CPG80 (Leitlinie) | JOSPT-Leitlinie Sprunggelenk; Einzelempfehlungen, Q-16 |
+| 1 | L-R-08 | Lohrer & Nauck 2011, J Orthop Sports Phys Ther 41(3):180–190 | validierter Wortlaut VISA-P-G für die WebApp |
 | 2 | L-T2-11 | Rønnestad & Mujika 2014, Scand J Med Sci Sports 24(4):603–612 | Kraft für Läufer |
 | 2 | L-T1-07 | Laursen/Buchheit, Science and Application of HIIT, 2019 (Buch) | Intervallprogrammierung; kein VitalSource-DRM |
 | 2 | L-T3-08 | Köstermeyer, Peak Performance, 8. Aufl. 2017 (Buch) | T3 Kern; Auflage/ISBN beim Kauf klären (tmms-Shop) |
 | 2 | L-T2-10 | Wiedenmann et al. 2025, Gerontology 71(7):576–588 | Beleg Körpergewichtstraining (D-29); Zugang nicht geprüft |
+| 2 | L-R-03 | Agergaard et al. 2021, Am J Sports Med 49(4):982–993 | Lastdosierung Patellasehne |
+| 2 | L-R-26 | Doherty et al. 2017, Br J Sports Med 51(2):113–125 | Rezidivprophylaxe, Orthese (Q-16) |
 
 ### Frei verfügbar (PubMed Central)
 
@@ -102,12 +107,27 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A und B eingearbeitet).
 | L-T2-15 | Warneke et al. 2024, Sports Med Open | PMC11150224 | Lizenz laut PubMed nicht ausgewiesen |
 | L-T2-16 | Khorramroo et al. 2026, BMC Sports Sci Med Rehabil | PMC13326462 | Lizenz laut PubMed nicht ausgewiesen |
 | L-T3-18 | López-Rivera & González-Badillo 2019, J Hum Kinet | PMC6458579 | Open Access |
+| L-R-01 | Breda et al. 2021, Br J Sports Med | PMC8070614 | Block R |
+| L-R-04 | Agergaard et al. 2026, Scand J Med Sci Sports (TEREX) | PMC12968374 | Block R |
+| L-R-05 | Challoumas et al. 2023, Sports Med Open | PMC10409676 | Block R |
+| L-R-06 | Liu et al. 2026, BMC Sports Sci Med Rehabil | PMC13308153 | Block R |
+| L-R-10 | Clifford et al. 2020, BMJ Open Sport Exerc Med | PMC7406028 | Block R, optional |
+| L-R-11 | Sprague et al. 2018, Br J Sports Med | PMC6269217 | Block R, optional |
+| L-R-14 | Hupperets et al. 2009, BMJ | PMC2714677 | Block R |
+| L-R-16 | Tang et al. 2024, BMC Musculoskelet Disord | PMC11365157 | Block R |
+| L-R-17 | Donovan et al. 2016, J Athl Train | PMC4852529 | Block R |
+| L-R-21 | Giboin et al. 2018, PLoS One | PMC6261037 | Block R, optional |
+| L-R-23 | Lopes et al. 2025, Cochrane Database Syst Rev | PMC12107522 | Block R |
+| L-R-24 | Schuster Brandt Frandsen et al. 2025, Br J Sports Med | PMC12421110 | Block R |
+| L-R-25 | Wagemans et al. 2022, PLoS One | PMC8824326 | Block R |
+| L-R-27 | Deng et al. 2025, Am J Sports Med | PMC12125489 | Block R, optional |
 
 ### Nur bei Bedarf
 
 - L-P14 Impellizzeri et al. 2021 (optional, Ergänzung zu L-P12)
 - L-T2-19 Carrasco-Uribarren et al. 2026 (optional)
 - L-T3-05 López-Rivera & González-Badillo 2012 (nur falls L-T3-18 nicht genügt)
+- Block R (optional bzw. Kernaussage aus Abstract ausreichend): L-R-07 Visentini, L-R-09 Hernandez-Sanchez, L-R-12 Backman, L-R-15 Schiftan, L-R-18 Nielsen RØ, L-R-19 Kiers, L-R-20 Fakontis, L-R-22 Delahunt, L-R-28 Hjortshoej
 - optionale Bücher aus 13.4 („bei Bedarf“): L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-09, L-T3-10, L-T3-11
 
 
