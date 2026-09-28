@@ -1917,11 +1917,14 @@ probleme_loesungen:
 status: in_arbeit
 begonnen: 2026-09-28
 abgeschlossen: null
-teilpakete: T3 und T4 umgesetzt (Code-Stand 0.18.0), T5–T7 offen – Details in docs/konzept/gefuehrte-einheit.md Abschnitt 12
+teilpakete: T3, T4 und T5 umgesetzt (Code-Stand 0.18.0), T6–T7 offen – Details in docs/konzept/gefuehrte-einheit.md Abschnitt 12
 probleme_loesungen:
   - datum: 2026-09-28
     was: Haltebereiche mit Halbgeviertstrich („30–45 s“) und rest_s = 0 sind in 6.3 nicht geregelt
     loesung: „–“ wie „-“; 0 = keine Pause bzw. kein Timer (Auftrag Abschnitt 12, T3)
+  - datum: 2026-09-28
+    was: E-17 („30-s-Ton bei Phasen ≥ 45 s“) widerspricht Testfall Z-01 („bei 45 s kein 30-s-Ton“)
+    loesung: umgesetzt nach Z-01 (Phase länger als 45 s), Bestätigung offen (Auftrag O-06)
 ```
 
 # 16. Prüfprotokoll (separates Dokument)
@@ -1994,3 +1997,4 @@ noch_zu_pruefen:
 | 2026-09-28 | AP-13 T2 Begründungstexte umgesetzt (Code-Stand 0.17.0, Schema 22: `session.coach_summary`); 7, 8.2 und 10 entsprechen der Umsetzung (bereits mit D-56 eingetragen). AP-13 bleibt `in_arbeit` bis zur Abnahme durch den Athleten. |
 | 2026-09-28 | AP-14 begonnen: T3 Ablaufplan umgesetzt (Code-Stand 0.18.0); AP-14 `in_arbeit`. |
 | 2026-09-28 | AP-14 T4: Seite S9 ohne Skript (`/einheit?id=…&modus=start`, Template `session-start.php`), Startknopf in S3. |
+| 2026-09-28 | AP-14 T5: Seitenskript `js/gefuehrt.js` (Timer, Signale, Farben, Wake Lock, Stumm, Fortschritt im Browser), Node- und Browser-Tests in der CI; offener Punkt O-06 (30-s-Ton) im Auftrag. |

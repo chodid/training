@@ -348,8 +348,9 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 | O-01 | Wahl der Logo-Variante (V1–V5, Mischung möglich) anhand `icon-optionen.html` | erledigt 2026-09-28 → E-21 / D-59 |
 | O-02 | Hangboard mit Wiederholungen **und** Sätzen (z. B. Repeaters 7/3 × 6, 3 Sätze) im Schema `plan-klettern.json` (`reps` je Satz, `rest_between_sets_s`) | nicht im Umfang; bei Bedarf eigener kleiner Auftrag |
 | O-03 | Ergebnis von P-A1/P-A3 vor der Umsetzung | P-A1 erledigt 2026-09-28: Chrome zeigt das Icon; Fehler ist LibreWolf-spezifisch (Favicon-Weg). P-A3 nach T1 |
-| O-04 | Tonhöhen/-längen aus E-17 sind Startwerte; Feinabstimmung nach Gerätetest | in T5 |
+| O-04 | Tonhöhen/-längen aus E-17 sind Startwerte; Feinabstimmung nach Gerätetest | Startwerte umgesetzt (T5); Feinabstimmung nach dem Gerätetest des Athleten |
 | O-05 | Screenshots im Manifest (`screenshots` mit `form_factor` wide/narrow) für die ausführlichere Installationsansicht in Chrome; ohne sie zeigt DevTools zwei Hinweise (P-A2) | nicht im Umfang (4.2 verlangt sie nicht); bei Wunsch des Athleten kleiner Nachtrag |
+| O-06 | 30-s-Ton: E-17/6.4 sagen „Phase ≥ 45 s“, Testfall Z-01 „bei 45 s kein 30-s-Ton“ | umgesetzt nach Z-01 („länger als 45 s“, T5); Bestätigung durch den Athleten offen |
 
 ## 10. Nicht im Umfang
 
@@ -475,7 +476,52 @@ T4:
       loesung: verstecktes Feld modus=start im S9-Formular; der Controller zeigt dann wieder S9 mit Hinweis und den Eingaben (data-fehler für das Skript)
     - was: Ohne JavaScript steht die Schaltfläche „Zur Einheit“ wie im Mockup neben „Speichern“; der Zurück-Pfeil in der Kopfzeile führt ebenfalls zu S3
       loesung: beibehalten (Mockup); mit JavaScript zusätzlich ein Symbolknopf „Zurück zur letzten Übung“
-T5: {status: offen}
+T5:
+  status: umgesetzt          # Code-Stand 0.18.0; Gerätetest des Athleten (Android) offen
+  datum: 2026-09-28
+  ergebnis: >
+    public/js/gefuehrt.js, synchron am Anfang von S9 geladen (setzt html.js vor dem Aufbau der Schritte, kein
+    Aufblitzen). Kern als reine Funktionen (auch mit Node ladbar): signalPlan, signaleZwischen, takt (Zeitfortschritt
+    über beliebig viele Phasen nach Zeitstempeln, Lücke > 2 s = Hintergrund: keine Signale, ein Hinweiston bei
+    Phasenende), aktion (haupt/links/rechts/zurueck-abschluss), anzeige (Texte, Farbe, Zeit, Knöpfe, Fortschritt),
+    statusVorbelegung, dauerMinuten, laden (Verfall 12 h, anderer Plan, Stand der Einheit geändert, Fehler nach POST).
+    Seite: ein aktiver Abschnitt, Aktionsleiste links/Primär/rechts, body[data-phase] und meta theme-color
+    (#DEF2D9 Arbeit, #FFE4E5 Pause/bereit/angehalten, sonst #7A5C94), Web Audio (Oszillator, Muster aus 6.4) und
+    navigator.vibrate, Wake Lock ab dem ersten Start und nach Rückkehr in den Vordergrund, Stummschalter (aria-pressed)
+    je Einheit mit Vorgabe aus timer_ton, Blinken statt Ton in den letzten 3 s, sessionStorage training.gefuehrt.<id>
+    (Felder aus 6.5 plus signatur, stand, fertig, vor_anhalten, phase_ms, dauer_manuell, status_manuell, abgeschickt),
+    Fortsetzen/Neu starten, Abschluss mit Dauer- und Statusvorbelegung und Übersicht, Ansage der Phasenwechsel in
+    einer eigenen aria-live-Region (nicht jede Sekunde), Enter in Ist-Feldern schickt vor dem Abschluss nichts ab.
+    Template: Pausentimer auch bei Wiederholungsübungen (nur mit Skript), aria-live von der Phase-Karte entfernt.
+    CSS: Aktionsleisten auf dem Smartphone über der unteren Navigation.
+  tests: >
+    server/tests/js/gefuehrt.test.cjs (node --test, 14 Fälle: Z-01–Z-07, Z-10–Z-12 als Kern, Hangboard 7/3 × 6,
+    Block, offen, Bedienung zurück/wiederholen, Halten ohne Pause); server/tests/e2e/gefuehrt.e2e.cjs mit run.sh
+    (Playwright, gesteuerte Uhr, Audio/Vibration/Wake Lock ersetzt: Z-01–Z-08, Z-10–Z-12, Speichern, 375 px); beide in der CI
+  abnahme_offen: Gerätetest des Athleten auf Android (Töne und Vibration bei Start/30/10/3-2-1, Grün/Rot, Bildschirm bleibt an, Stumm in der Einheit und in S8)
+  probleme_loesungen:
+    - was: Widerspruch im Auftrag – E-17/6.4 „30 s vor Ende … nur bei Phasen ≥ 45 s“, Testfall Z-01 „halten 45 s … kein 30-s-Ton (< 45 s)“
+      loesung: Z-01 ist Abnahmekriterium (8.2) und die Tonwerte sind Startwerte (O-04) – umgesetzt „Phase länger als 45 s“; zur Bestätigung durch den Athleten als O-06 geführt
+    - was: 6.3 nennt für Wiederholungsübungen keinen Ton nach dem Pausentimer
+      loesung: am Pausenende derselbe Startton wie vor einer Arbeitsphase (der nächste Satz beginnt); vorzeitiges „Pause beenden“ ohne Ton
+    - was: Mockup-Aktionsleiste in der Pause (Satz wiederholen / Pause beenden / Überspringen) hätte Anhalten in der Pause nicht erlaubt; Z-04 und die Automatik (E-03) brauchen es
+      loesung: linker Knopf in der Pause = Anhalten, Primär = Pause beenden; in der Arbeitsphase links = Satz neu starten, Primär = Anhalten; fertig: links = Übung wiederholen, Primär = Weiter bzw. Zum Abschluss
+    - was: „Gemessene Dauer seit dem ersten Start“ bei einer Einheit, die mit einer Wiederholungsübung beginnt (dort gibt es keinen Start-Knopf)
+      loesung: begonnen_um = erster Druck auf die Primäraktion (Start, Satz erledigt oder Erledigt); das Dauerfeld bleibt änderbar
+    - was: Nach dem Speichern kann das Skript den Erfolg nicht sehen (Seitenwechsel); offline landet die Eingabe im Puffer (6.7, Z-12)
+      loesung: beim Absenden wird abgeschickt gemerkt; der Fortschritt wird gelöscht, sobald S9 mit geändertem Stand der Einheit geladen wird (gespeichert bzw. zugestellt); mit altem Stand (gespeicherte Seite ohne Netz) fragt S9 weiter und nennt die wartende Rückmeldung
+    - was: Neu laden während einer laufenden Phase – Zeit anhalten oder weiterlaufen lassen (Z-06 „Restzeit herstellen“)
+      loesung: Zeitstempel laufen weiter (E-16); Fortsetzen rechnet ab dem letzten Merken nach, endete inzwischen eine Phase, kommt ein Hinweiston
+    - was: aria-live auf der Phase-Karte hätte Screenreadern jede Viertelsekunde die Zeit angesagt
+      loesung: eigene unsichtbare Ansage-Region (#gf-ansage), nur bei Wechsel von Schritt, Phase oder Satz
+    - was: Die fixierte Aktionsleiste lag auf langen Seiten (Smartphone) hinter der unteren Navigation
+      loesung: .gf-actions/.gf-save mit Abstand 61 px + Safe Area; in S3 besteht dasselbe Verhalten der Speichern-Leiste (vor AP-14) – dem Athleten gemeldet, nicht geändert
+    - was: Playwrights Offline-Emulation erfasst Anfragen des Service Workers nicht (Speichern ging trotz „offline“ durch)
+      loesung: Browser-Test schaltet ein kleiner Proxy vor der App ab (echter Netzausfall für Seite und Service Worker)
+    - was: Playwright wartet bei pausierter Uhr beim Anklicken der (unter der Beschriftung liegenden) Skalenfelder vergeblich
+      loesung: Test tippt auf die Beschriftung wie ein Nutzer und lässt die Uhr zum Ausfüllen wieder laufen
+    - was: Mockup zeigt „≈ 32 min verbleibend“; die Dauer von Wiederholungsübungen ist unbekannt
+      loesung: stattdessen die Zeit seit dem ersten Start (mm:ss) rechts über dem Fortschritt
 T6: {status: offen}
 T7: {status: offen}
 probleme_loesungen: []

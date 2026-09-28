@@ -621,8 +621,24 @@ geprueft:
     wie: Browser (Chromium/Playwright, JavaScript aus, lokale Instanz)
     ergebnis: ok
     datum: 2026-09-28
+  - was: T5 Kern – Z-01 (45 s: Start, 10 s, 3-2-1, kein 30-s-Ton), Z-02 (Pause 60 s: 30/10/3-2-1, dann Start Satz 2 zeitstempelgenau), Z-03 (Abschlusston, fertig, normale Farbe, Weiter), Z-04 (Anhalten bei 20 s, Fortsetzen), Z-05 (2 min Hintergrund: Folgephase, ein Hinweiston), Z-06 (Fortsetzen-Frage, Verfall, Plan geändert, gespeichert), Z-07 (Satz erledigt → Pausentimer, Satz 3 fertig), Z-10/Z-11 (teilweise, Minuten), Z-12 (abgeschickt bleibt bis neuer Stand), Hangboard 7/3 × 6, Block, offen, Bedienung
+    wie: automatisiert (node --test server/tests/js/, 14 Fälle)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T5 Browser – rot „bereit“, grün in der Arbeit (theme-color), Startton 2 Töne + Vibration + Wake Lock, Töne bei 10 s und 3-2-1, Pause mit 30/10/3-2-1 und automatischem Satz 2, Anhalten/Fortsetzen, Neu laden mit Fortsetzen (Schritt, Satz, Restzeit), Stumm (keine Töne/Vibration, Blinken), Wiederholungen mit Pausentimer, Überspringen → teilweise und gemessene Dauer, Speichern (Werte in der Datenbank, Fortschritt gelöscht), Hintergrund (ein Hinweiston), Speichern ohne Netz (Puffer, Fortschritt bis zur Zustellung, danach gelöscht), keine Skriptfehler, 375 px ohne Überlauf
+    wie: automatisiert (Playwright mit gesteuerter Uhr, tests/e2e/run.sh; lokal Chromium, in der CI Chrome des Runners)
+    ergebnis: ok (zwei Läufe hintereinander)
+    datum: 2026-09-28
+  - was: T5 Sichtprüfung – Zustände Wiederholungen, Pause, bereit, Arbeit, angehalten, Abschluss auf 375 px und 1280 px; Aktionsleiste über der unteren Navigation
+    wie: Browser (Chromium, lokale Instanz), manuell
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
-  - was: T5–T6 (Skript, Einstellungen, Offline)
+  - was: T5 Gerätetest Android – Töne und Vibration bei Start, 30 s, 10 s, 3-2-1 und Abschluss hörbar/spürbar; Grün/Rot und Browserleiste; Bildschirm bleibt während der Einheit an; Stumm in der Einheit; Fortsetzen nach versehentlichem Neuladen
+    wie: Gerätetest durch Athlet (nach Deployment 0.18.0), am besten mit einer Einheit mit Haltezeiten (z. B. Unterarmstütz 45 s)
+  - was: O-06 – 30-s-Ton erst bei Phasen über 45 s (Z-01) statt ab 45 s (E-17) bestätigen; Tonhöhen/-längen nach Gehör anpassen (O-04)
+    wie: Rückmeldung des Athleten nach dem Gerätetest
+  - was: T6 (Einstellungen, Offline-Vorladen)
     wie: siehe Auftrag Abschnitt 7 und 8.2
 ```
 

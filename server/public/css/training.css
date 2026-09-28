@@ -58,6 +58,7 @@ details.mehr>p{color:var(--text-secondary);padding-bottom:var(--space-2);max-wid
 /* S9 Einheit geführt (AP-14, D-57/D-58; Mockup s9-einheit-gefuehrt.html). Ohne JavaScript sind alle Schritte sichtbar,
    Bedienelemente des Skripts (.needs-js) ausgeblendet; js/gefuehrt.js setzt html.js und body[data-phase]. */
 .mb-4{margin-bottom:var(--space-4)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .start-row{margin-top:var(--space-2)}
 html:not(.js) .needs-js{display:none!important}
 html.js .gf-step:not(.aktiv){display:none}
@@ -74,8 +75,8 @@ html.js .gf-step:not(.aktiv){display:none}
 .phase-card .reps{font:700 40px/1.1 var(--font-display);color:var(--text-primary);overflow-wrap:anywhere}
 .phase-card .reps small{display:block;font:var(--type-body);color:var(--text-tertiary);margin-top:var(--space-1)}
 .phase-card .soll{font:var(--type-body-sm);color:var(--text-tertiary)}
-.phase-card.blink{animation:gf-blink 500ms steps(2,start) 6}
-@keyframes gf-blink{to{opacity:.35}}
+.phase-card.blink{animation:gf-blink 1s linear 3}
+@keyframes gf-blink{0%,49%{opacity:.35}50%,100%{opacity:1}}
 @media (prefers-reduced-motion:reduce){.phase-card.blink{animation:none;outline:3px solid var(--focus-ring)}}
 .next{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);border:var(--border-default);border-radius:var(--radius-lg);background:var(--bg-surface);color:var(--text-secondary);font:var(--type-body-sm)}
 .next .ic{color:var(--text-tertiary);flex:none}
@@ -84,6 +85,8 @@ html.js .gf-step:not(.aktiv){display:none}
 .gf-actions .btn{min-width:0;padding:0 var(--space-3)}
 .gf-actions .btn-primary{min-height:52px;font-size:var(--text-lg)}
 .gf-actions .gf-icon:empty{display:none}
+/* Aktionsleisten über der unteren Navigation (60 px + Rand) halten, damit die Primäraktion immer sichtbar ist */
+@media (max-width:767px){.gf-actions,.gf-save{bottom:calc(61px + env(safe-area-inset-bottom))}}
 .gf-save{display:flex;flex-wrap:nowrap}
 .gf-save .btn-icon{flex:none}
 .done-list{display:grid;gap:var(--space-2)}

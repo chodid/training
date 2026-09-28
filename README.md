@@ -15,7 +15,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | `server/config/` | Konfiguration ohne Secrets (derzeit leer) | – |
 | `server/migrations/` | Nummerierte Migrationen (D-20) | AP-00, AP-01, AP-03 |
 | `server/schemas/` | JSON-Schemata für `plan_json`/`actual_json` je Einheitentyp (Konzept 7.1) | AP-03 |
-| `server/tests/` | PHPUnit-Tests (Unit und Integration gegen MySQL) | AP-00 ff. |
+| `server/tests/` | PHPUnit-Tests (Unit und Integration gegen MySQL); `js/` Node-Tests und `e2e/` Browser-Durchlauf der geführten Einheit | AP-00 ff., AP-14 |
 | `.github/workflows/deploy.yml` | Test und Deployment (D-17) | AP-00 |
 | `docs/konzept/` | Konzeptdokument; `datenmodell.md` mit ER-Diagramm | – , AP-03 |
 | `docs/pruefung/` | Prüfprotokoll (Konzept Abschnitt 16) | alle |
@@ -45,7 +45,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | GET | `/` | Weiterleitung auf `/woche`; ohne Anmeldung auf `/login` (bzw. `/setup`, solange kein Benutzer existiert) |
 | GET | `/woche` | S2 Wochenansicht (`?start=YYYY-MM-DD` für eine andere Woche); Kurzsatz der Woche mit „mehr“ |
 | GET/POST | `/einheit` | S3 Einheit (`?id=…`): Kurzsatz mit „mehr“, Plan, Ist-Werte, Rückmeldung, Schmerz, Status; bei Ausdauer verknüpfte Intervals.icu-Aktivität |
-| GET | `/einheit?id=…&modus=start` | S9 Einheit geführt (Kraft, Haltung, Mobilität, Klettern): dieselbe Rückmeldung schrittweise je Übung, gespeichert über `POST /einheit`; für Ausdauer zeigt die Adresse S3 |
+| GET | `/einheit?id=…&modus=start` | S9 Einheit geführt (Kraft, Haltung, Mobilität, Klettern): dieselbe Rückmeldung schrittweise je Übung mit Timer, Tonsignalen und Vibration (Skript `js/gefuehrt.js`, Fortschritt im Browser), gespeichert über `POST /einheit`; für Ausdauer zeigt die Adresse S3 |
 | GET/POST | `/checkin` | S4 Tages-Check-in mit Morgentest (`?datum=…`, nicht in der Zukunft); Formular bzw. Ampel auch oben in `/woche` |
 | GET/POST | `/schmerz` | S5 Schmerzereignis (`?datum=…`, `?einheit=…`) |
 | GET/POST | `/einstellungen` | S8 Athletenprofil (Link), Konto, Zeitzone, Passwort, Passkeys, Kalender-Abgleich und -Erinnerung (`?bereich=erinnerung`), Morgen-Check-in „Hand rechts bis“ (`?bereich=checkin`), Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
@@ -148,6 +148,8 @@ TEST_DB_HOST=127.0.0.1 TEST_DB_NAME=training_test TEST_DB_USER=… TEST_DB_PASSW
 ```
 
 Achtung: Die Integrationstests löschen alle Tabellen der Testdatenbank.
+
+Geführte Einheit (AP-14): Kern des Seitenskripts `public/js/gefuehrt.js` ohne Browser mit `node --test tests/js/*.test.cjs`; Browser-Durchlauf mit Playwright und gesteuerter Uhr mit `bash tests/e2e/run.sh` (startet die App auf Port 8089 mit eigener `.env` gegen die Testdatenbank aus `TEST_DB_*`; Playwright lokal, global oder per `npm install --no-save --prefix tests/e2e playwright`, anderer Browser über `CHROME_PATH`). Beides läuft auch in der CI.
 
 Lokal starten (ohne `.htaccess`): `.env` in `server/` anlegen (für `http://` ist `APP_URL=http://localhost:8080` möglich, dann ohne `Secure`-Cookies), Assets bauen mit `php bin/build-assets.php`, dann `php -S 127.0.0.1:8080 -t public bin/dev-router.php` (liefert vorhandene Dateien aus `public/` direkt aus). Datenbank einmalig mit `curl -X POST -H "X-Migration-Secret: …" http://127.0.0.1:8080/admin/migrate` migrieren.
 

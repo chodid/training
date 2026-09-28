@@ -35,6 +35,7 @@ $saetze = static function (array $st): string {
     return implode(' · ', $parts);
 };
 ?>
+<script src="/js/gefuehrt.js?v=<?= $this->e(\Training\App::VERSION) ?>"></script>
 <?php if ($alert !== null): ?>
   <div class="mb-4"><?php include __DIR__ . '/_alert.php'; ?></div>
 <?php endif ?>
@@ -48,6 +49,7 @@ $saetze = static function (array $st): string {
     <input type="hidden" name="offline_label" value="<?= $this->e($offlineLabel) ?>">
     <input type="hidden" name="modus" value="start">
 
+    <div class="sr-only" id="gf-ansage" aria-live="polite"></div>
     <div class="gf-progress needs-js" id="gf-fortschritt">
       <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="<?= $count ?>" aria-valuenow="0" aria-label="Fortschritt"><i id="gf-balken"></i></div>
       <div class="between small muted"><span id="gf-fortschritt-text">Übung 1 von <?= $count ?></span><span id="gf-uhr" class="mono"></span></div>
@@ -73,7 +75,7 @@ $saetze = static function (array $st): string {
     $timed = $st['arbeit_s'] !== null;
 ?>
       <section class="gf-step stack-lg" data-step="<?= $n ?>" id="gf-schritt-<?= $n ?>" aria-labelledby="gf-name-<?= $n ?>">
-        <div class="card phase-card" aria-live="polite">
+        <div class="card phase-card">
           <div class="satz" data-satz-text="<?= $this->e($saetze($st)) ?>">Übung <?= $n + 1 ?> von <?= $count ?> · <?= $this->e($saetze($st)) ?></div>
           <h2 id="gf-name-<?= $n ?>"><?= $this->e($st['name']) ?></h2>
           <span class="phase needs-js"><span class="gf-phase-icon"></span><span class="gf-phase-text">Bereit</span></span>
@@ -81,6 +83,9 @@ $saetze = static function (array $st): string {
           <div class="timer" data-sekunden="<?= (int) $st['arbeit_s'] ?>"><?= $mmss((int) $st['arbeit_s']) ?></div>
 <?php elseif ($st['art'] === Ablaufplan::WIEDERHOLUNGEN): ?>
           <div class="reps"><?= $this->e($item['reps']) ?> Wdh.<?php $extra = array_filter([$item['load'] ?? null, isset($item['tempo']) && $item['tempo'] !== '' ? 'Tempo ' . $item['tempo'] : null]); if ($extra !== []): ?><small><?= $this->e(implode(' · ', $extra)) ?></small><?php endif ?></div>
+<?php if ($st['pause_s'] !== null && $st['saetze'] > 1): // Pausentimer nach „Satz erledigt“ (E-03), nur mit Skript ?>
+          <div class="timer needs-js" data-sekunden="<?= (int) $st['pause_s'] ?>" hidden><?= $mmss((int) $st['pause_s']) ?></div>
+<?php endif ?>
 <?php endif ?>
           <div class="soll"><?= $this->e($st['soll']) ?></div>
 <?php if ($st['notiz'] !== null): ?>
