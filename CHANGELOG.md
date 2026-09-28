@@ -24,6 +24,9 @@ AP-14: Geführte Einheit (D-57, D-58) – Auftrag `docs/konzept/gefuehrte-einhei
 - Ist-Felder und Rückmeldung von S3 als gemeinsame Teilvorlagen (`_ist_exercise.php`, `_ist_block.php`, `_feedback_fields.php`) für S3 und S9; Seitenrahmen akzeptiert eine zusätzliche Klasse für `main`.
 - Workflow „Test und Deploy“: zusätzlich Node-Tests und Browser-Durchlauf der geführten Einheit im Test-Job.
 
+### Behoben
+- Sporadischer Testfehler in `MorningCheckinTest::testDaylightSavingSwitch` (AP-12 als „nicht reproduzierbar“ vermerkt): Das gelegentliche Aufräumen der MCP-Sitzungsdateien verglich echte Dateizeiten mit der im Test vorgestellten Uhr und löschte die gerade angelegte Sitzung. Verglichen wird jetzt mit der echten Zeit; im Betrieb ändert sich nichts.
+
 ## [0.17.0] – 2026-09-28
 
 AP-13: App-Icon und Logo (D-55, D-59) sowie Begründungstexte der Planung (D-56) – Auftrag `docs/konzept/gefuehrte-einheit.md`, Unterpunkte T1 und T2.

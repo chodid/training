@@ -519,7 +519,7 @@ geprueft:
     datum: 2026-09-28
   - was: Stabilität der Testsuite (155 Tests)
     wie: 18 volle Läufe lokal (MariaDB)
-    ergebnis: 17 grün; 1 Lauf mit einem einzelnen Fehler, nicht reproduzierbar und mangels Protokoll nicht zuzuordnen – beobachten (CI)
+    ergebnis: 17 grün; 1 Lauf mit einem einzelnen Fehler, nicht reproduzierbar und mangels Protokoll nicht zuzuordnen – beobachten (CI). Nachtrag 2026-09-28 (AP-14): Ursache gefunden (Aufräumen der MCP-Sitzungen mit verstellter Test-Uhr löschte die neue Sitzung, testDaylightSavingSwitch), behoben in 0.18.0; danach 25 Einzelläufe und 3 volle Läufe grün
     datum: 2026-09-28
 noch_zu_pruefen:
   - was: Morgens auf dem Smartphone erfassen (auch offline), Ampel ansehen; nachträgliche Änderung am selben Tag
