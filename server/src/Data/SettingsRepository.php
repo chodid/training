@@ -17,6 +17,9 @@ final class SettingsRepository
     /** Check-in: „Hand rechts“ abfragen bis einschließlich (Y-m-d; AP-12, E-08) */
     public const CHECKIN_HAND_BIS = 'checkin_hand_rechts_bis';
     public const CHECKIN_HAND_BIS_DEFAULT = '2026-11-23';
+    /** Timer-Signale (Ton und Vibration) im geführten Modus: 'an' oder 'aus' (AP-14, E-18) */
+    public const TIMER_TON = 'timer_ton';
+    public const TIMER_TON_DEFAULT = 'an';
 
     public function __construct(private readonly PDO $pdo, private readonly Clock $clock)
     {
@@ -47,6 +50,12 @@ final class SettingsRepository
         $v = $this->get(self::CALENDAR_REMINDER, self::CALENDAR_REMINDER_DEFAULT);
 
         return preg_match('/^([01]\d|2[0-3]):[0-5]\d$/', $v) ? $v : null;
+    }
+
+    /** Timer-Signale im geführten Modus als Standard: true = an (E-18). */
+    public function timerTon(): bool
+    {
+        return $this->get(self::TIMER_TON, self::TIMER_TON_DEFAULT) !== 'aus';
     }
 
     /** Letzter Tag, an dem „Hand rechts“ im Check-in abgefragt wird. */

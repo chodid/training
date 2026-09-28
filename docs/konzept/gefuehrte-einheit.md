@@ -447,7 +447,30 @@ T3:
       loesung: Bereich akzeptiert zusätzlich „–“ und dieselben Einheiten wie der Einzelwert (s, sek, sec, mit Punkt); alle Testfälle aus 8.1 unverändert
     - was: Klettern-Block mit hang_s und duration_min (z. B. Hangboard 20 min, 10 s, 5 Sätze)
       loesung: Regelreihenfolge aus 6.3 – hang_s geht vor (halten), duration_min bleibt Ist-Feld wie in S3
-T4: {status: offen}
+T4:
+  status: umgesetzt          # Code-Stand 0.18.0; Abnahme (ohne JavaScript ausfüllbar, 375 px) automatisiert und im Browser geprüft
+  datum: 2026-09-28
+  ergebnis: >
+    SessionController: GET mit modus=start und Ablaufplan::geeignet → Template session-start.php (S9) mit denselben
+    Vorbelegungen wie S3, sonst S3 (Ausdauer, Einheit ohne Plan); Ruhetag weiter 404. POST unverändert; das Formular
+    trägt modus=start, damit 422/409 wieder S9 zeigen. S3: Knopf „Einheit starten“ (primär) bzw. „Erneut durchgehen“
+    (sekundär, Status erledigt) im Seitenkopf. S9: layout-app mit Zurück-Pfeil zu S3, Titel der Einheit, Stummschalter
+    (needs-js) in der Kopfzeile, main.gefuehrt (720 px); Kurzsatz oben (gf-intro); je Schritt section.gf-step mit
+    Phase-Karte (Übung x von n und Sätze, Name, Phase-Marke, Timer mm:ss bzw. „n Wdh.“ mit Last/Tempo, Soll, Hinweis),
+    Ist-Karte (Teilvorlagen wie S3) und „Als Nächstes“; Abschluss mit Übersicht, Rückmeldung (Teilvorlage wie S3) und
+    Speichern. Skript-Bedienung (Fortschritt, Fortsetzen-Hinweis, Aktionsleiste, Phase-Marke) als .needs-js, ohne
+    JavaScript ausgeblendet. data-Attribute für das Skript: data-ablauf (JSON), data-session, data-ton (Einstellung
+    timer_ton), data-dauer-plan (Dauer aus dem Plan darf durch die gemessene ersetzt werden), data-fehler.
+    Ist-Felder und Rückmeldung als Teilvorlagen _ist_exercise, _ist_block, _feedback_fields (S3 nutzt sie ebenfalls).
+  tests: GuidedSessionTest (Startknopf je Typ und „Erneut durchgehen“, A-11 Rückfall, Kraft mit Wiederholungen und Halten, Klettern mit Hangboard/Block/offen, POST aus S9 speichert wie S3, 422 und 409 in S9, data-ton aus timer_ton); WebsiteTest (S3 unverändert nach Umbau in Teilvorlagen)
+  abnahme: ohne JavaScript alle Schritte sichtbar, keine Skript-Bedienelemente sichtbar, ausgefüllt und gespeichert (Weiterleitung „Gespeichert.“, Werte in der Datenbank); 375 px ohne horizontales Scrollen (Kraft und Klettern) – Chromium/Playwright mit abgeschaltetem JavaScript, lokale Instanz
+  probleme_loesungen:
+    - was: 6.2 sagt „duration_min wird, wenn leer, mit der gemessenen Dauer vorbelegt“; S3 belegt die Dauer aber mit der geplanten Dauer vor, das Feld ist also nie leer
+      loesung: ohne JavaScript wie S3 (geplante Dauer); das Skript ersetzt die Dauer nur, wenn sie aus dem Plan stammt (data-dauer-plan="1"), nie eine bereits gespeicherte oder vom Athleten geänderte
+    - was: Fehler beim Speichern aus S9 (422/409) hätten bisher S3 gezeigt
+      loesung: verstecktes Feld modus=start im S9-Formular; der Controller zeigt dann wieder S9 mit Hinweis und den Eingaben (data-fehler für das Skript)
+    - was: Ohne JavaScript steht die Schaltfläche „Zur Einheit“ wie im Mockup neben „Speichern“; der Zurück-Pfeil in der Kopfzeile führt ebenfalls zu S3
+      loesung: beibehalten (Mockup); mit JavaScript zusätzlich ein Symbolknopf „Zurück zur letzten Übung“
 T5: {status: offen}
 T6: {status: offen}
 T7: {status: offen}

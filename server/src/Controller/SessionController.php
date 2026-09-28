@@ -9,12 +9,15 @@ use Training\Http\Request;
 use Training\Http\Response;
 use Training\Intervals\ActivityLookup;
 use Training\Intervals\IntervalsClient;
+use Training\Plan\Ablaufplan;
 use Training\Plan\PlanValidator;
 use Training\View\Labels;
 
 /**
  * S3 Einheit (Abschnitt 10, 11): Plan mit Soll, Ist-Eingabe (vorbelegt mit Soll bzw. letzter Eingabe),
  * Rückmeldung (RPE, Feel, Schmerz, Abweichung, Notiz, Status); bei Ausdauer die verknüpfte Aktivität.
+ * S9 geführte Einheit (AP-14, D-57): GET /einheit?id=…&modus=start zeigt dasselbe Formular schrittweise
+ * (Ablaufplan); gespeichert wird wie aus S3 über POST /einheit (Feld modus=start zeigt Fehler wieder in S9).
  */
 final class SessionController extends AppController
 {
@@ -35,9 +38,12 @@ final class SessionController extends AppController
             ]));
         }
         $activity = $this->activity($session);
+        // Geführt nur für geeignete Einheiten (E-13); sonst S3 (z. B. Ausdauer mit modus=start)
+        $guided = ($request->method === 'POST' ? $request->post('modus') : $request->query('modus')) === 'start'
+            && Ablaufplan::geeignet((string) $session['type'], $session['plan'] ?? null);
 
         if ($request->method !== 'POST') {
-            return $this->form($session, $activity, $this->prefill($session, $activity), [], null);
+            return $this->form($session, $activity, $this->prefill($session, $activity), [], null, 200, $guided);
         }
         if (!$this->csrfOk($request)) {
             return Response::error(403, 'Ungültiges Formular.');
@@ -48,10 +54,10 @@ final class SessionController extends AppController
 
         [$data, $invalid, $message] = $this->parse($request, $session);
         if (self::standConflict($request, $this->standOf($session))) {
-            return $this->form($session, $activity, $data, $invalid, 'Die Rückmeldung zu dieser Einheit wurde inzwischen geändert (z. B. auf einem anderen Gerät). Deine Eingaben stehen unten; Speichern übernimmt sie.', 409);
+            return $this->form($session, $activity, $data, $invalid, 'Die Rückmeldung zu dieser Einheit wurde inzwischen geändert (z. B. auf einem anderen Gerät). Deine Eingaben stehen unten; Speichern übernimmt sie.', 409, $guided);
         }
         if ($message !== null) {
-            return $this->form($session, $activity, $data, $invalid, $message, 422);
+            return $this->form($session, $activity, $data, $invalid, $message, 422, $guided);
         }
 
         $previousNotes = $this->feedback()->execution((int) $session['id'])['notes'] ?? null;
@@ -163,6 +169,8 @@ final class SessionController extends AppController
             'status' => $session['status'] === 'geplant' ? 'erledigt' : $session['status'],
             'ist' => $ist,
             'duration_min' => $duration ?? $session['planned_duration_min'],
+            // S9: Dauer aus dem Plan darf das Skript durch die gemessene Dauer ersetzen, eine gespeicherte nicht (6.2)
+            'duration_from_plan' => $duration === null,
             'rpe' => $e['rpe_cr10'] ?? null,
             'feel' => $e['feel_1_5'] ?? null,
             'deviation' => $e['deviation_reason'] ?? '',
@@ -338,25 +346,57 @@ final class SessionController extends AppController
      * @param array<string, mixed> $data
      * @param array<string, bool> $invalid
      */
-    private function form(array $session, ?array $activity, array $data, array $invalid, ?string $message, int $status = 200): Response
+    private function form(array $session, ?array $activity, array $data, array $invalid, ?string $message, int $status = 200, bool $guided = false): Response
     {
         [$statusLabel, $statusClass] = Labels::STATUS[$session['status']];
+        $alert = $message === null ? null : ($status === 409
+            ? ['type' => 'warning', 'icon' => 'alert-triangle', 'title' => 'Inzwischen geändert.', 'text' => $message]
+            : ['type' => 'error', 'icon' => 'alert-circle', 'title' => 'Nicht gespeichert.', 'text' => $message]);
+        $stand = $this->standOf($this->weeks()->session((int) $session['id']) ?? $session);
+        $offlineLabel = 'Rückmeldung „' . $session['title'] . '“ (' . Dates::short((string) $session['date']) . ')';
+
+        if ($guided) {
+            $settings = new \Training\Data\SettingsRepository($this->app->pdo(), $this->app->clock());
+
+            return $this->page('session-start', (string) $session['title'], 'woche', [
+                'mainClass' => 'gefuehrt',
+                'backHref' => '/einheit?id=' . (int) $session['id'],
+                'backLabel' => 'Zurück zur Einheit',
+                'topAction' => $this->muteButton(),
+                'alert' => $alert,
+                'stand' => $stand,
+                'offlineLabel' => $offlineLabel,
+                'session' => $session,
+                'steps' => Ablaufplan::schritte((string) $session['type'], $session['plan']) ?? [],
+                'data' => $data,
+                'invalid' => $invalid,
+                'timerTon' => $settings->timerTon(),
+            ], $status);
+        }
 
         return $this->page('session', 'Einheit', 'woche', [
             'wide' => true,
             'backHref' => '/woche?start=' . Dates::monday((string) $session['date']),
             'backLabel' => 'Zurück zur Woche',
             'topAction' => '<span class="badge badge-' . $statusClass . ' hide-mobile">' . $statusLabel . '</span>',
-            'alert' => $message === null ? null : ($status === 409
-                ? ['type' => 'warning', 'icon' => 'alert-triangle', 'title' => 'Inzwischen geändert.', 'text' => $message]
-                : ['type' => 'error', 'icon' => 'alert-circle', 'title' => 'Nicht gespeichert.', 'text' => $message]),
-            'stand' => $this->standOf($this->weeks()->session((int) $session['id']) ?? $session),
-            'offlineLabel' => 'Rückmeldung „' . $session['title'] . '“ (' . Dates::short((string) $session['date']) . ')',
+            'alert' => $alert,
+            'stand' => $stand,
+            'offlineLabel' => $offlineLabel,
+            'guidedHref' => Ablaufplan::geeignet((string) $session['type'], $session['plan'] ?? null) ? '/einheit?id=' . (int) $session['id'] . '&modus=start' : null,
             'session' => $session,
             'activity' => $activity,
             'data' => $data,
             'invalid' => $invalid,
             'athleteId' => (string) $this->app->config()->get('INTERVALS_ATHLETE_ID', ''),
         ], $status);
+    }
+
+    /** Stummschalter der geführten Einheit in der Kopfzeile (E-18); nur mit JavaScript sichtbar, gilt nur für diese Einheit. */
+    private function muteButton(): string
+    {
+        $view = $this->app->view();
+
+        return '<button class="btn btn-icon needs-js" type="button" id="gf-stumm" aria-pressed="false" aria-label="Ton und Vibration aus" title="Stumm für diese Einheit">'
+            . '<span class="gf-ton">' . $view->icon('volume', 'ic ic-lg') . '</span><span class="gf-stumm">' . $view->icon('volume-off', 'ic ic-lg') . '</span></button>';
     }
 }

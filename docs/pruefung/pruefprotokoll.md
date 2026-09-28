@@ -605,12 +605,24 @@ geprueft:
     wie: automatisiert (AblaufplanTest)
     ergebnis: ok
     datum: 2026-09-28
-  - was: S3-Soll-Texte nach Umzug in PlanFormat unverändert
+  - was: S3-Soll-Texte nach Umzug in PlanFormat unverändert; S3 nach Umbau in Teilvorlagen (Ist-Felder, Rückmeldung) unverändert
     wie: automatisiert (WebsiteTest)
     ergebnis: ok
     datum: 2026-09-28
+  - was: T4 – Startknopf nur für Kraft/Haltung/Mobilität/Klettern mit Plan, „Erneut durchgehen“ bei erledigt; A-11 Ausdauer mit modus=start → S3, Ruhetag 404, Einheit ohne Plan → S3
+    wie: automatisiert (GuidedSessionTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T4 – Aufbau S9 für Kraft (Wiederholungen ohne Timer, Halten mit Timer 00:30), Klettern (Hangboard 00:07, Block 40:00, offen mit Hinweis), Feldnamen wie S3 mit Soll vorbelegt, Kurzsatz oben, Skript-Bedienung versteckt; POST aus S9 speichert wie aus S3; 422 und 409 zeigen wieder S9 mit den Eingaben; Timer-Signale-Vorgabe aus app_setting
+    wie: automatisiert (GuidedSessionTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T4-Abnahme – ohne JavaScript alle Schritte sichtbar und keine Skript-Bedienung, ausgefüllt und gespeichert („Gespeichert.“, Werte in der Datenbank); 375 px ohne horizontales Scrollen (Kraft, Klettern); Speichern liegt über der unteren Navigation
+    wie: Browser (Chromium/Playwright, JavaScript aus, lokale Instanz)
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
-  - was: T4–T6 (S9 ohne und mit Skript, Einstellungen, Offline)
+  - was: T5–T6 (Skript, Einstellungen, Offline)
     wie: siehe Auftrag Abschnitt 7 und 8.2
 ```
 

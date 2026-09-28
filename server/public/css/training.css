@@ -54,3 +54,51 @@ details.mehr>summary::-webkit-details-marker{display:none}
 details.mehr>summary .ic{transition:transform 150ms ease-out}
 details.mehr[open]>summary .ic{transform:rotate(90deg)}
 details.mehr>p{color:var(--text-secondary);padding-bottom:var(--space-2);max-width:70ch;white-space:pre-line;overflow-wrap:anywhere}
+
+/* S9 Einheit geführt (AP-14, D-57/D-58; Mockup s9-einheit-gefuehrt.html). Ohne JavaScript sind alle Schritte sichtbar,
+   Bedienelemente des Skripts (.needs-js) ausgeblendet; js/gefuehrt.js setzt html.js und body[data-phase]. */
+.mb-4{margin-bottom:var(--space-4)}
+.start-row{margin-top:var(--space-2)}
+html:not(.js) .needs-js{display:none!important}
+html.js .gf-step:not(.aktiv){display:none}
+.main.gefuehrt{max-width:720px}
+.gf-progress{display:grid;gap:var(--space-2);margin-bottom:var(--space-4)}
+.gf-progress .bar{height:6px;border-radius:var(--radius-full);background:var(--plum-100);overflow:hidden}
+.gf-progress .bar i{display:block;height:100%;width:0;background:var(--plum-600);transition:width 150ms ease-out}
+.phase-card{display:grid;gap:var(--space-2);text-align:center;padding:var(--space-6) var(--space-4);border-width:2px}
+.phase-card .satz{font:var(--type-label);text-transform:uppercase;letter-spacing:var(--tracking-label);color:var(--text-tertiary)}
+.phase-card h2{font:var(--type-h2);overflow-wrap:anywhere}
+.phase-card .phase{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);margin:0 auto;padding:4px 12px;border-radius:var(--radius-full);font:var(--type-label);text-transform:uppercase;letter-spacing:var(--tracking-label);background:var(--bg-page);color:var(--text-secondary)}
+.phase-card .phase .ic{width:16px;height:16px}
+.phase-card .timer{font:700 64px/1 var(--font-mono);font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:var(--text-primary)}
+.phase-card .reps{font:700 40px/1.1 var(--font-display);color:var(--text-primary);overflow-wrap:anywhere}
+.phase-card .reps small{display:block;font:var(--type-body);color:var(--text-tertiary);margin-top:var(--space-1)}
+.phase-card .soll{font:var(--type-body-sm);color:var(--text-tertiary)}
+.phase-card.blink{animation:gf-blink 500ms steps(2,start) 6}
+@keyframes gf-blink{to{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.phase-card.blink{animation:none;outline:3px solid var(--focus-ring)}}
+.next{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);border:var(--border-default);border-radius:var(--radius-lg);background:var(--bg-surface);color:var(--text-secondary);font:var(--type-body-sm)}
+.next .ic{color:var(--text-tertiary);flex:none}
+.next b{color:var(--text-primary)}
+.gf-actions{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--space-2);align-items:center}
+.gf-actions .btn{min-width:0;padding:0 var(--space-3)}
+.gf-actions .btn-primary{min-height:52px;font-size:var(--text-lg)}
+.gf-actions .gf-icon:empty{display:none}
+.gf-save{display:flex;flex-wrap:nowrap}
+.gf-save .btn-icon{flex:none}
+.done-list{display:grid;gap:var(--space-2)}
+.done-list .row{font:var(--type-body-sm)}
+.done-list .row>span:first-child{flex:1}
+.done-list .gf-uebersicht-status .ic{color:var(--status-success)}
+#gf-stumm .gf-stumm,#gf-stumm[aria-pressed="true"] .gf-ton{display:none}
+#gf-stumm[aria-pressed="true"] .gf-stumm{display:inline-flex}
+#gf-stumm[aria-pressed="true"]{color:var(--text-brand);background:var(--plum-100)}
+/* Farbzustände (E-02, E-20, B-08): Arbeit grün, Pause/bereit/angehalten rot, sonst normale Farbe */
+body[data-phase="arbeit"]{--bg-page:var(--status-success-bg)}
+body[data-phase="arbeit"] .phase-card{border-color:var(--status-success)}
+body[data-phase="arbeit"] .phase-card .timer,body[data-phase="arbeit"] .phase-card .phase{color:var(--status-success-text)}
+body[data-phase="arbeit"] .phase-card .phase{background:var(--status-success-bg)}
+body[data-phase="pause"],body[data-phase="bereit"],body[data-phase="angehalten"]{--bg-page:var(--status-error-bg)}
+body[data-phase="pause"] .phase-card,body[data-phase="bereit"] .phase-card,body[data-phase="angehalten"] .phase-card{border-color:var(--status-error)}
+body[data-phase="pause"] .phase-card .timer,body[data-phase="pause"] .phase-card .phase,body[data-phase="bereit"] .phase-card .timer,body[data-phase="bereit"] .phase-card .phase,body[data-phase="angehalten"] .phase-card .timer,body[data-phase="angehalten"] .phase-card .phase{color:var(--status-error-text)}
+body[data-phase="pause"] .phase-card .phase,body[data-phase="bereit"] .phase-card .phase,body[data-phase="angehalten"] .phase-card .phase{background:var(--status-error-bg)}

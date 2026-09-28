@@ -9,8 +9,8 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | Pfad | Inhalt | Arbeitspaket |
 |---|---|---|
 | `server/public/` | Document Root (einziger per HTTP erreichbarer Ordner), `index.php` als einziger Einstieg; `css/training.css` (Ergänzungen), `manifest.webmanifest`, `favicon.ico` und `icons/` (App-Icon, eingecheckt, siehe „Icons“); `assets/` wird gebaut (siehe unten) | AP-00, AP-01, AP-04, AP-13 |
-| `server/src/` | PHP-Quellcode (Namespace `Training\`): `Auth/` Login und Session, `OAuth/` Autorisierungsserver, `Mcp/` MCP-Endpunkt, `Intervals/` Intervals.icu-Client, `Data/` Datenzugriff und Audit-Log, `Plan/` Plan-Validierung, `View/` Seiten | AP-00 ff. |
-| `server/templates/` | Seitenvorlagen nach `docs/branding/` (S0, S1, S7 aus AP-01; S2–S5, S8 aus AP-04) | AP-01, AP-04 |
+| `server/src/` | PHP-Quellcode (Namespace `Training\`): `Auth/` Login und Session, `OAuth/` Autorisierungsserver, `Mcp/` MCP-Endpunkt, `Intervals/` Intervals.icu-Client, `Data/` Datenzugriff und Audit-Log, `Plan/` Plan-Validierung und Ablaufplan der geführten Einheit, `View/` Seiten | AP-00 ff. |
+| `server/templates/` | Seitenvorlagen nach `docs/branding/` (S0, S1, S7 aus AP-01; S2–S5, S8 aus AP-04; S9 `session-start.php` aus AP-14); Teilvorlagen beginnen mit `_` | AP-01, AP-04, AP-14 |
 | `server/bin/build-assets.php` | Kopiert Design-System, `app.css`, Icons und Logo aus `docs/branding/` nach `server/public/assets/` | AP-01 |
 | `server/config/` | Konfiguration ohne Secrets (derzeit leer) | – |
 | `server/migrations/` | Nummerierte Migrationen (D-20) | AP-00, AP-01, AP-03 |
@@ -45,6 +45,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | GET | `/` | Weiterleitung auf `/woche`; ohne Anmeldung auf `/login` (bzw. `/setup`, solange kein Benutzer existiert) |
 | GET | `/woche` | S2 Wochenansicht (`?start=YYYY-MM-DD` für eine andere Woche); Kurzsatz der Woche mit „mehr“ |
 | GET/POST | `/einheit` | S3 Einheit (`?id=…`): Kurzsatz mit „mehr“, Plan, Ist-Werte, Rückmeldung, Schmerz, Status; bei Ausdauer verknüpfte Intervals.icu-Aktivität |
+| GET | `/einheit?id=…&modus=start` | S9 Einheit geführt (Kraft, Haltung, Mobilität, Klettern): dieselbe Rückmeldung schrittweise je Übung, gespeichert über `POST /einheit`; für Ausdauer zeigt die Adresse S3 |
 | GET/POST | `/checkin` | S4 Tages-Check-in mit Morgentest (`?datum=…`, nicht in der Zukunft); Formular bzw. Ampel auch oben in `/woche` |
 | GET/POST | `/schmerz` | S5 Schmerzereignis (`?datum=…`, `?einheit=…`) |
 | GET/POST | `/einstellungen` | S8 Athletenprofil (Link), Konto, Zeitzone, Passwort, Passkeys, Kalender-Abgleich und -Erinnerung (`?bereich=erinnerung`), Morgen-Check-in „Hand rechts bis“ (`?bereich=checkin`), Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |

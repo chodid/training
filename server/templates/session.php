@@ -30,6 +30,9 @@ $mehr = trim((string) ($session['coach_rationale'] ?? ''));
 <?php if ($mehr !== ''): ?>
     <details class="more mehr"><summary><?= $this->icon('chevron-right', 'ic ic-sm') ?><?= $kurz !== '' ? 'mehr' : 'Trainer-Notiz' ?></summary><p><?= $this->e($mehr) ?></p></details>
 <?php endif ?>
+<?php if (!empty($guidedHref)): // Einstieg in die geführte Einheit (E-13, 6.1) ?>
+    <div class="btn-row start-row"><a class="btn <?= $session['status'] === 'erledigt' ? 'btn-secondary' : 'btn-primary' ?>" href="<?= $this->e($guidedHref) ?>"><?= $this->icon('player-play') ?><?= $session['status'] === 'erledigt' ? 'Erneut durchgehen' : 'Einheit starten' ?></a></div>
+<?php endif ?>
   </div>
 <?php if ($alert !== null): ?>
   <div class="mt-4"><?php include __DIR__ . '/_alert.php'; ?></div>
@@ -48,11 +51,7 @@ $mehr = trim((string) ($session['coach_rationale'] ?? ''));
         <div class="exercise">
           <div class="between"><span class="name"><?= $this->e($x['name']) ?></span><span class="soll"><?= $this->e($fmtSoll($x)) ?></span></div>
 <?php if (!empty($x['notes'])): ?><div class="soll"><?= $this->e($x['notes']) ?></div><?php endif ?>
-          <div class="ist">
-            <div class="field"><label for="ist-<?= $i ?>-sets">Sätze</label><input class="input mono" id="ist-<?= $i ?>-sets" name="ist[<?= $i ?>][sets]" value="<?= $this->e($ist['sets'] ?? '') ?>" inputmode="numeric"></div>
-            <div class="field"><label for="ist-<?= $i ?>-reps">Wdh.</label><input class="input mono" id="ist-<?= $i ?>-reps" name="ist[<?= $i ?>][reps]" value="<?= $this->e($ist['reps'] ?? '') ?>"></div>
-            <div class="field"><label for="ist-<?= $i ?>-load">Last</label><input class="input mono" id="ist-<?= $i ?>-load" name="ist[<?= $i ?>][load]" value="<?= $this->e($ist['load'] ?? '') ?>"></div>
-          </div>
+<?php include __DIR__ . '/_ist_exercise.php'; ?>
         </div>
 <?php endforeach ?>
       </section>
@@ -64,15 +63,7 @@ $mehr = trim((string) ($session['coach_rationale'] ?? ''));
           <div class="between"><span class="name"><?= $this->e(Labels::BLOCK_KINDS[$b['kind']] ?? $b['kind']) ?></span><?php if (!empty($b['spezifitaet'])): ?><span class="badge badge-brand"><?= $this->e($b['spezifitaet']) ?></span><?php endif ?></div>
           <div class="soll"><?= $this->e($fmtBlock($b)) ?></div>
 <?php if (!empty($b['notes'])): ?><div class="soll"><?= $this->e($b['notes']) ?></div><?php endif ?>
-          <div class="ist">
-            <div class="field"><label for="ist-<?= $i ?>-dur">Dauer (min)</label><input class="input mono" id="ist-<?= $i ?>-dur" name="ist[<?= $i ?>][duration_min]" value="<?= $this->e($ist['duration_min'] ?? '') ?>" inputmode="numeric"></div>
-<?php if (isset($b['sets'])): ?>
-            <div class="field"><label for="ist-<?= $i ?>-sets">Sätze</label><input class="input mono" id="ist-<?= $i ?>-sets" name="ist[<?= $i ?>][sets]" value="<?= $this->e($ist['sets'] ?? '') ?>" inputmode="numeric"></div>
-            <div class="field"><label for="ist-<?= $i ?>-notes">Notiz</label><input class="input" id="ist-<?= $i ?>-notes" name="ist[<?= $i ?>][notes]" value="<?= $this->e(($data['ist'][$i]['notes'] ?? null) !== ($b['notes'] ?? null) ? ($ist['notes'] ?? '') : '') ?>" placeholder="optional"></div>
-<?php else: ?>
-            <div class="field span-2"><label for="ist-<?= $i ?>-notes">Notiz</label><input class="input" id="ist-<?= $i ?>-notes" name="ist[<?= $i ?>][notes]" value="<?= $this->e(($data['ist'][$i]['notes'] ?? null) !== ($b['notes'] ?? null) ? ($ist['notes'] ?? '') : '') ?>" placeholder="optional"></div>
-<?php endif ?>
-          </div>
+<?php include __DIR__ . '/_ist_block.php'; ?>
         </div>
 <?php endforeach ?>
       </section>
@@ -93,55 +84,7 @@ $mehr = trim((string) ($session['coach_rationale'] ?? ''));
       <section class="card stack-lg">
         <div class="card-head"><h2>Rückmeldung</h2><span class="hint">30 min nach Ende</span></div>
 
-        <div class="field<?= !empty($invalid['duration']) ? ' invalid' : '' ?>">
-          <label for="duration">Dauer (min)</label>
-          <input class="input mono" id="duration" name="duration_min" value="<?= $this->e($data['duration_min'] ?? '') ?>" inputmode="numeric">
-        </div>
-
-        <div class="field<?= !empty($invalid['rpe']) ? ' invalid' : '' ?>">
-          <div class="field-label">Anstrengung (RPE 0–10)</div>
-<?php $name = 'rpe'; $min = 0; $max = 10; $value = $data['rpe'] !== null ? (int) $data['rpe'] : null; $aria = 'RPE'; include __DIR__ . '/_scale.php'; ?>
-          <div class="scale-ends"><span>0 Ruhe</span><span>10 maximal</span></div>
-          <div class="hint">Die Belastung (sRPE) wird automatisch berechnet: RPE × Dauer in Minuten.</div>
-        </div>
-
-        <div class="field<?= !empty($invalid['feel']) ? ' invalid' : '' ?>">
-          <div class="field-label">Wie hat sich die Einheit angefühlt?</div>
-<?php $name = 'feel'; $min = 1; $max = 5; $value = $data['feel'] !== null ? (int) $data['feel'] : null; $aria = 'Gefühl'; include __DIR__ . '/_scale.php'; ?>
-          <div class="scale-ends"><span>1 sehr gut</span><span>5 sehr schlecht</span></div>
-        </div>
-
-        <div class="field">
-          <div class="field-label">Schmerz während oder nach der Einheit?</div>
-<?php $name = 'pain'; $options = ['nein' => 'Nein', 'ja' => 'Ja']; $value = $data['pain_choice'] ?? 'nein'; $wrap = false; $icons = []; include __DIR__ . '/_seg.php'; ?>
-        </div>
-
-        <div class="reveal subcard">
-<?php $pain = $data['pain_fields']; include __DIR__ . '/_pain_fields.php'; ?>
-        </div>
-
-        <div class="field">
-          <label for="dev">Abweichung vom Plan</label>
-          <div class="select-wrap">
-            <select class="select" id="dev" name="deviation">
-<?php foreach (Labels::DEVIATIONS as $v => $label): ?>
-              <option value="<?= $v ?>"<?= ($data['deviation'] ?? '') === $v ? ' selected' : '' ?>><?= $label ?></option>
-<?php endforeach ?>
-            </select>
-            <?= $this->icon('chevron-right') ?>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="note">Notiz</label>
-          <textarea class="textarea" id="note" name="notes" placeholder="Was war anders, was ist aufgefallen?"><?= $this->e($data['notes'] ?? '') ?></textarea>
-        </div>
-
-        <div class="field<?= !empty($invalid['status']) ? ' invalid' : '' ?>">
-          <div class="field-label">Status</div>
-<?php $name = 'status'; $options = ['erledigt' => 'Erledigt', 'teilweise' => 'Teilweise', 'ausgelassen' => 'Ausgelassen', 'verschoben' => 'Verschoben']; $value = $data['status']; $wrap = true; $icons = ['erledigt' => 'check', 'verschoben' => 'player-skip-forward']; include __DIR__ . '/_seg.php'; ?>
-          <div class="hint">Bei „Ausgelassen“ und „Verschoben“ sind Dauer, RPE und Gefühl nicht nötig.</div>
-        </div>
+<?php include __DIR__ . '/_feedback_fields.php'; ?>
       </section>
 
       <div class="actions-sticky btn-row">

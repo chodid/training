@@ -11,9 +11,14 @@ AP-14: Geführte Einheit (D-57, D-58) – Auftrag `docs/konzept/gefuehrte-einhei
 ### Hinzugefügt
 - Ablaufplan der geführten Einheit (`Training\Plan\Ablaufplan`, T3): leitet aus `plan_json` für Kraft, Haltung, Mobilität und Klettern deterministisch die Schritte ab – je Übung bzw. Block Art (Wiederholungen, Halten, Block, offen), Sätze, Arbeits- und Pausenzeit, Soll-Text und Ist-Felder wie in S3. Halten bei Wiederholungsangaben in Sekunden oder Minuten („45s“, „2 min“, „30-45 s“ → obere Grenze) und bei `hang_s`, Block bei `duration_min`. Ausdauer und Ruhetage haben keinen Ablaufplan.
 - Tests: alle Testfälle A-01 bis A-12 des Auftrags und die Schreibweisen der Haltezeiten.
+- Seite S9 „Einheit geführt“ (T4): `GET /einheit?id=…&modus=start` zeigt für geeignete Einheiten dasselbe Formular wie S3 schrittweise – je Übung bzw. Block eine Phase-Karte (Übung, Sätze, Timer-Anzeige bzw. Wiederholungen, Soll, Hinweis), die Ist-Felder der Übung (gleiche Feldnamen wie S3, mit Soll vorbelegt), „Als Nächstes“ und am Ende Übersicht und Rückmeldung. Gespeichert wird wie aus S3 über `POST /einheit` (Konfliktschutz, Offline-Puffer, Prüfung unverändert); Fehler erscheinen wieder in S9. Ohne JavaScript sind alle Schritte sichtbar und das Formular ist vollständig ausfüllbar. Kopfzeile mit Zurück zu S3 und (mit JavaScript) Stummschalter; Kurzsatz der Einheit oben.
+- S3: Knopf „Einheit starten“ (bzw. „Erneut durchgehen“ bei erledigten Einheiten) für Kraft, Haltung, Mobilität und Klettern mit Plan; Ausdauer und Ruhetage ohne Knopf, `modus=start` zeigt dort S3.
+- Einstellung `timer_ton` (`app_setting`, Standard „an“) als Vorgabe für Ton und Vibration im geführten Modus.
+- Tests: Startknopf je Typ, Rückfall auf S3, Aufbau für Kraft (Wiederholungen, Halten) und Klettern (Hangboard, Block, offen), Speichern aus S9, Fehler und Konflikt in S9, Vorgabe der Timer-Signale.
 
 ### Geändert
 - Soll-Texte von Übungen und Kletterblöcken kommen aus `Training\View\PlanFormat` (bisher im Template von S3), damit S3 und die geführte Einheit dieselben Texte zeigen.
+- Ist-Felder und Rückmeldung von S3 als gemeinsame Teilvorlagen (`_ist_exercise.php`, `_ist_block.php`, `_feedback_fields.php`) für S3 und S9; Seitenrahmen akzeptiert eine zusätzliche Klasse für `main`.
 
 ## [0.17.0] – 2026-09-28
 
