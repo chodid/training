@@ -25,6 +25,11 @@ final class WriteTools
     private const PRIORITIES = ['A', 'B', 'C'];
     private const STATUSES = ['geplant', 'erledigt', 'teilweise', 'ausgelassen', 'verschoben'];
 
+    /** Begründungstexte der Planung (AP-13, E-10): Kurzsatz der Woche/Einheit und ausführlicher Text, Länge in Zeichen */
+    public const FOCUS_MAX = 255;
+    public const SUMMARY_MAX = 200;
+    public const TEXT_MAX = 1500;
+
     public function __construct(
         private readonly PDO $pdo,
         private readonly Clock $clock,
@@ -55,9 +60,19 @@ final class WriteTools
 
         $clean = [];
         $errors = [];
+        $focus = self::text($focus);
+        if ($focus === null) {
+            $errors[] = 'focus fehlt: Kurzsatz der Woche (Was und warum, 1–' . self::FOCUS_MAX . ' Zeichen)';
+        } elseif (mb_strlen($focus) > self::FOCUS_MAX) {
+            $errors[] = 'focus ist ' . mb_strlen($focus) . ' Zeichen lang, erlaubt sind ' . self::FOCUS_MAX;
+        }
+        $coachNotes = self::text($coachNotes);
+        if ($coachNotes !== null && mb_strlen($coachNotes) > self::TEXT_MAX) {
+            $errors[] = 'coach_notes ist ' . mb_strlen($coachNotes) . ' Zeichen lang, erlaubt sind ' . self::TEXT_MAX;
+        }
         foreach (array_values($sessions) as $i => $s) {
             try {
-                $clean[] = $this->validateSession(is_array($s) ? $s : [], $weekStart, $sunday, $i);
+                $clean[] = $this->validateSession(is_array($s) ? $s : [], $weekStart, $sunday, $i, true);
             } catch (ToolError $e) {
                 $errors[] = 'sessions[' . $i . ']: ' . $e->getMessage() . ($e->details !== [] ? ' (' . implode('; ', $e->details) . ')' : '');
             }
@@ -73,11 +88,13 @@ final class WriteTools
 
         // Ersetzen: nur geplante Einheiten ohne Rückmeldung; alles mit Durchführung bleibt.
         $replaced = [];
+        $replacedDates = [];
         $kept = [];
         $eventsToDelete = [];
         foreach ($existing as $s) {
             if ($s['status'] === 'geplant' && $s['execution_id'] === null) {
                 $replaced[] = (int) $s['id'];
+                $replacedDates[] = (string) $s['date'];
                 if ($s['intervals_event_id'] !== null) {
                     $eventsToDelete[] = (int) $s['intervals_event_id'];
                 }
@@ -128,7 +145,7 @@ final class WriteTools
             $out[] = $row;
         }
         $failed = count(array_filter($out, static fn (array $r): bool => isset($r['fehler_intervals'])));
-        $calendarErrors = $this->calendarSync($ids, $replaced);
+        $calendarErrors = $this->calendarSync([...array_column($clean, 'date'), ...$replacedDates], $replaced);
 
         return array_filter([
             'woche' => $weekStart,
@@ -154,24 +171,34 @@ final class WriteTools
         if ($s === null) {
             throw new ToolError('Einheit ' . $sessionId . ' nicht gefunden.');
         }
-        $allowed = ['date', 'title', 'priority', 'planned_duration_min', 'plan_json', 'coach_rationale', 'status', 'sort_order'];
+        $allowed = ['date', 'title', 'priority', 'planned_duration_min', 'plan_json', 'coach_summary', 'coach_rationale', 'status', 'sort_order'];
         $unknown = array_diff(array_keys($changes), $allowed);
         if ($unknown !== []) {
             throw new ToolError('Unbekannte Felder: ' . implode(', ', $unknown) . '. Erlaubt: ' . implode(', ', $allowed) . '.');
         }
         $merged = [
             'date' => $s['date'], 'type' => $s['type'], 'title' => $s['title'], 'priority' => $s['priority'],
-            'planned_duration_min' => $s['planned_duration_min'], 'plan_json' => $s['plan'], 'coach_rationale' => $s['coach_rationale'],
-            'sort_order' => $s['sort_order'],
+            'planned_duration_min' => $s['planned_duration_min'], 'plan_json' => $s['plan'], 'coach_summary' => $s['coach_summary'],
+            'coach_rationale' => $s['coach_rationale'], 'sort_order' => $s['sort_order'],
         ];
         foreach ($changes as $k => $v) {
             if ($k !== 'status') {
                 $merged[$k] = $v;
             }
         }
-        $clean = $this->validateSession($merged, null, null, 0);
+        // Kurzsatz: Pflicht außer bei Ruhetagen (E-10); dort entfernt ein leerer Text ihn
+        if (array_key_exists('coach_summary', $changes) && self::text($changes['coach_summary']) === null && $s['type'] !== 'ruhe') {
+            throw new ToolError('coach_summary darf nicht leer sein (1–' . self::SUMMARY_MAX . ' Zeichen).');
+        }
+        // Unveränderte Begründungstexte nicht erneut prüfen (Altdaten vor AP-13 können länger sein)
+        foreach (['coach_summary', 'coach_rationale'] as $k) {
+            if (!array_key_exists($k, $changes)) {
+                unset($merged[$k]);
+            }
+        }
+        $clean = $this->validateSession($merged, null, null, 0, false);
         $fields = [];
-        foreach (['date', 'title', 'priority', 'planned_duration_min', 'plan_json', 'coach_rationale', 'sort_order'] as $k) {
+        foreach (['date', 'title', 'priority', 'planned_duration_min', 'plan_json', 'coach_summary', 'coach_rationale', 'sort_order'] as $k) {
             if (array_key_exists($k, $changes)) {
                 $fields[$k] = $clean[$k];
             }
@@ -215,7 +242,7 @@ final class WriteTools
                 $result['intervals'] = $err === null ? ($s['intervals_event_id'] !== null ? 'event_aktualisiert' : 'event_angelegt') : 'fehler: ' . $err;
             }
         }
-        $calendarErrors = $this->calendarSync([$sessionId], []);
+        $calendarErrors = $this->calendarSync([(string) $s['date'], (string) $clean['date']], [$sessionId]);
         if ($calendarErrors !== []) {
             $result['fehler_kalender'] = $calendarErrors;
         }
@@ -281,32 +308,21 @@ final class WriteTools
     }
 
     /**
-     * Kalender nachziehen (AP-11): Termine der Einheiten anlegen/aktualisieren, ersetzte entfernen. Fehler werden nur
-     * gemeldet (einmal je Aufruf zusammengefasst); der stündliche Abgleich holt sie nach.
-     * @param list<int> $push
-     * @param list<int> $remove
+     * Kalender nachziehen (AP-11, D-60): Sammeltermine der betroffenen Tage neu schreiben (neue, geänderte, verschobene
+     * und ersetzte Einheiten; beim Verschieben alter und neuer Tag), dazu die alten Einzeltermine der betroffenen
+     * Einheiten entfernen. Fehler werden nur gemeldet (einmal je Aufruf); der stündliche Abgleich holt sie nach.
+     * @param list<string> $dates
+     * @param list<int> $sessionIds geänderte bzw. ersetzte Einheiten
      * @return list<string>
      */
-    private function calendarSync(array $push, array $remove): array
+    private function calendarSync(array $dates, array $sessionIds): array
     {
         if ($this->calendar === null || !$this->calendar->enabled()) {
             return [];
         }
-        $errors = [];
-        foreach ($remove as $id) {
-            if (($e = $this->calendar->remove($id)) !== null) {
-                $errors[] = $e;
-                break;
-            }
-        }
-        foreach ($errors === [] ? $push : [] as $id) {
-            if (($e = $this->calendar->push($id)) !== null) {
-                $errors[] = $e;
-                break;
-            }
-        }
+        $error = $this->calendar->pushDays($dates, 'mcp', $sessionIds);
 
-        return $errors === [] ? [] : [$errors[0] . ' Der stündliche Abgleich überträgt die Termine erneut.'];
+        return $error === null ? [] : [$error . ' Der stündliche Abgleich überträgt die Termine erneut.'];
     }
 
     /**
@@ -334,7 +350,7 @@ final class WriteTools
      * @param array<string, mixed> $s
      * @return array<string, mixed>
      */
-    private function validateSession(array $s, ?string $from, ?string $to, int $index): array
+    private function validateSession(array $s, ?string $from, ?string $to, int $index, bool $requireSummary): array
     {
         $errors = [];
         $date = $s['date'] ?? null;
@@ -365,6 +381,17 @@ final class WriteTools
                 $errors[] = 'plan_json ' . $e;
             }
         }
+        // Begründungstexte (E-10): Kurzsatz Pflicht außer bei Ruhetagen (nur beim Wochenplan), ausführlicher Text optional
+        $summary = self::text($s['coach_summary'] ?? null);
+        if ($summary === null && $requireSummary && $type !== 'ruhe') {
+            $errors[] = 'coach_summary fehlt: Kurzsatz der Einheit (Was und warum, 1–' . self::SUMMARY_MAX . ' Zeichen)';
+        } elseif ($summary !== null && mb_strlen($summary) > self::SUMMARY_MAX) {
+            $errors[] = 'coach_summary ist ' . mb_strlen($summary) . ' Zeichen lang, erlaubt sind ' . self::SUMMARY_MAX;
+        }
+        $rationale = self::text($s['coach_rationale'] ?? null);
+        if ($rationale !== null && mb_strlen($rationale) > self::TEXT_MAX) {
+            $errors[] = 'coach_rationale ist ' . mb_strlen($rationale) . ' Zeichen lang, erlaubt sind ' . self::TEXT_MAX;
+        }
         if ($errors !== []) {
             throw new ToolError('ungültig', $errors);
         }
@@ -376,9 +403,21 @@ final class WriteTools
             'priority' => $priority,
             'planned_duration_min' => $duration,
             'plan_json' => $plan === [] ? null : $plan,
-            'coach_rationale' => isset($s['coach_rationale']) && is_string($s['coach_rationale']) ? $s['coach_rationale'] : null,
+            'coach_summary' => $summary,
+            'coach_rationale' => $rationale,
             'sort_order' => is_int($s['sort_order'] ?? null) ? $s['sort_order'] : $index,
         ];
+    }
+
+    /** Text eines Begründungsfelds: getrimmt, leer bzw. kein Text = null. */
+    private static function text(mixed $value): ?string
+    {
+        if (!is_string($value)) {
+            return null;
+        }
+        $value = trim($value);
+
+        return $value === '' ? null : $value;
     }
 
     /**

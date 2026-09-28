@@ -148,15 +148,20 @@ abstract class AppTestCase extends TestCase
 
     /**
      * Setzt die Datenbank um die letzte Migration zurück: Code-Stand > DB-Stand (Schreibsperre). Legt die letzte
-     * Migration eine Tabelle an, wird sie gelöscht; bei Spaltenänderungen wird nur der Schemastand zurückgesetzt.
+     * Migration eine Tabelle an, wird sie gelöscht; neue Spalten (ADD COLUMN) werden entfernt; bei anderen
+     * Spaltenänderungen (z. B. MODIFY) wird nur der Schemastand zurückgesetzt.
      */
     protected function rollbackLastMigration(): void
     {
         $files = glob(dirname(__DIR__, 2) . '/migrations/*.sql') ?: [];
         sort($files);
-        $sql = (string) file_get_contents((string) end($files));
+        $sql = (string) preg_replace('/^--.*$/m', '', (string) file_get_contents((string) end($files)));
         if (preg_match('/^CREATE TABLE `?(\w+)`?/m', $sql, $m)) {
             $this->pdo->exec('DROP TABLE `' . $m[1] . '`');
+        } elseif (preg_match('/^ALTER TABLE `?(\w+)`?/m', $sql, $t) && preg_match_all('/ADD COLUMN `?(\w+)`?/', $sql, $cols)) {
+            foreach ($cols[1] as $col) {
+                $this->pdo->exec('ALTER TABLE `' . $t[1] . '` DROP COLUMN `' . $col . '`');
+            }
         }
         $this->pdo->exec('DELETE FROM schema_version WHERE version = ' . \Training\App::SCHEMA_VERSION);
     }

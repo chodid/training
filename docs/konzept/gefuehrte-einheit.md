@@ -1,20 +1,21 @@
 # Auftrag: App-Icon, Begründungstexte der Planung und geführte Trainingseinheit
 
-Ablageort im Repo: `docs/konzept/gefuehrte-einheit.md` (im Hauptkonzept: AP-13 und AP-14, D-55 bis D-58, Q-14)
-Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); Umsetzung offen
+Ablageort im Repo: `docs/konzept/gefuehrte-einheit.md` (im Hauptkonzept: AP-13 und AP-14, D-55 bis D-59, Q-14; Nachtrag T8: AP-11, D-60)
+Status: Konzept bestätigt durch Philipp am 2026-09-28 (Entscheidungen E-01 bis E-21, Nachtrag T8 mit E-22); Logo-Variante gewählt (Q-14 → D-59: V3 als App-Icon, V2 als Favicon und App-Kennung); T1–T8 umgesetzt (Code-Stand 0.17.0 bis 0.19.0), Abnahme durch den Athleten offen (Stand in Abschnitt 12)
 Versionsnummer: keine im Konzept; wird in der Umsetzung festgelegt
 
 ---
 
 ## 1. Ziel
 
-Drei Wünsche des Athleten, die zusammen bearbeitet werden, weil sie dieselben Seiten berühren (Woche, Einheit, Einstellungen) und gemeinsame Mockups brauchen:
+Drei Wünsche des Athleten (dazu ein Nachtrag D während der Umsetzung), die zusammen bearbeitet werden, weil sie dieselben Seiten berühren (Woche, Einheit, Einstellungen) und gemeinsame Mockups brauchen:
 
 | teil | ziel |
 |---|---|
 | A · App-Icon und Logo | „Zum Startbildschirm“ zeigt auf Android (LibreWolf, idealerweise alle Browser) das App-Logo statt eines Platzhalters. Das Logo der App wechselt vom Lama-Kopf auf das **ganze Lama**; die Variante wählt der Athlet anhand einer Mockup-Seite mit mehreren Optionen. |
 | B · Begründungstexte | Die planende Instanz (Claude im Projekt-Chat) schreibt je **Woche** und je **Einheit** einen kurzen Text zu „Was und warum“. Ein zusammenfassender Satz steht sichtbar bei Woche bzw. Einheit; „mehr“ daneben öffnet den restlichen Text. Klein gehalten: Ziele und Pläne, die dem Training zugrunde liegen, keine Abhandlung. |
 | C · Geführte Einheit | Eine Einheit lässt sich „starten“. Die App führt dann Schritt für Schritt durch das Training: aktuelle Übung mit Dauer/Wiederholungen, was als Nächstes kommt, Timer für getimte Übungen (App wird grün, solange gearbeitet wird; Tonsignale beim Start, 30 s und 10 s vor Ende sowie in den letzten 3 Sekunden; stummschaltbar in den Einstellungen und in der laufenden Einheit). Ohne Timer wird zumindest die aktuelle Übung angezeigt, und die Ist-Werte (Wiederholungen, Gewicht …) lassen sich direkt eintragen – wie sonst in der Einheitenübersicht. |
+| D · Kalender (Nachtrag T8) | Im CalDAV-Kalender erscheint je Tag nur **ein** Sammeltermin statt eines Termins je Einheit; alle Einheiten des Tages stehen in dessen Beschreibung (Wunsch des Athleten während der Umsetzung, 2026-09-28). |
 
 ## 2. Kontext und Bestand (Code-Stand 0.16.0, Schema 21)
 
@@ -35,7 +36,7 @@ Drei Wünsche des Athleten, die zusammen bearbeitet werden, weil sie dieselben S
 
 ## 3. Geklärte Entscheidungen
 
-Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 waren Vorschläge von Fable und gelten seit der Bestätigung des Konzepts am 2026-09-28. E-21 ist die Logo-Wahl.
+Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 waren Vorschläge von Fable und gelten seit der Bestätigung des Konzepts am 2026-09-28. E-21 ist die Logo-Wahl. E-22 (Nachtrag T8) hat der Athlet während der Umsetzung am 2026-09-28 festgelegt.
 
 | id | entscheidung | begruendung |
 |---|---|---|
@@ -49,7 +50,7 @@ Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 waren Vor
 | E-08 | **Logo überall:** Die gewählte Lama-Variante ersetzt den Kopf als App-Icon, Favicon und App-Kennung (Topbar, Navigation, Login-Karte). Bis zur Wahl (Q-14) bleibt der Kopf; Teil A wird erst nach der Wahl umgesetzt. | Wunsch des Athleten („der Kopf gefällt mir nicht“); eine Kennung, nicht zwei. |
 | E-09 | **Icon-Satz:** PNG 48, 96, 192, 512 (`purpose: any`), 512 maskable (Motiv in der sicheren Zone, Grund Pflaume 600 bzw. je Variante), `apple-touch-icon` 180 PNG, `favicon.ico` (16/32/48 mehrfach) im Docroot, SVG-Favicon bleibt zusätzlich. Beide Layouts (`layout-app`, `layout-auth`) tragen Manifest, PNG-Icon-Links mit `sizes`, `apple-touch-icon` und `theme-color`. Manifest zusätzlich mit `id` und `description`. | Deckt Verknüpfung per Favicon (Firefox-Familie), Manifest (Chrome/Edge/Samsung), iOS und Desktop ab; Login-Seite ist oft die Seite, von der aus verknüpft wird. |
 | E-10 | **Kurzsatz-Regeln:** Ein Satz, max. 200 Zeichen, sagt Was und Warum („Zweite Krafteinheit, Last wie letzte Woche, Fokus Tiefe – Sehne noch reizbar“). Ausführlich: 2–6 Sätze, max. 1 500 Zeichen, Bezug auf Blockziel, Belastungssteuerung, Befunde (Morgentest, Schmerz, Wellness), ohne Literaturzitate. Pflicht: Woche `focus`, Einheit `coach_summary` außer bei `ruhe`; die ausführlichen Texte sind erwartet, aber nicht erzwungen. | „Nicht ausführlich, nur kleines Darlegen der Ziele.“ Die Regel steht in den Tool-Beschreibungen (Claude sieht sie beim Planen) und später in den Trainerregeln (AP-07). |
-| E-11 | **Anzeige des Kurzsatzes:** Woche: eigene Zeile unter der Kopfzeile der Woche (Kurzsatz + „mehr“); die bisherige Angabe „Fokus …“ in der Kopfzeile entfällt. Einheit: Kurzsatz im Seitenkopf statt „Trainer-Notiz: …“ (+ „mehr“). Wochenliste: **kein** Kurzsatz je Einheit (bleibt kompakt). Kalendertermin: Kurzsatz als erste Zeile der Beschreibung, ausführlicher Text danach. | Wunsch: „bei Woche / Einheit“; Wochenliste bleibt auf dem Handy lesbar. |
+| E-11 | **Anzeige des Kurzsatzes:** Woche: eigene Zeile unter der Kopfzeile der Woche (Kurzsatz + „mehr“); die bisherige Angabe „Fokus …“ in der Kopfzeile entfällt. Einheit: Kurzsatz im Seitenkopf statt „Trainer-Notiz: …“ (+ „mehr“). Wochenliste: **kein** Kurzsatz je Einheit (bleibt kompakt). Kalendertermin: Kurzsatz als erste Zeile der Beschreibung, ausführlicher Text danach (seit E-22/D-60 bei mehreren Einheiten eines Tages je Abschnitt nach der Überschrift „Typ: Titel“). | Wunsch: „bei Woche / Einheit“; Wochenliste bleibt auf dem Handy lesbar. |
 | E-12 | **„mehr“ ohne JavaScript:** `<details class="more">` mit `<summary>` (bereits im CSS für AP-12), aufklappbar per Tipp, keine Skripte. | Branding 7.3, CSP. |
 | E-13 | **Einstieg in die geführte Einheit** nur auf S3 (Knopf „Einheit starten“ als Primäraktion im Seitenkopf) für die Typen `kraft`, `haltung`, `mobilitaet`, `klettern` mit vorhandenem Plan. Nicht für `ausdauer` (läuft auf der Uhr) und `ruhe`. In der Wochenliste kein Zusatzknopf. | Ein Tipp mehr, dafür bleibt S2 unverändert; Ausdauer ist auf der Uhr geführt. |
 | E-14 | **Adresse:** `GET /einheit?id=<id>&modus=start` rendert S9; `POST /einheit` bleibt der einzige Speicherweg (gleiche Feldnamen wie S3). Kein neuer Controller-Endpunkt, nur ein zweites Template. | Konfliktschutz (`stand`), Offline-Puffer und Validierung werden wiederverwendet. |
@@ -60,6 +61,7 @@ Mit dem Athleten am 2026-09-28 geklärt (E-01 bis E-07). E-08 bis E-20 waren Vor
 | E-19 | **Fortschritt im Browser:** `sessionStorage`-Eintrag je Einheit (Schritt, Satz, Phase, Endzeit, Ist-Werte, Startzeit, stumm). Neu laden setzt den Stand fort; „Neu starten“ löscht ihn. Nach Speichern gelöscht. Kein Serverzustand (E-07). | Robust gegen versehentliches Neuladen; keine Konflikte mit dem Offline-Puffer. |
 | E-20 | **Farben nur über Statusfarben des Design-Systems:** Arbeit = `--status-success-bg` als Seitengrund, Zeit in `--status-success-text`; Pause/bereit/angehalten = `--status-error-bg` und `--status-error-text`; `theme-color` wird mitgeführt. Neue Branding-Entscheidung B-08 (Statusfarben dürfen als Flächen für den Timer-Zustand dienen). | Rot/Grün mit ausreichendem Kontrast, ohne neue Farben. |
 | E-21 | **Logo-Wahl (Q-14 → D-59):** V3 (Lama Fläche hell `#F4EFF2` auf Pflaume 600 `#7A5C94`, Auge Orange) für App-Icon Android/iOS und `maskable`; V2 (Lama Fläche Pflaume 600 auf Papier) für Favicon 16/32 px, SVG-Favicon und App-Kennung in Topbar, Navigation und Login-Karte. Vorlagen: `docs/branding/mockups/icon-optionen/v3.svg`, `v3-maskable.svg`, `v2.svg`. | Entscheidung des Athleten am 2026-09-28, wie von Fable empfohlen. |
+| E-22 | **Ein Sammeltermin je Tag (Nachtrag T8 → D-60):** Je Trainingstag ein ganztägiger Termin statt eines Termins je Einheit (Ruhetage weiter ohne Termin). Titel aus den Einheitentiteln: eine Einheit „Typ: Titel“ wie bisher, mehrere „Training: Titel 1 + Titel 2“ in Planreihenfolge. **Kein Status-Zeichen im Titel**, der Termin wird nie abgesagt; der Status steht je Einheit in der Beschreibung. Beschreibung: alle Einheiten mit Kurzsatz, Kurzplan, Begründung und Link; Erinnerung einmal je Tag, solange eine Einheit geplant oder verschoben ist. Umfang: Unterpunkt T8 in diesem Auftrag, eigener Code-Stand, derselbe Pull Request wie T1–T7. | Wunsch des Athleten („pro Tag nur ein Sammeltermin“); Titel, Status-Darstellung und Umfang am 2026-09-28 per Rückfrage gewählt (Titel und Umfang wie empfohlen; beim Status „kein Zeichen im Titel“ statt der Empfehlung „✓, sobald der Tag abgeschlossen ist; abgesagt, wenn alle ausgelassen“). |
 
 ## 4. Teil A · App-Icon und Logo
 
@@ -78,7 +80,7 @@ Prüfschritte (Athlet, vor und nach der Umsetzung, je Browser):
 | schritt | wie | erwartung |
 |---|---|---|
 | P-A1 | Chrome Android: `training.gen-em.org/woche` öffnen → Menü → „App installieren“ / „Zum Startbildschirm“ | Lama-Icon; App öffnet ohne Browserleiste – **ok, 2026-09-28** (vor der Umsetzung, noch mit dem Kopf) |
-| P-A2 | Chrome Desktop: DevTools → Application → Manifest | keine Warnungen, alle Icons geladen |
+| P-A2 | Chrome Desktop: DevTools → Application → Manifest | keine Fehler, alle Icons geladen; erwartet sind nur die zwei Hinweise „Richer PWA Install UI won't be available on desktop/mobile“ (keine `screenshots` im Manifest, O-05) |
 | P-A3 | LibreWolf Android: von `/login` **und** von `/woche` verknüpfen | beide Male Lama-Icon |
 | P-A4 | LibreWolf `about:config`: `dom.serviceWorkers.enabled`, `dom.manifest.enabled` | nur Befund für die Doku, keine Änderung nötig |
 | P-A5 | iOS Safari (falls vorhanden): „Zum Home-Bildschirm“ | Lama-Icon 180 px, kein Screenshot-Icon |
@@ -142,7 +144,7 @@ Trainerregeln (AP-07, `docs/regeln/`): Abschnitt „Begründung je Woche und Ein
 - **S2 Woche:** unter der Wochen-Kopfzeile eine Zeile `Kurzsatz` mit `<details class="more"><summary>mehr</summary>…</details>` für `coach_notes`. Ohne Text: Zeile entfällt. Bei Wochen ohne Plan unverändert (Leerzustand).
 - **S3 Einheit:** im Seitenkopf `coach_summary` als Absatz, daneben „mehr“ → `coach_rationale`. Ist nur `coach_rationale` vorhanden (Altdaten), steht „Trainer-Notiz“ als Summary-Text und der Text dahinter.
 - **S9 geführt:** Kurzsatz der Einheit im Startschritt („bereit“), nicht in den Übungsschritten.
-- **Kalender (AP-11):** Beschreibung = Kurzsatz, Leerzeile, Kurzplan, Leerzeile, ausführlicher Text (gekürzt auf 1 000 Zeichen), Link.
+- **Kalender (AP-11):** Beschreibung = Kurzsatz, Leerzeile, Kurzplan, Leerzeile, ausführlicher Text (gekürzt auf 1 000 Zeichen), Link. Seit T8 (E-22) je Einheit ein solcher Abschnitt, bei mehreren Einheiten mit Überschrift „Typ: Titel“ davor und Trennlinie dazwischen.
 - Offline: die Seiten sind ohnehin im Seiten-Cache; keine Änderung.
 
 ## 6. Teil C · Geführte Einheit (S9)
@@ -240,17 +242,20 @@ value:
   stumm: bool
   ist: { "<feldname>": "<wert>" }   # alle Formularfelder, bei Eingabe gespeichert
   gespeichert_am: epoch_ms    # Ablauf nach 12 h
+# Umsetzung (T5, Review): zusätzlich u. a. fertig [int], ende_um (Ende der Dauermessung) und ein eigener Schlüssel
+# training.gefuehrt.<session_id>.stumm ('1'/'0') für die Stumm-Wahl vor der ersten Eingabe – Details Abschnitt 12, T5
 ```
 
 ### 6.6 Einstellungen (S8)
 
-Bereich „Training“: Zeile „Timer-Signale“ mit Schalter Ton/Vibration `an`/`aus` (`app_setting.timer_ton`, Standard `an`); Untertext „Gilt für den geführten Modus; in der Einheit jederzeit umschaltbar“. Umsetzung als Formular mit zwei Radio-Optionen (kein JS nötig).
+Bereich „Training“: Zeile „Timer-Signale“ mit Schalter Ton/Vibration `an`/`aus` (`app_setting.timer_ton`, Standard `an`); Untertext wie im Mockup S8: „Ton und Vibration im geführten Modus (Start, 30 s, 10 s, 3-2-1) · in der Einheit jederzeit umschaltbar“ (zuvor hier „Gilt für den geführten Modus; in der Einheit jederzeit umschaltbar“; angeglichen nach dem Abschluss-Review). Umsetzung als Formular mit zwei Radio-Optionen und „Speichern“ (kein JS nötig).
 
 ### 6.7 Offline
 
 - `/einheit?id=…&modus=start` ist über `PAGE_PATHS` bereits cachefähig (Schlüssel enthält die Query). `WeekController::prefetch` nimmt für heutige und morgige geeignete Einheiten zusätzlich die Start-Adresse auf.
 - Speichern offline: unverändert über den Formular-Puffer (`data-offline-form`); der Zustandsspeicher wird erst nach der Antwort 204/Weiterleitung gelöscht.
 - Skript `js/gefuehrt.js` kommt in `PRECACHE` (mit Version).
+- Die Vorgabe `timer_ton` steht in der gespeicherten Seite; S8 und jede online geladene S9 merken sie zusätzlich auf dem Gerät (`localStorage` `training.timer_ton`), eine offline gezeigte S9 nimmt diesen Wert (Abschluss-Review).
 
 ### 6.8 Zugänglichkeit und Gestaltung
 
@@ -261,7 +266,7 @@ Bereich „Training“: Zeile „Timer-Signale“ mit Schalter Ton/Vibration `an
 
 ## 7. Unterpunkte
 
-Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
+Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5. T8 (Nachtrag, unabhängig von T3–T6) nach T7.
 
 ### T1 · App-Icon und Logo (Teil A)
 - Variante: V3 App-Icon, V2 Favicon und Kennung (E-21).
@@ -296,6 +301,14 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 - Version hochstufen; CHANGELOG; README (neue Seite, neue Einstellung, neues Skript, Icons); Hauptkonzept (Statusblöcke AP-13/AP-14, Abschnitte 7, 8.2, 10, Änderungsprotokoll); `datenmodell.md` (`coach_summary`); `branding.md` (B-03 angepasst, B-08, Abschnitt 8); dieses Dokument (Abschnitt 12) je erledigtem Unterpunkt.
 - **Abnahme:** Dokumente konsistent (Feldnamen, Tool-Namen, Screens); Changelog nennt alle drei Teile.
 
+### T8 · Sammeltermin je Tag im Kalender (Nachtrag, Teil D)
+- `Training\Calendar\DayEvent` ersetzt `SessionEvent`: ein Termin je Tag (Ressource `training-tag-<Datum>.ics`, UID je Tag; nach einem Löschen neue Fassung `-1`, `-2` …, siehe Abschnitt 12), Titel und Beschreibung nach E-22, `STATUS:CONFIRMED`, `URL` = Woche, `CATEGORIES` = Typen des Tages, Erinnerung nach E-22.
+- `CalendarSync`: `pushDays(Daten)` statt `push`/`remove` je Einheit; Abgleich je Tag, löscht verwaiste Sammeltermine und die alten Einzeltermine (`training-session-<id>.ics`) im Zeitraum.
+- Aufrufer: `write_week_plan` (Tage der neuen und ersetzten Einheiten), `update_session` (alter und neuer Tag), Rückmeldung auf der Webseite (Tag der Einheit); Einstellungen und Cron unverändert (Abgleich).
+- Texte in S8 („Am Trainingstag um …“), Hauptkonzept (D-60, AP-11, K8), README, Changelog, Prüfprotokoll; Version hochstufen.
+- Tests: Testfälle 8.4.
+- **Abnahme:** Nach dem Deploy und einem Abgleich zeigt der Nextcloud-Kalender je Trainingstag genau einen Termin; Tage mit zwei Einheiten tragen „Training: … + …“; Status und Verschieben wirken; alte Einzeltermine sind im Abgleichzeitraum verschwunden.
+
 ## 8. Testfälle
 
 ### 8.1 Ablaufplan (T3)
@@ -312,7 +325,7 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 | A-08 | klettern `{kind:"hangboard", hang_s:10, sets:null}` | halten, saetze 1, pause_s null |
 | A-09 | klettern `{kind:"bouldern_volumen", duration_min:40}` | block, arbeit_s 2400, saetze 1 |
 | A-10 | klettern `{kind:"technik"}` (ohne Zeiten) | offen |
-| A-11 | ausdauer / ruhe | kein Ablaufplan; S3 ohne Startknopf; `modus=start` → S3 |
+| A-11 | ausdauer / ruhe | kein Ablaufplan; S3 ohne Startknopf; `modus=start` → S3 (Ruhetag: 404 wie bisher, er hat keine Einheitenseite) |
 | A-12 | Reihenfolge | Schritte in Planreihenfolge, Index = Feldindex `ist[i]` |
 
 ### 8.2 Zustandsautomat und Signale (T5)
@@ -341,6 +354,18 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 | I-03 | Dev-Router | `HEAD /favicon.ico` 200, `Content-Type image/x-icon` |
 | I-04 | Gerätetests P-A1 bis P-A6 | Lama-Icon in Chrome, LibreWolf (von `/login` und `/woche`), iOS |
 
+### 8.4 Kalender (T8)
+
+| nr | eingabe | erwartung |
+|---|---|---|
+| K-01 | Tag mit einer Einheit (Kraft „Beine“, erledigt) | ein Termin, `SUMMARY:Kraft: Beine` ohne „✓“, `STATUS:CONFIRMED`, Beschreibung ohne Überschrift/Trennlinie, Status „erledigt“ in der Kopfzeile des Kurzplans |
+| K-02 | Tag mit drei Einheiten (Kraft, Ausdauer, Klettern) | ein Termin `Training: A + B + C` in Planreihenfolge, `CATEGORIES` mit drei Typen, je Einheit ein Abschnitt mit Überschrift „Typ: Titel“, Link zur Einheit, Trennlinie dazwischen |
+| K-03 | Erinnerung 05:00; eine Einheit geplant, übrige erledigt | ein `VALARM` `PT5H`; alle erledigt/teilweise/ausgelassen → kein `VALARM` |
+| K-04 | `update_session` verschiebt eine von zwei Einheiten | alter Tag mit einer Einheit (`Typ: Titel`), neuer Tag angelegt; letzte Einheit weg → Termin des Tages gelöscht |
+| K-05 | Woche ersetzen | Tage ersetzter Einheiten neu geschrieben bzw. gelöscht, neue Tage angelegt; Tage mit behaltenen Einheiten bleiben |
+| K-06 | Abgleich mit alten Einzelterminen, verwaistem Sammeltermin und fremdem Termin | alte `training-session-<id>.ics` und verwaister Sammeltermin gelöscht, fremder bleibt; Zählung in Tagen |
+| K-07 | Ruhetag allein bzw. neben einer Einheit | kein Termin bzw. Ruhetag nicht in Titel und Beschreibung |
+
 ## 9. Offene Punkte
 
 | id | punkt | status |
@@ -348,7 +373,10 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 | O-01 | Wahl der Logo-Variante (V1–V5, Mischung möglich) anhand `icon-optionen.html` | erledigt 2026-09-28 → E-21 / D-59 |
 | O-02 | Hangboard mit Wiederholungen **und** Sätzen (z. B. Repeaters 7/3 × 6, 3 Sätze) im Schema `plan-klettern.json` (`reps` je Satz, `rest_between_sets_s`) | nicht im Umfang; bei Bedarf eigener kleiner Auftrag |
 | O-03 | Ergebnis von P-A1/P-A3 vor der Umsetzung | P-A1 erledigt 2026-09-28: Chrome zeigt das Icon; Fehler ist LibreWolf-spezifisch (Favicon-Weg). P-A3 nach T1 |
-| O-04 | Tonhöhen/-längen aus E-17 sind Startwerte; Feinabstimmung nach Gerätetest | in T5 |
+| O-04 | Tonhöhen/-längen aus E-17 sind Startwerte; Feinabstimmung nach Gerätetest | Startwerte umgesetzt (T5); Feinabstimmung nach dem Gerätetest des Athleten |
+| O-05 | Screenshots im Manifest (`screenshots` mit `form_factor` wide/narrow) für die ausführlichere Installationsansicht in Chrome; ohne sie zeigt DevTools zwei Hinweise (P-A2) | nicht im Umfang (4.2 verlangt sie nicht); bei Wunsch des Athleten kleiner Nachtrag |
+| O-06 | 30-s-Ton: E-17/6.4 sagen „Phase ≥ 45 s“, Testfall Z-01 „bei 45 s kein 30-s-Ton“ | umgesetzt nach Z-01 („länger als 45 s“, T5); Bestätigung durch den Athleten offen |
+| O-07 | Kletterblöcke mit Sätzen und Pause, aber ohne Haltezeit und Dauer (z. B. Zugkraft 4 Sätze, Pause 120 s) sind nach 6.3 „offen“ (nur „Erledigt“, kein Pausentimer); ein Pausentimer wie bei Kraft-Wiederholungen wäre eine Regeländerung | offen, Entscheidung des Athleten (T3-Review) |
 
 ## 10. Nicht im Umfang
 
@@ -360,20 +388,262 @@ Reihenfolge: T1 kann parallel zu T2–T7 laufen; T3 vor T4, T4 vor T5.
 
 ## 11. Arbeitsweise für die Umsetzung
 
-- Unterpunkte T1–T7 in der Reihenfolge aus Abschnitt 7.
+- Unterpunkte T1–T8 in der Reihenfolge aus Abschnitt 7.
 - Nach jedem Unterpunkt: geänderte und neue Dateien als ZIP mit Repo-Ordnerstruktur (nur geänderte/neue Dateien), dieses Dokument (Abschnitt 12) aktualisiert, dazu ein Prüfdokument (was geprüft ist, was noch wie zu prüfen ist; Struktur wie `docs/pruefung/pruefprotokoll.md`).
 - Konzeptänderungen aus der Umsetzung in Abschnitt 12 (`probleme_loesungen`) und im Hauptkonzept (AP-13/AP-14) nachziehen.
 
 ## 12. Umsetzungsstand
 
 ```yaml
-T1: {status: offen}
-T2: {status: offen}
-T3: {status: offen}
-T4: {status: offen}
-T5: {status: offen}
-T6: {status: offen}
-T7: {status: offen}
+T1:
+  status: umgesetzt          # Code-Stand 0.17.0; Abnahme P-A1 (erneut mit V3) bis P-A6 durch den Athleten offen
+  datum: 2026-09-28
+  ergebnis: >
+    Icon-Satz nach E-09/E-21: V3 als lama-48/96/192/512.png (any), lama-512-maskable.png, apple-touch-icon-180.png;
+    V2 als icons/favicon.svg und favicon.ico (16/32/48, PNG-Einträge) im Docroot. Skript docs/branding/build-icons.cjs
+    (Playwright/Chromium) rendert aus docs/branding/mockups/icon-optionen/; Ergebnis eingecheckt. Kopfteil
+    templates/_head_icons.php in layout-app und layout-auth (theme-color, SVG-Favicon, PNG-Icons mit sizes,
+    apple-touch-icon 180, Manifest). Manifest mit id /woche und description. build-assets.php kopiert
+    lama-symbol-flaeche.svg als assets/lama.svg (Kennung in Topbar, Navigation, Login-Karte). .htaccess: AddType
+    image/x-icon, Cache-Control 7 Tage für Icons/Favicon. Service Worker: /favicon.ico wie das Manifest aus dem
+    Versions-Cache, PRECACHE lama.svg. Dev-Router liefert .ico/.webmanifest mit Apache-Typen. Mockups (Kennung,
+    Favicon) angepasst; alle 38 Screenshots neu gerendert, 27 davon geändert (docs/branding/mockups/screenshots.cjs).
+  tests: AppIconTest (I-01 Manifest und PNG-Köpfe, Kopfteil-Links, favicon.ico, I-03 HEAD /favicon.ico über den Dev-Router), AppIconPagesTest (I-02 beide Layouts)
+  abnahme_offen: P-A1 erneut mit V3, P-A2 bis P-A6 (Abschnitt 4.1), Screenshots ins Prüfprotokoll
+  probleme_loesungen:
+    - was: SVG lässt sich auf dem Server (PHP ohne Imagick) nicht rendern; ein PHP-Skript build-icons.php ist damit nicht möglich
+      loesung: Node-Skript mit Playwright/Chromium in docs/branding/ (im Auftrag als Alternative genannt); ICO wird im Skript aus PNG-Einträgen zusammengesetzt
+    - was: Die alten Icon-Dateien icon-192/512(-maskable).png hätten beim Motivwechsel denselben Namen behalten; Browser und Launcher halten Icons lange im Cache
+      loesung: neue Dateinamen lama-*.png (4.2 Punkt 5 „Icons ändern sich mit Dateinamen“), alte Dateien entfernt
+    - was: Apache (mime.types) liefert .ico als image/vnd.microsoft.icon, der PHP-Dev-Server ebenso; P-A6 und I-03 erwarten image/x-icon
+      loesung: AddType image/x-icon .ico in public/.htaccess; der Dev-Router setzt den Typ für .ico und .webmanifest selbst
+    - was: Welche Datei ist das SVG-Favicon – die freigestellte Kennung oder V2 mit Papiergrund?
+      loesung: V2 mit Papiergrund (icons/favicon.svg, E-21 „V2 … auf Papier“ für das SVG-Favicon), damit das Lama auch in dunklen Browserleisten lesbar bleibt; die Kennung in der App ist freigestellt (lama-symbol-flaeche.svg, 4.3 „Folgen“)
+    - was: Cache-Regel nur für /icons/ per eigener .htaccess im Unterordner würde die Rewrite-Regeln des Docroots für diesen Ordner aufheben
+      loesung: FilesMatch auf die Icon-Dateinamen in public/.htaccess
+    - was: Review nach T1 – P-A2 erwartet „keine Warnungen“; Chrome-DevTools meldet ohne `screenshots` im Manifest immer zwei Hinweise zur ausführlicheren Installationsansicht (Desktop/Mobil). 4.2 verlangt keine Screenshots
+      loesung: Erwartung in P-A2 präzisiert (keine Fehler, nur diese zwei Hinweise); Screenshots als O-05 offen, nicht umgesetzt
+    - was: Review nach T1 – Dev-Router-Test nahm jeden erreichbaren Port als eigenen Server an, auch wenn php -S wegen belegtem Port sofort endete
+      loesung: freier Port vom System (stream_socket_server Port 0), Server gilt nur als gestartet, solange der Prozess läuft; fehlgeschlagene Versuche werden beendet
+    - was: Versionsnummer je Unterpunkt oder je AP?
+      loesung: je AP (CLAUDE.md „nach jedem AP“): AP-13 (T1, T2) = 0.17.0, AP-14 (T3–T7) = 0.18.0; Changelog, README, Konzept und Prüfprotokoll werden nach jedem Unterpunkt nachgezogen
+T2:
+  status: umgesetzt          # Code-Stand 0.17.0; Abnahme (Plan aus dem Projekt-Chat, S2/S3, Kalender) durch den Athleten offen
+  datum: 2026-09-28
+  ergebnis: >
+    Migration 0022_session_coach_summary (session.coach_summary VARCHAR(200) NULL nach plan_json, Rückweg als Kommentar),
+    Schema 22. WriteTools: write_week_plan verlangt focus (1–255) und je Einheit außer ruhe coach_summary (1–200),
+    coach_notes/coach_rationale ≤ 1500; Längen in Zeichen (mb_strlen), Texte getrimmt, leerer Text = NULL; alle Fehler
+    als Liste (sessions[i]: …), nichts geschrieben. update_session: coach_summary (nicht leer, ≤ 200) und coach_rationale
+    (leer = entfernen, ≤ 1500) änderbar, focus/coach_notes dort unbekannte Felder (bestehendes COALESCE in upsertWeek
+    bleibt). Tool-Beschreibungen mit der Regel aus E-10 je Feld (Konstanten FOCUS_MAX, SUMMARY_MAX, TEXT_MAX).
+    ReadTools: get_week_overview woche.begruendung (nur ≤ 1500 Zeichen) und je Einheit kurz (nur wenn vorhanden),
+    get_session_detail coach_summary. Kalender: Beschreibung Kurzsatz, Kurzplan (Priorität/Dauer/Status als erste
+    Zeile), „Trainer: …“ (≤ 1000 Zeichen), Link. S2: Karte .begruendung unter der Kopfzeile (Kurzsatz, details.more.mehr),
+    „Fokus …“ in der Kopfzeile entfällt. S3: Kurzsatz im Seitenkopf, „mehr“ bzw. „Trainer-Notiz“ bei Altdaten.
+    CSS in training.css (.kurz, details.mehr mit drehendem Chevron, Zeilenumbrüche des Texts bleiben).
+  tests: McpToolsTest::testPlanTextsAreRequiredLimitedAndReadable, WebsiteTest::testWeekAndSessionShowSummaryWithMore, SessionEventTest::testDescriptionStartsWithSummaryAndShortensLongRationale (seit T8 DayEventTest); bestehende Tests um focus/coach_summary ergänzt, Migrationstest AP-12 um den Rückweg von 0022
+  abnahme_offen: Plan aus dem Projekt-Chat mit beiden Texten erscheint in S2 und S3; „mehr“ klappt ohne JavaScript auf; Kalendertermin zeigt den Kurzsatz
+  probleme_loesungen:
+    - was: update_session prüft die zusammengeführte Einheit; eine überlange Begründung aus der Zeit vor AP-13 hätte danach jede Änderung (z. B. Status) blockiert
+      loesung: unveränderte Begründungstexte werden nicht erneut geprüft; nur übergebene Felder unterliegen den Grenzen
+    - was: Kurzsatz-Pflicht auch in update_session? Altdaten haben keinen Kurzsatz
+      loesung: Pflicht nur in write_week_plan (5.2); in update_session darf coach_summary fehlen, wird er übergeben, muss er 1–200 Zeichen haben
+    - was: 5.2 „begruendung nur, wenn ≤ 1500 Zeichen“ – Altdaten können länger sein
+      loesung: wörtlich umgesetzt – längere Altwochen-Texte fehlen in get_week_overview (Budget 8.3), bleiben aber in S2 sichtbar
+    - was: Woche mit ausführlichem Text, aber ohne Kurzsatz (Altdaten) – wie „mehr“ beschriften?
+      loesung: analog S3 („Trainer-Notiz“): Summary „Begründung der Woche“
+    - was: Wochen-Kurzsatz focus: E-10 nennt 200 Zeichen für Kurzsätze, 5.1/5.2 für focus 1–255 (Spaltenlänge)
+      loesung: Prüfung 1–255 wie 5.2 und Testfall „Grenzlängen 200/255/1500“; die Tool-Beschreibung nennt 255
+    - was: Review nach T2 – ein Kurzsatz an einem Ruhetag (erlaubt, E-10) fehlte in get_week_overview und ließ sich mit update_session nicht mehr entfernen
+      loesung: Ruhetag-Zeile der Übersicht trägt kurz, wenn vorhanden; update_session entfernt den Kurzsatz eines Ruhetags mit leerem Text (bei anderen Typen bleibt leer ein Fehler)
+    - was: Review nach T2 – ein langes Wort (z. B. eine Adresse) im Kurzsatz ließ S2/S3 auf 375 px seitlich scrollen
+      loesung: .kurz bricht lange Wörter um (overflow-wrap:anywhere)
+    - was: Test-Hilfe rollbackLastMigration setzte bei Spaltenänderungen nur den Schemastand zurück; 0022 (ADD COLUMN) ließ sich danach nicht erneut einspielen (BackupTest rot)
+      loesung: die Hilfe entfernt beim Zurücksetzen neu angelegte Spalten (ADD COLUMN); Seiten und Lese-Tools vertragen die fehlende Spalte während der Schreibsperre
+T3:
+  status: umgesetzt          # Code-Stand 0.18.0
+  datum: 2026-09-28
+  ergebnis: >
+    Training\Plan\Ablaufplan: schritte(type, plan) liefert je Übung/Block {index, quelle, name, soll, notiz, art,
+    saetze, arbeit_s, pause_s, ist_felder} in Planreihenfolge (index = Feldindex ist[i]) oder null (ausdauer, ruhe,
+    kein Plan, leere Liste); geeignet() für E-13; json() für data-ablauf; holdSeconds() für die Regeln aus 6.3.
+    Soll-Texte über Training\View\PlanFormat (aus dem S3-Template herausgelöst, S3 nutzt dieselbe Klasse).
+    Zusätzlich zum Schema 6.3: Feld notiz (Hinweis der Übung aus plan_json, für die Anzeige in S9).
+  tests: AblaufplanTest (A-01 bis A-10 und alle übrigen kind-Werte – campus, bouldern_limit, ausdauer_route, zugkraft, antagonisten – als Datenfälle, jeder zusätzlich gegen das plan_json-Schema geprüft; A-11 und A-12 als eigene Tests, A-11 auch mit leeren bzw. schemawidrigen Plänen, A-12 mit Schemaprüfung; Schreibweisen der Haltezeit)
+  probleme_loesungen:
+    - was: 6.3 lässt offen, was rest_s = 0 bedeutet
+      loesung: 0 = keine Pausenphase (pause_s null), ebenso hang_s/duration_min 0 bzw. Haltezeit 0 → kein Timer
+    - was: Die Regex in 6.3 kennt beim Haltebereich nur „-“ und die Einheiten s/sek; im Deutschen ist „30–45 s“ (Halbgeviertstrich) üblich, bei Einzelwerten erlaubt 6.3 auch „sec“ und einen Punkt
+      loesung: Bereich akzeptiert zusätzlich „–“ und dieselben Einheiten wie der Einzelwert (s, sek, sec, mit Punkt); alle Testfälle aus 8.1 unverändert
+    - was: Klettern-Block mit hang_s und duration_min (z. B. Hangboard 20 min, 10 s, 5 Sätze)
+      loesung: Regelreihenfolge aus 6.3 – hang_s geht vor (halten), duration_min bleibt Ist-Feld wie in S3
+    - was: Review nach T3/T4 – offene Kletterblöcke mit geplanten Sätzen (z. B. Zugkraft 4 Sätze) bekamen saetze 1; S9 zeigte „1 Satz“ neben „Soll … 4 Sätze“
+      loesung: offen übernimmt sets (6.3 „Klettern: sets oder 1“), weiter ohne Timer und ohne Pausenphase; Blöcke mit Dauer zeigen „Block · n min“ statt einer Satzzahl (Sätze stehen im Soll)
+    - was: Review nach T3/T4 – solche Blöcke haben oft auch rest_s; ein Pausentimer nach „Satz erledigt“ wie bei Kraft-Wiederholungen (E-03) sieht 6.3 für Klettern nicht vor
+      loesung: nicht umgesetzt (wäre eine Regeländerung), als O-07 zur Entscheidung des Athleten
+T4:
+  status: umgesetzt          # Code-Stand 0.18.0; Abnahme (ohne JavaScript ausfüllbar, 375 px) automatisiert und im Browser geprüft
+  datum: 2026-09-28
+  ergebnis: >
+    SessionController: GET mit modus=start und Ablaufplan::geeignet → Template session-start.php (S9) mit denselben
+    Vorbelegungen wie S3, sonst S3 (Ausdauer, Einheit ohne Plan); Ruhetag weiter 404. POST unverändert; das Formular
+    trägt modus=start, damit 422/409 wieder S9 zeigen. S3: Knopf „Einheit starten“ (primär) bzw. „Erneut durchgehen“
+    (sekundär, Status erledigt) im Seitenkopf. S9: layout-app mit Zurück-Pfeil zu S3, Titel der Einheit, Stummschalter
+    (needs-js) in der Kopfzeile, main.gefuehrt (720 px); Kurzsatz oben (gf-intro); je Schritt section.gf-step mit
+    Phase-Karte (Übung x von n und Sätze, Name, Phase-Marke, Timer mm:ss bzw. „n Wdh.“ mit Last/Tempo, Soll, Hinweis),
+    Ist-Karte (Teilvorlagen wie S3) und „Als Nächstes“; Abschluss mit Übersicht, Rückmeldung (Teilvorlage wie S3) und
+    Speichern. Skript-Bedienung (Fortschritt, Fortsetzen-Hinweis, Aktionsleiste, Phase-Marke) als .needs-js, ohne
+    JavaScript ausgeblendet. data-Attribute für das Skript: data-ablauf (JSON), data-session, data-ton (Einstellung
+    timer_ton), data-dauer-plan (Dauer aus dem Plan darf durch die gemessene ersetzt werden), data-fehler.
+    Ist-Felder und Rückmeldung als Teilvorlagen _ist_exercise, _ist_block, _feedback_fields (S3 nutzt sie ebenfalls).
+  tests: GuidedSessionTest (Startknopf je Typ und „Erneut durchgehen“, A-11 Rückfall, Kraft mit Wiederholungen und Halten, Klettern mit Hangboard/Block/offen, POST aus S9 speichert wie S3, 422 und 409 in S9, data-ton aus timer_ton); WebsiteTest (S3 unverändert nach Umbau in Teilvorlagen)
+  abnahme: ohne JavaScript alle Schritte sichtbar, keine Skript-Bedienelemente sichtbar, ausgefüllt und gespeichert (Weiterleitung „Gespeichert.“, Werte in der Datenbank); 375 px ohne horizontales Scrollen (Kraft und Klettern) – Chromium/Playwright mit abgeschaltetem JavaScript, lokale Instanz
+  probleme_loesungen:
+    - was: 6.2 sagt „duration_min wird, wenn leer, mit der gemessenen Dauer vorbelegt“; S3 belegt die Dauer aber mit der geplanten Dauer vor, das Feld ist also nie leer
+      loesung: ohne JavaScript wie S3 (geplante Dauer); das Skript ersetzt die Dauer nur, wenn sie aus dem Plan stammt (data-dauer-plan="1"), nie eine bereits gespeicherte oder vom Athleten geänderte
+    - was: Fehler beim Speichern aus S9 (422/409) hätten bisher S3 gezeigt
+      loesung: verstecktes Feld modus=start im S9-Formular; der Controller zeigt dann wieder S9 mit Hinweis und den Eingaben (data-fehler für das Skript)
+    - was: Ohne JavaScript steht die Schaltfläche „Zur Einheit“ wie im Mockup neben „Speichern“; der Zurück-Pfeil in der Kopfzeile führt ebenfalls zu S3
+      loesung: beibehalten (Mockup); mit JavaScript zusätzlich ein Symbolknopf „Zurück zur letzten Übung“
+    - was: Review nach T3/T4 – „ohne Plan kein Startknopf“ (E-13) war nicht getestet
+      loesung: GuidedSessionTest prüft S3 ohne Plan (kein Knopf) und modus=start ohne Plan (S3 mit Rückmeldung)
+T5:
+  status: umgesetzt          # Code-Stand 0.18.0; Gerätetest des Athleten (Android) offen
+  datum: 2026-09-28
+  ergebnis: >
+    public/js/gefuehrt.js, synchron am Anfang von S9 geladen (setzt html.js vor dem Aufbau der Schritte, kein
+    Aufblitzen). Kern als reine Funktionen (auch mit Node ladbar): signalPlan, signaleZwischen, takt (Zeitfortschritt
+    über beliebig viele Phasen nach Zeitstempeln, Lücke > 2 s = Hintergrund: keine Signale, ein Hinweiston bei
+    Phasenende), aktion (haupt/links/rechts/zurueck-abschluss), anzeige (Texte, Farbe, Zeit, Knöpfe, Fortschritt),
+    statusVorbelegung, dauerMinuten, laden (Verfall 12 h, anderer Plan, Stand der Einheit geändert, Fehler nach POST).
+    Seite: ein aktiver Abschnitt, Aktionsleiste links/Primär/rechts, body[data-phase] und meta theme-color
+    (#DEF2D9 Arbeit, #FFE4E5 Pause/bereit/angehalten, sonst #7A5C94), Web Audio (Oszillator, Muster aus 6.4) und
+    navigator.vibrate, Wake Lock ab dem ersten Start und nach Rückkehr in den Vordergrund, Stummschalter (aria-pressed)
+    je Einheit mit Vorgabe aus timer_ton, Blinken statt Ton in den letzten 3 s, sessionStorage training.gefuehrt.<id>
+    (Felder aus 6.5 plus signatur, stand, fertig, vor_anhalten, phase_ms, dauer_manuell, status_manuell, abgeschickt),
+    Fortsetzen/Neu starten, Abschluss mit Dauer- und Statusvorbelegung und Übersicht, Ansage der Phasenwechsel in
+    einer eigenen aria-live-Region (nicht jede Sekunde), Enter in Ist-Feldern schickt vor dem Abschluss nichts ab.
+    Template: Pausentimer auch bei Wiederholungsübungen (nur mit Skript), aria-live von der Phase-Karte entfernt.
+    CSS: Aktionsleisten auf dem Smartphone über der unteren Navigation.
+  tests: >
+    server/tests/js/gefuehrt.test.cjs (node --test, 17 Fälle: Z-01–Z-07, Z-10–Z-12 als Kern, Hangboard 7/3 × 6,
+    Block, offen, Bedienung zurück/wiederholen, Halten ohne Pause; nach dem Review Tipp-Sperre, Zurück/Weiter mit
+    erledigten Übungen, Schritt öffnen nach Ist-Fehler); server/tests/e2e/gefuehrt.e2e.cjs mit run.sh (Playwright,
+    gesteuerte Uhr, Audio/Vibration/Wake Lock ersetzt: Z-01–Z-08, Z-10–Z-12, Speichern, 375 px, verworfener Tipp,
+    Fokus, Stumm-Wahl vor dem Start; 14 Prüfungen); beide in der CI
+  abnahme_offen: Gerätetest des Athleten auf Android (Töne und Vibration bei Start/30/10/3-2-1, Grün/Rot, Bildschirm bleibt an, Stumm in der Einheit und in S8)
+  probleme_loesungen:
+    - was: Widerspruch im Auftrag – E-17/6.4 „30 s vor Ende … nur bei Phasen ≥ 45 s“, Testfall Z-01 „halten 45 s … kein 30-s-Ton (< 45 s)“
+      loesung: Z-01 ist Abnahmekriterium (8.2) und die Tonwerte sind Startwerte (O-04) – umgesetzt „Phase länger als 45 s“; zur Bestätigung durch den Athleten als O-06 geführt
+    - was: 6.3 nennt für Wiederholungsübungen keinen Ton nach dem Pausentimer
+      loesung: am Pausenende derselbe Startton wie vor einer Arbeitsphase (der nächste Satz beginnt); vorzeitiges „Pause beenden“ ohne Ton
+    - was: Mockup-Aktionsleiste in der Pause (Satz wiederholen / Pause beenden / Überspringen) hätte Anhalten in der Pause nicht erlaubt; Z-04 und die Automatik (E-03) brauchen es
+      loesung: linker Knopf in der Pause = Anhalten, Primär = Pause beenden; in der Arbeitsphase links = Satz neu starten, Primär = Anhalten; fertig: links = Übung wiederholen, Primär = Weiter bzw. Zum Abschluss
+    - was: „Gemessene Dauer seit dem ersten Start“ bei einer Einheit, die mit einer Wiederholungsübung beginnt (dort gibt es keinen Start-Knopf)
+      loesung: begonnen_um = erster Druck auf die Primäraktion (Start, Satz erledigt oder Erledigt); das Dauerfeld bleibt änderbar
+    - was: Nach dem Speichern kann das Skript den Erfolg nicht sehen (Seitenwechsel); offline landet die Eingabe im Puffer (6.7, Z-12)
+      loesung: beim Absenden wird abgeschickt gemerkt; der Fortschritt wird gelöscht, sobald S9 mit geändertem Stand der Einheit geladen wird (gespeichert bzw. zugestellt); mit altem Stand (gespeicherte Seite ohne Netz) fragt S9 weiter und nennt die wartende Rückmeldung
+    - was: Neu laden während einer laufenden Phase – Zeit anhalten oder weiterlaufen lassen (Z-06 „Restzeit herstellen“)
+      loesung: Zeitstempel laufen weiter (E-16); Fortsetzen rechnet ab dem letzten Merken nach, endete inzwischen eine Phase, kommt ein Hinweiston
+    - was: aria-live auf der Phase-Karte hätte Screenreadern jede Viertelsekunde die Zeit angesagt
+      loesung: eigene unsichtbare Ansage-Region (#gf-ansage), nur bei Wechsel von Schritt, Phase oder Satz
+    - was: Die fixierte Aktionsleiste lag auf langen Seiten (Smartphone) hinter der unteren Navigation
+      loesung: .gf-actions/.gf-save mit Abstand 61 px + Safe Area; in S3 besteht dasselbe Verhalten der Speichern-Leiste (vor AP-14) – dem Athleten gemeldet, nicht geändert
+    - was: Playwrights Offline-Emulation erfasst Anfragen des Service Workers nicht (Speichern ging trotz „offline“ durch)
+      loesung: Browser-Test schaltet ein kleiner Proxy vor der App ab (echter Netzausfall für Seite und Service Worker)
+    - was: Playwright wartet bei pausierter Uhr beim Anklicken der (unter der Beschriftung liegenden) Skalenfelder vergeblich
+      loesung: Test tippt auf die Beschriftung wie ein Nutzer und lässt die Uhr zum Ausfüllen wieder laufen
+    - was: Mockup zeigt „≈ 32 min verbleibend“; die Dauer von Wiederholungsübungen ist unbekannt
+      loesung: stattdessen die Zeit seit dem ersten Start (mm:ss) rechts über dem Fortschritt
+    - was: "Review T5: Ein Tipp kurz nach einem automatischen Phasenwechsel wirkte auf die neue, noch nicht angezeigte Phase (Anhalten am Ende der letzten Arbeitsphase → nächste Übung, entgegen E-03; Pause beenden → Satz als erledigt gezählt)"
+      loesung: tipp() zieht erst die Zeit nach; endete dabei eine Phase oder liegt der letzte automatische Wechsel unter 500 ms zurück, wird der Tipp verworfen und nur neu gezeichnet (Node- und Browser-Test, Gegenprobe ohne Korrektur schlägt fehl)
+    - was: "Review T5: „Vorige Übung“ löschte die Erledigt-Markierung; „Zurück zur letzten Übung“ ließ eine übersprungene letzte Übung als übersprungen stehen (Status-Vorbelegung „teilweise“ trotz aller Übungen)"
+      loesung: zurück und „Weiter“ öffnen eine erledigte Übung als erledigt (Primär „Weiter“); zurück zu einer übersprungenen Übung hebt die Markierung auf, eine nachgeholte Übung ist nicht mehr übersprungen; „Übung wiederholen“ setzt wie bisher zurück
+    - was: "Review T5: Die gemessene Dauer lief im Abschluss weiter (Warten auf die Rückmeldung zählte mit, nach „Zurück“ neu vorbelegt)"
+      loesung: Messung endet beim Erreichen des Abschlusses (ende_um im Zustand); Zurück ohne neues Training behält sie, erneutes Training misst neu; Uhr oben steht im Abschluss
+    - was: "Review T5: Stumm – Blinken blieb als Klasse stehen (bei reduzierter Bewegung dauerhafte Umrandung) und fehlte bei Phasen bis 3 s (Pause 3 s bei 7/3); Wahl vor der ersten Eingabe ging beim Neuladen verloren; Name des Schalters wechselte mit aria-pressed"
+      loesung: Blinken 3 s ab dem ersten Tick-Signal der Phase (t3, sonst t2/t1), endet nach 3 s und bei jedem Phasenwechsel; Stumm-Wahl zusätzlich unter training.gefuehrt.<id>.stumm (gelöscht, sobald die Einheit gespeichert ist); Name bleibt „Ton und Vibration aus“, gedrückt = stumm
+    - was: "Review T5: Fokus ging nach „Fortsetzen“/„Neu starten“ und bei gesperrtem bzw. ausgeblendetem Knopf auf <body> verloren (6.8)"
+      loesung: nach Fortsetzen/Neu starten Fokus auf die Überschrift des Schritts; wird der fokussierte Knopf gesperrt oder ausgeblendet, geht der Fokus auf die Primäraktion
+    - was: "Review T5: Nach 422 wegen eines Ist-Werts öffnete S9 den Abschluss, das fehlerhafte Feld war nicht erreichbar"
+      loesung: der Server markiert die Übung (data-invalid, nur deren Ist-Karte rot); S9 öffnet sie ohne Erledigt/Übersprungen zu ändern, „Weiter“ führt durch die erledigten Übungen zum Abschluss; Ist-Fehler ohne Zuordnung → Formular wie ohne JavaScript (alle Schritte)
+    - was: "Review T5: Fortsetzen kurz nach einem Speichern ohne Takt (Stumm im Fortsetzen-Dialog) spielte alle verpassten Signale auf einmal"
+      loesung: takt() wertet es als Lücke, wenn die laufende Phase schon vor dem letzten Takt endete (nur Hinweiston)
+    - was: "Review T5: run.sh testete gegen einen schon laufenden Server auf dem Port, leerte ohne TEST_DB_HOST ggf. eine andere Datenbank (Socket); ein hängender Service Worker hätte die CI bis zu 6 h blockiert"
+      loesung: freier Port (oder E2E_PORT), Abbruch mit Serverprotokoll, wenn der eigene Server nicht läuft; TEST_DB_HOST Standard 127.0.0.1 für App und Leeren; Warten auf den Service Worker mit 15 s Grenze, CI-Schritt timeout-minutes 10
+    - was: "Review T5: Beim Zurück über mehrere Übungen bleibt „Übung wiederholen“ auf dem linken Knopf einer erledigten Übung (weiter zurück nur über Wiederholen)"
+      loesung: bewusst so gelassen – eine eigene Navigation über mehrere Übungen wäre eine neue Bedienentscheidung; bei Bedarf mit dem Athleten klären
+T6:
+  status: umgesetzt          # Code-Stand 0.18.0; Abnahme auf dem Gerät (Flugmodus) durch den Athleten offen
+  datum: 2026-09-28
+  ergebnis: >
+    S8: Bereich „Training“ nach „Konto“ mit Zeile „Timer-Signale“ (Segment An/Aus mit Icons volume/volume-off und
+    Knopf „Speichern“, Formular ohne JavaScript, action=timer); SettingsRepository::TIMER_TON (Standard an), Prüfung
+    an/aus, Audit setting_update, Schreibsperre wie bei den übrigen Einstellungen; S9 liest die Vorgabe (data-ton).
+    Offline: WeekController::prefetch nimmt /einheit?id=…&modus=start für heutige und morgige geeignete Einheiten auf
+    (Ablaufplan::geeignet); sw.js PRECACHE enthält /js/gefuehrt.js?v=VERSION; Seiten-Cache und Formular-Puffer
+    unverändert (Schlüssel enthält modus=start). Prüfprotokoll: Einträge zu T1–T6 (AP-13, AP-14).
+  tests: GuidedSessionTest::testTimerSettingInS8 (Standard, Speichern, ungültiger Wert, Wirkung in S9, Audit), ::testWeekPrefetchesGuidedPagesForTodayAndTomorrow; Browser-Durchlauf Z-09 (S8 aus → S9 stumm, Umschalten in S9 ändert S8 nicht) und S9 ohne Netz aus dem Cache
+  abnahme: Einstellung wirkt als Standard in S9 (automatisiert und im Browser); S9 öffnet ohne Netz aus dem Cache (Browser, Netzausfall über Proxy); Speichern ohne Netz landet im Puffer und wird nachgesendet (Z-12, Browser)
+  abnahme_offen: dieselben Punkte auf dem Smartphone im Flugmodus durch den Athleten
+  probleme_loesungen:
+    - was: 6.6 sieht einen Schalter ohne JavaScript vor; ein Radio-Segment speichert ohne Skript nicht von selbst
+      loesung: kleines Formular in der Zeile mit Segment An/Aus und Knopf „Speichern“; auf schmalen Geräten steht die Bedienung unter dem Text
+    - was: "Abschluss-Review: Eine vorgeladene S9 trägt timer_ton aus der Zeit des Vorladens; nach „Aus“ in S8 startete sie offline trotzdem mit Ton (Vorladen erneuert Seiten erst nach 10 min)"
+      loesung: S8 (data-timer-ton, offline.js) und jede online geladene S9 merken den Wert in localStorage training.timer_ton; eine offline gezeigte S9 (data-offline-stand) nimmt diesen Wert. Browser-Test: S9 vorgeladen mit „an“, S8 auf „aus“, ohne Netz startet S9 stumm (Gegenprobe ohne Korrektur schlägt fehl)
+    - was: "Abschluss-Review: Untertext in 6.6 wich von Mockup und Umsetzung ab"
+      loesung: 6.6 an das Mockup S8 angeglichen (Umsetzung folgte dem Mockup)
+T7:
+  status: umgesetzt          # Code-Stand 0.18.0 (Dokumentation zu T1–T6; T8 mit 0.19.0)
+  datum: 2026-09-28
+  ergebnis: >
+    Version je AP (AP-13 = 0.17.0, AP-14 = 0.18.0, Nachtrag T8 = 0.19.0); CHANGELOG mit allen drei Teilen und T8;
+    README (Struktur mit js/ und sw.js, Endpunkte Stand AP-14, Icons, Tests mit Node und Browser-Durchlauf, Kalender
+    mit Sammeltermin); Hauptkonzept (AP-11, AP-13, AP-14 mit Status und probleme_loesungen, D-60, Abschnitte 3, 7, 8.2,
+    10, Änderungsprotokoll); datenmodell.md (Schema 22, coach_summary, app_setting-Schlüssel); branding.md (B-03, B-09,
+    Abschnitt 8); dieses Dokument (Abschnitt 12 je Unterpunkt, E-22, T8, 8.4); Prüfprotokoll (AP-11, AP-13, AP-14).
+    Jeder Unterpunkt und jede Review-Runde als eigener Commit; unabhängige Reviews zu T1–T5 und T8 mit
+    Gegenprüfung jedes Befunds, bestätigte Befunde behoben.
+  tests: PHPUnit 195, node --test 17, Browser-Durchlauf 14 Prüfungen – alle grün; Konsistenzprüfung der Dokumente
+  abnahme: Dokumente konsistent (Feldnamen, Tool-Namen, Screens, Versionen); Changelog nennt alle drei Teile und T8
+  probleme_loesungen:
+    - was: Sporadischer Testfehler MorningCheckinTest::testDaylightSavingSwitch (AP-12 als nicht reproduzierbar vermerkt)
+      loesung: Ursache gefunden (Aufräumen der MCP-Sitzungsdateien verglich echte Dateizeiten mit der verstellten Test-Uhr), behoben in 0.18.0
+    - was: In S3 liegt die fixierte Speichern-Leiste auf dem Smartphone beim Scrollen hinter der unteren Navigation (seit vor AP-14)
+      loesung: in S9 behoben (Abstand 61 px + Safe Area); S3 nicht geändert, dem Athleten gemeldet
+T8:
+  status: umgesetzt          # Code-Stand 0.19.0; Abnahme im Nextcloud-Kalender durch den Athleten offen
+  datum: 2026-09-28
+  ergebnis: >
+    Ein Sammeltermin je Tag (E-22, D-60): Training\Calendar\DayEvent ersetzt SessionEvent – Ressource
+    training-tag-<Datum>.ics (nach einem Löschen des Tagestermins -1, -2 …), UID je Tag und Fassung, SUMMARY „Typ: Titel“ bzw. „Training: Titel 1 + Titel 2“ (Planreihenfolge,
+    ohne Ruhetage), STATUS immer CONFIRMED, URL zur Woche, CATEGORIES mit den Typen des Tages, LAST-MODIFIED/SEQUENCE
+    aus der jüngsten Änderung der Einheiten; Beschreibung je Einheit mit Überschrift (bei mehreren), Kurzsatz, Kurzplan
+    (Priorität, Dauer, Status, Übungen/Blöcke mit Namen), Begründung (≤ 1 000 Zeichen) und Link, Trennlinie zwischen
+    den Einheiten; VALARM einmal je Tag, solange eine Einheit geplant oder verschoben ist.
+    CalendarSync::pushDays(Daten) schreibt die Tage aus der Datenbank neu (Tag ohne Einheiten → Termin gelöscht);
+    syncRange überträgt je Tag und löscht verwaiste Sammeltermine sowie alte Einzeltermine training-session-<id>.ics.
+    Aufrufer: write_week_plan (Tage der neuen und ersetzten Einheiten), update_session (alter und neuer Tag),
+    Rückmeldung auf der Webseite (Tag der Einheit). S8-Texte zur Erinnerung („Am Trainingstag um …“).
+  tests: DayEventTest (K-01–K-03, K-07 – eine Einheit, mehrere Einheiten, Erinnerung auch bei zwei offenen Einheiten, Begründung je Einheit, Kurzsatz/Kürzung, Ressourcennamen mit Fassung, Ruhetage) und CalendarTest (K-04–K-07 – zwei Einheiten an einem Tag, Verschieben, letzter Termin eines Tages, ausgelassen, Woche ersetzen mit behaltener Einheit, Abgleich mit alten Einzelterminen und Zählung in Tagen, Ruhetage im Abgleich, Reihenfolge nach sort_order, Erinnerung; nach dem Review: nie wiederverwendete Adresse/UID mit nachgebildetem Nextcloud-Papierkorb, Einzeltermine geänderter Einheiten auch außerhalb des Zeitraums, Abbruch nach dem ersten Fehler mit Audit je Tag); Rauchtest gegen Radicale
+  abnahme: automatisiert (PHPUnit 195 Tests grün) und Rauchtest gegen einen echten CalDAV-Server (Radicale, lokal) – Anlegen, Ersetzen, Zeitraum-Abfrage, Löschen des alten Einzeltermins, fremder Termin bleibt, iCalendar mit Erinnerung angenommen
+  abnahme_offen: Nextcloud-Kalender nach Deploy und Abgleich (Web und Handy) durch den Athleten
+  probleme_loesungen:
+    - was: Bestehende Einzeltermine je Einheit im Kalender des Athleten
+      loesung: der Abgleich erkennt training-session-<id>.ics weiter als eigene Termine und löscht sie im Zeitraum (7 Tage zurück bis 8 Wochen voraus); bis zum nächsten stündlichen Abgleich (oder Knopf in S8) kann ein Tag doppelt erscheinen; ältere Einzeltermine unberührter Einheiten bleiben als Verlauf
+    - was: Nach Verschieben oder Ersetzen muss auch der alte Tag neu gebildet werden
+      loesung: Termine werden nicht je Einheit, sondern je Tag aus der Datenbank gebildet; die Tools übergeben alle betroffenen Tage (alt und neu), ein leerer Tag verliert seinen Termin
+    - was: Audit-Eintrag calendar_error bezog sich auf eine Einheit
+      loesung: Bezug jetzt auf den Tag (entity kalender_tag, Datum; beim Abgleich ohne Bezug)
+    - was: Kurzplan der Kletterblöcke zeigte den internen Schlüssel (bouldern_volumen)
+      loesung: Anzeige mit dem Namen wie in S3 („Bouldern Volumen“), da die Beschreibung ohnehin neu aufgebaut wurde
+    - was: "Review T8: Nextcloud bis 34.0.1 hält gelöschte Termine 30 Tage im Papierkorb; wird derselbe Tagestermin (Adresse und UID) mehrfach gelöscht und neu angelegt, antwortet es mit 403 – der Tag behält einen veralteten Termin und der stündliche Abgleich scheitert"
+      loesung: Fassung je Tag in app_setting (kalender_tag_<Datum>), erhöht nach jedem tatsächlichen Löschen; Name und UID tragen die Fassung (training-tag-<Datum>-1.ics …), sodass keine gelöschte Adresse oder UID wiederkehrt; Einträge verfallen 60 Tage vor dem Abgleichzeitraum; Hinweis bei 403 nennt den Papierkorb. Getestet mit nachgebildetem Papierkorb (dreimal leeren und neu belegen)
+    - was: "Review T8: Alte Einzeltermine blieben dauerhaft stehen, wenn die App eine Einheit außerhalb des Abgleichzeitraums änderte (späte Rückmeldung, Verschieben, Ersetzen einer alten Woche)"
+      loesung: bei jeder direkten Änderung löscht die App auch den Einzeltermin der betroffenen Einheiten (ein DELETE, 404 ist kein Fehler)
+    - was: "Review T8: Doku – Datenfluss 3.2 („Termine je Einheit“), „Kurzsatz als erste Zeile“ (D-56, E-11, 5.3, Prüfprotokoll) und „mit Überschrift“ im Changelog passten nicht mehr; Testfälle K-01–K-07 nur DayEventTest zugeschrieben"
+      loesung: nachgezogen (Überschrift nur bei mehreren Einheiten, Kurzsatz dann je Abschnitt nach der Überschrift); Zuordnung der Testfälle zu DayEventTest und CalendarTest; fehlende Tests ergänzt
 probleme_loesungen: []
 ```
 

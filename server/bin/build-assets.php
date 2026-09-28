@@ -20,7 +20,7 @@ $copies = [
     'mockups/app.css' => 'app.css',
     'mockups/icons/*.svg' => 'icons/',
     'mockups/icons/LICENSE' => 'icons/LICENSE',
-    'chadid-design-system/assets/logo/lama-symbol-kopf.svg' => 'lama-kopf.svg',
+    'chadid-design-system/assets/logo/lama-symbol-flaeche.svg' => 'lama.svg', // App-Kennung V2 (D-59)
 ];
 
 if (!is_dir($src)) {

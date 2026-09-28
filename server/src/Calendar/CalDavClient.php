@@ -60,17 +60,19 @@ final class CalDavClient
         }
     }
 
-    /** Löscht die Ressource; fehlt sie schon, ist das kein Fehler. */
-    public function delete(string $resource): void
+    /** Löscht die Ressource; fehlt sie schon, ist das kein Fehler. @return bool true, wenn es sie gab */
+    public function delete(string $resource): bool
     {
         $r = $this->call('DELETE', $resource, [], null);
         if (!in_array($r['status'], [200, 204, 404], true)) {
             throw new CalendarException($this->describe('DELETE', $r['status']));
         }
+
+        return $r['status'] !== 404;
     }
 
     /**
-     * Namen der Ressourcen mit Terminen im Zeitraum (Datumsangaben inklusive), z. B. „training-session-12.ics“.
+     * Namen der Ressourcen mit Terminen im Zeitraum (Datumsangaben inklusive), z. B. „training-tag-2026-09-30.ics“.
      * @return list<string>
      */
     public function resources(string $from, string $to): array
@@ -118,7 +120,7 @@ final class CalDavClient
     {
         $hint = match (true) {
             $status === 401 => 'Anmeldung abgelehnt – CALDAV_USER und App-Passwort (CALDAV_PASSWORD) prüfen.',
-            $status === 403 => 'Keine Schreibrechte auf den Kalender.',
+            $status === 403 => 'Keine Schreibrechte auf den Kalender oder (Nextcloud) Konflikt mit einem Termin im Papierkorb des Kalenders – Rechte prüfen bzw. Papierkorb leeren.',
             $status === 404, $status === 405 => 'Kalender nicht gefunden – CALDAV_URL prüfen (Adresse des Kalenders, nicht der Nextcloud).',
             default => 'Server antwortete unerwartet.',
         };

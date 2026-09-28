@@ -41,6 +41,25 @@ $scopeText = static fn (string $s): string => str_contains($s, 'training:write')
   </section>
 
   <section>
+    <div class="section-title"><h2>Training</h2></div>
+    <div class="card list">
+      <form class="list-item timer-zeile" method="post" action="/einstellungen" data-timer-ton="<?= $timerTon ? 'an' : 'aus' ?>">
+        <input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>">
+        <input type="hidden" name="action" value="timer">
+        <div><div class="t">Timer-Signale</div><div class="s">Ton und Vibration im geführten Modus (Start, 30 s, 10 s, 3-2-1) · in der Einheit jederzeit umschaltbar</div></div>
+        <div class="row timer-ton">
+          <div class="seg" role="radiogroup" aria-label="Timer-Signale">
+<?php foreach (['an' => ['An', 'volume'], 'aus' => ['Aus', 'volume-off']] as $v => [$label, $ic]): ?>
+            <label><input type="radio" name="timer_ton" value="<?= $v ?>"<?= ($timerTon ? 'an' : 'aus') === $v ? ' checked' : '' ?>><?= $this->icon($ic, 'ic ic-sm') ?><span><?= $label ?></span></label>
+<?php endforeach ?>
+          </div>
+          <button class="btn btn-ghost" type="submit">Speichern</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section>
     <div class="section-title"><h2>Backup</h2><span class="hint">verschlüsselt, AES-256</span></div>
     <div class="card list">
       <div class="list-item"><div><div class="t">Backup herunterladen</div><div class="s">SQL-Dump, gzip, mit dem Backup-Passwort aus der <span class="mono">.env</span> verschlüsselt</div></div>
@@ -107,7 +126,7 @@ if ($cal['host'] === null) {
         <span class="badge badge-<?= $cal['host'] === null ? 'neutral' : 'error' ?>"><?= $cal['host'] === null ? 'aus' : 'Fehler' ?></span></div>
 <?php else: ?>
         <form method="post" action="/einstellungen"><input type="hidden" name="csrf" value="<?= $this->e($csrf) ?>"><input type="hidden" name="action" value="kalender"><button class="btn btn-secondary" type="submit"><?= $this->icon('refresh') ?>Abgleichen</button></form></div>
-      <div class="list-item"><div><div class="t">Erinnerung im Kalender</div><div class="s"><?= $cal['reminder'] !== null ? 'Am Tag der Einheit um ' . $this->e($cal['reminder']) . ' Uhr (geplante und verschobene Einheiten)' : 'Aus' ?></div></div><a class="btn btn-ghost" href="/einstellungen?bereich=erinnerung">Ändern</a></div>
+      <div class="list-item"><div><div class="t">Erinnerung im Kalender</div><div class="s"><?= $cal['reminder'] !== null ? 'Am Trainingstag um ' . $this->e($cal['reminder']) . ' Uhr (Tage mit geplanter oder verschobener Einheit)' : 'Aus' ?></div></div><a class="btn btn-ghost" href="/einstellungen?bereich=erinnerung">Ändern</a></div>
 <?php endif ?>
 <?php if ($clients === []): ?>
       <div class="list-item"><div><div class="t">Claude</div><div class="s">Keine aktive Freigabe. Connector-Adresse: <span class="mono"><?= $this->e($mcpUrl) ?></span></div></div><span class="badge badge-neutral">nicht verbunden</span></div>

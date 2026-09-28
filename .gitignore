@@ -25,3 +25,6 @@ Thumbs.db
 
 # PHPUnit
 server/.phpunit.cache/
+
+# Node (Playwright für den Browser-Test tests/e2e, nur CI/lokal)
+node_modules/

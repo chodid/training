@@ -4,6 +4,72 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+## [0.19.0] – 2026-09-28
+
+AP-11 geändert (D-60, ändert D-50): ein Sammeltermin je Tag im Kalender – Unterpunkt T8 des Auftrags `docs/konzept/gefuehrte-einheit.md` (Wunsch des Athleten).
+
+**Hinweis zum Umstieg:** Der nächste stündliche Abgleich (oder „Abgleichen“ in den Einstellungen) ersetzt die bisherigen Einzeltermine je Einheit im Zeitraum 7 Tage zurück bis 8 Wochen voraus durch die Sammeltermine. Ältere Einzeltermine bleiben unverändert im Kalender, außer die App ändert die Einheit (dann wird ihr Einzeltermin sofort entfernt).
+
+### Geändert
+- Kalender (CalDAV): statt eines Termins je Einheit ein ganztägiger Termin je Trainingstag (Ressource `training-tag-JJJJ-MM-TT.ics`, feste UID je Tag; wird der Termin eines Tages gelöscht, bekommt der nächste eine neue Fassung `-1`, `-2` … mit eigener UID, weil Nextcloud bis 34.0.1 das erneute Anlegen einer gelöschten Adresse aus dem Papierkorb heraus ablehnt). Titel „Typ: Titel“ bei einer Einheit, bei mehreren „Training: Titel 1 + Titel 2“ in Planreihenfolge; kein „✓“ mehr im Titel und kein abgesagter Termin – der Status steht je Einheit in der Beschreibung. Die Beschreibung führt alle Einheiten des Tages (ohne Ruhetage) mit Kurzsatz, Kurzplan mit Priorität, Dauer und Status, Trainer-Begründung und Link zur Einheit auf, bei mehreren Einheiten je Abschnitt mit Überschrift „Typ: Titel“ und Trennlinie; der Termin selbst verlinkt die Woche. Kletterblöcke erscheinen mit ihrem Namen („Bouldern Volumen“ statt `bouldern_volumen`).
+- Erinnerung (D-52): eine je Tag, solange mindestens eine Einheit des Tages geplant oder verschoben ist. Texte in den Einstellungen angepasst („Am Trainingstag um …“).
+- Übertragen wird jeweils der ganze Tag: neue und ersetzte Einheiten, bei `update_session` alter und neuer Tag, bei der Rückmeldung auf der Webseite der Tag der Einheit. Tage ohne Einheiten (oder nur mit Ruhetag) verlieren ihren Termin. Der Abgleich zählt Termine (Tage) und entfernt außer verwaisten Sammelterminen auch die alten Einzeltermine (`training-session-<id>.ics`); ändert die App eine Einheit (Rückmeldung, `update_session`, Ersetzen), löscht sie deren alten Einzeltermin sofort, auch außerhalb des Abgleichzeitraums. Fremde Termine bleiben unberührt.
+- Audit-Eintrag `calendar_error` bezieht sich auf den Tag (`kalender_tag`, Datum) statt auf eine Einheit. Fassung je Tag in `app_setting` (`kalender_tag_<Datum>`), Einträge älter als 60 Tage vor dem Abgleichzeitraum werden entfernt.
+- Meldung bei HTTP 403 des Kalenders nennt zusätzlich einen möglichen Konflikt mit dem Nextcloud-Papierkorb.
+- Tests: `DayEventTest` und `CalendarTest` auf Sammeltermine umgestellt (Testfälle K-01 bis K-07 des Auftrags: zwei Einheiten an einem Tag, Verschieben, leerer Tag, Woche ersetzen mit behaltener Einheit, Abgleich mit alten Einzelterminen, Ruhetage, Reihenfolge, Erinnerung); nachgebildeter Nextcloud-Papierkorb, alte Einzeltermine außerhalb des Zeitraums, Abbruch nach dem ersten Fehler; Rauchtest gegen Radicale.
+
+### Entfernt
+- `Training\Calendar\SessionEvent` (Termin je Einheit) und `CalendarSync::push()`/`remove()` für einzelne Einheiten; ersetzt durch `Training\Calendar\DayEvent` und `CalendarSync::pushDays()`. Test `SessionEventTest` durch `DayEventTest` ersetzt.
+
+## [0.18.0] – 2026-09-28
+
+AP-14: Geführte Einheit (D-57, D-58) – Auftrag `docs/konzept/gefuehrte-einheit.md`, Unterpunkte T3–T7.
+
+### Hinzugefügt
+- Ablaufplan der geführten Einheit (`Training\Plan\Ablaufplan`, T3): leitet aus `plan_json` für Kraft, Haltung, Mobilität und Klettern deterministisch die Schritte ab – je Übung bzw. Block Art (Wiederholungen, Halten, Block, offen), Sätze, Arbeits- und Pausenzeit, Soll-Text und Ist-Felder wie in S3. Halten bei Wiederholungsangaben in Sekunden oder Minuten („45s“, „2 min“, „30-45 s“ → obere Grenze) und bei `hang_s`, Block bei `duration_min`. Ausdauer und Ruhetage haben keinen Ablaufplan.
+- Tests: alle Testfälle A-01 bis A-12 des Auftrags, alle Arten von Kletterblöcken und die Schreibweisen der Haltezeiten. Offene Kletterblöcke übernehmen die geplanten Sätze (ohne Timer).
+- Seite S9 „Einheit geführt“ (T4): `GET /einheit?id=…&modus=start` zeigt für geeignete Einheiten dasselbe Formular wie S3 schrittweise – je Übung bzw. Block eine Phase-Karte (Übung, Sätze, Timer-Anzeige bzw. Wiederholungen, Soll, Hinweis), die Ist-Felder der Übung (gleiche Feldnamen wie S3, mit Soll vorbelegt), „Als Nächstes“ und am Ende Übersicht und Rückmeldung. Gespeichert wird wie aus S3 über `POST /einheit` (Konfliktschutz, Offline-Puffer, Prüfung unverändert); Fehler erscheinen wieder in S9. Ohne JavaScript sind alle Schritte sichtbar und das Formular ist vollständig ausfüllbar. Kopfzeile mit Zurück zu S3 und (mit JavaScript) Stummschalter; Kurzsatz der Einheit oben.
+- S3: Knopf „Einheit starten“ (bzw. „Erneut durchgehen“ bei erledigten Einheiten) für Kraft, Haltung, Mobilität und Klettern mit Plan; Ausdauer, Ruhetage und Einheiten ohne Plan ohne Knopf; `modus=start` zeigt bei Ausdauer und ohne Plan S3, Ruhetage haben weiterhin keine Einheitenseite (404).
+- Einstellungen → Training → „Timer-Signale“ An/Aus (T6, Einstellung `timer_ton` in `app_setting`, Standard „an“): Vorgabe für Ton und Vibration im geführten Modus; in der Einheit jederzeit für diese Einheit umschaltbar. Formular ohne JavaScript.
+- Offline (T6): Die Woche lädt die geführte Einheit für heutige und morgige geeignete Einheiten vor; `js/gefuehrt.js` liegt im Versions-Cache des Service Workers. S9 öffnet damit auch ohne Netz, Speichern ohne Netz landet wie bisher im Puffer. Die Vorgabe der Timer-Signale merkt sich das Gerät (S8 und jede online geladene S9), sodass eine offline gezeigte S9 eine seit dem Vorladen geänderte Einstellung übernimmt.
+- Seitenskript `js/gefuehrt.js` (T5): zeigt jeweils einen Schritt; innerhalb einer Übung laufen Arbeit, Pause und Sätze automatisch, zwischen Übungen „Weiter“ (E-03); nach „Satz erledigt“ startet der Pausentimer. Timer zeitstempelbasiert: nach Bildschirm aus oder Tabwechsel wird nachgerechnet, verpasste Signale werden nicht nachgeholt, ein Hinweiston meldet eine inzwischen beendete Phase. Signale per Web Audio (ohne Audiodateien) und Vibration: Start einer Arbeitsphase, 30 s (Phasen über 45 s) und 10 s vor Ende (ab 15 s), 3-2-1, Abschlusston. Seite und Browserleiste grün während der Arbeit, rot in Pause, „bereit“ und angehalten (Statusfarben, B-08). Bildschirm bleibt an (Wake Lock). Stummschalter in der Kopfzeile gilt für diese Einheit und wird auch vor dem Start gemerkt; stumm blinkt die Anzeige in den letzten 3 s (auch bei Phasen bis 3 s). Ein Tipp, der einer gerade abgelaufenen Phase galt (Phase endete vor dem Neuzeichnen oder vor weniger als 0,5 s), wird verworfen statt auf die neue Phase angewendet. Zurück zu einer erledigten Übung und „Weiter“ durch erledigte Übungen behalten die Erledigt-Markierung; eine nachgeholte Übung gilt nicht mehr als übersprungen. Fortschritt und Eingaben liegen im Browser (sessionStorage, 12 h): Neu laden fragt „Fortsetzen“ oder „Neu starten“, nach dem Speichern bzw. nach Zustellung eines offline gepufferten Speicherns beginnt die geführte Einheit neu. Im Abschluss Dauer (gemessen vom ersten Start bis zum Erreichen des Abschlusses) und Status (teilweise, wenn eine Übung übersprungen wurde) vorbelegt; Übersicht erledigt/übersprungen/geändert. Lehnt der Server einen Ist-Wert ab, öffnet S9 die betroffene Übung (nur deren Ist-Karte ist markiert).
+- Tests: Kern des Skripts ohne Browser mit Node (`node --test server/tests/js/*.test.cjs`, alle Abläufe aus 8.2) und Browser-Durchlauf mit Playwright und gesteuerter Uhr (`bash server/tests/e2e/run.sh`: Farbwechsel, Signale, Anhalten, Neu laden mit Fokus, Stumm mit Blinken nur in den letzten 3 s, verworfener Tipp nach abgelaufener Phase, Hintergrund, Überspringen, gemessene Dauer, Speichern, Speichern ohne Netz über den Puffer). Beide laufen in der CI (Chrome des Runners).
+- Tests: Startknopf je Typ, Rückfall auf S3, Aufbau für Kraft (Wiederholungen, Halten) und Klettern (Hangboard, Block, offen), Speichern aus S9, Fehler und Konflikt in S9, Vorgabe der Timer-Signale.
+
+### Geändert
+- Soll-Texte von Übungen und Kletterblöcken kommen aus `Training\View\PlanFormat` (bisher im Template von S3), damit S3 und die geführte Einheit dieselben Texte zeigen.
+- Ist-Felder und Rückmeldung von S3 als gemeinsame Teilvorlagen (`_ist_exercise.php`, `_ist_block.php`, `_feedback_fields.php`) für S3 und S9; Seitenrahmen akzeptiert eine zusätzliche Klasse für `main`.
+- Workflow „Test und Deploy“: zusätzlich Node-Tests und Browser-Durchlauf der geführten Einheit im Test-Job (höchstens 10 Minuten). `tests/e2e/run.sh` startet die App auf einem freien Port (oder `E2E_PORT`) und bricht ab, wenn der eigene Server nicht läuft.
+
+### Behoben
+- Sporadischer Testfehler in `MorningCheckinTest::testDaylightSavingSwitch` (AP-12 als „nicht reproduzierbar“ vermerkt): Das gelegentliche Aufräumen der MCP-Sitzungsdateien verglich echte Dateizeiten mit der im Test vorgestellten Uhr und löschte die gerade angelegte Sitzung. Verglichen wird jetzt mit der echten Zeit; im Betrieb ändert sich nichts.
+
+## [0.17.0] – 2026-09-28
+
+AP-13: App-Icon und Logo (D-55, D-59) sowie Begründungstexte der Planung (D-56) – Auftrag `docs/konzept/gefuehrte-einheit.md`, Unterpunkte T1 und T2.
+
+**Achtung (Planung im Projekt-Chat):** `write_week_plan` verlangt jetzt `focus` (Kurzsatz der Woche) und je Einheit außer Ruhetagen `coach_summary` (Kurzsatz, höchstens 200 Zeichen); ohne sie wird nichts geschrieben. Den Connector in Claude ggf. neu verbinden, damit die neuen Tool-Beschreibungen geladen werden.
+
+### Hinzugefügt
+- App-Icon „ganzes Lama“ (D-59): V3 (Fläche hell auf Pflaume 600) als PNG 48, 96, 192, 512 (`any`), 512 `maskable` und `apple-touch-icon` 180; V2 (Fläche Pflaume auf Papier) als SVG-Favicon und `favicon.ico` (16/32/48) im Docroot. Das Skript `docs/branding/build-icons.cjs` (Playwright/Chromium) rendert den Satz aus `docs/branding/mockups/icon-optionen/`; das Ergebnis ist eingecheckt, weil der Server kein SVG rendern kann.
+- Login, Setup und Freigabeseite tragen jetzt wie die App-Seiten Manifest, PNG-Icons mit Größenangabe, `apple-touch-icon` und `theme-color` (gemeinsamer Kopfteil `_head_icons.php`). „Zum Startbildschirm“ zeigt damit auch in LibreWolf/Firefox (Verknüpfung über die Seiten-Icons) und von der Login-Seite aus das Logo.
+- Manifest mit `id` und `description`, getrennte Einträge `any`/`maskable`.
+- `.htaccess`: `image/x-icon` für `.ico`, Icons und Favicon 7 Tage im Browser-Cache. Service Worker liefert `/favicon.ico` wie das Manifest aus dem Versions-Cache. Der Dev-Router setzt für `.ico` und `.webmanifest` dieselben Content-Types wie Apache.
+- Skript `docs/branding/mockups/screenshots.cjs` erzeugt die Mockup-Screenshots neu (und prüft Überlauf, fehlende Ressourcen, Skriptfehler).
+- Tests: Manifest (JSON, jede Datei vorhanden, `sizes` = PNG-Kopf), Kopfteil-Links, `favicon.ico` (16/32/48), beide Seitenrahmen, `HEAD /favicon.ico` über den Dev-Router.
+- Begründungstexte je Woche und Einheit (E-01, E-10): neues Feld `session.coach_summary` (Kurzsatz, höchstens 200 Zeichen; Migration `0022`, `App::SCHEMA_VERSION` = 22). `write_week_plan` prüft Pflicht und Längen (Woche `focus` 1–255, `coach_notes` ≤ 1 500; Einheit `coach_summary` 1–200 außer `ruhe`, `coach_rationale` ≤ 1 500) und meldet alle betroffenen Einheiten auf einmal; `update_session` ändert `coach_summary` und `coach_rationale` (leerer Text entfernt die Begründung, bei Ruhetagen auch den Kurzsatz), Wochentexte nur über `write_week_plan`. Die Tool-Beschreibungen enthalten die Regel aus E-10.
+- `get_week_overview` liefert zusätzlich `woche.begruendung` (ausführlicher Text der Woche, nur bis 1 500 Zeichen) und je Einheit (auch Ruhetag) `kurz`, wenn vorhanden; `get_session_detail` liefert `coach_summary`.
+- S2 Woche: Karte unter der Kopfzeile mit dem Kurzsatz und „mehr“ (aufklappbar ohne JavaScript) für den ausführlichen Text. S3 Einheit: Kurzsatz im Seitenkopf, „mehr“ für die Begründung; Altdaten ohne Kurzsatz zeigen „Trainer-Notiz“ zum Aufklappen.
+- Tests: Pflichtfelder mit Fehlerliste, Grenzlängen 200/255/1 500 (Zeichen, nicht Bytes), Lese-Tools, `update_session`, Altdaten mit überlangen Texten, Anzeige in S2/S3 inkl. Altdaten, Kalenderbeschreibung.
+
+### Geändert
+- App-Kennung in Kopfzeile, Navigation und Login-Karte: ganzes Lama (`/assets/lama.svg` aus `lama-symbol-flaeche.svg`) statt Lama-Kopf; Mockups und Screenshots entsprechend (Branding B-09).
+- S2: die Angabe „Fokus …“ in der Kopfzeile der Woche entfällt (der Kurzsatz steht jetzt in eigener Zeile darunter). S3: „Trainer-Notiz: …“ als ganzer Absatz entfällt zugunsten von Kurzsatz und „mehr“.
+- Kalendertermin: Beschreibung beginnt mit dem Kurzsatz, danach Kurzplan (mit Priorität, Dauer, Status), die Begründung („Trainer: …“, gekürzt auf 1 000 Zeichen) und der Link.
+
+### Entfernt
+- `server/public/icons/icon-192.png`, `icon-512.png`, `icon-512-maskable.png` (Lama-Kopf); der Build kopiert `lama-kopf.svg` nicht mehr (der Kopf bleibt im Design-System).
+
 ### Dokumentation
 - Sechs weitere Literatur-Volltexte einsortiert und eingetragen: L-P10 Foster 2001, L-P12 Impellizzeri 2020, L-P13 Silbernagel 2007, L-T2-17 Shiri 2018, L-T2-18 Steffens 2016, L-T3-04 Draper 2015.
 - Konzeptentwurf `docs/konzept/gefuehrte-einheit.md` (Fable): App-Icon und Logo auf das ganze Lama (D-55, Q-14), Begründungstexte je Woche und Einheit mit Kurzsatz und „mehr“ (D-56), geführte Einheit mit Timer, Farbwechsel und Signalen (D-57, D-58); AP-13 und AP-14 im Hauptkonzept; vom Athleten bestätigt, Logo-Variante D-59 (V3 App-Icon, V2 Favicon und Kennung). Mockups `s9-einheit-gefuehrt.html` (fünf Zustände) und `icon-optionen.html` (fünf Logo-Varianten), S2/S3/S8 angepasst, Icons `player-play`, `player-pause`, `player-skip-back`, `volume`, `volume-off` ergänzt (Branding B-08, B-09).

@@ -449,8 +449,9 @@ noch_zu_pruefen:
 
 ```yaml
 ap: AP-11
+nachtrag: Sammeltermin je Tag (D-60, 0.19.0) – Unterpunkt T8 in docs/konzept/gefuehrte-einheit.md; die Einträge bis 0.18.0 beschreiben den Termin je Einheit
 geprueft:
-  - was: Wochenplan → Termine je Einheit ohne Ruhetag (PUT mit Basic-Auth an CALDAV_URL), update_session (Datum, erledigt → „✓“), Rückmeldung „ausgelassen“ auf der Webseite → STATUS:CANCELLED, Woche ersetzen → ersetzte Termine gelöscht, neue angelegt
+  - was: (bis 0.18.0) Wochenplan → Termine je Einheit ohne Ruhetag (PUT mit Basic-Auth an CALDAV_URL), update_session (Datum, erledigt → „✓“), Rückmeldung „ausgelassen“ auf der Webseite → STATUS:CANCELLED, Woche ersetzen → ersetzte Termine gelöscht, neue angelegt
     wie: automatisiert (PHPUnit, simulierter CalDAV-Server)
     ergebnis: ok
     datum: 2026-09-28
@@ -478,12 +479,32 @@ geprueft:
     wie: manuell durch Athlet (nach Deployment 0.14.0)
     ergebnis: ok
     datum: 2026-09-28
+  - was: "T8/D-60 (0.19.0): Sammeltermin je Tag – eine Einheit „Typ: Titel“ ohne „✓“, mehrere „Training: A + B + C“ in Planreihenfolge, STATUS immer CONFIRMED (auch ausgelassen), URL zur Woche, CATEGORIES je Typ einmal, Beschreibung je Einheit mit Überschrift (bei mehreren), Kurzsatz, Kurzplan mit Status, Begründung, Link und Trennlinie (bei mehreren); Erinnerung nur, solange eine Einheit geplant/verschoben ist; Ruhetage nie im Termin (Testfälle K-01 bis K-07)"
+    wie: automatisiert (DayEventTest: K-01–K-03, K-07; CalendarTest: K-04–K-07)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "T8/D-60: Wochenplan mit zwei Einheiten an einem Tag → ein Termin; update_session verschiebt eine Einheit → alter und neuer Tag neu geschrieben, letzte Einheit weg → Termin gelöscht; Rückmeldung „ausgelassen“ → Termin bleibt, Status in der Beschreibung; Woche ersetzen → Tage ersetzter Einheiten neu bzw. gelöscht; Abgleich löscht alte Einzeltermine (auch zu bestehenden Einheiten) und verwaiste Sammeltermine, fremde bleiben, Zählung in Tagen; Erinnerungstexte in S8"
+    wie: automatisiert (CalendarTest, simulierter CalDAV-Server)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "Review T8: Tagestermin dreimal geleert und neu belegt mit nachgebildetem Nextcloud-Papierkorb – jede Neuanlage mit neuer Fassung (training-tag-<Datum>-1/-2/-3, UID passend), keine Fehler; Abgleich schreibt dieselbe Fassung, leerer Tag erhöht sie; Einzeltermine geänderter Einheiten auch außerhalb des Zeitraums entfernt, unberührte ältere bleiben; Ruhetage im Abgleich, Zählung in Tagen, Reihenfolge nach sort_order, ersetzte Woche mit behaltener Einheit; Abbruch nach dem ersten Fehler mit Audit je Tag; eine Erinnerung bei zwei offenen Einheiten, Begründung je Einheit"
+    wie: automatisiert (CalendarTest, DayEventTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "T8/D-60: Echter CalDAV-Server – Sammeltermin mit drei Einheiten, Sonderzeichen, Faltung und VALARM angenommen; Ersetzen; REPORT mit Zeitraum; alter Einzeltermin training-session-<id>.ics gelöscht, fremder Termin bleibt"
+    wie: Rauchtest gegen Radicale (lokal, http nur für den Test)
+    ergebnis: ok
+    datum: 2026-09-28
 noch_zu_pruefen:
   - was: Erinnerung um 05:00 kommt auf dem Handy an (Nextcloud-Kalender per DAVx⁵/iOS-Konto eingebunden); andere Uhrzeit in den Einstellungen wirkt nach dem nächsten Sync
     wie: manuell durch Athlet (nach Deployment 0.15.0 und erstem Wochenplan)
   - was: Termine nach dem ersten Wochenplan im Nextcloud-Web und auf dem Handy sichtbar; „zuletzt übertragen“ in den Einstellungen höchstens 1 h alt (stündlicher Cron)
     wie: manuell durch Athlet
-  - was: Änderung aus Claude (update_session, Status) erscheint im Kalender; Rückmeldung auf der Webseite setzt „✓“
+  - was: Änderung aus Claude (update_session, Status) erscheint im Kalender; Rückmeldung auf der Webseite erscheint als Status in der Beschreibung des Tagestermins (seit 0.19.0 kein „✓“ im Titel)
+    wie: manuell durch Athlet
+  - was: "T8/D-60 nach Deploy 0.19.0: „Abgleichen“ in den Einstellungen (oder nächster stündlicher Abgleich) – im Nextcloud-Kalender (Web und Handy) je Trainingstag genau ein Termin, alte Einzeltermine im Zeitraum 7 Tage zurück bis 8 Wochen voraus verschwunden, ältere bleiben; Tag mit zwei Einheiten zeigt „Training: … + …“ und beide Einheiten in der Beschreibung; Erinnerung einmal je Tag"
+    wie: manuell durch Athlet (Nextcloud-Web, Handy-Kalender per DAVx⁵/iOS-Konto)
+  - was: "T8/D-60: Beschreibung mit mehreren Einheiten und Trennlinie auf dem Handy gut lesbar (Zeilenumbrüche, Links antippbar)"
     wie: manuell durch Athlet
 ```
 
@@ -519,13 +540,159 @@ geprueft:
     datum: 2026-09-28
   - was: Stabilität der Testsuite (155 Tests)
     wie: 18 volle Läufe lokal (MariaDB)
-    ergebnis: 17 grün; 1 Lauf mit einem einzelnen Fehler, nicht reproduzierbar und mangels Protokoll nicht zuzuordnen – beobachten (CI)
+    ergebnis: 17 grün; 1 Lauf mit einem einzelnen Fehler, nicht reproduzierbar und mangels Protokoll nicht zuzuordnen – beobachten (CI). Nachtrag 2026-09-28 (AP-14): Ursache gefunden (Aufräumen der MCP-Sitzungen mit verstellter Test-Uhr löschte die neue Sitzung, testDaylightSavingSwitch), behoben in 0.18.0; danach 25 Einzelläufe und 3 volle Läufe grün
     datum: 2026-09-28
 noch_zu_pruefen:
   - was: Morgens auf dem Smartphone erfassen (auch offline), Ampel ansehen; nachträgliche Änderung am selben Tag
     wie: manuell durch Athlet (nach Deployment 0.16.0)
   - was: get_morning_checks über den Claude-Connector (Format 6.1, Tool-Beschreibung mit Skalen und Ampelregeln); Connector ggf. neu verbinden, damit das Tool erscheint
     wie: manuell durch Athlet im Trainer-Chat
+```
+
+## AP-13 App-Icon und Begründungstexte
+
+```yaml
+ap: AP-13
+auftrag: docs/konzept/gefuehrte-einheit.md (Teile A und B, T1–T2)
+geprueft:
+  - was: P-A1 – Chrome Android installiert die App mit Lama-Icon (noch mit dem Kopf, vor der Umsetzung)
+    wie: Gerätetest durch Athlet
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: I-01 Manifest – gültiges JSON, id /woche, description, jede Icon-Datei vorhanden, sizes = PNG-Kopf (48/96/192/512 any, 512 maskable getrennt)
+    wie: automatisiert (AppIconTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: I-02 beide Seitenrahmen (Setup und Login = layout-auth, Woche = layout-app) mit theme-color, Manifest, SVG-Favicon, PNG-Icons mit sizes, apple-touch-icon 180; Kennung /assets/lama.svg in Topbar, Navigation und Login-Karte; kein Verweis mehr auf lama-kopf
+    wie: automatisiert (AppIconPagesTest, AppIconTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: I-03 HEAD /favicon.ico über den Dev-Router → 200, Content-Type image/x-icon, Länge stimmt; Manifest application/manifest+json; favicon.ico enthält 16/32/48
+    wie: automatisiert (AppIconTest, PHP-Built-in-Server)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Icon-Satz gerendert (V3 any/maskable/180, V2 Favicon 16 px), Sichtprüfung Kontaktbogen; Mockups nach Kennungswechsel ohne Überlauf, fehlende Ressourcen oder Skriptfehler
+    wie: Chromium/Playwright (build-icons.cjs, screenshots.cjs), manuell
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T2 Schreib-Tools – ohne focus und ohne coach_summary Fehler mit Liste der betroffenen Einheiten (Ruhetag ausgenommen), nichts geschrieben; Grenzlängen focus 255/256, coach_summary 200/201, coach_notes und coach_rationale 1500/1501 in Zeichen (Umlaute); Texte getrimmt gespeichert
+    wie: automatisiert (McpToolsTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T2 Lese-Tools und update_session – get_week_overview fokus/begruendung/kurz (auch Ruhetag mit Kurzsatz), get_session_detail coach_summary; update_session ändert Kurzsatz, leerer Kurzsatz abgelehnt (Ruhetag: entfernt), leere Begründung entfernt, focus dort unbekannt; überlange Altdaten blockieren andere Änderungen nicht und fehlen in der Übersicht
+    wie: automatisiert (McpToolsTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T2 Anzeige – S2 Kurzsatz in eigener Karte ohne „Fokus …“ in der Kopfzeile, „mehr“ als details (ohne JavaScript) nur mit ausführlichem Text, Woche ohne Plan unverändert, Altdaten „Begründung der Woche“; S3 Kurzsatz und „mehr“, Altdaten „Trainer-Notiz“, HTML maskiert; 375 px ohne Überlauf, auch mit einem langen Wort (Adresse) im Kurzsatz (Review, Umbruch nachgezogen)
+    wie: automatisiert (WebsiteTest) + Browser (Chromium, lokale Instanz)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T2 Kalender – Beschreibung beginnt mit dem Kurzsatz, dann Kurzplan mit Priorität/Dauer, „Trainer: …“ gekürzt auf 1 000 Zeichen, Link; Altdaten ohne Kurzsatz beginnen mit dem Kurzplan
+    wie: automatisiert (SessionEventTest; seit T8/0.19.0 DayEventTest, je Einheit im Sammeltermin)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: Migration 0022 auf leerer Datenbank (jeder Testlauf) und auf befüllter Datenbank (Rückweg 0020–0022 angewendet, erneut migriert)
+    wie: automatisiert (MigratorTest, MorningCheckinTest)
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: P-A2 – Chrome Desktop, DevTools → Application → Manifest ohne Fehler, alle Icons geladen; erwartet nur die zwei Hinweise „Richer PWA Install UI … desktop/mobile“ (keine Screenshots im Manifest, Auftrag O-05)
+    wie: manuell durch Athlet (nach Deployment; 0.17.0 bis 0.19.0 kommen gemeinsam mit einem Pull Request)
+  - was: P-A3 – LibreWolf Android, von /login und von /woche „Zum Startbildschirm“ → beide Male Lama-Icon (V3)
+    wie: Gerätetest durch Athlet (alte Verknüpfung vorher entfernen); Screenshot ins Prüfprotokoll
+  - was: P-A4 – LibreWolf about:config dom.serviceWorkers.enabled, dom.manifest.enabled notieren
+    wie: manuell durch Athlet (nur Befund)
+  - was: P-A5 – iOS Safari „Zum Home-Bildschirm“ → Lama 180 px (falls Gerät vorhanden)
+    wie: Gerätetest durch Athlet
+  - was: P-A6 – curl -I https://training.gen-em.org/manifest.webmanifest und /favicon.ico → 200, application/manifest+json bzw. image/x-icon, Cache-Control max-age=604800 bei /favicon.ico
+    wie: manuell (curl) nach Deployment
+  - was: P-A1 erneut mit dem neuen Icon (V3) in Chrome Android
+    wie: Gerätetest durch Athlet
+  - was: T2 – Wochenplan aus dem Projekt-Chat mit focus, coach_notes, coach_summary und coach_rationale schreiben (Connector ggf. neu verbinden); ohne Kurzsatz meldet das Tool die fehlenden Felder
+    wie: manuell durch Athlet im Trainer-Chat (nach Deployment; 0.17.0 bis 0.19.0 kommen gemeinsam mit einem Pull Request)
+  - was: T2 – S2 und S3 auf dem Smartphone: Kurzsatz sichtbar, „mehr“ klappt auf (auch mit abgeschaltetem JavaScript)
+    wie: manuell durch Athlet
+  - was: T2 – Kalendertermin im Nextcloud-Kalender zeigt den Kurzsatz als erste Zeile der Beschreibung (bei mehreren Einheiten eines Tages je Abschnitt nach der Überschrift „Typ: Titel“, D-60)
+    wie: manuell durch Athlet
+```
+
+## AP-14 Geführte Einheit
+
+```yaml
+ap: AP-14
+auftrag: docs/konzept/gefuehrte-einheit.md (Teil C, T3–T7; Nachtrag T8 unter AP-11)
+geprueft:
+  - was: T3 Ablaufplan – Testfälle 8.1 A-01 bis A-12 (Wiederholungen, Halten s/min/Bereich, max, Hangboard mit und ohne Sätze, Block, offen, Ausdauer/Ruhe ohne Plan, Reihenfolge und Index) und alle übrigen kind-Werte (campus, bouldern_limit, ausdauer_route, zugkraft, antagonisten); A-01 bis A-10, die kind-Fälle und A-12 gültig nach plan_json-Schema, A-11 zusätzlich mit leeren/ungültigen Plänen; Schreibweisen der Haltezeit (s, sek, sec, min, Bereich mit - und –, 0, Komma)
+    wie: automatisiert (AblaufplanTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: S3-Soll-Texte nach Umzug in PlanFormat unverändert; S3 nach Umbau in Teilvorlagen (Ist-Felder, Rückmeldung) unverändert
+    wie: automatisiert (WebsiteTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T4 – Startknopf nur für Kraft/Haltung/Mobilität/Klettern mit Plan (ohne Plan kein Knopf), „Erneut durchgehen“ bei erledigt; A-11 Ausdauer mit modus=start → S3, Ruhetag 404, Einheit ohne Plan → S3 mit Rückmeldung
+    wie: automatisiert (GuidedSessionTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T4 – Aufbau S9 für Kraft (Wiederholungen ohne Timer, Halten mit Timer 00:30), Klettern (Hangboard 00:07, Block 40:00, offen mit Hinweis), Feldnamen wie S3 mit Soll vorbelegt, Kurzsatz oben, Skript-Bedienung versteckt; POST aus S9 speichert wie aus S3; 422 und 409 zeigen wieder S9 mit den Eingaben; Timer-Signale-Vorgabe aus app_setting
+    wie: automatisiert (GuidedSessionTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T4-Abnahme – ohne JavaScript alle Schritte sichtbar und keine Skript-Bedienung, ausgefüllt und gespeichert („Gespeichert.“, Werte in der Datenbank); 375 px ohne horizontales Scrollen (Kraft, Klettern); Speichern liegt über der unteren Navigation
+    wie: Browser (Chromium/Playwright, JavaScript aus, lokale Instanz)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T5 Kern – Z-01 (45 s: Start, 10 s, 3-2-1, kein 30-s-Ton), Z-02 (Pause 60 s: 30/10/3-2-1, dann Start Satz 2 zeitstempelgenau), Z-03 (Abschlusston, fertig, normale Farbe, Weiter), Z-04 (Anhalten bei 20 s, Fortsetzen), Z-05 (2 min Hintergrund: Folgephase, ein Hinweiston), Z-06 (Fortsetzen-Frage, Verfall, Plan geändert, gespeichert), Z-07 (Satz erledigt → Pausentimer, Satz 3 fertig), Z-10/Z-11 (teilweise, Minuten), Z-12 (abgeschickt bleibt bis neuer Stand), Hangboard 7/3 × 6, Block, offen, Bedienung
+    wie: automatisiert (node --test server/tests/js/, 14 Fälle)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T5 Browser – rot „bereit“, grün in der Arbeit (theme-color), Startton 2 Töne + Vibration + Wake Lock, Töne bei 10 s und 3-2-1, Pause mit 30/10/3-2-1 und automatischem Satz 2, Anhalten/Fortsetzen, Neu laden mit Fortsetzen (Schritt, Satz, Restzeit), Stumm (keine Töne/Vibration, Blinken), Wiederholungen mit Pausentimer, Überspringen → teilweise und gemessene Dauer, Speichern (Werte in der Datenbank, Fortschritt gelöscht), Hintergrund (ein Hinweiston), Speichern ohne Netz (Puffer, Fortschritt bis zur Zustellung, danach gelöscht), keine Skriptfehler, 375 px ohne Überlauf
+    wie: automatisiert (Playwright mit gesteuerter Uhr, tests/e2e/run.sh; lokal Chromium, in der CI Chrome des Runners)
+    ergebnis: ok (zwei Läufe hintereinander)
+    datum: 2026-09-28
+  - was: T5 Sichtprüfung – Zustände Wiederholungen, Pause, bereit, Arbeit, angehalten, Abschluss auf 375 px und 1280 px; Aktionsleiste über der unteren Navigation
+    wie: Browser (Chromium, lokale Instanz), manuell
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T6 – S8 Bereich „Training“ mit Timer-Signalen (Standard an, Speichern aus/an, ungültiger Wert abgelehnt, Audit), Vorgabe wirkt in S9 (data-ton); Woche lädt S9 für heute und morgen vor (nicht für vergangene oder spätere Tage); 375/1280 px ohne Überlauf
+    wie: automatisiert (GuidedSessionTest) + Browser
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T6 Browser – Z-09 (S8 aus → S9 stumm, Umschalten in S9 ändert S8 nicht); S9 öffnet bei Netzausfall aus dem Seiten-Cache (gespeicherter Stand, Skript läuft); Z-12 Speichern ohne Netz im Puffer, Nachsenden bei Netz, Fortschritt danach gelöscht
+    wie: automatisiert (Playwright, tests/e2e/run.sh, Netzausfall über Proxy)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "Review T5 (Kern): Tipp nach abgelaufener Phase verworfen (letzte Arbeitsphase → keine nächste Übung, Pausenende → kein gezählter Satz, Arbeitsende → Pause nicht übersprungen), Sperre 500 ms; Zurück/Weiter behalten erledigte Übungen, nachgeholte Übung nicht mehr übersprungen (Status erledigt); Dauer endet mit dem Abschluss (auch nach Zurück), erneutes Training misst neu; Schritt öffnen nach Ist-Fehler ohne Änderung von Erledigt/Übersprungen; Fortsetzen nach Speichern ohne Takt nur Hinweiston"
+    wie: automatisiert (node --test, 17 Fälle)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "Review T5 (Browser): Fokus nach Fortsetzen auf der Übung; Stumm-Schalter behält den Namen „Ton und Vibration aus“; Blinken erst in den letzten 3 s und Ende mit der Phase; Tipp auf „Anhalten“ nach abgelaufener, noch nicht neu gezeichneter Phase → Pause statt angehalten (Gegenprobe ohne Korrektur schlägt fehl); Dauer-Marke im Abschluss bleibt nach 10 min Warten; Stumm-Wahl vor der ersten Eingabe übersteht Neuladen ohne Fortsetzen-Frage"
+    wie: automatisiert (Playwright, run.sh, 14 Prüfungen)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "Review T5 (Server): ungültiger Ist-Wert in Übung 2 → 422, data-ist-fehler, nur Schritt 2 mit data-invalid und nur dessen Ist-Karte rot; Fehler in der Rückmeldung ohne Ist-Markierung"
+    wie: automatisiert (GuidedSessionTest)
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "Review T5 (Testaufbau): run.sh auf freiem Port, Abbruch mit Protokoll bei belegtem Port; Warten auf den Service Worker begrenzt; CI-Schritt mit 10 min Grenze"
+    wie: manuell (run.sh mehrfach, Port frei gewählt) + Durchsicht des Workflows
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: T7 – Dokumente konsistent (Changelog 0.17.0–0.19.0, README, Hauptkonzept AP-11/AP-13/AP-14 und D-55 bis D-60, Datenmodell, Branding, Auftrag Abschnitt 12, Prüfprotokoll); Versionsnummer 0.19.0 in App.php
+    wie: Durchsicht und Suche nach veralteten Angaben (Termin je Einheit, „✓“, SessionEvent, Zählerstände, Port) + unabhängiges Review der Dokumente zu T8
+    ergebnis: ok
+    datum: 2026-09-28
+  - was: "Abschluss-Review T6: S9 mit „an“ vorgeladen, danach S8 auf „aus“ – ohne Netz startet die gespeicherte S9 stumm (Wert aus localStorage); S8 trägt data-timer-ton; Gegenprobe ohne Korrektur schlägt fehl"
+    wie: automatisiert (Playwright, run.sh, Z-12-Teil; GuidedSessionTest)
+    ergebnis: ok
+    datum: 2026-09-28
+noch_zu_pruefen:
+  - was: T5 Gerätetest Android – Töne und Vibration bei Start, 30 s, 10 s, 3-2-1 und Abschluss hörbar/spürbar; Grün/Rot und Browserleiste; Bildschirm bleibt während der Einheit an; Stumm in der Einheit (Blinken auch in der 3-s-Pause bei Hangboard 7/3); Fortsetzen nach versehentlichem Neuladen; Tipp kurz vor Phasenende wirkt wie erwartet (kein Sprung zur nächsten Übung)
+    wie: Gerätetest durch Athlet (nach Deployment 0.19.0), am besten mit einer Einheit mit Haltezeiten (z. B. Unterarmstütz 45 s)
+  - was: O-06 – 30-s-Ton erst bei Phasen über 45 s (Z-01) statt ab 45 s (E-17) bestätigen; Tonhöhen/-längen nach Gehör anpassen (O-04)
+    wie: Rückmeldung des Athleten nach dem Gerätetest
+  - was: T6 im Flugmodus auf dem Smartphone – Woche mit Netz öffnen, dann Flugmodus; geführte Einheit von heute öffnen (aus dem Cache), durchgehen, speichern („Offline gespeichert“), Netz an → Rückmeldung erscheint in der Woche; Einstellung „Timer-Signale aus“ → S9 startet stumm
+    wie: Gerätetest durch Athlet (nach Deployment 0.19.0)
 ```
 
 ## AP-05 MCP-Tools produktiv

@@ -1,7 +1,7 @@
 ---
 titel: Branding-Dokument – Trainings-Web-App
 bezug: docs/konzept/konzept-ki-personal-trainer.md (D-19, D-37, Abschnitt 10), AP-01a
-dokumentstand: 2026-09-27
+dokumentstand: 2026-09-28
 status: abgenommen
 abgenommen_am: 2026-09-27
 erstellt_von: Fable (Design-Mockups, Rollenverteilung Abschnitt 0)
@@ -21,7 +21,7 @@ Alle Gestaltungsvorgaben des Athleten liegen in `docs/branding/chadid-design-sys
 | `SKILL.md` | Kurzfassung für KI-Assistenten |
 | `styles.css` | Einstiegspunkt, lädt `tokens/fonts.css`, `colors.css`, `typography.css`, `spacing.css` |
 | `fonts/` | Young Serif, Source Sans 3, Source Code Pro als TTF (SIL OFL) |
-| `assets/logo/` | Lama-Symbol in sechs Varianten, `lama-symbol-kopf.svg` für App-Icon und Favicon |
+| `assets/logo/` | Lama-Symbol in sechs Varianten; `lama-symbol-flaeche.svg` ist seit AP-13 die App-Kennung (B-09), `lama-symbol-kopf.svg` bleibt für Avatar-Zwecke |
 | `guidelines/*.html` | Spezimen-Karten (Farben, Schrift, Abstände, Zustände, Icons) |
 
 Kernregeln, die in der App überall gelten:
@@ -58,14 +58,14 @@ Die Beispieldaten (Block 2 „Grundlage Herbst“, KW 39, Athlet „philipp“) 
 
 | Breite | Rahmen | Navigation |
 |---|---|---|
-| < 768 px (Smartphone) | Kopfzeile mit Lama-Kopf + „Training“, Inhalt, Tab-Leiste unten (sticky, mit `safe-area-inset-bottom`) | vier Tabs: Woche, Check-in, Verlauf, Einstellungen; Icon über Text |
-| 768–1023 px (Tablet) | Schmale Leiste links (96 px) mit Lama-Kopf, Kopfzeile mit Seitentitel | Icon über Text, aktives Ziel mit `--bg-subtle` hinterlegt |
+| < 768 px (Smartphone) | Kopfzeile mit Lama + „Training“, Inhalt, Tab-Leiste unten (sticky, mit `safe-area-inset-bottom`) | vier Tabs: Woche, Check-in, Verlauf, Einstellungen; Icon über Text |
+| 768–1023 px (Tablet) | Schmale Leiste links (96 px) mit Lama, Kopfzeile mit Seitentitel | Icon über Text, aktives Ziel mit `--bg-subtle` hinterlegt |
 | ≥ 1024 px (Desktop, Tablet quer) | Seitenleiste 240 px mit Wortzeichen „Training“, Kopfzeile mit Seitentitel und Aktionen | Icon neben Text, Fußzeile mit Benutzer und Blockstand |
 
 - Inhaltsbreite: Formulare max. 760 px, breite Seiten (Woche, Einheit, Verlauf) max. 1160 px, jeweils zentriert.
 - Woche: bis 1023 px eine Tagesliste, 1024–1279 px zwei Spalten, ab 1280 px sieben Spalten (kompakt, Bereichswort ausgeblendet, Icon trägt den Typ).
 - Einheit: ab 1024 px zweispaltig, Plan links (3/5), Rückmeldung rechts (2/5, sticky).
-- Auth-Seiten (S0, S1, S7) haben keine Navigation: eine zentrierte Karte (max. 420 px) mit Lama-Kopf und „Training“.
+- Auth-Seiten (S0, S1, S7) haben keine Navigation: eine zentrierte Karte (max. 420 px) mit Lama und „Training“.
 - Primäraktionen auf dem Smartphone in einer sticky Leiste am unteren Rand des Formulars (`.actions-sticky`), auf Tablet und Desktop normal im Fluss.
 - Kein horizontaler Scrollbereich in keiner Größe (geprüft, Abschnitt 6). Tabellen mit vielen Spalten scrollen innerhalb ihrer Karte.
 
@@ -104,24 +104,24 @@ Typ-Icons: Ausdauer `run`, Kraft `barbell`, Klettern `mountain`, Haltung `yoga`,
 |---|---|---|---|
 | B-01 | Umfang: alle Screens aus Abschnitt 10 inkl. S6 Verlauf sowie eine Einstellungen-Seite (Konto, Backup, Update, Verbindungen). | Wunsch des Athleten; AP-04 und AP-10 verlangen den Bereich „Einstellungen“ ohnehin. | 2026-09-27 |
 | B-02 | Navigation: Tab-Leiste unten (Smartphone), Leiste links (Tablet), Seitenleiste (Desktop). Zusätzlich zur Vorgabe „mobil und Tablet“ eine **Desktop-Ansicht**. | Wunsch des Athleten. D-19 wird um Desktop ergänzt. | 2026-09-27 |
-| B-03 | App-Kennung: Lama-Kopf (`lama-symbol-kopf.svg`) + „Training“ in Young Serif; als Favicon und App-Icon der Lama-Kopf. Die volle Wortmarke „Philipp Chadid“ wird in der App nicht verwendet. | Werkzeug für eine Person, schlank auf dem Smartphone. | 2026-09-27 |
+| B-03 | App-Kennung: ~~Lama-Kopf (`lama-symbol-kopf.svg`)~~ ganzes Lama (seit B-09) + „Training“ in Young Serif; ~~als Favicon und App-Icon der Lama-Kopf~~ Favicon und App-Icon nach B-09. Die volle Wortmarke „Philipp Chadid“ wird in der App nicht verwendet. | Werkzeug für eine Person, schlank auf dem Smartphone. | 2026-09-27; geändert durch B-09 am 2026-09-28 |
 | B-04 | Nur helles Farbschema. | Das Design-System definiert keine dunklen Aliase; ein Dunkelmodus gehört, wenn überhaupt, ins Design-System. | 2026-09-27 |
 | B-05 | Icons als lokales Inline-Sprite (`icons.js`), nicht per CSS-Mask oder CDN. | CSS-Mask lädt unter `file://` nicht (CORS), CDN ist im Betrieb nicht nötig. | 2026-09-27 |
 | B-06 | Diagramme in einer Farbe (Pflaume) als kleine Vielfache statt gestapelter Mehrfarbenbalken. | Markenpalette hat nur Pflaume und Orange; Orange ist Akzent, Statusfarben sind reserviert. | 2026-09-27 |
 | B-07 | Schriften lokal aus `chadid-design-system/fonts/`, kein Google-Fonts-Aufruf. | Entscheidung des Athleten beim Ablegen des Design-Systems. | 2026-09-27 |
 | B-08 | Statusfarben Erfolg (grün) und Fehler (rot) dürfen im geführten Modus (S9) als Seitenfläche und Timer-Farbe den Zustand tragen: grün = Arbeitsphase, rot = Pause/bereit/angehalten, sonst normale Farbe. Text auf diesen Flächen in der `-700`-Stufe. B-06 bleibt: keine Serien in Statusfarben. | Wunsch des Athleten (Rot → Grün); Zustand ist eine Statusinformation, keine Datenserie. | 2026-09-28 |
-| B-09 | App-Kennung wechselt vom Lama-Kopf auf das ganze Lama (ändert B-03): V3 (Fläche hell auf Pflaume 600) als App-Icon und `maskable`, V2 (Fläche Pflaume 600 auf Papier) als Favicon, SVG-Favicon und Kennung in Topbar, Navigation und Login (`mockups/icon-optionen.html`, D-59). Umsetzung in AP-13; bis dahin bleibt der Kopf in Code und Mockups. | Der Kopf gefällt dem Athleten nicht; Wahl wie von Fable empfohlen. | 2026-09-28 |
+| B-09 | App-Kennung wechselt vom Lama-Kopf auf das ganze Lama (ändert B-03): V3 (Fläche hell auf Pflaume 600) als App-Icon und `maskable`, V2 (Fläche Pflaume 600 auf Papier) als Favicon, SVG-Favicon und Kennung in Topbar, Navigation und Login (`mockups/icon-optionen.html`, D-59). Umgesetzt in AP-13 (Code-Stand 0.17.0): Kennung `lama-symbol-flaeche.svg` (freigestellt), Favicon und App-Icon aus `icon-optionen/v2.svg` bzw. `v3.svg`/`v3-maskable.svg` (`docs/branding/build-icons.cjs`); Mockups und Screenshots angepasst. | Der Kopf gefällt dem Athleten nicht; Wahl wie von Fable empfohlen. | 2026-09-28 |
 
 ## 7. Umsetzungshinweise für die Code-Instanz
 
-1. **Assets ausliefern**: `chadid-design-system/styles.css` samt `tokens/` und `fonts/` sowie `mockups/app.css`, `mockups/icons.js` und `assets/logo/lama-symbol-kopf.svg` nach `server/public/assets/` übernehmen (Build-Schritt oder Kopie; Pfade in `fonts.css` sind relativ zu `tokens/`). Keine externen Aufrufe (kein Google Fonts, kein CDN).
+1. **Assets ausliefern**: `chadid-design-system/styles.css` samt `tokens/` und `fonts/` sowie `mockups/app.css`, `mockups/icons.js` und `assets/logo/lama-symbol-flaeche.svg` (seit AP-13, vorher `lama-symbol-kopf.svg`) nach `server/public/assets/` übernehmen (Build-Schritt oder Kopie; Pfade in `fonts.css` sind relativ zu `tokens/`). Keine externen Aufrufe (kein Google Fonts, kein CDN).
 2. **Templates**: Die HTML-Struktur der Mockups ist als Vorlage für die serverseitig gerenderten PHP-Seiten gedacht (Seitenrahmen `body.app` mit `header.topbar`, `nav.nav`, `main.main`; Auth-Seiten `body.auth`). Die Mockup-Parameter (`?state=`, `?typ=`) sind nicht zu übernehmen; die Zustände kommen aus der Anwendung.
 3. **Formulare ohne JavaScript nutzbar**: Skalen und Segmente sind echte Radio-Inputs, Selects echte Selects. Das Aufklappen der Schmerz-Kurzform (S3, S4) darf per JS erfolgen, muss aber ohne JS als sichtbarer Block funktionieren.
 4. **Touch-Ziele**: Buttons, Felder, Skalenstufen, Tabs und Listenzeilen mindestens 44 px hoch. Skalenstufen 48 px.
 5. **Zustände**: Fehler immer als `.alert.alert-error` über dem Formular plus `.field.invalid` am Feld. Sperre (D-33) als `.alert.alert-warning` mit Uhrzeit des nächsten Versuchs, Passwortfeld ausgeblendet. Leerzustände mit Erklärung und einem Weg weiter (S2 leer).
 6. **Status je Einheit**: Marken wie in Abschnitt 4; „Feedback offen“ als Orange-Hinweis, zusätzlich als Alert oberhalb der Woche, solange eine erledigte Einheit ohne Rückmeldung ist.
 7. **sRPE** wird serverseitig berechnet und nur angezeigt (D-16, Abschnitt 11); kein Eingabefeld.
-8. **Web-App-Manifest** (AP-04): Name „Training“, `theme_color` Pflaume 600 `#7A5C94`, `background_color` Papier `#F6F3F0`, Icons aus `lama-symbol-kopf.svg` (PNG in 192 und 512 px ableiten). Die beiden Hex-Werte sind die im Design-System dokumentierten Word-/Manifest-Werte.
+8. **Web-App-Manifest** (AP-04, AP-13): Name „Training“, `theme_color` Pflaume 600 `#7A5C94`, `background_color` Papier `#F6F3F0`, Icons seit AP-13 aus `mockups/icon-optionen/v3.svg` (PNG 48/96/192/512 `any`, 180 `apple-touch-icon`) und `v3-maskable.svg` (512 `maskable`), Favicon aus `v2.svg` (SVG und ICO 16/32/48); erzeugt mit `docs/branding/build-icons.cjs`. Die beiden Hex-Werte sind die im Design-System dokumentierten Word-/Manifest-Werte.
 9. **Druck** ist für die App nicht vorgesehen; `styles.css` setzt im Druck Papier weiß und Text schwarz automatisch.
 10. **Abweichungen** von den Mockups (z. B. weil ein Feld fehlt) in `probleme_loesungen` des jeweiligen AP dokumentieren und hier unter Abschnitt 8 nachtragen.
 
@@ -160,9 +160,11 @@ Abweichungen in der Umsetzung (nach Hinweis 7.10):
 | S4 | Morgentest oben, übrige neue Felder unter „Weitere Angaben“ (`details`), Warnzeichen als Kontrollkästchen; 0–10-Skala bricht bei 375 px in zwei Zeilen um (wie die Schmerzstärke) | AP-12 | AP-12, 2026-09-28 |
 | S8 | Unterseite „Erinnerung im Kalender“ wie „Zeitzone ändern“: Uhrzeitfeld (Browser-Zeitauswahl, 5-Minuten-Schritte), Kontrollkästchen „Keine Erinnerung“, fixierte Knopfleiste; Zeile in Verbindungen mit „Ändern“ | AP-11, D-52 | AP-11, 2026-09-28 |
 | S8 | Verbindungen: Zeile „Kalender (CalDAV)“ mit Host, letzter Übertragung bzw. Fehler und Sekundärknopf „Abgleichen“ (Icon `refresh`); ohne Konfiguration Marke „aus“ | AP-11 kam nach AP-01a; vorhandene Bausteine | AP-11, 2026-09-28 |
-| S2, S3 | Begründung der Planung (D-56): S2 Karte unter der Kopfzeile mit Kurzsatz und `details.more` „mehr“ (Chevron dreht sich beim Öffnen); die Angabe „Fokus …“ in der Kopfzeile entfällt. S3 Kurzsatz im Seitenkopf statt „Trainer-Notiz“, darunter „mehr“ und Primärknopf „Einheit starten“ (Icon `player-play`) | AP-13 (Mockup Fable) | geplant, AP-13 |
-| S8 | Bereich „Training“ vor „Backup“: Zeile „Timer-Signale“ mit Segment An/Aus (Icons `volume`/`volume-off`) | AP-14 (D-58) | geplant, AP-14 |
-| S9 (neu) | Geführte Einheit: Fortschrittsbalken, Phase-Karte (Satz, Übung, Phase-Marke, Timer 64 px mono bzw. Wiederholungen 40 px, Soll), Ist-Karte, „Als Nächstes“, fixierte Aktionsleiste (Zurück-Icon, Primäraktion, Überspringen/Weiter als Icon mit Text ab Tablet), Stummschalter in der Kopfzeile (`aria-pressed`). Neue Icons `player-play`, `player-pause`, `player-skip-back`, `volume`, `volume-off` (Tabler) | AP-14 (D-57, D-58) | geplant, AP-14 |
+| S2, S3 | Begründung der Planung (D-56): S2 Karte unter der Kopfzeile mit Kurzsatz und `details.more.mehr` „mehr“ (Chevron dreht sich beim Öffnen); die Angabe „Fokus …“ in der Kopfzeile entfällt. S3 Kurzsatz im Seitenkopf statt „Trainer-Notiz“, darunter „mehr“. Altdaten ohne Kurzsatz: Summary „Begründung der Woche“ (S2) bzw. „Trainer-Notiz“ (S3); lange Wörter im Kurzsatz brechen um | AP-13 (Mockup Fable); Altdaten-Zustand nicht im Mockup | AP-13, 2026-09-28 |
+| S3 | Primärknopf „Einheit starten“ (Icon `player-play`) im Seitenkopf, bei erledigten Einheiten Sekundärknopf „Erneut durchgehen“; nur für Kraft, Haltung, Mobilität und Klettern mit Plan | AP-14 (E-13, D-57) | AP-14, 2026-09-28 |
+| S8 | Bereich „Training“ nach „Konto“, vor „Backup“: Zeile „Timer-Signale“ mit Segment An/Aus (Icons `volume`/`volume-off`) und Ghost-Knopf „Speichern“ (Formular ohne JavaScript); unter 480 px steht die Bedienung unter dem Text | AP-14 (D-58); ohne Knopf speichert ein Segment ohne Skript nicht | AP-14, 2026-09-28 |
+| S9 (neu) | Geführte Einheit wie Mockup: Fortschrittsbalken, Phase-Karte (Satz, Übung, Phase-Marke, Timer 64 px mono bzw. Wiederholungen 40 px, Soll), Ist-Karte, „Als Nächstes“, fixierte Aktionsleiste, Stummschalter in der Kopfzeile (`aria-pressed`). Abweichungen: rechts über dem Fortschritt die Zeit seit dem ersten Start statt „≈ min verbleibend“ (Dauer von Wiederholungsübungen unbekannt); Knöpfe je Zustand – Pause: links „Anhalten“, Mitte „Pause beenden“; Arbeit: links „Satz neu starten“, Mitte „Anhalten“; erledigt: links „Übung wiederholen“, Mitte „Weiter“; Pausentimer auch bei Wiederholungsübungen; Abschluss mit Überschrift „Abschluss“ (ohne JavaScript sichtbar) und zusätzlich Symbolknopf „Zurück zur letzten Übung“; Aktionsleisten auf dem Smartphone über der unteren Navigation; Phasenwechsel über eine unsichtbare Ansage-Region | Z-04 und E-03 (Anhalten auch in der Pause); ohne JavaScript vollständig nutzbar; 6.8 | AP-14, 2026-09-28 |
+| alle | App-Kennung (Kopfzeile, Navigation, Login-Karte) ganzes Lama `lama-symbol-flaeche.svg` statt Kopf; Favicon V2, App-Icon V3 (B-09). Beide Seitenrahmen (App und Anmeldung) tragen Manifest, PNG-Icons und `apple-touch-icon` | D-59; Verknüpfen auch von `/login` aus (Auftrag 4.1) | AP-13, 2026-09-28 |
 | S6 | ~~Platzhalterseite~~ – seit 0.8.0 umgesetzt; Balkenhöhen als Klassen in 5-%-Schritten, Legende über Klassen; Hinweis „steigt seit … Wochen“ weggelassen (Trendregel erst mit AP-07); Raster scrollt auf dem Smartphone waagrecht innerhalb der Karte | CSP ohne Inline-Styles; Trendregel fehlt noch | AP-04, 2026-09-28; AP-09, 2026-09-28 |
 
 Offen (unabhängig von den Mockups):
@@ -178,3 +180,4 @@ Offen (unabhängig von den Mockups):
 | Schriften laden lokal | automatisiert (`document.fonts`) | ok | 2026-09-27 |
 | Sichtprüfung Smartphone/Desktop | manuell (Fable) | Befunde behoben: Kennzahl-Umbruch auf Smartphone, 7-Spalten-Woche unter 1280 px zu eng (jetzt zwei Spalten), Segmentwahl im Zweispaltenlayout | 2026-09-27 |
 | Sichtprüfung und Abnahme | manuell durch Athlet | abgenommen | 2026-09-27 |
+| Mockups nach Umstellung auf das ganze Lama (B-09): alle 38 Screenshots neu gerendert (390 und 1280 px) | automatisiert (`mockups/screenshots.cjs`, Chromium/Playwright) | kein horizontaler Überlauf, keine fehlenden Ressourcen, keine Skriptfehler; Icon-Optionen unverändert | 2026-09-28 |

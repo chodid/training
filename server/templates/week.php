@@ -12,12 +12,26 @@ use Training\View\Labels;
     <a class="btn btn-icon" href="/woche?start=<?= $prev ?>" aria-label="Vorherige Woche"><?= $this->icon('chevron-left', 'ic ic-lg') ?></a>
     <div class="title">
       <h1><?= $this->e(Dates::weekRange($monday)) ?></h1>
-      <div class="muted">KW <?= Dates::isoWeek($monday) ?><?php if ($week !== null): ?> · Block <?= (int) $week['block_no'] ?> „<?= $this->e($week['block_name']) ?>“, Woche <?= (int) $week['week_no'] ?> von <?= (int) $week['week_count'] ?><?= !empty($week['focus']) ? ' · Fokus ' . $this->e($week['focus']) : '' ?><?php endif ?></div>
+      <div class="muted">KW <?= Dates::isoWeek($monday) ?><?php if ($week !== null): ?> · Block <?= (int) $week['block_no'] ?> „<?= $this->e($week['block_name']) ?>“, Woche <?= (int) $week['week_no'] ?> von <?= (int) $week['week_count'] ?><?php endif ?></div>
     </div>
     <a class="btn btn-icon" href="/woche?start=<?= $next ?>" aria-label="Nächste Woche"><?= $this->icon('chevron-right', 'ic ic-lg') ?></a>
   </div>
 <?php if ($monday !== Dates::monday($today)): ?>
   <p class="center small mt-8"><a href="/woche">Zur aktuellen Woche</a></p>
+<?php endif ?>
+<?php
+// Begründung der Woche (AP-13, E-11): Kurzsatz sichtbar, ausführlicher Text hinter „mehr“ (ohne JavaScript)
+$kurz = trim((string) ($week['focus'] ?? ''));
+$mehr = trim((string) ($week['coach_notes'] ?? ''));
+if ($kurz !== '' || $mehr !== ''): ?>
+  <div class="card begruendung mt-4">
+<?php if ($kurz !== ''): ?>
+    <p class="kurz"><?= $this->e($kurz) ?></p>
+<?php endif ?>
+<?php if ($mehr !== ''): ?>
+    <details class="more mehr"><summary><?= $this->icon('chevron-right', 'ic ic-sm') ?><?= $kurz !== '' ? 'mehr' : 'Begründung der Woche' ?></summary><p><?= $this->e($mehr) ?></p></details>
+<?php endif ?>
+  </div>
 <?php endif ?>
 
 <?php if ($alert !== null): ?>

@@ -1,6 +1,7 @@
 # Test und Deployment (Konzept D-17, D-20)
 #
-# test:   bei Push auf main und bei jedem Pull Request – PHPUnit inkl. Migrationstest gegen MySQL
+# test:   bei Push auf main und bei jedem Pull Request – PHPUnit inkl. Migrationstest gegen MySQL, Node-Tests und
+#         Browser-Durchlauf der geführten Einheit (Playwright mit dem Chrome des Runners)
 # deploy: nur bei Push auf main (bzw. manuell) – Build ohne Dev-Abhängigkeiten, FTPS-Upload von server/,
 #         danach Migration über den geschützten Endpunkt und Health-Check
 #
@@ -69,6 +70,28 @@ jobs:
           TEST_DB_USER: test
           TEST_DB_PASSWORD: test
         run: vendor/bin/phpunit
+
+      # Geführte Einheit S9 (AP-14 T5): Kern des Seitenskripts ohne Browser, dann Browser-Durchlauf mit dem
+      # vorinstallierten Chrome des Runners (Playwright ohne eigenen Browser-Download)
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Skript-Tests (Node)
+        run: node --test tests/js/*.test.cjs
+
+      - name: Browser-Test geführte Einheit (Playwright)
+        timeout-minutes: 10
+        env:
+          TEST_DB_HOST: 127.0.0.1
+          TEST_DB_PORT: 3306
+          TEST_DB_NAME: training_test
+          TEST_DB_USER: test
+          TEST_DB_PASSWORD: test
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund --prefix tests/e2e playwright@1.56.1
+          CHROME_PATH="$(command -v google-chrome || command -v chromium || command -v chromium-browser)" bash tests/e2e/run.sh
 
   deploy:
     needs: test

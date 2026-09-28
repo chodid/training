@@ -356,6 +356,42 @@ final class WebsiteTest extends AppTestCase
         self::assertStringNotContainsString('offline-prefetch', $this->request('GET', '/woche?start=2026-09-14')->body, 'nur aktuelle Woche lädt vor');
     }
 
+    /** AP-13 T2 (E-11, E-12): Kurzsatz sichtbar, ausführlicher Text hinter „mehr“ (details, ohne JavaScript); Altdaten. */
+    public function testWeekAndSessionShowSummaryWithMore(): void
+    {
+        // Woche mit Kurzsatz (focus) ohne ausführlichen Text: Zeile ohne „mehr“, keine Angabe „Fokus …“ mehr in der Kopfzeile
+        $week = $this->request('GET', '/woche?start=2026-09-21');
+        self::assertStringContainsString('<p class="kurz">Grundlage, Fingerkraft einführen</p>', $week->body);
+        self::assertStringNotContainsString('Fokus Grundlage', $week->body);
+        self::assertStringNotContainsString('<details class="more mehr">', $week->body);
+
+        $this->pdo->exec("UPDATE training_week SET coach_notes = 'Block 2 zielt auf die Grundlage.\nKraft bleibt erhaltend.'");
+        $week = $this->request('GET', '/woche?start=2026-09-21');
+        self::assertMatchesRegularExpression('#<details class="more mehr"><summary><svg[^>]*>.*?</svg>mehr</summary><p>Block 2 zielt auf die Grundlage.\nKraft bleibt erhaltend.</p></details>#s', $week->body);
+        self::assertStringNotContainsString('class="card begruendung', $this->request('GET', '/woche?start=2026-10-12')->body, 'Woche ohne Plan: Leerzustand unverändert');
+
+        // Nur ausführlicher Text (Altdaten der Woche): Summary „Begründung der Woche“
+        $this->pdo->exec('UPDATE training_week SET focus = NULL');
+        self::assertStringContainsString('</svg>Begründung der Woche</summary>', $this->request('GET', '/woche?start=2026-09-21')->body);
+
+        // Einheit: Kurzsatz im Seitenkopf, „mehr“ öffnet die Begründung
+        $id = $this->ids[0];
+        $this->pdo->exec("UPDATE `session` SET coach_summary = 'Zweite Krafteinheit, Last wie letzte Woche', coach_rationale = 'Sehne hat die erste Einheit gut vertragen <b>.' WHERE id = " . $id);
+        $s3 = $this->request('GET', '/einheit?id=' . $id);
+        self::assertStringContainsString('<p class="kurz">Zweite Krafteinheit, Last wie letzte Woche</p>', $s3->body);
+        self::assertMatchesRegularExpression('#<summary><svg[^>]*>.*?</svg>mehr</summary><p>Sehne hat die erste Einheit gut vertragen &lt;b&gt;.</p>#s', $s3->body);
+        self::assertStringNotContainsString('Trainer-Notiz', $s3->body);
+
+        // Altdaten ohne Kurzsatz: „Trainer-Notiz“ als Summary, Text dahinter; ohne Texte gar nichts
+        $this->pdo->exec('UPDATE `session` SET coach_summary = NULL WHERE id = ' . $id);
+        $old = $this->request('GET', '/einheit?id=' . $id);
+        self::assertStringContainsString('</svg>Trainer-Notiz</summary><p>Sehne hat', $old->body);
+        self::assertStringNotContainsString('class="kurz"', $old->body);
+        $none = $this->request('GET', '/einheit?id=' . $this->ids[4]);
+        self::assertStringNotContainsString('class="kurz"', $none->body);
+        self::assertStringNotContainsString('details class="more mehr"', $none->body);
+    }
+
     private function html(string $s): string
     {
         return htmlspecialchars($s, ENT_QUOTES);

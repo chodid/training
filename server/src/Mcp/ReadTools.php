@@ -81,8 +81,11 @@ final class ReadTools
                 'status' => $s['status'],
                 'plan_min' => $s['planned_duration_min'] !== null ? (int) $s['planned_duration_min'] : null,
             ];
+            if (($s['coach_summary'] ?? null) !== null) {
+                $row['kurz'] = $s['coach_summary']; // Kurzsatz der Einheit (AP-13)
+            }
             if ($s['type'] === 'ruhe') {
-                $out[] = ['id' => $row['id'], 'datum' => $row['datum'], 'typ' => 'ruhe'];
+                $out[] = ['id' => $row['id'], 'datum' => $row['datum'], 'typ' => 'ruhe'] + (isset($row['kurz']) ? ['kurz' => $row['kurz']] : []);
                 continue;
             }
             $planned++;
@@ -173,6 +176,11 @@ final class ReadTools
         if ($week !== null) {
             $result['woche'] += ['block' => $week['block_name'], 'block_woche' => (int) $week['week_no'] . '/' . (int) $week['week_count'],
                 'fokus' => $week['focus'], 'status' => $week['status']];
+            // Ausführliche Begründung der Woche (AP-13); Antwortbudget 8.3: nur bis 1 500 Zeichen (neue Texte sind geprüft)
+            $notes = trim((string) $week['coach_notes']);
+            if ($notes !== '' && mb_strlen($notes) <= WriteTools::TEXT_MAX) {
+                $result['woche']['begruendung'] = $notes;
+            }
         } else {
             $result['woche']['hinweis'] = 'Kein Wochenplan in der Datenbank.';
         }
@@ -217,6 +225,7 @@ final class ReadTools
             'status' => $s['status'],
             'plan_min' => $s['planned_duration_min'] !== null ? (int) $s['planned_duration_min'] : null,
             'plan_json' => $s['plan'],
+            'coach_summary' => $s['coach_summary'] ?? null,
             'coach_rationale' => $s['coach_rationale'],
             'intervals_event_id' => $s['intervals_event_id'] !== null ? (int) $s['intervals_event_id'] : null,
             'durchfuehrung' => $e === null ? null : [

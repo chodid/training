@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
 <title><?= $this->e($title) ?> – Training</title>
-<link rel="icon" href="/assets/lama-kopf.svg" type="image/svg+xml">
+<?php include __DIR__ . '/_head_icons.php'; ?>
 <link rel="stylesheet" href="/assets/ds/styles.css">
 <link rel="stylesheet" href="/assets/app.css">
 <link rel="stylesheet" href="/css/training.css">
