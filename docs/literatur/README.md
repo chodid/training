@@ -43,7 +43,9 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-P11 | A | Saw et al. 2016 – Monitoring the Athlete Training Response | [`L-P11_Saw-2016_Monitoring-Athlete-Training-Response.pdf`](uebergreifend/L-P11_Saw-2016_Monitoring-Athlete-Training-Response.pdf) | 14 | CC BY-NC 4.0 |
 | L-P12 | A | Impellizzeri et al. 2020 – Acute:Chronic Workload Ratio, Conceptual Issues | [`L-P12_Impellizzeri-2020_ACWR-Conceptual-Issues.pdf`](uebergreifend/L-P12_Impellizzeri-2020_ACWR-Conceptual-Issues.pdf) | 7 |  |
 | L-P13 | A | Silbernagel et al. 2007 – Pain-Monitoring Model, Achilles Tendinopathy (RCT) | [`L-P13_Silbernagel-2007_Pain-Monitoring-Model-Achilles.pdf`](uebergreifend/L-P13_Silbernagel-2007_Pain-Monitoring-Model-Achilles.pdf) | 10 | Grundlage Schmerzregeln (V-07, Q-13) |
+| L-P14 | A | Impellizzeri et al. 2021 – What Role Do Chronic Workloads Play in the Acute to Chronic Workload Ratio? Time to Dismiss ACW… (optional) | [`L-P14_Impellizzeri-2021_Chronic-Workloads-ACWR.pdf`](uebergreifend/L-P14_Impellizzeri-2021_Chronic-Workloads-ACWR.pdf) | 12 |  |
 | L-P15 | A | Manresa-Rocamora et al. 2021 – HRV-Guided Training (Meta-Analyse) | [`L-P15_Manresa-Rocamora-2021_HRV-Guided-Training-Meta-Analysis.pdf`](uebergreifend/L-P15_Manresa-Rocamora-2021_HRV-Guided-Training-Meta-Analysis.pdf) | 22 | CC BY 4.0 |
+| L-P16 | A | Düking et al. 2021 – Monitoring and adapting endurance training on the basis of heart rate variability monitored by … (optional) | [`L-P16_Dueking-2021_HRV-Guided-Training-Wearables.pdf`](uebergreifend/L-P16_Dueking-2021_HRV-Guided-Training-Wearables.pdf) | 13 | Verlagsfassung |
 
 ### T1 Ausdauer (13.2.2)
 
@@ -72,10 +74,24 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T2-11 | A | Rønnestad & Mujika 2014 – Strength Training for Running and Cycling | [`L-T2-11_Ronnestad-2014_Strength-Training-Running-and-Cycling.pdf`](t2-kraft/L-T2-11_Ronnestad-2014_Strength-Training-Running-and-Cycling.pdf) | 10 |  |
 | L-T2-12 | A | Blagrove et al. 2018 – Strength Training and Distance Running (Systematic Review) | [`L-T2-12_Blagrove-2018_Strength-Training-Distance-Running.pdf`](t2-kraft/L-T2-12_Blagrove-2018_Strength-Training-Distance-Running.pdf) | 33 | CC BY 4.0 |
 | L-T2-14 | A | Cowley et al. 2026 – Advanced Resistance Training Methods (optional) | [`L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf`](t2-kraft/L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf) | 23 | optional (D-54) |
+| L-T2-15 | A | Warneke et al. 2024 – Effects of Stretching or Strengthening Exercise on Spinal and Lumbopelvic Posture: A Systematic… | [`L-T2-15_Warneke-2024_Stretching-or-Strengthening-Posture.pdf`](t2-kraft/L-T2-15_Warneke-2024_Stretching-or-Strengthening-Posture.pdf) | 13 | CC BY 4.0 |
+| L-T2-16 | A | Khorramroo et al. 2026 – Corrective exercises strongly improve posture but fail to produce consistent clinical or functi… | [`L-T2-16_Khorramroo-2026_Corrective-Exercises-Posture.pdf`](t2-kraft/L-T2-16_Khorramroo-2026_Corrective-Exercises-Posture.pdf) | 30 | CC BY 4.0 |
 | L-T2-17 | A | Shiri et al. 2018 – Exercise for the Prevention of Low Back Pain | [`L-T2-17_Shiri-2018_Exercise-Prevention-Low-Back-Pain.pdf`](t2-kraft/L-T2-17_Shiri-2018_Exercise-Prevention-Low-Back-Pain.pdf) | 9 |  |
 | L-T2-18 | A | Steffens et al. 2016 – Prevention of Low Back Pain | [`L-T2-18_Steffens-2016_Prevention-of-Low-Back-Pain.pdf`](t2-kraft/L-T2-18_Steffens-2016_Prevention-of-Low-Back-Pain.pdf) | 10 |  |
+| L-T2-19 | A | Carrasco-Uribarren et al. 2026 – Impact of therapeutic exercise on craniovertebral angle in forward head posture: a systematic r… (optional) | [`L-T2-19_Carrasco-Uribarren-2026_Therapeutic-Exercise-Forward-Head-Posture.pdf`](t2-kraft/L-T2-19_Carrasco-Uribarren-2026_Therapeutic-Exercise-Forward-Head-Posture.pdf) | 13 |  |
 | L-T2-20 | A | Pelland et al. 2026 – Resistance Training Dose Response (Meta-Regressionen) | [`L-T2-20_Pelland-2026_Resistance-Training-Dose-Response.pdf`](t2-kraft/L-T2-20_Pelland-2026_Resistance-Training-Dose-Response.pdf) | 25 |  |
 | L-T2-21 | A | Robinson et al. 2024 – Proximity to Failure, Dose Response | [`L-T2-21_Robinson-2024_Proximity-to-Failure-Dose-Response.pdf`](t2-kraft/L-T2-21_Robinson-2024_Proximity-to-Failure-Dose-Response.pdf) | 23 |  |
+| L-T2-22 | A | Refalo et al. 2023 – Influence of Resistance Training Proximity-to-Failure on Skeletal Muscle Hypertrophy: A Systema… | [`L-T2-22_Refalo-2023_Proximity-to-Failure-Hypertrophy.pdf`](t2-kraft/L-T2-22_Refalo-2023_Proximity-to-Failure-Hypertrophy.pdf) | 17 | CC BY 4.0 |
+| L-T2-23 | A | Lopez et al. 2021 – Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and… | [`L-T2-23_Lopez-2021_Training-Load-Hypertrophy-Strength.pdf`](t2-kraft/L-T2-23_Lopez-2021_Training-Load-Hypertrophy-Strength.pdf) | 13 | CC BY-NC-ND 4.0; Corrigendum fehlt |
+| L-T2-24 | A | Lopes et al. 2019 – Effects of training with elastic resistance versus conventional resistance on muscular strength… | [`L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf`](t2-kraft/L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf) | 7 | CC BY-NC 4.0; Corrigendum fehlt |
+| L-T2-25 | A | Lundberg et al. 2022 – The Effects of Concurrent Aerobic and Strength Training on Muscle Fiber Hypertrophy: A Systemat… | [`L-T2-25_Lundberg-2022_Concurrent-Training-Fiber-Hypertrophy.pdf`](t2-kraft/L-T2-25_Lundberg-2022_Concurrent-Training-Fiber-Hypertrophy.pdf) | 13 | CC BY 4.0 |
+| L-T2-26 | A | Monserdà-Vilaró et al. 2023 – Effects of Concurrent Resistance and Endurance Training Using Continuous or Intermittent Protoc… | [`L-T2-26_Monserda-Vilaro-2023_Concurrent-Continuous-vs-Intermittent.pdf`](t2-kraft/L-T2-26_Monserda-Vilaro-2023_Concurrent-Continuous-vs-Intermittent.pdf) | 22 |  |
+| L-T2-27 | A | Schoenfeld et al. 2019 – How many times per week should a muscle be trained to maximize muscle hypertrophy? A systematic… (optional) | [`L-T2-27_Schoenfeld-2019_Training-Frequency-Hypertrophy.pdf`](t2-kraft/L-T2-27_Schoenfeld-2019_Training-Frequency-Hypertrophy.pdf) | 11 |  |
+| L-T2-28 | A | Refalo et al. 2021 – Influence of resistance training load on measures of skeletal muscle hypertrophy and improvemen… (optional) | [`L-T2-28_Refalo-2021_Training-Load-Hypertrophy.pdf`](t2-kraft/L-T2-28_Refalo-2021_Training-Load-Hypertrophy.pdf) | 24 |  |
+| L-T2-29 | A | Carvalho et al. 2022 – Muscle hypertrophy and strength gains after resistance training with different volume-matched l… (optional) | [`L-T2-29_Carvalho-2022_Volume-Matched-Loads-Hypertrophy.pdf`](t2-kraft/L-T2-29_Carvalho-2022_Volume-Matched-Loads-Hypertrophy.pdf) | 58 | Autorenmanuskript (Seitenzahlen nicht zitierfähig) |
+| L-T2-30 | A | Grgic et al. 2022 – Effects of resistance training performed to repetition failure or non-failure on muscular stren… (optional) | [`L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf`](t2-kraft/L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf) | 10 |  |
+| L-T2-31 | A | Wilson et al. 2012 – Concurrent training: a meta-analysis examining interference of aerobic and resistance exercises (optional) | [`L-T2-31_Wilson-2012_Concurrent-Training-Interference.pdf`](t2-kraft/L-T2-31_Wilson-2012_Concurrent-Training-Interference.pdf) | 15 |  |
+| L-T2-32 | A | Sabag et al. 2018 – The compatibility of concurrent high intensity interval training and resistance training for mu… (optional) | [`L-T2-32_Sabag-2018_Concurrent-HIIT-and-Resistance.pdf`](t2-kraft/L-T2-32_Sabag-2018_Concurrent-HIIT-and-Resistance.pdf) | 13 |  |
 
 ### T3 Klettern/Bouldern (13.2.4)
 
@@ -85,9 +101,11 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T3-02 | A | Langer, Simon, Wiemeyer 2023 – Strength Training in Climbing | [`L-T3-02_Langer-2023_Strength-Training-in-Climbing.pdf`](t3-klettern/L-T3-02_Langer-2023_Strength-Training-in-Climbing.pdf) | 17 |  |
 | L-T3-03 | A | Langer, Simon, Wiemeyer 2023 – Performance Testing in Climbing | [`L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf`](t3-klettern/L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf) | 23 | CC BY; Front Sports Act Living Bd. 5, Art. 1130812 |
 | L-T3-04 | A | Draper et al. 2015 – IRCRA Position Statement (Grading Scales, Ability Grouping) | [`L-T3-04_Draper-2015_IRCRA-Grading-Position-Statement.pdf`](t3-klettern/L-T3-04_Draper-2015_IRCRA-Grading-Position-Statement.pdf) | 8 |  |
+| L-T3-05 | A | López-Rivera & González-Badillo 2012 – The effects of two maximum grip strength training methods using the same effort duration and di… | [`L-T3-05_Lopez-Rivera-2012_Grip-Strength-Edge-Depth.pdf`](t3-klettern/L-T3-05_Lopez-Rivera-2012_Grip-Strength-Edge-Depth.pdf) | 12 |  |
 | L-T3-06 | B | Schöffl et al. (Hrsg.) 2022 – Climbing Medicine | [`L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf`](t3-klettern/L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf) | 319 | Kapitel-PDFs in `L-T3-06_kapitel/` |
 | L-T3-09 | B | Hörst EJ – Training for Climbing, 3. Aufl. 2016 | [`L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf`](t3-klettern/L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf) | 356 | Scan (Internet Archive) mit Texterkennung, ohne Lesezeichen; Druckseite = PDF-Seite − 16. Kapitel-PDFs in `L-T3-09_kapitel/` |
 | L-T3-10 | C | Mobråten, Christophersen 2020 – The Climbing Bible | [`L-T3-10_Mobraten-2020_Climbing-Bible.epub`](t3-klettern/L-T3-10_Mobraten-2020_Climbing-Bible.epub) | EPUB | ohne DRM; keine Seitenmarken; Kapitel-Markdown und Ansichts-PDFs in `L-T3-10_kapitel/` |
+| L-T3-18 | A | López-Rivera & González-Badillo 2019 – Comparison of the Effects of Three Hangboard Strength and Endurance Training Programs on Grip E… | [`L-T3-18_Lopez-Rivera-2019_Hangboard-Training-Programs.pdf`](t3-klettern/L-T3-18_Lopez-Rivera-2019_Hangboard-Training-Programs.pdf) | 11 |  |
 | L-T3-19 | B | Consuegra 2023 – The Science of Climbing Training | [`L-T3-19_Consuegra-2023_Science-of-Climbing-Training.epub`](t3-klettern/L-T3-19_Consuegra-2023_Science-of-Climbing-Training.epub) | EPUB (216 S. Druck) | ohne DRM; keine Seitenmarken; Kapitel-Markdown und Ansichts-PDFs in `L-T3-19_kapitel/` |
 | L-T3-20 | C | Mobråten, Christophersen 2022 – The Climbing Bible: Practical Exercises | [`L-T3-20_Mobraten-2022_Climbing-Bible-Practical-Exercises.epub`](t3-klettern/L-T3-20_Mobraten-2022_Climbing-Bible-Practical-Exercises.epub) | EPUB (Seitenmarken bis S. 192) | ohne DRM; Kapitel-Markdown und Ansichts-PDFs in `L-T3-20_kapitel/` |
 | L-T3-21 | C | Christophersen 2024 – The Climbing Bible: Managing Injuries | [`L-T3-21_Christophersen-2024_Climbing-Bible-Managing-Injuries.epub`](t3-klettern/L-T3-21_Christophersen-2024_Climbing-Bible-Managing-Injuries.epub) | EPUB (Seitenmarken bis S. 157) | ohne DRM; vorläufig aufgenommen (Bestätigung offen); Kapitel-Markdown und Ansichts-PDFs in `L-T3-21_kapitel/` |
@@ -96,13 +114,31 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 
 | ID | Stufe | Quelle | Datei | Seiten | Hinweis |
 |---|---|---|---|---|---|
+| L-R-01 | A | Breda et al. 2021 – Effectiveness of progressive tendon-loading exercise therapy in patients with patellar tendinop… | [`L-R-01_Breda-2021_Progressive-Tendon-Loading.pdf`](r-reha/L-R-01_Breda-2021_Progressive-Tendon-Loading.pdf) | 9 | CC BY-NC 4.0 |
 | L-R-02 | A | Kongsgaard et al. 2009 – Kortison, exzentrisch, HSR bei Patellatendinopathie | [`L-R-02_Kongsgaard-2009_Patellar-Tendinopathy-HSR.pdf`](r-reha/L-R-02_Kongsgaard-2009_Patellar-Tendinopathy-HSR.pdf) | 13 |  |
 | L-R-03 | A | Agergaard et al. 2021 – Heavy vs. Moderate Loads, Patellar Tendinopathy (RCT) | [`L-R-03_Agergaard-2021_Heavy-vs-Moderate-Loads-Patellar-Tendinopathy.pdf`](r-reha/L-R-03_Agergaard-2021_Heavy-vs-Moderate-Loads-Patellar-Tendinopathy.pdf) | 12 |  |
+| L-R-04 | A | Agergaard et al. 2026 – Extended Restitution Between Sessions Does Not Enhance the Benefits of 12 Weeks Exercise-Based … | [`L-R-04_Agergaard-2026_TEREX-Extended-Restitution.pdf`](r-reha/L-R-04_Agergaard-2026_TEREX-Extended-Restitution.pdf) | 12 | CC BY |
+| L-R-05 | A | Challoumas et al. 2023 – Effectiveness of Exercise Treatments with or without Adjuncts for Common Lower Limb Tendinopath… | [`L-R-05_Challoumas-2023_Lower-Limb-Tendinopathy-Living-Review.pdf`](r-reha/L-R-05_Challoumas-2023_Lower-Limb-Tendinopathy-Living-Review.pdf) | 14 | CC BY 4.0 |
+| L-R-06 | A | Liu et al. 2026 – Comparative effectiveness of exercise interventions for patellar tendinopathy: a systematic rev… | [`L-R-06_Liu-2026_Patellar-Tendinopathy-Network-Meta-Analysis.pdf`](r-reha/L-R-06_Liu-2026_Patellar-Tendinopathy-Network-Meta-Analysis.pdf) | 14 | CC BY-NC-ND 4.0 |
+| L-R-07 | A | Visentini et al. 1998 – The VISA score: an index of severity of symptoms in patients with jumper's knee (patellar tendi… | [`L-R-07_Visentini-1998_VISA-Score.pdf`](r-reha/L-R-07_Visentini-1998_VISA-Score.pdf) | 7 |  |
 | L-R-08 | A | Lohrer & Nauck 2011 – VISA-P deutsch (VISA-P-G) | [`L-R-08_Lohrer-2011_VISA-P-German.pdf`](r-reha/L-R-08_Lohrer-2011_VISA-P-German.pdf) | 12 | letzte Seite: Erratum 2013 – Punktwerte Items 8b/8c im Artikel falsch |
+| L-R-09 | A | Hernandez-Sanchez et al. 2014 – Responsiveness of the VISA-P scale for patellar tendinopathy in athletes | [`L-R-09_Hernandez-Sanchez-2014_VISA-P-Responsiveness.pdf`](r-reha/L-R-09_Hernandez-Sanchez-2014_VISA-P-Responsiveness.pdf) | 7 |  |
+| L-R-12 | A | Backman & Danielson 2011 – Low range of ankle dorsiflexion predisposes for patellar tendinopathy in junior elite basketbal… (optional) | [`L-R-12_Backman-2011_Ankle-Dorsiflexion-Patellar-Tendinopathy.pdf`](r-reha/L-R-12_Backman-2011_Ankle-Dorsiflexion-Patellar-Tendinopathy.pdf) | 9 |  |
 | L-R-13 | A | Martin et al. 2021 – Lateral Ankle Ligament Sprains (JOSPT-Leitlinie) | [`L-R-13_Martin-2021_Lateral-Ankle-Sprain-Guideline.pdf`](r-reha/L-R-13_Martin-2021_Lateral-Ankle-Sprain-Guideline.pdf) | 80 |  |
+| L-R-15 | A | Schiftan et al. 2015 – The effectiveness of proprioceptive training in preventing ankle sprains in sporting population… | [`L-R-15_Schiftan-2015_Proprioceptive-Training-Ankle-Sprain.pdf`](r-reha/L-R-15_Schiftan-2015_Proprioceptive-Training-Ankle-Sprain.pdf) | 7 |  |
+| L-R-16 | A | Tang et al. 2024 – Meta-analysis of the dosage of balance training on ankle function and dynamic balance ability i… | [`L-R-16_Tang-2024_Balance-Training-Dosage-Ankle.pdf`](r-reha/L-R-16_Tang-2024_Balance-Training-Dosage-Ankle.pdf) | 20 | CC BY-NC-ND 4.0 |
+| L-R-18 | A | Nielsen et al. 2014 – Excessive progression in weekly running distance and risk of running-related injuries: an assoc… (optional) | [`L-R-18_Nielsen-2014_Running-Distance-Progression-Injuries.pdf`](r-reha/L-R-18_Nielsen-2014_Running-Distance-Progression-Injuries.pdf) | 25 | Autorenmanuskript (Seitenzahlen nicht zitierfähig) |
+| L-R-19 | A | Kiers et al. 2012 – Ankle proprioception is not targeted by exercises on an unstable surface (optional) | [`L-R-19_Kiers-2012_Unstable-Surface-Ankle-Proprioception.pdf`](r-reha/L-R-19_Kiers-2012_Unstable-Surface-Ankle-Proprioception.pdf) | 9 |  |
+| L-R-20 | A | Fakontis et al. 2023 – Efficacy of resistance training with elastic bands compared to proprioceptive training on balan… (optional) | [`L-R-20_Fakontis-2023_Elastic-Bands-vs-Proprioceptive-Training.pdf`](r-reha/L-R-20_Fakontis-2023_Elastic-Bands-vs-Proprioceptive-Training.pdf) | 11 |  |
+| L-R-22 | A | Delahunt et al. 2018 – Clinical assessment of acute lateral ankle sprain injuries (ROAST): 2019 consensus statement an… (optional) | [`L-R-22_Delahunt-2018_ROAST-Consensus.pdf`](r-reha/L-R-22_Delahunt-2018_ROAST-Consensus.pdf) | 7 |  |
+| L-R-23 | A | Lopes et al. 2025 – Exercise for patellar tendinopathy | [`L-R-23_Lopes-2025_Exercise-for-Patellar-Tendinopathy-Cochrane.pdf`](r-reha/L-R-23_Lopes-2025_Exercise-for-Patellar-Tendinopathy-Cochrane.pdf) | 65 |  |
+| L-R-24 | A | Schuster Brandt Frandsen et al. 2025 – How much running is too much? Identifying high-risk running sessions in a 5200-person cohort st… | [`L-R-24_SchusterBrandtFrandsen-2025_High-Risk-Running-Sessions.pdf`](r-reha/L-R-24_SchusterBrandtFrandsen-2025_High-Risk-Running-Sessions.pdf) | 8 | CC BY-NC 4.0 |
+| L-R-25 | A | Wagemans et al. 2022 – Exercise-based rehabilitation reduces reinjury following acute lateral ankle sprain: A systemat… | [`L-R-25_Wagemans-2022_Rehabilitation-Reinjury-Ankle-Sprain.pdf`](r-reha/L-R-25_Wagemans-2022_Rehabilitation-Reinjury-Ankle-Sprain.pdf) | 20 |  |
 | L-R-26 | A | Doherty et al. 2017 – Ankle Sprain, Overview of Reviews | [`L-R-26_Doherty-2017_Ankle-Sprain-Overview-of-Reviews.pdf`](r-reha/L-R-26_Doherty-2017_Ankle-Sprain-Overview-of-Reviews.pdf) | 18 |  |
+| L-R-27 | A | Deng et al. 2025 – Long-term Prognosis of Athletes With Patellar Tendinopathy Receiving Physical Therapy: Patient-… (optional) | [`L-R-27_Deng-2025_Patellar-Tendinopathy-Long-Term-Prognosis.pdf`](r-reha/L-R-27_Deng-2025_Patellar-Tendinopathy-Long-Term-Prognosis.pdf) | 9 |  |
+| L-R-28 | A | Hjortshoej et al. 2025 – Effect of Low-Load Blood-Flow Restricted Training Versus Heavy Slow Resistance Training in Unil… (optional) | [`L-R-28_Hjortshoej-2025_BFR-vs-HSR-Patellar-Tendinopathy.pdf`](r-reha/L-R-28_Hjortshoej-2025_BFR-vs-HSR-Patellar-Tendinopathy.pdf) | 12 |  |
 
-Summe: 54 Werke (davon 9 Bücher mit Kapitel-PDFs, 4 EPUBs mit Kapitel-Markdown und Ansichts-PDFs).
+Summe: 90 Werke (davon 9 Bücher mit Kapitel-PDFs, 4 EPUBs mit Kapitel-Markdown und Ansichts-PDFs).
 
 ## Noch nicht vorhanden
 
@@ -114,7 +150,6 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nach
 |---|---|---|---|
 | 1 | L-A01 | Kenney/Wilmore/Costill, 8. (2022) oder 9. Aufl. (2024) (Buch) | ersetzt die vorläufige 7. Aufl. (D-51) |
 | 2 | L-T3-16 | Bechtel, Logical Progression, 2. Aufl. (Buch) | Stufe C, Planungsvorlage; Kindle ungeeignet |
-| 2 | L-T2-26 | Monserdà-Vilaró et al. 2023, J Strength Cond Res 37(3):688–709 | Interferenz kontinuierlich vs. HIIT (D-62) |
 | 2 | L-T4-05 | Thomas et al. 2018, Int J Sports Med 39(4):243–254 | T4 Dosis (Wochendehnzeit, V-19) |
 | 2 | L-T4-06 | Behm et al. 2016, Appl Physiol Nutr Metab 41(1):1–11 | T4 Dehnen im Aufwärmen |
 | 2 | L-T4-14 | Lauersen et al. 2014, Br J Sports Med 48(11):871–877 | T4 Grenzen – Dehnen ohne Präventionseffekt |
@@ -128,27 +163,11 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nach
 
 | ID | Quelle | PMC | Hinweis |
 |---|---|---|---|
-| L-T2-15 | Warneke et al. 2024, Sports Med Open | PMC11150224 | Lizenz laut PubMed nicht ausgewiesen |
-| L-T2-16 | Khorramroo et al. 2026, BMC Sports Sci Med Rehabil | PMC13326462 | Lizenz laut PubMed nicht ausgewiesen |
-| L-T3-18 | López-Rivera & González-Badillo 2019, J Hum Kinet | PMC6458579 | Open Access |
-| L-R-01 | Breda et al. 2021, Br J Sports Med | PMC8070614 | Block R |
-| L-R-04 | Agergaard et al. 2026, Scand J Med Sci Sports (TEREX) | PMC12968374 | Block R |
-| L-R-05 | Challoumas et al. 2023, Sports Med Open | PMC10409676 | Block R |
-| L-R-06 | Liu et al. 2026, BMC Sports Sci Med Rehabil | PMC13308153 | Block R |
 | L-R-10 | Clifford et al. 2020, BMJ Open Sport Exerc Med | PMC7406028 | Block R, optional |
 | L-R-11 | Sprague et al. 2018, Br J Sports Med | PMC6269217 | Block R, optional |
 | L-R-14 | Hupperets et al. 2009, BMJ | PMC2714677 | Block R |
-| L-R-16 | Tang et al. 2024, BMC Musculoskelet Disord | PMC11365157 | Block R |
 | L-R-17 | Donovan et al. 2016, J Athl Train | PMC4852529 | Block R |
 | L-R-21 | Giboin et al. 2018, PLoS One | PMC6261037 | Block R, optional |
-| L-R-23 | Lopes et al. 2025, Cochrane Database Syst Rev | PMC12107522 | Block R |
-| L-R-24 | Schuster Brandt Frandsen et al. 2025, Br J Sports Med | PMC12421110 | Block R |
-| L-R-25 | Wagemans et al. 2022, PLoS One | PMC8824326 | Block R |
-| L-R-27 | Deng et al. 2025, Am J Sports Med | PMC12125489 | Block R, optional |
-| L-T2-22 | Refalo et al. 2023, Sports Med | PMC9935748 | Hypertrophie (D-62) |
-| L-T2-23 | Lopez et al. 2021, Med Sci Sports Exerc (mit Corrigendum 2022;54(2):370) | PMC8126497 | Hypertrophie (D-62) |
-| L-T2-24 | Lopes et al. 2019, SAGE Open Med (mit Corrigendum 2020) | PMC6383082 | CC BY-NC 4.0 (D-62) |
-| L-T2-25 | Lundberg et al. 2022, Sports Med | PMC9474354 | Hypertrophie (D-62) |
 | L-T4-01 | Warneke et al. 2025, J Sport Health Sci (Delphi-Konsens Dehnen) | PMC12305623 | T4 Anker (D-79) |
 | L-T4-02 | Konrad et al. 2024, J Sport Health Sci | PMC10980866 | T4 |
 | L-T4-03 | Oba et al. 2026, Sports Med Open | PMC13356130 | T4; Artikelnummer offen (V-23) |
@@ -159,13 +178,8 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nach
 
 ### Nur bei Bedarf
 
-- L-P14 Impellizzeri et al. 2021 (optional, Ergänzung zu L-P12)
-- L-P16 Düking et al. 2021 (optional, HRV mit Wearables; nicht in PMC)
+- Corrigenda zu L-T2-23 (Med Sci Sports Exerc. 2022;54(2):370) und L-T2-24 (SAGE Open Med, 2020) – in den vorhandenen PDFs nicht enthalten
 - T4 Beweglichkeit (optional, D-79): L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -31 (in PMC: -07, -09, -11, -15, -18, -21, -27 bis -30); Buch L-T4-32 Behm, The Science and Physiology of Flexibility and Stretching, 2. Aufl. (Format vor Kauf prüfen, V-21)
-- L-T2-19 Carrasco-Uribarren et al. 2026 (optional)
-- L-T3-05 López-Rivera & González-Badillo 2012 (nur falls L-T3-18 nicht genügt)
-- Block R (optional bzw. Kernaussage aus Abstract ausreichend): L-R-07 Visentini, L-R-09 Hernandez-Sanchez, L-R-12 Backman, L-R-15 Schiftan, L-R-18 Nielsen RØ, L-R-19 Kiers, L-R-20 Fakontis, L-R-22 Delahunt, L-R-28 Hjortshoej
-- T2 Hypertrophie (optional, D-62): L-T2-27 Schoenfeld 2019, L-T2-28 Refalo 2021, L-T2-29 Carvalho 2022, L-T2-30 Grgic 2022 (PMC9068575), L-T2-31 Wilson 2012, L-T2-32 Sabag 2018
 - optionale Bücher aus 13.4 („bei Bedarf“): L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-11
 
 

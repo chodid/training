@@ -688,6 +688,7 @@ Paper (Kern der Regelbasis; L-P01–L-P09 per PubMed verifiziert am 2026-09-27, 
   verifikation: teilweise (V-07)
 - id: L-P14
   status: optional
+  datei: uebergreifend/L-P14_Impellizzeri-2021_Chronic-Workloads-ACWR.pdf
   stufe: A
   typ: reanalyse
   thema: ACWR-Kritik – statistische Widerlegung (Ergänzung zu L-P12)
@@ -713,6 +714,7 @@ Paper (Kern der Regelbasis; L-P01–L-P09 per PubMed verifiziert am 2026-09-27, 
   verifikation: PubMed 2026-09-29
 - id: L-P16
   status: optional
+  datei: uebergreifend/L-P16_Dueking-2021_HRV-Guided-Training-Wearables.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   thema: HRV-gesteuertes Ausdauertraining mit Wearables
@@ -1030,26 +1032,28 @@ Kernset und Regeln in D-28 bis D-30; Haltung/Rücken in D-54; Hypertrophie-Ergä
   verifikation: PubMed 2026-09-28
 - id: L-T2-15
   status: ausgewaehlt
+  datei: t2-kraft/L-T2-15_Warneke-2024_Stretching-or-Strengthening-Posture.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Warneke K, Lohmann LH, Wilke J. Effects of Stretching or Strengthening Exercise on Spinal and Lumbopelvic Posture: A Systematic Review with Meta-Analysis. Sports Med Open. 2024;10(1):65."
   doi: 10.1186/s40798-024-00733-5
   pmid: "38834878"
   pmcid: PMC11150224
-  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (vor Ablage im Repo prüfen)
+  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (vor Ablage im Repo prüfen); laut Volltext CC BY 4.0 (2026-09-29)
   themenfelder: [haltung, kraeftigung, dehnung]
   kernaussagen_abstract: 23 Studien, 969 gesunde Teilnehmer; Dehnen akut (d = 0,01) und chronisch (d = −0,19) ohne Effekt auf Haltung; chronische Kräftigung große Verbesserung (d = −0,83); Kräftigung Dehnen überlegen (d = 0,81); wirksam an BWS/HWS (d = −1,04), nicht an LWS/Becken (d = −0,23); Evidenzsicherheit moderat (GRADE)
   rolle: Anker Haltung (D-54)
   verifikation: PubMed 2026-09-28
 - id: L-T2-16
   status: ausgewaehlt
+  datei: t2-kraft/L-T2-16_Khorramroo-2026_Corrective-Exercises-Posture.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
-  zitat: "Khorramroo F, Rostami M, Bafrouei MJ. Corrective exercises strongly improve posture but fail to produce consistent clinical or functional benefits in patients with upper crossed syndrome: a systematic review and meta-analysis of randomized controlled trials. BMC Sports Sci Med Rehabil. 2026;18(1)."
+  zitat: "Khorramroo F, Rostami M, Bafrouei MJ. Corrective exercises strongly improve posture but fail to produce consistent clinical or functional benefits in patients with upper crossed syndrome: a systematic review and meta-analysis of randomized controlled trials. BMC Sports Sci Med Rehabil. 2026;18:302."
   doi: 10.1186/s13102-026-01707-8
   pmid: "42210327"
   pmcid: PMC13326462
-  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen
+  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen; laut Volltext CC BY 4.0 (2026-09-29)
   themenfelder: [haltung, vorkopfhaltung, kyphose]
   kernaussagen_abstract: 28 RCTs (n = 901); Korrekturübungen verbessern Vorkopfwinkel (SMD −1,49), Schulterwinkel (SMD −1,53), Kyphosewinkel (SMD −1,70) bei hoher Heterogenität; Effekte auf Muskelaktivierung, Funktion, Gleichgewicht und Schmerz nicht schlüssig
   hinweis: Artikelnummer in PubMed nicht hinterlegt – bei Beschaffung ergänzen
@@ -1081,6 +1085,7 @@ Kernset und Regeln in D-28 bis D-30; Haltung/Rücken in D-54; Hypertrophie-Ergä
   verifikation: PubMed 2026-09-28
 - id: L-T2-19
   status: optional
+  datei: t2-kraft/L-T2-19_Carrasco-Uribarren-2026_Therapeutic-Exercise-Forward-Head-Posture.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Carrasco-Uribarren A, Ceballos-Laita L, Pérez-Guillén S, Jiménez-Del-Barrio S, Pantaleón-Hernández D, Cabanillas-Barea S. Impact of therapeutic exercise on craniovertebral angle in forward head posture: a systematic review and meta-analysis. J Man Manip Ther. 2026:1-12."
@@ -1128,13 +1133,14 @@ Kern – Dosierung:
   verifikation: PubMed 2026-09-28
 - id: L-T2-22
   status: ausgewaehlt
+  datei: t2-kraft/L-T2-22_Refalo-2023_Proximity-to-Failure-Hypertrophy.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Refalo MC, Helms ER, Trexler ET, Hamilton DL, Fyfe JJ. Influence of Resistance Training Proximity-to-Failure on Skeletal Muscle Hypertrophy: A Systematic Review with Meta-analysis. Sports Med. 2023;53(3):649-665."
   doi: 10.1007/s40279-022-01784-y
   pmid: "36334240"
   pmcid: PMC9935748
-  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (© Autoren)
+  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (© Autoren); laut Volltext CC BY 4.0 (2026-09-29)
   themenfelder: [hypertrophie, naehe_muskelversagen]
   kernaussagen_abstract: "15 Studien. Satzversagen (jede Definition) gegenüber keinem Versagen bringt einen trivialen Vorteil (ES 0,19; 95%-KI 0,00–0,37), unabhängig von Volumenlast und relativer Last. Momentanes Muskelversagen gegenüber keinem Versagen bringt keinen Vorteil (ES 0,12; −0,13 bis 0,37). Hohe (> 25 %) und moderate (20–25 %) Geschwindigkeitsverlustschwellen unterscheiden sich nicht. Die Autoren sehen Hinweise auf eine nichtlineare Beziehung."
   rolle: Versagen nicht nötig (D-62 b)
@@ -1147,6 +1153,7 @@ Kern – Heimtraining mit leichten Lasten und Band:
 ```yaml
 - id: L-T2-23
   status: ausgewaehlt
+  datei: t2-kraft/L-T2-23_Lopez-2021_Training-Load-Hypertrophy-Strength.pdf
   stufe: A
   typ: systematischer_review_netzwerk_metaanalyse
   zitat: "Lopez P, Radaelli R, Taaffe DR, Newton RU, Galvão DA, Trajano GS, Teodoro JL, Kraemer WJ, Häkkinen K, Pinto RS. Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis. Med Sci Sports Exerc. 2021;53(6):1206-1216."
@@ -1154,7 +1161,7 @@ Kern – Heimtraining mit leichten Lasten und Band:
   pmid: "33433148"
   pmcid: PMC8126497
   corrigendum: "Med Sci Sports Exerc. 2022;54(2):370. PMID 35029596, DOI 10.1249/MSS.0000000000002838 – Inhalt nicht geprüft (V-16)"
-  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (© Autoren)
+  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (© Autoren); laut Volltext CC BY-NC-ND 4.0 (2026-09-29); Corrigendum (2022;54(2):370) nicht im PDF enthalten – separat beschaffen
   themenfelder: [hypertrophie, last, maximalkraft]
   kernaussagen_abstract: "28 Studien, 747 gesunde Erwachsene, nur Sätze bis zum willentlichen Versagen. Die Hypertrophie unterscheidet sich nicht zwischen niedriger (> 15 RM), mittlerer (9–15 RM) und hoher Last (≤ 8 RM). Die Kraft steigt bei hoher und mittlerer Last stärker als bei niedriger (SMD 0,60–0,63 bzw. 0,34–0,35). Untrainierte zeigen größere Hypertrophie."
   rolle: Hauptbeleg für leichte Lasten im Heimtraining unter der Voraussetzung, dass die Sätze nahe ans Versagen gehen (D-62 c); Übertragung auf Band/Kettlebell ist ein Schluss (D-62 e)
@@ -1162,6 +1169,7 @@ Kern – Heimtraining mit leichten Lasten und Band:
   verifikation: PubMed 2026-09-28
 - id: L-T2-24
   status: ausgewaehlt
+  datei: t2-kraft/L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Lopes JSS, Machado AF, Micheletti JK, de Almeida AC, Cavina AP, Pastre CM. Effects of training with elastic resistance versus conventional resistance on muscular strength: A systematic review and meta-analysis. SAGE Open Med. 2019;7:2050312119831116."
@@ -1169,7 +1177,7 @@ Kern – Heimtraining mit leichten Lasten und Band:
   pmid: "30815258"
   pmcid: PMC6383082
   corrigendum: "SAGE Open Med. 2020;8:2050312120961220. PMID 32953119, DOI 10.1177/2050312120961220 – das PubMed-Abstract enthält die korrigierten Werte"
-  zugang: Open Access, CC BY-NC 4.0 (PMC) – Volltext im Repo zulässig (D-31)
+  zugang: Open Access, CC BY-NC 4.0 (PMC) – Volltext im Repo zulässig (D-31); Corrigendum 2020 nicht im PDF enthalten – separat beschaffen
   themenfelder: [elastischer_widerstand, maximalkraft]
   kernaussagen_abstract: "8 Studien, Suche bis 12/2017, verschiedene Populationen. Elastischer Widerstand (Schläuche, TheraBand) und Geräte/Hanteln unterscheiden sich nicht bei der Kraft der unteren (SMD −0,11; −0,40 bis 0,19) und der oberen Extremität (SMD 0,09; −0,18 bis 0,35)."
   grenze: nur Kraft, keine Hypertrophie-Endpunkte
@@ -1182,13 +1190,14 @@ Kern – Interferenz mit Ausdauer:
 ```yaml
 - id: L-T2-25
   status: ausgewaehlt
+  datei: t2-kraft/L-T2-25_Lundberg-2022_Concurrent-Training-Fiber-Hypertrophy.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Lundberg TR, Feuerbacher JF, Sünkeler M, Schumann M. The Effects of Concurrent Aerobic and Strength Training on Muscle Fiber Hypertrophy: A Systematic Review and Meta-Analysis. Sports Med. 2022;52(10):2391-2403."
   doi: 10.1007/s40279-022-01688-x
   pmid: "35476184"
   pmcid: PMC9474354
-  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (© Autoren)
+  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (© Autoren); laut Volltext CC BY 4.0 (2026-09-29)
   themenfelder: [interferenz, faserhypertrophie]
   kernaussagen_abstract: "15 Studien, kombiniertes Training gegenüber Krafttraining allein. Faserhypertrophie gesamt SMD −0,23 (95%-KI −0,46 bis −0,00; p = 0,050); Typ I −0,34 und Typ II −0,13 (beide n. s.). Nachteil bei Typ-I-Fasern, wenn die Ausdauer gelaufen wird (SMD −0,81; −1,26 bis −0,36), nicht bei Radfahren. Frequenz, Trainingsstatus, Trainingsmodalität und Reihenfolge machen keinen Unterschied."
   konfidenz: hoch für den Gesamtbefund; Subgruppe Laufen laut Autoren vorläufig
@@ -1197,6 +1206,7 @@ Kern – Interferenz mit Ausdauer:
   verifikation: PubMed 2026-09-28
 - id: L-T2-26
   status: ausgewaehlt
+  datei: t2-kraft/L-T2-26_Monserda-Vilaro-2023_Concurrent-Continuous-vs-Intermittent.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   konfidenz: mittel – auch nicht randomisierte Studien eingeschlossen
@@ -1216,6 +1226,7 @@ Optional:
 ```yaml
 - id: L-T2-27
   status: optional
+  datei: t2-kraft/L-T2-27_Schoenfeld-2019_Training-Frequency-Hypertrophy.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Schoenfeld BJ, Grgic J, Krieger J. How many times per week should a muscle be trained to maximize muscle hypertrophy? A systematic review and meta-analysis of studies examining the effects of resistance training frequency. J Sports Sci. 2019;37(11):1286-1295."
@@ -1228,6 +1239,7 @@ Optional:
   verifikation: PubMed 2026-09-28
 - id: L-T2-28
   status: optional
+  datei: t2-kraft/L-T2-28_Refalo-2021_Training-Load-Hypertrophy.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Refalo MC, Hamilton DL, Paval DR, Gallagher IJ, Feros SA, Fyfe JJ. Influence of resistance training load on measures of skeletal muscle hypertrophy and improvements in maximal strength and neuromuscular task performance: A systematic review and meta-analysis. J Sports Sci. 2021;39(15):1723-1745."
@@ -1240,18 +1252,20 @@ Optional:
   verifikation: PubMed 2026-09-28
 - id: L-T2-29
   status: optional
+  datei: t2-kraft/L-T2-29_Carvalho-2022_Volume-Matched-Loads-Hypertrophy.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Carvalho L, Junior RM, Barreira J, Schoenfeld BJ, Orazem J, Barroso R. Muscle hypertrophy and strength gains after resistance training with different volume-matched loads: a systematic review and meta-analysis. Appl Physiol Nutr Metab. 2022;47(4):357-368."
   doi: 10.1139/apnm-2021-0515
   pmid: "35015560"
-  zugang: kein PMC-Volltext
+  zugang: kein PMC-Volltext; vorliegend nur das akzeptierte Autorenmanuskript (APNM, Manuskript R2, 58 S.) – Seitenzahlen nicht die der Zeitschrift, Zitat mit Abschnitt
   themenfelder: [hypertrophie, last, maximalkraft]
   kernaussagen_abstract: "Bei gleicher Volumenlast (Sätze × Wiederholungen × Gewicht) kein Unterschied in der Hypertrophie zwischen sehr niedriger, niedriger, mittlerer und hoher Last; 1RM bei hoher Last besser."
   zweck: Last bei gleichem Volumen (Gegenstück zu L-T2-23 mit Versagen)
   verifikation: PubMed 2026-09-28
 - id: L-T2-30
   status: optional
+  datei: t2-kraft/L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Grgic J, Schoenfeld BJ, Orazem J, Sabol F. Effects of resistance training performed to repetition failure or non-failure on muscular strength and hypertrophy: A systematic review and meta-analysis. J Sport Health Sci. 2022;11(2):202-211."
@@ -1265,6 +1279,7 @@ Optional:
   verifikation: PubMed 2026-09-28
 - id: L-T2-31
   status: optional
+  datei: t2-kraft/L-T2-31_Wilson-2012_Concurrent-Training-Interference.pdf
   stufe: A
   typ: metaanalyse
   zitat: "Wilson JM, Marin PJ, Rhea MR, Wilson SM, Loenneke JP, Anderson JC. Concurrent training: a meta-analysis examining interference of aerobic and resistance exercises. J Strength Cond Res. 2012;26(8):2293-2307."
@@ -1277,6 +1292,7 @@ Optional:
   verifikation: PubMed 2026-09-28
 - id: L-T2-32
   status: optional
+  datei: t2-kraft/L-T2-32_Sabag-2018_Concurrent-HIIT-and-Resistance.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Sabag A, Najafi A, Michael S, Esgin T, Halaki M, Hackett D. The compatibility of concurrent high intensity interval training and resistance training for muscular strength and hypertrophy: a systematic review and meta-analysis. J Sports Sci. 2018;36(21):2472-2483."
@@ -1347,6 +1363,7 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   verifikation: verifiziert 2026-09-28 (Hochschulbibliografien Bayreuth, Cádiz)
 - id: L-T3-05
   status: ausgewaehlt (ergaenzend)
+  datei: t3-klettern/L-T3-05_Lopez-Rivera-2012_Grip-Strength-Edge-Depth.pdf
   stufe: A
   konfidenz: niedrig trotz Stufe A (sehr kleine Stichprobe, keine Signifikanz) – Protokollvorlage, kein Wirksamkeitsbeleg
   typ: interventionsstudie
@@ -1467,6 +1484,7 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   zweck: Progressionsregeln und Schmerzregeln (14.5); von Block T3 nur über L-T3-01/02/05 abgedeckt – Primärstudien bei Bedarf über PubMed
 - id: L-T3-18
   status: ausgewaehlt
+  datei: t3-klettern/L-T3-18_Lopez-Rivera-2019_Hangboard-Training-Programs.pdf
   stufe: A
   typ: rct
   zitat: "López-Rivera E, González-Badillo JJ. Comparison of the Effects of Three Hangboard Strength and Endurance Training Programs on Grip Endurance in Sport Climbers. J Hum Kinet. 2019;66:183-195."
@@ -1546,13 +1564,14 @@ Patellatendinopathie:
 ```yaml
 - id: L-R-01
   status: ausgewaehlt
+  datei: r-reha/L-R-01_Breda-2021_Progressive-Tendon-Loading.pdf
   stufe: A
   typ: rct
   zitat: "Breda SJ, Oei EHG, Zwerver J, et al. Effectiveness of progressive tendon-loading exercise therapy in patients with patellar tendinopathy: a randomised clinical trial. Br J Sports Med. 2021;55(9):501-509."
   pmid: "33219115"
   pmcid: PMC8070614
   doi: 10.1136/bjsports-2020-103403
-  zugang: Volltext in PMC; Lizenz nicht geprüft
+  zugang: Volltext in PMC; Lizenz nicht geprüft; laut Volltext CC BY-NC 4.0 (2026-09-29)
   themenfelder: [patellasehne, progressive_belastung]
   kernaussagen_abstract: n = 76; PTLE vs. exzentrisch nach 24 Wochen VISA-P +28 vs. +18 (Differenz 9, p = 0,023); Return to Sport 43 % vs. 27 % (Trend, p = 0,13); Adhärenz 40 % vs. 49 %
   rolle: Stufenmodell (isometrisch → isotonisch → energiespeichernd → sportspezifisch)
@@ -1581,41 +1600,45 @@ Patellatendinopathie:
   kernaussagen_abstract: n = 44; 55 % vs. 90 % 1RM bei gleichem Volumen; keine Unterschiede in Klinik, Struktur, Funktion; Verbesserung bis 52 Wochen, Normalwerte nicht erreicht
 - id: L-R-04
   status: ausgewaehlt
+  datei: r-reha/L-R-04_Agergaard-2026_TEREX-Extended-Restitution.pdf
   stufe: A
   typ: rct
   zitat: "Agergaard AS, Svensson RB, Hoeffner R, Gillani SZ, Magnusson SP. Extended Restitution Between Sessions Does Not Enhance the Benefits of 12 Weeks Exercise-Based Treatment for Patellar Tendinopathy: A Randomized Controlled Clinical Trial (The TEREX Trial). Scand J Med Sci Sports. 2026;36(3):e70235."
   pmid: "41796988"
   pmcid: PMC12968374
   doi: 10.1111/sms.70235
-  zugang: Volltext in PMC; Lizenz nicht geprüft
+  zugang: Volltext in PMC; Lizenz nicht geprüft; laut Volltext CC BY (2026-09-29)
   themenfelder: [patellasehne, trainingsfrequenz]
   kernaussagen_abstract: n = 52; 1 vs. 3 Trainingstage/Woche (Beinpresse, Knieextension, ~60 → ~75 % 1RM; Impact in beiden Gruppen eingeschränkt); gleiche klinische und Kraftverbesserung; keine Verbesserung von Sprunghöhe und Sehnenstruktur
   konfidenz: mittel – Einzelstudie, keine Replikation gefunden (Gegenrecherche 2026-09-28)
 - id: L-R-05
   status: ausgewaehlt
+  datei: r-reha/L-R-05_Challoumas-2023_Lower-Limb-Tendinopathy-Living-Review.pdf
   stufe: A
   typ: systematischer_review_netzwerk_metaanalyse
   zitat: "Challoumas D, Crosbie G, O'Neill S, Pedret C, Millar NL. Effectiveness of Exercise Treatments with or without Adjuncts for Common Lower Limb Tendinopathies: A Living Systematic Review and Network Meta-analysis. Sports Med Open. 2023;9(1):71."
   pmid: "37553459"
   pmcid: PMC10409676
   doi: 10.1186/s40798-023-00616-1
-  zugang: Volltext in PMC; Lizenz nicht geprüft
+  zugang: Volltext in PMC; Lizenz nicht geprüft; laut Volltext CC BY 4.0 (2026-09-29)
   themenfelder: [patellasehne, erstlinie]
   kernaussagen_abstract: 68 RCTs; kein Zusatzverfahren überzeugend besser als Übungstherapie allein; Empfehlung Übungstherapie allein mindestens 3 Monate als Erstlinie; Stoßwelle zusätzlich zu exzentrischem Training ohne Kurzzeitnutzen (moderate Evidenz)
 - id: L-R-06
   status: ausgewaehlt
+  datei: r-reha/L-R-06_Liu-2026_Patellar-Tendinopathy-Network-Meta-Analysis.pdf
   stufe: A
   typ: systematischer_review_netzwerk_metaanalyse
-  zitat: "Liu Y, Li C, Yang F. Comparative effectiveness of exercise interventions for patellar tendinopathy: a systematic review and network meta-analysis of randomized controlled trials. BMC Sports Sci Med Rehabil. 2026;18(1)."
+  zitat: "Liu Y, Li C, Yang F. Comparative effectiveness of exercise interventions for patellar tendinopathy: a systematic review and network meta-analysis of randomized controlled trials. BMC Sports Sci Med Rehabil. 2026;18:296."
   pmid: "42192475"
   pmcid: PMC13308153
   doi: 10.1186/s13102-026-01743-4
-  zugang: Volltext in PMC; Lizenz nicht geprüft
+  zugang: Volltext in PMC; Lizenz nicht geprüft; laut Volltext CC BY-NC-ND 4.0 (2026-09-29)
   themenfelder: [patellasehne, methodenvergleich]
   kernaussagen_abstract: 17 RCTs, Primärnetz 10 Studien/313 Teilnehmer; keine Methode HSR überlegen; keine klinisch bedeutsame Rangfolge; Flywheel, exzentrisches Step-Training und konzentrisches Training schlechter als HSR geschätzt
   hinweis: Artikelnummer in PubMed nicht hinterlegt
 - id: L-R-07
   status: ausgewaehlt
+  datei: r-reha/L-R-07_Visentini-1998_VISA-Score.pdf
   stufe: A
   typ: validierungsstudie
   zitat: "Visentini PJ, Khan KM, Cook JL, Kiss ZS, Harcourt PR, Wark JD. The VISA score: an index of severity of symptoms in patients with jumper's knee (patellar tendinosis). J Sci Med Sport. 1998;1(1):22-28."
@@ -1639,6 +1662,7 @@ Patellatendinopathie:
   erratum: Das Volltext-PDF enthält das Erratum JOSPT 2013;43(9):679 – die Punktwerte der Items 8b und 8c waren im Artikel falsch (0, 7, 14, 21, 30). Richtig sind für 8b 0, 4, 10, 14, 20 und für 8c 0, 2, 5, 7, 10 (englische und deutsche Fassung). Der korrigierte Fragebogen liegt laut Erratum auf jospt.org; ein VISA-P-Rechner muss die korrigierten Werte verwenden
 - id: L-R-09
   status: ausgewaehlt
+  datei: r-reha/L-R-09_Hernandez-Sanchez-2014_VISA-P-Responsiveness.pdf
   stufe: A
   typ: validierungsstudie
   zitat: "Hernandez-Sanchez S, Hidalgo MD, Gomez A. Responsiveness of the VISA-P scale for patellar tendinopathy in athletes. Br J Sports Med. 2014;48(6):453-457."
@@ -1672,6 +1696,7 @@ Patellatendinopathie:
   kernaussagen_abstract: 31 Studien; keine starke Evidenz für irgendeinen Risikofaktor; begrenzte/widersprüchliche Evidenz u. a. für verminderte Dorsalextension und hohes Sprung-/Aktivitätsvolumen
 - id: L-R-12
   status: optional
+  datei: r-reha/L-R-12_Backman-2011_Ankle-Dorsiflexion-Patellar-Tendinopathy.pdf
   stufe: A
   typ: prospektive_kohorte
   zitat: "Backman LJ, Danielson P. Low range of ankle dorsiflexion predisposes for patellar tendinopathy in junior elite basketball players: a 1-year prospective study. Am J Sports Med. 2011;39(12):2626-2633."
@@ -1683,6 +1708,7 @@ Patellatendinopathie:
   konfidenz: niedrig für Übertragung (Population, kleine Fallzahl)
 - id: L-R-23
   status: ausgewaehlt
+  datei: r-reha/L-R-23_Lopes-2025_Exercise-for-Patellar-Tendinopathy-Cochrane.pdf
   stufe: A
   typ: cochrane_review
   zitat: "Lopes AD, Rizzo RR, Hespanhol L, Costa LO, Kamper SJ. Exercise for patellar tendinopathy. Cochrane Database Syst Rev. 2025;5(5):CD013078."
@@ -1695,6 +1721,7 @@ Patellatendinopathie:
   rolle: Pflichtinhalt „Grenzen" der Karte (D-61 e); vergleicht nicht Trainingsformen untereinander
 - id: L-R-27
   status: optional
+  datei: r-reha/L-R-27_Deng-2025_Patellar-Tendinopathy-Long-Term-Prognosis.pdf
   stufe: A
   typ: kohorte_5_jahre
   zitat: "Deng J, Oosterhof JJ, Eygendaal D, Breda SJ, Oei EHG, de Vos RJ. Long-term Prognosis of Athletes With Patellar Tendinopathy Receiving Physical Therapy: Patient-Reported Outcomes at 5-Year Follow-up. Am J Sports Med. 2025;53(7):1568-1576."
@@ -1706,6 +1733,7 @@ Patellatendinopathie:
   kernaussagen_abstract: 58 von 76 Teilnehmern der Breda-Studie; nach 5 Jahren 76 % genesen, VISA-P Median 57 → 82, 71 % zurück im gewünschten Sport; keine Prognosefaktoren identifiziert
 - id: L-R-28
   status: optional
+  datei: r-reha/L-R-28_Hjortshoej-2025_BFR-vs-HSR-Patellar-Tendinopathy.pdf
   stufe: A
   typ: rct
   zitat: "Hjortshoej MH, Juneja H, Svensson RB, et al. Effect of Low-Load Blood-Flow Restricted Training Versus Heavy Slow Resistance Training in Unilateral Patellar Tendinopathy: A Randomized Clinical Trial. Scand J Med Sci Sports. 2025;35(12):e70186."
@@ -1744,6 +1772,7 @@ Sprunggelenksinstabilität:
   kernaussagen_abstract: n = 522; 8 Wochen Heimprogramm; Rezidive 22 % vs. 33 %; RR 0,63; NNT 9; Effekt v. a. bei nicht ärztlich behandelten Erstverletzungen
 - id: L-R-15
   status: ausgewaehlt
+  datei: r-reha/L-R-15_Schiftan-2015_Proprioceptive-Training-Ankle-Sprain.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Schiftan GS, Ross LA, Hahne AJ. The effectiveness of proprioceptive training in preventing ankle sprains in sporting populations: a systematic review and meta-analysis. J Sci Med Sport. 2015;18(3):238-244."
@@ -1754,13 +1783,14 @@ Sprunggelenksinstabilität:
   kernaussagen_abstract: 7 RCTs, 3726 Teilnehmer; RR 0,65 gesamt, 0,64 bei vorheriger Verstauchung (NNT 13 laut Rivera et al. J Athl Train 2017), Primärprävention nicht schlüssig
 - id: L-R-16
   status: ausgewaehlt
+  datei: r-reha/L-R-16_Tang-2024_Balance-Training-Dosage-Ankle.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Tang F, Xiang M, Yin S, Li X, Gao P. Meta-analysis of the dosage of balance training on ankle function and dynamic balance ability in patients with chronic ankle instability. BMC Musculoskelet Disord. 2024;25(1):689."
   pmid: "39217316"
   pmcid: PMC11365157
   doi: 10.1186/s12891-024-07800-8
-  zugang: Volltext in PMC
+  zugang: Volltext in PMC; laut Volltext CC BY-NC-ND 4.0 (2026-09-29)
   themenfelder: [sprunggelenk, dosierung]
   kernaussagen_abstract: 20 Studien, 682 Teilnehmer; wirksamste Kombination 3×/Woche, 20–30 min, 4–6 Wochen (Funktionsscores, SEBT); Einheitsdauer wichtigster Einflussfaktor
   konfidenz: mittel – Subgruppenanalysen, hohe Heterogenität (I² 55–84 %); gilt für Funktion/Balance, nicht für Rezidive (vgl. L-R-25)
@@ -1778,6 +1808,7 @@ Sprunggelenksinstabilität:
   konfidenz: mittel – kleine Stichprobe
 - id: L-R-19
   status: optional
+  datei: r-reha/L-R-19_Kiers-2012_Unstable-Surface-Ankle-Proprioception.pdf
   stufe: A
   typ: laborstudie
   zitat: "Kiers H, Brumagne S, van Dieën J, van der Wees P, Vanhees L. Ankle proprioception is not targeted by exercises on an unstable surface. Eur J Appl Physiol. 2012;112(4):1577-1585."
@@ -1789,6 +1820,7 @@ Sprunggelenksinstabilität:
   konfidenz: niedrig für Trainingsableitung – Gesunde, Akutmessung, kein Trainingseffekt
 - id: L-R-20
   status: optional
+  datei: r-reha/L-R-20_Fakontis-2023_Elastic-Bands-vs-Proprioceptive-Training.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Fakontis C, Iakovidis P, Kasimis K, et al. Efficacy of resistance training with elastic bands compared to proprioceptive training on balance and self-report measures in patients with chronic ankle instability: A systematic review and meta-analysis. Phys Ther Sport. 2023;64:74-84."
@@ -1810,6 +1842,7 @@ Sprunggelenksinstabilität:
   kernaussagen_abstract: n = 12 vs. 14; große Verbesserung auf der Slackline, kein Transfer auf 5 untrainierte Balanceaufgaben
 - id: L-R-22
   status: optional
+  datei: r-reha/L-R-22_Delahunt-2018_ROAST-Consensus.pdf
   stufe: A
   typ: konsensus
   zitat: "Delahunt E, Bleakley CM, Bossard DS, et al. Clinical assessment of acute lateral ankle sprain injuries (ROAST): 2019 consensus statement and recommendations of the International Ankle Consortium. Br J Sports Med. 2018;52(20):1304-1310."
@@ -1820,6 +1853,7 @@ Sprunggelenksinstabilität:
   zweck: Struktur der Befunderhebung mechanischer und sensomotorischer Defizite → Ausgangstests AP-08
 - id: L-R-25
   status: ausgewaehlt
+  datei: r-reha/L-R-25_Wagemans-2022_Rehabilitation-Reinjury-Ankle-Sprain.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Wagemans J, Bleakley C, Taeymans J, et al. Exercise-based rehabilitation reduces reinjury following acute lateral ankle sprain: A systematic review update with meta-analysis. PLoS One. 2022;17(2):e0262023."
@@ -1848,24 +1882,26 @@ Laufumfang und Verletzungsrisiko:
 ```yaml
 - id: L-R-18
   status: optional
+  datei: r-reha/L-R-18_Nielsen-2014_Running-Distance-Progression-Injuries.pdf
   stufe: A
   typ: prospektive_kohorte
   zitat: "Nielsen RØ, Parner ET, Nohr EA, Sørensen H, Lind M, Rasmussen S. Excessive progression in weekly running distance and risk of running-related injuries: an association which varies according to type of injury. J Orthop Sports Phys Ther. 2014;44(10):739-747."
   pmid: "25155475"
   doi: 10.2519/jospt.2014.5164
-  zugang: kein PMC-Volltext
+  zugang: kein PMC-Volltext; vorliegend nur das Autorenmanuskript (mit Zeilennummern, 25 S.) – Seitenzahlen nicht die der Zeitschrift, Zitat mit Abschnitt
   themenfelder: [laufumfang, verletzungsrisiko]
   kernaussagen_abstract: 874 Laufanfänger (selbst gestaltetes Training), explorativ; keine Unterschiede über alle Verletzungen; distanzbezogene Verletzungen (inkl. Patellatendinopathie) bei > 30 % vs. < 10 % Steigerung HR 1,59 (95 % KI 0,96–2,66; p = 0,07)
   statuswechsel: Kern → optional (durch L-R-24 ersetzt; Population Anfänger)
 - id: L-R-24
   status: ausgewaehlt
+  datei: r-reha/L-R-24_SchusterBrandtFrandsen-2025_High-Risk-Running-Sessions.pdf
   stufe: A
   typ: prospektive_kohorte
   zitat: "Schuster Brandt Frandsen J, Hulme A, Parner ET, et al. How much running is too much? Identifying high-risk running sessions in a 5200-person cohort study. Br J Sports Med. 2025;59(17):1203-1210."
   pmid: "40623829"
   pmcid: PMC12421110
   doi: 10.1136/bjsports-2024-109380
-  zugang: Volltext in PMC; Lizenz nicht geprüft
+  zugang: Volltext in PMC; Lizenz nicht geprüft; laut Volltext CC BY-NC 4.0 (2026-09-29)
   themenfelder: [laufumfang, verletzungsrisiko, belastungssteuerung]
   kernaussagen_abstract: 5205 Läufer (Mittel 45,8 Jahre), 588 071 Einheiten, Garmin-Daten, 18 Monate; Einzellauf > 10 % länger als längster Lauf der letzten 30 Tage → HRR 1,64 (> 10–30 %), 1,52 (> 30–100 %), 2,28 (> 100 %); Woche-zu-Woche-Verhältnis ohne Zusammenhang; ACWR negative Dosis-Wirkung
   konfidenz: mittel – explorativ, beobachtend, Verletzungen selbst berichtet
@@ -2438,33 +2474,33 @@ Formatprüfung je Titel vor dem Kauf (V-13). EPUB ohne DRM ist zulässig (D-71).
 | 2 | T3 | L-T3-09 Hörst, Training for Climbing, 3. Aufl. 2016 | Buch | durchsuchbares PDF | Evidenzkern (D-70) | ✓ 3. Aufl., Scan mit Texterkennung, Kapitel-PDFs |
 | 3 | T3 | L-T3-09 Hörst, Training for Climbing, Neuauflage | Buch | DRM-freies EPUB oder PDF | nach Erscheinen (angekündigt 02.03.2027) zusätzlich zur 3. Aufl. | offen (ab 03/2027) |
 | 2 | T2 | L-T2-11 Rønnestad & Mujika 2014 | Artikel | PDF | nicht in PMC | ✓ |
-| 2 | T3 | L-T3-05 López-Rivera 2012 (Sports Technology) | Artikel | PDF | nur falls L-T3-18 nicht genügt | offen |
+| 2 | T3 | L-T3-05 López-Rivera 2012 (Sports Technology) | Artikel | PDF | nur falls L-T3-18 nicht genügt | ✓ |
 | 2 | T2 | L-T2-10 Wiedenmann et al. 2025 (Gerontology 71(7):576–588) | Artikel | PDF | Beleg Körpergewichtstraining (D-29); Population Ältere; Zugang nicht geprüft | ✓ |
 | 2 | T3 | L-T3-04 Draper et al. 2015 (Sports Technology 8(3-4):88–94) | Artikel | PDF | IRCRA-Positionspapier, Graduierung/Leistungsniveau (Datenmodell); Taylor & Francis | ✓ |
 | frei | alle | L-P01, L-P07, L-P08, L-T1-04, L-T1-06, L-T3-01, L-T3-03; optional L-T1-09, L-T1-10, L-T1-12 | – | PDF aus PMC bzw. Verlag (OA) | kein Kauf | ✓ alle |
-| frei | übergreifend/T2/T3 | L-P11 (PMC), L-T2-12 (CC BY 4.0), L-T3-03 (CC BY), L-T3-18 (PMC) | – | PDF aus PMC/Verlag | L-P11 CC BY-NC 4.0 laut Volltext | L-P11, L-T2-12, L-T3-03 ✓; L-T3-18 offen |
-| frei | T2 | L-T2-15 Warneke 2024, L-T2-16 Khorramroo 2026 | – | PDF aus PMC | Lizenz vor Ablage im Repo prüfen | offen |
+| frei | übergreifend/T2/T3 | L-P11 (PMC), L-T2-12 (CC BY 4.0), L-T3-03 (CC BY), L-T3-18 (PMC) | – | PDF aus PMC/Verlag | L-P11 CC BY-NC 4.0 laut Volltext | ✓ alle |
+| frei | T2 | L-T2-15 Warneke 2024, L-T2-16 Khorramroo 2026 | – | PDF aus PMC | Lizenz vor Ablage im Repo prüfen | ✓ beide (CC BY 4.0) |
 | bei Bedarf | – | L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-11 | – | – | nur wenn optional aktiviert | – |
 | frei | übergreifend | L-P15 Manresa-Rocamora 2021 | Artikel | PDF aus PMC | HRV-gesteuertes Training (D-70); Lizenz vor Ablage prüfen | ✓ (CC BY 4.0) |
-| bei Bedarf | übergreifend | L-P14 Impellizzeri 2021 | Artikel | PDF | optional | – |
-| bei Bedarf | übergreifend | L-P16 Düking 2021 (JSAMS) | Artikel | PDF | optional; nicht in PMC → Bibliothekszugang | – |
-| bei Bedarf | T2 | L-T2-14 Cowley 2026 (PMC), L-T2-19 Carrasco-Uribarren 2026 | – | PDF | optional | L-T2-14 ✓ |
+| bei Bedarf | übergreifend | L-P14 Impellizzeri 2021 | Artikel | PDF | optional | ✓ |
+| bei Bedarf | übergreifend | L-P16 Düking 2021 (JSAMS) | Artikel | PDF | optional; nicht in PMC → Bibliothekszugang | ✓ Verlagsfassung (Pre-Proof-Dublette entfernt) |
+| bei Bedarf | T2 | L-T2-14 Cowley 2026 (PMC), L-T2-19 Carrasco-Uribarren 2026 | – | PDF | optional | ✓ beide |
 | 1 | R | L-R-02 Kongsgaard 2009 | Artikel | PDF | Schmerzregel für Q-13 | ✓ |
 | 1 | R | L-R-13 Martin 2021 (JOSPT-Leitlinie) | Artikel | PDF | Einzelempfehlungen, Q-16 | ✓ |
 | 1 | R | L-R-08 Lohrer & Nauck 2011 | Artikel | PDF | validierter Wortlaut VISA-P-G für WebApp | ✓ mit Erratum 2013 (Punktwerte 8b/8c) |
 | 2 | R | L-R-03 Agergaard 2021, L-R-26 Doherty 2017 | Artikel | PDF | nicht in PMC | ✓ beide |
-| frei | R | L-R-01, -04, -05, -06, -10, -11, -14, -16, -17, -21, -23, -24, -25, -27 | – | PDF aus PMC | Lizenzen vor Ablage im Repo prüfen (D-31) | offen |
-| bei Bedarf | R | L-R-07, -09, -12, -15, -18, -19, -20, -22, -28 | Artikel | PDF | optional bzw. Kernaussage aus Abstract ausreichend | – |
-| 2 | T2 | L-T2-20 Pelland 2026, L-T2-21 Robinson 2024 (Sports Med), L-T2-26 Monserdà-Vilaró 2023 (JSCR) | Artikel | PDF | nicht in PMC → Bibliothekszugang | L-T2-20, L-T2-21 ✓; L-T2-26 offen |
-| frei | T2 | L-T2-22 Refalo 2023, L-T2-23 Lopez 2021 (mit Corrigendum), L-T2-24 Lopes 2019 (mit Corrigendum), L-T2-25 Lundberg 2022 | – | PDF aus PMC | L-T2-24 CC BY-NC 4.0; übrige ohne Lizenzangabe → vor Ablage im Repo prüfen (D-31) | offen |
-| bei Bedarf | T2 | L-T2-27 bis L-T2-32 | Artikel | PDF | optional; L-T2-30 in PMC | – |
+| frei | R | L-R-01, -04, -05, -06, -10, -11, -14, -16, -17, -21, -23, -24, -25, -27 | – | PDF aus PMC | Lizenzen vor Ablage im Repo prüfen (D-31) | L-R-01, -04, -05, -06, -16, -23, -24, -25, -27 ✓; L-R-10, -11, -14, -17, -21 offen |
+| bei Bedarf | R | L-R-07, -09, -12, -15, -18, -19, -20, -22, -28 | Artikel | PDF | optional bzw. Kernaussage aus Abstract ausreichend | ✓ alle (L-R-18 Autorenmanuskript) |
+| 2 | T2 | L-T2-20 Pelland 2026, L-T2-21 Robinson 2024 (Sports Med), L-T2-26 Monserdà-Vilaró 2023 (JSCR) | Artikel | PDF | nicht in PMC → Bibliothekszugang | ✓ alle |
+| frei | T2 | L-T2-22 Refalo 2023, L-T2-23 Lopez 2021 (mit Corrigendum), L-T2-24 Lopes 2019 (mit Corrigendum), L-T2-25 Lundberg 2022 | – | PDF aus PMC | L-T2-24 CC BY-NC 4.0; übrige ohne Lizenzangabe → vor Ablage im Repo prüfen (D-31) | ✓ alle; Corrigenda L-T2-23/-24 nicht enthalten |
+| bei Bedarf | T2 | L-T2-27 bis L-T2-32 | Artikel | PDF | optional; L-T2-30 in PMC | ✓ alle (L-T2-29 Autorenmanuskript) |
 | 2 | T4 | L-T4-05 Thomas 2018 (IJSM), L-T4-06 Behm 2016 (APNM), L-T4-14 Lauersen 2014 (BJSM), L-T4-17 Behm 2026 (EJAP), L-T4-19 Winters 2004 (Phys Ther), L-T4-22 Witvrouw 2001 (AJSM) | Artikel | PDF | nicht in PMC → Bibliothekszugang (D-79) | offen |
 | 2 | T4 | L-T4-16 Herbert 2011 (Cochrane) | Artikel | PDF | Abstract frei, Volltext Cochrane Library | offen |
 | frei | T4 | L-T4-01, -02, -03, -04, -08, -10, -12 | – | PDF aus PMC | Lizenzen vor Ablage prüfen (V-20) | offen |
 | bei Bedarf | T4 | L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -31 | Artikel | PDF | optional; in PMC: -07, -09, -11, -15, -18, -21, -27 bis -30; L-T4-31 ggf. frei beim Verlag | – |
 | bei Bedarf | T4 | L-T4-32 Behm, The Science and Physiology of Flexibility and Stretching, 2. Aufl. | Buch | DRM-freies PDF oder EPUB (V-21) | optional; enthält Übungsteil (Teil B) | – |
 
-Stand 2026-09-29: 54 Volltexte vorhanden (D-51, D-71), Verzeichnis in `docs/literatur/README.md`. Offen sind 2 Bücher (L-A01 in 8./9. Aufl., L-T3-16; dazu L-T3-09 ab Erscheinen der Neuauflage), 8 Artikel ohne freien Zugang (L-T2-26, L-T4-05, L-T4-06, L-T4-14, L-T4-16, L-T4-17, L-T4-19, L-T4-22; dazu L-T3-05 nur bei Bedarf) und 28 frei verfügbare Artikel (L-T2-15, L-T2-16, L-T2-22 bis L-T2-25, L-T3-18, 14 aus Block R, 7 aus T4). Bei Bedarf: Block R 9 Titel, T2 Hypertrophie 6, übergreifend L-P14 und L-P16, T4 16 Artikel und 1 Buch.
+Stand 2026-09-29: 90 Volltexte vorhanden (D-51, D-71), Verzeichnis in `docs/literatur/README.md`. Offen sind 2 Bücher (L-A01 in 8./9. Aufl., L-T3-16; dazu L-T3-09 ab Erscheinen der Neuauflage), 7 Artikel ohne freien Zugang (L-T4-05, L-T4-06, L-T4-14, L-T4-16, L-T4-17, L-T4-19, L-T4-22) und 12 frei verfügbare Artikel (L-R-10, L-R-11, L-R-14, L-R-17, L-R-21 sowie 7 aus T4); dazu die Corrigenda zu L-T2-23 und L-T2-24. Bei Bedarf: T4 16 Artikel und 1 Buch; optionale Bücher L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-11. Blöcke übergreifend, T1, T2 und R sind bis auf die genannten Titel vollständig.
 
 # 14. Trainerregeln (Struktur; Inhalte in AP-07)
 
@@ -2803,7 +2839,7 @@ teilschritte:
   - Literaturauswahl Block R Reha/Prävention: erledigt (D-61)
   - Literaturauswahl T2 Hypertrophie-Ergänzung: erledigt (D-62)
   - Literaturauswahl T4 Beweglichkeit/Mobilität Teil A: erledigt (D-79), Teil B Übungsquellen offen
-  - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-29 – 54 Volltexte, Kapitel-PDFs für 9 Bücher, Kapitel-Markdown mit Ansichts-PDF für 4 EPUBs (L-T3-10, -19, -20, -21), D-51, D-71; offen nach 13.4 sind L-A01 in 8./9. Aufl., L-T3-16, L-T3-09 in der Neuauflage ab Erscheinen, L-T2-26 und die T4-Artikel)
+  - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-29 – 90 Volltexte, Kapitel-PDFs für 9 Bücher, Kapitel-Markdown mit Ansichts-PDF für 4 EPUBs (L-T3-10, -19, -20, -21), D-51, D-71; offen nach 13.4 sind L-A01 in 8./9. Aufl., L-T3-16, L-T3-09 in der Neuauflage ab Erscheinen, 5 Artikel aus Block R, die T4-Artikel und zwei Corrigenda)
   - Literatur-Nachsteuerung L-T1-01/L-T3-08, HRV, EPUB: erledigt (D-70, D-71)
   - Primärquellen verifizieren: weitgehend erledigt (V-06, V-14 erledigt; V-07, V-15 teilweise, Rest nach Beschaffung)
   - Karten-Template und Karten: offen
@@ -2961,6 +2997,9 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: Yoga – keine belastbare Evidenz für gesunde Sportler gefunden
     loesung: Yoga nur als Übungsfundus in Teil B (Stufe C); Begründung über L-T4-13
+  - datum: 2026-09-29
+    was: Commit „Literatur“ mit 37 PDFs, überwiegend mit Verlags- oder DOI-Dateinamen; L-P16 doppelt (Pre-Proof und Verlagsfassung); L-T2-29 und L-R-18 nur als Autorenmanuskript; Corrigenda zu L-T2-23 und L-T2-24 fehlen
+    loesung: Zuordnung über DOI (32) bzw. Titel (5), 36 PDFs nach D-51 umbenannt und einsortiert; Pre-Proof entfernt; Manuskriptfassungen und fehlende Corrigenda beim Eintrag (`zugang`) vermerkt; Lizenzen aus dem Volltext übernommen, wo angegeben
 ```
 Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage von `docs/pruefung/pruefprotokoll.md` als AP-06-Block zu übernehmen.
 
@@ -3516,3 +3555,4 @@ noch_zu_pruefen:
 | 2026-09-29 | AP-15 Nachtrag (Code-Stand 0.30.2): kein Overlay während der geführten Einheit, danach auf S2 (E-23, Entscheidung des Athleten); Entscheidungen von AP-15 auf D-72 bis D-78 umnummeriert (D-70/D-71 parallel vergeben). |
 | 2026-09-29 | Commit „Lit“ einsortiert: 11 Volltexte (L-P11, L-P15, L-T2-10, -11, -12, -20, -21, L-R-02, -03, -08, -13, -26), neuer Ordner `r-reha/`, Dubletten Hörst und VISA-P entfernt; L-R-08 um das Erratum 2013 (Punktwerte 8b/8c) ergänzt; L-T2-10 Zitat vervollständigt; Lizenzen L-P11 (CC BY-NC 4.0) und L-P15 (CC BY 4.0) aus dem Volltext; 13.4 und Stand (54 Volltexte). |
 | 2026-09-29 | Übergabe Literaturblock T4 Beweglichkeit/Dehnen Teil A eingearbeitet (vom Athleten bestätigt): Tabelle 1.2 um T4 erweitert, neuer Abschnitt 13.2.6 (L-T4-01 bis L-T4-33, Kern und optional), D-79 (Planungsfolgen a–k; wegen paralleler Vergabe in AP-15 nicht D-72), Q-17 bis Q-21 (Q-21 Repo öffentlich, entschieden: vorerst öffentlich), V-18 bis V-23; 13.1 (4–7 Sammeldateien, `geltungsbereich` T1–T4, ID-Konvention), 13.3, 13.4, Abschnitte 6 und 14 (T1–T4), AP-06, AP-07, AP-08; Konzeptkopf und D-23 um den Hinweis auf Q-21 ergänzt. |
+| 2026-09-29 | Commit „Literatur“ einsortiert: 36 Volltexte (L-P14, L-P16, L-T2-15, -16, -19, -22 bis -32, L-T3-05, L-T3-18, L-R-01, -04 bis -07, -09, -12, -15, -16, -18 bis -20, -22 bis -25, -27, -28), Pre-Proof-Dublette L-P16 entfernt; Lizenzen aus dem Volltext, Hinweise zu Autorenmanuskripten (L-T2-29, L-R-18) und fehlenden Corrigenda (L-T2-23, L-T2-24); 13.4 und Stand (90 Volltexte). |
