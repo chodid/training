@@ -167,7 +167,7 @@ Summe: 109 Werke in 112 Dateien (davon 11 Bücher mit Kapitel-PDFs, 4 EPUBs mit 
 
 ## Noch nicht vorhanden
 
-Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nachsteuerung und T4 eingearbeitet).
+Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nachsteuerung, T4 und Lückenprüfung Standardwerke eingearbeitet).
 
 ### Kaufen oder über die Bibliothek (nicht frei verfügbar)
 
@@ -177,6 +177,12 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nach
 | 2 | L-T3-16 | Bechtel, Logical Progression, 2. Aufl. (Buch) | Stufe C, Planungsvorlage; Kindle ungeeignet |
 | 2 | L-T4-13 | Skopal et al. 2024, J Sports Sci 42(1):46–60 | T4 Mobility/Yoga ohne Leistungsnachteil (optional, in 13.4 Prio 2) |
 | 2 | L-T4-17 | Behm et al. 2026, Eur J Appl Physiol 126(6):2977–2987 | T4 Wohlbefinden |
+| 2 | L-R-29 | Brukner & Khan, Clinical Sports Medicine – Managing Injuries, 6. Aufl. 2026 (Buch) | Block R, Stufe B, optional (D-80); Format prüfen (V-24) |
+| 2 | L-R-30 | Engelhardt (Hrsg.), Sportverletzungen – GOTS Manual, 4. Aufl. 2022 (Buch) | Block R, Stufe B, optional; deutsches Gegenstück zu L-R-29 |
+| 2 | L-T2-33 | McGill, Low Back Disorders, 4. Aufl. 2026 (Buch) | Haltung/Rücken, Stufe B, optional; kein VitalSource-DRM |
+| 2 | L-T1-16 | Koop/Rutberg/Malcolm, Training Essentials for Ultrarunning, 2. Aufl. 2021 (Buch) | Trail-Spezifik, Stufe C, optional; Kindle ungeeignet |
+| 2 | L-T4-35 | Freiwald, Optimales Dehnen, 3. Aufl. 2020 (Buch) | T4, Stufe B, optional; deutsche Fachbegriffe; ISBN prüfen |
+| 2 | L-T4-36 | Schleip/Wilke (Hrsg.), Fascia in Sport and Movement, 2. Aufl. 2021 (Buch) | T4, Stufe C, optional; Faszienrolle-Hintergrund |
 | 3 | L-T3-09 | Hörst, Training for Climbing, Neuauflage (Buch) | nach Erscheinen (angekündigt 02.03.2027), zusätzlich zur vorhandenen 3. Aufl. |
 
 ### Frei verfügbar (PubMed Central)
