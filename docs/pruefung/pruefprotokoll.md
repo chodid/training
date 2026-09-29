@@ -1126,6 +1126,9 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: Aktualisierte Übergabe T4 (K-8, K-9) – Behm 2025 in den Kern, Stretching Anatomy neu (L-T4-34), drei Bücher in 13.3; Repo soll wieder privat werden
     loesung: eingearbeitet (13.2.6, D-79 Nachtrag, 13.3, 13.4, V-21, Q-21, Konzeptkopf, D-23)
+  - datum: 2026-09-29
+    was: L-T4-22 (Witvrouw 2001) war nach dem falschen Upload weiter offen
+    loesung: Entscheidung Athlet – nicht aufnehmen; Status nicht_aufgenommen, aus Kern, 13.4, Kartenzuschnitt und Regelvorschlag D-79 (e) entfernt (dort L-T4-23 als Knie-Einzelbefund), 13.3 ergänzt
 geprueft:
   - was: Zuordnung der 29 PDFs zu IDs aus 13.2 – Titel, Autoren und DOI auf den ersten Seiten gegen 13.2 abgeglichen
     wie: Textextraktion (pypdf) aller Dateien, Abgleich je Datei
@@ -1340,7 +1343,7 @@ noch_zu_pruefen:
     wie: manuell durch Athlet bei der ersten Kartensitzung
   - was: Druckseiten der Scans (Uphill Athlete, Overcoming Gravity) an zwei, drei Stellen gegen das Seitenbild prüfen, bevor Seitenangaben in Karten übernommen werden
     wie: manuell in der Kartensitzung
-  - was: Restliche Beschaffung laut 13.4 (L-A01 8./9. Aufl., L-T3-16, L-T3-09 Neuauflage ab Erscheinen, L-T4-13, L-T4-17, L-T4-22); Format vor Kauf prüfen (V-13, D-71); neue Dateien nach D-51/D-71 ablegen und eintragen
+  - was: Restliche Beschaffung laut 13.4 (L-A01 8./9. Aufl., L-T3-16, L-T3-09 Neuauflage ab Erscheinen, L-T4-13, L-T4-17); Format vor Kauf prüfen (V-13, D-71); neue Dateien nach D-51/D-71 ablegen und eintragen
     wie: Athlet (D-26), Eintrag durch Code-Instanz
   - was: Schwellenwerte Schmerzmonitoring-Modell am Volltext L-P13 (V-07), danach Entscheidung Q-13
     wie: manuell in der Kartensitzung, der Volltext liegt vor; Entscheidung in AP-07

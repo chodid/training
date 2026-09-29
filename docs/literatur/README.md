@@ -177,7 +177,6 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nach
 | 2 | L-T3-16 | Bechtel, Logical Progression, 2. Aufl. (Buch) | Stufe C, Planungsvorlage; Kindle ungeeignet |
 | 2 | L-T4-13 | Skopal et al. 2024, J Sports Sci 42(1):46–60 | T4 Mobility/Yoga ohne Leistungsnachteil (optional, in 13.4 Prio 2) |
 | 2 | L-T4-17 | Behm et al. 2026, Eur J Appl Physiol 126(6):2977–2987 | T4 Wohlbefinden |
-| 2 | L-T4-22 | Witvrouw et al. 2001, Am J Sports Med 29(2):190–195 | T4 Knie/Patellasehne – nicht verwechseln mit Witvrouw 2000, AJSM 28(4) (vorderer Knieschmerz) |
 | 3 | L-T3-09 | Hörst, Training for Climbing, Neuauflage (Buch) | nach Erscheinen (angekündigt 02.03.2027), zusätzlich zur vorhandenen 3. Aufl. |
 
 ### Frei verfügbar (PubMed Central)
