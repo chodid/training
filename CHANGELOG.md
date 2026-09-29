@@ -7,6 +7,20 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ### Dokumentation
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 
+## [0.28.0] – 2026-09-29
+
+AP-15 T3: Erinnerung an Blockbilanz und Zielklärung auf der Webseite.
+
+### Hinzugefügt
+- Overlay auf jeder Seite nach dem Login, solange eine Blockbilanz oder Zielklärung fällig ist: Karte mit Grund und Link zur Blockseite, „Morgen wieder erinnern“ (Fokus) oder „Diese Woche nicht mehr“. Die Seite dahinter ist gesperrt (`inert`); ohne JavaScript bedienbar. Es kommt am nächsten Tag bzw. nach 7 Tagen wieder und verschwindet, sobald die Fassung im Chat bestätigt ist. Nicht bei Schreibsperre. Quittierung `POST /erinnerung` (Audit `reminder_ack`).
+- Offline: Die Quittierung läuft über den Formularpuffer des Service Workers; solange sie wartet, blendet die gespeicherte Seite das Overlay aus.
+- S2: Karte „Block“ unter dem Morgen-Check-in mit Restlaufzeit, allen Fälligkeiten (auch Revision) und Link zur Blockseite; ohne aktiven Block „Kein aktiver Block – Zielklärung im Projekt-Chat“.
+- S8 „Training“: Unterseite „Blockbilanz und Zielklärung“ mit Erinnerung an/aus, Vorlauf Bilanz (0–28 Tage) und Zielklärung (0–42 Tage) sowie Beginn, Dauer und Erinnerung des Blocktermins im Kalender (Termin selbst folgt in T4).
+- Mockup `s2-woche.html` mit Blockkarte und Zustand `?state=erinnerung`; Browser-Test `tests/e2e/erinnerung.e2e.cjs`.
+
+### Geändert
+- Browser-Tests der geführten Einheit und des Übungskatalogs legen zum Testblock eine bestätigte Zielklärung an (sonst deckt die Erinnerung die Seiten ab).
+
 ## [0.27.0] – 2026-09-29
 
 AP-15 T2: MCP-Tools für Übergabe, Blockbilanz, Zielklärung und Revision.

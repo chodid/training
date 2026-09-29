@@ -860,11 +860,29 @@ geprueft:
     wie: automatisiert (ReviewToolsTest, McpToolsTest)
     ergebnis: ok
     datum: 2026-09-29
+  - was: "T3 U-01 bis U-06: Overlay auf S2, S4, S5, S6, S8 (Dialog, inert, autofocus auf der ersten Schaltfläche, Link zur Blockseite), nicht auf S1; Morgen → Ruhe bis morgen, am Folgetag wieder da; Woche → 7 Tage; Bestätigung über MCP löscht Quittierung und Overlay; aus in S8 → kein Overlay, Karte in S2 zeigt weiter; zwei Fälligkeiten → ein Overlay, Quittierung je Art; ohne aktiven Block Schlüssel _0 und Karte „Kein aktiver Block“"
+    wie: automatisiert (Integration ReminderTest gegen MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T3 Quittierung: ungültige Dauer/Art → 422, CSRF → 403, fremdes Rücksprungziel → /woche, gepufferte Sendung → 204; bei Schreibsperre kein Overlay; S8-Unterseite (Anzeige, 422 mit Werten, Speichern aller sechs Werte, Vorlauf wirkt sofort); gesamte Suite 293 Tests grün"
+    wie: automatisiert (ReminderTest; GuidedSessionTest an inert angepasst)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T3 Browser (Chromium, 375 px): Overlay mit zwei Punkten, Fokus auf „Morgen wieder erinnern“, Navigation und Inhalt inert, kein seitliches Scrollen; nach dem Klick zurück auf S2 ohne Overlay, Karte „Block“ mit Fälligkeiten und „noch 4 Tage“, S8 ohne Overlay; Sichtprüfung der Bildschirmfotos; geführte Einheit (14) und Übungskatalog (4) weiter grün"
+    wie: automatisiert (tests/e2e/erinnerung.e2e.cjs über run.sh) und Sicht auf die Bildschirmfotos
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T3 Offline-Quittierung (O-02): Formularpuffer für /erinnerung, Overlay der gespeicherten Seite ausgeblendet, solange die Quittierung wartet"
+    wie: Durchsicht von sw.js/offline.js; kein Browser-Test mit echtem Netzausfall
+    ergebnis: offen – Prüfung auf dem Smartphone
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: T1 Migration 0024 und Schemata gegen MySQL 8.4
     wie: CI (GitHub Actions) mit dem Pull Request
   - was: "T2 Abnahme aus dem Projekt-Chat: get_handover liefert Block, Zielklärung, Bilanz und Fälligkeiten in ≤ 8 000 Zeichen; write_block_review legt eine Fassung an und meldet Kennzahlen"
     wie: Athlet im Projekt-Chat nach Deployment (erste echte Zielklärung in AP-08)
+  - was: "T3 Abnahme auf dem Smartphone: Overlay erscheint bei fälliger Bilanz, verschwindet nach „Morgen wieder erinnern“ bis zum nächsten Tag und kommt dann wieder; offline quittiert → „1 Eingabe wartet auf Netz: Erinnerung quittiert“, Overlay ausgeblendet"
+    wie: Athlet nach Deployment
 ```
 
 ## AP-05 MCP-Tools produktiv

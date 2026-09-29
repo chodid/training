@@ -363,7 +363,7 @@ Reihenfolge: T1 → T2 → T3; T4 nach T2; T5 nach T2 (parallel zu T3/T4 möglic
 | id | punkt | stand |
 |---|---|---|
 | O-01 | Bearbeiten und Bestätigen von Reviews auf der Webseite (statt nur im Chat) | zurückgestellt; erst nach Praxiserfahrung |
-| O-02 | Overlay offline: gespeicherte Seite kann ein bereits quittiertes Overlay erneut zeigen, bis der Puffer zugestellt ist | akzeptiert; Code-Instanz prüft, ob der Puffer die Quittierung sichtbar macht („wartend“) |
+| O-02 | Overlay offline: gespeicherte Seite kann ein bereits quittiertes Overlay erneut zeigen, bis der Puffer zugestellt ist | umgesetzt in T3: der Puffer zeigt „Erinnerung quittiert“ als wartende Eingabe, und die gespeicherte Seite blendet das Overlay aus, solange die Quittierung wartet; Prüfung auf dem Smartphone offen |
 | O-03 | Spiegel nach `docs/plaene/` (Markdown-Export einer Zielklärung/Bilanz) für das Projekt-Wissen | offen; Vorschlag: Export-Format `markdown` in `get_block_reviews`, Athlet legt die Datei ab |
 | O-04 | Sollen frühere Wochentexte (`focus`) im Handover erscheinen (letzte 4 Wochen, je eine Zeile)? | entschieden 2026-09-29: ja → E-21 |
 | O-05 | Uhrzeit des Kalendertermins (08:00–10:00) und Erinnerung (Vortag 08:00) als Einstellung in S8 | entschieden 2026-09-29: sofort einstellbar → E-22 |
@@ -435,12 +435,36 @@ T2:
     - was: Das MCP-SDK prüft Eingaben nicht gegen das inputSchema
       loesung: content im inputSchema als anyOf der drei Schemata (Hilfe für Claude), Prüfung serverseitig im ReviewValidator
 T3:
-  status: offen
-  datum: null
-  ergebnis: null
-  tests: null
-  abnahme: null
-  probleme_loesungen: []
+  status: erledigt
+  datum: 2026-09-29
+  ergebnis: >-
+    Training\Controller\ReminderController (POST /erinnerung, Fälligkeit ohne gültige Quittierung), Overlay
+    templates/_review_overlay.php in layout-app (Header, Navigation und Inhalt inert + aria-hidden, autofocus, zwei
+    Formularknöpfe), Karte „Block“ in S2 (Restlaufzeit, alle Fälligkeiten, Link /block), S8-Unterseite
+    „Blockbilanz und Zielklärung“ (Overlay, Vorlauftage, Blocktermin nach E-22), Service Worker puffert /erinnerung,
+    offline.js blendet das Overlay bei wartender Quittierung aus (O-02); Mockup s2-woche.html (?state=erinnerung,
+    Blockkarte). Code-Stand 0.28.0.
+  tests: >-
+    Integration ReminderTest (U-01 bis U-06, ohne aktiven Block, Validierung, Offline-Puffer 204, Rücksprungziel,
+    Schreibsperre, S8-Unterseite); Browser tests/e2e/erinnerung.e2e.cjs (Fokus, inert, 375 px, Wegklicken, Karte);
+    gesamte Suite 293 Tests grün, Browser-Tests 14 + 4 + 2 grün.
+  abnahme: automatisiert; Sichtprüfung durch den Athleten auf dem Smartphone offen
+  probleme_loesungen:
+    - was: >-
+        6.1 „erinnerung_<kind>_<block_id> < heute“ passt nicht zu U-02 (Wert = morgen, am nächsten Tag wieder da)
+      loesung: Der gespeicherte Wert ist der Tag, ab dem das Overlay wieder erscheint (Anzeige, wenn Wert ≤ heute); morgen = heute + 1, Woche = heute + 7
+    - was: 6.1 nennt Radio + Formular, E-14 zwei Formularknöpfe
+      loesung: zwei Submit-Knöpfe (name bis, morgen/woche), erster mit autofocus; ein Formular für alle Punkte, gespeichert je Art (U-06)
+    - was: ohne aktiven Block hat die fällige Zielklärung keinen Block
+      loesung: Schlüssel erinnerung_zielklaerung_0
+    - was: "Das Attribut data-offline-form am Overlay-Formular hätte offline.js (Datum der Check-in-Seite auf heute) auf das falsche Formular gelenkt"
+      loesung: kein data-offline-form; gepuffert wird über FORM_PATHS im Service Worker (Pfad /erinnerung)
+    - was: Die Browser-Tests der geführten Einheit und des Katalogs scheiterten am Overlay (Testblock ohne Zielklärung)
+      loesung: Testvorbereitung schreibt eine bestätigte Zielklärung zum Testblock (entspricht dem Ablauf ab AP-15)
+    - was: Das Overlay erscheint auch in der geführten Einheit (S9), weil 6.1 nur S0, S1, S7 ausnimmt
+      loesung: wie beauftragt umgesetzt; Quittieren ist ein Klick; bei Bedarf S9 ausnehmen (Rückmeldung des Athleten)
+    - was: Bei Schreibsperre wäre das Overlay nicht quittierbar
+      loesung: kein Overlay, solange Code- und Datenbankstand abweichen
 T4:
   status: offen
   datum: null

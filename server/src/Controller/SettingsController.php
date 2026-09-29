@@ -33,7 +33,7 @@ final class SettingsController extends AppController
             return Response::error(403, 'Ungültiges Formular.');
         }
 
-        if ($request->method === 'POST' && in_array($action, ['zeitzone', 'passwort', 'erinnerung', 'checkin', 'timer'], true) && ($locked = $this->lockedResponse())) {
+        if ($request->method === 'POST' && in_array($action, ['zeitzone', 'passwort', 'erinnerung', 'checkin', 'timer', 'blockreview'], true) && ($locked = $this->lockedResponse())) {
             return $locked;
         }
 
@@ -49,6 +49,7 @@ final class SettingsController extends AppController
             'erinnerung' => $this->reminder($request),
             'checkin' => $this->checkinSettings($request),
             'timer' => $this->timerSettings($request),
+            'blockreview' => $this->blockReviewSettings($request),
             default => $this->overview($request),
         };
     }
@@ -83,6 +84,7 @@ final class SettingsController extends AppController
             'widerrufen' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Freigabe widerrufen.', 'text' => 'Laufende Zugriffe enden spätestens nach einer Stunde.'],
             'checkin' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Check-in-Einstellung gespeichert.', 'text' => ''],
             'timer' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Timer-Signale gespeichert.', 'text' => 'Gilt ab der nächsten geführten Einheit.'],
+            'blockreview' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Blockbilanz und Zielklärung gespeichert.', 'text' => $request->query('n') !== null ? sprintf('%d Blocktermine im Kalender aktualisiert.', (int) $request->query('n')) : ''],
             'erinnerung' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Erinnerung gespeichert.', 'text' => sprintf('%d Termine im Kalender aktualisiert.', (int) $request->query('n'))],
             'kalender' => ['type' => 'success', 'icon' => 'circle-check', 'title' => 'Kalender abgeglichen.', 'text' => sprintf('%d Termine übertragen, %d entfernt.', (int) $request->query('n'), (int) $request->query('d'))],
             default => null,
@@ -106,6 +108,7 @@ final class SettingsController extends AppController
             'catalog' => $this->catalogSummary(),
             'handBis' => (new SettingsRepository($this->app->pdo(), $this->app->clock()))->handRechtsBis(),
             'timerTon' => (new SettingsRepository($this->app->pdo(), $this->app->clock()))->timerTon(),
+            'blockReview' => $this->blockReviewValues(),
             'calendar' => [
                 'host' => CalDavClient::isConfigured($config) ? (string) parse_url((string) $config->get('CALDAV_URL'), PHP_URL_HOST) : null,
                 'https' => str_starts_with(strtolower((string) $config->get('CALDAV_URL')), 'https://'),
@@ -228,6 +231,51 @@ final class SettingsController extends AppController
         $this->audit()->write('web', 'setting_update', 'app_setting', SettingsRepository::TIMER_TON, ['value' => $value], 'Timer-Signale im geführten Modus: ' . $value);
 
         return Response::redirect('/einstellungen?ok=timer');
+    }
+
+    /** @return array{overlay: bool, bilanz: int, zielklaerung: int, beginn: string, dauer_min: int, erinnerung_h: int} Werte der Unterseite Blockbilanz/Zielklärung (AP-15) */
+    private function blockReviewValues(): array
+    {
+        $settings = new SettingsRepository($this->app->pdo(), $this->app->clock());
+
+        return ['overlay' => $settings->reviewOverlay(), 'bilanz' => $settings->bilanzVorlauf(), 'zielklaerung' => $settings->zielklaerungVorlauf()] + $settings->kalenderBlock();
+    }
+
+    /**
+     * Blockbilanz und Zielklärung (AP-15, 6.3, E-22): Overlay an/aus, Vorlauftage (wirken sofort auf Fälligkeit und
+     * Overlay), Beginn/Dauer/Erinnerung des Blocktermins (überträgt die Blocktermine neu).
+     */
+    private function blockReviewSettings(Request $request): Response
+    {
+        $values = $this->blockReviewValues();
+        if ($request->method !== 'POST') {
+            return $this->page('settings-blockreview', 'Blockbilanz und Zielklärung', 'einstellungen', ['backHref' => '/einstellungen', 'values' => $values]);
+        }
+        $new = [
+            'overlay' => $request->post('overlay') === 'an',
+            'bilanz' => self::intField($request->post('bilanz_vorlauf'), 0, 28),
+            'zielklaerung' => self::intField($request->post('zielklaerung_vorlauf'), 0, 42),
+            'beginn' => preg_match('/^([01]\d|2[0-3]):[0-5]\d$/', (string) $request->post('beginn')) ? (string) $request->post('beginn') : null,
+            'dauer_min' => self::intField($request->post('dauer'), 30, 480),
+            'erinnerung_h' => self::intField($request->post('erinnerung_h'), 0, 168),
+        ];
+        if (in_array(null, $new, true)) {
+            return $this->page('settings-blockreview', 'Blockbilanz und Zielklärung', 'einstellungen', [
+                'backHref' => '/einstellungen', 'values' => array_combine(array_keys($new), array_map(static fn ($v, $old) => $v ?? $old, $new, $values)),
+                'alert' => ['type' => 'error', 'icon' => 'alert-circle', 'title' => 'Nicht gespeichert.', 'text' => 'Bitte die Bereiche beachten: Vorlauf Bilanz 0–28, Zielklärung 0–42 Tage, Beginn HH:MM, Dauer 30–480 Minuten, Erinnerung 0–168 Stunden.'],
+            ], 422);
+        }
+        $settings = new SettingsRepository($this->app->pdo(), $this->app->clock());
+        $settings->set(SettingsRepository::REVIEW_OVERLAY, $new['overlay'] ? 'an' : 'aus');
+        $settings->set(SettingsRepository::BILANZ_VORLAUF, (string) $new['bilanz']);
+        $settings->set(SettingsRepository::ZIELKLAERUNG_VORLAUF, (string) $new['zielklaerung']);
+        $settings->set(SettingsRepository::KALENDER_BLOCK_BEGINN, $new['beginn']);
+        $settings->set(SettingsRepository::KALENDER_BLOCK_DAUER, (string) $new['dauer_min']);
+        $settings->set(SettingsRepository::KALENDER_BLOCK_ERINNERUNG, (string) $new['erinnerung_h']);
+        $this->audit()->write('web', 'setting_update', 'app_setting', 'blockreview', $new, sprintf('Blockbilanz/Zielklärung: Overlay %s, Vorlauf %d/%d Tage, Termin %s, %d min, Erinnerung %d h vorher',
+            $new['overlay'] ? 'an' : 'aus', $new['bilanz'], $new['zielklaerung'], $new['beginn'], $new['dauer_min'], $new['erinnerung_h']));
+
+        return Response::redirect('/einstellungen?ok=blockreview');
     }
 
     /** Kalender-Erinnerung (D-52): Uhrzeit am Trainingstag oder aus; danach Termine im Zeitraum neu übertragen. */

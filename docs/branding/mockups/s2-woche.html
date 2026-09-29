@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="app.css">
 <script src="icons.js"></script>
 <style>
-  /* Zustand über ?state=leer (nur für das Mockup) */
+  /* Zustand über ?state=leer bzw. ?state=erinnerung (nur für das Mockup) */
   body.st-leer .has-data{display:none}
   .only-empty{display:none}
   body.st-leer .only-empty{display:block}
@@ -19,6 +19,15 @@
   details.more>summary::-webkit-details-marker{display:none}
   details.more[open]>summary .ic{transform:rotate(90deg)}
   details.more>p{color:var(--text-secondary);padding-bottom:var(--space-2)}
+  /* AP-15: Karte „Block“ und Erinnerung an Blockbilanz/Zielklärung (Overlay, ?state=erinnerung) */
+  .block-card{margin-bottom:var(--space-4)}
+  .block-card .faellig{margin:0;padding-left:1.2em;display:grid;gap:var(--space-1);color:var(--text-secondary)}
+  .review-overlay{display:none;position:fixed;inset:0;z-index:50;align-items:center;justify-content:center;padding:var(--space-4);background:rgb(20 12 28 / .55);overflow-y:auto}
+  body.st-erinnerung .review-overlay{display:flex}
+  .review-dialog{width:100%;max-width:520px;border:2px solid var(--status-warning);box-shadow:0 12px 40px rgb(0 0 0 / .25)}
+  .review-dialog h2{display:flex;align-items:center;gap:var(--space-2);margin:0}
+  .review-dialog .ic-warning{color:var(--status-warning-text)}
+  .review-items{margin:0;padding-left:1.2em;display:grid;gap:var(--space-2)}
 </style>
 </head>
 <body class="app">
@@ -58,6 +67,21 @@
       <p>Block 2 zielt auf die Grundlage für die Skitourensaison. Nach zwei ruhigen Morgentest-Wochen steigt das Ausdauervolumen um etwa zehn Prozent, die Intervalle bleiben in Zone 3. Kraft und Haltung laufen mit unveränderter Last weiter, damit die Patellasehne nicht zwei Reize gleichzeitig bekommt. Klettern bleibt Volumen unter dem Limit. Bei Morgentest über 3 wird die zweite Intervalleinheit zum lockeren Lauf.</p>
     </details>
   </div>
+
+  <!-- AP-15 (blockbilanz.md 6.2): Karte „Block“ mit Restlaufzeit und Fälligkeiten (auch Revision), Link zur Blockseite S11 -->
+  <section class="card stack block-card has-data">
+    <div class="card-head"><h2><svg class="ic ic-brand"><use href="#i-mountain"/></svg> Block</h2><span class="hint">noch 5 Tage</span></div>
+    <p><b>Grundlage Herbst</b> <span class="muted small">10.08. – 05.10.2026</span></p>
+    <ul class="faellig">
+      <li><b>Blockbilanz fällig:</b> Block „Grundlage Herbst“ endet am 05.10.</li>
+      <li><b>Zielklärung fällig:</b> Block „Grundlage Herbst“ endet am 05.10. – Ziele für den nächsten Block klären.</li>
+    </ul>
+    <div class="btn-row"><a class="btn btn-secondary" href="#"><svg class="ic"><use href="#i-chevron-right"/></svg>Zur Blockseite</a></div>
+  </section>
+  <section class="card only-empty">
+    <div class="card-head"><h2><svg class="ic ic-brand"><use href="#i-mountain"/></svg> Block</h2></div>
+    <p class="muted">Kein aktiver Block – Zielklärung im Projekt-Chat.</p>
+  </section>
 
   <div class="week-sum has-data">
     <div class="stat"><div class="l">sRPE bisher</div><div class="v">975 <small>/ ≈ 1 900 geplant</small></div></div>
@@ -158,6 +182,18 @@
     </section>
   </div>
 </main>
+<!-- AP-15 (blockbilanz.md 6.1, E-05/E-14): Overlay, muss aktiv weggeklickt werden; Seite dahinter inert (in der App) -->
+<div class="review-overlay">
+  <section class="card stack review-dialog" role="dialog" aria-modal="true" aria-labelledby="ro-t">
+    <div class="card-head"><h2 id="ro-t"><svg class="ic ic-lg ic-warning"><use href="#i-mountain"/></svg>Blockbilanz und Zielklärung fällig</h2></div>
+    <ul class="review-items">
+      <li><b>Blockbilanz fällig.</b> Block „Grundlage Herbst“ endet am 05.10. <a href="#">Zur Blockseite</a></li>
+      <li><b>Zielklärung fällig.</b> Block „Grundlage Herbst“ endet am 05.10. – Ziele für den nächsten Block klären. <a href="#">Zur Blockseite</a></li>
+    </ul>
+    <p class="muted small">Im Projekt-Chat erstellen – <code>get_handover</code> meldet die Fälligkeit.</p>
+    <div class="btn-row"><button class="btn btn-primary" type="button" autofocus>Morgen wieder erinnern</button><button class="btn btn-secondary" type="button">Diese Woche nicht mehr</button></div>
+  </section>
+</div>
 <script>
   const s=new URLSearchParams(location.search).get('state');if(s)document.body.classList.add('st-'+s);
 </script>

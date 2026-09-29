@@ -6,6 +6,9 @@
 /** @var string $login */
 /** @var ?string $navFoot */
 /** @var ?string $topAction HTML für die Kopfzeile (Tablet/Desktop) */
+/** @var list<array<string, mixed>> $reminders fällige Bilanz/Zielklärung für das Overlay (AP-15) */
+$overlay = !empty($reminders);
+$inert = $overlay ? ' inert aria-hidden="true"' : '';
 $items = [
     'woche' => ['/woche', 'calendar-week', 'Woche'],
     'checkin' => ['/checkin', 'checkup-list', 'Check-in'],
@@ -25,8 +28,9 @@ $items = [
 <link rel="stylesheet" href="/css/training.css">
 <script src="/js/offline.js?v=<?= $this->e(\Training\App::VERSION) ?>" data-version="<?= $this->e(\Training\App::VERSION) ?>" defer></script>
 </head>
-<body class="app">
-<header class="topbar">
+<body class="app<?= $overlay ? ' has-overlay' : '' ?>">
+<?php if ($overlay) { include __DIR__ . '/_review_overlay.php'; } ?>
+<header class="topbar"<?= $inert ?>>
 <?php if (!empty($backHref)): ?>
   <a class="btn btn-icon" href="<?= $this->e($backHref) ?>" aria-label="<?= $this->e($backLabel ?? 'Zurück') ?>"><?= $this->icon('arrow-left', 'ic ic-lg') ?></a>
   <h1><?= $this->e($title) ?></h1>
@@ -37,7 +41,7 @@ $items = [
   <div class="topbar-actions"><?= $topAction ?? '' ?></div>
 </header>
 
-<nav class="nav" aria-label="Hauptnavigation">
+<nav class="nav" aria-label="Hauptnavigation"<?= $inert ?>>
   <a class="nav-brand" href="/woche"><img src="/assets/lama.svg" alt=""><span class="brand"><span>Training</span></span></a>
 <?php foreach ($items as $key => [$href, $icon, $label]): ?>
   <a href="<?= $href ?>"<?= ($nav ?? '') === $key ? ' aria-current="page"' : '' ?>><?= $this->icon($icon) ?><?= $label ?></a>
@@ -45,7 +49,7 @@ $items = [
   <div class="nav-foot"><?= $this->e($login) ?><?= !empty($navFoot) ? ' · ' . $this->e($navFoot) : '' ?></div>
 </nav>
 
-<main class="main<?= !empty($wide) ? ' wide' : '' ?><?= !empty($mainClass) ? ' ' . $this->e($mainClass) : '' ?>">
+<main class="main<?= !empty($wide) ? ' wide' : '' ?><?= !empty($mainClass) ? ' ' . $this->e($mainClass) : '' ?>"<?= $inert ?>>
   <div id="offline-status" class="stack update-banner" aria-live="polite" hidden></div>
 <?php if (!empty($writeLocked) && !in_array($nav ?? '', ['', 'einstellungen'], true)): ?>
   <div class="alert alert-warning update-banner"><?= $this->icon('alert-triangle') ?><div><b>Update erforderlich.</b> <span class="body">Code- und Datenbankstand weichen ab; Speichern ist gesperrt, bis migriert ist. <a href="/einstellungen">Zu den Einstellungen</a></span></div></div>

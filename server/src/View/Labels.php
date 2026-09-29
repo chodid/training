@@ -64,6 +64,14 @@ final class Labels
         'keine_daten' => ['keine Daten', 'neutral'],
     ];
 
+    /** Blockbilanz, Zielklärung, Revision (AP-15) */
+    public const REVIEW_KINDS = ['zielklaerung' => 'Zielklärung', 'revision' => 'Revision', 'bilanz' => 'Blockbilanz'];
+    public const REVIEW_STATUS = ['entwurf' => 'Entwurf', 'bestaetigt' => 'bestätigt'];
+    public const PHASES = ['reha' => 'Reha', 'grundlagen' => 'Grundlagen', 'aufbau' => 'Aufbau', 'spezifisch' => 'Spezifisch', 'wettkampf' => 'Wettkampf', 'erhalt' => 'Erhalt', 'uebergang' => 'Übergang'];
+    public const BEWERTUNG = ['erreicht' => ['erreicht', 'success'], 'teilweise' => ['teilweise', 'warning'], 'nicht' => ['nicht erreicht', 'error'], 'nicht_bewertbar' => ['nicht bewertbar', 'neutral']];
+    public const ANLASS = ['turnus' => 'Turnus', 'schmerz' => 'Schmerz', 'ausfall' => 'Ausfall', 'ermuedung' => 'Ermüdung', 'sonstiges' => 'Sonstiges'];
+    public const BEREICH = ['t1' => 'Ausdauer (T1)', 't2' => 'Kraft/Haltung (T2)', 't3' => 'Klettern (T3)', 'reha' => 'Reha', 'allgemein' => 'Allgemein'];
+    public const BLOCK_STATUS = ['geplant' => ['geplant', 'neutral'], 'aktiv' => ['aktiv', 'success'], 'abgeschlossen' => ['abgeschlossen', 'neutral']];
     public const SIDES = ['L' => 'Links', 'R' => 'Rechts', 'beide' => 'Beide', 'na' => 'n. z.'];
     public const SIDES_SHORT = ['L' => 'links', 'R' => 'rechts', 'beide' => 'beidseitig', 'na' => ''];
     public const TIMINGS = ['waehrend' => 'Während', 'danach' => 'Danach', 'naechster_morgen' => 'Nächster Morgen', 'ruhe' => 'In Ruhe'];

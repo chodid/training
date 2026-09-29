@@ -64,6 +64,9 @@ $scopeText = static fn (string $s): string => str_contains($s, 'training:write')
           <button class="btn btn-ghost" type="submit">Speichern</button>
         </div>
       </form>
+<?php if (!empty($blockReview)): ?>
+      <div class="list-item"><div><div class="t">Blockbilanz und Zielklärung</div><div class="s">Erinnerung <?= $blockReview['overlay'] ? 'an' : 'aus' ?> · Vorlauf <?= (int) $blockReview['bilanz'] ?>/<?= (int) $blockReview['zielklaerung'] ?> Tage · Termin <?= $this->e($blockReview['beginn']) ?> Uhr, <?= (int) $blockReview['dauer_min'] ?> min, Erinnerung <?= (int) $blockReview['erinnerung_h'] ?> h vorher</div></div><a class="btn btn-ghost" href="/einstellungen?bereich=blockreview">Ändern</a></div>
+<?php endif ?>
     </div>
   </section>
 

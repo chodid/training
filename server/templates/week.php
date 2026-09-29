@@ -51,6 +51,28 @@ else: ?>
 <?php endif ?>
   </div>
 <?php endif ?>
+<?php if (!empty($blockCard)): ?>
+  <section class="card stack block-card mt-4">
+    <div class="card-head"><h2><?= $this->icon('mountain', 'ic ic-brand') ?> Block</h2>
+<?php if ($blockCard['block'] !== null): ?>
+      <span class="hint"><?= $this->e($blockCard['rest']) ?></span>
+<?php endif ?>
+    </div>
+<?php if ($blockCard['block'] !== null): ?>
+    <p><b><?= $this->e($blockCard['block']['name']) ?></b> <span class="muted small"><?= $this->e((new DateTimeImmutable((string) $blockCard['block']['start_date']))->format('d.m.')) ?> – <?= $this->e((new DateTimeImmutable((string) $blockCard['block']['end_date']))->format('d.m.Y')) ?></span></p>
+<?php else: ?>
+    <p class="muted">Kein aktiver Block – Zielklärung im Projekt-Chat.</p>
+<?php endif ?>
+<?php if ($blockCard['faellig'] !== []): ?>
+    <ul class="faellig">
+<?php foreach ($blockCard['faellig'] as $f): ?>
+      <li><b><?= $this->e(Labels::REVIEW_KINDS[$f['kind']]) ?> fällig:</b> <?= $this->e(\Training\Review\Faelligkeit::text($f)) ?></li>
+<?php endforeach ?>
+    </ul>
+<?php endif ?>
+    <div class="btn-row"><a class="btn btn-secondary" href="/block<?= $blockCard['block'] !== null ? '?id=' . (int) $blockCard['block']['id'] : '' ?>"><?= $this->icon('chevron-right') ?>Zur Blockseite</a></div>
+  </section>
+<?php endif ?>
 <?php if ($hasSessions): ?>
   <div class="week-sum">
     <div class="stat"><div class="l">sRPE bisher</div><div class="v"><?= number_format($srpe, 0, ',', ' ') ?></div></div>

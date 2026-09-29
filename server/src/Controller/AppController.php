@@ -17,6 +17,8 @@ use Training\Http\Response;
 abstract class AppController
 {
     protected ?WebSession $session = null;
+    /** Aufgerufene Adresse (Rücksprung nach der Quittierung des Overlays, AP-15) */
+    protected string $requestUri = '/woche';
 
     public function __construct(protected readonly App $app)
     {
@@ -26,6 +28,7 @@ abstract class AppController
     protected function requireLogin(Request $request): ?Response
     {
         $this->session = $this->app->sessions()->current($request);
+        $this->requestUri = $request->method === 'GET' && $request->uri !== '' ? $request->uri : $request->path;
         if ($this->session === null && self::queued($request)) {
             return new Response(401, '');
         }
@@ -122,8 +125,29 @@ abstract class AppController
             'navFoot' => $navFoot,
             'writeLocked' => $this->app->writeLocked(),
             'alert' => null,
+            'reminders' => $template !== 'locked' && $status < 400 ? $this->reminders() : [],
+            'reminderBack' => $this->requestUri,
             ...$vars,
         ], 'layout-app'));
+    }
+
+    /**
+     * Overlay-Erinnerung an fällige Bilanz/Zielklärung (AP-15, E-05): auf jeder Seite nach dem Login, nicht bei
+     * Schreibsperre (Quittieren wäre gesperrt). Fehler unterdrücken die Erinnerung, nie die Seite.
+     * @return list<array<string, mixed>>
+     */
+    private function reminders(): array
+    {
+        if ($this->session === null || $this->app->writeLocked()) {
+            return [];
+        }
+        try {
+            return ReminderController::due($this->app->pdo(), $this->app->clock(), $this->today());
+        } catch (\Throwable $e) {
+            error_log('[training] Erinnerung: ' . $e->getMessage());
+
+            return [];
+        }
     }
 
     /** Ganzzahl aus einem Formularfeld innerhalb der Grenzen, sonst null. */
