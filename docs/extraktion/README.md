@@ -365,56 +365,56 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 
 ### 4.5 T3 – `t3-klettern`
 
-Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 63 Dateien. Davon extrahiert: 18. Nicht zu extrahieren (Vorspann/Anhang): 10; ausgelassen nach Kapitelauswahl: 10.
+Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 63 Dateien. Davon extrahiert: 31. Nicht zu extrahieren (Vorspann/Anhang): 10; ausgelassen nach Kapitelauswahl: 10.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
 | L-T3-01 | T3 | `L-T3-01_Stien-2023_Climbing-and-Resistance-Training-Meta-Analysis.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt (kern) · A · Kern · Text ✓ · 73 Aussagen · 4 unsicher · 8 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 178+n (Biol Sport 40(1)); Forest-Plots Abb. 2–4 abgeschnitten (Einzelwerte ohne Studienzuordnung, unsicher); mehrere Widersprüche Text vs. Tabellen/Abb. (8 offene Stellen) |
 | L-T3-02 | T3 | `L-T3-02_Langer-2023_Strength-Training-in-Climbing.pdf` | 17 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt (kern) · A · Kern · Text ✓ · 98 Aussagen · 10 unsicher · 10 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 750+n; Tab. 3 je Studie in methodik- und befund-Zeile geteilt, Zeilen über Seitenumbrüche verschoben (Zuordnung teils aus Spaltenlage, unsicher); Befund: Studie (32) Text vs. Tab. 3, Dauer 9 vs. 8 Wochen, Summen 269 vs. 273; Effektstärken mit KI nur im Online-Supplement |
 | L-T3-03 | T3 | `L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf` | 23 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt (kern) · A · Kern · Text ✓ · 121 Aussagen · 14 unsicher · 13 offene Stellen · pdf_nativ · Muster: Artikel 1130812, Seiten 1–23, Versatz 0; Befund: viele Widersprüche Text vs. Tabellen (63 vs. 66 Tests, Vorzeichen CMJ, Reliabilität „Jump with high foot“, Empfehlung Griff vs. Handdynamometer), Referenz Schweizer/Fuller falsch zugeordnet, Druckfehler in Tab. 3/6; Supplement S1–S66 fehlt; Speed-Klettern ausgelassen |
-| **L-T3-06** | T3 | **Ordner `t3-klettern/L-T3-06_kapitel/`** (24 Kapitel-PDFs, 319 PDF-Seiten) | – | – | – | ausgewaehlt (kern) · B · Kern · Druckseiten je Kapitel in U2 bestimmen |
+| **L-T3-06** | T3 | **Ordner `t3-klettern/L-T3-06_kapitel/`** (24 Kapitel-PDFs, 319 PDF-Seiten) | – | – | – | ausgewaehlt (kern) · B · Kern · Druckseiten je Kapitel in U2 bestimmen · Muster: Springer-Sammelband; Versatz Gesamtbuch-PDF → Druckseite je Kapitel verschieden (k01 −11, k02 −9, k03/k04 −8, k06/k08 −5, k07 −6, k09 −4, k10/k11 −3, k12 −2, k13 −1, k20 −8, k21 +7, k22 +8), innerhalb der Kapiteldatei konstant; Teil-Titelseiten ohne Zahl am Kapitelanfang; Literaturverzeichnis je Kapitel enthalten; Populationen teils aus der Literaturliste (markiert); häufig Summen/Prozente in Tabellen nicht stimmig und Abbildungsverweise falsch (wie gedruckt übernommen); Eisklettern (k02) ausgelassen |
 | L-T3-06 | T3 | `00` Vorspann | PDF 1–11 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · S. 1 ohne Text, ab S. 2 ✓ |
 | L-T3-06 | T3 | `01` Introduction | PDF 12–20 | 2026-09-29 / opus | offen | Text ✓ · 25 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `02` Injury Statistics | PDF 21–34 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · 55 Aussagen · 0 unsicher · 1 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `03` Anatomy and Biomechanics of the Hand | PDF 35–48 | 2026-09-29 / opus | offen | Text ✓ · 54 Aussagen · 1 unsicher · 3 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `04` Historical Development of a Physiological Model for Rock Climbing Performance | PDF 49–60 | 2026-09-29 / opus | offen | Text ✓ · 60 Aussagen · 4 unsicher · 4 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `05` Imaging of Climbing Injuries | PDF 61–71 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Bildgebung/Diagnostik (N5); Athlet 2026-09-29) · Text ✓ |
-| L-T3-06 | T3 | `06` Hand and Fingers | PDF 72–120 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
+| L-T3-06 | T3 | `06` Hand and Fingers | PDF 72–120 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · 163 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `07` Wrist Injuries | PDF 121–131 | 2026-09-29 / opus | offen | Text ✓ · 61 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `08` Elbow and Forearm | PDF 132–142 | 2026-09-29 / opus | offen | Text ✓ · 73 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `09` Shoulder Injuries | PDF 143–152 | 2026-09-29 / opus | offen | Text ✓ · 59 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `10` Foot and Ankle | PDF 153–165 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · 73 Aussagen · 2 unsicher · 3 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `11` Hip and Knee Injuries | PDF 166–173 | 2026-09-29 / opus | offen | Text ✓ · 45 Aussagen · 0 unsicher · 4 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `12` The Spine | PDF 174–186 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · 73 Aussagen · 1 unsicher · 0 offene Stellen · pdf_nativ |
-| L-T3-06 | T3 | `13` Long-Term Effects of Intensive Rock Climbing to the Hand and Fingers | PDF 187–200 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
+| L-T3-06 | T3 | `13` Long-Term Effects of Intensive Rock Climbing to the Hand and Fingers | PDF 187–200 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · 77 Aussagen · 2 unsicher · 4 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `14` Pediatric Aspects in Young Rock Climbers | PDF 201–206 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Kinder; Athlet 2026-09-29) · Text ✓ |
 | L-T3-06 | T3 | `15` Climbing in Older Athletes | PDF 207–211 | 2026-09-29 / opus | offen | Text ✓ · 34 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `16` Anorexia Athletica and Relative Energy Deficiency | PDF 212–217 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Medizin (RED-S); Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
 | L-T3-06 | T3 | `17` Sport Climbing with Pre-existing Medical Conditions | PDF 218–234 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Vorerkrankungen; Athlet 2026-09-29) · Text ✓ |
 | L-T3-06 | T3 | `18` Sport Climbing During Pregnancy | PDF 235–243 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Schwangerschaft; Athlet 2026-09-29) · Text ✓ |
 | L-T3-06 | T3 | `19` Sports-Medical Supervision of Competition Climbers and Climbing Competitions | PDF 244–252 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Wettkampfbetreuung; Athlet 2026-09-29) · Text ✓ |
-| L-T3-06 | T3 | `20` Climbing Injury Rehabilitation | PDF 253–277 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
-| L-T3-06 | T3 | `21` Injury Prevention | PDF 278–294 | offen | offen | Text ✓ |
-| L-T3-06 | T3 | `22` Taping | PDF 295–313 | offen | offen | Text ✓ |
+| L-T3-06 | T3 | `20` Climbing Injury Rehabilitation | PDF 253–277 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · 77 Aussagen · 0 unsicher · 2 offene Stellen · pdf_nativ |
+| L-T3-06 | T3 | `21` Injury Prevention | PDF 278–294 | 2026-09-29 / opus | offen | Text ✓ · 70 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ |
+| L-T3-06 | T3 | `22` Taping | PDF 295–313 | 2026-09-29 / opus | offen | Text ✓ · 71 Aussagen · 5 unsicher · 9 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `23` Future Aspects: Climbing in the Olympics | PDF 314–319 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Olympia; Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
 | **L-T3-19** | T3 | **Ordner `t3-klettern/L-T3-19_kapitel/`** (15 Markdown-Dateien + Ansichts-PDFs) | – | – | – | ausgewaehlt (kern) · B · Kern · EPUB → Markdown, keine Seitenmarken (Kapitel/Abschnitt, D-71) |
 | L-T3-19 | T3 | `00` Vorspann | EPUB, ca. 1.500 Wörter | entfällt | entfällt | nicht zu extrahieren (Vorspann) · Markdown ✓ |
-| L-T3-19 | T3 | `01` The Process of Training | EPUB, ca. 2.000 Wörter | offen | offen | Markdown ✓ |
-| L-T3-19 | T3 | `02` Understanding the Importance of Strength | EPUB, ca. 3.200 Wörter | offen | offen | Markdown ✓ |
-| L-T3-19 | T3 | `03` Understanding and Optimising Mobility | EPUB, ca. 3.600 Wörter | offen | offen | Markdown ✓ |
-| L-T3-19 | T3 | `04` Brief Notes on Anatomy | EPUB, ca. 2.300 Wörter | offen | offen | Markdown ✓ |
+| L-T3-19 | T3 | `01` The Process of Training | EPUB, ca. 2.000 Wörter | 2026-09-29 / opus | offen | Markdown ✓ · 40 Aussagen · 0 unsicher · 0 offene Stellen · markdown_epub |
+| L-T3-19 | T3 | `02` Understanding the Importance of Strength | EPUB, ca. 3.200 Wörter | 2026-09-29 / opus | offen | Markdown ✓ · 50 Aussagen · 0 unsicher · 0 offene Stellen · markdown_epub |
+| L-T3-19 | T3 | `03` Understanding and Optimising Mobility | EPUB, ca. 3.600 Wörter | 2026-09-29 / opus | offen | Markdown ✓ · 64 Aussagen · 0 unsicher · 0 offene Stellen · markdown_epub |
+| L-T3-19 | T3 | `04` Brief Notes on Anatomy | EPUB, ca. 2.300 Wörter | 2026-09-29 / opus | offen | Markdown ✓ · 53 Aussagen · 1 unsicher · 1 offene Stellen · markdown_epub |
 | L-T3-19 | T3 | `05` Fascia, Muscle Chains and Biotensegrity | EPUB, ca. 1.000 Wörter | 2026-09-29 / opus | offen | Markdown ✓ · 21 Aussagen · 0 unsicher · 0 offene Stellen · markdown_epub |
 | L-T3-19 | T3 | `06` Bioenergetics and Metabolism | EPUB, ca. 1.300 Wörter | 2026-09-29 / opus | offen | Markdown ✓ · 17 Aussagen · 0 unsicher · 0 offene Stellen · markdown_epub |
-| L-T3-19 | T3 | `07` Physiological Factors in Climbing Performance | EPUB, ca. 3.100 Wörter | offen | offen | Markdown ✓ |
+| L-T3-19 | T3 | `07` Physiological Factors in Climbing Performance | EPUB, ca. 3.100 Wörter | 2026-09-29 / opus | offen | Markdown ✓ · 59 Aussagen · 1 unsicher · 1 offene Stellen · markdown_epub |
 | L-T3-19 | T3 | `08-1` What Can I Optimise in My Training Sessions? (Teil 1/3) | EPUB, ca. 7.900 Wörter | offen | offen | Markdown ✓ |
 | L-T3-19 | T3 | `08-2` What Can I Optimise in My Training Sessions? (Teil 2/3) | EPUB, ca. 6.900 Wörter | offen | offen | Markdown ✓ |
 | L-T3-19 | T3 | `08-3` What Can I Optimise in My Training Sessions? (Teil 3/3) | EPUB, ca. 10.200 Wörter | offen | offen | Markdown ✓ |
-| L-T3-19 | T3 | `09` Training Session Design | EPUB, ca. 1.300 Wörter | offen | offen | Markdown ✓ |
+| L-T3-19 | T3 | `09` Training Session Design | EPUB, ca. 1.300 Wörter | 2026-09-29 / opus | offen | Markdown ✓ · 27 Aussagen · 2 unsicher · 2 offene Stellen · markdown_epub |
 | L-T3-19 | T3 | `10` Periodisation Models | EPUB, ca. 3.900 Wörter | offen | offen | Markdown ✓ |
-| L-T3-19 | T3 | `11` Detraining | EPUB, ca. 700 Wörter | offen | offen | Markdown ✓ |
+| L-T3-19 | T3 | `11` Detraining | EPUB, ca. 700 Wörter | 2026-09-29 / opus | offen | Markdown ✓ · 17 Aussagen · 0 unsicher · 0 offene Stellen · markdown_epub |
 | L-T3-19 | T3 | `90` Bibliography | EPUB, ca. 5.500 Wörter | entfällt | entfällt | nicht zu extrahieren (Anhang) · Markdown ✓ |
 | **L-T3-09** | T3 | **Ordner `t3-klettern/L-T3-09_kapitel/`** (17 Kapitel-PDFs, 356 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · Scan; Druckseite = PDF-Seite − 16; 3. Aufl. (Neuauflage ab 03/2027 zusätzlich, D-70) |
-| L-T3-09 | T3 | `00` Vorspann, Foreword und Introduction | PDF 1–16 | offen | offen | Text ✓ · Vorspann mit Einleitung – extrahieren (Entscheidung Athlet 2026-09-29) |
+| L-T3-09 | T3 | `00` Vorspann, Foreword und Introduction | PDF 1–16 | 2026-09-29 / opus | offen | Text ✓ · Vorspann mit Einleitung – extrahieren (Entscheidung Athlet 2026-09-29) · 17 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T3-09 | T3 | `01` An Overview of Training for Climbing | PDF 17–34; Druck 1–18 | offen | offen | Text ✓ |
 | L-T3-09 | T3 | `02` Self-Assessment and Goal Setting | PDF 35–46; Druck 19–30 | offen | offen | Text ✓ |
 | L-T3-09 | T3 | `03` Mental Training | PDF 47–72; Druck 31–56 | offen | offen | Text ✓ |
@@ -460,7 +460,7 @@ Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 63 Dat
 | L-T3-18 | T3 | `L-T3-18_Lopez-Rivera-2019_Hangboard-Training-Programs.pdf` | 11 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 54 Aussagen · 0 unsicher · 5 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 182+n; Befund: 23,9 % nicht aus Tab. 2 nachvollziehbar, 10- vs. 8-Wochen-Studie, p-Werte uneinheitlich |
 | L-T3-05 | T3 | `L-T3-05_Lopez-Rivera-2012_Grip-Strength-Edge-Depth.pdf` | 12 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt (ergaenzend) · A · Kern · Text ✓ · 55 Aussagen · 4 unsicher · 0 offene Stellen · pdf_nativ · Muster: PDF-Seite 1 Verlagsdeckblatt, danach PDF n → S. 98+n; Zahlenwidersprüche zwischen Ergebnis- und Diskussionsteil (ET2/ET3, Detraining −18 % vs. −8 %, Vorzeichen r) |
 | L-T3-07 | T3 | – | – | entfällt | entfällt | optional (Alternative zu L-T3-06, D-31) · B · keine Datei; nicht benötigt, solange L-T3-06 vorliegt |
-| **Synthese startbereit** | T3 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-T3-16. Stand Extraktion: 18 von 63 extrahiert; gegengeprüft: 0. L-T3-16 ist Stufe C (Planungsvorlage), aber `ausgewaehlt` – nach W-10 zählt es als Kernquelle; bestätigen. L-T3-09 in der Neuauflage (ab 03/2027) nicht gezählt, die 3. Aufl. gilt (D-70). L-T3-21 vorläufig (Bestätigung Athlet offen). |
+| **Synthese startbereit** | T3 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-T3-16. Stand Extraktion: 31 von 63 extrahiert; gegengeprüft: 0. L-T3-16 ist Stufe C (Planungsvorlage), aber `ausgewaehlt` – nach W-10 zählt es als Kernquelle; bestätigen. L-T3-09 in der Neuauflage (ab 03/2027) nicht gezählt, die 3. Aufl. gilt (D-70). L-T3-21 vorläufig (Bestätigung Athlet offen). |
 
 ### 4.6 R – `r-reha-praevention`
 
@@ -655,3 +655,4 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-T2-04 | Druckseite = Gesamtbuch-PDF − 14 (alle Kapitel); Scan mit fehlerhafter OCR, durchgehend am Seitenbild gelesen; Seite xv der Einleitung fehlt im Scan (k00 bricht bei xiv ab); PDF-Seiten 577/578 vertauscht (S. 564/563, k27); Progressionscharts („Page n, Column m“) nicht in den Kapiteldateien; Übungsteile ohne Dosierung; Leiterstufen teils lückenhaft (unter Lücken vermerkt); Technikdetails sehr fortgeschrittener Ringelemente per Relevanzfilter ausgelassen | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T3-02 | Versatz PDF n → S. 750+n; Tab. 3 je Studie in methodik- und befund-Zeile geteilt, Zeilen über Seitenumbrüche verschoben (Zuordnung teils aus Spaltenlage, unsicher); Befund: Studie (32) Text vs. Tab. 3, Dauer 9 vs. 8 Wochen, Summen 269 vs. 273; Effektstärken mit KI nur im Online-Supplement | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T3-03 | Artikel 1130812, Seiten 1–23, Versatz 0; Befund: viele Widersprüche Text vs. Tabellen (63 vs. 66 Tests, Vorzeichen CMJ, Reliabilität „Jump with high foot“, Empfehlung Griff vs. Handdynamometer), Referenz Schweizer/Fuller falsch zugeordnet, Druckfehler in Tab. 3/6; Supplement S1–S66 fehlt; Speed-Klettern ausgelassen | U2-Extraktion (Rückmeldung Unteragent) |
+| L-T3-06 | Springer-Sammelband; Versatz Gesamtbuch-PDF → Druckseite je Kapitel verschieden (k01 −11, k02 −9, k03/k04 −8, k06/k08 −5, k07 −6, k09 −4, k10/k11 −3, k12 −2, k13 −1, k20 −8, k21 +7, k22 +8), innerhalb der Kapiteldatei konstant; Teil-Titelseiten ohne Zahl am Kapitelanfang; Literaturverzeichnis je Kapitel enthalten; Populationen teils aus der Literaturliste (markiert); häufig Summen/Prozente in Tabellen nicht stimmig und Abbildungsverweise falsch (wie gedruckt übernommen); Eisklettern (k02) ausgelassen | U2-Extraktion (Rückmeldung Unteragent) |
