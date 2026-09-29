@@ -5,6 +5,7 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ## [Unreleased]
 
 ### Dokumentation
+- L-T4-22 (Witvrouw 2001) nicht aufgenommen: Status `nicht_aufgenommen`, aus Kern, Beschaffungsliste, Kartenzuschnitt und Regelvorschlag entfernt; Knie-Einzelbefund jetzt L-T4-23.
 - Aktualisierte Übergabe T4 eingearbeitet: Behm 2025 (L-T4-32) im Kern, neu Stretching Anatomy (L-T4-34, Übungskatalog), 13.3 ergänzt, Q-21 – Repo wird wieder privat. 19 weitere Volltexte (T4, Block R) und die Corrigenda zu L-T2-23/-24 einsortiert, neuer Ordner `t4-beweglichkeit/` mit Kapitel-PDFs für L-T4-32 und L-T4-34; falsch zugeordnetes Witvrouw-PDF und Dubletten entfernt. Bestand 109 Werke.
 - 36 weitere Volltexte einsortiert (übergreifend, T2, T3, Block R), Pre-Proof-Dublette L-P16 entfernt; Lizenzen, Autorenmanuskripte und fehlende Corrigenda vermerkt; L-T2-16 und L-R-06 um Artikelnummern ergänzt. Bestand 90 Volltexte.
 - Neuer Bereich T4 Beweglichkeit/Mobilität (Übergabe Literaturblock T4 Teil A): Tabelle 1.2, Literaturblock 13.2.6 (L-T4-01 bis L-T4-33), D-79 mit Planungsfolgen, Q-17 bis Q-21, V-18 bis V-23; 13.1 erlaubt 7 Sammeldateien.
