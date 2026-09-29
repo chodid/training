@@ -365,12 +365,12 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 
 ### 4.5 T3 – `t3-klettern`
 
-Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 63 Dateien. Davon extrahiert: 12. Nicht zu extrahieren (Vorspann/Anhang): 10; ausgelassen nach Kapitelauswahl: 10.
+Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 63 Dateien. Davon extrahiert: 13. Nicht zu extrahieren (Vorspann/Anhang): 10; ausgelassen nach Kapitelauswahl: 10.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
 | L-T3-01 | T3 | `L-T3-01_Stien-2023_Climbing-and-Resistance-Training-Meta-Analysis.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt (kern) · A · Kern · Text ✓ · 73 Aussagen · 4 unsicher · 8 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 178+n (Biol Sport 40(1)); Forest-Plots Abb. 2–4 abgeschnitten (Einzelwerte ohne Studienzuordnung, unsicher); mehrere Widersprüche Text vs. Tabellen/Abb. (8 offene Stellen) |
-| L-T3-02 | T3 | `L-T3-02_Langer-2023_Strength-Training-in-Climbing.pdf` | 17 (PDF) | offen | offen | ausgewaehlt (kern) · A · Kern · Text ✓ |
+| L-T3-02 | T3 | `L-T3-02_Langer-2023_Strength-Training-in-Climbing.pdf` | 17 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt (kern) · A · Kern · Text ✓ · 98 Aussagen · 10 unsicher · 10 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 750+n; Tab. 3 je Studie in methodik- und befund-Zeile geteilt, Zeilen über Seitenumbrüche verschoben (Zuordnung teils aus Spaltenlage, unsicher); Befund: Studie (32) Text vs. Tab. 3, Dauer 9 vs. 8 Wochen, Summen 269 vs. 273; Effektstärken mit KI nur im Online-Supplement |
 | L-T3-03 | T3 | `L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf` | 23 (PDF) | offen | offen | ausgewaehlt (kern) · A · Kern · Text ✓ |
 | **L-T3-06** | T3 | **Ordner `t3-klettern/L-T3-06_kapitel/`** (24 Kapitel-PDFs, 319 PDF-Seiten) | – | – | – | ausgewaehlt (kern) · B · Kern · Druckseiten je Kapitel in U2 bestimmen |
 | L-T3-06 | T3 | `00` Vorspann | PDF 1–11 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · S. 1 ohne Text, ab S. 2 ✓ |
@@ -460,7 +460,7 @@ Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 63 Dat
 | L-T3-18 | T3 | `L-T3-18_Lopez-Rivera-2019_Hangboard-Training-Programs.pdf` | 11 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 54 Aussagen · 0 unsicher · 5 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 182+n; Befund: 23,9 % nicht aus Tab. 2 nachvollziehbar, 10- vs. 8-Wochen-Studie, p-Werte uneinheitlich |
 | L-T3-05 | T3 | `L-T3-05_Lopez-Rivera-2012_Grip-Strength-Edge-Depth.pdf` | 12 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt (ergaenzend) · A · Kern · Text ✓ · 55 Aussagen · 4 unsicher · 0 offene Stellen · pdf_nativ · Muster: PDF-Seite 1 Verlagsdeckblatt, danach PDF n → S. 98+n; Zahlenwidersprüche zwischen Ergebnis- und Diskussionsteil (ET2/ET3, Detraining −18 % vs. −8 %, Vorzeichen r) |
 | L-T3-07 | T3 | – | – | entfällt | entfällt | optional (Alternative zu L-T3-06, D-31) · B · keine Datei; nicht benötigt, solange L-T3-06 vorliegt |
-| **Synthese startbereit** | T3 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-T3-16. Stand Extraktion: 12 von 63 extrahiert; gegengeprüft: 0. L-T3-16 ist Stufe C (Planungsvorlage), aber `ausgewaehlt` – nach W-10 zählt es als Kernquelle; bestätigen. L-T3-09 in der Neuauflage (ab 03/2027) nicht gezählt, die 3. Aufl. gilt (D-70). L-T3-21 vorläufig (Bestätigung Athlet offen). |
+| **Synthese startbereit** | T3 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-T3-16. Stand Extraktion: 13 von 63 extrahiert; gegengeprüft: 0. L-T3-16 ist Stufe C (Planungsvorlage), aber `ausgewaehlt` – nach W-10 zählt es als Kernquelle; bestätigen. L-T3-09 in der Neuauflage (ab 03/2027) nicht gezählt, die 3. Aufl. gilt (D-70). L-T3-21 vorläufig (Bestätigung Athlet offen). |
 
 ### 4.6 R – `r-reha-praevention`
 
@@ -653,3 +653,4 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-T3-01 | Versatz PDF n → S. 178+n (Biol Sport 40(1)); Forest-Plots Abb. 2–4 abgeschnitten (Einzelwerte ohne Studienzuordnung, unsicher); mehrere Widersprüche Text vs. Tabellen/Abb. (8 offene Stellen) | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T3-05 | PDF-Seite 1 Verlagsdeckblatt, danach PDF n → S. 98+n; Zahlenwidersprüche zwischen Ergebnis- und Diskussionsteil (ET2/ET3, Detraining −18 % vs. −8 %, Vorzeichen r) | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-04 | Druckseite = Gesamtbuch-PDF − 14 (alle Kapitel); Scan mit fehlerhafter OCR, durchgehend am Seitenbild gelesen; Seite xv der Einleitung fehlt im Scan (k00 bricht bei xiv ab); PDF-Seiten 577/578 vertauscht (S. 564/563, k27); Progressionscharts („Page n, Column m“) nicht in den Kapiteldateien; Übungsteile ohne Dosierung; Leiterstufen teils lückenhaft (unter Lücken vermerkt); Technikdetails sehr fortgeschrittener Ringelemente per Relevanzfilter ausgelassen | U2-Extraktion (Rückmeldung Unteragent) |
+| L-T3-02 | Versatz PDF n → S. 750+n; Tab. 3 je Studie in methodik- und befund-Zeile geteilt, Zeilen über Seitenumbrüche verschoben (Zuordnung teils aus Spaltenlage, unsicher); Befund: Studie (32) Text vs. Tab. 3, Dauer 9 vs. 8 Wochen, Summen 269 vs. 273; Effektstärken mit KI nur im Online-Supplement | U2-Extraktion (Rückmeldung Unteragent) |
