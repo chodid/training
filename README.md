@@ -17,11 +17,11 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | `server/schemas/` | JSON-Schemata für `plan_json`/`actual_json` je Einheitentyp (Konzept 7.1) und für den Inhalt einer Übung im Katalog (`exercise.json`) | AP-03, AP-16 |
 | `server/tests/` | PHPUnit-Tests (Unit und Integration gegen MySQL); `js/` Node-Tests und `e2e/` Browser-Durchläufe (geführte Einheit, Übungskatalog) | AP-00 ff., AP-14, AP-16 |
 | `.github/workflows/deploy.yml` | Test und Deployment (D-17) | AP-00 |
-| `docs/konzept/` | Konzeptdokument; `datenmodell.md` mit ER-Diagramm | – , AP-03 |
+| `docs/konzept/` | Konzeptdokument; `datenmodell.md` mit ER-Diagramm; Aufträge je Paket (u. a. `gefuehrte-einheit.md`, `uebungskatalog.md`) | – , AP-03, AP-14, AP-16 |
 | `docs/pruefung/` | Prüfprotokoll (Konzept Abschnitt 16) | alle |
 | `docs/wissen/` | Wissenskarten (Sammeldateien, 13.1) | AP-06 |
 | `docs/literatur/` | Literatur-Volltexte als PDF, Open Access und gekauft (D-31), je Block in Unterordnern, Bücher zusätzlich als Kapitel-PDFs (D-51); Verzeichnis `README.md`; nie ins Projektwissen | AP-06 |
-| `docs/regeln/` | Trainerregeln (Abschnitt 14) | AP-07 |
+| `docs/regeln/` | Trainerregeln (Abschnitt 14); vorab Kapitel 9 „Übungskatalog“ | AP-07, AP-16 |
 | `docs/plaene/` | Blockpläne | AP-08 |
 | `docs/branding/` | Branding-Dokument `branding.md` (D-19), Gestaltungsvorgaben in `chadid-design-system/` (Einstieg `readme.md`, `SKILL.md`), Mockups in `mockups/` (Einstieg `index.html`, Screenshots mit `mockups/screenshots.cjs`), Icon-Skript `build-icons.cjs` | AP-01a, AP-13 |
 

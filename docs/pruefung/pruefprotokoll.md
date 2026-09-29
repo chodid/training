@@ -815,6 +815,10 @@ geprueft:
     wie: automatisiert (Integration ExerciseLinkCheckCronTest; MirrorTest, CalendarTest weiter grün)
     ergebnis: ok
     datum: 2026-09-29
+  - was: "T6 Dokumente konsistent: Hauptkonzept (AP-16, D-64 bis D-69, 7, 7.1, 8.2, 8.3, 10, 14), datenmodell.md (Schema 23), gefuehrte-einheit.md, branding.md, trainerregeln.md (Vorabkapitel 9), README, CHANGELOG 0.21.0–0.25.1, Auftrag Abschnitt 13; App.php 0.25.1, SCHEMA_VERSION 23"
+    wie: Durchsicht und Suche nach veralteten Angaben (Version, Schemastand, Tool-/Seitennamen, E-/D-Verweise); Suite und Browser-Tests grün
+    ergebnis: ok
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: T1 Migration 0023 und Schemata gegen MySQL 8.4
     wie: CI (GitHub Actions) mit dem Pull Request

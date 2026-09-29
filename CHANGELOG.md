@@ -7,6 +7,14 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ### Dokumentation
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 
+## [0.25.1] – 2026-09-29
+
+AP-16 T6: Dokumentation des Übungskatalogs.
+
+### Dokumentation
+- Hauptkonzept: Datenmodell (7), `exercise_id` in `plan_json` (7.1), Tools und Budgets (8.2, 8.3), Seiten S8/S9/S10/S10a (10), Trainerregeln Kapitel 9 „Übungskatalog“ (14); `datenmodell.md` mit ER-Diagramm und Schema 23; `gefuehrte-einheit.md` E-19 um den Link „Ausführung“ ergänzt.
+- Neu `docs/regeln/trainerregeln.md` mit Vorabkapitel 9 (R-UEB-10 bis R-UEB-14); die übrigen Kapitel folgen in AP-07.
+
 ## [0.25.0] – 2026-09-29
 
 AP-16 T5: wöchentliche Linkprüfung.

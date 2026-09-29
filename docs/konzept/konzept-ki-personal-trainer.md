@@ -278,6 +278,9 @@ Feldtypen sind konzeptionell. Die konkreten Migrationen entstehen in zwei Schrit
 | `ext_activity`, `ext_wellness` | id bzw. date, Kernfelder, data_json, updated_at | Spiegel Intervals.icu (D-43); AP-09 |
 | `webauthn_credential` | id, user_id, name, public_key, sign_count, created_at, last_used_at | Passkeys (D-44); AP-09 |
 | `athlete_profile` | id, section(`ziele`,`zeitbudget`,`ausruestung`,`einschraenkungen`,`leistungswerte`,`sonstiges`), content (Markdown), reason, created_by(`mcp`,`web`), created_at | Athletenprofil mit Fassungen, jüngste je Abschnitt gilt (D-48); AP-09 |
+| `exercise` | id, slug (eindeutig, unveränderlich), name, name_norm (eindeutig), category(`kraft`,`haltung`,`mobilitaet`,`hangboard`,`campus`,`zugkraft`,`antagonisten`), pattern (13 Bewegungsmuster), equipment_json, variant_of(null), difficulty(1–5, null), status(`aktiv`,`links_pruefen`,`archiviert`), konfidenz(`hoch`,`mittel`,`niedrig`,`einschaetzung`), content_json (Schema `exercise.json`), version, created_by, created_at, updated_at | Übungskatalog (D-64 bis D-69); keine Löschfunktion; AP-16 |
+| `exercise_alias` | exercise_id, alias, alias_norm (eindeutig über alle Übungen) | Duplikatschutz und Suche (E-09); AP-16 |
+| `exercise_version` | id, exercise_id, version, snapshot_json, reason, created_by, created_at | Schnappschuss vor jeder Änderung (E-07); AP-16 |
 
 ## 7.1 `plan_json` / `actual_json` (Schema je Typ)
 
@@ -285,6 +288,7 @@ Feldtypen sind konzeptionell. Die konkreten Migrationen entstehen in zwei Schrit
 kraft_oder_haltung:
   exercises:
     - name: string
+      exercise_id: string|null   # Slug im Übungskatalog (D-64, AP-16); fehlt = Freitext mit Warnung (D-66)
       sets: int
       reps: string        # z. B. "8" oder "6-8" oder "30s"
       load: string        # z. B. "20 kg", "KG", "Band grün"
@@ -294,6 +298,7 @@ kraft_oder_haltung:
 klettern:
   blocks:
     - kind: enum [hangboard, campus, bouldern_volumen, bouldern_limit, ausdauer_route, technik, zugkraft, antagonisten]
+      exercise_id: string|null     # nur bei hangboard, campus, zugkraft, antagonisten (D-68); sonst Schemafehler
       spezifitaet: enum|null [spezifisch, halbspezifisch, unspezifisch]   # nach L-T3-02; zugkraft umfasst auch Körpergewicht-Zugübungen (D-30)
       # hangboard-spezifisch:
       edge_mm: int|null
@@ -313,7 +318,7 @@ ausdauer:
   summary: string                  # Klartext für Wochenansicht
 ```
 
-`actual_json` spiegelt die Struktur von `plan_json` mit Ist-Werten; leere Felder = wie geplant.
+`actual_json` spiegelt die Struktur von `plan_json` mit Ist-Werten; leere Felder = wie geplant. `actual_json` trägt kein `exercise_id` (Zuordnung über die Position).
 
 Zuordnung der übrigen Typen (D-39): `mobilitaet` nutzt das Schema `kraft_oder_haltung`; `ruhe` hat kein `plan_json` (leer oder nur `notes`). Umsetzung als JSON-Schema in `server/schemas/` (AP-03).
 
@@ -347,6 +352,12 @@ Zuordnung der übrigen Typen (D-39): `mobilitaet` nutzt das Schema `kraft_oder_h
 | `get_athlete_profile` (D-48) | section, as_of, include_history (alle optional) | Abschnitte (Markdown) mit Stand, Urheber, Grund und Anzahl Fassungen; mit as_of der Stand am Ende dieses Tages; mit include_history die Fassungen eines Abschnitts (höchstens 20) | nein |
 | `update_athlete_profile` (D-48) | section, content (vollständiger Abschnitt), reason (optional) | Version; `unveraendert`, wenn der Text gleich ist | ja (neue Fassung) |
 | `upsert_block` (D-40) | block_id (optional), block {name, start_date, end_date, status, goal_events, phase_notes, doc_ref} | Block-ID | ja |
+| `find_exercise` (AP-16) | query, category, pattern, equipment, limit, include_archived | Treffer nach Rang (exakt, Teilstring, ähnlich über das Bewegungsmuster) kompakt: slug, name, category, pattern, equipment, konfidenz, kurz, variant_of; status nur wenn nicht aktiv, aehnlich nur wenn true; leer → Hinweis auf `upsert_exercise` | nein |
+| `get_exercise` (AP-16) | slug oder id, fassungen, version | vollständiger Eintrag mit Aliasen, Varianten, Inhalt und Linkstatus; Fassungen bzw. früherer Stand | nein |
+| `list_exercises` (AP-16) | category, status | Kompaktliste slug, name, category, pattern (ohne status ohne archivierte) | nein |
+| `upsert_exercise` (AP-16, D-65) | slug, name, aliases, category, pattern, equipment, variant_of, difficulty, konfidenz, content, reason (Pflicht beim Ändern), status (aktiv/archiviert) | Kurzform mit Linkstatus und Version, `hinweis_chat`; Duplikatschutz, Linkprüfung durch den Server, Archivieren nur ohne geplante Verwendung | ja (neue Fassung) |
+
+Übungskatalog in den Schreibtools (D-66): `write_week_plan` und `update_session` (bei geändertem `plan_json`) melden Übungen ohne `exercise_id` als `warnungen` (mit `hinweis_warnungen`), unbekannte oder archivierte IDs sind Fehler. `get_week_overview` nennt je Einheit `exercise_ids`.
 
 Enum-Werte und Skalen in Antworten immer mit Einheit/Skala kennzeichnen (z. B. `rpe_cr10`), damit Claude sie nicht verwechselt.
 
@@ -355,6 +366,7 @@ Rechte (AP-05): Lese-Tools verlangen den Scope `training:read`, Schreib-Tools `t
 ## 8.3 Antwortbudget
 
 - Jede Tool-Antwort ≤ ca. 3 000 Tokens; `get_week_overview` Ziel ≤ 2 000.
+- Übungskatalog (AP-16, E-16): `find_exercise` ≤ 1 000, `get_exercise` ≤ 1 500 für typische Einträge (die Schemagrenzen erlauben mehr), `list_exercises` ≤ 2 000.
 - Keine Streams, keine Rohlisten über 60 Einträge; bei Bedarf Paginierung über `days`/`week_start`.
 - Zahlen gerundet (Dauer min, Distanz 0,1 km, Höhenmeter 10 m).
 
@@ -386,10 +398,12 @@ Anforderung Gestaltung: Alle Screens sind **mobil- und tabletfreundlich** (Smart
 | S6 Verlauf (optional, AP-09) | Schmerz je Ort über 8 Wochen; sRPE-Wochenlast je Typ | |
 | S7 OAuth-Freigabe | Freigabeseite im Authorize-Schritt (D-36): zeigt Client-Name, Redirect-Host und angeforderten Scope | Freigeben / Ablehnen |
 | Profil (AP-09, D-48) | Athletenprofil je Abschnitt mit Stand und Urheber; Bearbeiten je Abschnitt; frühere Fassungen | Abschnitt bearbeiten (Text, Grund); Fassungen ansehen |
-| S8 Einstellungen | Athletenprofil (Link), Konto (Abmelden, Zeitzone, Passwort, Passkeys, Morgen-Check-in), Training (Timer-Signale an/aus, D-58), Backup (Download, JSON-Export, E-Mail-Status), Update (Schemastand, Migration), Verbindungen (Intervals.icu, Spiegel, Kalender mit Erinnerung, freigegebene OAuth-Clients, statisches Token) | Abmelden; Timer-Signale speichern; Backup herunterladen; Migration ausführen; Freigabe widerrufen |
-| S9 Einheit geführt (AP-14, D-57/D-58) | Schrittweise Führung durch eine Einheit: Fortschritt, aktuelle Übung mit Satz, Soll und Timer (Arbeit grün, Pause rot), Ist-Felder der Übung, „Als Nächstes“, Abschluss mit Rückmeldung wie S3; Stummschalter in der Kopfzeile | Start/Anhalten/Pause beenden/Satz erledigt/Weiter/Zurück/Überspringen; Speichern (wie S3) |
+| S8 Einstellungen | Athletenprofil (Link), Übungskatalog (Link, Hinweis auf Übungen mit defekten Links, AP-16), Konto (Abmelden, Zeitzone, Passwort, Passkeys, Morgen-Check-in), Training (Timer-Signale an/aus, D-58), Backup (Download, JSON-Export, E-Mail-Status), Update (Schemastand, Migration), Verbindungen (Intervals.icu, Spiegel, Kalender mit Erinnerung, freigegebene OAuth-Clients, statisches Token) | Abmelden; Timer-Signale speichern; Backup herunterladen; Migration ausführen; Freigabe widerrufen |
+| S9 Einheit geführt (AP-14, D-57/D-58) | Schrittweise Führung durch eine Einheit: Fortschritt, aktuelle Übung mit Satz, Soll und Timer (Arbeit grün, Pause rot), Ist-Felder der Übung, „Als Nächstes“, Abschluss mit Rückmeldung wie S3; Stummschalter in der Kopfzeile; Link „Ausführung“ auf S10 (AP-16, Rückkehr ohne Rückfrage) | Start/Anhalten/Pause beenden/Satz erledigt/Weiter/Zurück/Überspringen; Speichern (wie S3) |
+| S10 Übung (AP-16, D-64/D-67) | Katalogeintrag: Kategorie, Muster, Ausrüstung, Konfidenz; Kurz/Ziel, Voraussetzung, Ausführung, Worauf achten, Fehlerquellen, Vorsicht, Progression/Regression mit Varianten, Dosierungshinweis, eingebettete Videos (YouTube-nocookie, Vimeo) mit Link, Links mit Prüfstatus, Quellen, Fassungen; offline mit Link statt Video | nur lesen (Bearbeiten über den Chat, O-01); aus S3 (Übungsname), S9 („Ausführung“), Kalender und S10a |
+| S10a Übungskatalog (AP-16) | Liste der Übungen als Karten mit Status | Suche, Filter Kategorie, archivierte zeigen |
 
-Screens S0, S1 und S7 entstehen in AP-01, S2–S5 und S8 in AP-04 (Backup/Update-Funktionen in S8 aus AP-10), S6 und Profil in AP-09; Mockups in AP-01a (Profil ohne Mockup, aus vorhandenen Bausteinen – branding.md Abschnitt 8); S9 in AP-14 mit Mockup `s9-einheit-gefuehrt.html` (Fable, 2026-09-28), Anpassungen S2/S3/S8 in AP-13/AP-14.
+Screens S0, S1 und S7 entstehen in AP-01, S2–S5 und S8 in AP-04 (Backup/Update-Funktionen in S8 aus AP-10), S6 und Profil in AP-09; Mockups in AP-01a (Profil ohne Mockup, aus vorhandenen Bausteinen – branding.md Abschnitt 8); S9 in AP-14 mit Mockup `s9-einheit-gefuehrt.html` (Fable, 2026-09-28), Anpassungen S2/S3/S8 in AP-13/AP-14; S10/S10a in AP-16 mit Mockups `s10-uebung.html`, `s10a-uebungen.html` (Code-Instanz aus vorhandenen Bausteinen), Anpassungen S3/S8/S9.
 
 # 11. Feedback- und Check-in-Definitionen
 
@@ -1850,6 +1864,7 @@ Vorgesehene Kapitel:
 6. Datenqualitätsregeln (Abschnitt 11).
 7. Schreibregel D-11 (nur nach Bestätigung).
 8. Zonenmodell: Abbildung des Drei-Zonen-Modells (LT1/LT2) auf die fünf Garmin-Zonen (%LTHR), Grenzwerte, Umgang mit nur einer Schwelle auf der Uhr (D-27). Kletterregeln tragen die Kennzeichnung „Evidenz: begrenzt“ (13.2.4).
+9. Übungskatalog (AP-16, D-64 bis D-69): R-UEB-10 bis R-UEB-14 – `find_exercise` vor jeder Planung, Anlage nach Bestätigung mit `hinweis_chat`, Quellen- und Konfidenzpflicht, keine erfundenen Links, Vorsicht mit Reha-Regel und Schmerzgrenze, die Einheit beschreibt nur die Dosierung. Als Vorabkapitel in `docs/regeln/trainerregeln.md` (Wortlaut aus `docs/konzept/uebungskatalog.md` Abschnitt 8); AP-07 übernimmt es beim Ausformulieren.
 
 # 15. Arbeitspakete
 
@@ -2663,7 +2678,7 @@ probleme_loesungen:
 status: in_arbeit
 begonnen: 2026-09-29
 abgeschlossen: null
-teilpakete: T1 (Code-Stand 0.21.0), T2 (0.22.0), T3 (0.23.0), T4 (0.24.0) und T5 (0.25.0) umgesetzt – Details in docs/konzept/uebungskatalog.md Abschnitt 13
+teilpakete: T1 (Code-Stand 0.21.0, Schema 23), T2 (0.22.0), T3 (0.23.0), T4 (0.24.0), T5 (0.25.0) und T6 (Dokumentation, 0.25.1) umgesetzt; Abnahme durch den Athleten offen (Projekt-Chat, Smartphone, Cron auf dem Server, O-05) – Details in docs/konzept/uebungskatalog.md Abschnitt 13
 probleme_loesungen:
   - datum: 2026-09-29
     was: Abgleich des Auftrags mit dem Code – YouTube-Einbettung scheitert an Referrer-Policy same-origin, Linkprüfung per GET erkennt gelöschte Videos nicht, Server-Abruf beliebiger URLs (SSRF), normalisierter Name ohne eigene Spalte
@@ -2683,6 +2698,9 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: T5 – Linkprüfung im Spiegel-Cron ohne Rückwirkung auf dessen Antwort, Reihenfolge bei mehr als 50 Links, Zählung nicht prüfbarer Links, Schreibsperre
     loesung: Einzelheiten im Auftrag Abschnitt 13, T5
+  - datum: 2026-09-29
+    was: T6 – Kapitel 8 in Abschnitt 14 ist schon vergeben; docs/regeln/trainerregeln.md fehlte noch
+    loesung: Kapitel 9 „Übungskatalog“; trainerregeln.md mit Vorabkapitel 9 angelegt (Kapitel 1–8 bleiben AP-07)
 ```
 
 # 16. Prüfprotokoll (separates Dokument)
@@ -2770,6 +2788,7 @@ noch_zu_pruefen:
 | 2026-09-28 | Neu D-63 (Favicon V3 gerundet, ändert D-59 für das Favicon), AP-13 `probleme_loesungen` ergänzt (Code-Stand 0.20.2). |
 | 2026-09-29 | L-T1-07 Laursen/Buchheit einsortiert (Gesamt-PDF und Kapitel-PDFs, D-51): `datei`/`kapitel`/`zugang`, 13.4 „vorhanden“ und Stand (37 Volltexte), V-13, AP-06 Teilschritt und `probleme_loesungen`. Doppelt hochgeladene Kenney-Datei entfernt. |
 | 2026-09-29 | Neu (Fable, Konzept; vom Athleten bestätigt): Auftrag `docs/konzept/uebungskatalog.md`, AP-16 Übungskatalog in der Reihenfolge nach AP-14; D-64 bis D-69 aus E-01 bis E-06; Code-Instanz ergänzt E-17 bis E-20 (Referrer am Video-iframe, oEmbed-Prüfung, Schutz der Linkprüfung, `name_norm`). AP-16 begonnen: T1 umgesetzt (Code-Stand 0.21.0, Schema 23). |
+| 2026-09-29 | AP-16 T6 (Code-Stand 0.25.1): Abschnitte 7, 7.1, 8.2, 8.3, 10 und 14 (Kapitel 9 Übungskatalog) nachgezogen; `datenmodell.md`, `gefuehrte-einheit.md` (E-19), `docs/regeln/trainerregeln.md` (Vorabkapitel 9). AP-16 bleibt `in_arbeit` bis zur Abnahme. |
 | 2026-09-29 | AP-16 T5 umgesetzt (Code-Stand 0.25.0): wöchentliche Linkprüfung im Cron. |
 | 2026-09-29 | AP-16 T4 umgesetzt (Code-Stand 0.24.0): Verlinkung aus S3, S9 und Kalender, Übungsseiten offline. |
 | 2026-09-29 | AP-16 T3 umgesetzt (Code-Stand 0.23.0): S10 Übung, S10a Übungskatalog, S8-Eintrag, CSP `frame-src` nur für S10. |

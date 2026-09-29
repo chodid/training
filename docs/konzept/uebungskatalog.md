@@ -255,6 +255,8 @@ Reihenfolge: T1 → T2; T3 nach T1 (parallel zu T2 möglich); T4 nach T2 und T3;
 
 ## 10. Änderungen am Hauptkonzept (durch die Code-Instanz einzutragen)
 
+Eingetragen am 2026-09-29: AP-16 mit Statusblock; E-01 bis E-06 als D-64 bis D-69; Abschnitte 7, 7.1, 8.2, 8.3, 10 und 14 (Kapitel 9 „Übungskatalog“, weil Kapitel 8 schon das Zonenmodell ist).
+
 - Neues Arbeitspaket **AP-16 Übungskatalog** mit Verweis auf dieses Dokument; Abhängigkeiten: AP-03 (Schemata), AP-05 (Schreibtools), AP-09 (Offline), AP-11 (Kalenderbeschreibung, Cron), AP-14 (S9).
 - Entscheidungen E-01 (Katalog in DB, `exercise_id`), E-02 (KI legt an), E-03 (weiche Regel), E-04 (Einbettung), E-05 (Kletterblöcke), E-06 (Quellenpflicht) als D-Einträge mit Datum 2026-09-29, Begründung „Entscheidung des Athleten“.
 - Abschnitt 7.1 ergänzt um `exercise_id`; Abschnitt 14 um das Kapitel „Übungskatalog“.
@@ -457,12 +459,21 @@ T5:
     - was: Bei Schreibsperre (Code neuer als Datenbank) wäre die Tabelle ggf. noch nicht da
       loesung: Linkprüfung nur ohne Schreibsperre
 T6:
-  status: offen
-  datum: null
-  ergebnis: null
-  tests: null
-  abnahme: null
-  probleme_loesungen: []
+  status: erledigt
+  datum: 2026-09-29
+  ergebnis: >-
+    Hauptkonzept: AP-16 mit Statusblock, D-64 bis D-69, Abschnitte 7 (Tabellen exercise, exercise_alias, exercise_version),
+    7.1 (exercise_id), 8.2 (vier Tools, Katalogprüfung in den Schreibtools), 8.3 (Budgets), 10 (S8, S9, S10, S10a),
+    14 (Kapitel 9 Übungskatalog); datenmodell.md (Tabellen, ER-Diagramm, Umsetzungsdetails, Schemata); gefuehrte-einheit.md
+    (E-19 um den Link „Ausführung“ ergänzt); branding.md (Mockups S10/S10a); docs/regeln/trainerregeln.md als Vorabkapitel 9;
+    README (Endpunkte, Tools, CSP, Cron, Offline, Tests); CHANGELOG 0.21.0 bis 0.25.1; Prüfprotokoll mit T1–T5. Code-Stand 0.25.1.
+  tests: Durchsicht auf Konsistenz (Versionen, Schemastand, Tool- und Seitennamen, Verweise E-/D-Nummern); gesamte Suite und Browser-Tests grün
+  abnahme: Dokumente konsistent; Prüfprotokoll listet T1–T5
+  probleme_loesungen:
+    - was: T6 nennt „Abschnitt 14 (Kapitel 8 …)“; Kapitel 8 ist bereits das Zonenmodell
+      loesung: neues Kapitel 9 „Übungskatalog“
+    - was: docs/regeln/trainerregeln.md gab es noch nicht (AP-07 im Projekt-Chat offen)
+      loesung: Datei mit Vorabkapitel 9 angelegt, Kapitel 1–8 bleiben AP-07
 ```
 
 ## 14. Änderungsprotokoll dieses Dokuments
@@ -476,3 +487,4 @@ T6:
 | 2026-09-29 | Code-Instanz | T3 umgesetzt (Code-Stand 0.23.0), Befunde in Abschnitt 13 |
 | 2026-09-29 | Code-Instanz | T4 umgesetzt (Code-Stand 0.24.0), Befunde in Abschnitt 13 |
 | 2026-09-29 | Code-Instanz | T5 umgesetzt (Code-Stand 0.25.0), Befunde in Abschnitt 13 |
+| 2026-09-29 | Code-Instanz | T6 Dokumentation abgeschlossen (Code-Stand 0.25.1); alle Unterpunkte umgesetzt, Abnahmen durch den Athleten offen (Prüfprotokoll AP-16) |
