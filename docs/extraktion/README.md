@@ -131,13 +131,13 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 D
 
 ### 4.2 UP – `uebergreifend-planung-kombiniertes-training`
 
-Ablage: `docs/extraktion/uebergreifend/` (Quellen anderer Blöcke unter deren Block, D-51). Zu extrahieren in dieser Tabelle: 9 Dateien; zusätzlich L-A01, L-A02 (Tabelle UB). Davon extrahiert: 2. Nicht zu extrahieren (Vorspann/Anhang): 0; ausgelassen nach Kapitelauswahl: 0.
+Ablage: `docs/extraktion/uebergreifend/` (Quellen anderer Blöcke unter deren Block, D-51). Zu extrahieren in dieser Tabelle: 9 Dateien; zusätzlich L-A01, L-A02 (Tabelle UB). Davon extrahiert: 3. Nicht zu extrahieren (Vorspann/Anhang): 0; ausgelassen nach Kapitelauswahl: 0.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
 | L-P01 | UP | `L-P01_Kiely-2018_Periodization-Theory.pdf` | 12 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 53 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 752+n; Meinungsbeitrag ohne Studiendaten; Verweisnummern im Original teils falsch |
 | L-P02 | UP | `L-P02_Mujika-2018_Integrated-Approach-to-Periodization.pdf` | 24 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
-| L-P07 | UP | `L-P07_Schumann-2022_Concurrent-Training-Meta-Analysis.pdf` | 12 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
+| L-P07 | UP | `L-P07_Schumann-2022_Concurrent-Training-Meta-Analysis.pdf` | 12 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 42 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 600+n; Forest-Plots als Bild (hochaufgelöst gelesen); Befund: SMD Hypertrophie −0,01 (Text) vs. +0,01 (Abb. 4) u. a., in den Aussagen vermerkt; Supplement fehlt |
 | L-P08 | UP, T2 | `L-P08_Currier-2026_ACSM-Resistance-Training-Prescription.pdf` | 22 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-P09 | UP | `L-P09_Held-2026_Concurrent-Training-Umbrella-Review.pdf` | 24 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-A01 | UB, UP | siehe Tabelle UB | – | siehe Tabelle UB | siehe Tabelle UB | ausgewaehlt · B · Kern; Zeilen nur einmal geführt |
@@ -146,7 +146,7 @@ Ablage: `docs/extraktion/uebergreifend/` (Quellen anderer Blöcke unter deren Bl
 | L-T2-26 | UP | `L-T2-26_Monserda-Vilaro-2023_Concurrent-Continuous-vs-Intermittent.pdf` | 22 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-T2-31 | UP | `L-T2-31_Wilson-2012_Concurrent-Training-Interference.pdf` | 15 (PDF) | offen | offen | optional · A · optional · Text ✓ |
 | L-T2-32 | UP | `L-T2-32_Sabag-2018_Concurrent-HIIT-and-Resistance.pdf` | 13 (PDF) | offen | offen | optional · A · optional · Text ✓ |
-| **Synthese startbereit** | UP | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 2 von 9 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
+| **Synthese startbereit** | UP | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 3 von 9 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
 
 ### 4.3 T1 – `t1-ausdauer`
 
@@ -620,3 +620,4 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-A01 | Druckseite = Gesamtbuch-PDF-Seite − 1 in allen 18 Kapiteln (Fußzeilen-Paginierung des E-Books; Übereinstimmung mit Druckausgabe nicht prüfbar); Kapiteldateien enthalten Teil-Einleitungen und Bildseiten am Rand, Literaturverzeichnis fehlt je Kapitel; viele Werte aus Grafiken abgelesen (unsicher); zahlreiche Widersprüche Text/Abbildung/Zusammenfassung im Buch selbst unter Offene Stellen | U2-Extraktion (Rückmeldung Unteragent) |
 | L-P01 | Versatz PDF n → S. 752+n; Meinungsbeitrag ohne Studiendaten; Verweisnummern im Original teils falsch | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-25 | Versatz PDF n → S. 2390+n; Befund: Referenznummern in Forest-Plots um eins verschoben, Fig. 3 Einzelwerte vertauscht, QM/p in Fig. 2 inkonsistent; Supplement fehlt | U2-Extraktion (Rückmeldung Unteragent) |
+| L-P07 | Versatz PDF n → S. 600+n; Forest-Plots als Bild (hochaufgelöst gelesen); Befund: SMD Hypertrophie −0,01 (Text) vs. +0,01 (Abb. 4) u. a., in den Aussagen vermerkt; Supplement fehlt | U2-Extraktion (Rückmeldung Unteragent) |
