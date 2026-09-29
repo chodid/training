@@ -221,7 +221,7 @@ Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dat
 
 ### 4.4 T2 – `t2-kraft-haltung`
 
-Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateien; zusätzlich L-P08 (Tabelle UP). Davon extrahiert: 24. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 48.
+Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateien; zusätzlich L-P08 (Tabelle UP). Davon extrahiert: 29. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 48.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -230,13 +230,13 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-A03 | T2 | `00` Vorspann | PDF 1–37 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · S. 1 ohne Text, ab S. 2 ✓ |
 | L-A03 | T2 | `01-1` Structure and Function of Body Systems (Teil 1/2) | PDF 38–67 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `01-2` Structure and Function of Body Systems (Teil 2/2) | PDF 68–103 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
-| L-A03 | T2 | `02-1` Biomechanics of Resistance Exercise (Teil 1/2) | PDF 104–147 | offen | offen | Text ✓ |
+| L-A03 | T2 | `02-1` Biomechanics of Resistance Exercise (Teil 1/2) | PDF 104–147 | 2026-09-29 / opus | offen | Text ✓ · 80 Aussagen · 2 unsicher · 3 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `02-2` Biomechanics of Resistance Exercise (Teil 2/2) | PDF 148–173 | 2026-09-29 / opus | offen | Text ✓ · 53 Aussagen · 0 unsicher · 1 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `03` Bioenergetics of Exercise and Training | PDF 174–226 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `04` Endocrine Responses to Resistance Exercise and Training | PDF 227–280 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `05` Adaptations to Anaerobic Training | PDF 281–338 | offen | offen | Text ✓ |
 | L-A03 | T2 | `06` Adaptations to Aerobic Training | PDF 339–383 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
-| L-A03 | T2 | `07` Age-Related Differences and Their Implications for Resistance Training | PDF 384–437 | offen | offen | Text ✓ |
+| L-A03 | T2 | `07` Age-Related Differences and Their Implications for Resistance Training | PDF 384–437 | 2026-09-29 / opus | offen | Text ✓ · 81 Aussagen · 1 unsicher · 1 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `08` Sex-Related Differences and Their Implications for Resistance Training | PDF 438–464 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Geschlecht; Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `09-1` Psychological Foundations of Performance (Teil 1/2) | PDF 465–504 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Psychologie; Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `09-2` Psychological Foundations of Performance (Teil 2/2) | PDF 505–535 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Psychologie; Athlet 2026-09-29) · Text ✓ |
@@ -249,7 +249,7 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-A03 | T2 | `14-1` Administration, Scoring, and Interpretation of Selected Tests (Teil 1/2) | PDF 764–808 | 2026-09-29 / opus | offen | Text ✓ · 57 Aussagen · 0 unsicher · 2 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `14-2` Administration, Scoring, and Interpretation of Selected Tests (Teil 2/2) | PDF 809–853 | offen | offen | Text ✓ |
 | L-A03 | T2 | `15-1` Performance Preparation, Mobility, and Flexibility (Teil 1/3) | PDF 854–878 | 2026-09-29 / opus | offen | Text ✓ · 64 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
-| L-A03 | T2 | `15-2` Performance Preparation, Mobility, and Flexibility (Teil 2/3) | PDF 879–915 | offen | offen | Text ✓ |
+| L-A03 | T2 | `15-2` Performance Preparation, Mobility, and Flexibility (Teil 2/3) | PDF 879–915 | 2026-09-29 / opus | offen | Text ✓ · 68 Aussagen · 0 unsicher · 5 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `15-3` Performance Preparation, Mobility, and Flexibility (Teil 3/3) | PDF 916–946 | 2026-09-29 / opus | offen | Text ✓ · 34 Aussagen · 1 unsicher · 3 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `16-1` Exercise Technique for Free Weight and Machine Training (Teil 1/4) | PDF 947–981 | 2026-09-29 / opus | offen | Text ✓ · 58 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `16-2` Exercise Technique for Free Weight and Machine Training (Teil 2/4) | PDF 982–1016 | offen | offen | Text ✓ |
@@ -354,14 +354,14 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-T2-23 | T2 | `L-T2-23_Lopez-2022_Corrigendum.pdf` | 1 (PDF) | in k00 | in k00 | Corrigendum zu L-T2-23 · Text ✓ · im selben Lauf wie der Artikel extrahiert (`L-T2-23_k00.md`, Entscheidung Athlet 2026-09-29) |
 | L-T2-24 | T2 | `L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf` | 7 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · Corrigendum als eigene Datei (Zeile darunter) · 40 Aussagen · 1 unsicher · 11 offene Stellen · pdf_nativ · Muster: Versatz 0 (Volume 7: 1–7); Corrigendum eingearbeitet (obere/untere Extremität getauscht, −0.011 → −0.11, Studienfluss); Vorzeichen der SMD in Forest-Plots unklar; mehrere Widersprüche Text/Tab./Literatur |
 | L-T2-24 | T2 | `L-T2-24_Lopes-2020_Corrigendum.pdf` | 2 (PDF) | in k00 | in k00 | Corrigendum zu L-T2-24 · Text ✓ · im selben Lauf wie der Artikel extrahiert (`L-T2-24_k00.md`, Entscheidung Athlet 2026-09-29) |
-| L-T2-14 | T2 | `L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf` | 23 (PDF) | offen | offen | optional · A · optional · Text ✓ |
+| L-T2-14 | T2 | `L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf` | 23 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 60 Aussagen · 2 unsicher · 4 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 1954+n; Befund: Werte Text vs. Tab. 2 vertauscht/abweichend, Tabellenverweis falsch |
 | L-T2-19 | T2 | `L-T2-19_Carrasco-Uribarren-2026_Therapeutic-Exercise-Forward-Head-Posture.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 47 Aussagen · 2 unsicher · 3 offene Stellen · pdf_nativ · Muster: Online-First, Verlagsdeckblatt, gedruckt = PDF − 1, S. 1 ohne Zahl (Abschnitt); Befund: n=256 vs. 156, Unpräzision Text vs. Tab. 4, Tab. 1 vs. 2 widersprüchlich |
 | L-T2-33 | T2 | – | – | – | – | optional · B · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
 | L-T2-27 | T2 | `L-T2-27_Schoenfeld-2019_Training-Frequency-Hypertrophy.pdf` | 11 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 41 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ · Muster: Online-First-Fassung (online 2018), Verlagsdeckblatt, gedruckt = PDF − 1, S. 1 ohne Zahl (Abschnitt); Befund: Omnibustest P = 0,08 (Ergebnis) vs. 0,04 (Diskussion) |
 | L-T2-28 | T2 | `L-T2-28_Refalo-2021_Training-Load-Hypertrophy.pdf` | 24 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 67 Aussagen · 4 unsicher · 6 offene Stellen · pdf_nativ · Muster: Verlagsdeckblatt, gedruckt = PDF − 1; Befund: Abstract-ES 0,34 vs. Ergebnis 0,41, Studienzahlen 8+13/22/20, Tab. 1 teils nicht lesbar (unsicher) |
-| L-T2-29 | T2 | `L-T2-29_Carvalho-2022_Volume-Matched-Loads-Hypertrophy.pdf` | 58 (PDF) | offen | offen | optional · A · optional · Text ✓ · Autorenmanuskript, Seitenzahlen nicht zitierfähig |
+| L-T2-29 | T2 | `L-T2-29_Carvalho-2022_Volume-Matched-Loads-Hypertrophy.pdf` | 58 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · Autorenmanuskript, Seitenzahlen nicht zitierfähig · 79 Aussagen · 9 unsicher · 9 offene Stellen · pdf_nativ |
 | L-T2-30 | T2 | `L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 39 Aussagen · 0 unsicher · 7 offene Stellen · pdf_nativ · Muster: Article in Press (J Sport Health Sci 2021, vorläufige Seiten 1–10), Versatz 0; Befund: Jahresangabe Rooney 2020 vs. 1994, KI Karsten ohne Minus u. a. |
-| **Synthese startbereit** | T2 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 24 von 76 extrahiert; gegengeprüft: 0. |
+| **Synthese startbereit** | T2 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 29 von 76 extrahiert; gegengeprüft: 0. |
 
 ### 4.5 T3 – `t3-klettern`
 
@@ -645,3 +645,4 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-T2-30 | Article in Press (J Sport Health Sci 2021, vorläufige Seiten 1–10), Versatz 0; Befund: Jahresangabe Rooney 2020 vs. 1994, KI Karsten ohne Minus u. a. | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-28 | Verlagsdeckblatt, gedruckt = PDF − 1; Befund: Abstract-ES 0,34 vs. Ergebnis 0,41, Studienzahlen 8+13/22/20, Tab. 1 teils nicht lesbar (unsicher) | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-24 | Versatz 0 (Volume 7: 1–7); Corrigendum eingearbeitet (obere/untere Extremität getauscht, −0.011 → −0.11, Studienfluss); Vorzeichen der SMD in Forest-Plots unklar; mehrere Widersprüche Text/Tab./Literatur | U2-Extraktion (Rückmeldung Unteragent) |
+| L-T2-14 | Versatz PDF n → S. 1954+n; Befund: Werte Text vs. Tab. 2 vertauscht/abweichend, Tabellenverweis falsch | U2-Extraktion (Rückmeldung Unteragent) |
