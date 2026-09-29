@@ -181,7 +181,7 @@ flowchart LR
 | D-48 | Athletenprofil als DB-Objekt (ersetzt D-15): Tabelle `athlete_profile` mit festen Abschnitten `ziele`, `zeitbudget`, `ausruestung`, `einschraenkungen`, `leistungswerte`, `sonstiges`, je Abschnitt Markdown-Text (höchstens 6 000 Zeichen). Jede Änderung legt eine neue Fassung an (Datum, Urheber Claude/Web, optionaler Grund); frühere Stände bleiben lesbar. Die DB ist die einzige Quelle: `docs/athlet/profil.md` und die Kopie im Projekt-Wissen entfallen. Bearbeiten durch Claude (`update_athlete_profile`, Scope `training:write`) und auf der Webseite (`/profil`, erreichbar über S8); Schutz gegen gegenseitiges Überschreiben. | Profil ändert sich mit Tests und Lebensumständen; Claude kann Werte direkt im Chat eintragen, ohne Repo und Deployment. Abschnitte statt eines Dokuments, damit Änderungen gezielt sind; Fassungen, damit spätere Auswertungen den damaligen Stand kennen. Entscheidung des Athleten (Struktur, Bearbeiter, Quelle, Verlauf). | 2026-09-28 |
 | D-49 | Ausgestaltung Offline (konkretisiert D-45): (a) Vorgeladen werden beim Öffnen der aktuellen Woche die aktuelle und die nächste Woche mit allen Einheiten sowie Check-in und Schmerz für heute; weitere besuchte Seiten dieser Art werden beim Aufruf gespeichert, andere Seiten sind offline nicht verfügbar. (b) Abmelden löscht die gespeicherten Seiten auf dem Gerät; noch nicht gesendete Eingaben bleiben und werden nach dem nächsten Login gesendet. (c) Wurde ein Eintrag (Check-in, Rückmeldung) seit dem Laden des Formulars geändert, wird eine gepufferte Eingabe nicht übernommen, sondern als Hinweis mit „Öffnen“, „Trotzdem übernehmen“ und „Verwerfen“ angezeigt; dieselbe Prüfung gilt online (Formular bleibt mit den Eingaben stehen, erneutes Speichern übernimmt). Schmerzereignisse sind immer neue Einträge und kollidieren nicht. | Entscheidung des Athleten (Umfang, Abmelden, Konflikt); „Trotzdem übernehmen“ ergänzt in der Umsetzung, damit eine Eingabe nach Prüfung nicht neu getippt werden muss. | 2026-09-28 |
 | D-50 | Kalender per CalDAV-Push (AP-11): Die App schreibt jede Einheit außer Ruhetagen als ganztägigen Termin in einen Nextcloud-Kalender (eigener Kalender empfohlen), mit fester UID je Einheit; Titel „Typ: Titel“, Beschreibung mit Priorität, Dauer, Kurzplan, Trainer-Begründung und Link zur App. Status: erledigt/teilweise mit „✓“ im Titel, ausgelassen als abgesagter Termin, verschoben wandert mit dem Datum. Übertragen wird bei jeder Änderung (Wochenplan, update_session, Ersetzen einer Woche, Rückmeldung auf der Webseite); zusätzlich Abgleich 7 Tage zurück bis 8 Wochen voraus im stündlichen Cronjob und per Knopf in den Einstellungen, dabei werden verwaiste eigene Termine entfernt, fremde nie. Zugang über Nextcloud-App-Passwort in der .env (CALDAV_URL nur https); Fehler brechen nichts ab. Einbahnstraße: Änderungen im Kalender werden nicht zurückgelesen. **Zuschnitt geändert durch D-60 (2026-09-28): ein Sammeltermin je Tag statt je Einheit, ohne Status-Markierung und ohne abgesagte Termine.** | Entscheidung des Athleten (CalDAV statt ICS-Abo: sofort sichtbar; Umfang ohne Ruhetage; Markierung; Abgleich im bestehenden Cronjob; direkte Umsetzung durch die Code-Instanz). Einheiten haben keine Uhrzeit, daher ganztägig. | 2026-09-28 |
-| D-51 | Ablage der Volltexte in `docs/literatur/`: Unterordner je Block (`uebergreifend/`, `t1-ausdauer/`, `t2-kraft/`, `t3-klettern/`), eine Datei im Block ihrer ID-Definition; Dateiname `<ID>_<Erstautor>-<Jahr>_<Kurztitel>[_<Auflage>].pdf` (ASCII). Bücher zusätzlich als Kapitel-PDFs in `<ID>_kapitel/` (Schritt 1 in 13.1; Kapitel über 60 PDF-Seiten in etwa gleich große Teile, möglichst an Abschnittsgrenzen); das Originalbuch bleibt liegen. Im Konzept verweisen die Felder `datei`/`kapitel` auf die Dateien, 13.4 führt die Spalte „vorhanden“, `docs/literatur/README.md` ist das Verzeichnis. L-A01 liegt in der 7. Aufl. (2019) vor: gilt vorläufig, die 8./9. Aufl. bleibt auf der Beschaffungsliste. | Entscheidung des Athleten 2026-09-28 (Unterordner statt flacher Ablage; Kapitel-PDFs zusätzlich zum Original statt Ersatz; 7. Aufl. nur vorläufig). Kapitel-PDFs sind nötig, weil die Bücher (bis 1876 Seiten, 65 MB) für Chat-Sitzungen zu groß sind. Für EPUB ergänzt durch D-71 (2026-09-29). | 2026-09-28 |
+| D-51 | Ablage der Volltexte in `docs/literatur/`: Unterordner je Block (`uebergreifend/`, `t1-ausdauer/`, `t2-kraft/`, `t3-klettern/`), eine Datei im Block ihrer ID-Definition; Dateiname `<ID>_<Erstautor>-<Jahr>_<Kurztitel>[_<Auflage>].pdf` (ASCII). Bücher zusätzlich als Kapitel-PDFs in `<ID>_kapitel/` (Schritt 1 in 13.1; Kapitel über 60 PDF-Seiten in etwa gleich große Teile, möglichst an Abschnittsgrenzen); das Originalbuch bleibt liegen. Im Konzept verweisen die Felder `datei`/`kapitel` auf die Dateien, 13.4 führt die Spalte „vorhanden“, `docs/literatur/README.md` ist das Verzeichnis. L-A01 liegt in der 7. Aufl. (2019) vor: gilt vorläufig, die 8./9. Aufl. bleibt auf der Beschaffungsliste. | Entscheidung des Athleten 2026-09-28 (Unterordner statt flacher Ablage; Kapitel-PDFs zusätzlich zum Original statt Ersatz; 7. Aufl. nur vorläufig). Kapitel-PDFs sind nötig, weil die Bücher (bis 1876 Seiten, 65 MB) für Chat-Sitzungen zu groß sind. Für EPUB ergänzt durch D-71 (2026-09-29). Nachtrag 2026-09-29 (Entscheidung Athlet): vorhandene Ausgaben werden verwendet, auf neuere Auflagen wird nicht gewartet – L-A01 bleibt in der 7. Aufl. (nicht mehr vorläufig), L-T3-09 in der 3. Aufl., L-T2-33 und L-R-30 in der 3. Aufl. | 2026-09-28 |
 | D-52 | Erinnerung an Kalenderterminen (ergänzt D-50): Jeder Termin einer geplanten oder verschobenen Einheit trägt eine Erinnerung (VALARM) am Tag der Einheit zur eingestellten Uhrzeit, Standard 05:00; erledigte und ausgelassene Einheiten erinnern nicht (seit D-60: eine Erinnerung je Tag, solange mindestens eine Einheit des Tages geplant oder verschoben ist). Uhrzeit oder „keine Erinnerung“ in den Einstellungen (S8), gespeichert in der neuen Tabelle `app_setting` (Schlüssel/Wert); nach dem Ändern werden die Termine im Abgleichzeitraum sofort neu übertragen. | Wunsch des Athleten (Uhrzeit einstellbar, Standard 05:00); Ausnahmen für erledigt/ausgelassen und die Aus-Option in der Umsetzung ergänzt, weil eine Erinnerung dort keinen Nutzen hat. | 2026-09-28 |
 | D-53 | Morgen-Check-in mit Morgentest (AP-12): Auftrag und Entscheidungen E-01–E-13 in `docs/konzept/morgen-checkin.md`. Kern: Morgentest Patellasehne links/rechts (NRS 0–10, leer = nicht erhoben), weitere Angaben (Nacken/BWS, Sprunggelenk links, Hand rechts bis Stichtag, Warnzeichen) als Erweiterung des bestehenden Check-ins (ein Eintrag je Tag); feste Ampelregeln (rot > 5 oder zwei Tage streng steigend bis ≥ 4, gelb 4–5, grün ≤ 3) als reine Information, Planänderungen macht Claude; Bereitstellung über die Karte auf der Startseite und `get_morning_checks`. Erholung/Muskelkater bleiben Pflicht. Schmerzorte um Patellasehne, Sprunggelenk und BWS ergänzt. | Auftrag aus dem Trainer-Chat, bestätigt durch den Athleten; Speicherort, Pflichtfelder, Briefing und Schmerzorte in Rücksprache mit dem Athleten festgelegt. | 2026-09-28 |
 | D-54 | Literatur Haltung/Rücken (Teilblock T2). Kern: L-T2-15 (Warneke 2024, Kräftigung vs. Dehnung, Anker), L-T2-16 (Khorramroo 2026, Korrekturübungen bei Upper Crossed Syndrome), L-T2-17 (Shiri 2018, Prävention Kreuzschmerz mit Dosierung), L-T2-18 (Steffens 2016, Prävention Kreuzschmerz). Optional: L-T2-19 (Carrasco-Uribarren 2026, Nacken vs. Nacken + BWS), L-T2-14 (Cowley 2026). Zurückgestellt: L-T2-13 (McGill, Stufe C). Übungsbeispiele aus Praxisquellen (z. B. McGill „Big 3“) dürfen in Karten nur als gekennzeichnete Beispiele stehen (D-31). Geltungsbereich: thorakale und zervikale Extension (Vorkopfhaltung, thorakale Kyphose) plus Rumpfkraft und Prävention von Kreuzschmerzen. Planungsfolgen (in AP-07 als Regeln auszuformulieren): (a) Haltungsarbeit als Kräftigung (thorakale/zervikale Extensoren, Schulterblattmuskulatur), nicht als Dehnprogramm; (b) Kreuzschmerz-Prävention über Kräftigung kombiniert mit Dehnung oder Ausdauer, 2–3× pro Woche, eingebettet in bestehende Kraft-/Haltungseinheiten, kein eigener Block; (c) Karten führen unter „Grenzen“, dass verbesserte Haltungswinkel nicht zuverlässig weniger Schmerz oder bessere Funktion bedeuten. | L-T2-15: 23 Studien, gesunde Personen, GRADE moderat – Dehnen ohne Effekt auf Haltung, Kräftigung wirksam an BWS/HWS, nicht an LWS/Becken. L-T2-16: 28 RCTs – große Effekte auf Haltungswinkel, Schmerz/Funktion inkonsistent. L-T2-17/18: Training (mit oder ohne Aufklärung) senkt das Risiko von Kreuzschmerz-Episoden; Aufklärung allein, Rückengurte, Einlagen wirkungslos. Stufe-C-Buch nicht nötig, da Dosierung vollständig aus Stufe A (D-31). Bestätigt durch Athlet (Literatur-Sitzung AP-06 Teil A; dort als D-38 vergeben, wegen Kollision umnummeriert; zunächst D-53, nach Merge von AP-12 D-54). Ergänzung D-80: L-T2-33 (McGill, Low Back Disorders, Stufe B, optional) als Referenz für Biomechanik und Übungsauswahl; Dosierung unverändert aus dem Kern. | 2026-09-28 |
@@ -200,7 +200,7 @@ flowchart LR
 | D-67 | Videos werden eingebettet (E-04): YouTube über `youtube-nocookie.com`, Vimeo über `player.vimeo.com`, nur diese beiden Hosts (CSP `frame-src`); andere Videolinks bleiben Links. Offline zeigt die Übungsseite statt des Videos einen Platzhalter mit Link. Der `iframe` sendet einen Referrer mit der Domain (E-17). | Entscheidung des Athleten; nur er hat Zugriff, Datenschutzabwägung akzeptiert. | 2026-09-29 |
 | D-68 | Kletterblöcke (E-05): Katalogeinträge nur für `hangboard`, `campus`, `zugkraft`, `antagonisten`; `bouldern_volumen`, `bouldern_limit`, `ausdauer_route`, `technik` sind Einheitenformate ohne `exercise_id` (Schemafehler). | Entscheidung des Athleten (Empfehlung Fable); am Hangboard ist die Ausführung die Hauptprävention. | 2026-09-29 |
 | D-69 | Quellenpflicht im Katalog (E-06): jede Übung trägt `konfidenz` (hoch, mittel, niedrig, einschaetzung) und mindestens eine Quelle (Literatur-, Regel- oder Entscheidungs-ID oder „Einschätzung“). | Entscheidung des Athleten; Begründungsspur wie bei den Trainerregeln (Abschnitt 14). | 2026-09-29 |
-| D-70 | Literatur-Nachsteuerung T1/T3 und HRV: (a) L-T1-01 wird nicht aufgenommen; seine Rolle übernimmt L-A02 über den Verweis L-T1-15 (Kapitelangaben dort), Periodisierung tragen L-P01, L-P02, L-A03 Kap. 22, L-T1-03 und L-T1-08. (b) L-T3-08 wird zurückgestellt; L-T3-19 (Consuegra) ersetzt L-T3-08 im Evidenzkern T3 (ändert D-31/E6): Kern L-T3-01, -02, -03, -06, -19 und L-T3-09 mit der vorhandenen 3. Aufl. 2016; die Neuauflage (angekündigt 02.03.2027) wird nach Erscheinen zusätzlich beschafft. (c) Stufe-C-Quellen T3: L-T3-10 (Ideenfundus), L-T3-20 (Übungsband zu L-T3-10), L-T3-21 (Verletzungsmanagement, Ergänzung zu L-T3-06 und Block R; vorläufig bis zur Bestätigung durch den Athleten) und L-T3-16 (Planungsvorlage, 2. Aufl.); D-31 gilt unverändert (nie alleiniger Beleg für Belastungsparameter). (d) L-P15 (Kern) und L-P16 (optional) sind die Literaturbasis für HRV-gestützte Steuerung (Abschnitt 14 Kap. 4; Baseline in `get_wellness_trend`). | L-T1-01 und L-T3-08 nicht digital erhältlich, Gesamtscan nicht vorgesehen. Abdeckung L-T1-01 am Inhaltsverzeichnis L-A02 geprüft; für L-T3-08 kein gleichwertiges deutschsprachiges Werk digital verfügbar. HRV-Abweichung als Deload-Trigger war ohne Quelle. Bestätigt durch Athlet (Übergabe AP-06 Literatur-Nachsteuerung, dort D-64). Abweichend von der Übergabe (E-3) auf Entscheidung des Athleten 2026-09-29: 3. Aufl. L-T3-09 behalten (lag bereits vor), Übungsband als eigene ID L-T3-20. L-T3-10 lag entgegen der Übergabe als EPUB ohne DRM vor. L-T3-21 wurde ohne Übergabe bereitgestellt; ID und Stufe hat die Code-Instanz analog L-T3-20 vergeben. | 2026-09-29 |
+| D-70 | Literatur-Nachsteuerung T1/T3 und HRV: (a) L-T1-01 wird nicht aufgenommen; seine Rolle übernimmt L-A02 über den Verweis L-T1-15 (Kapitelangaben dort), Periodisierung tragen L-P01, L-P02, L-A03 Kap. 22, L-T1-03 und L-T1-08. (b) L-T3-08 wird zurückgestellt; L-T3-19 (Consuegra) ersetzt L-T3-08 im Evidenzkern T3 (ändert D-31/E6): Kern L-T3-01, -02, -03, -06, -19 und L-T3-09 mit der vorhandenen 3. Aufl. 2016; die Neuauflage (angekündigt 02.03.2027) wird nach Erscheinen zusätzlich beschafft. (c) Stufe-C-Quellen T3: L-T3-10 (Ideenfundus), L-T3-20 (Übungsband zu L-T3-10), L-T3-21 (Verletzungsmanagement, Ergänzung zu L-T3-06 und Block R; vorläufig bis zur Bestätigung durch den Athleten) und L-T3-16 (Planungsvorlage, 2. Aufl.); D-31 gilt unverändert (nie alleiniger Beleg für Belastungsparameter). (d) L-P15 (Kern) und L-P16 (optional) sind die Literaturbasis für HRV-gestützte Steuerung (Abschnitt 14 Kap. 4; Baseline in `get_wellness_trend`). | L-T1-01 und L-T3-08 nicht digital erhältlich, Gesamtscan nicht vorgesehen. Abdeckung L-T1-01 am Inhaltsverzeichnis L-A02 geprüft; für L-T3-08 kein gleichwertiges deutschsprachiges Werk digital verfügbar. HRV-Abweichung als Deload-Trigger war ohne Quelle. Bestätigt durch Athlet (Übergabe AP-06 Literatur-Nachsteuerung, dort D-64). Abweichend von der Übergabe (E-3) auf Entscheidung des Athleten 2026-09-29: 3. Aufl. L-T3-09 behalten (lag bereits vor), Übungsband als eigene ID L-T3-20. L-T3-10 lag entgegen der Übergabe als EPUB ohne DRM vor. L-T3-21 wurde ohne Übergabe bereitgestellt; ID und Stufe hat die Code-Instanz analog L-T3-20 vergeben. Nachtrag 2026-09-29: Die Hörst-Neuauflage wird nicht beschafft (vorhandene 3. Aufl. gilt, Nachtrag D-51). | 2026-09-29 |
 | D-71 | EPUB als Volltext (ergänzt D-26 und D-51): DRM-freie oder nur wasserzeichengeschützte EPUBs sind zulässig; Kindle und Adobe DRM bleiben ungeeignet. Ablage wie D-51 mit Endung .epub. Kapitel als Markdown in `<ID>_kapitel/` (`<ID>_<Kapitelnr>[-<Teil>]_<Kapiteltitel>.md`); Kapitel über ca. 12 000 Wörter an Abschnittsgrenzen in etwa gleich große Teile. Seitenangaben: Enthält das EPUB eine Seitenliste der Druckausgabe (page-list bzw. pagebreak-Marken), wird die Druckseite zitiert; die Marken stehen im Markdown als „[S. n]“ an der Stelle des Seitenwechsels. Sonst Kapitel und Abschnittsüberschrift. Zusätzlich je Kapiteldatei ein Ansichts-PDF gleichen Namens (aus dem EPUB gerendert, mit Abbildungen); es dient nur zum Betrachten der Abbildungen, seine Seitenzahlen werden nie zitiert. | Mehrere Titel sind nur als E-Book erhältlich; EPUB-Text ist ohne Texterkennung durchsuchbar. Reflowable EPUBs haben keine festen Seiten, daher die Zitierregel (Übergabe AP-06 Literatur-Nachsteuerung, dort D-65). Ansichts-PDF zusätzlich zum Markdown: Der Athlet hat beide Varianten zugelassen und die Abwägung der Code-Instanz überlassen (2026-09-29). Abbildungen tragen Inhalt (Diagramme in L-T3-19 Kap. 10, Übungsfotos in L-T3-10, -20, -21), der im Markdown nur als Bildunterschrift erscheint. L-T3-19 und L-T3-10 haben keine Seitenliste, L-T3-20 und L-T3-21 haben Seitenmarken (geprüft 2026-09-29). | 2026-09-29 |
 | D-72 | Blockbilanz, Zielklärung und Revision sind Datensätze in der Datenbank (Tabelle `block_review`, AP-15, E-01): Master ist die Datenbank, zugänglich über MCP; `docs/plaene/` und das Projekt-Wissen sind nur Spiegel; `training_block.doc_ref` bleibt optional. | Die planende Instanz arbeitet über MCP; eine Repo-Datei veraltet. Entscheidung des Athleten. | 2026-09-29 |
 | D-73 | Drei Ebenen mit getrennter Funktion (AP-15, E-02/E-03): Revision alle 3–4 Wochen (nur Belastungssteuerung), Blockbilanz am Blockende (Rückblick), Zielklärung vor jedem Block (Ausblick); getrennte Datensätze, typischerweise im selben Chat. Kein fester Kalendertakt: Blockgrenze plus Sicherheitsnetz (Zielklärung fällig, wenn die letzte bestätigte älter als 16 Wochen ist oder ein Trigger eintritt). | Rückblick und Ausblick beantworten verschiedene Fragen; Zielphasen laufen über Monate, die 3–4-Wochen-Revision bleibt für Deload/Schmerz/Ausfall (L-A03, L-P08). Entscheidung des Athleten. | 2026-09-29 |
@@ -257,7 +257,7 @@ flowchart LR
 | V-10 | Auf dem Hosting verfügbar: FTPS oder SFTP für den Deploy-Workflow; PHP-CLI für „Geplante Aufgaben" (sonst HTTP-Aufruf eines geschützten Endpunkts); E-Mail-Versand aus PHP mit Anhang (SMTP über Mailkonto des Hostings bevorzugt, Größenlimit des Anhangs); PHP-OpenSSL-Erweiterung aktiv. Ergebnis (Angaben Athlet 2026-09-27): FTPS vorhanden (Port 21, explizit, gültiges Zertifikat); SMTP vorhanden; keine PHP-CLI-Aufgaben, aber zeitgesteuerter Aufruf von URLs → E-Mail-Backup über geschützten Endpunkt (D-18 b); OpenSSL aktiv (Servertest). Servertest zusätzlich: `open_basedir` leer, Datei oberhalb des Docroots lesbar, `.htaccess` wird ausgewertet (`Require all denied` → 403). Rest: Anhang-Größenlimit SMTP → Testversand in AP-10. | AP-00 | erledigt 2026-09-27 (bis auf Anhang-Limit) |
 | V-11 | Bibliografische Prüfung der T1-Quellen (Autoren, Jahr, Band/Seiten, DOI/ISBN, freie Verfügbarkeit) per PubMed-Connector bzw. Bibliothekskataloge. Ergebnis in 13.2.2 (Felder `zugang`, `verifikation`). Hinweis Lizenz: PubMed liefert keinen Lizenztyp; „frei" heißt Volltext in PMC; CC BY 4.0 nur für L-T1-04 belegt. | AP-06 | erledigt 2026-09-27 |
 | V-12 | Zonendefinition in Garmin Connect (Laufprofil, ggf. eigenes Profil Skitour) und in Intervals.icu identisch halten (%LTHR, gleiche Grenzen), damit HF-Ziele aus Intervals.icu-Workouts auf der Uhr dieselbe Zone treffen. Prüfen, ob Intervals.icu Zonen nach Garmin überträgt oder beide getrennt gepflegt werden müssen (D-27). | AP-02 (mit V-01), AP-08 | offen |
-| V-13 | Format und Kopierschutz je Titel vor Beschaffung (D-26, D-71): Human-Kinetics-Titel (L-A01, L-A03, L-T1-07, L-T2-05, L-T2-07) laufen über VitalSource mit DRM → Print oder anderer Anbieter; Springer-Titel (L-A02, L-T2-03, L-T2-06, L-T3-06/07) kapitelweise als PDF über SpringerLink bzw. Bibliothekszugang. Stand 2026-09-29: vorhanden L-A01 (7. Aufl., vorläufig), L-A02, L-A03, L-T1-07, L-T1-08 (Scan), L-T2-03, L-T2-04 (Scan, Texterkennung fehlerhaft), L-T3-06, L-T3-09 (3. Aufl., Scan), L-T3-10, L-T3-19, L-T3-20, L-T3-21 (je EPUB ohne DRM). Entfallen: L-T1-01 (D-70); L-T3-08 zurückgestellt (keine digitale Ausgabe). Offen: 8./9. Aufl. L-A01; L-T3-16 2. Aufl. (Kindle ungeeignet; E-Book-Format im Climb-Strong-Shop klären, sonst Print); L-T3-09 Neuauflage ab 03/2027. | AP-06 | teilweise |
+| V-13 | Format und Kopierschutz je Titel vor Beschaffung (D-26, D-71): Human-Kinetics-Titel (L-A01, L-A03, L-T1-07, L-T2-05, L-T2-07) laufen über VitalSource mit DRM → Print oder anderer Anbieter; Springer-Titel (L-A02, L-T2-03, L-T2-06, L-T3-06/07) kapitelweise als PDF über SpringerLink bzw. Bibliothekszugang. Stand 2026-09-29: vorhanden L-A01 (7. Aufl., gilt – Nachtrag D-51), L-A02, L-A03, L-T1-07, L-T1-08 (Scan), L-T2-03, L-T2-04 (Scan, Texterkennung fehlerhaft), L-T3-06, L-T3-09 (3. Aufl., Scan), L-T3-10, L-T3-19, L-T3-20, L-T3-21 (je EPUB ohne DRM). Entfallen: L-T1-01 (D-70); L-T3-08 zurückgestellt (keine digitale Ausgabe). Offen: keine – L-A01 bleibt 7. Aufl., L-T3-09 3. Aufl. (Nachtrag D-51); L-T3-16 2. Aufl. als PDF vorhanden (2026-09-29). | AP-06 | teilweise |
 | V-14 | PubMed-Verifikation Kraftliteratur: Rønnestad & Mujika 2014 (Scand J Med Sci Sports) und Blagrove et al. 2018 (Sports Med) → L-T2-11, L-T2-12. ACSM 2026 und Schumann 2022 bereits verifiziert als L-P08 und L-P07. | AP-06 | erledigt 2026-09-28 (L-T2-11, L-T2-12 verifiziert) |
 | V-15 | Bibliografische Vervollständigung T3: L-T3-03 (Band, Lizenz – erledigt 2026-09-28: Bd. 5, Art. 1130812, CC BY laut Volltext), L-T3-04 (Band, Seiten, DOI, Zugang), L-T3-05 (Titel, Journal, Band, Seiten, DOI), L-T3-07 (ISBN), L-T3-08 (aktuelle Auflage/ISBN), L-T3-09 (Jahr), L-T3-12 (Jahr, Auflage, ISBN); Kernaussagen L-T3-02 am Original statt Sekundärzitat prüfen (Original liegt seit 2026-09-28 vor). | AP-06 | weitgehend erledigt 2026-09-28/29: L-T3-03, -04, -05, -07, -09 verifiziert; L-T3-02 Kernaussagen am Abstract korrigiert; L-T3-08 aktuelle Auflage 2026-09-29 geklärt (9. überarb. Aufl. 2019, ISBN 978-3-945271-41-4, Händlerangaben). Rest: L-T3-02 Wiederholungsbereiche am Volltext, L-T3-12 Auflage |
 | V-16 | Redundanz der Hypertrophie-Ergänzung zu L-P08: Am Volltext von L-P08 (eingeschlossene Reviews) prüfen, ob L-T2-20, L-T2-22 und L-T2-23 dort enthalten sind. L-T2-20 erschien online 12/2025, L-P08 im Heft 58(4) 2026. Sind sie enthalten, zitiert die Karte L-P08 als Anker und die Einzelarbeiten nur für Zahlen und Dosis-Wirkung; sonst jeweils eine eigene Kernaussage. Zusätzlich das Corrigendum zu L-T2-23 sichten (Inhalt nicht geprüft). | AP-06 | offen; Corrigendum L-T2-23 gesichtet 2026-09-29 (Abb. 4, Hauptbefunde unverändert) |
@@ -268,7 +268,7 @@ flowchart LR
 | V-21 | Behm 2025 (L-T4-32) und Nelson/Kokkonen (L-T4-34): E-Book-Format/DRM | vor Kauf (D-26, V-13, D-71); bei Nelson/Kokkonen zuerst die PDF-Ausgabe | AP-06 | erledigt 2026-09-29: beide als durchsuchbares PDF vorhanden, L-T4-34 zusätzlich als EPUB ohne DRM |
 | V-22 | Winters 2004 (L-T4-19): DOI | Verlagsseite | AP-06 | offen – auch im Volltext keine DOI |
 | V-23 | Oba 2026 (L-T4-03): Artikelnummer | beim Abruf | AP-06 | erledigt 2026-09-29: 12:95 (Volltext) |
-| V-24 | Formatprüfung (D-26, D-71, V-13) für L-R-29, L-R-30, L-T2-33, L-T1-16, L-T4-35, L-T4-36; beim Erwerb zusätzlich Inhaltsverzeichnis L-R-29 (Kapitel Patellatendinopathie und Sprunggelenk in der 6. Aufl.) und ISBN der 3. Aufl. L-T4-35 bestätigen | vor Kauf | AP-06 | offen |
+| V-24 | Formatprüfung (D-26, D-71, V-13) für L-R-29, L-R-30, L-T2-33, L-T1-16, L-T4-35, L-T4-36; beim Erwerb zusätzlich Inhaltsverzeichnis L-R-29 (Kapitel Patellatendinopathie und Sprunggelenk in der 6. Aufl.) und ISBN der 3. Aufl. L-T4-35 bestätigen | vor Kauf | AP-06 | teilweise 2026-09-29: L-T1-16 (EPUB ohne DRM), L-T2-33 und L-R-30 (je 3. Aufl. als PDF), L-T4-36 (Verlags-PDF) vorhanden; offen L-R-29, L-T4-35 |
 
 # 6. Betriebsablauf (Wochenzyklus)
 
@@ -506,7 +506,7 @@ Bücher:
 - id: L-A01
   status: ausgewaehlt
   datei: uebergreifend/L-A01_Kenney-2019_Physiology-of-Sport-and-Exercise_7ed.pdf
-  vorhanden_auflage: 7. Aufl. 2019, ISBN 978-1-4925-7229-9 – vorläufig; 8. oder 9. Aufl. weiter beschaffen (D-51)
+  vorhanden_auflage: 7. Aufl. 2019, ISBN 978-1-4925-7229-9 – gilt (Entscheidung Athlet 2026-09-29 – vorhandene Ausgaben verwenden, 8./9. Aufl. werden nicht beschafft)
   kapitel: uebergreifend/L-A01_kapitel/
   typ: Lehrbuch
   autor: Kenney WL, Wilmore JH, Costill DL
@@ -902,6 +902,8 @@ Optional (nur bei Bedarf und Tokenbudget):
   hinweis: Seitenzahlen = Druckseiten laut Inhaltsverzeichnis (L-A02_00_Vorspann.pdf). Periodisierung in L-A02 nur knapp; tragend L-P01, L-P02, L-A03 Kap. 22, L-T1-03, L-T1-08. Kap. 13 (Ausdauersportarten) behandelt nur Schwimmen und Triathlon.
 - id: L-T1-16
   status: optional
+  datei: t1-ausdauer/L-T1-16_Koop-2021_Training-Essentials-for-Ultrarunning_2ed.epub
+  kapitel: t1-ausdauer/L-T1-16_kapitel/
   stufe: C
   typ: praxisquelle
   konfidenz: niedrig (D-25)
@@ -911,7 +913,8 @@ Optional (nur bei Bedarf und Tokenbudget):
   sprache: en
   zweck: Trail-Spezifik als Ergänzung zu L-T1-08 – Bergauf-/Bergablaufen, Krafttraining für Trailläufer, Hitze und Höhe, Langzeitplanung
   einschraenkung: Ultra-Fokus (Wettkampfdistanzen über Marathon) – Übertragung auf den Athleten unter „Grenzen“ (D-25); nie alleiniger Beleg für Belastungsparameter (D-31); Zonenangaben auf D-27 abbilden
-  zugang: Kauf; Hardcover direkt beim Autor, Paperback und Kindle über Amazon; Kindle ungeeignet (D-71); Format klären (V-24)
+  zugang: EPUB ohne DRM vorhanden (2026-09-29, Scribd-Konvertierung ohne ISBN in den Metadaten); Kapitel-Markdown und Ansichts-PDFs (D-71)
+  seitenbezug: keine Seitenmarken → Zitat mit Kapitel und Abschnitt (D-71)
   verifikation: Bibliothekskatalog (UTB Zlín), Verlags-/Autorenseite trainright.com 2026-09-29
   bestaetigt: Athlet 2026-09-29 (SW-E3)
 ```
@@ -1325,18 +1328,19 @@ Optional:
   verifikation: PubMed 2026-09-28
 - id: L-T2-33
   status: optional
+  datei: t2-kraft/L-T2-33_McGill-2016_Low-Back-Disorders_3ed.pdf
+  kapitel: t2-kraft/L-T2-33_kapitel/
   stufe: B
   typ: lehrbuch
-  zitat: "McGill S. Low Back Disorders: Evidence-Based Prevention and Rehabilitation. 4. Aufl. Champaign, IL: Human Kinetics; 2026."
-  isbn: 9781718236257 (Paperback); 9781718236264 (Online-Ausgabe)
-  vorauflage: 3. Aufl. 2016, ISBN 9781450472913
-  umfang: xvi, 447 S.
+  zitat: "McGill S. Low Back Disorders: Evidence-Based Prevention and Rehabilitation. 3. Aufl. Champaign, IL: Human Kinetics; 2016."
+  isbn: 978-1-4504-7291-3 (3. Aufl., vorliegende Ausgabe)
+  neuauflage: 4. Aufl. 2026, ISBN 9781718236257 (Paperback), xvi, 447 S. – nicht beschafft (Entscheidung Athlet 2026-09-29, vorhandene Ausgabe verwenden)
   sprache: en
   themenfelder: [rumpf, praevention_kreuzschmerz, kraeftigung]
   zweck: wissenschaftliches Hauptwerk des Autors – Biomechanik der LWS, Risikobewertung, Aufbau von Übungsprogrammen; Referenz für Übungsauswahl in der Karte Haltung und Rücken
   einschraenkung: Dosierung ausschließlich aus L-T2-15 bis L-T2-18 (D-54); Übungsempfehlungen (z. B. „Big 3“) nur als gekennzeichnete Beispiele; das biomechanische Belastungsmodell des Autors ist in der Literatur nicht unumstritten (Einschätzung, D-13) → unter „Grenzen“
   bezug: L-T2-13 (Praxisbücher desselben Autors, Stufe C) bleibt zurückgestellt
-  zugang: Kauf; Human-Kinetics-E-Books laufen über VitalSource (D-26, ungeeignet) – Format klären (V-24)
+  zugang: E-Book-PDF (Calibre-Konvertierung) mit Lesezeichen und Textebene vorhanden (2026-09-29); Seitenzahlen im PDF = Druckseiten
   verifikation: Bibliothekskatalog East Carolina University (LCCN 2025009710) 2026-09-29
   bestaetigt: Athlet 2026-09-29 (SW-E2)
 ```
@@ -1459,7 +1463,7 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   themenfelder: [periodisierung, fingerkraft, kraftausdauer, unterarmausdauer, mental, verletzungspraevention]
   zweck: Energiesystemtraining, Trainingszonen, DUP, Hangboard-Protokolle, Tapering
   einschraenkung: Label „evidenzbasiert" stammt vom Verlag; Autor ist Coach, kein Hochschulforscher – Aussagen gegen Stufe A abgleichen
-  beschaffung: Neuauflage nach Erscheinen zusätzlich (Händler 02.03.2027, 352 S., ISBN 978-1-4930-8618-4; Auflagenbezeichnung beim Erscheinen prüfen); bis dahin gilt die vorhandene 3. Aufl. (D-70, Entscheidung Athlet 2026-09-29)
+  beschaffung: keine Neuauflage – die vorhandene 3. Aufl. gilt (Entscheidung Athlet 2026-09-29, vorhandene Ausgaben verwenden); Neuauflage laut Händler 02.03.2027 (ISBN 978-1-4930-8618-4) nur zur Information
   zugang: 3. Aufl. als Scan (Internet Archive) mit Texterkennung vorhanden (datei, 2026-09-29); Druckseite = PDF-Seite − 16
   verifikation: verifiziert 2026-09-28 (Bibliothekskataloge); Auflage am Impressum bestätigt (© 2003, 2008, 2016); Neuauflage Händlerangabe 2026-09-29
 - id: L-T3-10
@@ -1503,16 +1507,18 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   zweck: Periodisierung Klettern, Hangboard – von Block T3 nicht bewertet; Entscheidung nur bei konkretem Bedarf
 - id: L-T3-16
   status: ausgewaehlt (planungsvorlage, Stufe C)
+  datei: t3-klettern/L-T3-16_Bechtel-2020_Logical-Progression_2ed.pdf
+  kapitel: t3-klettern/L-T3-16_kapitel/
   stufe: C
   typ: praxisbuch
-  zitat: "Bechtel S, Stewart K. Logical Progression – Building Training Programs for Year-Round Climbing Performance. 2. Aufl. Climb Strong."
+  zitat: "Bechtel S, Stewart K. Logical Progression – Building Training Programs for Year-Round Climbing Performance. 2. Aufl. Lander, WY: Climb Strong; 2020."
   erstauflage: "Bechtel S. Logical Progression – Using Nonlinear Periodization for Year-Round Climbing Performance. CreateSpace; 2017. 140 S. ISBN 978-1-5441-1953-3"
   sprache: en
   themenfelder: [periodisierung, fingerkraft, kraftausdauer]
   zweck: Nichtlineare Periodisierung; die 2. Aufl. ergänzt Block-Programmierung als Mischform aus nichtlinearem und klassischem Modell; Sitzungsvorlagen für die Wochen- und Jahresstruktur Klettern neben Ausdauertraining
   einschraenkung: Stufe C (Trainer, Eigenverlag) – nie alleiniger Beleg für Belastungsparameter (D-31); Periodisierungsaussagen gegen L-P01, L-P02 und L-T3-19 Kap. 10 abgleichen
-  zugang: Kauf; Kindle-Ausgabe ungeeignet (DRM); Climb-Strong-Shop (E-Book-Format klären) oder Print (V-13)
-  verifikation: teilweise – Jahr und ISBN der 2. Aufl. beim Erwerb prüfen (Händlerangaben 2026-09-29)
+  zugang: PDF mit Textebene, ohne Lesezeichen, vorhanden (2026-09-29); Kapitelgrenzen aus dem Inhaltsverzeichnis, Druckseite = PDF-Seite − 14
+  verifikation: teilweise – Jahr 2020 aus dem Vorwort erschlossen (Erstausgabe 2016 gedruckt, „4 years later“); ISBN im PDF nicht angegeben
 - id: L-T3-17
   status: kandidat (Sammelplatzhalter)
   stufe: A
@@ -1799,18 +1805,20 @@ Patellatendinopathie:
   bestaetigt: Athlet 2026-09-29 (SW-E1)
 - id: L-R-30
   status: optional
+  datei: r-reha/L-R-30_Engelhardt-2016_Sportverletzungen-GOTS-Manual_3ed.pdf
+  kapitel: r-reha/L-R-30_kapitel/
   stufe: B
   typ: lehrbuch
-  zitat: "Engelhardt M (Hrsg.). Sportverletzungen – GOTS Manual. Diagnose, Management und Begleitmaßnahmen. 4. Aufl. München: Elsevier (Urban & Fischer); 2022."
-  isbn: 978-3-437-24093-5
-  umfang: 1045 S.
-  inhalt: laut Inhaltsverzeichnis u. a. Kap. 6 Prävention, 7 Rehabilitation und Physiotherapie nach Sportverletzungen, 22 Kniegelenk, 23 Unterschenkel, Sprunggelenk und Fuß, 27 Sehnenverletzungen, 31 Laufen, 46 Sportklettern
+  zitat: "Engelhardt M (Hrsg.). Sportverletzungen – GOTS Manual. Diagnose, Management und Begleitmaßnahmen. 3. Aufl. München: Elsevier (Urban & Fischer); 2016."
+  isbn: 978-3-437-24092-8 (Print, 3. Aufl.); 978-3-437-29902-5 (E-Book)
+  neuauflage: 4. Aufl. 2022, ISBN 978-3-437-24093-5, 1045 S. – nicht beschafft (Entscheidung Athlet 2026-09-29, vorhandene Ausgabe verwenden)
+  inhalt: 3. Aufl. (90 Kapitel) u. a. Kap. 20 Das Kniegelenk, 21 Unterschenkel, Sprunggelenk und Fuß, 25 Sehnenverletzungen, 29 Laufen, 44 Sportklettern, 84 Rehabilitation nach Sportverletzungen (Kapitelnummern der 4. Aufl. weichen ab)
   sprache: de
-  geltungsbereich: R; Kap. 46 auch T3
+  geltungsbereich: R; Kap. 44 auch T3
   themenfelder: [patellasehne, sprunggelenk, rezidivprophylaxe, befunderhebung]
   zweck: deutschsprachiges Gegenstück zu L-R-29; offizielles Manual der GOTS; deutsche Fachbegriffe
   einschraenkung: Schwerpunkt ärztliche Diagnostik und Therapie (N5); keine Regelquelle (D-22)
-  zugang: Kauf; E-Book-Format/DRM prüfen (V-24)
+  zugang: PDF mit Textebene vorhanden (2026-09-29), Lesezeichen unbrauchbar; Kapitelgrenzen und Druckseiten aus den Kopfzeilen (Versatz nicht konstant, Druckseiten je Kapitel im README)
   verifikation: Verlagsseite Elsevier (4. Aufl. 19.09.2022), Händlerangaben 2026-09-29
   bestaetigt: Athlet 2026-09-29 (SW-E1)
 ```
@@ -2148,6 +2156,7 @@ Kern:
   verifikation: PubMed 2026-09-29
 - id: L-T4-17
   status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-17_Behm-2026_Responses-to-Stretching.pdf
   stufe: A
   typ: narrativer_review
   konfidenz: mittel
@@ -2273,6 +2282,7 @@ Optional:
   verifikation: PubMed 2026-09-29
 - id: L-T4-13
   status: optional
+  datei: t4-beweglichkeit/L-T4-13_Skopal-2024_Mobility-Training-Methods.pdf
   stufe: A
   typ: systematischer_review
   zitat: "Skopal LK, Drinkwater EJ, Behm DG. Application of mobility training methods in sporting populations: A systematic review of performance adaptations. J Sports Sci. 2024;42(1):46-60."
@@ -2452,6 +2462,7 @@ Optional:
   bestaetigt: Athlet 2026-09-29 (SW-E4)
 - id: L-T4-36
   status: optional
+  kapitel: t4-beweglichkeit/L-T4-36_kapitel/
   stufe: C
   typ: sammelwerk (Forschung und Praxis)
   konfidenz: niedrig (D-31)
@@ -2462,7 +2473,7 @@ Optional:
   themenfelder: [faszienrolle, mobility, begriffe]
   zweck: Hintergrund Faszie und Faszienrolle, Übungsideen
   einschraenkung: gemischte Autorenschaft aus Forschung und Bewegungspraxis – deshalb konservativ Stufe C; Wirkungsaussagen zur Faszienrolle nur aus L-T4-08 und L-T4-12 (Stufe A)
-  zugang: Kauf; Vertrieb auch über Jessica Kingsley Publishers; E-Book-DRM prüfen (V-24)
+  zugang: Verlags-PDF (618 S., 159 MB, über dem GitHub-Limit von 100 MB, D-31) – im Repo nur als 50 Kapitel-PDFs ohne Gesamtdatei; Druckseite = PDF-Seite − 19
   verifikation: Bibliothekskataloge British Library, Zetech University; Händlerangaben 2026-09-29
   bestaetigt: Athlet 2026-09-29 (SW-E4)
 ```
@@ -2609,7 +2620,7 @@ Formatprüfung je Titel vor dem Kauf (V-13). EPUB ohne DRM ist zulässig (D-71).
 
 | prio | block | quelle | benötigt | formatanforderung | bemerkung | vorhanden (2026-09-29) |
 |---|---|---|---|---|---|---|
-| 1 | übergreifend | L-A01 Kenney/Wilmore/Costill | Auflage klären (8. 2022 vs. 9. 2024) | durchsuchbares PDF; Human-Kinetics-Format prüfen | | teilweise: 7. Aufl. 2019 als E-Book-PDF, vorläufig (D-51); 8./9. Aufl. offen |
+| 1 | übergreifend | L-A01 Kenney/Wilmore/Costill | 7. Aufl. 2019 (Nachtrag D-51) | durchsuchbares PDF | vorhandene Ausgabe gilt | ✓ 7. Aufl. 2019 als E-Book-PDF |
 | 1 | übergreifend | L-A02 Ferrauti, 2. Aufl. | Jahr/ISBN offen | Springer-Kapitel-PDF | | ✓ 2. Aufl. 2025, Gesamt-PDF; Jahr und ISBN geklärt |
 | 1 | übergreifend | L-P02, L-P03, L-P04, L-P05, L-P06, L-P09 | Artikel | PDF | nicht in PMC → Bibliothekszugang | ✓ alle |
 | 1 | T1 | L-T1-02 Seiler 2010, L-T1-03 Casado 2022, L-T1-05 Vernillo 2017 | Artikel | PDF | Casado: zuerst freie Repositoriumsfassung prüfen | ✓ alle |
@@ -2624,11 +2635,10 @@ Formatprüfung je Titel vor dem Kauf (V-13). EPUB ohne DRM ist zulässig (D-71).
 | 2 | T3 | L-T3-02 Langer 2023 (JSCR) | Artikel | PDF | kostenpflichtig | ✓ |
 | 2 | T3 | L-T3-06 Climbing Medicine 2022 (bevorzugt) oder L-T3-07 Klettermedizin 2020 (Alternative) | Buch, eine Ausgabe (D-31) | Springer-Kapitel-PDF | | ✓ L-T3-06, Gesamt-PDF |
 | 2 | T3 | L-T3-19 Consuegra, The Science of Climbing Training (2023) | Buch | EPUB ohne DRM (D-71) | ersetzt L-T3-08 im Evidenzkern (D-70) | ✓ EPUB 2026-09-29, Kapitel als Markdown und Ansichts-PDF |
-| 2 | T3 | L-T3-16 Bechtel, Logical Progression, 2. Aufl. | Buch | DRM-freies EPUB oder PDF; Kindle ungeeignet | Stufe C, Planungsvorlage; Climb-Strong-Shop prüfen, sonst Print | offen |
+| 2 | T3 | L-T3-16 Bechtel, Logical Progression, 2. Aufl. | Buch | DRM-freies EPUB oder PDF; Kindle ungeeignet | Stufe C, Planungsvorlage | ✓ PDF 2. Aufl., Kapitel-PDFs |
 | 2 | T3 | L-T3-10 Mobråten/Christophersen, The Climbing Bible | Buch | DRM-freies EPUB oder PDF; Kobo-EPUB (Adobe DRM) ungeeignet | Stufe C, Ideenfundus | ✓ EPUB ohne DRM 2026-09-29, Kapitel als Markdown und Ansichts-PDF |
 | 2 | T3 | L-T3-20 Mobråten/Christophersen, The Climbing Bible – Practical Exercises; L-T3-21 Christophersen, Managing Injuries | Buch | EPUB ohne DRM (D-71) | Stufe C; L-T3-21 vorläufig | ✓ beide EPUB 2026-09-29, Kapitel als Markdown und Ansichts-PDF |
 | 2 | T3 | L-T3-09 Hörst, Training for Climbing, 3. Aufl. 2016 | Buch | durchsuchbares PDF | Evidenzkern (D-70) | ✓ 3. Aufl., Scan mit Texterkennung, Kapitel-PDFs |
-| 3 | T3 | L-T3-09 Hörst, Training for Climbing, Neuauflage | Buch | DRM-freies EPUB oder PDF | nach Erscheinen (angekündigt 02.03.2027) zusätzlich zur 3. Aufl. | offen (ab 03/2027) |
 | 2 | T2 | L-T2-11 Rønnestad & Mujika 2014 | Artikel | PDF | nicht in PMC | ✓ |
 | 2 | T3 | L-T3-05 López-Rivera 2012 (Sports Technology) | Artikel | PDF | nur falls L-T3-18 nicht genügt | ✓ |
 | 2 | T2 | L-T2-10 Wiedenmann et al. 2025 (Gerontology 71(7):576–588) | Artikel | PDF | Beleg Körpergewichtstraining (D-29); Population Ältere; Zugang nicht geprüft | ✓ |
@@ -2651,18 +2661,18 @@ Formatprüfung je Titel vor dem Kauf (V-13). EPUB ohne DRM ist zulässig (D-71).
 | frei | T2 | L-T2-22 Refalo 2023, L-T2-23 Lopez 2021 (mit Corrigendum), L-T2-24 Lopes 2019 (mit Corrigendum), L-T2-25 Lundberg 2022 | – | PDF aus PMC | L-T2-24 CC BY-NC 4.0; übrige ohne Lizenzangabe → vor Ablage im Repo prüfen (D-31) | ✓ alle; Corrigenda L-T2-23/-24 nicht enthalten |
 | bei Bedarf | T2 | L-T2-27 bis L-T2-32 | Artikel | PDF | optional; L-T2-30 in PMC | ✓ alle (L-T2-29 Autorenmanuskript) |
 | 1 | T4 | L-T4-32 Behm 2025, 2. Aufl.; L-T4-34 Nelson/Kokkonen, Stretching Anatomy, 3. Aufl. | Buch | durchsuchbares PDF oder EPUB ohne DRM (D-26, D-71) | Lehrbuch Stufe B; Übungskatalog Stufe C (K-8) | ✓ beide als PDF mit Kapitel-PDFs, L-T4-34 zusätzlich als EPUB |
-| 2 | T4 | L-T4-05 Thomas 2018 (IJSM), L-T4-06 Behm 2016 (APNM), L-T4-13 Skopal 2024 (J Sports Sci), L-T4-14 Lauersen 2014 (BJSM), L-T4-17 Behm 2026 (EJAP), L-T4-19 Winters 2004 (Phys Ther) | Artikel | PDF | nicht in PMC → Bibliothekszugang (D-79) | L-T4-05, -06, -14, -19 ✓; L-T4-13, -17 offen |
+| 2 | T4 | L-T4-05 Thomas 2018 (IJSM), L-T4-06 Behm 2016 (APNM), L-T4-13 Skopal 2024 (J Sports Sci), L-T4-14 Lauersen 2014 (BJSM), L-T4-17 Behm 2026 (EJAP), L-T4-19 Winters 2004 (Phys Ther) | Artikel | PDF | nicht in PMC → Bibliothekszugang (D-79) | ✓ alle |
 | 2 | T4 | L-T4-16 Herbert 2011 (Cochrane) | Artikel | PDF | Abstract frei, Volltext Cochrane Library | ✓ |
 | frei | T4 | L-T4-01, -02, -03, -04, -08, -10, -12 | – | PDF aus PMC | Lizenzen vor Ablage prüfen (V-20) | ✓ alle |
 | bei Bedarf | T4 | L-T4-07, -09, -11, -15, -18, -20, -21, -23, -25 bis -31 | Artikel | PDF | optional; in PMC: -07, -09, -11, -15, -18, -21, -27 bis -30; L-T4-31 ggf. frei beim Verlag | – |
 | 2 | R | L-R-29 Brukner & Khan, Managing Injuries, 6. Aufl. | Buch | DRM-freies PDF oder EPUB (D-26, D-71) | Stufe B, optional; Inhaltsverzeichnis prüfen (V-24) | offen |
-| 2 | R | L-R-30 GOTS-Manual, 4. Aufl. | Buch | DRM-freies PDF oder EPUB | Stufe B, optional; deutsches Gegenstück zu L-R-29 | offen |
-| 2 | T2 | L-T2-33 McGill, Low Back Disorders, 4. Aufl. | Buch | kein VitalSource-DRM (D-26) | Stufe B, optional | offen |
-| 2 | T1 | L-T1-16 Koop, Training Essentials for Ultrarunning, 2. Aufl. | Buch | Kindle ungeeignet (D-71); Hardcover beim Autor | Stufe C, optional; Beschaffung klärt Athlet | offen |
+| 2 | R | L-R-30 GOTS-Manual (3. Aufl. 2016 statt 4. Aufl.) | Buch | DRM-freies PDF oder EPUB | Stufe B, optional; deutsches Gegenstück zu L-R-29 | ✓ 3. Aufl., Kapitel-PDFs |
+| 2 | T2 | L-T2-33 McGill, Low Back Disorders (3. Aufl. 2016 statt 4. Aufl.) | Buch | kein VitalSource-DRM (D-26) | Stufe B, optional | ✓ 3. Aufl., Kapitel-PDFs |
+| 2 | T1 | L-T1-16 Koop, Training Essentials for Ultrarunning, 2. Aufl. | Buch | Kindle ungeeignet (D-71); Hardcover beim Autor | Stufe C, optional | ✓ EPUB, Kapitel-Markdown und Ansichts-PDFs |
 | 2 | T4 | L-T4-35 Freiwald, Optimales Dehnen, 3. Aufl. | Buch | DRM-freies PDF oder EPUB | Stufe B, optional; ISBN prüfen | offen |
-| 2 | T4 | L-T4-36 Schleip/Wilke, Fascia in Sport and Movement, 2. Aufl. | Buch | DRM-freies PDF oder EPUB | Stufe C, optional | offen |
+| 2 | T4 | L-T4-36 Schleip/Wilke, Fascia in Sport and Movement, 2. Aufl. | Buch | DRM-freies PDF oder EPUB | Stufe C, optional | ✓ nur Kapitel-PDFs (Gesamt-PDF 159 MB) |
 
-Stand 2026-09-29: 109 Werke als Volltext vorhanden, 112 Dateien (dazu 2 Corrigenda und L-T4-34 zusätzlich als EPUB; D-51, D-71), Verzeichnis in `docs/literatur/README.md`. Offen sind 8 Bücher (L-A01 in 8./9. Aufl., L-T3-16, dazu aus D-80 L-R-29, L-R-30, L-T2-33, L-T1-16, L-T4-35, L-T4-36; außerdem L-T3-09 ab Erscheinen der Neuauflage) und 2 Artikel ohne freien Zugang (L-T4-13, L-T4-17). Bei Bedarf: T4 15 Artikel; optionale Bücher L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-11. Blöcke übergreifend, T1, T2, T3 und R sind bis auf die genannten Titel vollständig.
+Stand 2026-09-29: 116 Werke als Volltext vorhanden (D-51, D-71; L-T4-36 nur als Kapitel-PDFs), Verzeichnis in `docs/literatur/README.md`. Vorhandene Ausgaben gelten, auf neuere Auflagen wird nicht gewartet (Nachtrag D-51). Offen sind 2 Bücher (L-R-29 Brukner & Khan, L-T4-35 Freiwald). Bei Bedarf: T4 15 Artikel; optionale Bücher L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-11.
 
 # 14. Trainerregeln (Struktur; Inhalte in AP-07)
 
@@ -2984,7 +2994,7 @@ probleme_loesungen:
      - `docs/wissen/t3-klettern.md` ← L-T3-01, -02, -03, -06 (bzw. -07), -19, -09 (3. Aufl., Neuauflage nach Erscheinen); Stufe C L-T3-10 und L-T3-20 (Ideenfundus), L-T3-21 (Verletzungsmanagement, vorläufig) und L-T3-16 (Planungsvorlage Periodisierung) nur mit Kennzeichnung (D-31) (Karten: kletterspezifisches Krafttraining und Spezifitätsschema; Leistungsdiagnostik und Verlaufstests; Verletzungsprävention/Schmerz); L-T3-18 als Beleg für Hangboard-Protokolle, L-T3-05 mit konfidenz niedrig; Stufe-C-Quellen nur als Ideenfundus (D-31); Kennzeichnung „Evidenz: begrenzt"
      - `docs/wissen/r-reha-praevention.md` ← L-R-01 bis L-R-09, L-R-13 bis L-R-17, L-R-23 bis L-R-25 (Kern); optional L-R-10 bis L-R-12, L-R-18 bis L-R-22, L-R-26 bis L-R-28, L-R-29 und L-R-30 (Nachschlagewerke, nicht für Regeln, D-80); Pflichtabschnitt „Grenzen“ gemäß D-61 (e)
      - `docs/wissen/t4-beweglichkeit.md` ← L-T4-01 bis -06, -08, -10, -12, -14, -16, -17, -19 und Lehrbuch L-T4-32 (Kern), Verweise L-R-11 und L-T2-15; optional L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -31, L-T4-35 (deutsche Fachbegriffe, Abgleich mit Stufe A) und L-T4-36 (Stufe C, Faszienrolle-Hintergrund) (D-80); Übungskatalog L-T4-34 und weitere Übungsquellen aus Teil B nur als Ideenfundus (D-31); Pflichtabschnitt „Grenzen“: Dosis widersprüchlich, Hüftevidenz dünn (Einschätzung), kein Präventionseffekt, Wohlbefinden schwach belegt (L-T4-28)
-  4. Offene Punkte: Auflage L-A01 (7. Aufl. vorläufig vorhanden, 8. oder 9. beschaffen, D-51); V-07 Rest (Schwellen am Volltext L-P13, Entscheidung Q-13 in AP-07); V-15 Rest (L-T3-02 Wiederholungsbereiche, L-T3-12); V-17 (Seitenbezug L-T3-19, L-T3-10); Lizenz L-P15 vor Ablage prüfen; Bestätigung L-T3-21 durch den Athleten; T4 Teil B (Übungsquellen); V-18 bis V-23; V-24 (Formatprüfung der D-80-Bücher); Q-22 (Band 1 Brukner & Khan); Status L-T3-15 (Vorschlag nicht_aufnehmen) und L-T3-17 (Platzhalter) – Entscheidung Athlet; Skimo-Reviews ab 2021 bei Bedarf per PubMed (nicht beauftragt); Lizenz L-T2-15, L-T2-16 vor Ablage prüfen; Karten-Template (Schema: Kernaussage + Quelle + Seite + Stufe + konfidenz + Themenfeld); V-16 (Redundanz Hypertrophie-Ergänzung zu L-P08, Corrigendum L-T2-23); Lizenz L-T2-22, L-T2-23, L-T2-25 vor Ablage prüfen; Kartenerstellung nach Beschaffung.
+  4. Offene Punkte: V-07 Rest (Schwellen am Volltext L-P13, Entscheidung Q-13 in AP-07); V-15 Rest (L-T3-02 Wiederholungsbereiche, L-T3-12); V-17 (Seitenbezug L-T3-19, L-T3-10); Lizenz L-P15 vor Ablage prüfen; Bestätigung L-T3-21 durch den Athleten; T4 Teil B (Übungsquellen); V-18 bis V-23; V-24 (Formatprüfung der D-80-Bücher); Q-22 (Band 1 Brukner & Khan); Status L-T3-15 (Vorschlag nicht_aufnehmen) und L-T3-17 (Platzhalter) – Entscheidung Athlet; Skimo-Reviews ab 2021 bei Bedarf per PubMed (nicht beauftragt); Lizenz L-T2-15, L-T2-16 vor Ablage prüfen; Karten-Template (Schema: Kernaussage + Quelle + Seite + Stufe + konfidenz + Themenfeld); V-16 (Redundanz Hypertrophie-Ergänzung zu L-P08, Corrigendum L-T2-23); Lizenz L-T2-22, L-T2-23, L-T2-25 vor Ablage prüfen; Kartenerstellung nach Beschaffung.
 - **Abhängigkeiten:** keine (Chat-Arbeit); Kartenerstellung erst nach Beschaffung.
 - **Abnahmekriterien:** Karten liegen in `docs/wissen/` und im Projekt-Wissen; jede Kernaussage hat Quelle mit Seite (EPUB ohne Seitenliste: Kapitel/Abschnitt, D-71) bzw. DOI/PMID und Evidenzstufe; V-06, V-07 (Literaturteil), V-14, V-15 erledigt; Gesamtbudget 13.1 eingehalten.
 - **Status:**
@@ -3002,7 +3012,7 @@ teilschritte:
   - Literaturauswahl T2 Hypertrophie-Ergänzung: erledigt (D-62)
   - Literaturauswahl T4 Beweglichkeit/Mobilität Teil A: erledigt (D-79), Teil B Übungsquellen teilweise (L-T4-34)
   - Lückenprüfung Standardwerke (en/de): erledigt (D-80)
-  - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-29 – 109 Werke in 112 Dateien, Kapitel-PDFs für 11 Bücher, Kapitel-Markdown mit Ansichts-PDF für 4 EPUBs (L-T3-10, -19, -20, -21), D-51, D-71; offen nach 13.4 sind L-A01 in 8./9. Aufl., L-T3-16, L-T3-09 in der Neuauflage ab Erscheinen sowie L-T4-13, -17)
+  - Beschaffung und Formatprüfung: weitgehend erledigt (Stand 2026-09-29 – 116 Werke, Kapitel-PDFs für 15 Bücher, Kapitel-Markdown mit Ansichts-PDF für 5 EPUBs (L-T1-16, L-T3-10, -19, -20, -21), D-51, D-71; vorhandene Ausgaben gelten; offen nach 13.4 sind L-R-29 und L-T4-35)
   - Literatur-Nachsteuerung L-T1-01/L-T3-08, HRV, EPUB: erledigt (D-70, D-71)
   - Primärquellen verifizieren: weitgehend erledigt (V-06, V-14 erledigt; V-07, V-15 teilweise, Rest nach Beschaffung)
   - Karten-Template und Karten: offen
@@ -3178,6 +3188,12 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: Lückenprüfung auf Konzeptstand 6234515 begonnen; Einarbeitung der T4-Übergabe (c758efa) vergab zwischenzeitlich L-T4-34
     loesung: Übergabe auf c758efa abgeglichen; T4-Nummern ab L-T4-35; alle vorgeschlagenen IDs (D-80, Q-22, V-24, L-T1-16, L-T2-33, L-R-29, L-R-30, L-T4-35, L-T4-36) bei Einarbeitung frei, keine Umnummerierung
+  - datum: 2026-09-29
+    was: Commit „Literatur“ und CIQ-Server – McGill und GOTS nur in der 3. Aufl. (ausgewählt war die 4.); Brukner & Khan nur Band 2 „Medicine of Exercise“ (5. Aufl.) als Text-PDF und als Scan; Consuegra-EPUB bytegleich mit L-T3-19; Fascia in Sport and Movement 159 MB (über dem GitHub-Limit)
+    loesung: Entscheidung Athlet – vorhandene Ausgaben verwenden, nicht auf Neuauflagen warten (Nachtrag D-51; betrifft auch L-A01 7. Aufl. und L-T3-09 3. Aufl.); Brukner Band 2 beide gelöscht (in D-80 als ohne Bezug bewertet), Verletzungsband folgt; Consuegra-Dublette gelöscht; Fascia nur als 50 Kapitel-PDFs abgelegt (D-31); L-T3-16, L-T2-33, L-R-30 in Kapitel-PDFs geteilt (GOTS-Kapitel und Druckseiten aus den Kopfzeilen), L-T1-16 als Kapitel-Markdown mit Ansichts-PDFs
+  - datum: 2026-09-29
+    was: Beim Teilen lief das Hilfsskript split.py versehentlich vollständig mit (Import ohne Main-Schutz)
+    loesung: Arbeitsbaum geprüft – keine bestehende Datei verändert; Teilfunktion in das neue Skript übernommen
 ```
 Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage von `docs/pruefung/pruefprotokoll.md` als AP-06-Block zu übernehmen.
 
@@ -3737,3 +3753,4 @@ noch_zu_pruefen:
 | 2026-09-29 | Aktualisierte Übergabe T4 eingearbeitet (K-8, K-9): L-T4-32 Behm in den Kern (ausgewählt), neu L-T4-34 Nelson/Kokkonen, Stretching Anatomy (Stufe C, Übungskatalog), 13.3 um Freiwald, Alter, van der Poel ergänzt, Vokabular `uebungskatalog`, Q-21 (Repo wird wieder privat), V-21 erledigt; Commit „Literatur“ einsortiert – 19 Volltexte (L-T4-01 bis -06, -08, -10, -12, -14, -16, -19, -32, -34; L-R-10, -11, -14, -17, -21), Corrigenda L-T2-23/-24, neuer Ordner `t4-beweglichkeit/`, Kapitel-PDFs für L-T4-32 und L-T4-34; falsches Witvrouw-PDF und Dubletten entfernt; V-20 teilweise, V-23 erledigt; 13.4 und Stand (109 Werke). |
 | 2026-09-29 | L-T4-22 Witvrouw 2001 nicht aufgenommen (Entscheidung Athlet): Status `nicht_aufgenommen`, aus D-79-Kernliste, 13.4, Kartenzuschnitt AP-06 und Regelvorschlag D-79 (e) entfernt (Knie-Einzelbefund jetzt L-T4-23), 13.3 ergänzt. |
 | 2026-09-29 | Übergabe Lückenprüfung Standardwerke eingearbeitet (D-80): neu optional L-T1-16 Koop, L-T2-33 McGill, L-R-29 Brukner & Khan, L-R-30 GOTS-Manual, L-T4-35 Freiwald (aus 13.3 übernommen, K-8 revidiert), L-T4-36 Schleip/Wilke; L-A03 Hinweis Heimausrüstung (Kap. 17); 13.3 um sieben Werke ergänzt; Nachträge D-54, D-61, D-79; Q-22, V-24; 13.4 (sechs Bücher Prio 2), 13.2.6-Einleitung, AP-06. |
+| 2026-09-29 | Vorhandene Ausgaben gelten (Nachtrag D-51, D-70; Entscheidung Athlet): L-A01 7. Aufl. nicht mehr vorläufig, keine Hörst-Neuauflage, L-T2-33 und L-R-30 in der 3. Aufl.; eingeordnet L-T3-16 (2. Aufl., Kapitel-PDFs), L-T2-33, L-R-30 (je Kapitel-PDFs), L-T1-16 (EPUB, Kapitel-Markdown), L-T4-36 (nur Kapitel-PDFs), L-T4-13, L-T4-17; Brukner Band 2 und Consuegra-Dublette entfernt; V-13, V-24, 13.4 (Stand 116 Werke), AP-06. |

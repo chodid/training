@@ -1132,6 +1132,12 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: Übergabe Lückenprüfung Standardwerke nimmt Freiwald auf, den die Übergabe T4 (K-8) am selben Tag in 13.3 gestellt hatte
     loesung: Entscheidung Athlet (SW-E4) – K-8 für Freiwald revidiert, Eintrag von 13.3 nach 13.2.6 (L-T4-35); Alter und van der Poel bleiben in 13.3
+  - datum: 2026-09-29
+    was: Commit „Literatur“ und CIQ-Server – McGill und GOTS nur in der 3. Aufl.; Brukner & Khan nur Band 2 „Medicine of Exercise“ (5. Aufl., Text-PDF und Scan); Consuegra-EPUB bytegleich mit L-T3-19; Fascia in Sport and Movement 159 MB
+    loesung: Entscheidung Athlet – vorhandene Ausgaben verwenden (Nachtrag D-51, auch L-A01 7. Aufl., L-T3-09 3. Aufl.); Brukner Band 2 und Consuegra-Dublette gelöscht; Fascia nur als Kapitel-PDFs (D-31)
+  - datum: 2026-09-29
+    was: Hilfsskript split.py lief beim Import vollständig mit (kein Main-Schutz)
+    loesung: git status geprüft – keine bestehende Datei verändert; Teilfunktion ins neue Skript übernommen
 geprueft:
   - was: Zuordnung der 29 PDFs zu IDs aus 13.2 – Titel, Autoren und DOI auf den ersten Seiten gegen 13.2 abgeglichen
     wie: Textextraktion (pypdf) aller Dateien, Abgleich je Datei
@@ -1345,12 +1351,24 @@ geprueft:
     wie: ID-Kollisionsprüfung vor dem Einfügen; YAML-Blöcke gegen main; grep Freiwald in 13.3; Abgleich 13.2.6-Einleitung, D-79-Nachtrag, Kartenzuschnitt; 13.4 gegen README
     ergebnis: ok – alle IDs frei (keine Umnummerierung), keine Doppeldefinition; 13.3 ohne „Optimales Dehnen“ (Freiwald/Greiwing „Optimales Krafttraining“ bleibt); T4-Bücher überall gleich genannt; sechs neue offene Bücher in 13.4, Stand-Zeile und README; alle neuen Einträge optional mit Stufe und Hinweis „keine Regelquelle“; keine neuen YAML-Fehler
     datum: 2026-09-29
+  - was: Zuordnung und Ausgaben der neuen Dateien (Commit „Literatur“, CIQ-Server)
+    wie: Titelei, Impressum und ISBN im Text; Git-Blob-Hash für Dubletten; EPUB auf encryption.xml und Seitenmarken
+    ergebnis: L-T3-16 Logical Progression 2. Aufl. (Jahr 2020 aus dem Vorwort erschlossen); L-T2-33 McGill 3. Aufl. 2016 (ISBN 978-1-4504-7291-3); L-R-30 GOTS 3. Aufl. 2016 (ISBN 978-3-437-24092-8); L-T1-16 Koop 2. Aufl. als EPUB ohne DRM, ohne Seitenmarken, 139 Abbildungen; L-T4-13, L-T4-17 per DOI; Brukner-PDFs = Band 2 „Medicine of Exercise“, 5. Aufl. 2019 (gelöscht); Consuegra-EPUB = L-T3-19 (gelöscht)
+    datum: 2026-09-29
+  - was: Kapitel-PDFs L-T3-16, L-T2-33, L-R-30, L-T4-36 und Kapitel-Markdown L-T1-16
+    wie: Kapitelgrenzen aus Inhaltsverzeichnis (L-T3-16), Lesezeichen (L-T2-33, L-T4-36) bzw. Kopfzeilen (L-R-30, 90 Kapitel); Seitensumme gegen Original; Seitenversatz an Stichproben; EPUB – Wortsumme Markdown gegen Quelle, Zuordnung aller XHTML-Dateien
+    ergebnis: ok – 12, 24, 93 und 50 Dateien, je Seitensumme = Original (238, 905, 912, 618); größte Datei 35 MB; Koop 22 Kapiteldateien, alle 27 XHTML zugeordnet, Wortsumme 0,00 % Abweichung
+    datum: 2026-09-29
+  - was: Konzept und README nach diesem Stand
+    wie: alle Pfade in `datei`, `kapitel`, `datei_epub`, `corrigendum_datei`; YAML gegen main; Linkprüfung README (alle Dateien einschließlich Kapitel)
+    ergebnis: ok – 138 Pfade vorhanden; keine neuen YAML-Fehler; 703 Links, keiner kaputt; 702 Dateien, alle verlinkt
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
     wie: manuell durch Athlet bei der ersten Kartensitzung
   - was: Druckseiten der Scans (Uphill Athlete, Overcoming Gravity) an zwei, drei Stellen gegen das Seitenbild prüfen, bevor Seitenangaben in Karten übernommen werden
     wie: manuell in der Kartensitzung
-  - was: Restliche Beschaffung laut 13.4 (L-A01 8./9. Aufl., L-T3-16, L-T3-09 Neuauflage ab Erscheinen, L-T4-13, L-T4-17, sechs Bücher aus D-80); Format vor Kauf prüfen (V-13, D-71); neue Dateien nach D-51/D-71 ablegen und eintragen
+  - was: Restliche Beschaffung laut 13.4 (L-R-29 Brukner & Khan, L-T4-35 Freiwald); vorhandene Ausgaben gelten (Nachtrag D-51)
     wie: Athlet (D-26), Eintrag durch Code-Instanz
   - was: Schwellenwerte Schmerzmonitoring-Modell am Volltext L-P13 (V-07), danach Entscheidung Q-13
     wie: manuell in der Kartensitzung, der Volltext liegt vor; Entscheidung in AP-07
@@ -1394,7 +1412,7 @@ noch_zu_pruefen:
     wie: Volltext bzw. Verlagsseite
   - was: T4-Fragen Q-18 (Einheiten vs. Block), Q-19 (Dehnintensität), Q-20 (Hüft-ROM-Verlaufsmessung)
     wie: AP-07 bzw. AP-08
-  - was: V-24 Formatprüfung der D-80-Bücher (L-R-29, L-R-30, L-T2-33, L-T1-16, L-T4-35, L-T4-36); Inhaltsverzeichnis L-R-29, ISBN L-T4-35
+  - was: V-24 Rest – Format L-R-29 und L-T4-35; Inhaltsverzeichnis L-R-29, ISBN L-T4-35
     wie: vor Kauf (Athlet), Eintrag durch Code-Instanz
   - was: Q-22 (Band 1 Brukner & Khan), Status L-T3-15 (Vorschlag nicht_aufnehmen) und L-T3-17 (Platzhalter)
     wie: Entscheidung Athlet
