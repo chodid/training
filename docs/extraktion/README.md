@@ -55,7 +55,7 @@ Reihenfolge nach W-04, T4 zuletzt. Innerhalb einer Tabelle: Kern vor optional in
 
 ### 4.1 UB – `uebergreifend-belastung-monitoring-erholung`
 
-Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 Dateien. Davon extrahiert: 33. Nicht zu extrahieren (Vorspann/Anhang): 6; ausgelassen nach Kapitelauswahl: 19.
+Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 Dateien. Davon extrahiert: 37. Nicht zu extrahieren (Vorspann/Anhang): 6; ausgelassen nach Kapitelauswahl: 19.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -98,19 +98,19 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 D
 | **L-A02** | UB, UP, T1 | **Ordner `uebergreifend/L-A02_kapitel/`** (25 Kapitel-PDFs, 911 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · Druckseiten je Kapitel in U2 bestimmen |
 | L-A02 | UB, UP, T1 | `00` Vorspann | PDF 1–17 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · Text ✓ |
 | L-A02 | UB, UP, T1 | `01` Aufgaben und Inhalte der Trainingswissenschaft | PDF 18–44 | 2026-09-29 / opus | offen | Text ✓ · 50 Aussagen · 1 unsicher · 0 offene Stellen · pdf_nativ |
-| L-A02 | UB, UP, T1, T1 | `02` Grundlagenwissen zum sportlichen Training | PDF 45–95 | offen | offen | Text ✓ |
-| L-A02 | UB, UP, T1 | `03-1` Leistungssteuerung (Teil 1/3) | PDF 96–140 | offen | offen | Text ✓ |
+| L-A02 | UB, UP, T1, T1 | `02` Grundlagenwissen zum sportlichen Training | PDF 45–95 | 2026-09-29 / opus | offen | Text ✓ · 91 Aussagen · 3 unsicher · 0 offene Stellen · pdf_nativ |
+| L-A02 | UB, UP, T1 | `03-1` Leistungssteuerung (Teil 1/3) | PDF 96–140 | 2026-09-29 / opus | offen | Text ✓ · 86 Aussagen · 2 unsicher · 0 offene Stellen · pdf_nativ |
 | L-A02 | UB, UP, T1, T1 | `03-2` Leistungssteuerung (Teil 2/3) | PDF 141–183 | 2026-09-29 / opus | offen | Text ✓ · 82 Aussagen · 0 unsicher · 1 offene Stellen · pdf_nativ |
 | L-A02 | UB, UP, T1, T1 | `03-3` Leistungssteuerung (Teil 3/3) | PDF 184–226 | 2026-09-29 / opus | offen | Text ✓ · 76 Aussagen · 0 unsicher · 4 offene Stellen · pdf_nativ |
 | L-A02 | UB, UP, T1 | `04-1` Krafttraining (Teil 1/2) | PDF 227–267 | offen | offen | Text ✓ |
 | L-A02 | UB, UP, T1 | `04-2` Krafttraining (Teil 2/2) | PDF 268–307 | offen | offen | Text ✓ |
 | L-A02 | UB, UP, T1 | `05-1` Schnelligkeitstraining (Teil 1/2) | PDF 308–342 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Schnelligkeit; Athlet 2026-09-29) · Text ✓ |
 | L-A02 | UB, UP, T1 | `05-2` Schnelligkeitstraining (Teil 2/2) | PDF 343–380 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Schnelligkeit; Athlet 2026-09-29) · Text ✓ |
-| L-A02 | UB, UP, T1 | `06` Beweglichkeitstraining | PDF 381–407 | offen | offen | Text ✓ |
+| L-A02 | UB, UP, T1 | `06` Beweglichkeitstraining | PDF 381–407 | 2026-09-29 / opus | offen | Text ✓ · 81 Aussagen · 1 unsicher · 0 offene Stellen · pdf_nativ |
 | L-A02 | UB, UP, T1, T1 | `07-1` Ausdauertraining (Teil 1/2) | PDF 408–445 | offen | offen | Text ✓ |
 | L-A02 | UB, UP, T1, T1 | `07-2` Ausdauertraining (Teil 2/2) | PDF 446–482 | offen | offen | Text ✓ |
 | L-A02 | UB, UP, T1 | `08` Techniktraining | PDF 483–531 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Techniktraining; Athlet 2026-09-29) · Text ✓ |
-| L-A02 | UB, UP, T1 | `09-1` Regenerationsmanagement und Ernährung (Teil 1/2) | PDF 532–563 | offen | offen | Text ✓ |
+| L-A02 | UB, UP, T1 | `09-1` Regenerationsmanagement und Ernährung (Teil 1/2) | PDF 532–563 | 2026-09-29 / opus | offen | Text ✓ · 103 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ |
 | L-A02 | UB, UP, T1 | `09-2` Regenerationsmanagement und Ernährung (Teil 2/2) | PDF 564–594 | 2026-09-29 / opus | offen | Text ✓ · 90 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-A02 | UB, UP, T1 | `10` Training im Kindes- und Jugendalter | PDF 595–647 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Kinder und Jugendliche; Athlet 2026-09-29) · Text ✓ |
 | L-A02 | UB, UP, T1 | `11-1` Training mit Frauen (Teil 1/2) | PDF 648–684 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Geschlecht; Athlet 2026-09-29) · Text ✓ |
@@ -127,26 +127,26 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 D
 | L-P13 | UB | `L-P13_Silbernagel-2007_Pain-Monitoring-Model-Achilles.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 48 Aussagen · 1 unsicher · 4 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 896+n; Befund: Widersprüche Text/Tabellen im Original (Baseline VISA-A-S 57/58, Tab. 7 Signifikanz, fehlende Einheiten), unter Offene Stellen |
 | L-P15 | UB | `L-P15_Manresa-Rocamora-2021_HRV-Guided-Training-Meta-Analysis.pdf` | 22 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** · 51 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ · Muster: Artikelnummer 10299, Seiten „n of 22“, Versatz 0; Befund: Text vs. Tab. 2 widersprüchlich (Referenzfenster, Stabilisierung), unter Offene Stellen |
 | L-P16 | UB | `L-P16_Dueking-2021_HRV-Guided-Training-Wearables.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 43 Aussagen · 2 unsicher · 9 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 1179+n; Befund: mehrere Inkonsistenzen im Original (Abstract vertauscht g-Werte, N 198 vs. 228, Tab. 2), unter Offene Stellen |
-| **Synthese startbereit** | UB | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 33 von 41 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
+| **Synthese startbereit** | UB | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 37 von 41 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
 
 ### 4.2 UP – `uebergreifend-planung-kombiniertes-training`
 
-Ablage: `docs/extraktion/uebergreifend/` (Quellen anderer Blöcke unter deren Block, D-51). Zu extrahieren in dieser Tabelle: 9 Dateien; zusätzlich L-A01, L-A02 (Tabelle UB). Davon extrahiert: 3. Nicht zu extrahieren (Vorspann/Anhang): 0; ausgelassen nach Kapitelauswahl: 0.
+Ablage: `docs/extraktion/uebergreifend/` (Quellen anderer Blöcke unter deren Block, D-51). Zu extrahieren in dieser Tabelle: 9 Dateien; zusätzlich L-A01, L-A02 (Tabelle UB). Davon extrahiert: 5. Nicht zu extrahieren (Vorspann/Anhang): 0; ausgelassen nach Kapitelauswahl: 0.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
 | L-P01 | UP | `L-P01_Kiely-2018_Periodization-Theory.pdf` | 12 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 53 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 752+n; Meinungsbeitrag ohne Studiendaten; Verweisnummern im Original teils falsch |
 | L-P02 | UP | `L-P02_Mujika-2018_Integrated-Approach-to-Periodization.pdf` | 24 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-P07 | UP | `L-P07_Schumann-2022_Concurrent-Training-Meta-Analysis.pdf` | 12 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 42 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 600+n; Forest-Plots als Bild (hochaufgelöst gelesen); Befund: SMD Hypertrophie −0,01 (Text) vs. +0,01 (Abb. 4) u. a., in den Aussagen vermerkt; Supplement fehlt |
-| L-P08 | UP, T2 | `L-P08_Currier-2026_ACSM-Resistance-Training-Prescription.pdf` | 22 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
-| L-P09 | UP | `L-P09_Held-2026_Concurrent-Training-Umbrella-Review.pdf` | 24 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
+| L-P08 | UP, T2 | `L-P08_Currier-2026_ACSM-Resistance-Training-Prescription.pdf` | 22 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 51 Aussagen · 0 unsicher · 4 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 850+n; Befund: Power-Volumen ≤24 vs. <24, Hypertrophie-Volumen „pro Muskelgruppe“ nur im Text; Ergänzungsanhänge fehlen |
+| L-P09 | UP | `L-P09_Held-2026_Concurrent-Training-Umbrella-Review.pdf` | 24 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 64 Aussagen · 5 unsicher · 6 offene Stellen · pdf_nativ |
 | L-A01 | UB, UP | siehe Tabelle UB | – | siehe Tabelle UB | siehe Tabelle UB | ausgewaehlt · B · Kern; Zeilen nur einmal geführt |
 | L-A02 | UB, UP, T1 | siehe Tabelle UB | – | siehe Tabelle UB | siehe Tabelle UB | ausgewaehlt · B · Kern; Zeilen nur einmal geführt |
 | L-T2-25 | UP | `L-T2-25_Lundberg-2022_Concurrent-Training-Fiber-Hypertrophy.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** · 38 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 2390+n; Befund: Referenznummern in Forest-Plots um eins verschoben, Fig. 3 Einzelwerte vertauscht, QM/p in Fig. 2 inkonsistent; Supplement fehlt |
 | L-T2-26 | UP | `L-T2-26_Monserda-Vilaro-2023_Concurrent-Continuous-vs-Intermittent.pdf` | 22 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-T2-31 | UP | `L-T2-31_Wilson-2012_Concurrent-Training-Interference.pdf` | 15 (PDF) | offen | offen | optional · A · optional · Text ✓ |
 | L-T2-32 | UP | `L-T2-32_Sabag-2018_Concurrent-HIIT-and-Resistance.pdf` | 13 (PDF) | offen | offen | optional · A · optional · Text ✓ |
-| **Synthese startbereit** | UP | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 3 von 9 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
+| **Synthese startbereit** | UP | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 5 von 9 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
 
 ### 4.3 T1 – `t1-ausdauer`
 
@@ -621,3 +621,4 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-P01 | Versatz PDF n → S. 752+n; Meinungsbeitrag ohne Studiendaten; Verweisnummern im Original teils falsch | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-25 | Versatz PDF n → S. 2390+n; Befund: Referenznummern in Forest-Plots um eins verschoben, Fig. 3 Einzelwerte vertauscht, QM/p in Fig. 2 inkonsistent; Supplement fehlt | U2-Extraktion (Rückmeldung Unteragent) |
 | L-P07 | Versatz PDF n → S. 600+n; Forest-Plots als Bild (hochaufgelöst gelesen); Befund: SMD Hypertrophie −0,01 (Text) vs. +0,01 (Abb. 4) u. a., in den Aussagen vermerkt; Supplement fehlt | U2-Extraktion (Rückmeldung Unteragent) |
+| L-P08 | Versatz PDF n → S. 850+n; Befund: Power-Volumen ≤24 vs. <24, Hypertrophie-Volumen „pro Muskelgruppe“ nur im Text; Ergänzungsanhänge fehlen | U2-Extraktion (Rückmeldung Unteragent) |
