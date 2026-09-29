@@ -1295,6 +1295,8 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   verifikation: teilweise – 8. Aufl. 2017 belegt (Fachpresse); FAU-Publikationsliste nennt „Peak Performance (2019)" ohne Auflagenangabe; ISBN der 8. Aufl. nicht ermittelt → beim Kauf klären (tmms-Shop); 7. Aufl. 2014 ISBN 978-3-930650-97-2
 - id: L-T3-09
   status: optional
+  datei: t3-klettern/L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf
+  kapitel: t3-klettern/L-T3-09_kapitel/
   stufe: B
   typ: fachbuch
   zitat: "Hörst EJ. Training for Climbing – The Definitive Guide to Improving Your Performance. 3. Aufl. Guilford, CT: FalconGuides; 2016. xiii, 335 S."
@@ -1304,7 +1306,8 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   zweck: Energiesystemtraining, Trainingszonen, DUP, Hangboard-Protokolle, Tapering
   einschraenkung: Label „evidenzbasiert" stammt vom Verlag; Autor ist Coach, kein Hochschulforscher – Aussagen gegen Stufe A abgleichen
   hinweis: Neuauflage vom Handel angekündigt für 02.03.2027 (ISBN 9781493086184); bei Aktivierung Neuauflage abwarten
-  verifikation: verifiziert 2026-09-28 (Bibliothekskataloge)
+  zugang: 3. Aufl. als Scan (Internet Archive) mit Texterkennung vorhanden (datei, 2026-09-29); Druckseite = PDF-Seite − 16
+  verifikation: verifiziert 2026-09-28 (Bibliothekskataloge); Auflage am Impressum bestätigt (© 2003, 2008, 2016)
 - id: L-T3-10
   status: optional (ideenfundus, Stufe C)
   stufe: C
@@ -1816,7 +1819,7 @@ Formatprüfung je Titel vor dem Kauf (V-13). Alle Blöcke sind bestätigt (D-31)
 | frei | alle | L-P01, L-P07, L-P08, L-T1-04, L-T1-06, L-T3-01, L-T3-03; optional L-T1-09, L-T1-10, L-T1-12 | – | PDF aus PMC bzw. Verlag (OA) | kein Kauf | ✓ alle |
 | frei | übergreifend/T2/T3 | L-P11 (PMC), L-T2-12 (CC BY 4.0), L-T3-03 (CC BY), L-T3-18 (PMC) | – | PDF aus PMC/Verlag | L-P11 ohne CC-Lizenz | L-T3-03 ✓; L-P11, L-T2-12, L-T3-18 offen |
 | frei | T2 | L-T2-15 Warneke 2024, L-T2-16 Khorramroo 2026 | – | PDF aus PMC | Lizenz vor Ablage im Repo prüfen | offen |
-| bei Bedarf | – | L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-09, L-T3-10, L-T3-11 | – | – | nur wenn optional aktiviert | – |
+| bei Bedarf | – | L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-09, L-T3-10, L-T3-11 | – | – | nur wenn optional aktiviert | L-T3-09 ✓ (3. Aufl., Scan) |
 | bei Bedarf | übergreifend | L-P14 Impellizzeri 2021 | Artikel | PDF | optional | – |
 | bei Bedarf | T2 | L-T2-14 Cowley 2026 (PMC), L-T2-19 Carrasco-Uribarren 2026 | – | PDF | optional | L-T2-14 ✓ |
 | 1 | R | L-R-02 Kongsgaard 2009 | Artikel | PDF | Schmerzregel für Q-13 | offen |
@@ -1829,7 +1832,7 @@ Formatprüfung je Titel vor dem Kauf (V-13). Alle Blöcke sind bestätigt (D-31)
 | frei | T2 | L-T2-22 Refalo 2023, L-T2-23 Lopez 2021 (mit Corrigendum), L-T2-24 Lopes 2019 (mit Corrigendum), L-T2-25 Lundberg 2022 | – | PDF aus PMC | L-T2-24 CC BY-NC 4.0; übrige ohne Lizenzangabe → vor Ablage im Repo prüfen (D-31) | offen |
 | bei Bedarf | T2 | L-T2-27 bis L-T2-32 | Artikel | PDF | optional; L-T2-30 in PMC | – |
 
-Stand 2026-09-29: 37 Volltexte vorhanden (D-51), Verzeichnis in `docs/literatur/README.md`. Offen sind 3 Bücher (L-T1-01, L-T3-08 sowie L-A01 in 8./9. Aufl.), 10 Artikel ohne freien Zugang (L-T2-10, L-T2-11, L-T2-20, L-T2-21, L-T2-26, L-R-02, L-R-03, L-R-08, L-R-13, L-R-26; dazu L-T3-05 nur bei Bedarf) und 23 frei verfügbare Artikel (L-P11, L-T2-12, L-T2-15, L-T2-16, L-T2-22 bis L-T2-25, L-T3-18 sowie 14 aus Block R). Block R „bei Bedarf“: 9 Titel; T2 Hypertrophie „bei Bedarf“: 6 Titel.
+Stand 2026-09-29: 38 Volltexte vorhanden (D-51), Verzeichnis in `docs/literatur/README.md`. Offen sind 3 Bücher (L-T1-01, L-T3-08 sowie L-A01 in 8./9. Aufl.), 10 Artikel ohne freien Zugang (L-T2-10, L-T2-11, L-T2-20, L-T2-21, L-T2-26, L-R-02, L-R-03, L-R-08, L-R-13, L-R-26; dazu L-T3-05 nur bei Bedarf) und 23 frei verfügbare Artikel (L-P11, L-T2-12, L-T2-15, L-T2-16, L-T2-22 bis L-T2-25, L-T3-18 sowie 14 aus Block R). Block R „bei Bedarf“: 9 Titel; T2 Hypertrophie „bei Bedarf“: 6 Titel.
 
 # 14. Trainerregeln (Struktur; Inhalte in AP-07)
 
@@ -2164,7 +2167,7 @@ teilschritte:
   - Literaturauswahl T3 Klettern/Bouldern: erledigt (D-31)
   - Literaturauswahl Block R Reha/Prävention: erledigt (D-61)
   - Literaturauswahl T2 Hypertrophie-Ergänzung: erledigt (D-62)
-  - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-29 – 37 Volltexte sortiert und umbenannt, Kapitel-PDFs für 8 Bücher, D-51; offen nach 13.4 sind L-T1-01, L-T3-08 und L-A01 in 8./9. Aufl.)
+  - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-29 – 38 Volltexte sortiert und umbenannt, Kapitel-PDFs für 9 Bücher, D-51; offen nach 13.4 sind L-T1-01, L-T3-08 und L-A01 in 8./9. Aufl.)
   - Primärquellen verifizieren: weitgehend erledigt (V-06, V-14 erledigt; V-07, V-15 teilweise, Rest nach Beschaffung)
   - Karten-Template und Karten: offen
 probleme_loesungen:
@@ -2288,6 +2291,9 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: Zwei neue PDFs im Commit „aa“ – Laursen/Buchheit (L-T1-07) und erneut Kenney 7. Aufl.; die Kenney-Datei ist bytegleich mit L-A01 (gleicher Git-Blob)
     loesung: L-T1-07 nach D-51 umbenannt und in 34 Kapitel-PDFs geteilt; Kenney-Dublette entfernt, L-A01 bleibt vorläufig (8./9. Aufl. weiter offen)
+  - datum: 2026-09-29
+    was: Commit „Literatur“ mit drei Dateien – Hörst, Training for Climbing (PDF, 3. Aufl., Scan ohne Lesezeichen) sowie zwei EPUBs (Mobråten/Christophersen, The Climbing Bible – Practical Exercises, 2022; Consuegra, The Science of Climbing Training, 2023), beide nicht im Konzept
+    loesung: Hörst als L-T3-09 eingeordnet (Status bleibt optional) und nach Inhaltsverzeichnis in 17 Kapitel-PDFs geteilt; die EPUBs bleiben unsortiert liegen, bis der Athlet Angaben zur Einordnung nachliefert; die EPUBs werden danach in PDF umgewandelt (Entscheidung des Athleten)
 ```
 Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage von `docs/pruefung/pruefprotokoll.md` als AP-06-Block zu übernehmen.
 
@@ -2730,3 +2736,4 @@ noch_zu_pruefen:
 | 2026-09-28 | Übergabe AP-06 Teil D (Hypertrophie-Ergänzung) eingearbeitet: 13.2.3 L-T2-20 bis L-T2-26 ausgewählt, L-T2-27 bis L-T2-32 optional, L-T2-07 um die bibliografischen Daten der 3. Aufl. ergänzt (weiter zurückgestellt), Themenfeld-Vokabular; 13.3 Ausschlüsse; 13.4 ergänzt. Neu D-62 (D-28 unverändert, Verweis ergänzt) und V-16; AP-06 Umfang, Kartenzuschnitt, Teilschritt, `probleme_loesungen`; AP-07 Vorgaben ergänzt. |
 | 2026-09-28 | Neu D-63 (Favicon V3 gerundet, ändert D-59 für das Favicon), AP-13 `probleme_loesungen` ergänzt (Code-Stand 0.20.2). |
 | 2026-09-29 | L-T1-07 Laursen/Buchheit einsortiert (Gesamt-PDF und Kapitel-PDFs, D-51): `datei`/`kapitel`/`zugang`, 13.4 „vorhanden“ und Stand (37 Volltexte), V-13, AP-06 Teilschritt und `probleme_loesungen`. Doppelt hochgeladene Kenney-Datei entfernt. |
+| 2026-09-29 | L-T3-09 Hörst (3. Aufl. 2016) einsortiert: Gesamt-PDF und 17 Kapitel-PDFs, `datei`/`kapitel`/`zugang`, 13.4 „vorhanden“ und Stand (38 Volltexte), AP-06. Zwei EPUBs (Climbing Bible – Practical Exercises; Consuegra) warten auf Angaben des Athleten. |

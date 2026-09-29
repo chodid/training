@@ -900,6 +900,9 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: Zwei neue PDFs im Commit „aa“ – Laursen/Buchheit (L-T1-07) und erneut Kenney 7. Aufl.; die Kenney-Datei ist bytegleich mit L-A01 (gleicher Git-Blob)
     loesung: L-T1-07 nach D-51 umbenannt und in 34 Kapitel-PDFs geteilt; Kenney-Dublette entfernt, L-A01 bleibt vorläufig (8./9. Aufl. weiter offen)
+  - datum: 2026-09-29
+    was: Commit „Literatur“ mit drei Dateien – Hörst, Training for Climbing (PDF, 3. Aufl., Scan ohne Lesezeichen) sowie zwei EPUBs (Mobråten/Christophersen, The Climbing Bible – Practical Exercises, 2022; Consuegra, The Science of Climbing Training, 2023), beide nicht im Konzept
+    loesung: Hörst als L-T3-09 eingeordnet (Status bleibt optional) und nach Inhaltsverzeichnis in 17 Kapitel-PDFs geteilt; die EPUBs bleiben unsortiert liegen, bis der Athlet Angaben zur Einordnung nachliefert; die EPUBs werden danach in PDF umgewandelt (Entscheidung des Athleten)
 geprueft:
   - was: Zuordnung der 29 PDFs zu IDs aus 13.2 – Titel, Autoren und DOI auf den ersten Seiten gegen 13.2 abgeglichen
     wie: Textextraktion (pypdf) aller Dateien, Abgleich je Datei
@@ -1021,6 +1024,10 @@ geprueft:
     wie: Git-Blob-Hash
     ergebnis: identisch → Dublette entfernt
     datum: 2026-09-29
+  - was: L-T3-09 Kapitel-PDFs – Seitensumme 356 = Original; Kapitelanfänge 1–13 gegen Inhaltsverzeichnis (Druckseite + 16) geprüft; größte Datei 3 MB
+    wie: Textextraktion (pypdf), Abgleich Inhaltsverzeichnis
+    ergebnis: ok
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
     wie: manuell durch Athlet bei der ersten Kartensitzung
@@ -1058,4 +1065,6 @@ noch_zu_pruefen:
     wie: Verlagsseite bzw. PDF
   - was: DRM des epub von L-T2-07
     wie: nur bei Aktivierung, V-13
+  - was: EPUBs Climbing Bible – Practical Exercises und Consuegra – Einordnung (ID, Status), danach Umwandlung in PDF und Kapitel-PDFs
+    wie: nach Angaben des Athleten; Umwandlung durch Code-Instanz
 ```

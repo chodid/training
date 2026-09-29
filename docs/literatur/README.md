@@ -76,8 +76,9 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T3-03 | A | Langer, Simon, Wiemeyer 2023 – Performance Testing in Climbing | [`L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf`](t3-klettern/L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf) | 23 | CC BY; Front Sports Act Living Bd. 5, Art. 1130812 |
 | L-T3-04 | A | Draper et al. 2015 – IRCRA Position Statement (Grading Scales, Ability Grouping) | [`L-T3-04_Draper-2015_IRCRA-Grading-Position-Statement.pdf`](t3-klettern/L-T3-04_Draper-2015_IRCRA-Grading-Position-Statement.pdf) | 8 |  |
 | L-T3-06 | B | Schöffl et al. (Hrsg.) 2022 – Climbing Medicine | [`L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf`](t3-klettern/L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf) | 319 | Kapitel-PDFs in `L-T3-06_kapitel/` |
+| L-T3-09 | B | Hörst EJ – Training for Climbing, 3. Aufl. 2016 (optional) | [`L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf`](t3-klettern/L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf) | 356 | Scan (Internet Archive) mit Texterkennung, ohne Lesezeichen; Druckseite = PDF-Seite − 16. Kapitel-PDFs in `L-T3-09_kapitel/` |
 
-Summe: 37 Werke (davon 8 Bücher mit Kapitel-PDFs).
+Summe: 38 Werke (davon 9 Bücher mit Kapitel-PDFs).
 
 ## Noch nicht vorhanden
 
@@ -136,7 +137,7 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D eingearbeitet).
 - L-T3-05 López-Rivera & González-Badillo 2012 (nur falls L-T3-18 nicht genügt)
 - Block R (optional bzw. Kernaussage aus Abstract ausreichend): L-R-07 Visentini, L-R-09 Hernandez-Sanchez, L-R-12 Backman, L-R-15 Schiftan, L-R-18 Nielsen RØ, L-R-19 Kiers, L-R-20 Fakontis, L-R-22 Delahunt, L-R-28 Hjortshoej
 - T2 Hypertrophie (optional, D-62): L-T2-27 Schoenfeld 2019, L-T2-28 Refalo 2021, L-T2-29 Carvalho 2022, L-T2-30 Grgic 2022 (PMC9068575), L-T2-31 Wilson 2012, L-T2-32 Sabag 2018
-- optionale Bücher aus 13.4 („bei Bedarf“): L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-09, L-T3-10, L-T3-11
+- optionale Bücher aus 13.4 („bei Bedarf“): L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-10, L-T3-11 (L-T3-09 liegt bereits vor)
 
 
 ## Kapitel-PDFs
@@ -297,6 +298,30 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D eingearbeitet).
 | 21 | Injury Prevention | 278–294 | [`L-T3-06_21_Injury-Prevention.pdf`](t3-klettern/L-T3-06_kapitel/L-T3-06_21_Injury-Prevention.pdf) |
 | 22 | Taping | 295–313 | [`L-T3-06_22_Taping.pdf`](t3-klettern/L-T3-06_kapitel/L-T3-06_22_Taping.pdf) |
 | 23 | Future Aspects: Climbing in the Olympics | 314–319 | [`L-T3-06_23_Future-Aspects-Climbing-in-the-Olympics.pdf`](t3-klettern/L-T3-06_kapitel/L-T3-06_23_Future-Aspects-Climbing-in-the-Olympics.pdf) |
+
+### L-T3-09 Hörst – Training for Climbing (3. Aufl.) – `t3-klettern/L-T3-09_kapitel/`
+
+17 Dateien, 356 PDF-Seiten. Scan: Druckseiten aus dem Seitenversatz berechnet (Vorspann ohne Druckseiten).
+
+| Nr. | Titel | PDF-Seiten | Druckseiten | Datei |
+|---|---|---|---|---|
+| 00 | Vorspann, Foreword und Introduction | 1–16 | – | [`L-T3-09_00_Vorspann-Foreword-und-Introduction.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_00_Vorspann-Foreword-und-Introduction.pdf) |
+| 01 | An Overview of Training for Climbing | 17–34 | 1–18 | [`L-T3-09_01_An-Overview-of-Training-for-Climbing.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_01_An-Overview-of-Training-for-Climbing.pdf) |
+| 02 | Self-Assessment and Goal Setting | 35–46 | 19–30 | [`L-T3-09_02_Self-Assessment-and-Goal-Setting.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_02_Self-Assessment-and-Goal-Setting.pdf) |
+| 03 | Mental Training | 47–72 | 31–56 | [`L-T3-09_03_Mental-Training.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_03_Mental-Training.pdf) |
+| 04 | Training Technique and Skill | 73–104 | 57–88 | [`L-T3-09_04_Training-Technique-and-Skill.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_04_Training-Technique-and-Skill.pdf) |
+| 05 | The Physiology of Climbing | 105–132 | 89–116 | [`L-T3-09_05_The-Physiology-of-Climbing.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_05_The-Physiology-of-Climbing.pdf) |
+| 06 | Mobility, Stability, Antagonist Training | 133–162 | 117–146 | [`L-T3-09_06_Mobility-Stability-Antagonist-Training.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_06_Mobility-Stability-Antagonist-Training.pdf) |
+| 07 | Core, Legs, and Aerobic Training | 163–180 | 147–164 | [`L-T3-09_07_Core-Legs-and-Aerobic-Training.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_07_Core-Legs-and-Aerobic-Training.pdf) |
+| 08 | Finger Training for Strength and Endurance | 181–214 | 165–198 | [`L-T3-09_08_Finger-Training-for-Strength-and-Endurance.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_08_Finger-Training-for-Strength-and-Endurance.pdf) |
+| 09 | Pull-Muscle and Power Training | 215–234 | 199–218 | [`L-T3-09_09_Pull-Muscle-and-Power-Training.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_09_Pull-Muscle-and-Power-Training.pdf) |
+| 10 | Designing Your Training Program | 235–262 | 219–246 | [`L-T3-09_10_Designing-Your-Training-Program.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_10_Designing-Your-Training-Program.pdf) |
+| 11 | Performance Nutrition | 263–278 | 247–262 | [`L-T3-09_11_Performance-Nutrition.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_11_Performance-Nutrition.pdf) |
+| 12 | Accelerating Recovery | 279–294 | 263–278 | [`L-T3-09_12_Accelerating-Recovery.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_12_Accelerating-Recovery.pdf) |
+| 13 | Injury Treatment and Prevention | 295–320 | 279–304 | [`L-T3-09_13_Injury-Treatment-and-Prevention.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_13_Injury-Treatment-and-Prevention.pdf) |
+| 90 | Afterword and Appendices A-C | 321–330 | 305–314 | [`L-T3-09_90_Afterword-and-Appendices-A-C.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_90_Afterword-and-Appendices-A-C.pdf) |
+| 91 | Glossary, Suggested Reading, References | 331–342 | 315–326 | [`L-T3-09_91_Glossary-Suggested-Reading-References.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_91_Glossary-Suggested-Reading-References.pdf) |
+| 92 | Index and About the Author | 343–356 | 327–340 | [`L-T3-09_92_Index-and-About-the-Author.pdf`](t3-klettern/L-T3-09_kapitel/L-T3-09_92_Index-and-About-the-Author.pdf) |
 
 ### L-T2-03 Concurrent Aerobic and Strength Training – `t2-kraft/L-T2-03_kapitel/`
 
