@@ -7,6 +7,20 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ### Dokumentation
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 
+## [0.27.0] – 2026-09-29
+
+AP-15 T2: MCP-Tools für Übergabe, Blockbilanz, Zielklärung und Revision.
+
+### Hinzugefügt
+- `get_handover` (Pflichtaufruf zu Beginn jeder Planungssitzung): aktiver Block, gültige Zielklärung, die zwei jüngsten Bilanzen, Revisionen des Blocks, Kennzahlen der letzten 4 Wochen gegen das Blockmittel, Wochentexte der letzten 4 Wochen (`wochen_kurz`), Fälligkeiten, offene Fragen, Stand je Profilabschnitt und offene Entwürfe; höchstens 8 000 Zeichen (bei Bedarf stufenweise gekürzt, Feld `gekuerzt`). `detail: true` liefert zusätzlich die Volltexte der jüngsten Zielklärung und Bilanz.
+- `get_block_reviews`: gültige Fassungen eines Blocks mit Inhalt und Kennzahlen; mit `fassungen` alle Versionen samt Entwürfen und Grund.
+- `write_block_review`: neue Fassung einer Revision, Bilanz oder Zielklärung mit Schemaprüfung (Fehler mit Pfad, nichts geschrieben), `reason` ab Fassung 2, Revisionen fortlaufend nummeriert; der Server berechnet die Kennzahlen (Bilanz: Blockzeitraum, Revision: 28 Tage bis zum Gesprächsdatum, sonst `period_start`/`period_end`). Zielklärung nur für geplante oder aktive Blöcke. Audit `review_write`; eine bestätigte Fassung löscht die Quittierungen der Erinnerung dieser Art.
+
+### Geändert
+- `get_block` nennt die Reviews des Blocks (Kurzliste) und seine Fälligkeiten.
+- `upsert_block` antwortet mit den Fälligkeiten des Blocks und dem Hinweis `zielklaerung_fehlt`.
+- `write_week_plan` lehnt Wochen nach dem Ende des aktiven Blocks mit `blockwechsel_erforderlich` ab, solange kein Folgeblock mit bestätigter Zielklärung existiert; Wochen bis zum Blockende bleiben möglich. Die Antwort nennt offene Fälligkeiten (`faellig`).
+
 ## [0.26.0] – 2026-09-29
 
 AP-15 T1: Datenmodell für Blockbilanz, Zielklärung und Revision.

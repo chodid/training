@@ -52,7 +52,7 @@ final class ToolRegistry
             title: 'Wellness-Trend', inputSchema: ['properties' => ['days' => ['type' => 'integer', 'minimum' => 7, 'maximum' => 90, 'default' => 28]]], annotations: $read);
 
         $mcp->tool('get_block',
-            'Trainingsblock (ohne block_id der aktive bzw. aktuelle): Zeitraum, Phasen, Zielevents, Wochenstatus.',
+            'Trainingsblock (ohne block_id der aktive bzw. aktuelle): Zeitraum, Phasen, Zielevents, Wochenstatus, Kurzliste der Reviews (Revision, Bilanz, Zielklärung) und Fälligkeiten des Blocks.',
             fn (?int $block_id = null): CallToolResult => $this->run('training:read', fn () => $this->reads()->block($block_id)),
             title: 'Block', inputSchema: ['properties' => ['block_id' => ['type' => 'integer']]], annotations: $read);
 
@@ -90,7 +90,7 @@ final class ToolRegistry
             ],
         ];
         $mcp->tool('write_week_plan',
-            'Schreibt den bestätigten Wochenplan (D-11): Einheiten in die Datenbank, Ausdauereinheiten zusätzlich als Workout in Intervals.icu (→ Uhr). Alle Einheiten werden vorher geprüft; bei Fehlern wird nichts geschrieben. replace_existing ersetzt nur geplante Einheiten ohne Rückmeldung. Intervals-Fehler werden je Einheit gemeldet. Begründung (E-10): focus ist Pflicht (Kurzsatz der Woche, Was und warum), coach_notes der ausführliche Text der Woche; je Einheit coach_summary Pflicht außer bei ruhe, coach_rationale ausführlich. Die App zeigt den Kurzsatz, den ausführlichen Text hinter „mehr“. Übungen sollen ein exercise_id aus dem Katalog tragen (find_exercise/upsert_exercise); ohne ID kommt eine Warnung (warnungen), eine unbekannte oder archivierte ID ist ein Fehler.',
+            'Schreibt den bestätigten Wochenplan (D-11): Einheiten in die Datenbank, Ausdauereinheiten zusätzlich als Workout in Intervals.icu (→ Uhr). Alle Einheiten werden vorher geprüft; bei Fehlern wird nichts geschrieben. replace_existing ersetzt nur geplante Einheiten ohne Rückmeldung. Intervals-Fehler werden je Einheit gemeldet. Begründung (E-10): focus ist Pflicht (Kurzsatz der Woche, Was und warum), coach_notes der ausführliche Text der Woche; je Einheit coach_summary Pflicht außer bei ruhe, coach_rationale ausführlich. Die App zeigt den Kurzsatz, den ausführlichen Text hinter „mehr“. Übungen sollen ein exercise_id aus dem Katalog tragen (find_exercise/upsert_exercise); ohne ID kommt eine Warnung (warnungen), eine unbekannte oder archivierte ID ist ein Fehler. Wochen nach dem Ende des aktiven Blocks werden abgelehnt (blockwechsel_erforderlich), solange kein Folgeblock mit bestätigter Zielklärung existiert (R-UEB-06); die Antwort nennt offene Fälligkeiten (faellig).',
             fn (string $week_start, array $sessions, bool $replace_existing = false, ?string $focus = null, ?string $coach_notes = null): CallToolResult
                 => $this->run('training:write', fn () => $this->writes()->writeWeekPlan($week_start, $sessions, $replace_existing, $focus, $coach_notes), true),
             title: 'Wochenplan schreiben',
@@ -123,7 +123,7 @@ final class ToolRegistry
             annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => true]);
 
         $mcp->tool('upsert_block',
-            'Legt einen Trainingsblock an oder ändert ihn (ohne block_id: neu). Voraussetzung für write_week_plan. Status „aktiv“ schließt andere aktive Blöcke ab.',
+            'Legt einen Trainingsblock an oder ändert ihn (ohne block_id: neu). Voraussetzung für write_week_plan. Status „aktiv“ schließt andere aktive Blöcke ab. Beim Blockwechsel zuerst Bilanz des alten Blocks, dann Zielklärung, dann den Folgeblock anlegen (Status geplant) und die Zielklärung mit write_block_review für diesen Block schreiben. Antwort mit faellig.',
             fn (array $block, ?int $block_id = null): CallToolResult => $this->run('training:write', fn () => $this->writes()->upsertBlock($block_id, $block), true),
             title: 'Block anlegen/ändern',
             inputSchema: ['properties' => [
@@ -148,6 +148,45 @@ final class ToolRegistry
                 'reason' => ['type' => 'string', 'maxLength' => ProfileRepository::REASON_MAX],
             ], 'required' => ['section', 'content']],
             annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false]);
+
+        // Übergabe, Blockbilanz, Zielklärung, Revision (AP-15, docs/konzept/blockbilanz.md 5.2)
+        $mcp->tool('get_handover',
+            'Übergabe für die planende Instanz – zu Beginn jeder Planungssitzung aufrufen und Fälligkeiten dem Athleten vor dem Wochenvorschlag nennen (R-UEB-01). Deterministisch aus der Datenbank: aktiver Block (Zeitraum, Woche, Phasen, Zielevents), gültige Zielklärung (Phase, Prioritäten, Ziele mit Messgröße und Kriterium, Entscheidungen, Risiken), die zwei jüngsten Bilanzen (Bewertung je Ziel, Empfehlung, geänderte Annahmen), Revisionen des Blocks, Kennzahlen der letzten 4 Wochen gegen das Blockmittel, Wochentexte der letzten 4 Wochen (wochen_kurz), Fälligkeiten (faellig), offene Fragen, Stand je Profilabschnitt, offene Entwürfe. Mit detail=true zusätzlich content_json der jüngsten Zielklärung und Bilanz.',
+            fn (bool $detail = false): CallToolResult => $this->run('training:read', fn () => $this->reviews()->handover($detail)),
+            title: 'Übergabe', inputSchema: ['properties' => ['detail' => ['type' => 'boolean', 'default' => false, 'description' => 'Volltexte der jüngsten Zielklärung und Bilanz']]], annotations: $read);
+
+        $kindEnum = ['enum' => \Training\Review\ReviewValidator::KINDS];
+        $mcp->tool('get_block_reviews',
+            'Revisionen, Blockbilanz und Zielklärung eines Blocks (ohne block_id der aktive): gültige Fassungen (jüngste bestätigte; neuerer Entwurf unter entwurf) mit content_json und kennzahlen_auto; mit fassungen alle Versionen inklusive Entwürfen mit reason (ohne Inhalt).',
+            fn (?int $block_id = null, ?string $kind = null, bool $fassungen = false): CallToolResult
+                => $this->run('training:read', fn () => $this->reviews()->blockReviews($block_id, $kind, $fassungen)),
+            title: 'Block-Reviews', inputSchema: ['properties' => [
+                'block_id' => ['type' => 'integer'], 'kind' => $kindEnum,
+                'fassungen' => ['type' => 'boolean', 'default' => false],
+            ]], annotations: $read);
+
+        $reviewSchemas = [];
+        foreach (\Training\Review\ReviewValidator::KINDS as $k) {
+            $reviewSchemas[$k] = json_decode((string) file_get_contents(dirname(__DIR__, 2) . '/schemas/review-' . $k . '.json'), true);
+            unset($reviewSchemas[$k]['$schema'], $reviewSchemas[$k]['$id']);
+        }
+        $mcp->tool('write_block_review',
+            'Schreibt eine Revision (Belastungssteuerung alle 3–4 Wochen oder bei Schmerz/Ausfall), Blockbilanz (Rückblick am Blockende) oder Zielklärung (Ausblick vor einem Block) als neue Fassung. Nur nach Bestätigung des Athleten mit status bestaetigt schreiben; Entwürfe sind erlaubt. Die Zielklärung gehört zu dem Block, den sie begründet (vorher upsert_block, Status geplant oder aktiv); jede Entscheidung nennt mindestens eine verworfene Alternative oder „keine“ (R-UEB-02); die Bilanz bewertet jedes Ziel der Zielklärung (R-UEB-03). Revisionen ändern Belastung, nicht Ziele (R-UEB-05). reason ab Fassung 2 Pflicht. Kennzahlen berechnet der Server (Bilanz: Blockzeitraum, Revision: 28 Tage bis review_date, sonst period_start/period_end). content nach dem Schema der Art (anyOf in der Eingabe: zielklaerung, bilanz, revision).',
+            fn (int $block_id, string $kind, string $review_date, string $summary, array $content, string $status, ?int $sequence = null,
+                ?string $period_start = null, ?string $period_end = null, ?string $reason = null): CallToolResult
+                => $this->run('training:write', fn () => $this->reviews()->write($block_id, $kind, $sequence, $review_date, $period_start, $period_end, $summary, $content, $status, $reason), true),
+            title: 'Block-Review schreiben',
+            inputSchema: ['properties' => [
+                'block_id' => ['type' => 'integer'], 'kind' => $kindEnum,
+                'sequence' => ['type' => 'integer', 'minimum' => 1, 'description' => 'nur Revision: bestehende Revision neu fassen; ohne = nächste Revision'],
+                'review_date' => $date + ['description' => 'Datum des Gesprächs'],
+                'period_start' => $date, 'period_end' => $date,
+                'summary' => ['type' => 'string', 'minLength' => 1, 'maxLength' => \Training\Review\ReviewValidator::SUMMARY_MAX, 'description' => 'Kurzsatz für Listen und Übergabe'],
+                'content' => ['description' => 'Inhalt nach dem Schema der Art (docs/konzept/blockbilanz.md 4.3): zielklaerung, bilanz bzw. revision in dieser Reihenfolge', 'anyOf' => array_values($reviewSchemas)],
+                'status' => ['enum' => \Training\Review\ReviewValidator::STATUSES],
+                'reason' => ['type' => 'string', 'maxLength' => \Training\Review\ReviewValidator::REASON_MAX, 'description' => 'Grund der neuen Fassung (ab Fassung 2 Pflicht)'],
+            ], 'required' => ['block_id', 'kind', 'review_date', 'summary', 'content', 'status']],
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false]);
 
         // Übungskatalog (AP-16, docs/konzept/uebungskatalog.md 5.1)
         $categoryEnum = ['enum' => Catalog::CATEGORIES];
@@ -248,6 +287,11 @@ final class ToolRegistry
         return new ReadTools($this->app->pdo(), $this->clock, $user?->tz ?? 'Europe/Berlin', $this->intervals());
     }
 
+    private function reviews(): ReviewTools
+    {
+        return new ReviewTools($this->app->pdo(), $this->clock, $this->app->users()->first()?->tz ?? 'Europe/Berlin');
+    }
+
     private function exercises(): ExerciseTools
     {
         return new ExerciseTools($this->app->pdo(), $this->clock, $this->app->linkChecker());
@@ -255,6 +299,6 @@ final class ToolRegistry
 
     private function writes(): WriteTools
     {
-        return new WriteTools($this->app->pdo(), $this->clock, $this->intervals(), PlanValidator::default(), $this->app->calendar());
+        return new WriteTools($this->app->pdo(), $this->clock, $this->intervals(), PlanValidator::default(), $this->app->calendar(), $this->app->users()->first()?->tz ?? 'Europe/Berlin');
     }
 }

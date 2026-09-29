@@ -38,7 +38,7 @@ final class McpToolsTest extends AppTestCase
         $this->mcpTool(self::STATIC, 'get_athlete_profile');
         $r = $this->request('POST', '/mcp', [], $headers + ['Mcp-Session-Id' => $this->sessionFor(self::STATIC), 'MCP-Protocol-Version' => '2025-06-18'], '{"jsonrpc":"2.0","id":3,"method":"tools/list"}');
         $names = array_column(json_decode($r->body, true)['result']['tools'], 'name');
-        foreach (['ping', 'get_week_overview', 'get_session_detail', 'get_pain_history', 'get_wellness_trend', 'get_block', 'get_athlete_profile', 'write_week_plan', 'update_session', 'upsert_block', 'update_athlete_profile', 'find_exercise', 'get_exercise', 'list_exercises', 'upsert_exercise'] as $t) {
+        foreach (['ping', 'get_week_overview', 'get_session_detail', 'get_pain_history', 'get_wellness_trend', 'get_block', 'get_athlete_profile', 'write_week_plan', 'update_session', 'upsert_block', 'update_athlete_profile', 'find_exercise', 'get_exercise', 'list_exercises', 'upsert_exercise', 'get_handover', 'get_block_reviews', 'write_block_review'] as $t) {
             self::assertContains($t, $names);
         }
 

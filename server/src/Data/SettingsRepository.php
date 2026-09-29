@@ -70,6 +70,16 @@ final class SettingsRepository
         }
     }
 
+    /** Alle Einträge mit dem Präfix entfernen (z. B. Quittierungen erinnerung_bilanz_*). */
+    public function deletePrefix(string $prefix): void
+    {
+        try {
+            $this->pdo->prepare('DELETE FROM app_setting WHERE setting_key LIKE ?')->execute([addcslashes($prefix, '%_\\') . '%']);
+        } catch (\PDOException) {
+            // Schema älter als 19: nichts zu tun
+        }
+    }
+
     /**
      * Einträge mit Datum im Schlüssel (Präfix + Y-m-d) vor $date entfernen, z. B. die Fassungen der Kalender-Tagestermine
      * (kalender_tag_<Datum>, D-60).

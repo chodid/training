@@ -852,9 +852,19 @@ geprueft:
     wie: automatisiert (Integration ReviewDataTest, MorningCheckinTest, ExercisePagesTest gegen MariaDB 10.11)
     ergebnis: ok
     datum: 2026-09-29
+  - was: "T2 H-01 bis H-08 über /mcp: Übergabe mit zwei Blöcken (alle Abschnitte, Bilanz des Vorblocks, Revisionen, wochen_kurz mit fehlendem Fokus, offene Fragen aus Zielklärung und Bilanz) ≤ 8 000 Zeichen; detail mit Volltexten; Bilanz ohne bewertung → Fehler mit Pfad, nichts geschrieben; Fassung 2 ohne reason abgelehnt; Entwurf über bestätigter Fassung (gültig v1, Entwurf v2, faellig ohne Bilanz, Fassungsliste mit reason, entwuerfe in der Übergabe); Revisionen 1/2 mit Standard- und eigenem Zeitraum, neue Fassung einer Revision, unbekannte Nummer abgelehnt, Audit-Text; Zielklärung/Revision für abgeschlossenen Block und unbekannter Block abgelehnt; Woche nach Blockende → blockwechsel_erforderlich mit Fälligkeiten, Woche im Block möglich, Folgeblock ohne Zielklärung reicht nicht, mit bestätigter Zielklärung möglich"
+    wie: automatisiert (Integration ReviewToolsTest gegen MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T2 Budget mit gefüllter Fixture (zwei Blöcke, drei Revisionen, Zielklärung mit 20 Zielen/Entscheidungen/Risiken/Fragen an den Längengrenzen) ≤ 8 000 Zeichen mit Feld gekuerzt; get_block mit Reviews und Fälligkeiten (Blockende 13.12.); Schreibsperre bei Code > Datenbank; Tool-Liste mit den drei neuen Tools; gesamte Suite 285 Tests grün"
+    wie: automatisiert (ReviewToolsTest, McpToolsTest)
+    ergebnis: ok
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: T1 Migration 0024 und Schemata gegen MySQL 8.4
     wie: CI (GitHub Actions) mit dem Pull Request
+  - was: "T2 Abnahme aus dem Projekt-Chat: get_handover liefert Block, Zielklärung, Bilanz und Fälligkeiten in ≤ 8 000 Zeichen; write_block_review legt eine Fassung an und meldet Kennzahlen"
+    wie: Athlet im Projekt-Chat nach Deployment (erste echte Zielklärung in AP-08)
 ```
 
 ## AP-05 MCP-Tools produktiv

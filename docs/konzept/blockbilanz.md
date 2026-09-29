@@ -407,12 +407,33 @@ T1:
     - was: Rückweg-Tests (ExercisePagesTest, MorningCheckinTest) gingen von 0023 als letzter Migration aus
       loesung: um den Rückweg von 0024 ergänzt
 T2:
-  status: offen
-  datum: null
-  ergebnis: null
-  tests: null
-  abnahme: null
-  probleme_loesungen: []
+  status: erledigt
+  datum: 2026-09-29
+  ergebnis: >-
+    Training\Mcp\ReviewTools mit get_handover (kompakt mit Kürzungsstufen bis ≤ 8 000 Zeichen, detail mit Volltexten,
+    wochen_kurz nach E-21, offene Entwürfe), get_block_reviews (gültige Fassungen mit Inhalt und Kennzahlen, Fassungsliste)
+    und write_block_review (Prüfung, Fassung, Kennzahlen, Audit review_write, Quittierungen löschen); get_block um Reviews
+    und Fälligkeiten, upsert_block um faellig und zielklaerung_fehlt, write_week_plan um die Sperre
+    blockwechsel_erforderlich (E-19) und faellig; Tool-Beschreibungen mit den Pflichten aus Abschnitt 8. Code-Stand 0.27.0.
+  tests: >-
+    Integration ReviewToolsTest (H-01 bis H-08, Budget mit gefüllter Fixture, get_block, Schreibsperre); McpToolsTest
+    (Tool-Liste); gesamte Suite 285 Tests grün gegen MariaDB 10.11.
+  abnahme: automatisiert; Abnahme aus dem Projekt-Chat nach Deployment offen
+  probleme_loesungen:
+    - was: Die Übergabe mit vollen Listen an den Längengrenzen der Schemata ergab gut 10 000 Zeichen
+      loesung: >-
+        Kürzungsstufen (Zeilenlänge 220 → 70 Zeichen, Listen 12 → 4 Einträge); die erste Stufe, die ins Budget passt,
+        gilt, dann Feld gekuerzt mit Verweis auf get_block_reviews; die Volltexte mit detail bleiben ungekürzt
+    - was: 5.2 legt für Bilanz ohne Zeitraum den Blockzeitraum fest, für die Revision nichts
+      loesung: Revision ohne Zeitraum = 28 Tage bis review_date (nicht vor Blockbeginn); period_start/period_end nur gemeinsam
+    - was: Die Zielklärung des Folgeblocks ist bei Quittierungen unter dem aktiven Block abgelegt (Schlüssel erinnerung_<kind>_<block_id>)
+      loesung: eine bestätigte Fassung löscht alle Quittierungen dieser Art (erinnerung_<kind>_*); das Overlay richtet sich ohnehin nach der Fälligkeit
+    - was: "upsert_block soll laut 5.2 faellig mit „Zielklärung fehlt noch“ melden; nach 5.1 ist ein geplanter Folgeblock vor dem Vorlauf aber nicht fällig"
+      loesung: faellig des Blocks (5.1) plus eigenes Feld zielklaerung_fehlt mit Hinweis, solange der Block keine bestätigte Zielklärung hat
+    - was: write_week_plan meldete für Wochen nach dem Blockende zuerst „Kein Trainingsblock umfasst diese Woche“
+      loesung: Prüfung E-19 vor der Blocksuche
+    - was: Das MCP-SDK prüft Eingaben nicht gegen das inputSchema
+      loesung: content im inputSchema als anyOf der drei Schemata (Hilfe für Claude), Prüfung serverseitig im ReviewValidator
 T3:
   status: offen
   datum: null
