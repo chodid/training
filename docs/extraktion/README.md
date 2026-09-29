@@ -355,7 +355,7 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-T2-24 | T2 | `L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf` | 7 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ · Corrigendum als eigene Datei (Zeile darunter) |
 | L-T2-24 | T2 | `L-T2-24_Lopes-2020_Corrigendum.pdf` | 2 (PDF) | in k00 | in k00 | Corrigendum zu L-T2-24 · Text ✓ · im selben Lauf wie der Artikel extrahiert (`L-T2-24_k00.md`, Entscheidung Athlet 2026-09-29) |
 | L-T2-14 | T2 | `L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf` | 23 (PDF) | offen | offen | optional · A · optional · Text ✓ |
-| L-T2-19 | T2 | `L-T2-19_Carrasco-Uribarren-2026_Therapeutic-Exercise-Forward-Head-Posture.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 47 Aussagen · 2 unsicher · 3 offene Stellen · pdf_nativ |
+| L-T2-19 | T2 | `L-T2-19_Carrasco-Uribarren-2026_Therapeutic-Exercise-Forward-Head-Posture.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 47 Aussagen · 2 unsicher · 3 offene Stellen · pdf_nativ · Muster: Online-First, Verlagsdeckblatt, gedruckt = PDF − 1, S. 1 ohne Zahl (Abschnitt); Befund: n=256 vs. 156, Unpräzision Text vs. Tab. 4, Tab. 1 vs. 2 widersprüchlich |
 | L-T2-33 | T2 | – | – | – | – | optional · B · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
 | L-T2-27 | T2 | `L-T2-27_Schoenfeld-2019_Training-Frequency-Hypertrophy.pdf` | 11 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 41 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ · Muster: Online-First-Fassung (online 2018), Verlagsdeckblatt, gedruckt = PDF − 1, S. 1 ohne Zahl (Abschnitt); Befund: Omnibustest P = 0,08 (Ergebnis) vs. 0,04 (Diskussion) |
 | L-T2-28 | T2 | `L-T2-28_Refalo-2021_Training-Load-Hypertrophy.pdf` | 24 (PDF) | offen | offen | optional · A · optional · Text ✓ |
@@ -640,3 +640,4 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-T2-09 | Seiten mit Präfix E (E74–E81) | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-22 | Versatz PDF n → S. 648+n; Befund: Egger-Test Wortlaut vs. p, KI Text vs. Tab. 4 | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-27 | Online-First-Fassung (online 2018), Verlagsdeckblatt, gedruckt = PDF − 1, S. 1 ohne Zahl (Abschnitt); Befund: Omnibustest P = 0,08 (Ergebnis) vs. 0,04 (Diskussion) | U2-Extraktion (Rückmeldung Unteragent) |
+| L-T2-19 | Online-First, Verlagsdeckblatt, gedruckt = PDF − 1, S. 1 ohne Zahl (Abschnitt); Befund: n=256 vs. 156, Unpräzision Text vs. Tab. 4, Tab. 1 vs. 2 widersprüchlich | U2-Extraktion (Rückmeldung Unteragent) |
