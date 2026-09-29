@@ -61,7 +61,7 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 D
 |---|---|---|---|---|---|---|
 | L-P03 | UB | `L-P03_Bourdon-2017_Monitoring-Training-Loads-Consensus.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 49 Aussagen · 1 unsicher · 0 offene Stellen · pdf_nativ · Muster: Seiten S2-161–S2-170 (Supplement-Paginierung), Versatz PDF n → S2-(160+n); Tab. 1 im PDF gedreht |
 | L-P04 | UB | `L-P04_Impellizzeri-2019_Internal-and-External-Training-Load.pdf` | 4 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 33 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ · Muster: PDF ist Ahead-of-Print-Fassung, Seiten 1–4 der Vorabpaginierung (nicht Heftpaginierung), Versatz 0 |
-| L-P05 | UB | `L-P05_Kellmann-2018_Recovery-and-Performance-Consensus.pdf` | 6 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 50 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
+| L-P05 | UB | `L-P05_Kellmann-2018_Recovery-and-Performance-Consensus.pdf` | 6 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 50 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 239+n |
 | L-P06 | UB | `L-P06_Meeusen-2013_Overtraining-Syndrome-Consensus.pdf` | 20 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | **L-A01** | UB, UP | **Ordner `uebergreifend/L-A01_kapitel/`** (31 Kapitel-PDFs, 1379 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · 7. Aufl. 2019 vorläufig (D-51); **8./9. Aufl. fehlt (Beschaffung, Athlet)** |
 | L-A01 | UB, UP | `00a` Vorspann | PDF 1–34 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · S. 1 ohne Text, ab S. 2 ✓ |
@@ -123,7 +123,7 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 D
 | L-A02 | UB, UP, T1 | `90` Serviceteil | PDF 901–911 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | L-P10 | UB | `L-P10_Foster-2001_Monitoring-Exercise-Training-sRPE.pdf` | 7 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 41 Aussagen · 2 unsicher · 0 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 108+n; Befund Extraktion: Tab. 5 Lastwerte teils ≠ RPE × Dauer (Druckfehler im Original?), Tab. 4 SD auffällig – Gegenprüfung beachten |
 | L-P11 | UB | `L-P11_Saw-2016_Monitoring-Athlete-Training-Response.pdf` | 14 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
-| L-P12 | UB | `L-P12_Impellizzeri-2020_ACWR-Conceptual-Issues.pdf` | 7 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 43 Aussagen · 0 unsicher · 2 offene Stellen · pdf_nativ |
+| L-P12 | UB | `L-P12_Impellizzeri-2020_ACWR-Conceptual-Issues.pdf` | 7 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 43 Aussagen · 0 unsicher · 2 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 906+n; Befund: Gruppengrößen Text vs. Tab. 1 widersprüchlich (im Original), unter Offene Stellen |
 | L-P13 | UB | `L-P13_Silbernagel-2007_Pain-Monitoring-Model-Achilles.pdf` | 10 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-P15 | UB | `L-P15_Manresa-Rocamora-2021_HRV-Guided-Training-Meta-Analysis.pdf` | 22 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** |
 | L-P16 | UB | `L-P16_Dueking-2021_HRV-Guided-Training-Wearables.pdf` | 13 (PDF) | offen | offen | optional · A · optional · Text ✓ |
