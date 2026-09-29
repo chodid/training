@@ -1120,6 +1120,12 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: Commit „Literatur“ mit 37 PDFs, überwiegend mit Verlags- oder DOI-Dateinamen; L-P16 doppelt (Pre-Proof und Verlagsfassung); L-T2-29 und L-R-18 nur als Autorenmanuskript; Corrigenda zu L-T2-23 und L-T2-24 fehlen
     loesung: Zuordnung über DOI (32) bzw. Titel (5), 36 PDFs nach D-51 umbenannt und einsortiert; Pre-Proof entfernt; Manuskriptfassungen und fehlende Corrigenda beim Eintrag (`zugang`) vermerkt; Lizenzen aus dem Volltext übernommen, wo angegeben
+  - datum: 2026-09-29
+    was: Commit „Literatur“ mit 26 Dateien – witvrouw2001.pdf ist nicht L-T4-22, sondern Witvrouw et al. 2000 (Am J Sports Med 28(4), vorderer Knieschmerz); Climbing-Bible-EPUB bytegleich mit L-T3-10; ein Stretching-Anatomy-EPUB mit 0 Byte; Stretching Anatomy zusätzlich als PDF
+    loesung: falsches Witvrouw-PDF entfernt, L-T4-22 bleibt offen (Entscheidung Athlet); Dubletten entfernt; Stretching Anatomy als PDF (Kapitel-PDFs) und EPUB abgelegt (Entscheidung Athlet); neuer Ordner `t4-beweglichkeit/`; Corrigenda zu L-T2-23/-24 als eigene Dateien (Feld `corrigendum_datei`)
+  - datum: 2026-09-29
+    was: Aktualisierte Übergabe T4 (K-8, K-9) – Behm 2025 in den Kern, Stretching Anatomy neu (L-T4-34), drei Bücher in 13.3; Repo soll wieder privat werden
+    loesung: eingearbeitet (13.2.6, D-79 Nachtrag, 13.3, 13.4, V-21, Q-21, Konzeptkopf, D-23)
 geprueft:
   - was: Zuordnung der 29 PDFs zu IDs aus 13.2 – Titel, Autoren und DOI auf den ersten Seiten gegen 13.2 abgeglichen
     wie: Textextraktion (pypdf) aller Dateien, Abgleich je Datei
@@ -1313,12 +1319,28 @@ geprueft:
     wie: Linkprüfung; jede PDF/EPUB außerhalb der Kapitelordner verlinkt
     ergebnis: ok – 419 Links, keiner kaputt; 90 Dateien, alle verlinkt
     datum: 2026-09-29
+  - was: Zuordnung der 26 Dateien aus Commit „Literatur“ (T4, Block R, Corrigenda, Bücher)
+    wie: DOI aus Text bzw. Titel/Autoren/Heft gegen 13.2; Dubletten per Git-Blob-Hash; EPUB auf encryption.xml und Seitenmarken
+    ergebnis: 19 Werke zugeordnet (L-T4-01 bis -06, -08, -10, -12, -14, -16, -19, -32, -34; L-R-10, -11, -14, -17, -21), 2 Corrigenda; witvrouw2001.pdf = Witvrouw 2000, AJSM 28(4):480 → nicht L-T4-22, entfernt; Climbing-Bible-EPUB = L-T3-10 (gleicher Blob), entfernt; 0-Byte-EPUB entfernt; Stretching-Anatomy-EPUB ohne DRM mit 264 Seitenmarken (role doc-pagebreak)
+    datum: 2026-09-29
+  - was: Kapitel-PDFs L-T4-32 (Behm) und L-T4-34 (Stretching Anatomy)
+    wie: Lesezeichen als Kapitelgrenzen; Seitenversatz an Kapitelanfängen und Folgeseiten gegen gedruckte Seitenzahl (Behm − 15, Stretching Anatomy − 11); Seitensumme gegen Original
+    ergebnis: ok – 19 bzw. 13 Dateien, 281/281 und 265/265 Seiten, größte Datei 7,6 MB
+    datum: 2026-09-29
+  - was: Lizenzen und Bibliografie der neuen Volltexte
+    wie: Textsuche im PDF (erste Seiten und letzte Seite)
+    ergebnis: L-T4-01, -02, -08 CC BY-NC-ND 4.0; L-T4-03 CC BY 4.0, Artikelnummer 12:95 (V-23 erledigt); L-R-10 CC BY 4.0; L-T4-19 ohne DOI auch im Volltext (V-22 offen); Corrigendum L-T2-23 – Abb. 4 korrigiert, Hauptbefunde unverändert; Corrigendum L-T2-24 – Diskussionsabschnitt korrigiert
+    datum: 2026-09-29
+  - was: Konzept und Literatur-README nach T4-Update
+    wie: alle Pfade in `datei`, `datei_epub`, `corrigendum_datei`, `kapitel`; YAML gegen main; Linkprüfung README
+    ergebnis: ok – 127 Pfade vorhanden; keine neuen YAML-Fehler; 473 Links, keiner kaputt; 112 Dateien, alle verlinkt
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
     wie: manuell durch Athlet bei der ersten Kartensitzung
   - was: Druckseiten der Scans (Uphill Athlete, Overcoming Gravity) an zwei, drei Stellen gegen das Seitenbild prüfen, bevor Seitenangaben in Karten übernommen werden
     wie: manuell in der Kartensitzung
-  - was: Restliche Beschaffung laut 13.4 (L-A01 8./9. Aufl., L-T3-16, L-T3-09 Neuauflage ab Erscheinen, L-R-10, -11, -14, -17, -21, T4-Artikel, Corrigenda L-T2-23 und L-T2-24); Format vor Kauf prüfen (V-13, D-71); neue Dateien nach D-51/D-71 ablegen und eintragen
+  - was: Restliche Beschaffung laut 13.4 (L-A01 8./9. Aufl., L-T3-16, L-T3-09 Neuauflage ab Erscheinen, L-T4-13, L-T4-17, L-T4-22); Format vor Kauf prüfen (V-13, D-71); neue Dateien nach D-51/D-71 ablegen und eintragen
     wie: Athlet (D-26), Eintrag durch Code-Instanz
   - was: Schwellenwerte Schmerzmonitoring-Modell am Volltext L-P13 (V-07), danach Entscheidung Q-13
     wie: manuell in der Kartensitzung, der Volltext liegt vor; Entscheidung in AP-07
@@ -1354,11 +1376,11 @@ noch_zu_pruefen:
     wie: optional an Druckausgabe/Leseprobe; bis dahin Kapitel/Abschnitt zitieren
   - was: L-T3-21 Managing Injuries – Aufnahme als Stufe C bestätigen
     wie: Athlet (vorläufig durch Code-Instanz vergeben)
-  - was: Repo öffentlich trotz D-23/D-31 (Q-21) – Literatur auslagern oder Repo privat stellen, History bereinigen vor dauerhafter Veröffentlichung
-    wie: Entscheidung Athlet (2026-09-29 vorerst öffentlich)
-  - was: T4 Teil B (Übungsquellen – Bücher, Yoga, Mobility-Systeme, Klettern), Formatprüfung D-26/V-13
-    wie: eigene Literatur-Sitzung, Übergabe mit IDs ab L-T4-34
-  - was: T4-Verifikationen V-18 (Delphi-Konsens Dosierung am Volltext), V-19 (Thomas 2018 – Bezug der 5 min), V-20 (Lizenzen PMC-Volltexte T4), V-21 (Format L-T4-32), V-22 (DOI L-T4-19), V-23 (Artikelnummer L-T4-03)
+  - was: Repo wieder privat stellen (Q-21, K-9), sobald die Recherche keinen Zugriff mehr braucht
+    wie: Athlet (GitHub-Einstellungen); danach Konzeptkopf und Q-21 auf „erledigt“
+  - was: T4 Teil B Rest (Übungsquellen neben L-T4-34 – Yoga, Mobility-Systeme, Klettern), Formatprüfung D-26/V-13
+    wie: eigene Literatur-Sitzung, Übergabe mit IDs ab L-T4-35
+  - was: T4-Verifikationen V-18 (Delphi-Konsens Dosierung am Volltext, liegt vor), V-19 (Thomas 2018 – Bezug der 5 min, Volltext liegt vor), V-20 Rest (Lizenzen L-T4-04, -10, -12), V-22 (DOI L-T4-19)
     wie: Volltext bzw. Verlagsseite
   - was: T4-Fragen Q-18 (Einheiten vs. Block), Q-19 (Dehnintensität), Q-20 (Hüft-ROM-Verlaufsmessung)
     wie: AP-07 bzw. AP-08

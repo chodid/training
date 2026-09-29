@@ -4,7 +4,7 @@ projekt: Personal Training & Trainingsdokumentation
 dokumentstand: 2026-09-29
 status: bestaetigt
 bestaetigt_am: 2026-09-27
-repo: chodid/training (keine Lizenz; laut D-23 privat, seit 2026-09-29 vorerst öffentlich – Q-21)
+repo: chodid/training (privat, keine Lizenz; seit 2026-09-29 vorübergehend öffentlich für die Recherche, wird wieder privat – Q-21)
 subdomain: training.gen-em.org
 hosting: Lima-City (Webspace, Apache 2.4, PHP 8.4)
 sprache: de
@@ -153,7 +153,7 @@ flowchart LR
 | D-20 | Update-Mechanik: Schemaänderungen ausschließlich als nummerierte Migrationsdateien in `server/migrations/` (SQL oder PHP), Tabelle `schema_version` hält den Stand. Der Code trägt eine `APP_SCHEMA_VERSION`; bei jedem Request prüft die App, ob Code- und DB-Stand übereinstimmen – bei Abweichung wird eine „Update erforderlich"-Seite angezeigt und jeder Schreibzugriff (Web und MCP) blockiert, bis migriert ist. Migration wird ausgelöst (a) vom Deploy-Workflow über den geschützten Endpunkt (D-17) oder (b) manuell über eine Schaltfläche nach Login. Ablauf jeder Migration: Wartungsflag setzen → Pre-Migration-Dump (D-18 c) → Migrationen der Reihe nach, `schema_version` nach jeder einzelnen Migration fortschreiben → Wartungsflag lösen. MySQL beendet Transaktionen bei DDL (`CREATE`/`ALTER`) implizit; daher: ein fachlicher Schritt pro Migrationsdatei, Datenänderungen in Transaktionen, Schemaänderungen ohne; bricht eine Migration ab, bleibt `schema_version` auf der letzten erfolgreichen. Kein automatisches Rollback: Rückweg = vorheriger Git-Tag deployen + Pre-Migration-Dump einspielen. | Verhindert Code/Schema-Mismatch nach einem FTP-Upload, dessen Migrationsaufruf fehlschlug; Dump vor Migration ist der einzige zuverlässige Rückweg. Down-Migrationen sind Aufwand ohne Nutzen für ein Einzelnutzer-System. | 2026-09-27 |
 | D-21 | Englischsprachige Literatur ist der deutschsprachigen gleichgestellt; Auswahl nach Eignung, nicht nach Sprache. | Die maßgeblichen Konsenspapiere und Praxisbücher (Klettern, Bergausdauer) sind englischsprachig. | 2026-09-27 |
 | D-22 | Evidenzhierarchie für Regelquellen: Consensus Statements / Position Stands / systematische Reviews > wissenschaftliche Lehrbücher > Praxisliteratur. Lehrbücher liefern Grundlagen und Begriffe; Regeln in `docs/regeln/` stützen sich vorrangig auf Paper. | Klassische Standardwerke mischen empirische Befunde mit tradierten Modellen (Superkompensation, klassische Periodisierung); Paper sind per DOI/PMID prüfbar, oft Open Access und kurz (Tokenbudget 13.1). | 2026-09-27 |
-| D-23 | Das GitHub-Repo ist privat. | Wissenskarten sind eigene Zusammenfassungen mit Seitenangaben. PDFs dürfen seit D-31 (Fassung 2026-09-27, Nachtrag) im Repo liegen. Stand 2026-09-29: Repo vorerst öffentlich (Entscheidung Athlet, Q-21). | 2026-09-27 |
+| D-23 | Das GitHub-Repo ist privat. | Wissenskarten sind eigene Zusammenfassungen mit Seitenangaben. PDFs dürfen seit D-31 (Fassung 2026-09-27, Nachtrag) im Repo liegen. Stand 2026-09-29: vorübergehend öffentlich, wird wieder privat (Q-21). | 2026-09-27 |
 | D-24 | Bei parallel publizierten Konsenspapieren gilt die in PubMed indexierte Fassung als Zitierfassung. | Anlass L-P06 (Meeusen et al. 2013): widersprüchliche Seitenangaben aus Sekundärzitaten. | 2026-09-27 |
 | D-25 | Quellenhierarchie Ausdauer (T1), Konkretisierung von D-22: Systematische Reviews und Übersichtsarbeiten bilden den Kern der Wissenskarten, Lehrbücher das Fundament für Begriffe und Physiologie. Praxisquellen (Trainerbücher, Trainerbefragungen) sind zulässig, werden in Karten aber mit `quellentyp: praxisquelle` und `konfidenz: niedrig` (Bücher) bzw. `mittel` (peer-reviewte qualitative Studien mit Trainern) geführt. Jede Karte benennt unter „Grenzen" die Übertragung von Elite-/Hochleistungsdaten auf den Athleten (Freizeitsport, drei Trainingsbereiche). „Training for the Uphill Athlete" bleibt auf Wunsch des Athleten als Praxisquelle. | Aktuelle Evidenz zu Intensitätsverteilung/Periodisierung steht in Reviews; Lehrbücher tradieren teils schwach belegte Modelle. Ausschluss Weineck: Einschätzung ohne Quelle (kompilatorisch). | 2026-09-27 |
 | D-26 | Wissenskarten werden auf Deutsch verfasst (Quellen deutsch oder englisch, D-21). Beschaffung der Bücher und nicht frei verfügbaren Artikel übernimmt der Athlet. Für den Erstellungsprozess 13.1 muss jede Quelle als durchsuchbares PDF vorliegen; DRM-geschützte E-Books (z. B. VitalSource) sind ungeeignet. Formatprüfung je Titel vor dem Kauf (V-13). | Formatanforderung folgt aus 13.1 Schritt (1)–(3). Human-Kinetics-E-Books laufen über VitalSource mit DRM (festgestellt in T1 und T2). Ergänzt durch D-71 (EPUB, 2026-09-29). | 2026-09-27 |
@@ -209,7 +209,7 @@ flowchart LR
 | D-76 | Übergabe durch Code, nicht durch KI (AP-15, E-08): `get_handover` stellt bei Aufruf deterministisch zusammen (Block, Zielklärung, Bilanzen, Revisionen, Kennzahlen, Wochentexte, Fälligkeiten); Interpretationen stehen nur in den bestätigten Datensätzen; Kennzahlen friert der Server beim Schreiben ein (E-12). Kein Cron. | Eine KI-Zusammenfassung wäre teuer, unbestätigt und entkoppelt von der Bestätigung des Athleten. Entscheidung des Athleten. | 2026-09-29 |
 | D-77 | Entwurf durch KI, Bestätigung im Chat (AP-15, E-09, wie D-11): `write_block_review` schreibt mit Status `entwurf` oder `bestaetigt`; nur bestätigte Fassungen zählen für Übergabe, Fälligkeit, Overlay und Kalender. Wochen nach dem Ende des aktiven Blocks lehnt `write_week_plan` ab, solange kein Folgeblock mit bestätigter Zielklärung existiert (E-19). | Wie Wochenplan und Athletenprofil. Entscheidung des Athleten. | 2026-09-29 |
 | D-78 | Wochentexte in der Übergabe (AP-15, E-21, O-04): `get_handover` liefert `wochen_kurz` – die letzten 4 Wochen bis zur laufenden, je Woche eine Zeile „Wochenbeginn: Kurzsatz“. | Günstiger Kontext ohne zusätzlichen Aufruf von `get_week_overview`. Entscheidung des Athleten (Vorschlag Fable). | 2026-09-29 |
-| D-79 | Neuer Bereich T4 Beweglichkeit/Mobilität (Tabelle 1.2) mit Literaturblock 13.2.6, IDs L-T4-nn, Wissenskarte `docs/wissen/t4-beweglichkeit.md` (Dateiname Vorschlag); 13.1 erlaubt dafür 4–7 Sammeldateien. Vorgaben des Athleten: Ziele ROM, Wohlbefinden und Verletzungsprävention; alle Hüftrichtungen gleichrangig; Methoden Dehnen (statisch, dynamisch, PNF), Mobility (Kräftigung in Endposition, CARs u. ä.), Faszienrolle, Yoga als Übungsfundus; Knie (Quadrizeps, Hamstrings) mit Verweis auf Block R; eigener Bereich, nicht Teilblock von T2. Teil A (Evidenz und Dosierung) – Kern L-T4-01 bis -06, -08, -10, -12, -14, -16, -17, -19, -22 (Verweise -24 auf L-R-11, -33 auf L-T2-15); optional L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -32. Teil B (Übungsquellen) folgt als eigene Übergabe. Planungsfolgen (in AP-07 als Regeln auszuformulieren, nicht hier entschieden): (a) ROM chronisch mit statischem Dehnen oder PNF, dynamisch nur zur Vorbereitung; (b) Dosis-Richtwert ≥ 5 min je Zielmuskelgruppe und Woche auf möglichst viele Tage verteilt (≥ 2, besser ≥ 5), widersprüchlich belegt – keine harte Schwelle; (c) Kräftigung mit Zusatzlast über den vollen Bewegungsumfang ist gleichwertige ROM-Maßnahme, reine Körpergewichtsübungen zählen nicht als ROM-Maßnahme; (d) Dehnen im Aufwärmen optional, statisch < 60 s je Muskelgruppe mit anschließender dynamischer Aktivität, vor dem Laufen kein Verbot; (e) Dehnen nicht als Verletzungsprävention begründen, Prävention über Kraft und Balance (T2, Block R), Knie-Beweglichkeit nur als Einzelbefund; (f) Dehnen nicht zur Regeneration oder gegen Muskelkater einplanen; (g) ruhige Dehn-/Mobility-Einheiten als Wohlbefindens-Baustein mit Kennzeichnung „schwache Evidenz“; (h) Dehnen nicht zur Haltungskorrektur (D-54 a); (i) Hüftrichtungen einzeln planen, Übertragung der Dosis aus Hamstring-/Wadenstudien als Einschätzung kennzeichnen (D-13); (j) Klettern – Hüftbeweglichkeit bis funktionelles Niveau, Verlauf mit kletterspezifischen Tests (Einschätzung); (k) Blöcke ≤ 4 Wochen – Dehnen statt Faszienrolle für ROM. | Übergabe Literaturblock T4 Teil A (2026-09-29), alle Quellen per PubMed geprüft; vom Athleten am 2026-09-29 bestätigt und zur sofortigen Einarbeitung freigegeben (abweichend von der Übergabe, die die Einarbeitung erst nach Teil B vorsah). Zielzahl der Sammeldateien von 6 auf 7 erhöht, weil T4 ein eigener Bereich ist (bei ca. 13 Dateien schaltet das Projektwissen in den Retrieval-Modus, 13.1). | 2026-09-29 |
+| D-79 | Neuer Bereich T4 Beweglichkeit/Mobilität (Tabelle 1.2) mit Literaturblock 13.2.6, IDs L-T4-nn, Wissenskarte `docs/wissen/t4-beweglichkeit.md` (Dateiname Vorschlag); 13.1 erlaubt dafür 4–7 Sammeldateien. Vorgaben des Athleten: Ziele ROM, Wohlbefinden und Verletzungsprävention; alle Hüftrichtungen gleichrangig; Methoden Dehnen (statisch, dynamisch, PNF), Mobility (Kräftigung in Endposition, CARs u. ä.), Faszienrolle, Yoga als Übungsfundus; Knie (Quadrizeps, Hamstrings) mit Verweis auf Block R; eigener Bereich, nicht Teilblock von T2. Teil A (Evidenz und Dosierung) – Kern L-T4-01 bis -06, -08, -10, -12, -14, -16, -17, -19, -22, Lehrbuch L-T4-32 (Stufe B) und Übungskatalog L-T4-34 (Stufe C, Dosierung nur aus Stufe A) (Verweise -24 auf L-R-11, -33 auf L-T2-15); optional L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -31. Teil B (Übungsquellen) teilweise mit L-T4-34, Rest folgt als eigene Übergabe. Planungsfolgen (in AP-07 als Regeln auszuformulieren, nicht hier entschieden): (a) ROM chronisch mit statischem Dehnen oder PNF, dynamisch nur zur Vorbereitung; (b) Dosis-Richtwert ≥ 5 min je Zielmuskelgruppe und Woche auf möglichst viele Tage verteilt (≥ 2, besser ≥ 5), widersprüchlich belegt – keine harte Schwelle; (c) Kräftigung mit Zusatzlast über den vollen Bewegungsumfang ist gleichwertige ROM-Maßnahme, reine Körpergewichtsübungen zählen nicht als ROM-Maßnahme; (d) Dehnen im Aufwärmen optional, statisch < 60 s je Muskelgruppe mit anschließender dynamischer Aktivität, vor dem Laufen kein Verbot; (e) Dehnen nicht als Verletzungsprävention begründen, Prävention über Kraft und Balance (T2, Block R), Knie-Beweglichkeit nur als Einzelbefund; (f) Dehnen nicht zur Regeneration oder gegen Muskelkater einplanen; (g) ruhige Dehn-/Mobility-Einheiten als Wohlbefindens-Baustein mit Kennzeichnung „schwache Evidenz“; (h) Dehnen nicht zur Haltungskorrektur (D-54 a); (i) Hüftrichtungen einzeln planen, Übertragung der Dosis aus Hamstring-/Wadenstudien als Einschätzung kennzeichnen (D-13); (j) Klettern – Hüftbeweglichkeit bis funktionelles Niveau, Verlauf mit kletterspezifischen Tests (Einschätzung); (k) Blöcke ≤ 4 Wochen – Dehnen statt Faszienrolle für ROM. | Übergabe Literaturblock T4 Teil A (2026-09-29), alle Quellen per PubMed geprüft; vom Athleten am 2026-09-29 bestätigt und zur sofortigen Einarbeitung freigegeben (abweichend von der Übergabe, die die Einarbeitung erst nach Teil B vorsah). Zielzahl der Sammeldateien von 6 auf 7 erhöht, weil T4 ein eigener Bereich ist (bei ca. 13 Dateien schaltet das Projektwissen in den Retrieval-Modus, 13.1). Nachtrag 2026-09-29 (aktualisierte Übergabe): L-T4-32 in den Kern, L-T4-34 neu (K-8). | 2026-09-29 |
 
 # 5. Offene Fragen und Verifikationen
 
@@ -237,7 +237,7 @@ flowchart LR
 | Q-18 | Wie wird T4 im Wochenplan geführt: eigene Einheiten (Typ `mobilitaet`, D-39) oder als Block in Kraft-/Klettereinheiten? | Beides zulassen; Entscheidung in AP-07 | offen |
 | Q-19 | Dehnintensität in Plan/Rückmeldung erfassen? | Nur subjektiv (z. B. Hinweis „deutlich spürbar, nicht schmerzhaft“), kein neues Pflichtfeld (L-T4-30) | offen |
 | Q-20 | Verlaufsmessung Hüft-ROM (AP-08) | Tests aus L-T4-26 prüfen, ergänzt um einfache Heimtests; eigene Recherche nötig | offen |
-| Q-21 | Repo öffentlich – Umgang mit Volltexten unter `docs/literatur/` (gekaufte bzw. nicht frei lizenzierte Werke; D-23, D-31 setzen ein privates Repo voraus) | Repo wieder privat **oder** Volltexte in ein privates Repo bzw. lokal auslagern und aus der Git-Historie entfernen (Löschen im aktuellen Stand genügt nicht); danach Konzeptkopf, D-23, Q-04 angleichen | entschieden 2026-09-29 (Athlet): vorerst öffentlich; Widerspruch zu D-23/D-31 bewusst in Kauf genommen, Optionen bleiben offen |
+| Q-21 | Repo öffentlich – Umgang mit Volltexten unter `docs/literatur/` (gekaufte bzw. nicht frei lizenzierte Werke; D-23, D-31 setzen ein privates Repo voraus) | Repo wieder privat **oder** Volltexte in ein privates Repo bzw. lokal auslagern und aus der Git-Historie entfernen (Löschen im aktuellen Stand genügt nicht); danach Konzeptkopf, D-23, Q-04 angleichen | entschieden 2026-09-29 (Athlet, Übergabe T4 K-9): Repo wird wieder privat, sobald für die Recherche kein Zugriff mehr nötig ist; bis dahin vorübergehend öffentlich. D-23 und D-31 gelten unverändert. Kopien aus der öffentlichen Zeit lassen sich nicht zurückholen |
 
 ## 5.2 Zu verifizieren (vor/in dem jeweiligen AP)
 
@@ -258,14 +258,14 @@ flowchart LR
 | V-13 | Format und Kopierschutz je Titel vor Beschaffung (D-26, D-71): Human-Kinetics-Titel (L-A01, L-A03, L-T1-07, L-T2-05, L-T2-07) laufen über VitalSource mit DRM → Print oder anderer Anbieter; Springer-Titel (L-A02, L-T2-03, L-T2-06, L-T3-06/07) kapitelweise als PDF über SpringerLink bzw. Bibliothekszugang. Stand 2026-09-29: vorhanden L-A01 (7. Aufl., vorläufig), L-A02, L-A03, L-T1-07, L-T1-08 (Scan), L-T2-03, L-T2-04 (Scan, Texterkennung fehlerhaft), L-T3-06, L-T3-09 (3. Aufl., Scan), L-T3-10, L-T3-19, L-T3-20, L-T3-21 (je EPUB ohne DRM). Entfallen: L-T1-01 (D-70); L-T3-08 zurückgestellt (keine digitale Ausgabe). Offen: 8./9. Aufl. L-A01; L-T3-16 2. Aufl. (Kindle ungeeignet; E-Book-Format im Climb-Strong-Shop klären, sonst Print); L-T3-09 Neuauflage ab 03/2027. | AP-06 | teilweise |
 | V-14 | PubMed-Verifikation Kraftliteratur: Rønnestad & Mujika 2014 (Scand J Med Sci Sports) und Blagrove et al. 2018 (Sports Med) → L-T2-11, L-T2-12. ACSM 2026 und Schumann 2022 bereits verifiziert als L-P08 und L-P07. | AP-06 | erledigt 2026-09-28 (L-T2-11, L-T2-12 verifiziert) |
 | V-15 | Bibliografische Vervollständigung T3: L-T3-03 (Band, Lizenz – erledigt 2026-09-28: Bd. 5, Art. 1130812, CC BY laut Volltext), L-T3-04 (Band, Seiten, DOI, Zugang), L-T3-05 (Titel, Journal, Band, Seiten, DOI), L-T3-07 (ISBN), L-T3-08 (aktuelle Auflage/ISBN), L-T3-09 (Jahr), L-T3-12 (Jahr, Auflage, ISBN); Kernaussagen L-T3-02 am Original statt Sekundärzitat prüfen (Original liegt seit 2026-09-28 vor). | AP-06 | weitgehend erledigt 2026-09-28/29: L-T3-03, -04, -05, -07, -09 verifiziert; L-T3-02 Kernaussagen am Abstract korrigiert; L-T3-08 aktuelle Auflage 2026-09-29 geklärt (9. überarb. Aufl. 2019, ISBN 978-3-945271-41-4, Händlerangaben). Rest: L-T3-02 Wiederholungsbereiche am Volltext, L-T3-12 Auflage |
-| V-16 | Redundanz der Hypertrophie-Ergänzung zu L-P08: Am Volltext von L-P08 (eingeschlossene Reviews) prüfen, ob L-T2-20, L-T2-22 und L-T2-23 dort enthalten sind. L-T2-20 erschien online 12/2025, L-P08 im Heft 58(4) 2026. Sind sie enthalten, zitiert die Karte L-P08 als Anker und die Einzelarbeiten nur für Zahlen und Dosis-Wirkung; sonst jeweils eine eigene Kernaussage. Zusätzlich das Corrigendum zu L-T2-23 sichten (Inhalt nicht geprüft). | AP-06 | offen |
+| V-16 | Redundanz der Hypertrophie-Ergänzung zu L-P08: Am Volltext von L-P08 (eingeschlossene Reviews) prüfen, ob L-T2-20, L-T2-22 und L-T2-23 dort enthalten sind. L-T2-20 erschien online 12/2025, L-P08 im Heft 58(4) 2026. Sind sie enthalten, zitiert die Karte L-P08 als Anker und die Einzelarbeiten nur für Zahlen und Dosis-Wirkung; sonst jeweils eine eigene Kernaussage. Zusätzlich das Corrigendum zu L-T2-23 sichten (Inhalt nicht geprüft). | AP-06 | offen; Corrigendum L-T2-23 gesichtet 2026-09-29 (Abb. 4, Hauptbefunde unverändert) |
 | V-17 | Seitenbezug L-T3-19 und L-T3-10: Beide EPUBs haben keine Seitenliste (D-71). Bei L-T3-19 deuten die Bilddateinamen (a003 … a179) auf Druckseiten hin – nicht verifiziert. Optional an Druckausgabe oder Leseprobe prüfen; bis dahin Zitat nur mit Kapitel und Abschnitt. Bilddateinamen und Seitenzahlen der Ansichts-PDFs nie als Seitenangabe verwenden. | AP-06 | offen |
 | V-18 | Praxisempfehlungen und Dosierung im Delphi-Konsens L-T4-01 | Volltext PMC12305623 lesen, Aussagen mit Seitenangabe in Karte | AP-06 | offen |
 | V-19 | Thomas 2018 (L-T4-05): Bezug der 5 min (je Muskelgruppe oder gesamt) | Volltext | AP-06 | offen |
-| V-20 | Lizenzen der PMC-Volltexte T4 (nur L-T4-07 und L-T4-11 als CC BY 4.0 ausgewiesen) | Verlagsseite je Titel; relevant für Ablage im Repo (Q-21) | AP-06 | offen |
-| V-21 | Behm 2025 (L-T4-32): E-Book-Format/DRM | vor Kauf (D-26, V-13, D-71) | AP-06 | offen |
-| V-22 | Winters 2004 (L-T4-19): DOI | Verlagsseite | AP-06 | offen |
-| V-23 | Oba 2026 (L-T4-03): Artikelnummer | beim Abruf | AP-06 | offen |
+| V-20 | Lizenzen der PMC-Volltexte T4 (nur L-T4-07 und L-T4-11 als CC BY 4.0 ausgewiesen) | Verlagsseite je Titel; relevant für Ablage im Repo (Q-21) | AP-06 | teilweise 2026-09-29: laut Volltext L-T4-01, -02, -08 CC BY-NC-ND 4.0, L-T4-03 CC BY 4.0; L-T4-04, -10, -12 ohne Angabe im Text |
+| V-21 | Behm 2025 (L-T4-32) und Nelson/Kokkonen (L-T4-34): E-Book-Format/DRM | vor Kauf (D-26, V-13, D-71); bei Nelson/Kokkonen zuerst die PDF-Ausgabe | AP-06 | erledigt 2026-09-29: beide als durchsuchbares PDF vorhanden, L-T4-34 zusätzlich als EPUB ohne DRM |
+| V-22 | Winters 2004 (L-T4-19): DOI | Verlagsseite | AP-06 | offen – auch im Volltext keine DOI |
+| V-23 | Oba 2026 (L-T4-03): Artikelnummer | beim Abruf | AP-06 | erledigt 2026-09-29: 12:95 (Volltext) |
 
 # 6. Betriebsablauf (Wochenzyklus)
 
@@ -1154,14 +1154,15 @@ Kern – Heimtraining mit leichten Lasten und Band:
 - id: L-T2-23
   status: ausgewaehlt
   datei: t2-kraft/L-T2-23_Lopez-2021_Training-Load-Hypertrophy-Strength.pdf
+  corrigendum_datei: t2-kraft/L-T2-23_Lopez-2022_Corrigendum.pdf
   stufe: A
   typ: systematischer_review_netzwerk_metaanalyse
   zitat: "Lopez P, Radaelli R, Taaffe DR, Newton RU, Galvão DA, Trajano GS, Teodoro JL, Kraemer WJ, Häkkinen K, Pinto RS. Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis. Med Sci Sports Exerc. 2021;53(6):1206-1216."
   doi: 10.1249/MSS.0000000000002585
   pmid: "33433148"
   pmcid: PMC8126497
-  corrigendum: "Med Sci Sports Exerc. 2022;54(2):370. PMID 35029596, DOI 10.1249/MSS.0000000000002838 – Inhalt nicht geprüft (V-16)"
-  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (© Autoren); laut Volltext CC BY-NC-ND 4.0 (2026-09-29); Corrigendum (2022;54(2):370) nicht im PDF enthalten – separat beschaffen
+  corrigendum: "Med Sci Sports Exerc. 2022;54(2):370. PMID 35029596, DOI 10.1249/MSS.0000000000002838 – Inhalt geprüft 2026-09-29 (korrigierte Effektstärken dreier Studien in Abb. 4, Hauptbefunde unverändert)"
+  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (© Autoren); laut Volltext CC BY-NC-ND 4.0 (2026-09-29); Corrigendum als eigene Datei (corrigendum_datei) – korrigierte Effektstärken dreier Studien in Abb. 4, Hauptbefunde unverändert
   themenfelder: [hypertrophie, last, maximalkraft]
   kernaussagen_abstract: "28 Studien, 747 gesunde Erwachsene, nur Sätze bis zum willentlichen Versagen. Die Hypertrophie unterscheidet sich nicht zwischen niedriger (> 15 RM), mittlerer (9–15 RM) und hoher Last (≤ 8 RM). Die Kraft steigt bei hoher und mittlerer Last stärker als bei niedriger (SMD 0,60–0,63 bzw. 0,34–0,35). Untrainierte zeigen größere Hypertrophie."
   rolle: Hauptbeleg für leichte Lasten im Heimtraining unter der Voraussetzung, dass die Sätze nahe ans Versagen gehen (D-62 c); Übertragung auf Band/Kettlebell ist ein Schluss (D-62 e)
@@ -1170,6 +1171,7 @@ Kern – Heimtraining mit leichten Lasten und Band:
 - id: L-T2-24
   status: ausgewaehlt
   datei: t2-kraft/L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf
+  corrigendum_datei: t2-kraft/L-T2-24_Lopes-2020_Corrigendum.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Lopes JSS, Machado AF, Micheletti JK, de Almeida AC, Cavina AP, Pastre CM. Effects of training with elastic resistance versus conventional resistance on muscular strength: A systematic review and meta-analysis. SAGE Open Med. 2019;7:2050312119831116."
@@ -1177,7 +1179,7 @@ Kern – Heimtraining mit leichten Lasten und Band:
   pmid: "30815258"
   pmcid: PMC6383082
   corrigendum: "SAGE Open Med. 2020;8:2050312120961220. PMID 32953119, DOI 10.1177/2050312120961220 – das PubMed-Abstract enthält die korrigierten Werte"
-  zugang: Open Access, CC BY-NC 4.0 (PMC) – Volltext im Repo zulässig (D-31); Corrigendum 2020 nicht im PDF enthalten – separat beschaffen
+  zugang: Open Access, CC BY-NC 4.0 (PMC) – Volltext im Repo zulässig (D-31); Corrigendum als eigene Datei (corrigendum_datei, CC BY-NC 4.0) – korrigiert einen Textabschnitt der Diskussion
   themenfelder: [elastischer_widerstand, maximalkraft]
   kernaussagen_abstract: "8 Studien, Suche bis 12/2017, verschiedene Populationen. Elastischer Widerstand (Schläuche, TheraBand) und Geräte/Hanteln unterscheiden sich nicht bei der Kraft der unteren (SMD −0,11; −0,40 bis 0,19) und der oberen Extremität (SMD 0,09; −0,18 bis 0,35)."
   grenze: nur Kraft, keine Hypertrophie-Endpunkte
@@ -1674,17 +1676,19 @@ Patellatendinopathie:
   hinweis: Online-Vorabveröffentlichung 2012, Heft 2014; im Reha-Artefakt bereits korrekt zitiert
 - id: L-R-10
   status: optional
+  datei: r-reha/L-R-10_Clifford-2020_Isometric-Exercise-Patellar-Tendinopathy.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Clifford C, Challoumas D, Paul L, Syme G, Millar NL. Effectiveness of isometric exercise in the management of tendinopathy: a systematic review and meta-analysis of randomised trials. BMJ Open Sport Exerc Med. 2020;6(1):e000760."
   pmid: "32818059"
   pmcid: PMC7406028
   doi: 10.1136/bmjsem-2020-000760
-  zugang: Volltext in PMC
+  zugang: Volltext in PMC; laut Volltext CC BY 4.0 (2026-09-29)
   themenfelder: [patellasehne, isometrie]
   kernaussagen_abstract: 10 RCTs (4 Patellasehne); Isometrik bei chronischer Tendinopathie nicht überlegen gegenüber isotonischem Training; Ansprechen variabel; als Teil progressiver Belastung nutzbar
 - id: L-R-11
   status: optional
+  datei: r-reha/L-R-11_Sprague-2018_Patellar-Tendinopathy-Risk-Factors.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Sprague AL, Smith AH, Knox P, Pohlig RT, Grävare Silbernagel K. Modifiable risk factors for patellar tendinopathy in athletes: a systematic review and meta-analysis. Br J Sports Med. 2018;52(24):1575-1585."
@@ -1761,6 +1765,7 @@ Sprunggelenksinstabilität:
   hinweis: Abstract enthält keine Einzelempfehlungen; Empfehlungen (Balance-/Übungstherapie, Orthesen) am Volltext prüfen
 - id: L-R-14
   status: ausgewaehlt
+  datei: r-reha/L-R-14_Hupperets-2009_Home-Programme-Ankle-Sprain-Recurrence.pdf
   stufe: A
   typ: rct
   zitat: "Hupperets MD, Verhagen EA, van Mechelen W. Effect of unsupervised home based proprioceptive training on recurrences of ankle sprain: randomised controlled trial. BMJ. 2009;339:b2684."
@@ -1796,6 +1801,7 @@ Sprunggelenksinstabilität:
   konfidenz: mittel – Subgruppenanalysen, hohe Heterogenität (I² 55–84 %); gilt für Funktion/Balance, nicht für Rezidive (vgl. L-R-25)
 - id: L-R-17
   status: ausgewaehlt
+  datei: r-reha/L-R-17_Donovan-2016_Destabilization-Devices-Ankle.pdf
   stufe: A
   typ: rct
   zitat: "Donovan L, Hart JM, Saliba SA, et al. Rehabilitation for Chronic Ankle Instability With or Without Destabilization Devices: A Randomized Controlled Trial. J Athl Train. 2016;51(3):233-251."
@@ -1831,6 +1837,7 @@ Sprunggelenksinstabilität:
   kernaussagen_abstract: 5 Studien, 259 Patienten; Theraband- und propriozeptives Training bei SEBT und FAAM gleich; CAIT-Vorteil für Propriozeption unter MCID; niedrige Evidenzqualität
 - id: L-R-21
   status: optional
+  datei: r-reha/L-R-21_Giboin-2018_Slackline-Training.pdf
   stufe: A
   typ: kontrollierte_studie
   zitat: "Giboin LS, Gruber M, Kramer A. Three months of slackline training elicit only task-specific improvements in balance performance. PLoS One. 2018;13(11):e0207542."
@@ -1912,9 +1919,9 @@ Themenfeld-Vokabular R (für Karten und Datenmodell): patellasehne, progressive_
 
 ### 13.2.6 T4 Beweglichkeit/Mobilität (Teil A bestätigt 2026-09-29, D-79)
 
-Eigener Bereich (Tabelle 1.2) mit Schwerpunkt Hüftmobilität in allen Bewegungsrichtungen, Beweglichkeit rund ums Knie (Verweis Block R) und Ganzkörper als Reserve. Teil A (Evidenz und Dosierung) ist eingearbeitet; Teil B (Übungsquellen – Bücher, Yoga, Mobility-Systeme, Klettern; Formatprüfung D-26/V-13) folgt als eigene Übergabe mit den nächsten freien Nummern ab L-T4-34. Alle Quellen per PubMed geprüft (Literatur-Sitzung T4 Teil A).
+Eigener Bereich (Tabelle 1.2) mit Schwerpunkt Hüftmobilität in allen Bewegungsrichtungen, Beweglichkeit rund ums Knie (Verweis Block R) und Ganzkörper als Reserve. Teil A (Evidenz und Dosierung) ist eingearbeitet; Teil B (Übungsquellen – Bücher, Yoga, Mobility-Systeme, Klettern; Formatprüfung D-26/V-13) teilweise: Übungsbuch L-T4-34 gewählt (K-8), weitere Übungsquellen folgen mit den nächsten freien Nummern ab L-T4-35. Alle Quellen per PubMed geprüft (Literatur-Sitzung T4 Teil A).
 
-Mit dem Athleten geklärt (2026-09-29): Ziele ROM, Wohlbefinden, Verletzungsprävention · Hüftrichtungen gleichrangig (Flexion, Extension, Ab-/Adduktion, Innen-/Außenrotation) · Methoden Dehnen (statisch, dynamisch, PNF), Mobility (Kräftigung in Endposition, CARs u. ä.), Faszienrolle, Yoga wenn sinnvoll · Lizenzen der Übungsquellen unwichtig (nur persönlicher Gebrauch) – gilt nur bei privatem Repo (Q-21) · eigener Bereich · Knie (Quadrizeps, Hamstrings) mit Verweis auf Block R.
+Mit dem Athleten geklärt (2026-09-29): Ziele ROM, Wohlbefinden, Verletzungsprävention · Hüftrichtungen gleichrangig (Flexion, Extension, Ab-/Adduktion, Innen-/Außenrotation) · Methoden Dehnen (statisch, dynamisch, PNF), Mobility (Kräftigung in Endposition, CARs u. ä.), Faszienrolle, Yoga wenn sinnvoll · Lizenzen der Übungsquellen unwichtig (nur persönlicher Gebrauch) – gilt nur bei privatem Repo (Q-21) · eigener Bereich · Knie (Quadrizeps, Hamstrings) mit Verweis auf Block R · Standardwerke als Buch – aufgenommen Behm 2025 (L-T4-32, Stufe B) und Nelson/Kokkonen, Stretching Anatomy (L-T4-34, Stufe C); nicht aufgenommen Freiwald, Alter, van der Poel (13.3) (K-8) · Repo wird wieder privat, sobald für die Recherche kein Zugriff mehr nötig ist (K-9, Q-21).
 
 Evidenzlage (Kurzfassung): Dehnen erhöht ROM akut klein und chronisch moderat; statisch und PNF sind chronisch dynamisch/ballistisch überlegen (L-T4-02). Krafttraining mit Zusatzlast über den vollen Bewegungsumfang wirkt gleich stark, nur Körpergewicht war nicht signifikant (L-T4-10, L-T4-11); Faszienrolle chronisch ähnlich, bei ≤ 4 Wochen schwächer (L-T4-12). Dosis widersprüchlich (L-T4-02 vs. L-T4-04/-05; ACSM L-T4-31 ≥ 2 Tage/Woche, 60 s je Übung); Intensität nicht einheitlich definiert (L-T4-30). Statisches Dehnen ≥ 60 s je Muskelgruppe mindert akut die Leistung (L-T4-06); Dehnen/Rolle im Aufwärmen ohne Vorteil (L-T4-08), kein Effekt auf Laufökonomie (L-T4-09). Kein präventiver Effekt (RR 0,96, L-T4-14), keine Wirkung auf Erholung oder Muskelkater (L-T4-15, L-T4-16), keine Haltungsverbesserung (L-T2-15, L-T4-01). Wohlbefinden nur schwach belegt (L-T4-17, L-T4-18). Hüftspezifische Evidenz dünn (L-T4-19, L-T4-07) – Übertragung als „Einschätzung“ (D-13). Klettern: Beweglichkeit als Schwellenfaktor (L-T4-26, L-T4-27). Yoga für gesunde Sportler kaum belastbar (L-T4-13) – nur Übungsfundus (Teil B).
 
@@ -1923,26 +1930,28 @@ Kern:
 ```yaml
 - id: L-T4-01
   status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-01_Warneke-2025_Delphi-Consensus-Stretching.pdf
   stufe: A
   typ: konsens_delphi
   zitat: "Warneke K, Thomas E, Blazevich AJ, et al. Practical recommendations on stretching exercise: A Delphi consensus statement of international research experts. J Sport Health Sci. 2025;14:101067."
   pmid: "40513717"
   pmcid: PMC12305623
   doi: 10.1016/j.jshs.2025.101067
-  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (Elsevier-Hosting) – vor Ablage prüfen
+  zugang: Volltext in PMC; Lizenz laut PubMed nicht ausgewiesen (Elsevier-Hosting) – vor Ablage prüfen; laut Volltext CC BY-NC-ND 4.0 (2026-09-29)
   themenfelder: [rom_chronisch, rom_akut, verletzungspraevention, regeneration, dosierung]
   kernaussagen_abstract: 20 Experten, Delphi (≥ 80 % Zustimmung), 8 Themen. Konsens – akutes und chronisches Dehnen verbessert ROM (Alternativen existieren) und senkt Muskelsteifigkeit (nicht immer erwünscht); chronisch evtl. günstig für Gefäßgesundheit. Kein substanzieller Beitrag zu Hypertrophie, keine umfassende Verletzungsprävention, keine Haltungsverbesserung, keine akute Verbesserung der Erholung.
   rolle: Anker T4
   verifikation: PubMed 2026-09-29; konkrete Dosierungsempfehlungen nur im Volltext (V-18)
 - id: L-T4-02
   status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-02_Konrad-2024_Chronic-Stretching-ROM-Meta-Analysis.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Konrad A, Alizadeh S, Daneshjoo A, et al. Chronic effects of stretching on range of motion with consideration of potential moderating variables: A systematic review with meta-analysis. J Sport Health Sci. 2024;13(2):186-194."
   pmid: "37301370"
   pmcid: PMC10980866
   doi: 10.1016/j.jshs.2023.06.002
-  zugang: Volltext in PMC; Lizenz nicht ausgewiesen
+  zugang: Volltext in PMC; Lizenz nicht ausgewiesen; laut Volltext CC BY-NC-ND 4.0 (2026-09-29)
   themenfelder: [rom_chronisch, methodenvergleich, dosierung]
   kernaussagen_abstract: 77 Studien, 186 Effektstärken; moderater ROM-Gewinn (ES −1,00); PNF und statisch > ballistisch/dynamisch; Frauen höhere Zugewinne; Volumen, Intensität und Frequenz ohne signifikanten Einfluss
   rolle: Methodenwahl für ROM-Ziel
@@ -1950,20 +1959,21 @@ Kern:
   verifikation: PubMed 2026-09-29
 - id: L-T4-03
   status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-03_Oba-2026_Moderators-Chronic-Static-Stretching.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
-  zitat: "Oba K, Matsuo S, Nakamura M, et al. Moderating Effects of Individual Characteristics and the Target Lower Limb Muscle Group on Flexibility Adaptations to Chronic Static Stretching in Healthy Individuals: A Systematic Review and Meta-Analysis of Randomized Controlled Trials. Sports Med Open. 2026;12(1)."
+  zitat: "Oba K, Matsuo S, Nakamura M, et al. Moderating Effects of Individual Characteristics and the Target Lower Limb Muscle Group on Flexibility Adaptations to Chronic Static Stretching in Healthy Individuals: A Systematic Review and Meta-Analysis of Randomized Controlled Trials. Sports Med Open. 2026;12:95."
   pmid: "42435098"
   pmcid: PMC13356130
   doi: 10.1186/s40798-026-01066-1
-  zugang: Volltext in PMC; Lizenz nicht ausgewiesen (Springer Open, vermutlich CC BY – prüfen)
+  zugang: Volltext in PMC; Lizenz nicht ausgewiesen (Springer Open, vermutlich CC BY – prüfen); laut Volltext CC BY 4.0 (2026-09-29)
   themenfelder: [rom_chronisch, dosierung]
   kernaussagen_abstract: 79 RCTs, n = 3287; statisches Dehnen chronisch g = 0,85; keine Moderation durch Alter, Geschlecht, Trainingsstatus, Ausgangsbeweglichkeit oder Muskelgruppe (Kniebeuger, Kniestrecker, Plantarflexoren); hohe Heterogenität, mögliche Small-Study-Effekte
   grenzen: Hüftmuskulatur als Muskelgruppe nicht untersucht
-  hinweis: Artikelnummer in PubMed nicht angegeben – beim Abruf ergänzen
   verifikation: PubMed 2026-09-29
 - id: L-T4-04
   status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-04_Arntz-2023_Static-Stretching-Strength-and-Power.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Arntz F, Markov A, Behm DG, et al. Chronic Effects of Static Stretching Exercises on Muscle Strength and Power in Healthy Individuals Across the Lifespan: A Systematic Review with Multi-level Meta-analysis. Sports Med. 2023;53(3):723-745."
@@ -1977,6 +1987,7 @@ Kern:
   verifikation: PubMed 2026-09-29
 - id: L-T4-05
   status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-05_Thomas-2018_Stretching-Typology-and-Duration.pdf
   stufe: A
   typ: systematischer_review
   zitat: "Thomas E, Bianco A, Paoli A, Palma A. The Relation Between Stretching Typology and Stretching Duration: The Effects on Range of Motion. Int J Sports Med. 2018;39(4):243-254."
@@ -1989,6 +2000,7 @@ Kern:
   verifikation: PubMed 2026-09-29; Bezug „je Muskelgruppe“ im Volltext prüfen (V-19)
 - id: L-T4-06
   status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-06_Behm-2016_Acute-Effects-of-Stretching.pdf
   stufe: A
   typ: systematischer_review
   zitat: "Behm DG, Blazevich AJ, Kay AD, McHugh M. Acute effects of muscle stretching on physical performance, range of motion, and injury incidence in healthy active individuals: a systematic review. Appl Physiol Nutr Metab. 2016;41(1):1-11."
@@ -2002,19 +2014,21 @@ Kern:
   verifikation: PubMed 2026-09-29
 - id: L-T4-08
   status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-08_Warneke-2024_Foam-Rolling-Stretching-Warm-up.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Warneke K, Plöschberger G, Lohmann LH, et al. Foam rolling and stretching do not provide superior acute flexibility and stiffness improvements compared to any other warm-up intervention: A systematic review with meta-analysis. J Sport Health Sci. 2024;13(4):509-520."
   pmid: "38244921"
   pmcid: PMC11184403
   doi: 10.1016/j.jshs.2024.01.006
-  zugang: Volltext in PMC; Lizenz nicht ausgewiesen
+  zugang: Volltext in PMC; Lizenz nicht ausgewiesen; laut Volltext CC BY-NC-ND 4.0 (2026-09-29)
   themenfelder: [aufwaermen, rom_akut, faszienrolle]
   kernaussagen_abstract: 38 Studien, 1134 Teilnehmer; kein Unterschied zwischen Dehnen/Rolle und anderen Aufwärmformen bei ROM (ES 0,01), Steifigkeit, passivem Drehmoment; Studienqualität mäßig
   rolle: Dehnen im Aufwärmen optional, nicht nötig
   verifikation: PubMed 2026-09-29
 - id: L-T4-10
   status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-10_Alizadeh-2023_Resistance-Training-ROM.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Alizadeh S, Daneshjoo A, Zahiri A, et al. Resistance Training Induces Improvements in Range of Motion: A Systematic Review and Meta-Analysis. Sports Med. 2023;53(3):707-722."
@@ -2029,6 +2043,7 @@ Kern:
   verifikation: PubMed 2026-09-29
 - id: L-T4-12
   status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-12_Konrad-2024_Stretching-vs-Foam-Rolling-ROM.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Konrad A, Alizadeh S, Anvar SH, Fischer J, Manieu J, Behm DG. Static Stretch Training versus Foam Rolling Training Effects on Range of Motion: A Systematic Review and Meta-Analysis. Sports Med. 2024;54(9):2311-2326."
@@ -2041,6 +2056,7 @@ Kern:
   verifikation: PubMed 2026-09-29
 - id: L-T4-14
   status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-14_Lauersen-2014_Exercise-Interventions-Injury-Prevention.pdf
   stufe: A
   typ: systematischer_review_metaanalyse
   zitat: "Lauersen JB, Bertelsen DM, Andersen LB. The effectiveness of exercise interventions to prevent sports injuries: a systematic review and meta-analysis of randomised controlled trials. Br J Sports Med. 2014;48(11):871-7."
@@ -2054,6 +2070,7 @@ Kern:
   verifikation: PubMed 2026-09-29
 - id: L-T4-16
   status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-16_Herbert-2011_Stretching-Muscle-Soreness-Cochrane.pdf
   stufe: A
   typ: cochrane_review
   zitat: "Herbert RD, de Noronha M, Kamper SJ. Stretching to prevent or reduce muscle soreness after exercise. Cochrane Database Syst Rev. 2011;(7):CD004577."
@@ -2079,11 +2096,12 @@ Kern:
   verifikation: PubMed 2026-09-29
 - id: L-T4-19
   status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-19_Winters-2004_Passive-vs-Active-Hip-Flexor-Stretching.pdf
   stufe: A
   typ: rct
   zitat: "Winters MV, Blake CG, Trost JS, et al. Passive versus active stretching of hip flexor muscles in subjects with limited hip extension: a randomized clinical trial. Phys Ther. 2004;84(9):800-7."
   pmid: "15330693"
-  zugang: kein PMC-Volltext; DOI in PubMed nicht angegeben → Beschaffung
+  zugang: kein PMC-Volltext; DOI in PubMed nicht angegeben → Beschaffung; DOI auch im Volltext nicht angegeben (V-22)
   themenfelder: [hueftbeuger, methodenvergleich]
   kernaussagen_abstract: n = 33 (Kreuzschmerz/Beinverletzungen mit eingeschränkter Hüftextension), Heimprogramm 6 Wochen; aktives und passives Dehnen der Hüftbeuger gleich wirksam (modifizierter Thomas-Test)
   rolle: einzige chronische Hüftbeuger-RCT bei jungen Erwachsenen im Block
@@ -2101,7 +2119,40 @@ Kern:
   kernaussagen_abstract: 138 Sportstudierende, 2 Jahre, 19 Fälle; einziger signifikanter Faktor geringere Beweglichkeit von Quadrizeps und Hamstrings
   rolle: Verbindung zu Block R (Patellasehne)
   grenzen: Einzelstudie, wenige Fälle, Assoziation; L-R-11 findet für keinen Risikofaktor starke Evidenz. Kein Beleg, dass Dehnen das Risiko senkt.
+  hinweis: Nicht verwechseln mit Witvrouw et al. 2000, Am J Sports Med 28(4):480–489 (vorderer Knieschmerz) – diese Datei wurde irrtümlich hochgeladen und entfernt (2026-09-29)
   verifikation: PubMed 2026-09-29
+- id: L-T4-32
+  status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-32_Behm-2025_Science-and-Physiology-of-Flexibility-and-Stretching_2ed.pdf
+  kapitel: t4-beweglichkeit/L-T4-32_kapitel/
+  stufe: B
+  typ: lehrbuch
+  zitat: "Behm DG. The Science and Physiology of Flexibility and Stretching: Implications and Applications in Sport Performance and Health. 2. Aufl. New York: Routledge; ©2025."
+  isbn: 978-1-032-70907-9 (Paperback); 978-1-032-70908-6 (E-Book, Taylor & Francis)
+  sprache: en
+  themenfelder: [rom_chronisch, rom_akut, faszienrolle, mobility, methodenvergleich, begriffe]
+  zweck: Grundlagen und Begriffe; 2. Aufl. mit neuen Kapiteln zu Faszienrolle, Vibration, globalen Dehneffekten und Krafttraining als Alternative; enthält bebilderten Übungsteil
+  grenzen: Einzelautor, der viele Primärstudien aus Teil A mitverfasst hat (Selbstzitation); Regeln stützen sich weiter vorrangig auf Stufe A (D-22)
+  zugang: E-Book-PDF mit Lesezeichen und Textebene vorhanden (2026-09-29); Druckseite = PDF-Seite − 15
+  verifikation: Händler- und Bibliothekskataloge 2026-09-29 (Erscheinen 30.10.2024, ©2025; 1. Aufl. 2018/2019)
+  bestaetigt: Athlet 2026-09-29 (K-8)
+- id: L-T4-34
+  status: ausgewaehlt
+  datei: t4-beweglichkeit/L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.pdf
+  datei_epub: t4-beweglichkeit/L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.epub
+  kapitel: t4-beweglichkeit/L-T4-34_kapitel/
+  stufe: C
+  typ: praxisquelle
+  konfidenz: niedrig (D-31)
+  zitat: "Nelson AG, Kokkonen J. Stretching Anatomy. 3. Aufl. Champaign, IL: Human Kinetics; ©2021."
+  isbn: 978-1-4925-9364-5 (Paperback); 978-1-4925-9365-2 (ePub); 978-1-4925-9366-9 (PDF)
+  sprache: en
+  themenfelder: [uebungskatalog, hueftbeuger, hueftrotation, adduktoren, knie]
+  zweck: Übungskatalog (79 Dehnübungen, alle großen Gelenkbereiche; je Übung Anleitung, gedehnte Muskeln, Sicherheitshinweise, Varianten); Dosierung ausschließlich aus Stufe A (D-31), analog L-T2-04
+  hinweis: Autoren sind Dehnforscher (Nelson Mitglied des Delphi-Panels L-T4-01); Programmvorschläge im Buch sind keine Dosierungsquelle
+  zugang: PDF mit Lesezeichen und Textebene (Druckseite = PDF-Seite − 11) und EPUB (ohne encryption.xml, Seitenmarken doc-pagebreak) vorhanden (2026-09-29); beide Fassungen im Repo (Entscheidung Athlet); zitiert wird nach dem PDF
+  verifikation: Verlagsseite Human Kinetics und Impressum (LCCN 2019039889) 2026-09-29; Erstverkauf Print Feb. 2020, Copyright 2021
+  bestaetigt: Athlet 2026-09-29 (K-8)
 - id: L-T4-24
   status: verweis
   verweis: L-R-11
@@ -2318,20 +2369,9 @@ Optional:
   kernaussagen_abstract: Beweglichkeitsübungen für alle großen Muskel-Sehnen-Gruppen an ≥ 2 Tagen/Woche, insgesamt 60 s je Übung
   grenzen: Gesundheitsempfehlung für Erwachsene, nicht leistungsorientiert; Details (Haltezeit je Wiederholung, Intensität) nur im Volltext
   verifikation: PubMed 2026-09-29
-- id: L-T4-32
-  status: optional
-  stufe: B
-  typ: lehrbuch
-  zitat: "Behm DG. The Science and Physiology of Flexibility and Stretching: Implications and Applications in Sport Performance and Health. 2. Aufl. New York: Routledge; ©2025."
-  isbn: 978-1-032-70907-9 (Paperback); 978-1-032-70908-6 (E-Book, Taylor & Francis)
-  sprache: en
-  themenfelder: [rom_chronisch, rom_akut, faszienrolle, mobility, methodenvergleich]
-  zweck: Grundlagen und Begriffe; 2. Aufl. mit neuen Kapiteln zu Faszienrolle, Vibration, globalen Dehneffekten und Krafttraining als Alternative; enthält bebilderten Übungsteil (auch für Teil B relevant)
-  zugang: Kauf; Format/DRM vor Kauf prüfen (D-26, V-13, V-21)
-  verifikation: Händler- und Bibliothekskataloge 2026-09-29 (Erscheinen 30.10.2024, ©2025; 1. Aufl. 2018/2019)
 ```
 
-Themenfeld-Vokabular T4 (für Karten und Datenmodell): rom_chronisch, rom_akut, dosierung, methodenvergleich, aufwaermen, verletzungspraevention, regeneration, wohlbefinden, schmerz, hueftbeuger, hueftrotation, adduktoren, knie, klettern, laufen, mobility, faszienrolle, yoga, begriffe, evidenzgrenzen.
+Themenfeld-Vokabular T4 (für Karten und Datenmodell): rom_chronisch, rom_akut, dosierung, methodenvergleich, aufwaermen, verletzungspraevention, regeneration, wohlbefinden, schmerz, hueftbeuger, hueftrotation, adduktoren, knie, klettern, laufen, mobility, faszienrolle, yoga, begriffe, evidenzgrenzen, uebungskatalog.
 
 ## 13.3 Bewusst nicht aufgenommen
 
@@ -2426,6 +2466,12 @@ Themenfeld-Vokabular T4 (für Karten und Datenmodell): rom_chronisch, rom_akut, 
   grund: geprüfte Alternative zu L-T3-08 (2026-09-29); keine Trainingsplanung/Periodisierung, Überschneidung mit L-T3-06
 - werk: "Augste C, Winkler M, Künzell S – Leistungsstrukturanalyse Sportklettern, German Journal of Exercise and Sport Research 2022 (Open Access, CC BY 4.0); dazu BISp-Projektbericht zur Leistungsdiagnostik im Sportklettern und Dissertation Winkler 2023 (Augsburg)"
   grund: Leistungsstruktur und Diagnostik, keine Trainingsmethodik; bei Bedarf als Ergänzung zu L-T3-03 reaktivierbar; Titel und Bibliografie nicht vollständig geprüft
+- werk: "Freiwald J. Optimales Dehnen. Sport – Prävention – Rehabilitation. 3. Aufl. Balingen: Spitta; 2020. ISBN 978-3-941964-71-6"
+  grund: deutsches Standardwerk mit Planungskapiteln, aber Stand 2020 (vor den Metaanalysen 2023–2026); Entscheidung Athlet K-8 – bei Bedarf für deutsche Fachbegriffe nachziehen
+- werk: "Alter MJ. Science of Flexibility. 3. Aufl. Champaign, IL: Human Kinetics; 2004. ISBN 978-0-7360-4898-9"
+  grund: früherer Klassiker, Stand 2004 überholt; Autor ist kein Forscher
+- werk: "van der Poel G. The Science of Flexibility, Stretching and Mobility. London: Handspring; 2026. ISBN 978-1-80501-754-7"
+  grund: zu neu für eine Qualitätseinschätzung (Erscheinen 21.05.2026); Kandidat für später
 - werk: "Thacker SB et al. The impact of stretching on sports injury risk. Med Sci Sports Exerc. 2004;36(3):371-8. PMID 15076777"
   grund: durch L-T4-14 und L-T4-01 überholt
 - werk: "Arntz F et al. Chronic Effects of Static Stretching Exercises on Skeletal Muscle Hypertrophy. Sports Med Open. 2024;10:106. PMID 39340744"
@@ -2489,18 +2535,18 @@ Formatprüfung je Titel vor dem Kauf (V-13). EPUB ohne DRM ist zulässig (D-71).
 | 1 | R | L-R-13 Martin 2021 (JOSPT-Leitlinie) | Artikel | PDF | Einzelempfehlungen, Q-16 | ✓ |
 | 1 | R | L-R-08 Lohrer & Nauck 2011 | Artikel | PDF | validierter Wortlaut VISA-P-G für WebApp | ✓ mit Erratum 2013 (Punktwerte 8b/8c) |
 | 2 | R | L-R-03 Agergaard 2021, L-R-26 Doherty 2017 | Artikel | PDF | nicht in PMC | ✓ beide |
-| frei | R | L-R-01, -04, -05, -06, -10, -11, -14, -16, -17, -21, -23, -24, -25, -27 | – | PDF aus PMC | Lizenzen vor Ablage im Repo prüfen (D-31) | L-R-01, -04, -05, -06, -16, -23, -24, -25, -27 ✓; L-R-10, -11, -14, -17, -21 offen |
+| frei | R | L-R-01, -04, -05, -06, -10, -11, -14, -16, -17, -21, -23, -24, -25, -27 | – | PDF aus PMC | Lizenzen vor Ablage im Repo prüfen (D-31) | ✓ alle |
 | bei Bedarf | R | L-R-07, -09, -12, -15, -18, -19, -20, -22, -28 | Artikel | PDF | optional bzw. Kernaussage aus Abstract ausreichend | ✓ alle (L-R-18 Autorenmanuskript) |
 | 2 | T2 | L-T2-20 Pelland 2026, L-T2-21 Robinson 2024 (Sports Med), L-T2-26 Monserdà-Vilaró 2023 (JSCR) | Artikel | PDF | nicht in PMC → Bibliothekszugang | ✓ alle |
 | frei | T2 | L-T2-22 Refalo 2023, L-T2-23 Lopez 2021 (mit Corrigendum), L-T2-24 Lopes 2019 (mit Corrigendum), L-T2-25 Lundberg 2022 | – | PDF aus PMC | L-T2-24 CC BY-NC 4.0; übrige ohne Lizenzangabe → vor Ablage im Repo prüfen (D-31) | ✓ alle; Corrigenda L-T2-23/-24 nicht enthalten |
 | bei Bedarf | T2 | L-T2-27 bis L-T2-32 | Artikel | PDF | optional; L-T2-30 in PMC | ✓ alle (L-T2-29 Autorenmanuskript) |
-| 2 | T4 | L-T4-05 Thomas 2018 (IJSM), L-T4-06 Behm 2016 (APNM), L-T4-14 Lauersen 2014 (BJSM), L-T4-17 Behm 2026 (EJAP), L-T4-19 Winters 2004 (Phys Ther), L-T4-22 Witvrouw 2001 (AJSM) | Artikel | PDF | nicht in PMC → Bibliothekszugang (D-79) | offen |
-| 2 | T4 | L-T4-16 Herbert 2011 (Cochrane) | Artikel | PDF | Abstract frei, Volltext Cochrane Library | offen |
-| frei | T4 | L-T4-01, -02, -03, -04, -08, -10, -12 | – | PDF aus PMC | Lizenzen vor Ablage prüfen (V-20) | offen |
-| bei Bedarf | T4 | L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -31 | Artikel | PDF | optional; in PMC: -07, -09, -11, -15, -18, -21, -27 bis -30; L-T4-31 ggf. frei beim Verlag | – |
-| bei Bedarf | T4 | L-T4-32 Behm, The Science and Physiology of Flexibility and Stretching, 2. Aufl. | Buch | DRM-freies PDF oder EPUB (V-21) | optional; enthält Übungsteil (Teil B) | – |
+| 1 | T4 | L-T4-32 Behm 2025, 2. Aufl.; L-T4-34 Nelson/Kokkonen, Stretching Anatomy, 3. Aufl. | Buch | durchsuchbares PDF oder EPUB ohne DRM (D-26, D-71) | Lehrbuch Stufe B; Übungskatalog Stufe C (K-8) | ✓ beide als PDF mit Kapitel-PDFs, L-T4-34 zusätzlich als EPUB |
+| 2 | T4 | L-T4-05 Thomas 2018 (IJSM), L-T4-06 Behm 2016 (APNM), L-T4-13 Skopal 2024 (J Sports Sci), L-T4-14 Lauersen 2014 (BJSM), L-T4-17 Behm 2026 (EJAP), L-T4-19 Winters 2004 (Phys Ther), L-T4-22 Witvrouw 2001 (AJSM) | Artikel | PDF | nicht in PMC → Bibliothekszugang (D-79) | L-T4-05, -06, -14, -19 ✓; L-T4-13, -17, -22 offen |
+| 2 | T4 | L-T4-16 Herbert 2011 (Cochrane) | Artikel | PDF | Abstract frei, Volltext Cochrane Library | ✓ |
+| frei | T4 | L-T4-01, -02, -03, -04, -08, -10, -12 | – | PDF aus PMC | Lizenzen vor Ablage prüfen (V-20) | ✓ alle |
+| bei Bedarf | T4 | L-T4-07, -09, -11, -15, -18, -20, -21, -23, -25 bis -31 | Artikel | PDF | optional; in PMC: -07, -09, -11, -15, -18, -21, -27 bis -30; L-T4-31 ggf. frei beim Verlag | – |
 
-Stand 2026-09-29: 90 Volltexte vorhanden (D-51, D-71), Verzeichnis in `docs/literatur/README.md`. Offen sind 2 Bücher (L-A01 in 8./9. Aufl., L-T3-16; dazu L-T3-09 ab Erscheinen der Neuauflage), 7 Artikel ohne freien Zugang (L-T4-05, L-T4-06, L-T4-14, L-T4-16, L-T4-17, L-T4-19, L-T4-22) und 12 frei verfügbare Artikel (L-R-10, L-R-11, L-R-14, L-R-17, L-R-21 sowie 7 aus T4); dazu die Corrigenda zu L-T2-23 und L-T2-24. Bei Bedarf: T4 16 Artikel und 1 Buch; optionale Bücher L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-11. Blöcke übergreifend, T1, T2 und R sind bis auf die genannten Titel vollständig.
+Stand 2026-09-29: 109 Werke als Volltext vorhanden, 112 Dateien (dazu 2 Corrigenda und L-T4-34 zusätzlich als EPUB; D-51, D-71), Verzeichnis in `docs/literatur/README.md`. Offen sind 2 Bücher (L-A01 in 8./9. Aufl., L-T3-16; dazu L-T3-09 ab Erscheinen der Neuauflage) und 3 Artikel ohne freien Zugang (L-T4-13, L-T4-17, L-T4-22). Bei Bedarf: T4 15 Artikel; optionale Bücher L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-11. Blöcke übergreifend, T1, T2, T3 und R sind bis auf die genannten Titel vollständig.
 
 # 14. Trainerregeln (Struktur; Inhalte in AP-07)
 
@@ -2821,7 +2867,7 @@ probleme_loesungen:
      - `docs/wissen/t2-kraft-haltung.md` ← L-P08, L-A03, L-T2-03 (Karten: Dosierung und Progression; kombiniertes Training Kraft/Ausdauer), L-T2-11, L-T2-12 (Kraft für Läufer), Abschnitt `uebungskatalog_calisthenics` aus L-T2-04 mit Belegen L-T2-08 bis L-T2-10 (D-29), Karte Haltung und Rücken aus L-T2-15 bis L-T2-18 (D-54); optional L-T2-14, L-T2-19; Abschnitt Hypertrophie (Ergänzung, D-62) aus L-T2-20 bis L-T2-24, optional L-T2-27 bis L-T2-30; Pflichtinhalt „Grenzen“ gemäß D-62 (e); Abschnitt knapp halten, Gesamtbudget 13.1 prüfen
      - `docs/wissen/t3-klettern.md` ← L-T3-01, -02, -03, -06 (bzw. -07), -19, -09 (3. Aufl., Neuauflage nach Erscheinen); Stufe C L-T3-10 und L-T3-20 (Ideenfundus), L-T3-21 (Verletzungsmanagement, vorläufig) und L-T3-16 (Planungsvorlage Periodisierung) nur mit Kennzeichnung (D-31) (Karten: kletterspezifisches Krafttraining und Spezifitätsschema; Leistungsdiagnostik und Verlaufstests; Verletzungsprävention/Schmerz); L-T3-18 als Beleg für Hangboard-Protokolle, L-T3-05 mit konfidenz niedrig; Stufe-C-Quellen nur als Ideenfundus (D-31); Kennzeichnung „Evidenz: begrenzt"
      - `docs/wissen/r-reha-praevention.md` ← L-R-01 bis L-R-09, L-R-13 bis L-R-17, L-R-23 bis L-R-25 (Kern); optional L-R-10 bis L-R-12, L-R-18 bis L-R-22, L-R-26 bis L-R-28; Pflichtabschnitt „Grenzen“ gemäß D-61 (e)
-     - `docs/wissen/t4-beweglichkeit.md` ← L-T4-01 bis -06, -08, -10, -12, -14, -16, -17, -19, -22 (Kern), Verweise L-R-11 und L-T2-15; optional L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -32; Übungsquellen aus Teil B nur als Ideenfundus (D-31); Pflichtabschnitt „Grenzen“: Dosis widersprüchlich, Hüftevidenz dünn (Einschätzung), kein Präventionseffekt, Wohlbefinden schwach belegt (L-T4-28)
+     - `docs/wissen/t4-beweglichkeit.md` ← L-T4-01 bis -06, -08, -10, -12, -14, -16, -17, -19, -22 und Lehrbuch L-T4-32 (Kern), Verweise L-R-11 und L-T2-15; optional L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -31; Übungskatalog L-T4-34 und weitere Übungsquellen aus Teil B nur als Ideenfundus (D-31); Pflichtabschnitt „Grenzen“: Dosis widersprüchlich, Hüftevidenz dünn (Einschätzung), kein Präventionseffekt, Wohlbefinden schwach belegt (L-T4-28)
   4. Offene Punkte: Auflage L-A01 (7. Aufl. vorläufig vorhanden, 8. oder 9. beschaffen, D-51); V-07 Rest (Schwellen am Volltext L-P13, Entscheidung Q-13 in AP-07); V-15 Rest (L-T3-02 Wiederholungsbereiche, L-T3-12); V-17 (Seitenbezug L-T3-19, L-T3-10); Lizenz L-P15 vor Ablage prüfen; Bestätigung L-T3-21 durch den Athleten; T4 Teil B (Übungsquellen); V-18 bis V-23; Lizenz L-T2-15, L-T2-16 vor Ablage prüfen; Karten-Template (Schema: Kernaussage + Quelle + Seite + Stufe + konfidenz + Themenfeld); V-16 (Redundanz Hypertrophie-Ergänzung zu L-P08, Corrigendum L-T2-23); Lizenz L-T2-22, L-T2-23, L-T2-25 vor Ablage prüfen; Kartenerstellung nach Beschaffung.
 - **Abhängigkeiten:** keine (Chat-Arbeit); Kartenerstellung erst nach Beschaffung.
 - **Abnahmekriterien:** Karten liegen in `docs/wissen/` und im Projekt-Wissen; jede Kernaussage hat Quelle mit Seite (EPUB ohne Seitenliste: Kapitel/Abschnitt, D-71) bzw. DOI/PMID und Evidenzstufe; V-06, V-07 (Literaturteil), V-14, V-15 erledigt; Gesamtbudget 13.1 eingehalten.
@@ -2838,8 +2884,8 @@ teilschritte:
   - Literaturauswahl T3 Klettern/Bouldern: erledigt (D-31)
   - Literaturauswahl Block R Reha/Prävention: erledigt (D-61)
   - Literaturauswahl T2 Hypertrophie-Ergänzung: erledigt (D-62)
-  - Literaturauswahl T4 Beweglichkeit/Mobilität Teil A: erledigt (D-79), Teil B Übungsquellen offen
-  - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-29 – 90 Volltexte, Kapitel-PDFs für 9 Bücher, Kapitel-Markdown mit Ansichts-PDF für 4 EPUBs (L-T3-10, -19, -20, -21), D-51, D-71; offen nach 13.4 sind L-A01 in 8./9. Aufl., L-T3-16, L-T3-09 in der Neuauflage ab Erscheinen, 5 Artikel aus Block R, die T4-Artikel und zwei Corrigenda)
+  - Literaturauswahl T4 Beweglichkeit/Mobilität Teil A: erledigt (D-79), Teil B Übungsquellen teilweise (L-T4-34)
+  - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-29 – 109 Werke in 112 Dateien, Kapitel-PDFs für 11 Bücher, Kapitel-Markdown mit Ansichts-PDF für 4 EPUBs (L-T3-10, -19, -20, -21), D-51, D-71; offen nach 13.4 sind L-A01 in 8./9. Aufl., L-T3-16, L-T3-09 in der Neuauflage ab Erscheinen sowie L-T4-13, -17, -22)
   - Literatur-Nachsteuerung L-T1-01/L-T3-08, HRV, EPUB: erledigt (D-70, D-71)
   - Primärquellen verifizieren: weitgehend erledigt (V-06, V-14 erledigt; V-07, V-15 teilweise, Rest nach Beschaffung)
   - Karten-Template und Karten: offen
@@ -2981,7 +3027,7 @@ probleme_loesungen:
     loesung: Athlet entschied 3. Aufl. behalten und Übungsband als L-T3-20; Managing Injuries als L-T3-21 Stufe C vorläufig (Code-Instanz, Bestätigung offen); umnummeriert D-64 → D-70, D-65 → D-71
   - datum: 2026-09-29
     was: Repo öffentlich; Verlagswerke unter docs/literatur/ sind öffentlich abrufbar (widerspricht D-31)
-    loesung: als Q-21 geführt – Athlet hat am 2026-09-29 entschieden, dass das Repo vorerst öffentlich bleibt; D-31 bleibt unverändert, der Widerspruch ist bewusst in Kauf genommen. Die Git-History enthält alle Volltexte – vor einer dauerhaften Veröffentlichung Literatur auslagern und History bereinigen
+    loesung: als Q-21 geführt – Athlet hat am 2026-09-29 entschieden, dass das Repo vorerst öffentlich bleibt und wieder privat wird, sobald die Recherche keinen Zugriff mehr braucht (Übergabe T4, K-9); D-23 und D-31 bleiben unverändert. Die Git-History enthält alle Volltexte – vor einer dauerhaften Veröffentlichung Literatur auslagern und History bereinigen
   - datum: 2026-09-29
     was: Commit „Lit“ mit 13 PDFs – 11 Titel der Beschaffungsliste, erneut Hörst 3. Aufl. (bytegleich mit L-T3-09, gleicher Git-Blob) und VISA-P (L-R-08) doppelt; für Block R gab es noch keinen Ordner
     loesung: 11 PDFs nach D-51 umbenannt und einsortiert, neuer Ordner `r-reha/`; Dubletten entfernt (behalten wurde die VISA-P-Fassung mit Metadaten). Befund – das VISA-P-PDF enthält das Erratum 2013 zu den Punktwerten der Items 8b/8c (bei L-R-08 vermerkt)
@@ -3000,6 +3046,12 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: Commit „Literatur“ mit 37 PDFs, überwiegend mit Verlags- oder DOI-Dateinamen; L-P16 doppelt (Pre-Proof und Verlagsfassung); L-T2-29 und L-R-18 nur als Autorenmanuskript; Corrigenda zu L-T2-23 und L-T2-24 fehlen
     loesung: Zuordnung über DOI (32) bzw. Titel (5), 36 PDFs nach D-51 umbenannt und einsortiert; Pre-Proof entfernt; Manuskriptfassungen und fehlende Corrigenda beim Eintrag (`zugang`) vermerkt; Lizenzen aus dem Volltext übernommen, wo angegeben
+  - datum: 2026-09-29
+    was: Commit „Literatur“ mit 26 Dateien – witvrouw2001.pdf ist nicht L-T4-22, sondern Witvrouw et al. 2000 (Am J Sports Med 28(4), vorderer Knieschmerz); Climbing-Bible-EPUB bytegleich mit L-T3-10; ein Stretching-Anatomy-EPUB mit 0 Byte; Stretching Anatomy zusätzlich als PDF
+    loesung: falsches Witvrouw-PDF entfernt, L-T4-22 bleibt offen (Entscheidung Athlet); Dubletten entfernt; Stretching Anatomy als PDF (Kapitel-PDFs) und EPUB abgelegt (Entscheidung Athlet); neuer Ordner `t4-beweglichkeit/`; Corrigenda zu L-T2-23/-24 als eigene Dateien (Feld `corrigendum_datei`)
+  - datum: 2026-09-29
+    was: Aktualisierte Übergabe T4 (K-8, K-9) – Behm 2025 in den Kern, Stretching Anatomy neu (L-T4-34), drei Bücher in 13.3; Repo soll wieder privat werden
+    loesung: eingearbeitet (13.2.6, D-79 Nachtrag, 13.3, 13.4, V-21, Q-21, Konzeptkopf, D-23)
 ```
 Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage von `docs/pruefung/pruefprotokoll.md` als AP-06-Block zu übernehmen.
 
@@ -3556,3 +3608,4 @@ noch_zu_pruefen:
 | 2026-09-29 | Commit „Lit“ einsortiert: 11 Volltexte (L-P11, L-P15, L-T2-10, -11, -12, -20, -21, L-R-02, -03, -08, -13, -26), neuer Ordner `r-reha/`, Dubletten Hörst und VISA-P entfernt; L-R-08 um das Erratum 2013 (Punktwerte 8b/8c) ergänzt; L-T2-10 Zitat vervollständigt; Lizenzen L-P11 (CC BY-NC 4.0) und L-P15 (CC BY 4.0) aus dem Volltext; 13.4 und Stand (54 Volltexte). |
 | 2026-09-29 | Übergabe Literaturblock T4 Beweglichkeit/Dehnen Teil A eingearbeitet (vom Athleten bestätigt): Tabelle 1.2 um T4 erweitert, neuer Abschnitt 13.2.6 (L-T4-01 bis L-T4-33, Kern und optional), D-79 (Planungsfolgen a–k; wegen paralleler Vergabe in AP-15 nicht D-72), Q-17 bis Q-21 (Q-21 Repo öffentlich, entschieden: vorerst öffentlich), V-18 bis V-23; 13.1 (4–7 Sammeldateien, `geltungsbereich` T1–T4, ID-Konvention), 13.3, 13.4, Abschnitte 6 und 14 (T1–T4), AP-06, AP-07, AP-08; Konzeptkopf und D-23 um den Hinweis auf Q-21 ergänzt. |
 | 2026-09-29 | Commit „Literatur“ einsortiert: 36 Volltexte (L-P14, L-P16, L-T2-15, -16, -19, -22 bis -32, L-T3-05, L-T3-18, L-R-01, -04 bis -07, -09, -12, -15, -16, -18 bis -20, -22 bis -25, -27, -28), Pre-Proof-Dublette L-P16 entfernt; Lizenzen aus dem Volltext, Hinweise zu Autorenmanuskripten (L-T2-29, L-R-18) und fehlenden Corrigenda (L-T2-23, L-T2-24); 13.4 und Stand (90 Volltexte). |
+| 2026-09-29 | Aktualisierte Übergabe T4 eingearbeitet (K-8, K-9): L-T4-32 Behm in den Kern (ausgewählt), neu L-T4-34 Nelson/Kokkonen, Stretching Anatomy (Stufe C, Übungskatalog), 13.3 um Freiwald, Alter, van der Poel ergänzt, Vokabular `uebungskatalog`, Q-21 (Repo wird wieder privat), V-21 erledigt; Commit „Literatur“ einsortiert – 19 Volltexte (L-T4-01 bis -06, -08, -10, -12, -14, -16, -19, -32, -34; L-R-10, -11, -14, -17, -21), Corrigenda L-T2-23/-24, neuer Ordner `t4-beweglichkeit/`, Kapitel-PDFs für L-T4-32 und L-T4-34; falsches Witvrouw-PDF und Dubletten entfernt; V-20 teilweise, V-23 erledigt; 13.4 und Stand (109 Werke). |
