@@ -876,11 +876,25 @@ geprueft:
     wie: Durchsicht von sw.js/offline.js; kein Browser-Test mit echtem Netzausfall
     ergebnis: offen – Prüfung auf dem Smartphone
     datum: 2026-09-29
+  - was: "T4 K-B1 bis K-B6: Winter 07:00Z–09:00Z, VALARM -P1D; Sommer 06:00Z (08:00 MESZ; Konzept nannte 05:00Z); Blockende verschoben → gleiche Ressource, SEQUENCE höher; Bilanz bestätigt → „Zielklärung: …“; Zielklärung des Folgeblocks bestätigt → gelöscht, Fassung kalender_block_<id> = 1; > 16 Wochen → Beginn + 112 Tage; Faltung, Escaping, Trigger -PT5H/-P2D/PT0S"
+    wie: automatisiert (Unit BlockEventTest, Integration BlockCalendarTest mit simuliertem CalDAV-Server)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T4 Einstellungen E-22 überträgt sofort (18:00, 60 min, 2 h); Papierkorb: nach dem Löschen neue Fassung -1; Abgleich entfernt den Termin eines gelöschten Blocks, fremde Termine bleiben; Kalenderfehler bei upsert_block gemeldet, Block trotzdem angelegt, Abgleich holt nach; bestehende Kalendertests auf Tagestermine eingegrenzt (Ergebnis blocktermine gesondert); gesamte Suite 300 Tests grün"
+    wie: automatisiert (BlockCalendarTest, CalendarTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T4 echter CalDAV-Server: Blocktermin mit Uhrzeit, Sonderzeichen und VALARM angenommen; REPORT findet ihn im Dezember, nicht im Oktober; Ersetzen mit neuem Datum; Löschen (zweites Löschen 404)"
+    wie: Rauchtest gegen Radicale 3.8.1 (lokal, http nur für den Test)
+    ergebnis: ok
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: T1 Migration 0024 und Schemata gegen MySQL 8.4
     wie: CI (GitHub Actions) mit dem Pull Request
   - was: "T2 Abnahme aus dem Projekt-Chat: get_handover liefert Block, Zielklärung, Bilanz und Fälligkeiten in ≤ 8 000 Zeichen; write_block_review legt eine Fassung an und meldet Kennzahlen"
     wie: Athlet im Projekt-Chat nach Deployment (erste echte Zielklärung in AP-08)
+  - was: "T4 Abnahme: im Nextcloud-Kalender (Web und Handy) steht der Termin am Blockende 08:00–10:00 mit Erinnerung am Vortag 08:00"
+    wie: Athlet nach Deployment und erstem upsert_block (AP-08)
   - was: "T3 Abnahme auf dem Smartphone: Overlay erscheint bei fälliger Bilanz, verschwindet nach „Morgen wieder erinnern“ bis zum nächsten Tag und kommt dann wieder; offline quittiert → „1 Eingabe wartet auf Netz: Erinnerung quittiert“, Overlay ausgeblendet"
     wie: Athlet nach Deployment
 ```

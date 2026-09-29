@@ -265,7 +265,7 @@ final class ReviewTools
         if ($status === 'entwurf') {
             $result['hinweis'] = 'Entwurf gespeichert; er zählt erst nach Bestätigung durch den Athleten (erneut mit status bestaetigt und reason schreiben).';
         }
-        $calendarError = $this->calendar?->pushBlocks($this->calendarBlocks($blockId), 'mcp');
+        $calendarError = $this->calendar !== null && $this->calendar->enabled() ? $this->calendar->pushBlocks($this->calendarBlocks($blockId), 'mcp') : null;
         if ($calendarError !== null) {
             $result['fehler_kalender'] = [$calendarError . ' Der stündliche Abgleich überträgt den Termin erneut.'];
         }

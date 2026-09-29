@@ -341,7 +341,7 @@ Reihenfolge: T1 → T2 → T3; T4 nach T2; T5 nach T2 (parallel zu T3/T4 möglic
 | nr | ablauf | erwartung |
 |---|---|---|
 | K-B1 | `upsert_block` aktiv, end_date 2026-12-14, tz Europe/Berlin | `training-block-<id>.ics` mit DTSTART 2026-12-14T07:00:00Z, DTEND 09:00:00Z, VALARM `-P1D` |
-| K-B2 | wie K-B1 im Sommer (end_date 2026-07-05) | DTSTART 05:00:00Z (MESZ) |
+| K-B2 | wie K-B1 im Sommer (end_date 2026-07-05) | DTSTART 06:00:00Z (08:00 MESZ = UTC+2; korrigiert in T4, vorher 05:00Z) |
 | K-B3 | end_date per `upsert_block` verschoben | Termin aktualisiert (gleiche Ressource, `SEQUENCE` +1) |
 | K-B4 | Bilanz bestätigt, Zielklärung Folgeblock fehlt | Termin bleibt, SUMMARY „Zielklärung: …“ |
 | K-B5 | Bilanz und Zielklärung Folgeblock bestätigt | Termin gelöscht; Fassung `kalender_block_<id>` erhöht |
@@ -466,12 +466,32 @@ T3:
     - was: Bei Schreibsperre wäre das Overlay nicht quittierbar
       loesung: kein Overlay, solange Code- und Datenbankstand abweichen
 T4:
-  status: offen
-  datum: null
-  ergebnis: null
-  tests: null
-  abnahme: null
-  probleme_loesungen: []
+  status: erledigt
+  datum: 2026-09-29
+  ergebnis: >-
+    Training\Calendar\BlockEvent (Ressource, Datum mit Sicherheitsnetz 112 Tage, UTC-Zeiten aus Zeitzone und E-22,
+    Titel nach fehlendem Teil, VALARM, Faltung); CalendarSync::pushBlocks (upsert_block, write_block_review,
+    Einstellungen) und Abgleich der Blocktermine in syncRange (alle Blöcke geplant/aktiv plus zuletzt abgeschlossener
+    Block, verwaiste Termine entfernen, Fassung kalender_block_<id>); App::calendar mit Zeitzone des Athleten.
+    Code-Stand 0.29.0.
+  tests: >-
+    Unit BlockEventTest (K-B1, K-B2, K-B6, Einstellungen, Trigger), Integration BlockCalendarTest (K-B1 bis K-B6,
+    E-22, Papierkorb, verwaiste Termine, Fehler), CalendarTest angepasst; Rauchtest gegen Radicale 3.8.1; gesamte Suite
+    300 Tests grün, Browser-Tests grün.
+  abnahme: automatisiert; Sichtprüfung im Nextcloud-Kalender durch den Athleten offen
+  probleme_loesungen:
+    - was: K-B2 erwartet für 08:00 MESZ den Beginn 05:00Z; MESZ ist UTC+2, richtig ist 06:00Z
+      loesung: Test auf 06:00Z; Konzept 11.3 korrigiert
+    - was: K-B6 „Block ohne end_date“ gibt es nicht (training_block.end_date ist NOT NULL)
+      loesung: nur der Fall „Blockende später als 16 Wochen“ geprüft
+    - was: Der Termin fragt nach der Zielklärung „des Folgeblocks“; welcher Block Folgeblock ist, lässt E-15 offen
+      loesung: Zielklärung gilt als vorhanden, wenn ein anderer Block (geplant/aktiv) mit späterem Beginn eine bestätigte Zielklärung hat
+    - was: Die bestehenden Kalendertests zählten alle Termine bzw. PUT-Anfragen und gingen von Tagesterminen allein aus
+      loesung: Ergebnis des Abgleichs um blocktermine ergänzt (Tageszählung unverändert); Tests auf Tagestermine eingegrenzt
+    - was: Der simulierte CalDAV-Server erkannte im REPORT nur ganztägige Termine
+      loesung: FakeCalDav wertet auch DTSTART mit Uhrzeit aus
+    - was: Das Suchfenster für verwaiste Blocktermine ist ohne Zeitraum nicht begrenzt
+      loesung: REPORT von heute − 400 bis heute + 800 Tage (deckt Blöcke bis gut zwei Jahre voraus ab)
 T5:
   status: offen
   datum: null

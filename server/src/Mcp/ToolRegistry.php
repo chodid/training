@@ -289,7 +289,7 @@ final class ToolRegistry
 
     private function reviews(): ReviewTools
     {
-        return new ReviewTools($this->app->pdo(), $this->clock, $this->app->users()->first()?->tz ?? 'Europe/Berlin');
+        return new ReviewTools($this->app->pdo(), $this->clock, $this->app->users()->first()?->tz ?? 'Europe/Berlin', $this->app->calendar());
     }
 
     private function exercises(): ExerciseTools

@@ -7,6 +7,15 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ### Dokumentation
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 
+## [0.29.0] – 2026-09-29
+
+AP-15 T4: Termin für Blockbilanz und Zielklärung im Kalender.
+
+### Hinzugefügt
+- Ein Termin je Block (`training-block-<id>.ics`) am Blockende, Standard 08:00–10:00 in der Zeitzone des Athleten mit Erinnerung am Vortag 08:00; Titel „Blockbilanz + Zielklärung: <Block>“ bzw. nur der noch fehlende Teil; Beschreibung mit Zweck, Blockzeitraum und Link zur Blockseite; Kategorie „Planung“. Liegt das Blockende mehr als 16 Wochen nach Blockbeginn, steht der Termin auf Blockbeginn + 112 Tage.
+- Der Termin entsteht bzw. ändert sich mit `upsert_block` und `write_block_review` und wird gelöscht, sobald die Bilanz des Blocks und die Zielklärung eines Folgeblocks bestätigt sind (neue Fassung der Ressource nach dem Löschen wie bei den Tagesterminen). Beginn, Dauer und Erinnerung sind in den Einstellungen änderbar; eine Änderung überträgt die Termine sofort.
+- Der stündliche Abgleich (und „Abgleichen“ in S8) schreibt die Termine aller geplanten und aktiven Blöcke und entfernt verwaiste Blocktermine; Ergebnis unter `kalender.blocktermine`. Audit `calendar_block_event`, Fehler als `calendar_error` (entity `kalender_block`) und `fehler_kalender` in der Tool-Antwort.
+
 ## [0.28.0] – 2026-09-29
 
 AP-15 T3: Erinnerung an Blockbilanz und Zielklärung auf der Webseite.

@@ -299,9 +299,13 @@ final class WriteTools
             $goals === null ? null : json_encode($goals, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR),
             isset($input['phase_notes']) ? (string) $input['phase_notes'] : null, $status,
             isset($input['doc_ref']) ? mb_substr((string) $input['doc_ref'], 0, 255) : null];
+        $closedIds = [];
         $this->pdo->beginTransaction();
         try {
             if ($status === 'aktiv') {
+                $stmt = $this->pdo->prepare("SELECT id FROM training_block WHERE status = 'aktiv' AND id <> ?");
+                $stmt->execute([$blockId ?? 0]);
+                $closedIds = array_map('intval', $stmt->fetchAll(\PDO::FETCH_COLUMN));
                 $this->pdo->prepare("UPDATE training_block SET status = 'abgeschlossen', updated_at = ? WHERE status = 'aktiv' AND id <> ?")->execute([$now, $blockId ?? 0]);
             }
             if ($blockId === null) {
@@ -325,6 +329,13 @@ final class WriteTools
         }
 
         $result = ['id' => $blockId, 'name' => $values[0], 'start' => $values[1], 'ende' => $values[2], 'status' => $status];
+        // Blocktermin im Kalender (AP-15, E-15): anlegen/ändern, bei abgeschlossenen Blöcken ggf. löschen
+        if ($this->calendar !== null && $this->calendar->enabled()) {
+            $error = $this->calendar->pushBlocks([$blockId, ...$closedIds], 'mcp');
+            if ($error !== null) {
+                $result['fehler_kalender'] = [$error . ' Der stündliche Abgleich überträgt den Termin erneut.'];
+            }
+        }
         $faellig = \Training\Review\Faelligkeit::forBlock($this->faellig(), $blockId);
         if ($faellig !== []) {
             $result['faellig'] = $faellig;

@@ -36,7 +36,7 @@ final class CalendarTest extends AppTestCase
         ]]);
         self::assertSame('ok', $plan['data']['status'], $plan['text']);
         [$kraft, $mobil, $klettern, $ruhe] = array_column($plan['data']['einheiten'], 'id');
-        self::assertSame(['training-tag-2026-09-22.ics', 'training-tag-2026-09-24.ics'], array_keys($this->cal->events), 'ein Termin je Tag, Ruhetag nicht im Kalender');
+        self::assertSame(['training-tag-2026-09-22.ics', 'training-tag-2026-09-24.ics'], $this->dayEvents(), 'ein Termin je Tag, Ruhetag nicht im Kalender');
         self::assertSame('Basic ' . base64_encode('p:app-passwort'), $this->cal->requests[0]['headers']['Authorization']);
         self::assertStringStartsWith(self::CAL, $this->cal->requests[0]['url']);
         $ics = $this->unfold('2026-09-22');
@@ -69,7 +69,7 @@ final class CalendarTest extends AppTestCase
         $this->mcpTool(self::STATIC, 'upsert_block', ['block' => ['name' => 'B', 'start_date' => '2026-09-14', 'end_date' => '2026-10-11', 'status' => 'aktiv'], 'block_id' => 1]);
         $plan2 = $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => 'Grundlage', 'replace_existing' => true, 'sessions' => [$this->session('2026-09-26', 'haltung', 'Rücken')]]);
         self::assertSame([$mobil, $ruhe], $plan2['data']['ersetzt']);
-        $names = array_keys($this->cal->events);
+        $names = $this->dayEvents();
         sort($names);
         self::assertSame(['training-tag-2026-09-23.ics', 'training-tag-2026-09-24.ics', 'training-tag-2026-09-26.ics'], $names, 'ersetzter Tag entfernt, neuer Tag angelegt');
         self::assertStringContainsString('SUMMARY:Haltung: Rücken', $this->unfold('2026-09-26'));
@@ -103,11 +103,11 @@ final class CalendarTest extends AppTestCase
 
         // Abgleich schreibt dieselbe Fassung (kein neuer Termin), ein leerer Tag verliert seinen Termin und zählt weiter
         $r = json_decode($this->request('GET', '/cron/intervals-sync?key=' . str_repeat('c', 32))->body, true)['kalender'];
-        self::assertSame(['uebertragen' => 2, 'geloescht' => 0, 'fehler' => []], $r);
+        self::assertSame(['uebertragen' => 2, 'geloescht' => 0, 'fehler' => [], 'blocktermine' => ['uebertragen' => 1, 'geloescht' => 0]], $r);
         self::assertSame(['training-tag-2026-09-23-3.ics'], $this->days('2026-09-23'));
         $this->pdo->exec('DELETE FROM `session` WHERE id = ' . $kraft);
         $r = json_decode($this->request('GET', '/cron/intervals-sync?key=' . str_repeat('c', 32))->body, true)['kalender'];
-        self::assertSame(['uebertragen' => 1, 'geloescht' => 1, 'fehler' => []], $r);
+        self::assertSame(['uebertragen' => 1, 'geloescht' => 1, 'fehler' => [], 'blocktermine' => ['uebertragen' => 1, 'geloescht' => 0]], $r);
         self::assertSame('4', $this->pdo->query("SELECT value FROM app_setting WHERE setting_key = 'kalender_tag_2026-09-23'")->fetchColumn());
     }
 
@@ -147,7 +147,7 @@ final class CalendarTest extends AppTestCase
         [$zweite, $erste, , , $freitag] = array_column($plan['data']['einheiten'], 'id');
         $this->cal->events = [];
         $r = json_decode($this->request('GET', '/cron/intervals-sync?key=' . str_repeat('c', 32))->body, true)['kalender'];
-        self::assertSame(['uebertragen' => 2, 'geloescht' => 0, 'fehler' => []], $r, 'zwei Tage, nicht drei Einheiten');
+        self::assertSame(['uebertragen' => 2, 'geloescht' => 0, 'fehler' => [], 'blocktermine' => ['uebertragen' => 1, 'geloescht' => 0]], $r, 'zwei Tage, nicht drei Einheiten');
         self::assertSame([], $this->days('2026-09-27'), 'Ruhetag ohne Termin');
         $ics = $this->unfold('2026-09-22');
         self::assertStringContainsString('SUMMARY:Training: Erste + Zweite', $ics, 'Reihenfolge nach sort_order');
@@ -173,7 +173,7 @@ final class CalendarTest extends AppTestCase
         ]]);
         self::assertSame('teilweise', $plan['data']['status']);
         self::assertCount(1, $plan['data']['fehler_kalender']);
-        self::assertSame(1, count(array_filter($this->cal->requests, static fn (array $r): bool => $r['method'] === 'PUT')), 'nach dem ersten Fehler keine weiteren Termine');
+        self::assertSame(1, count(array_filter($this->cal->requests, static fn (array $r): bool => $r['method'] === 'PUT' && str_contains($r['url'], 'training-tag-'))), 'nach dem ersten Fehler keine weiteren Termine');
         $audit = $this->pdo->query("SELECT entity, entity_id FROM audit_log WHERE action = 'calendar_error'")->fetchAll();
         self::assertSame([['entity' => 'kalender_tag', 'entity_id' => '2026-09-22']], array_map(static fn (array $a): array => ['entity' => $a['entity'], 'entity_id' => $a['entity_id']], $audit));
     }
@@ -201,10 +201,10 @@ final class CalendarTest extends AppTestCase
         $this->cal->events['fremd.ics'] = "BEGIN:VCALENDAR\r\nDTSTART;VALUE=DATE:20260924\r\n";
         $r = $this->request('GET', '/cron/intervals-sync?key=' . str_repeat('c', 32));
         self::assertSame(200, $r->status, $r->body);
-        self::assertSame(['uebertragen' => 1, 'geloescht' => 3, 'fehler' => []], json_decode($r->body, true)['kalender']);
+        self::assertSame(['uebertragen' => 1, 'geloescht' => 3, 'fehler' => [], 'blocktermine' => ['uebertragen' => 1, 'geloescht' => 0]], json_decode($r->body, true)['kalender']);
         $names = array_keys($this->cal->events);
         sort($names);
-        self::assertSame(['fremd.ics', 'training-tag-2026-09-22.ics'], $names);
+        self::assertSame(['fremd.ics', 'training-block-1.ics', 'training-tag-2026-09-22.ics'], $names, 'Blocktermin (AP-15) bleibt');
         self::assertStringContainsString('zuletzt übertragen', $this->request('GET', '/einstellungen')->body);
 
         // Knopf in den Einstellungen
@@ -255,6 +255,7 @@ final class CalendarTest extends AppTestCase
     public function testNotConfiguredOrNotHttps(): void
     {
         $this->writeEnv(['MCP_STATIC_TOKEN' => self::STATIC, 'MCP_STATIC_TOKEN_ENABLED' => 'true', 'CRON_SECRET' => str_repeat('c', 32)]);
+        $this->cal->requests = []; // Blocktermin aus setUp (AP-15)
         $this->mcpTool(self::STATIC, 'write_week_plan', ['week_start' => '2026-09-21', 'focus' => 'Grundlage', 'sessions' => [$this->session('2026-09-22', 'kraft', 'Beine')]]);
         self::assertSame([], $this->cal->requests);
         self::assertSame('nicht_konfiguriert', json_decode($this->request('GET', '/health')->body, true)['checks']['kalender']);
@@ -292,5 +293,11 @@ final class CalendarTest extends AppTestCase
         };
 
         return ['date' => $date, 'type' => $type, 'title' => $title, 'priority' => 'B', 'planned_duration_min' => 60, 'plan_json' => $plan, 'coach_summary' => $title . ' als Grundlage'];
+    }
+
+    /** @return list<string> Tagestermine (ohne Blocktermin, AP-15) */
+    private function dayEvents(): array
+    {
+        return array_values(array_filter(array_keys($this->cal->events), static fn (string $n): bool => str_starts_with($n, 'training-tag-')));
     }
 }

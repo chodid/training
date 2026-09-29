@@ -275,7 +275,21 @@ final class SettingsController extends AppController
         $this->audit()->write('web', 'setting_update', 'app_setting', 'blockreview', $new, sprintf('Blockbilanz/Zielklärung: Overlay %s, Vorlauf %d/%d Tage, Termin %s, %d min, Erinnerung %d h vorher',
             $new['overlay'] ? 'an' : 'aus', $new['bilanz'], $new['zielklaerung'], $new['beginn'], $new['dauer_min'], $new['erinnerung_h']));
 
-        return Response::redirect('/einstellungen?ok=blockreview');
+        // Blocktermine neu übertragen, wenn sich Beginn, Dauer oder Erinnerung geändert haben (E-22)
+        $calendar = $this->app->calendar();
+        $changed = [$new['beginn'], $new['dauer_min'], $new['erinnerung_h']] !== [$values['beginn'], $values['dauer_min'], $values['erinnerung_h']];
+        if (!$changed || !$calendar->enabled()) {
+            return Response::redirect('/einstellungen?ok=blockreview');
+        }
+        $error = $calendar->pushBlocks([], 'web');
+        if ($error !== null) {
+            return $this->overview(new Request('GET', '/einstellungen'), [
+                'type' => 'warning', 'icon' => 'alert-triangle', 'title' => 'Gespeichert, Kalender nicht aktualisiert.',
+                'text' => $error . ' Der stündliche Abgleich versucht es erneut.',
+            ]);
+        }
+
+        return Response::redirect('/einstellungen?ok=blockreview&n=' . $this->app->pdo()->query("SELECT COUNT(*) FROM training_block WHERE status IN ('geplant', 'aktiv')")->fetchColumn());
     }
 
     /** Kalender-Erinnerung (D-52): Uhrzeit am Trainingstag oder aus; danach Termine im Zeitraum neu übertragen. */

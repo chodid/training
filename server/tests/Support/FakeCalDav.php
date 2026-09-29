@@ -7,7 +7,7 @@ namespace Training\Tests\Support;
 use Training\Intervals\HttpTransport;
 use Training\Intervals\IntervalsException;
 
-/** Simuliert eine CalDAV-Kalendersammlung (Nextcloud): PUT/DELETE je Ressource, REPORT mit Zeitraum nach DTSTART. */
+/** Simuliert eine CalDAV-Kalendersammlung (Nextcloud): PUT/DELETE je Ressource, REPORT mit Zeitraum nach dem Tag von DTSTART. */
 final class FakeCalDav implements HttpTransport
 {
     /** @var array<string, string> Ressourcenname => iCalendar */
@@ -65,7 +65,7 @@ final class FakeCalDav implements HttpTransport
                 preg_match('/end="(\d{8})T/', (string) $body, $e);
                 $xml = '<?xml version="1.0"?><d:multistatus xmlns:d="DAV:">';
                 foreach ($this->events as $n => $ics) {
-                    preg_match('/DTSTART;VALUE=DATE:(\d{8})/', $ics, $d);
+                    preg_match('/DTSTART(?:;VALUE=DATE)?:(\d{8})/', $ics, $d); // ganztägig oder mit Uhrzeit (Blocktermin, AP-15)
                     if (($d[1] ?? '') >= $s[1] && ($d[1] ?? '') < $e[1]) {
                         $xml .= '<d:response><d:href>/remote.php/dav/calendars/p/training/' . rawurlencode($n) . '</d:href></d:response>';
                     }

@@ -21,7 +21,7 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.28.0';
+    public const VERSION = '0.29.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
     public const SCHEMA_VERSION = 24;
@@ -177,7 +177,9 @@ final class App
 
         $reminder = $client !== null ? (new \Training\Data\SettingsRepository($this->pdo(), $this->clock))->calendarReminder() : null;
 
-        return new \Training\Calendar\CalendarSync($this->pdo(), $this->clock, $client, (string) $config->get('APP_URL'), $this->host(), $this->varDir() . '/calendar-sync.json', $reminder);
+        $tz = $client !== null ? ($this->users()->first()?->tz ?? 'Europe/Berlin') : 'Europe/Berlin';
+
+        return new \Training\Calendar\CalendarSync($this->pdo(), $this->clock, $client, (string) $config->get('APP_URL'), $this->host(), $this->varDir() . '/calendar-sync.json', $reminder, $tz);
     }
 
     /** Linkprüfung des Übungskatalogs (AP-16, E-10/E-18/E-19). */
