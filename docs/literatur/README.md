@@ -107,6 +107,7 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T3-06 | B | Schöffl et al. (Hrsg.) 2022 – Climbing Medicine | [`L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf`](t3-klettern/L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf) | 319 | Kapitel-PDFs in `L-T3-06_kapitel/` |
 | L-T3-09 | B | Hörst EJ – Training for Climbing, 3. Aufl. 2016 | [`L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf`](t3-klettern/L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf) | 356 | Scan (Internet Archive) mit Texterkennung, ohne Lesezeichen; Druckseite = PDF-Seite − 16. Kapitel-PDFs in `L-T3-09_kapitel/` |
 | L-T3-10 | C | Mobråten, Christophersen 2020 – The Climbing Bible | [`L-T3-10_Mobraten-2020_Climbing-Bible.epub`](t3-klettern/L-T3-10_Mobraten-2020_Climbing-Bible.epub) | EPUB | ohne DRM; keine Seitenmarken; Kapitel-Markdown und Ansichts-PDFs in `L-T3-10_kapitel/` |
+| L-T3-15 | C | Anderson, Anderson 2014 – The Rock Climber's Training Manual (optional) | [`L-T3-15_Anderson-2014_Rock-Climbers-Training-Manual.pdf`](t3-klettern/L-T3-15_Anderson-2014_Rock-Climbers-Training-Manual.pdf) | 308 | Scan (Internet Archive) mit Texterkennung, ohne Lesezeichen; Druckseite = PDF-Seite − 2. Kapitel-PDFs in `L-T3-15_kapitel/` |
 | L-T3-16 | C | Bechtel 2020 – Logical Progression, 2. Aufl. | [`L-T3-16_Bechtel-2020_Logical-Progression_2ed.pdf`](t3-klettern/L-T3-16_Bechtel-2020_Logical-Progression_2ed.pdf) | 238 | ohne Lesezeichen; Druckseite = PDF-Seite − 14. Kapitel-PDFs in `L-T3-16_kapitel/` |
 | L-T3-18 | A | López-Rivera & González-Badillo 2019 – Comparison of the Effects of Three Hangboard Strength and Endurance Training Programs on Grip E… | [`L-T3-18_Lopez-Rivera-2019_Hangboard-Training-Programs.pdf`](t3-klettern/L-T3-18_Lopez-Rivera-2019_Hangboard-Training-Programs.pdf) | 11 |  |
 | L-T3-19 | B | Consuegra 2023 – The Science of Climbing Training | [`L-T3-19_Consuegra-2023_Science-of-Climbing-Training.epub`](t3-klettern/L-T3-19_Consuegra-2023_Science-of-Climbing-Training.epub) | EPUB (216 S. Druck) | ohne DRM; keine Seitenmarken; Kapitel-Markdown und Ansichts-PDFs in `L-T3-19_kapitel/` |
@@ -171,17 +172,16 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T4-34 | C | Nelson, Kokkonen 2021 – Stretching Anatomy, 3. Aufl. (EPUB) | [`L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.epub`](t4-beweglichkeit/L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.epub) | EPUB | ohne DRM, Seitenmarken der Druckausgabe; nicht umgewandelt (Entscheidung Athlet) |
 | L-T4-36 | C | Schleip, Wilke (Hrsg.) 2021 – Fascia in Sport and Movement, 2. Aufl. (optional) | nur Kapitel-PDFs: [`L-T4-36_kapitel/`](t4-beweglichkeit/L-T4-36_kapitel/) | 618 | Gesamt-PDF 159 MB über dem GitHub-Limit (D-31), daher nur 50 Kapitel-PDFs; Druckseite = PDF-Seite − 19 |
 
-Summe: 117 Werke in 118 Dateien (davon 16 Bücher mit Kapitel-PDFs – L-T4-36 und L-R-29 nur als Kapitel –, 5 EPUBs mit Kapitel-Markdown und Ansichts-PDFs; dazu 2 Corrigenda und L-T4-34 zusätzlich als EPUB).
+Summe: 118 Werke in 119 Dateien (davon 17 Bücher mit Kapitel-PDFs – L-T4-36 und L-R-29 nur als Kapitel –, 5 EPUBs mit Kapitel-Markdown und Ansichts-PDFs; dazu 2 Corrigenda und L-T4-34 zusätzlich als EPUB).
 
 ## Noch nicht vorhanden
 
-Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nachsteuerung, T4 und Lückenprüfung Standardwerke eingearbeitet). Vorhandene Ausgaben gelten, auf Neuauflagen wird nicht gewartet (Nachtrag D-51). Die Literatursuche ist abgeschlossen (2026-09-29); L-T4-35 Freiwald entfällt (nicht beschaffbar). Offen ist nur noch L-T3-15.
+Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nachsteuerung, T4 und Lückenprüfung Standardwerke eingearbeitet). Vorhandene Ausgaben gelten, auf Neuauflagen wird nicht gewartet (Nachtrag D-51). Die Literatursuche ist abgeschlossen (2026-09-29); L-T4-35 Freiwald entfällt (nicht beschaffbar). Kein Titel ist mehr offen.
 
 ### Kaufen oder über die Bibliothek (nicht frei verfügbar)
 
 | Prio | ID | Quelle | Wofür |
 |---|---|---|---|
-| 2 | L-T3-15 | Anderson/Anderson, The Rock Climber's Training Manual, 2014 (Buch) | T3, Stufe C, optional; Planungsvorlage Periodisierung/Hangboard (Entscheidung Athlet 2026-09-29) |
 
 ### Frei verfügbar (PubMed Central)
 
@@ -827,6 +827,32 @@ Keine offenen Titel mehr.
 | 92-1 | References (Teil 1/3) | 1098–1140 | – | [`L-R-29_92-1_References.pdf`](r-reha/L-R-29_kapitel/L-R-29_92-1_References.pdf) |
 | 92-2 | References (Teil 2/3) | 1141–1184 | – | [`L-R-29_92-2_References.pdf`](r-reha/L-R-29_kapitel/L-R-29_92-2_References.pdf) |
 | 92-3 | References (Teil 3/3) | 1185–1227 | – | [`L-R-29_92-3_References.pdf`](r-reha/L-R-29_kapitel/L-R-29_92-3_References.pdf) |
+
+### L-T3-15 Anderson/Anderson – The Rock Climber's Training Manual – `t3-klettern/L-T3-15_kapitel/`
+
+19 Dateien, 308 PDF-Seiten. Druckseite = PDF-Seite − 2; jedes Kapitel beginnt mit einer Foto-Doppelseite. Im Scan steht das Glossar vor dem Literaturverzeichnis.
+
+| Nr. | Titel | PDF-Seiten | Druckseiten | Datei |
+|---|---|---|---|---|
+| 00 | Vorspann und Foreword | 1–7 | 1–5 | [`L-T3-15_00_Vorspann-und-Foreword.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_00_Vorspann-und-Foreword.pdf) |
+| 01 | Introduction | 8–23 | 6–21 | [`L-T3-15_01_Introduction.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_01_Introduction.pdf) |
+| 02 | Goal Setting and Planning | 24–43 | 22–41 | [`L-T3-15_02_Goal-Setting-and-Planning.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_02_Goal-Setting-and-Planning.pdf) |
+| 03 | Skill Development | 44–71 | 42–69 | [`L-T3-15_03_Skill-Development.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_03_Skill-Development.pdf) |
+| 04 | Foundations of Physical Training | 72–85 | 70–83 | [`L-T3-15_04_Foundations-of-Physical-Training.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_04_Foundations-of-Physical-Training.pdf) |
+| 05 | Base Fitness | 86–105 | 84–103 | [`L-T3-15_05_Base-Fitness.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_05_Base-Fitness.pdf) |
+| 06 | Strength | 106–129 | 104–127 | [`L-T3-15_06_Strength.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_06_Strength.pdf) |
+| 07 | Power | 130–151 | 128–149 | [`L-T3-15_07_Power.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_07_Power.pdf) |
+| 08 | Power-Endurance | 152–169 | 150–167 | [`L-T3-15_08_Power-Endurance.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_08_Power-Endurance.pdf) |
+| 09 | Rest, Injury Prevention, and Rehabilitation | 170–185 | 168–183 | [`L-T3-15_09_Rest-Injury-Prevention-and-Rehabilitation.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_09_Rest-Injury-Prevention-and-Rehabilitation.pdf) |
+| 10 | Building a Training Plan and Other Training Considerations | 186–199 | 184–197 | [`L-T3-15_10_Building-a-Training-Plan-and-Other-Training-Considerations.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_10_Building-a-Training-Plan-and-Other-Training-Considerations.pdf) |
+| 11 | Weight Management | 200–219 | 198–217 | [`L-T3-15_11_Weight-Management.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_11_Weight-Management.pdf) |
+| 12 | Preparing to Perform | 220–237 | 218–235 | [`L-T3-15_12_Preparing-to-Perform.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_12_Preparing-to-Perform.pdf) |
+| 13 | Redpoint and Onsight Climbing | 238–257 | 236–255 | [`L-T3-15_13_Redpoint-and-Onsight-Climbing.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_13_Redpoint-and-Onsight-Climbing.pdf) |
+| 14 | Traditional and Big-Wall Free Climbing | 258–277 | 256–275 | [`L-T3-15_14_Traditional-and-Big-Wall-Free-Climbing.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_14_Traditional-and-Big-Wall-Free-Climbing.pdf) |
+| 15 | Bouldering | 278–289 | 276–287 | [`L-T3-15_15_Bouldering.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_15_Bouldering.pdf) |
+| 90 | Glossary | 290–294 | 288–292 | [`L-T3-15_90_Glossary.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_90_Glossary.pdf) |
+| 91 | References | 295–298 | 293–296 | [`L-T3-15_91_References.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_91_References.pdf) |
+| 92 | Index of Routines, Training Log, Model Bios, About the Authors | 299–308 | 297–306 | [`L-T3-15_92_Index-of-Routines-Training-Log-Model-Bios-About-the-Authors.pdf`](t3-klettern/L-T3-15_kapitel/L-T3-15_92_Index-of-Routines-Training-Log-Model-Bios-About-the-Authors.pdf) |
 
 ## Kapitel-Markdown mit Ansichts-PDF (EPUB, D-71)
 

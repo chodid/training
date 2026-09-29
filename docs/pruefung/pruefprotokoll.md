@@ -1377,13 +1377,15 @@ geprueft:
     wie: Pfade, YAML gegen main, Linkprüfung
     ergebnis: ok – 139 Pfade vorhanden; keine neuen YAML-Fehler; alle Dateien verlinkt, keine kaputten Links
     datum: 2026-09-29
+  - was: L-T3-15 Anderson – Ausgabe und Kapitel
+    wie: Impressum im Textlayer; Seitenzahlen der Kopf-/Fußzeilen; Kapitelanfänge laut Inhaltsverzeichnis gegen die Seiten
+    ergebnis: © 2014 Fixed Pin Publishing, 3. Druck 2015, ISBN 978-0-9895156-1-0 (= Konzept); Druckseite = PDF-Seite − 2 durchgehend (Ausreißer sind Erkennungsfehler); Kapitel beginnen mit Foto-Doppelseite; 19 Dateien, 308/308 Seiten; Datei lag im Repo-Hauptverzeichnis statt unter docs/literatur/
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
     wie: manuell durch Athlet bei der ersten Kartensitzung
   - was: Druckseiten der Scans (Uphill Athlete, Overcoming Gravity) an zwei, drei Stellen gegen das Seitenbild prüfen, bevor Seitenangaben in Karten übernommen werden
     wie: manuell in der Kartensitzung
-  - was: Restliche Beschaffung laut 13.4 (L-T3-15 Anderson); vorhandene Ausgaben gelten (Nachtrag D-51)
-    wie: Athlet (D-26), Eintrag durch Code-Instanz
   - was: Schwellenwerte Schmerzmonitoring-Modell am Volltext L-P13 (V-07), danach Entscheidung Q-13
     wie: manuell in der Kartensitzung, der Volltext liegt vor; Entscheidung in AP-07
   - was: Wiederholungsbereiche L-T3-02 am Volltext (V-15)
