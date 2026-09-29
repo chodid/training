@@ -49,6 +49,7 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T1-04 | A | Haugen et al. 2022 – World-Class Distance Runners | [`L-T1-04_Haugen-2022_World-Class-Distance-Runners.pdf`](t1-ausdauer/L-T1-04_Haugen-2022_World-Class-Distance-Runners.pdf) | 18 | CC BY 4.0 |
 | L-T1-05 | A | Vernillo et al. 2017 – Uphill and Downhill Running | [`L-T1-05_Vernillo-2017_Uphill-and-Downhill-Running.pdf`](t1-ausdauer/L-T1-05_Vernillo-2017_Uphill-and-Downhill-Running.pdf) | 15 | online 2016, Heft 2017 |
 | L-T1-06 | A | Bortolan et al. 2021 – Ski Mountaineering | [`L-T1-06_Bortolan-2021_Ski-Mountaineering-Perspectives.pdf`](t1-ausdauer/L-T1-06_Bortolan-2021_Ski-Mountaineering-Perspectives.pdf) | 7 | Open Access |
+| L-T1-07 | B | Laursen P, Buchheit M (Hrsg.) – Science and Application of High-Intensity Interval Training, 2019 | [`L-T1-07_Laursen-2019_Science-and-Application-of-HIIT.pdf`](t1-ausdauer/L-T1-07_Laursen-2019_Science-and-Application-of-HIIT.pdf) | 673 | Kapitel-PDFs in `L-T1-07_kapitel/` |
 | L-T1-08 | C | House, Johnston, Jornet 2019 – Training for the Uphill Athlete | [`L-T1-08_House-2019_Training-for-the-Uphill-Athlete.pdf`](t1-ausdauer/L-T1-08_House-2019_Training-for-the-Uphill-Athlete.pdf) | 380 | Scan (Internet Archive) mit Texterkennung, ohne Lesezeichen; Druckseite = PDF-Seite − 2, im Bereich PDF 88–152 − 4 (PDF-Seiten 88–89 wiederholen 86–87; Druckseiten 149–150 fehlen im Scan). Kapitel-PDFs in `L-T1-08_kapitel/` |
 | L-T1-09 | C | Tønnessen et al. 2024 – Training Session Models (optional) | [`L-T1-09_Toennessen-2024_Training-Session-Models.pdf`](t1-ausdauer/L-T1-09_Toennessen-2024_Training-Session-Models.pdf) | 19 | Open Access |
 | L-T1-10 | C | Sandbakk et al. 2025 – Norwegian World-Class Coaches (optional) | [`L-T1-10_Sandbakk-2025_Best-Practice-Norwegian-Coaches.pdf`](t1-ausdauer/L-T1-10_Sandbakk-2025_Best-Practice-Norwegian-Coaches.pdf) | 23 | CC BY 4.0 |
@@ -76,7 +77,7 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T3-04 | A | Draper et al. 2015 – IRCRA Position Statement (Grading Scales, Ability Grouping) | [`L-T3-04_Draper-2015_IRCRA-Grading-Position-Statement.pdf`](t3-klettern/L-T3-04_Draper-2015_IRCRA-Grading-Position-Statement.pdf) | 8 |  |
 | L-T3-06 | B | Schöffl et al. (Hrsg.) 2022 – Climbing Medicine | [`L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf`](t3-klettern/L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf) | 319 | Kapitel-PDFs in `L-T3-06_kapitel/` |
 
-Summe: 36 Werke (davon 7 Bücher mit Kapitel-PDFs).
+Summe: 37 Werke (davon 8 Bücher mit Kapitel-PDFs).
 
 ## Noch nicht vorhanden
 
@@ -92,7 +93,6 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D eingearbeitet).
 | 1 | L-R-13 | Martin et al. 2021, J Orthop Sports Phys Ther 51(4):CPG1–CPG80 (Leitlinie) | JOSPT-Leitlinie Sprunggelenk; Einzelempfehlungen, Q-16 |
 | 1 | L-R-08 | Lohrer & Nauck 2011, J Orthop Sports Phys Ther 41(3):180–190 | validierter Wortlaut VISA-P-G für die WebApp |
 | 2 | L-T2-11 | Rønnestad & Mujika 2014, Scand J Med Sci Sports 24(4):603–612 | Kraft für Läufer |
-| 2 | L-T1-07 | Laursen/Buchheit, Science and Application of HIIT, 2019 (Buch) | Intervallprogrammierung; kein VitalSource-DRM |
 | 2 | L-T3-08 | Köstermeyer, Peak Performance, 8. Aufl. 2017 (Buch) | T3 Kern; Auflage/ISBN beim Kauf klären (tmms-Shop) |
 | 2 | L-T2-10 | Wiedenmann et al. 2025, Gerontology 71(7):576–588 | Beleg Körpergewichtstraining (D-29); Zugang nicht geprüft |
 | 2 | L-R-03 | Agergaard et al. 2021, Am J Sports Med 49(4):982–993 | Lastdosierung Patellasehne |
@@ -332,6 +332,47 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D eingearbeitet).
 | 25 | Strength Training for Swimmers | 361–378 | [`L-T2-03_25_Strength-Training-for-Swimmers.pdf`](t2-kraft/L-T2-03_kapitel/L-T2-03_25_Strength-Training-for-Swimmers.pdf) |
 | 26 | General Aspects of Concurrent Aerobic and Strength Training for Performance in Team Sports | 379–388 | [`L-T2-03_26_General-Aspects-of-Concurrent-Aerobic-and-Strength-Training.pdf`](t2-kraft/L-T2-03_kapitel/L-T2-03_26_General-Aspects-of-Concurrent-Aerobic-and-Strength-Training.pdf) |
 | 27 | Concurrent Aerobic and Strength Training for Performance in Soccer | 389–408 | [`L-T2-03_27_Concurrent-Aerobic-and-Strength-Training-for-Performance-in.pdf`](t2-kraft/L-T2-03_kapitel/L-T2-03_27_Concurrent-Aerobic-and-Strength-Training-for-Performance-in.pdf) |
+
+### L-T1-07 Laursen/Buchheit – Science and Application of HIIT – `t1-ausdauer/L-T1-07_kapitel/`
+
+34 Dateien, 673 PDF-Seiten.
+
+| Nr. | Titel | PDF-Seiten | Datei |
+|---|---|---|---|
+| 00 | Vorspann | 1–7 | [`L-T1-07_00_Vorspann.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_00_Vorspann.pdf) |
+| 01 | Genesis and Evolution of High- Intensity Interval Training | 8–23 | [`L-T1-07_01_Genesis-and-Evolution-of-High-Intensity-Interval-Training.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_01_Genesis-and-Evolution-of-High-Intensity-Interval-Training.pdf) |
+| 02 | Traditional Methods of HIIT Programming | 24–39 | [`L-T1-07_02_Traditional-Methods-of-HIIT-Programming.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_02_Traditional-Methods-of-HIIT-Programming.pdf) |
+| 03 | Physiological Targets of HIIT | 40–57 | [`L-T1-07_03_Physiological-Targets-of-HIIT.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_03_Physiological-Targets-of-HIIT.pdf) |
+| 04 | Manipulating HIIT Variables | 58–79 | [`L-T1-07_04_Manipulating-HIIT-Variables.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_04_Manipulating-HIIT-Variables.pdf) |
+| 05 | Using HIIT Weapons | 80–125 | [`L-T1-07_05_Using-HIIT-Weapons.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_05_Using-HIIT-Weapons.pdf) |
+| 06 | Incorporating HIIT Into a Concurrent Training Program | 126–143 | [`L-T1-07_06_Incorporating-HIIT-Into-a-Concurrent-Training-Program.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_06_Incorporating-HIIT-Into-a-Concurrent-Training-Program.pdf) |
+| 07 | HIIT and Its Influence on Stress, Fatigue, and Athlete Health | 144–167 | [`L-T1-07_07_HIIT-and-Its-Influence-on-Stress-Fatigue-and-Athlete-Health.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_07_HIIT-and-Its-Influence-on-Stress-Fatigue-and-Athlete-Health.pdf) |
+| 08 | Quantifying Training Load | 168–185 | [`L-T1-07_08_Quantifying-Training-Load.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_08_Quantifying-Training-Load.pdf) |
+| 09 | Response to Load | 186–219 | [`L-T1-07_09_Response-to-Load.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_09_Response-to-Load.pdf) |
+| 10 | Putting It All Together | 220–231 | [`L-T1-07_10_Putting-It-All-Together.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_10_Putting-It-All-Together.pdf) |
+| 11 | Combat Sports | 232–253 | [`L-T1-07_11_Combat-Sports.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_11_Combat-Sports.pdf) |
+| 12 | Cross-Country Skiing | 254–267 | [`L-T1-07_12_Cross-Country-Skiing.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_12_Cross-Country-Skiing.pdf) |
+| 13 | Middle-Distance Running | 268–289 | [`L-T1-07_13_Middle-Distance-Running.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_13_Middle-Distance-Running.pdf) |
+| 14 | Road Running | 290–303 | [`L-T1-07_14_Road-Running.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_14_Road-Running.pdf) |
+| 15 | Road Cycling | 304–317 | [`L-T1-07_15_Road-Cycling.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_15_Road-Cycling.pdf) |
+| 16 | Rowing | 318–331 | [`L-T1-07_16_Rowing.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_16_Rowing.pdf) |
+| 17 | Swimming | 332–353 | [`L-T1-07_17_Swimming.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_17_Swimming.pdf) |
+| 18 | Tennis | 354–369 | [`L-T1-07_18_Tennis.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_18_Tennis.pdf) |
+| 19 | Triathlon | 370–385 | [`L-T1-07_19_Triathlon.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_19_Triathlon.pdf) |
+| 20 | American Football | 386–399 | [`L-T1-07_20_American-Football.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_20_American-Football.pdf) |
+| 21 | Australian Football | 400–417 | [`L-T1-07_21_Australian-Football.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_21_Australian-Football.pdf) |
+| 22 | Baseball | 418–431 | [`L-T1-07_22_Baseball.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_22_Baseball.pdf) |
+| 23 | Basketball | 432–449 | [`L-T1-07_23_Basketball.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_23_Basketball.pdf) |
+| 24 | Cricket | 450–461 | [`L-T1-07_24_Cricket.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_24_Cricket.pdf) |
+| 25 | Field Hockey | 462–483 | [`L-T1-07_25_Field-Hockey.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_25_Field-Hockey.pdf) |
+| 26 | Ice Hockey | 484–501 | [`L-T1-07_26_Ice-Hockey.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_26_Ice-Hockey.pdf) |
+| 27 | Handball | 502–517 | [`L-T1-07_27_Handball.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_27_Handball.pdf) |
+| 28 | Rugby Union | 518–531 | [`L-T1-07_28_Rugby-Union.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_28_Rugby-Union.pdf) |
+| 29 | Rugby Sevens | 532–553 | [`L-T1-07_29_Rugby-Sevens.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_29_Rugby-Sevens.pdf) |
+| 30 | Soccer | 554–571 | [`L-T1-07_30_Soccer.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_30_Soccer.pdf) |
+| 90-1 | References (Teil 1/2) | 572–612 | [`L-T1-07_90-1_References.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_90-1_References.pdf) |
+| 90-2 | References (Teil 2/2) | 613–653 | [`L-T1-07_90-2_References.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_90-2_References.pdf) |
+| 91 | Index and Contributors | 654–673 | [`L-T1-07_91_Index-and-Contributors.pdf`](t1-ausdauer/L-T1-07_kapitel/L-T1-07_91_Index-and-Contributors.pdf) |
 
 ### L-T1-08 Training for the Uphill Athlete – `t1-ausdauer/L-T1-08_kapitel/`
 

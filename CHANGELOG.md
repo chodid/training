@@ -4,6 +4,9 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 
 ## [Unreleased]
 
+### Dokumentation
+- L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
+
 ## [0.20.2] – 2026-09-28
 
 Favicon mit gerundeten Ecken (D-63, Wunsch des Athleten).

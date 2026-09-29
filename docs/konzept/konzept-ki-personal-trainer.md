@@ -1,7 +1,7 @@
 ---
 titel: Konzept KI-Personal-Trainer – Trainingsplanung, Feedback und Garmin-Anbindung
 projekt: Personal Training & Trainingsdokumentation
-dokumentstand: 2026-09-28
+dokumentstand: 2026-09-29
 status: bestaetigt
 bestaetigt_am: 2026-09-27
 repo: chodid/training (privat, keine Lizenz)
@@ -232,7 +232,7 @@ flowchart LR
 | V-10 | Auf dem Hosting verfügbar: FTPS oder SFTP für den Deploy-Workflow; PHP-CLI für „Geplante Aufgaben" (sonst HTTP-Aufruf eines geschützten Endpunkts); E-Mail-Versand aus PHP mit Anhang (SMTP über Mailkonto des Hostings bevorzugt, Größenlimit des Anhangs); PHP-OpenSSL-Erweiterung aktiv. Ergebnis (Angaben Athlet 2026-09-27): FTPS vorhanden (Port 21, explizit, gültiges Zertifikat); SMTP vorhanden; keine PHP-CLI-Aufgaben, aber zeitgesteuerter Aufruf von URLs → E-Mail-Backup über geschützten Endpunkt (D-18 b); OpenSSL aktiv (Servertest). Servertest zusätzlich: `open_basedir` leer, Datei oberhalb des Docroots lesbar, `.htaccess` wird ausgewertet (`Require all denied` → 403). Rest: Anhang-Größenlimit SMTP → Testversand in AP-10. | AP-00 | erledigt 2026-09-27 (bis auf Anhang-Limit) |
 | V-11 | Bibliografische Prüfung der T1-Quellen (Autoren, Jahr, Band/Seiten, DOI/ISBN, freie Verfügbarkeit) per PubMed-Connector bzw. Bibliothekskataloge. Ergebnis in 13.2.2 (Felder `zugang`, `verifikation`). Hinweis Lizenz: PubMed liefert keinen Lizenztyp; „frei" heißt Volltext in PMC; CC BY 4.0 nur für L-T1-04 belegt. | AP-06 | erledigt 2026-09-27 |
 | V-12 | Zonendefinition in Garmin Connect (Laufprofil, ggf. eigenes Profil Skitour) und in Intervals.icu identisch halten (%LTHR, gleiche Grenzen), damit HF-Ziele aus Intervals.icu-Workouts auf der Uhr dieselbe Zone treffen. Prüfen, ob Intervals.icu Zonen nach Garmin überträgt oder beide getrennt gepflegt werden müssen (D-27). | AP-02 (mit V-01), AP-08 | offen |
-| V-13 | Format und Kopierschutz je Titel vor Beschaffung (D-26): Human-Kinetics-Titel (L-A01, L-A03, L-T1-07, L-T2-05, L-T2-07) laufen über VitalSource mit DRM → Print oder anderer Anbieter; Springer-Titel (L-A02, L-T2-03, L-T2-06, L-T3-06/07) kapitelweise als PDF über SpringerLink bzw. Bibliothekszugang; L-T2-04 (Low) Digitalausgabe PDF/ePUB beim Autor prüfen; L-T1-01, L-T1-08, L-T3-08 PDF-Verfügbarkeit prüfen. Stand 2026-09-28: als durchsuchbares PDF vorhanden L-A01 (7. Aufl., vorläufig), L-A02 (2. Aufl. 2025), L-A03, L-T1-08 (Scan), L-T2-03, L-T2-04 (Scan, Texterkennung fehlerhaft), L-T3-06; offen L-T1-01, L-T1-07, L-T3-08 sowie die 8./9. Aufl. von L-A01. | AP-06 | teilweise |
+| V-13 | Format und Kopierschutz je Titel vor Beschaffung (D-26): Human-Kinetics-Titel (L-A01, L-A03, L-T1-07, L-T2-05, L-T2-07) laufen über VitalSource mit DRM → Print oder anderer Anbieter; Springer-Titel (L-A02, L-T2-03, L-T2-06, L-T3-06/07) kapitelweise als PDF über SpringerLink bzw. Bibliothekszugang; L-T2-04 (Low) Digitalausgabe PDF/ePUB beim Autor prüfen; L-T1-01, L-T1-08, L-T3-08 PDF-Verfügbarkeit prüfen. Stand 2026-09-28: als durchsuchbares PDF vorhanden L-A01 (7. Aufl., vorläufig), L-A02 (2. Aufl. 2025), L-A03, L-T1-07 (2026-09-29), L-T1-08 (Scan), L-T2-03, L-T2-04 (Scan, Texterkennung fehlerhaft), L-T3-06; offen L-T1-01, L-T3-08 sowie die 8./9. Aufl. von L-A01. | AP-06 | teilweise |
 | V-14 | PubMed-Verifikation Kraftliteratur: Rønnestad & Mujika 2014 (Scand J Med Sci Sports) und Blagrove et al. 2018 (Sports Med) → L-T2-11, L-T2-12. ACSM 2026 und Schumann 2022 bereits verifiziert als L-P08 und L-P07. | AP-06 | erledigt 2026-09-28 (L-T2-11, L-T2-12 verifiziert) |
 | V-15 | Bibliografische Vervollständigung T3: L-T3-03 (Band, Lizenz – erledigt 2026-09-28: Bd. 5, Art. 1130812, CC BY laut Volltext), L-T3-04 (Band, Seiten, DOI, Zugang), L-T3-05 (Titel, Journal, Band, Seiten, DOI), L-T3-07 (ISBN), L-T3-08 (aktuelle Auflage/ISBN), L-T3-09 (Jahr), L-T3-12 (Jahr, Auflage, ISBN); Kernaussagen L-T3-02 am Original statt Sekundärzitat prüfen (Original liegt seit 2026-09-28 vor). | AP-06 | weitgehend erledigt 2026-09-28: L-T3-03, -04, -05, -07, -09 verifiziert; L-T3-02 Kernaussagen am Abstract korrigiert. Rest: L-T3-02 Wiederholungsbereiche am Volltext (liegt vor), L-T3-08 ISBN/aktuelle Auflage, L-T3-12 Auflage |
 | V-16 | Redundanz der Hypertrophie-Ergänzung zu L-P08: Am Volltext von L-P08 (eingeschlossene Reviews) prüfen, ob L-T2-20, L-T2-22 und L-T2-23 dort enthalten sind. L-T2-20 erschien online 12/2025, L-P08 im Heft 58(4) 2026. Sind sie enthalten, zitiert die Karte L-P08 als Anker und die Einzelarbeiten nur für Zahlen und Dosis-Wirkung; sonst jeweils eine eigene Kernaussage. Zusätzlich das Corrigendum zu L-T2-23 sichten (Inhalt nicht geprüft). | AP-06 | offen |
@@ -716,13 +716,15 @@ Kern:
   zugang: Open Access (PMC)
 - id: L-T1-07
   status: ausgewaehlt
+  datei: t1-ausdauer/L-T1-07_Laursen-2019_Science-and-Application-of-HIIT.pdf
+  kapitel: t1-ausdauer/L-T1-07_kapitel/
   stufe: B
   typ: lehrbuch
   zitat: "Laursen P, Buchheit M (Hrsg.). Science and Application of High-Intensity Interval Training: Solutions to the Programming Puzzle. Champaign, IL: Human Kinetics; 2019."
   isbn: 978-1-4925-5212-3 (Print), 978-1-4925-8689-0 (E-Book)
   sprache: en
   zweck: Programmierung von Intervalleinheiten (Zone 3)
-  zugang: Kauf; E-Book nur über VitalSource (DRM) → Print oder anderes Format (D-26, V-13)
+  zugang: Volltext vorhanden (datei, 2026-09-29; durchsuchbares PDF mit Lesezeichen, 673 S.)
   verifikation: bibliografisch (Verlag, Bibliothekskatalog)
 - id: L-T1-08
   status: ausgewaehlt
@@ -1802,7 +1804,7 @@ Formatprüfung je Titel vor dem Kauf (V-13). Alle Blöcke sind bestätigt (D-31)
 | 1 | übergreifend | L-P13 Silbernagel 2007 (AJSM) | Artikel | PDF | Pflicht für V-07 | ✓ |
 | 1 | übergreifend | L-P10 Foster 2001 (JSCR), L-P12 Impellizzeri 2020 (IJSPP) | Artikel | PDF | nicht in PMC → Bibliothekszugang; Open-Access-Ersatz für L-P12 im Eintrag | ✓ beide |
 | 1 | T2 | L-T2-17 Shiri 2018 (AJE), L-T2-18 Steffens 2016 (JAMA IM) | Artikel | PDF | nicht in PMC → Bibliothekszugang | ✓ beide |
-| 2 | T1 | L-T1-07 Laursen/Buchheit | Buch | kein VitalSource-DRM | Teil Grundlagen Intervallprogrammierung + Kapitel Lauf/Ausdauer | offen |
+| 2 | T1 | L-T1-07 Laursen/Buchheit | Buch | kein VitalSource-DRM | Teil Grundlagen Intervallprogrammierung + Kapitel Lauf/Ausdauer | ✓ PDF mit Lesezeichen, Kapitel-PDFs |
 | 2 | T1 | L-T1-08 Uphill Athlete | Buch | PDF bevorzugt; E-Book-DRM prüfen | Praxisquelle | ✓ Scan mit Texterkennung |
 | 2 | T3 | L-T3-02 Langer 2023 (JSCR) | Artikel | PDF | kostenpflichtig | ✓ |
 | 2 | T3 | L-T3-06 Climbing Medicine 2022 (bevorzugt) oder L-T3-07 Klettermedizin 2020 (Alternative) | Buch, eine Ausgabe (D-31) | Springer-Kapitel-PDF | | ✓ L-T3-06, Gesamt-PDF |
@@ -1827,7 +1829,7 @@ Formatprüfung je Titel vor dem Kauf (V-13). Alle Blöcke sind bestätigt (D-31)
 | frei | T2 | L-T2-22 Refalo 2023, L-T2-23 Lopez 2021 (mit Corrigendum), L-T2-24 Lopes 2019 (mit Corrigendum), L-T2-25 Lundberg 2022 | – | PDF aus PMC | L-T2-24 CC BY-NC 4.0; übrige ohne Lizenzangabe → vor Ablage im Repo prüfen (D-31) | offen |
 | bei Bedarf | T2 | L-T2-27 bis L-T2-32 | Artikel | PDF | optional; L-T2-30 in PMC | – |
 
-Stand 2026-09-28: 36 Volltexte vorhanden (D-51), Verzeichnis in `docs/literatur/README.md`. Offen sind 4 Bücher (L-T1-01, L-T1-07, L-T3-08 sowie L-A01 in 8./9. Aufl.), 10 Artikel ohne freien Zugang (L-T2-10, L-T2-11, L-T2-20, L-T2-21, L-T2-26, L-R-02, L-R-03, L-R-08, L-R-13, L-R-26; dazu L-T3-05 nur bei Bedarf) und 23 frei verfügbare Artikel (L-P11, L-T2-12, L-T2-15, L-T2-16, L-T2-22 bis L-T2-25, L-T3-18 sowie 14 aus Block R). Block R „bei Bedarf“: 9 Titel; T2 Hypertrophie „bei Bedarf“: 6 Titel.
+Stand 2026-09-29: 37 Volltexte vorhanden (D-51), Verzeichnis in `docs/literatur/README.md`. Offen sind 3 Bücher (L-T1-01, L-T3-08 sowie L-A01 in 8./9. Aufl.), 10 Artikel ohne freien Zugang (L-T2-10, L-T2-11, L-T2-20, L-T2-21, L-T2-26, L-R-02, L-R-03, L-R-08, L-R-13, L-R-26; dazu L-T3-05 nur bei Bedarf) und 23 frei verfügbare Artikel (L-P11, L-T2-12, L-T2-15, L-T2-16, L-T2-22 bis L-T2-25, L-T3-18 sowie 14 aus Block R). Block R „bei Bedarf“: 9 Titel; T2 Hypertrophie „bei Bedarf“: 6 Titel.
 
 # 14. Trainerregeln (Struktur; Inhalte in AP-07)
 
@@ -2162,7 +2164,7 @@ teilschritte:
   - Literaturauswahl T3 Klettern/Bouldern: erledigt (D-31)
   - Literaturauswahl Block R Reha/Prävention: erledigt (D-61)
   - Literaturauswahl T2 Hypertrophie-Ergänzung: erledigt (D-62)
-  - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-28 – 36 Volltexte sortiert und umbenannt, Kapitel-PDFs für 7 Bücher, D-51; offen nach 13.4 sind L-T1-01, L-T1-07, L-T3-08 und L-A01 in 8./9. Aufl.)
+  - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-29 – 37 Volltexte sortiert und umbenannt, Kapitel-PDFs für 8 Bücher, D-51; offen nach 13.4 sind L-T1-01, L-T3-08 und L-A01 in 8./9. Aufl.)
   - Primärquellen verifizieren: weitgehend erledigt (V-06, V-14 erledigt; V-07, V-15 teilweise, Rest nach Beschaffung)
   - Karten-Template und Karten: offen
 probleme_loesungen:
@@ -2283,6 +2285,9 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: Die Sitzung prüfte zunächst die Konzeptkopie im Projektwissen; diese war veraltet (Stand vor D-38). Die aktuelle Fassung lag als Anhang im Chat vor
     loesung: IDs aus der aktuellen Fassung (D-61) abgeleitet; Athlet hat das Projektwissen aktualisiert; U1 prüft die IDs vor der Einarbeitung erneut
+  - datum: 2026-09-29
+    was: Zwei neue PDFs im Commit „aa“ – Laursen/Buchheit (L-T1-07) und erneut Kenney 7. Aufl.; die Kenney-Datei ist bytegleich mit L-A01 (gleicher Git-Blob)
+    loesung: L-T1-07 nach D-51 umbenannt und in 34 Kapitel-PDFs geteilt; Kenney-Dublette entfernt, L-A01 bleibt vorläufig (8./9. Aufl. weiter offen)
 ```
 Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage von `docs/pruefung/pruefprotokoll.md` als AP-06-Block zu übernehmen.
 
@@ -2724,3 +2729,4 @@ noch_zu_pruefen:
 | 2026-09-28 | AP-13 Nachtrag (Code-Stand 0.20.1): App-Icons von `/icons/` nach `/app-icons/`, weil Apache `/icons/` serverweit per Alias belegt (Befund IronFox, Auftrag 4.1 Punkt 4); AP-13 `probleme_loesungen` ergänzt. |
 | 2026-09-28 | Übergabe AP-06 Teil D (Hypertrophie-Ergänzung) eingearbeitet: 13.2.3 L-T2-20 bis L-T2-26 ausgewählt, L-T2-27 bis L-T2-32 optional, L-T2-07 um die bibliografischen Daten der 3. Aufl. ergänzt (weiter zurückgestellt), Themenfeld-Vokabular; 13.3 Ausschlüsse; 13.4 ergänzt. Neu D-62 (D-28 unverändert, Verweis ergänzt) und V-16; AP-06 Umfang, Kartenzuschnitt, Teilschritt, `probleme_loesungen`; AP-07 Vorgaben ergänzt. |
 | 2026-09-28 | Neu D-63 (Favicon V3 gerundet, ändert D-59 für das Favicon), AP-13 `probleme_loesungen` ergänzt (Code-Stand 0.20.2). |
+| 2026-09-29 | L-T1-07 Laursen/Buchheit einsortiert (Gesamt-PDF und Kapitel-PDFs, D-51): `datei`/`kapitel`/`zugang`, 13.4 „vorhanden“ und Stand (37 Volltexte), V-13, AP-06 Teilschritt und `probleme_loesungen`. Doppelt hochgeladene Kenney-Datei entfernt. |

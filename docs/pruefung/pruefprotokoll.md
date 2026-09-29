@@ -897,6 +897,9 @@ probleme_loesungen:
   - datum: 2026-09-28
     was: Die Sitzung prüfte zunächst die Konzeptkopie im Projektwissen; diese war veraltet (Stand vor D-38). Die aktuelle Fassung lag als Anhang im Chat vor
     loesung: IDs aus der aktuellen Fassung (D-61) abgeleitet; Athlet hat das Projektwissen aktualisiert; U1 prüft die IDs vor der Einarbeitung erneut
+  - datum: 2026-09-29
+    was: Zwei neue PDFs im Commit „aa“ – Laursen/Buchheit (L-T1-07) und erneut Kenney 7. Aufl.; die Kenney-Datei ist bytegleich mit L-A01 (gleicher Git-Blob)
+    loesung: L-T1-07 nach D-51 umbenannt und in 34 Kapitel-PDFs geteilt; Kenney-Dublette entfernt, L-A01 bleibt vorläufig (8./9. Aufl. weiter offen)
 geprueft:
   - was: Zuordnung der 29 PDFs zu IDs aus 13.2 – Titel, Autoren und DOI auf den ersten Seiten gegen 13.2 abgeglichen
     wie: Textextraktion (pypdf) aller Dateien, Abgleich je Datei
@@ -1010,6 +1013,14 @@ geprueft:
     wie: Code-Instanz, automatisiert
     ergebnis: ok
     datum: 2026-09-28
+  - was: L-T1-07 Kapitel-PDFs – Seitensumme 673 = Original; jede Kapiteldatei beginnt auf der Druckseite laut Inhaltsverzeichnis (Stichprobe Kapitel 13/14 gegen TOC); größte Datei 5 MB
+    wie: automatisiert (pypdf) und Abgleich Inhaltsverzeichnis
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: Kenney-PDF aus Commit „aa“ gegen L-A01
+    wie: Git-Blob-Hash
+    ergebnis: identisch → Dublette entfernt
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
     wie: manuell durch Athlet bei der ersten Kartensitzung
