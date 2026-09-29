@@ -6,12 +6,12 @@ stand: 2026-09-29
 
 # Literatur-Volltexte
 
-Ablage der Volltexte, laut D-31 nur in einem privaten Repo. Das Repo ist derzeit öffentlich (Entscheidung des Athleten 2026-09-29, offener Widerspruch zu D-31, siehe Konzept AP-06). **Nie ins Projektwissen hochladen.** Dort liegen nur die Wissenskarten aus `docs/wissen/` (D-12, 13.1).
+Ablage der Volltexte, laut D-31 nur in einem privaten Repo. Das Repo ist vorübergehend öffentlich und wird wieder privat, sobald die Recherche keinen Zugriff mehr braucht (Konzept Q-21). **Nie ins Projektwissen hochladen.** Dort liegen nur die Wissenskarten aus `docs/wissen/` (D-12, 13.1).
 Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei zeigt nur, welche Datei zu welcher ID gehört.
 
 ## Ablage und Dateinamen (D-51, D-71)
 
-- Unterordner je Block: `uebergreifend/`, `t1-ausdauer/`, `t2-kraft/`, `t3-klettern/`, `r-reha/` (Block R), künftig `t4-beweglichkeit/` (D-79). Eine Datei liegt in dem Block, in dem ihre ID definiert ist; L-P08 liegt also unter `uebergreifend/`, obwohl T2 per L-T2-01 darauf verweist.
+- Unterordner je Block: `uebergreifend/`, `t1-ausdauer/`, `t2-kraft/`, `t3-klettern/`, `r-reha/` (Block R), `t4-beweglichkeit/` (D-79). Eine Datei liegt in dem Block, in dem ihre ID definiert ist; L-P08 liegt also unter `uebergreifend/`, obwohl T2 per L-T2-01 darauf verweist.
 - Dateiname: `<ID>_<Erstautor>-<Jahr>_<Kurztitel>[_<Auflage>].pdf`, nur ASCII (ø → oe, ö → oe). Das Jahr ist das Jahr der Zitierfassung im Konzept.
 - Bücher zusätzlich als Kapitel-PDFs in `<ID>_kapitel/` (13.1 Schritt 1): `<ID>_<Kapitelnr>[-<Teil>]_<Kapiteltitel>.pdf`. `00` ist der Vorspann (Titelei, Inhaltsverzeichnis), `9x` sind Anhänge (Glossar, Literatur, Index). Kapitel mit mehr als 60 PDF-Seiten sind in etwa gleich große Teile (`-1`, `-2`, …) geteilt, möglichst an Abschnittsgrenzen. Teil-Titelseiten gehören zum folgenden Kapitel.
 - Das Originalbuch bleibt vollständig liegen, zum Durchsuchen und Zitieren über das ganze Werk. Die Kapitel-PDFs haben die Lesezeichen des Kapitels, aber keine internen Verweise (Inhaltsverzeichnis- und Index-Links); die bleiben im Original.
@@ -82,8 +82,8 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T2-20 | A | Pelland et al. 2026 – Resistance Training Dose Response (Meta-Regressionen) | [`L-T2-20_Pelland-2026_Resistance-Training-Dose-Response.pdf`](t2-kraft/L-T2-20_Pelland-2026_Resistance-Training-Dose-Response.pdf) | 25 |  |
 | L-T2-21 | A | Robinson et al. 2024 – Proximity to Failure, Dose Response | [`L-T2-21_Robinson-2024_Proximity-to-Failure-Dose-Response.pdf`](t2-kraft/L-T2-21_Robinson-2024_Proximity-to-Failure-Dose-Response.pdf) | 23 |  |
 | L-T2-22 | A | Refalo et al. 2023 – Influence of Resistance Training Proximity-to-Failure on Skeletal Muscle Hypertrophy: A Systema… | [`L-T2-22_Refalo-2023_Proximity-to-Failure-Hypertrophy.pdf`](t2-kraft/L-T2-22_Refalo-2023_Proximity-to-Failure-Hypertrophy.pdf) | 17 | CC BY 4.0 |
-| L-T2-23 | A | Lopez et al. 2021 – Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and… | [`L-T2-23_Lopez-2021_Training-Load-Hypertrophy-Strength.pdf`](t2-kraft/L-T2-23_Lopez-2021_Training-Load-Hypertrophy-Strength.pdf) | 13 | CC BY-NC-ND 4.0; Corrigendum fehlt |
-| L-T2-24 | A | Lopes et al. 2019 – Effects of training with elastic resistance versus conventional resistance on muscular strength… | [`L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf`](t2-kraft/L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf) | 7 | CC BY-NC 4.0; Corrigendum fehlt |
+| L-T2-23 | A | Lopez et al. 2021 – Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and… | [`L-T2-23_Lopez-2021_Training-Load-Hypertrophy-Strength.pdf`](t2-kraft/L-T2-23_Lopez-2021_Training-Load-Hypertrophy-Strength.pdf) | 13 | CC BY-NC-ND 4.0; Corrigendum 2022: korrigierte Effektstärken in Abb. 4, Hauptbefunde unverändert – [`L-T2-23_Lopez-2022_Corrigendum.pdf`](t2-kraft/L-T2-23_Lopez-2022_Corrigendum.pdf) |
+| L-T2-24 | A | Lopes et al. 2019 – Effects of training with elastic resistance versus conventional resistance on muscular strength… | [`L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf`](t2-kraft/L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf) | 7 | CC BY-NC 4.0; Corrigendum 2020: korrigierter Textabschnitt der Diskussion – [`L-T2-24_Lopes-2020_Corrigendum.pdf`](t2-kraft/L-T2-24_Lopes-2020_Corrigendum.pdf) |
 | L-T2-25 | A | Lundberg et al. 2022 – The Effects of Concurrent Aerobic and Strength Training on Muscle Fiber Hypertrophy: A Systemat… | [`L-T2-25_Lundberg-2022_Concurrent-Training-Fiber-Hypertrophy.pdf`](t2-kraft/L-T2-25_Lundberg-2022_Concurrent-Training-Fiber-Hypertrophy.pdf) | 13 | CC BY 4.0 |
 | L-T2-26 | A | Monserdà-Vilaró et al. 2023 – Effects of Concurrent Resistance and Endurance Training Using Continuous or Intermittent Protoc… | [`L-T2-26_Monserda-Vilaro-2023_Concurrent-Continuous-vs-Intermittent.pdf`](t2-kraft/L-T2-26_Monserda-Vilaro-2023_Concurrent-Continuous-vs-Intermittent.pdf) | 22 |  |
 | L-T2-27 | A | Schoenfeld et al. 2019 – How many times per week should a muscle be trained to maximize muscle hypertrophy? A systematic… (optional) | [`L-T2-27_Schoenfeld-2019_Training-Frequency-Hypertrophy.pdf`](t2-kraft/L-T2-27_Schoenfeld-2019_Training-Frequency-Hypertrophy.pdf) | 11 |  |
@@ -123,13 +123,18 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-R-07 | A | Visentini et al. 1998 – The VISA score: an index of severity of symptoms in patients with jumper's knee (patellar tendi… | [`L-R-07_Visentini-1998_VISA-Score.pdf`](r-reha/L-R-07_Visentini-1998_VISA-Score.pdf) | 7 |  |
 | L-R-08 | A | Lohrer & Nauck 2011 – VISA-P deutsch (VISA-P-G) | [`L-R-08_Lohrer-2011_VISA-P-German.pdf`](r-reha/L-R-08_Lohrer-2011_VISA-P-German.pdf) | 12 | letzte Seite: Erratum 2013 – Punktwerte Items 8b/8c im Artikel falsch |
 | L-R-09 | A | Hernandez-Sanchez et al. 2014 – Responsiveness of the VISA-P scale for patellar tendinopathy in athletes | [`L-R-09_Hernandez-Sanchez-2014_VISA-P-Responsiveness.pdf`](r-reha/L-R-09_Hernandez-Sanchez-2014_VISA-P-Responsiveness.pdf) | 7 |  |
+| L-R-10 | A | Clifford et al. 2020 – Isometric Exercise, Patellar Tendinopathy (optional) | [`L-R-10_Clifford-2020_Isometric-Exercise-Patellar-Tendinopathy.pdf`](r-reha/L-R-10_Clifford-2020_Isometric-Exercise-Patellar-Tendinopathy.pdf) | 19 | CC BY 4.0 |
+| L-R-11 | A | Sprague et al. 2018 – Risk Factors for Patellar Tendinopathy (optional) | [`L-R-11_Sprague-2018_Patellar-Tendinopathy-Risk-Factors.pdf`](r-reha/L-R-11_Sprague-2018_Patellar-Tendinopathy-Risk-Factors.pdf) | 12 |  |
 | L-R-12 | A | Backman & Danielson 2011 – Low range of ankle dorsiflexion predisposes for patellar tendinopathy in junior elite basketbal… (optional) | [`L-R-12_Backman-2011_Ankle-Dorsiflexion-Patellar-Tendinopathy.pdf`](r-reha/L-R-12_Backman-2011_Ankle-Dorsiflexion-Patellar-Tendinopathy.pdf) | 9 |  |
 | L-R-13 | A | Martin et al. 2021 – Lateral Ankle Ligament Sprains (JOSPT-Leitlinie) | [`L-R-13_Martin-2021_Lateral-Ankle-Sprain-Guideline.pdf`](r-reha/L-R-13_Martin-2021_Lateral-Ankle-Sprain-Guideline.pdf) | 80 |  |
+| L-R-14 | A | Hupperets et al. 2009 – Home Programme, Ankle Sprain Recurrence (RCT) | [`L-R-14_Hupperets-2009_Home-Programme-Ankle-Sprain-Recurrence.pdf`](r-reha/L-R-14_Hupperets-2009_Home-Programme-Ankle-Sprain-Recurrence.pdf) | 6 |  |
 | L-R-15 | A | Schiftan et al. 2015 – The effectiveness of proprioceptive training in preventing ankle sprains in sporting population… | [`L-R-15_Schiftan-2015_Proprioceptive-Training-Ankle-Sprain.pdf`](r-reha/L-R-15_Schiftan-2015_Proprioceptive-Training-Ankle-Sprain.pdf) | 7 |  |
 | L-R-16 | A | Tang et al. 2024 – Meta-analysis of the dosage of balance training on ankle function and dynamic balance ability i… | [`L-R-16_Tang-2024_Balance-Training-Dosage-Ankle.pdf`](r-reha/L-R-16_Tang-2024_Balance-Training-Dosage-Ankle.pdf) | 20 | CC BY-NC-ND 4.0 |
+| L-R-17 | A | Donovan et al. 2016 – Destabilization Devices, Ankle Instability | [`L-R-17_Donovan-2016_Destabilization-Devices-Ankle.pdf`](r-reha/L-R-17_Donovan-2016_Destabilization-Devices-Ankle.pdf) | 19 |  |
 | L-R-18 | A | Nielsen et al. 2014 – Excessive progression in weekly running distance and risk of running-related injuries: an assoc… (optional) | [`L-R-18_Nielsen-2014_Running-Distance-Progression-Injuries.pdf`](r-reha/L-R-18_Nielsen-2014_Running-Distance-Progression-Injuries.pdf) | 25 | Autorenmanuskript (Seitenzahlen nicht zitierfähig) |
 | L-R-19 | A | Kiers et al. 2012 – Ankle proprioception is not targeted by exercises on an unstable surface (optional) | [`L-R-19_Kiers-2012_Unstable-Surface-Ankle-Proprioception.pdf`](r-reha/L-R-19_Kiers-2012_Unstable-Surface-Ankle-Proprioception.pdf) | 9 |  |
 | L-R-20 | A | Fakontis et al. 2023 – Efficacy of resistance training with elastic bands compared to proprioceptive training on balan… (optional) | [`L-R-20_Fakontis-2023_Elastic-Bands-vs-Proprioceptive-Training.pdf`](r-reha/L-R-20_Fakontis-2023_Elastic-Bands-vs-Proprioceptive-Training.pdf) | 11 |  |
+| L-R-21 | A | Giboin et al. 2018 – Slackline Training (optional) | [`L-R-21_Giboin-2018_Slackline-Training.pdf`](r-reha/L-R-21_Giboin-2018_Slackline-Training.pdf) | 9 |  |
 | L-R-22 | A | Delahunt et al. 2018 – Clinical assessment of acute lateral ankle sprain injuries (ROAST): 2019 consensus statement an… (optional) | [`L-R-22_Delahunt-2018_ROAST-Consensus.pdf`](r-reha/L-R-22_Delahunt-2018_ROAST-Consensus.pdf) | 7 |  |
 | L-R-23 | A | Lopes et al. 2025 – Exercise for patellar tendinopathy | [`L-R-23_Lopes-2025_Exercise-for-Patellar-Tendinopathy-Cochrane.pdf`](r-reha/L-R-23_Lopes-2025_Exercise-for-Patellar-Tendinopathy-Cochrane.pdf) | 65 |  |
 | L-R-24 | A | Schuster Brandt Frandsen et al. 2025 – How much running is too much? Identifying high-risk running sessions in a 5200-person cohort st… | [`L-R-24_SchusterBrandtFrandsen-2025_High-Risk-Running-Sessions.pdf`](r-reha/L-R-24_SchusterBrandtFrandsen-2025_High-Risk-Running-Sessions.pdf) | 8 | CC BY-NC 4.0 |
@@ -138,11 +143,31 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-R-27 | A | Deng et al. 2025 – Long-term Prognosis of Athletes With Patellar Tendinopathy Receiving Physical Therapy: Patient-… (optional) | [`L-R-27_Deng-2025_Patellar-Tendinopathy-Long-Term-Prognosis.pdf`](r-reha/L-R-27_Deng-2025_Patellar-Tendinopathy-Long-Term-Prognosis.pdf) | 9 |  |
 | L-R-28 | A | Hjortshoej et al. 2025 – Effect of Low-Load Blood-Flow Restricted Training Versus Heavy Slow Resistance Training in Unil… (optional) | [`L-R-28_Hjortshoej-2025_BFR-vs-HSR-Patellar-Tendinopathy.pdf`](r-reha/L-R-28_Hjortshoej-2025_BFR-vs-HSR-Patellar-Tendinopathy.pdf) | 12 |  |
 
-Summe: 90 Werke (davon 9 Bücher mit Kapitel-PDFs, 4 EPUBs mit Kapitel-Markdown und Ansichts-PDFs).
+### T4 Beweglichkeit/Mobilität (13.2.6)
+
+| ID | Stufe | Quelle | Datei | Seiten | Hinweis |
+|---|---|---|---|---|---|
+| L-T4-01 | A | Warneke et al. 2025 – Delphi Consensus on Stretching | [`L-T4-01_Warneke-2025_Delphi-Consensus-Stretching.pdf`](t4-beweglichkeit/L-T4-01_Warneke-2025_Delphi-Consensus-Stretching.pdf) | 14 | CC BY-NC-ND 4.0 |
+| L-T4-02 | A | Konrad et al. 2024 – Chronic Stretching and ROM (Meta-Analyse) | [`L-T4-02_Konrad-2024_Chronic-Stretching-ROM-Meta-Analysis.pdf`](t4-beweglichkeit/L-T4-02_Konrad-2024_Chronic-Stretching-ROM-Meta-Analysis.pdf) | 9 | CC BY-NC-ND 4.0 |
+| L-T4-03 | A | Oba et al. 2026 – Moderators of Chronic Static Stretching | [`L-T4-03_Oba-2026_Moderators-Chronic-Static-Stretching.pdf`](t4-beweglichkeit/L-T4-03_Oba-2026_Moderators-Chronic-Static-Stretching.pdf) | 24 | CC BY 4.0 |
+| L-T4-04 | A | Arntz et al. 2023 – Static Stretching, Strength and Power | [`L-T4-04_Arntz-2023_Static-Stretching-Strength-and-Power.pdf`](t4-beweglichkeit/L-T4-04_Arntz-2023_Static-Stretching-Strength-and-Power.pdf) | 23 |  |
+| L-T4-05 | A | Thomas et al. 2018 – Stretching Typology and Duration | [`L-T4-05_Thomas-2018_Stretching-Typology-and-Duration.pdf`](t4-beweglichkeit/L-T4-05_Thomas-2018_Stretching-Typology-and-Duration.pdf) | 12 |  |
+| L-T4-06 | A | Behm et al. 2016 – Acute Effects of Muscle Stretching | [`L-T4-06_Behm-2016_Acute-Effects-of-Stretching.pdf`](t4-beweglichkeit/L-T4-06_Behm-2016_Acute-Effects-of-Stretching.pdf) | 11 |  |
+| L-T4-08 | A | Warneke et al. 2024 – Foam Rolling and Stretching in the Warm-up | [`L-T4-08_Warneke-2024_Foam-Rolling-Stretching-Warm-up.pdf`](t4-beweglichkeit/L-T4-08_Warneke-2024_Foam-Rolling-Stretching-Warm-up.pdf) | 12 | CC BY-NC-ND 4.0 |
+| L-T4-10 | A | Alizadeh et al. 2023 – Resistance Training and ROM | [`L-T4-10_Alizadeh-2023_Resistance-Training-ROM.pdf`](t4-beweglichkeit/L-T4-10_Alizadeh-2023_Resistance-Training-ROM.pdf) | 16 |  |
+| L-T4-12 | A | Konrad et al. 2024 – Static Stretching vs. Foam Rolling | [`L-T4-12_Konrad-2024_Stretching-vs-Foam-Rolling-ROM.pdf`](t4-beweglichkeit/L-T4-12_Konrad-2024_Stretching-vs-Foam-Rolling-ROM.pdf) | 16 |  |
+| L-T4-14 | A | Lauersen et al. 2014 – Exercise Interventions to Prevent Sports Injuries | [`L-T4-14_Lauersen-2014_Exercise-Interventions-Injury-Prevention.pdf`](t4-beweglichkeit/L-T4-14_Lauersen-2014_Exercise-Interventions-Injury-Prevention.pdf) | 10 |  |
+| L-T4-16 | A | Herbert et al. 2011 – Stretching and Muscle Soreness (Cochrane) | [`L-T4-16_Herbert-2011_Stretching-Muscle-Soreness-Cochrane.pdf`](t4-beweglichkeit/L-T4-16_Herbert-2011_Stretching-Muscle-Soreness-Cochrane.pdf) | 50 |  |
+| L-T4-19 | A | Winters et al. 2004 – Passive vs. Active Hip Flexor Stretching (RCT) | [`L-T4-19_Winters-2004_Passive-vs-Active-Hip-Flexor-Stretching.pdf`](t4-beweglichkeit/L-T4-19_Winters-2004_Passive-vs-Active-Hip-Flexor-Stretching.pdf) | 8 | DOI nicht ermittelt (V-22) |
+| L-T4-32 | B | Behm 2025 – The Science and Physiology of Flexibility and Stretching, 2. Aufl. | [`L-T4-32_Behm-2025_Science-and-Physiology-of-Flexibility-and-Stretching_2ed.pdf`](t4-beweglichkeit/L-T4-32_Behm-2025_Science-and-Physiology-of-Flexibility-and-Stretching_2ed.pdf) | 281 | E-Book-PDF; Druckseite = PDF-Seite − 15. Kapitel-PDFs in `L-T4-32_kapitel/` |
+| L-T4-34 | C | Nelson, Kokkonen 2021 – Stretching Anatomy, 3. Aufl. | [`L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.pdf`](t4-beweglichkeit/L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.pdf) | 265 | Übungskatalog; Druckseite = PDF-Seite − 11. Kapitel-PDFs in `L-T4-34_kapitel/`; zusätzlich als EPUB |
+| L-T4-34 | C | Nelson, Kokkonen 2021 – Stretching Anatomy, 3. Aufl. (EPUB) | [`L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.epub`](t4-beweglichkeit/L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.epub) | EPUB | ohne DRM, Seitenmarken der Druckausgabe; nicht umgewandelt (Entscheidung Athlet) |
+
+Summe: 109 Werke in 112 Dateien (davon 11 Bücher mit Kapitel-PDFs, 4 EPUBs mit Kapitel-Markdown und Ansichts-PDFs; dazu 2 Corrigenda und L-T4-34 zusätzlich als EPUB).
 
 ## Noch nicht vorhanden
 
-Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nachsteuerung und T4 Teil A eingearbeitet).
+Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nachsteuerung und T4 eingearbeitet).
 
 ### Kaufen oder über die Bibliothek (nicht frei verfügbar)
 
@@ -150,36 +175,18 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nach
 |---|---|---|---|
 | 1 | L-A01 | Kenney/Wilmore/Costill, 8. (2022) oder 9. Aufl. (2024) (Buch) | ersetzt die vorläufige 7. Aufl. (D-51) |
 | 2 | L-T3-16 | Bechtel, Logical Progression, 2. Aufl. (Buch) | Stufe C, Planungsvorlage; Kindle ungeeignet |
-| 2 | L-T4-05 | Thomas et al. 2018, Int J Sports Med 39(4):243–254 | T4 Dosis (Wochendehnzeit, V-19) |
-| 2 | L-T4-06 | Behm et al. 2016, Appl Physiol Nutr Metab 41(1):1–11 | T4 Dehnen im Aufwärmen |
-| 2 | L-T4-14 | Lauersen et al. 2014, Br J Sports Med 48(11):871–877 | T4 Grenzen – Dehnen ohne Präventionseffekt |
-| 2 | L-T4-16 | Herbert et al. 2011, Cochrane Database Syst Rev CD004577 | T4 Regeneration/Muskelkater (Abstract frei) |
+| 2 | L-T4-13 | Skopal et al. 2024, J Sports Sci 42(1):46–60 | T4 Mobility/Yoga ohne Leistungsnachteil (optional, in 13.4 Prio 2) |
 | 2 | L-T4-17 | Behm et al. 2026, Eur J Appl Physiol 126(6):2977–2987 | T4 Wohlbefinden |
-| 2 | L-T4-19 | Winters et al. 2004, Phys Ther 84(9):800–807 | T4 Hüftbeuger (DOI offen, V-22) |
-| 2 | L-T4-22 | Witvrouw et al. 2001, Am J Sports Med 29(2):190–195 | T4 Knie/Patellasehne |
+| 2 | L-T4-22 | Witvrouw et al. 2001, Am J Sports Med 29(2):190–195 | T4 Knie/Patellasehne – nicht verwechseln mit Witvrouw 2000, AJSM 28(4) (vorderer Knieschmerz) |
 | 3 | L-T3-09 | Hörst, Training for Climbing, Neuauflage (Buch) | nach Erscheinen (angekündigt 02.03.2027), zusätzlich zur vorhandenen 3. Aufl. |
 
 ### Frei verfügbar (PubMed Central)
 
-| ID | Quelle | PMC | Hinweis |
-|---|---|---|---|
-| L-R-10 | Clifford et al. 2020, BMJ Open Sport Exerc Med | PMC7406028 | Block R, optional |
-| L-R-11 | Sprague et al. 2018, Br J Sports Med | PMC6269217 | Block R, optional |
-| L-R-14 | Hupperets et al. 2009, BMJ | PMC2714677 | Block R |
-| L-R-17 | Donovan et al. 2016, J Athl Train | PMC4852529 | Block R |
-| L-R-21 | Giboin et al. 2018, PLoS One | PMC6261037 | Block R, optional |
-| L-T4-01 | Warneke et al. 2025, J Sport Health Sci (Delphi-Konsens Dehnen) | PMC12305623 | T4 Anker (D-79) |
-| L-T4-02 | Konrad et al. 2024, J Sport Health Sci | PMC10980866 | T4 |
-| L-T4-03 | Oba et al. 2026, Sports Med Open | PMC13356130 | T4; Artikelnummer offen (V-23) |
-| L-T4-04 | Arntz et al. 2023, Sports Med | PMC9935669 | T4 |
-| L-T4-08 | Warneke et al. 2024, J Sport Health Sci | PMC11184403 | T4 |
-| L-T4-10 | Alizadeh et al. 2023, Sports Med | PMC9935664 | T4 |
-| L-T4-12 | Konrad et al. 2024, Sports Med | PMC11393112 | T4 |
+Keine offenen Titel mehr.
 
 ### Nur bei Bedarf
 
-- Corrigenda zu L-T2-23 (Med Sci Sports Exerc. 2022;54(2):370) und L-T2-24 (SAGE Open Med, 2020) – in den vorhandenen PDFs nicht enthalten
-- T4 Beweglichkeit (optional, D-79): L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -31 (in PMC: -07, -09, -11, -15, -18, -21, -27 bis -30); Buch L-T4-32 Behm, The Science and Physiology of Flexibility and Stretching, 2. Aufl. (Format vor Kauf prüfen, V-21)
+- T4 Beweglichkeit (optional, D-79): L-T4-07, -09, -11, -15, -18, -20, -21, -23, -25 bis -31 (in PMC: -07, -09, -11, -15, -18, -21, -27 bis -30)
 - optionale Bücher aus 13.4 („bei Bedarf“): L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-11
 
 
@@ -502,6 +509,52 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nach
 | 26-2 | Pushing Variations (Teil 2/2) | 504–536 | 490–522 | [`L-T2-04_26-2_Pushing-Variations.pdf`](t2-kraft/L-T2-04_kapitel/L-T2-04_26-2_Pushing-Variations.pdf) |
 | 27 | Multi-Plane Exercises, Core, and Legs | 537–594 | 523–580 | [`L-T2-04_27_Multi-Plane-Exercises-Core-and-Legs.pdf`](t2-kraft/L-T2-04_kapitel/L-T2-04_27_Multi-Plane-Exercises-Core-and-Legs.pdf) |
 | 90 | Resources | 595–600 | 581–586 | [`L-T2-04_90_Resources.pdf`](t2-kraft/L-T2-04_kapitel/L-T2-04_90_Resources.pdf) |
+
+### L-T4-32 Behm – The Science and Physiology of Flexibility and Stretching (2. Aufl.) – `t4-beweglichkeit/L-T4-32_kapitel/`
+
+19 Dateien, 281 PDF-Seiten. Druckseite = PDF-Seite − 15 (Vorspann ohne Druckseiten).
+
+| Nr. | Titel | PDF-Seiten | Druckseiten | Datei |
+|---|---|---|---|---|
+| 00 | Vorspann | 1–15 | – | [`L-T4-32_00_Vorspann.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_00_Vorspann.pdf) |
+| 01 | My Personal Motivation for Stretching | 16–23 | 1–8 | [`L-T4-32_01_My-Personal-Motivation-for-Stretching.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_01_My-Personal-Motivation-for-Stretching.pdf) |
+| 02 | History of Stretching | 24–32 | 9–17 | [`L-T4-32_02_History-of-Stretching.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_02_History-of-Stretching.pdf) |
+| 03 | Types of Stretching and the Effects on Flexibility | 33–67 | 18–52 | [`L-T4-32_03_Types-of-Stretching-and-the-Effects-on-Flexibility.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_03_Types-of-Stretching-and-the-Effects-on-Flexibility.pdf) |
+| 04 | Mechanisms Underlying Acute Changes in Range of Motion | 68–97 | 53–82 | [`L-T4-32_04_Mechanisms-Underlying-Acute-Changes-in-Range-of-Motion.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_04_Mechanisms-Underlying-Acute-Changes-in-Range-of-Motion.pdf) |
+| 05 | Stretch Training-Related ROM Changes and Mechanisms | 98–103 | 83–88 | [`L-T4-32_05_Stretch-Training-Related-ROM-Changes-and-Mechanisms.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_05_Stretch-Training-Related-ROM-Changes-and-Mechanisms.pdf) |
+| 06 | Global Effects of Stretching | 104–113 | 89–98 | [`L-T4-32_06_Global-Effects-of-Stretching.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_06_Global-Effects-of-Stretching.pdf) |
+| 07 | Recommendations for Stretching Prescription | 114–127 | 99–112 | [`L-T4-32_07_Recommendations-for-Stretching-Prescription.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_07_Recommendations-for-Stretching-Prescription.pdf) |
+| 08 | Stretching Effects on Injury Reduction and Health | 128–143 | 113–128 | [`L-T4-32_08_Stretching-Effects-on-Injury-Reduction-and-Health.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_08_Stretching-Effects-on-Injury-Reduction-and-Health.pdf) |
+| 09 | Does Stretching Affect Performance | 144–175 | 129–160 | [`L-T4-32_09_Does-Stretching-Affect-Performance.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_09_Does-Stretching-Affect-Performance.pdf) |
+| 10 | Effect of Stretch Training on Functional Performance | 176–181 | 161–166 | [`L-T4-32_10_Effect-of-Stretch-Training-on-Functional-Performance.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_10_Effect-of-Stretch-Training-on-Functional-Performance.pdf) |
+| 11 | Effects of Stretch Training on Muscle Strength and Hypertrophy | 182–189 | 167–174 | [`L-T4-32_11_Effects-of-Stretch-Training-on-Muscle-Strength-and-Hypertrophy.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_11_Effects-of-Stretch-Training-on-Muscle-Strength-and-Hypertrophy.pdf) |
+| 12 | Effects of Resistance Training on Range of Motion | 190–205 | 175–190 | [`L-T4-32_12_Effects-of-Resistance-Training-on-Range-of-Motion.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_12_Effects-of-Resistance-Training-on-Range-of-Motion.pdf) |
+| 13 | Foam Rolling Effects on Range of Motion and Performance | 206–226 | 191–211 | [`L-T4-32_13_Foam-Rolling-Effects-on-Range-of-Motion-and-Performance.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_13_Foam-Rolling-Effects-on-Range-of-Motion-and-Performance.pdf) |
+| 14 | Local Vibration Effects on Range of Motion and Performance | 227–231 | 212–216 | [`L-T4-32_14_Local-Vibration-Effects-on-Range-of-Motion-and-Performance.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_14_Local-Vibration-Effects-on-Range-of-Motion-and-Performance.pdf) |
+| 15 | Instrument-Assisted Soft Tissue Mobilization | 232–240 | 217–225 | [`L-T4-32_15_Instrument-Assisted-Soft-Tissue-Mobilization.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_15_Instrument-Assisted-Soft-Tissue-Mobilization.pdf) |
+| 16 | Flossing Effects on Range of Motion and Performance | 241–246 | 226–231 | [`L-T4-32_16_Flossing-Effects-on-Range-of-Motion-and-Performance.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_16_Flossing-Effects-on-Range-of-Motion-and-Performance.pdf) |
+| 17 | Stretching Exercise Illustration | 247–270 | 232–255 | [`L-T4-32_17_Stretching-Exercise-Illustration.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_17_Stretching-Exercise-Illustration.pdf) |
+| 90 | Index | 271–281 | 256–266 | [`L-T4-32_90_Index.pdf`](t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_90_Index.pdf) |
+
+### L-T4-34 Nelson/Kokkonen – Stretching Anatomy (3. Aufl.) – `t4-beweglichkeit/L-T4-34_kapitel/`
+
+13 Dateien, 265 PDF-Seiten. Druckseite = PDF-Seite − 11 (Vorspann ohne Druckseiten).
+
+| Nr. | Titel | PDF-Seiten | Druckseiten | Datei |
+|---|---|---|---|---|
+| 00 | Vorspann und Preface | 1–11 | – | [`L-T4-34_00_Vorspann-und-Preface.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_00_Vorspann-und-Preface.pdf) |
+| 01 | Stretching Fundamentals | 12–19 | 1–8 | [`L-T4-34_01_Stretching-Fundamentals.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_01_Stretching-Fundamentals.pdf) |
+| 02 | Feet and Calves | 20–47 | 9–36 | [`L-T4-34_02_Feet-and-Calves.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_02_Feet-and-Calves.pdf) |
+| 03 | Knees and Thighs | 48–69 | 37–58 | [`L-T4-34_03_Knees-and-Thighs.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_03_Knees-and-Thighs.pdf) |
+| 04 | Hips | 70–91 | 59–80 | [`L-T4-34_04_Hips.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_04_Hips.pdf) |
+| 05 | Lower Trunk | 92–117 | 81–106 | [`L-T4-34_05_Lower-Trunk.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_05_Lower-Trunk.pdf) |
+| 06 | Arms, Wrists, and Hands | 118–151 | 107–140 | [`L-T4-34_06_Arms-Wrists-and-Hands.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_06_Arms-Wrists-and-Hands.pdf) |
+| 07 | Shoulders, Back, and Chest | 152–183 | 141–172 | [`L-T4-34_07_Shoulders-Back-and-Chest.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_07_Shoulders-Back-and-Chest.pdf) |
+| 08 | Neck | 184–195 | 173–184 | [`L-T4-34_08_Neck.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_08_Neck.pdf) |
+| 09 | Dynamic Stretches | 196–219 | 185–208 | [`L-T4-34_09_Dynamic-Stretches.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_09_Dynamic-Stretches.pdf) |
+| 10 | Programs for Daily Mobility and Flexibility | 220–229 | 209–218 | [`L-T4-34_10_Programs-for-Daily-Mobility-and-Flexibility.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_10_Programs-for-Daily-Mobility-and-Flexibility.pdf) |
+| 11 | Sport-Specific Stretching Programs | 230–257 | 219–246 | [`L-T4-34_11_Sport-Specific-Stretching-Programs.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_11_Sport-Specific-Stretching-Programs.pdf) |
+| 90 | Stretch Finder and About the Authors | 258–265 | 247–254 | [`L-T4-34_90_Stretch-Finder-and-About-the-Authors.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_90_Stretch-Finder-and-About-the-Authors.pdf) |
 
 ## Kapitel-Markdown mit Ansichts-PDF (EPUB, D-71)
 
