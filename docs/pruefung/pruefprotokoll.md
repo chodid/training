@@ -733,6 +733,47 @@ noch_zu_pruefen:
     wie: Gerätetest durch Athlet (nach Deployment 0.20.0)
 ```
 
+## AP-16 Übungskatalog
+
+```yaml
+ap: AP-16
+auftrag: docs/konzept/uebungskatalog.md (T1–T6)
+geprueft:
+  - was: "T1 Normalisierung (E-09): Groß/Klein, Umlaute ae/oe/ue/ss, Bindestrich = Leerzeichen, Satzzeichen, Akzente, Trimmen; Slug (E-08) gültig/ungültig"
+    wie: automatisiert (Unit ExerciseCatalogTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 Embed-Ableitung (4.3, E-04): YouTube watch (mit/ohne www, mobil, mit Zeitmarke), youtu.be (mit Query), shorts, Vimeo (mit/ohne www) → Embed-URL; http, ungültige ID, Playlist, Vimeo-Kanal, fremder und ähnlich klingender Host → null"
+    wie: automatisiert (Unit ExerciseCatalogTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 content_json (4.3): Serverfelder werden überschrieben (embed, geprueft_am, status), Textlinks ohne embed; abgelehnt: 3 Video-/3 Textlinks, 5 Links, http, URL ohne Host, unbekannte Art, Längen (kurz, Schritt), Schrittzahl 1/13, vorsicht 7, ohne Quelle, unbekanntes Feld"
+    wie: automatisiert (Unit ExerciseCatalogTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 plan_json: exercise_id optional (null/fehlend gültig), Slugformat; Kletterblöcke hangboard/campus/zugkraft/antagonisten mit ID gültig (V-06), bouldern_volumen/bouldern_limit/ausdauer_route/technik mit ID Schemafehler /blocks/0/exercise_id (V-07), ohne ID gültig; Beispielwoche unverändert gültig"
+    wie: automatisiert (Unit ExerciseCatalogTest, PlanValidatorTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 ExerciseLink V-01 bis V-08 (ok, ohne_katalog, unbekannt mit Session und Position, name_abweichend, Alias ok, Hangboard ok, kind_ohne_katalog, archiviert); Kletterblock mit Katalogart ohne ID → Warnung, Bouldern ohne ID → nichts; Ausdauer/Ruhe ohne Prüfung; Verlinkung nur bekannter IDs"
+    wie: automatisiert (Integration ExerciseCatalogTest gegen MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 Repository: Aliase ohne eigenen Namen/Leeres, Duplikatsuche Name/Alias (eigene Übung ausgenommen), Fassung mit Schnappschuss (Name, Aliase, Inhalt) und version 2, Varianten, Suche (exakt vor Teilstring, ähnlich über Muster, Filter, Limit, archivierte), Liste, geplante Verwendung (nur Status geplant, exakter Slug)"
+    wie: automatisiert (Integration ExerciseCatalogTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 Migration 0023 vor/zurück: Schreibsperre-Tests mit Rückweg der letzten Migration (drei Tabellen), Migration auf gefülltem Bestand 20–23; gesamte Suite 242 Tests grün"
+    wie: automatisiert (BackupTest, McpToolsTest, ProfileTest, MorningCheckinTest) gegen MariaDB 10.11
+    ergebnis: ok
+    datum: 2026-09-29
+noch_zu_pruefen:
+  - was: T1 Migration 0023 und Schemata gegen MySQL 8.4
+    wie: CI (GitHub Actions) mit dem Pull Request
+  - was: T2 bis T6
+    wie: siehe Auftrag Abschnitt 9 und 11
+```
+
 ## AP-05 MCP-Tools produktiv
 
 ```yaml

@@ -19,7 +19,7 @@ final class JsonExporter
     public const FORMAT = 'training-export';
     public const FORMAT_VERSION = 1;
     private const EXCLUDED = ['web_session', 'oauth_token', 'oauth_auth_code', 'ext_cache', 'webauthn_credential'];
-    private const JSON_COLUMNS = ['plan_json', 'actual_json', 'goal_events_json', 'redirect_uris_json', 'warnzeichen'];
+    private const JSON_COLUMNS = ['plan_json', 'actual_json', 'goal_events_json', 'redirect_uris_json', 'warnzeichen', 'equipment_json', 'content_json', 'snapshot_json'];
     private const HIDDEN_COLUMNS = ['user' => ['password_hash', 'failed_logins', 'locked_until']];
 
     public function __construct(private readonly PDO $pdo, private readonly Clock $clock, private readonly string $migrationsDir)

@@ -26,6 +26,16 @@
             "minLength": 1,
             "maxLength": 120
           },
+          "exercise_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 3,
+            "maxLength": 60,
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Slug einer Übung im Katalog (AP-16, E-08); null/fehlend = Freitext"
+          },
           "sets": {
             "type": "integer",
             "minimum": 1,

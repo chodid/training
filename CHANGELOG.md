@@ -7,6 +7,20 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ### Dokumentation
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 
+## [0.21.0] – 2026-09-29
+
+AP-16 T1: Datenmodell, Schemata und Validator für den Übungskatalog (Auftrag `docs/konzept/uebungskatalog.md`, D-64 bis D-69).
+
+### Hinzugefügt
+- Migration 0023 (Schema 23): Tabellen `exercise` (Slug, Name, normalisierter Name, Kategorie, Bewegungsmuster, Ausrüstung, Variante von, Schwierigkeit, Status, Konfidenz, Inhalt `content_json`, Fassungsnummer), `exercise_alias` und `exercise_version` (Schnappschuss je Änderung mit Grund).
+- Schema `server/schemas/exercise.json` für den Inhalt einer Übung: Kurzbeschreibung, Ziel, Muskeln, Voraussetzung, Ausführung (2–12 Schritte), Worauf achten, Fehlerquellen, Vorsicht, Progression/Regression, Dosierungshinweis, höchstens 2 Text- und 2 Videolinks (nur https), Quellen (mindestens eine), Notizen.
+- `plan_json`: optionales `exercise_id` (Slug) je Übung in Kraft/Haltung/Mobilität und je Kletterblock; bei Bouldern, Ausdauerrouten und Technik ist es nicht erlaubt (E-05). Bestehende Pläne bleiben gültig.
+- Normalisierung für Namen und Aliase (Kleinschreibung, Umlaute, Bindestriche, Akzente), Embed-Adressen für YouTube (youtube-nocookie.com) und Vimeo, Prüfung der Verweise aus `plan_json` (`ExerciseLink`: Fehler bei unbekannter oder archivierter Übung, Warnungen ohne Katalog oder bei abweichendem Namen). Die MCP-Tools und die Webseite folgen in T2 bis T4.
+- JSON-Export gibt `equipment_json`, `content_json` und `snapshot_json` als Objekte aus.
+
+### Dokumentation
+- Auftrag `docs/konzept/uebungskatalog.md` im Repo, vom Athleten bestätigt; ergänzt um E-17 bis E-20 (Referrer am Video-iframe, oEmbed-Prüfung für Videos, Schutzregeln der Linkprüfung, `name_norm`). Hauptkonzept: AP-16, D-64 bis D-69.
+
 ## [0.20.2] – 2026-09-28
 
 Favicon mit gerundeten Ecken (D-63, Wunsch des Athleten).
