@@ -150,7 +150,7 @@ Ablage: `docs/extraktion/uebergreifend/` (Quellen anderer Blöcke unter deren Bl
 
 ### 4.3 T1 – `t1-ausdauer`
 
-Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dateien; zusätzlich L-A02 Kap. 02, 03-2, 03-3, 07-1, 07-2 (Tabelle UB). Davon extrahiert: 28. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 17.
+Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dateien; zusätzlich L-A02 Kap. 02, 03-2, 03-3, 07-1, 07-2 (Tabelle UB). Davon extrahiert: 35. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 17.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -194,34 +194,34 @@ Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dat
 | L-T1-07 | T1 | `90-1` References (Teil 1/2) | PDF 572–612 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | L-T1-07 | T1 | `90-2` References (Teil 2/2) | PDF 613–653 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | L-T1-07 | T1 | `91` Index and Contributors | PDF 654–673 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
-| **L-T1-08** | T1 | **Ordner `t1-ausdauer/L-T1-08_kapitel/`** (15 Kapitel-PDFs, 380 PDF-Seiten) | – | – | – | ausgewaehlt · C · Kern · Scan; Druckseite = PDF-Seite − 2, im Bereich PDF 88–152 − 4 |
+| **L-T1-08** | T1 | **Ordner `t1-ausdauer/L-T1-08_kapitel/`** (15 Kapitel-PDFs, 380 PDF-Seiten) | – | – | – | ausgewaehlt · C · Kern · Scan; Druckseite = PDF-Seite − 2, im Bereich PDF 88–152 − 4 · Muster: Scan; Druckseite = Gesamtbuch-PDF − 2, im Bereich PDF 88–152 − 4 (bestätigt); Druckseiten 149–150 fehlen im Scan (Athletengeschichte k04 bricht ab); viele Seiten ohne gedruckte Zahl (Kapitelanfang, Fotos) – aus Nachbarseiten erschlossen; Korrektur k08 (abgeleiteter Wert entfernt), k04 (typ erfahrung → praxis) |
 | L-T1-08 | T1 | `00` Vorspann und Foreword | PDF 1–18 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓; 6 von 18 Seiten fast ohne Text · Vorspann mit Einleitung – extrahieren (Entscheidung Athlet 2026-09-29) · 12 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T1-08 | T1 | `01` How to Use This Book | PDF 19–22; Druck 17–20 | 2026-09-29 / opus | offen | Text ✓ · 14 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T1-08 | T1 | `02` The Physiology of Endurance | PDF 23–70; Druck 21–68 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · 69 Aussagen · 2 unsicher · 5 offene Stellen · pdf_nativ |
-| L-T1-08 | T1 | `03` The Methodologies of Endurance Training | PDF 71–120; Druck 69–116 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
+| L-T1-08 | T1 | `03` The Methodologies of Endurance Training | PDF 71–120; Druck 69–116 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · 96 Aussagen · 2 unsicher · 4 offene Stellen · pdf_nativ |
 | L-T1-08 | T1 | `04` Monitoring Your Training | PDF 121–152; Druck 117–148 | 2026-09-29 / opus | offen | Text ✓ · 66 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ |
-| L-T1-08 | T1 | `05` The Application Process | PDF 153–192; Druck 151–190 | offen | offen | Text ✓ |
+| L-T1-08 | T1 | `05` The Application Process | PDF 153–192; Druck 151–190 | 2026-09-29 / opus | offen | Text ✓ · 85 Aussagen · 2 unsicher · 4 offene Stellen · pdf_nativ |
 | L-T1-08 | T1 | `06` Strength Training for the Uphill Athlete | PDF 193–204; Druck 191–202 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓; 4 von 12 Seiten fast ohne Text · 37 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T1-08 | T1 | `07` General Strength Assessment and Improvement | PDF 205–240; Druck 203–238 | 2026-09-29 / opus | offen | Text ✓ · 48 Aussagen · 1 unsicher · 4 offene Stellen · pdf_nativ |
 | L-T1-08 | T1 | `08` Specific Strength-Training Methods | PDF 241–256; Druck 239–254 | 2026-09-29 / opus | offen | Text ✓ · 58 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T1-08 | T1 | `09` Programming | PDF 257–270; Druck 255–268 | 2026-09-29 / opus | offen | **nicht durchsuchbar**; 6 von 14 Seiten fast ohne Text · 28 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T1-08 | T1 | `10` Transition Period Training | PDF 271–278; Druck 269–276 | 2026-09-29 / opus | offen | Text ✓ · 25 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
-| L-T1-08 | T1 | `11` Introduction to the Base Period | PDF 279–312; Druck 277–310 | offen | offen | Text ✓ |
-| L-T1-08 | T1 | `12` Special Considerations for Skimo and Ski Mountaineering | PDF 313–338; Druck 311–336 | offen | offen | Text ✓ |
-| L-T1-08 | T1 | `13` Special Considerations for Mountain Running | PDF 339–364; Druck 337–362 | offen | offen | Text ✓ |
+| L-T1-08 | T1 | `11` Introduction to the Base Period | PDF 279–312; Druck 277–310 | 2026-09-29 / opus | offen | Text ✓ · 74 Aussagen · 9 unsicher · 8 offene Stellen · pdf_nativ |
+| L-T1-08 | T1 | `12` Special Considerations for Skimo and Ski Mountaineering | PDF 313–338; Druck 311–336 | 2026-09-29 / opus | offen | Text ✓ · 37 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
+| L-T1-08 | T1 | `13` Special Considerations for Mountain Running | PDF 339–364; Druck 337–362 | 2026-09-29 / opus | offen | Text ✓ · 57 Aussagen · 3 unsicher · 7 offene Stellen · pdf_nativ |
 | L-T1-08 | T1 | `90` Glossary and Index | PDF 365–380; Druck 363–378 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | L-T1-15 → L-A02 | T1 | L-A02 Kap. 02, 03-2, 03-3, 07-1, 07-2 (Abschnitte laut `kapitel_t1`) | – | siehe Tabelle UB | siehe Tabelle UB | Verweis (Kern); Kapitelzeilen stehen in 4.1 (UB) mit T1 in „Zieldatei(en)“ |
-| L-T1-09 | T1 | `L-T1-09_Toennessen-2024_Training-Session-Models.pdf` | 19 (PDF) | offen | offen | optional · C · optional · Text ✓ |
-| L-T1-10 | T1 | `L-T1-10_Sandbakk-2025_Best-Practice-Norwegian-Coaches.pdf` | 23 (PDF) | offen | offen | optional · C · optional · Text ✓ |
+| L-T1-09 | T1 | `L-T1-09_Toennessen-2024_Training-Session-Models.pdf` | 19 (PDF) | 2026-09-29 / opus | offen | optional · C · optional · Text ✓ · 60 Aussagen · 0 unsicher · 2 offene Stellen · pdf_nativ |
+| L-T1-10 | T1 | `L-T1-10_Sandbakk-2025_Best-Practice-Norwegian-Coaches.pdf` | 23 (PDF) | 2026-09-29 / opus | offen | optional · C · optional · Text ✓ · 66 Aussagen · 2 unsicher · 6 offene Stellen · pdf_nativ |
 | L-T1-11 | T1 | – | – | – | – | optional · A · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
 | L-T1-12 | T1 | `L-T1-12_Joyner-2008_Physiology-of-Champions.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 55 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 34+n; Laktatanstieg 75–90 % (Text) vs. 75–85 % (Abb. 4) im Original |
 | L-T1-14 | T1 | – | – | – | – | optional · B · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
 | L-T1-16 | T1 | – | – | – | – | optional · C · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
-| **Synthese startbereit** | T1 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 28 von 35 extrahiert; gegengeprüft: 0. |
+| **Synthese startbereit** | T1 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 35 von 35 extrahiert; gegengeprüft: 0. |
 
 ### 4.4 T2 – `t2-kraft-haltung`
 
-Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateien; zusätzlich L-P08 (Tabelle UP). Davon extrahiert: 0. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 48.
+Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateien; zusätzlich L-P08 (Tabelle UP). Davon extrahiert: 11. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 48.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -305,8 +305,8 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-T2-03 | T2 | `25` Strength Training for Swimmers | PDF 361–378 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Schwimmer; Athlet 2026-09-29) · Text ✓ |
 | L-T2-03 | T2 | `26` General Aspects of Concurrent Aerobic and Strength Training for Performance in Team Sports | PDF 379–388 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Mannschaftssport; Athlet 2026-09-29) · Text ✓ |
 | L-T2-03 | T2 | `27` Concurrent Aerobic and Strength Training for Performance in Soccer | PDF 389–408 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Fußball; Athlet 2026-09-29) · Text ✓ |
-| L-T2-11 | T2 | `L-T2-11_Ronnestad-2014_Strength-Training-Running-and-Cycling.pdf` | 10 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
-| L-T2-12 | T2 | `L-T2-12_Blagrove-2018_Strength-Training-Distance-Running.pdf` | 33 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
+| L-T2-11 | T2 | `L-T2-11_Ronnestad-2014_Strength-Training-Running-and-Cycling.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 60 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
+| L-T2-12 | T2 | `L-T2-12_Blagrove-2018_Strength-Training-Distance-Running.pdf` | 33 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 78 Aussagen · 0 unsicher · 2 offene Stellen · pdf_nativ · Muster: Online-First-Fassung ohne Zeitschriften-Paginierung – Stelle als Abschnitt/Tabelle, seiten „–“ |
 | **L-T2-04** | T2 | **Ordner `t2-kraft/L-T2-04_kapitel/`** (32 Kapitel-PDFs, 600 PDF-Seiten) | – | – | – | ausgewaehlt · C · Kern · Scan, fehlerhafte Texterkennung; Druckseite = PDF-Seite − 14; PDF 577/578 vertauscht |
 | L-T2-04 | T2 | `00` Vorspann und Introduction | PDF 1–14 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ · Vorspann mit Einleitung – extrahieren (Entscheidung Athlet 2026-09-29) |
 | L-T2-04 | T2 | `01` Principles of Bodyweight Training | PDF 15–23; Druck 1–9 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
@@ -340,15 +340,15 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-T2-04 | T2 | `26-2` Pushing Variations (Teil 2/2) | PDF 504–536; Druck 490–522 | offen | offen | Text ✓ |
 | L-T2-04 | T2 | `27` Multi-Plane Exercises, Core, and Legs | PDF 537–594; Druck 523–580 | offen | offen | Text ✓ |
 | L-T2-04 | T2 | `90` Resources | PDF 595–600; Druck 581–586 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓; 3 von 6 Seiten fast ohne Text |
-| L-T2-08 | T2 | `L-T2-08_Kotarsky-2018_Progressive-Push-up-Training.pdf` | 9 (PDF) | offen | offen | verifiziert · A · Kern · Text ✓ |
-| L-T2-09 | T2 | `L-T2-09_vandenTillaar-2019_Push-up-vs-Bench-Press.pdf` | 8 (PDF) | offen | offen | verifiziert · A · Kern · Text ✓ |
-| L-T2-10 | T2 | `L-T2-10_Wiedenmann-2025_Resistance-Training-Modalities-Older-Adults.pdf` | 13 (PDF) | offen | offen | verifiziert · A · Kern · Text ✓ |
-| L-T2-15 | T2, T4 | `L-T2-15_Warneke-2024_Stretching-or-Strengthening-Posture.pdf` | 13 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** |
-| L-T2-16 | T2 | `L-T2-16_Khorramroo-2026_Corrective-Exercises-Posture.pdf` | 30 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** |
-| L-T2-17 | T2 | `L-T2-17_Shiri-2018_Exercise-Prevention-Low-Back-Pain.pdf` | 9 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
-| L-T2-18 | T2 | `L-T2-18_Steffens-2016_Prevention-of-Low-Back-Pain.pdf` | 10 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
-| L-T2-20 | T2 | `L-T2-20_Pelland-2026_Resistance-Training-Dose-Response.pdf` | 25 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
-| L-T2-21 | T2 | `L-T2-21_Robinson-2024_Proximity-to-Failure-Dose-Response.pdf` | 23 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
+| L-T2-08 | T2 | `L-T2-08_Kotarsky-2018_Progressive-Push-up-Training.pdf` | 9 (PDF) | 2026-09-29 / opus | offen | verifiziert · A · Kern · Text ✓ · 46 Aussagen · 0 unsicher · 1 offene Stellen · pdf_nativ |
+| L-T2-09 | T2 | `L-T2-09_vandenTillaar-2019_Push-up-vs-Bench-Press.pdf` | 8 (PDF) | 2026-09-29 / opus | offen | verifiziert · A · Kern · Text ✓ · 36 Aussagen · 4 unsicher · 6 offene Stellen · pdf_nativ · Muster: Seiten mit Präfix E (E74–E81) |
+| L-T2-10 | T2 | `L-T2-10_Wiedenmann-2025_Resistance-Training-Modalities-Older-Adults.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | verifiziert · A · Kern · Text ✓ · 31 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ |
+| L-T2-15 | T2, T4 | `L-T2-15_Warneke-2024_Stretching-or-Strengthening-Posture.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** · 50 Aussagen · 1 unsicher · 7 offene Stellen · pdf_nativ |
+| L-T2-16 | T2 | `L-T2-16_Khorramroo-2026_Corrective-Exercises-Posture.pdf` | 30 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** · 77 Aussagen · 3 unsicher · 5 offene Stellen · pdf_nativ |
+| L-T2-17 | T2 | `L-T2-17_Shiri-2018_Exercise-Prevention-Low-Back-Pain.pdf` | 9 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 50 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
+| L-T2-18 | T2 | `L-T2-18_Steffens-2016_Prevention-of-Low-Back-Pain.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 43 Aussagen · 2 unsicher · 7 offene Stellen · pdf_nativ |
+| L-T2-20 | T2 | `L-T2-20_Pelland-2026_Resistance-Training-Dose-Response.pdf` | 25 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 73 Aussagen · 4 unsicher · 3 offene Stellen · pdf_nativ |
+| L-T2-21 | T2 | `L-T2-21_Robinson-2024_Proximity-to-Failure-Dose-Response.pdf` | 23 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 56 Aussagen · 6 unsicher · 3 offene Stellen · pdf_nativ |
 | L-T2-22 | T2 | `L-T2-22_Refalo-2023_Proximity-to-Failure-Hypertrophy.pdf` | 17 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** |
 | L-T2-23 | T2 | `L-T2-23_Lopez-2021_Training-Load-Hypertrophy-Strength.pdf` | 13 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ · Corrigendum als eigene Datei (Zeile darunter) · **Lizenz vor Ablage prüfen (Athlet)** |
 | L-T2-23 | T2 | `L-T2-23_Lopez-2022_Corrigendum.pdf` | 1 (PDF) | in k00 | in k00 | Corrigendum zu L-T2-23 · Text ✓ · im selben Lauf wie der Artikel extrahiert (`L-T2-23_k00.md`, Entscheidung Athlet 2026-09-29) |
@@ -361,7 +361,7 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-T2-28 | T2 | `L-T2-28_Refalo-2021_Training-Load-Hypertrophy.pdf` | 24 (PDF) | offen | offen | optional · A · optional · Text ✓ |
 | L-T2-29 | T2 | `L-T2-29_Carvalho-2022_Volume-Matched-Loads-Hypertrophy.pdf` | 58 (PDF) | offen | offen | optional · A · optional · Text ✓ · Autorenmanuskript, Seitenzahlen nicht zitierfähig |
 | L-T2-30 | T2 | `L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf` | 10 (PDF) | offen | offen | optional · A · optional · Text ✓ |
-| **Synthese startbereit** | T2 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 0 von 76 extrahiert; gegengeprüft: 0. |
+| **Synthese startbereit** | T2 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 11 von 76 extrahiert; gegengeprüft: 0. |
 
 ### 4.5 T3 – `t3-klettern`
 
@@ -635,3 +635,6 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-T1-02 | Versatz PDF n → S. 275+n; Tab. 2 „?%“ im Original, Z1-Verteilung ergibt 101 % | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T1-05 | Online-First-Fassung ohne Seitenzahlen – Stelle als Abschnitt/Tabelle/Abbildung, seiten „–“; Befund: Studienzuordnung Tab. 2 (Padulo vs. Lussiana), Cr-Formel-Einheit, Tibialis-Richtung Text vs. Tab. 3 | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T1-07 | Druckseite = Gesamtbuch-PDF-Seite − 7 in allen Kapiteln; Kapiteldateien enden teils mit Leerseite („intentionally left blank“); Literaturverzeichnis nicht in den Kapiteldateien; HIIT-Typen und Abkürzungen (VIFT, APR …) nur in einzelnen Kapiteln definiert; Text vs. Abbildung bei Intervallwerten mehrfach abweichend (k04, k10) | U2-Extraktion (Rückmeldung Unteragent) |
+| L-T1-08 | Scan; Druckseite = Gesamtbuch-PDF − 2, im Bereich PDF 88–152 − 4 (bestätigt); Druckseiten 149–150 fehlen im Scan (Athletengeschichte k04 bricht ab); viele Seiten ohne gedruckte Zahl (Kapitelanfang, Fotos) – aus Nachbarseiten erschlossen; Korrektur k08 (abgeleiteter Wert entfernt), k04 (typ erfahrung → praxis) | U2-Extraktion (Rückmeldung Unteragent) |
+| L-T2-12 | Online-First-Fassung ohne Zeitschriften-Paginierung – Stelle als Abschnitt/Tabelle, seiten „–“ | U2-Extraktion (Rückmeldung Unteragent) |
+| L-T2-09 | Seiten mit Präfix E (E74–E81) | U2-Extraktion (Rückmeldung Unteragent) |

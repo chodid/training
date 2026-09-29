@@ -120,7 +120,7 @@ konfidenz: hoch
 Feldregeln:
 
 - `id` je Kernaussage: `<Gebiet>-<Kartenkürzel>-<nn>`, stabil über Fassungen; gelöschte IDs werden nicht neu vergeben.
-- `typ`: `befund` (empirisches Ergebnis) · `modell` (theoretischer Schluss, Lehrbuchmodell) · `praxis` (Empfehlung aus Praxisquelle, D-25/D-31) · `definition`.
+- `typ`: `befund` (empirisches Ergebnis) · `modell` (theoretischer Schluss, Lehrbuchmodell) · `praxis` (Empfehlung aus Praxisquelle, D-25/D-31; auch Erfahrungsberichte mit Vermerk „Einzelfall“) · `definition` · `methodik` (nur in Extraktionen: Angaben zu Studiendesign, Suche, Einschluss, Population – keine Wirkaussage; Entscheidung Athlet 2026-09-29).
 - `stelle`: Seite, ggf. Tabelle/Abbildung; bei Artikeln Seite oder Abschnitt; Buch mit Auflage (13.2).
 - `stufe` aus 13.2 (A/B/C); Stufe C nie alleiniger Beleg für Belastungsparameter (D-31).
 - Themenfeld-Vokabular T3 aus 13.2.4; für T1/T2/R vergibt die erste Synthese-Sitzung das Vokabular und meldet es im Übergabedokument (Aufnahme ins Hauptkonzept durch die planende Instanz).
@@ -140,7 +140,7 @@ Regeln (13.1 (2), präzisiert):
 1. Nur Textinhalt des Kapitels; keine Ergänzung aus eigenem Wissen. Was nicht im Kapitel steht, steht nicht in der Extraktion.
 2. Jede Aussage mit Seitenzahl (Buch) bzw. Seite/Abschnitt (Artikel). Ohne Seite → Feld `stelle: unklar` und Aufnahme in `offene_stellen`.
 3. Zahlen exakt mit Einheit, Streuung (SD/CI, falls angegeben), Population (n, Niveau, Alter, Geschlecht), Dauer/Protokoll.
-4. Modellschlüsse und Lehrmeinungen markieren (`typ: modell`), Praxisempfehlungen (`typ: praxis`).
+4. Modellschlüsse und Lehrmeinungen markieren (`typ: modell`), Praxisempfehlungen (`typ: praxis`), reine Studienbeschreibungen (`typ: methodik`). Keine abgeleiteten oder „Standard“-Werte ergänzen; fehlt eine Angabe, steht „im Text nicht genannt“.
 5. Tabellen und Abbildungen: Inhalt in Worte fassen, Nummer angeben; bei unsicherer Textextraktion (zerfallene Tabelle) `unsicher: true`.
 6. Wörtliche Übernahme nur nach W-09.
 7. Lücken des Kapitels: Was zum Zweck der Quelle (13.2 `zweck`) erwartet, aber nicht enthalten ist.
@@ -479,6 +479,12 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: U2 Zieldateien UB (41 Dateien – 10 Artikel, L-A01 18 und L-A02 13 Kapitel) und UP (9 Artikel) extrahiert; 3 657 Aussagen, davon 122 `unsicher: true` (fast ausschließlich aus Grafiken abgelesene Werte), 144 offene Stellen; keine Datei mit Formfehler, kein Kapitel „nicht verwertbar“, alle mit lesemethode pdf_nativ
     loesung: Muster je Quelle im README (Abschnitt 6): L-A01 Druckseite = Gesamt-PDF − 1 in allen Kapiteln (E-Book-Paginierung); L-A02 Versatz je Kapitel verschieden (−17 bis −7), innerhalb der Kapiteldatei konstant; Artikel mit Zeitschriften-Paginierung, Sonderfälle L-P04 (Ahead-of-Print), L-P11 (Seiten „n of 13“ + Abschnitt), L-T2-32 (Verlagsdeckblatt, PDF − 1). Viele offene Stellen sind Widersprüche in den Quellen selbst (Text vs. Tabelle/Abbildung/Abstract), wie gedruckt übernommen – Schwerpunkt für die Gegenprüfung (U3); zwei fachlich zweifelhafte Buchaussagen in L-A01 k03 (muskarinische Rezeptoren an der Endplatte, „extrapyramidal tracts“) wie gedruckt übernommen
+  - datum: 2026-09-29
+    was: U2 – Unteragenten nutzten Typwerte außerhalb des Templates (`methode`/`methodik` für Studienbeschreibungen in 11 Artikeln, `erfahrung` in L-T1-08 k04) und ergänzten in L-T1-08 k08 eine abgeleitete „Standard“-Pause (Verstoß gegen Regel 1)
+    loesung: Entscheidung Athlet – `methodik` als fünfter Typ (Abschnitt 3, 4.1 Regel 4), `methode` vereinheitlicht; `erfahrung` → `praxis` mit Vermerk „Erfahrungsbericht, Einzelfall“; abgeleiteter Wert durch „Pause im Text nicht genannt“ ersetzt (Korrektur durch die jeweilige Extraktions-Instanz); Briefing der Unteragenten um beide Regeln ergänzt
+  - datum: 2026-09-29
+    was: Container-Neustart während U2; 27 laufende Extraktionen waren abgeschlossen, ihre Rückmeldungen gingen verloren
+    loesung: Dateien vollständig und formal geprüft (check), Seitenbezug aus den Dateien übernommen; keine Neuextraktion nötig
   - datum: 2026-09-29
     was: Nebenbefunde Hauptkonzept – YAML-Block T1 in 13.2 nicht parsebar (ISBN-Zeile L-T1-01 mit „: “); in 13.2 fehlen `stufe` bei L-A01, L-A02, L-P01 bis L-P09 und `themenfelder` für übergreifend und T1; L-T3-04 (ausgewaehlt) und L-P14 (optional) keiner Zieldatei in AP-06 Punkt 3 zugeordnet; L-T2-08 bis L-T2-10 mit Status `verifiziert` als Belege im T2-Zuschnitt
     loesung: gemeldet, nicht geändert (Hauptkonzept nur an drei Stellen änderbar); Stufe für die Tabellen aus docs/literatur/README.md übernommen
