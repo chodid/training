@@ -13,7 +13,8 @@ use Training\Http\Response;
  * Zeitgesteuerte Aufgaben per URL-Aufruf (Lima-City-Cronjob, V-10: keine PHP-CLI).
  * GET /cron/backup-mail?key=<CRON_SECRET>[&force=1] – Backup per E-Mail, wenn das Intervall abgelaufen ist.
  * GET /cron/intervals-sync?key=<CRON_SECRET>[&tage=14] – Spiegel Intervals.icu → MySQL (D-43), Standard 14 Tage, höchstens 400;
- *   gleicht außerdem den CalDAV-Kalender ab (AP-11, D-50), wenn CALDAV_* gesetzt ist.
+ *   gleicht außerdem den CalDAV-Kalender ab (AP-11, D-50), wenn CALDAV_* gesetzt ist, und prüft einmal je 7 Tage die
+ *   Links des Übungskatalogs (AP-16 Teil D; Ergebnis unter linkpruefung).
  */
 final class CronController
 {
@@ -26,6 +27,36 @@ final class CronController
         if ($denied = $this->checkKey($request)) {
             return $denied;
         }
+        $links = $this->linkCheck();
+        $response = $this->sync($request);
+        if ($links === null || ($links['links'] ?? null) === 0) {
+            return $response; // nicht fällig oder nichts zu prüfen: Antwort wie bisher
+        }
+        $data = json_decode($response->body, true);
+
+        return Response::json($response->status, (is_array($data) ? $data : []) + ['linkpruefung' => $links]);
+    }
+
+    /**
+     * Wöchentliche Linkprüfung (AP-16 Teil D): Fehler brechen den Cron nicht ab (z. B. vor der Migration ohne Tabelle).
+     * @return array<string, mixed>|null Zusammenfassung, null wenn nicht fällig
+     */
+    private function linkCheck(): ?array
+    {
+        if ($this->app->writeLocked()) {
+            return null;
+        }
+        try {
+            return (new \Training\Exercise\LinkCheckRun($this->app->pdo(), $this->app->clock(), $this->app->linkChecker()))->runIfDue();
+        } catch (\Throwable $e) {
+            error_log('[training] Linkprüfung: ' . $e::class . ': ' . $e->getMessage());
+
+            return ['fehler' => $e->getMessage()];
+        }
+    }
+
+    private function sync(Request $request): Response
+    {
         $config = $this->app->config();
         $calendar = $this->app->calendar();
         $intervals = \Training\Intervals\IntervalsClient::isConfigured($config);

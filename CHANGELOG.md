@@ -7,6 +7,13 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ### Dokumentation
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 
+## [0.25.0] – 2026-09-29
+
+AP-16 T5: wöchentliche Linkprüfung.
+
+### Hinzugefügt
+- Der stündliche Cron `/cron/intervals-sync` prüft einmal je 7 Tage bis zu 50 Links des Übungskatalogs (die am längsten ungeprüften zuerst). Defekte Links setzen die Übung auf „Links prüfen“ (Hinweis in den Einstellungen und in `find_exercise`/`get_exercise`), wieder erreichbare Links setzen sie zurück. Nicht erreichbare Links (Zeitüberschreitung) ändern nichts. Ergebnis in der Cron-Antwort (`linkpruefung`) und im Audit (`exercise_linkcheck`); Fehler brechen den Abgleich nicht ab.
+
 ## [0.24.0] – 2026-09-29
 
 AP-16 T4: Verlinkung der Übungen und Offline.

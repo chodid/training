@@ -435,12 +435,27 @@ T4:
     - was: Kletterblöcke haben in S3 keinen Namen, nur die Art
       loesung: Link „Art · Katalogname“ (z. B. „Hangboard · Max Hang 20 mm“)
 T5:
-  status: offen
-  datum: null
-  ergebnis: null
-  tests: null
-  abnahme: null
-  probleme_loesungen: []
+  status: erledigt
+  datum: 2026-09-29
+  ergebnis: >-
+    Training\Exercise\LinkCheckRun im stündlichen /cron/intervals-sync: einmal je 7 Tage (app_setting linkcheck_zuletzt),
+    höchstens 50 Links nicht archivierter Übungen, am längsten ungeprüfte zuerst; Statuswechsel links_pruefen ↔ aktiv ohne
+    neue Fassung; Audit exercise_linkcheck (actor cron) mit Zusammenfassung; Ergebnis unter linkpruefung in der Cron-Antwort;
+    S8-Hinweis (seit T3). Code-Stand 0.25.0.
+  tests: >-
+    Integration ExerciseLinkCheckCronTest (Lauf nur je 7 Tage, 404 → links_pruefen, Timeout ohne Statuswechsel mit
+    früherem Ergebnis, nach 7 Tagen wieder aktiv, archivierte nicht geprüft, Audit, keine Fassung, S8-Hinweis, Obergrenze 50
+    mit ältesten zuerst, Fehler ohne Tabelle brechen den Cron nicht ab); MirrorTest/CalendarTest unverändert grün.
+  abnahme: offen – Cron-Lauf auf dem Server meldet im Audit die Zusammenfassung
+  probleme_loesungen:
+    - was: Die Linkprüfung im selben Aufruf wie der Spiegel darf dessen Antwort und Fehler nicht verändern
+      loesung: Prüfung vor dem Abgleich, Fehler nur protokolliert und als linkpruefung.fehler gemeldet; ohne Links kein Eintrag in Antwort und Audit
+    - was: „Rest beim nächsten Wochenlauf“ – Reihenfolge nicht festgelegt
+      loesung: am längsten ungeprüfte Links zuerst (ohne Prüfdatum vor dem ältesten Datum)
+    - was: Zählung „nicht prüfbar“ – bei Netzfehler bleibt das frühere Ergebnis stehen (E-10/T2)
+      loesung: gezählt wird das Ergebnis dieses Laufs (ohne heutiges Prüfdatum = nicht prüfbar), der gespeicherte Status bleibt
+    - was: Bei Schreibsperre (Code neuer als Datenbank) wäre die Tabelle ggf. noch nicht da
+      loesung: Linkprüfung nur ohne Schreibsperre
 T6:
   status: offen
   datum: null
@@ -460,3 +475,4 @@ T6:
 | 2026-09-29 | Code-Instanz | T2 umgesetzt (Code-Stand 0.22.0), Befunde in Abschnitt 13 |
 | 2026-09-29 | Code-Instanz | T3 umgesetzt (Code-Stand 0.23.0), Befunde in Abschnitt 13 |
 | 2026-09-29 | Code-Instanz | T4 umgesetzt (Code-Stand 0.24.0), Befunde in Abschnitt 13 |
+| 2026-09-29 | Code-Instanz | T5 umgesetzt (Code-Stand 0.25.0), Befunde in Abschnitt 13 |

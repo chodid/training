@@ -2663,7 +2663,7 @@ probleme_loesungen:
 status: in_arbeit
 begonnen: 2026-09-29
 abgeschlossen: null
-teilpakete: T1 (Code-Stand 0.21.0), T2 (0.22.0), T3 (0.23.0) und T4 (0.24.0) umgesetzt – Details in docs/konzept/uebungskatalog.md Abschnitt 13
+teilpakete: T1 (Code-Stand 0.21.0), T2 (0.22.0), T3 (0.23.0), T4 (0.24.0) und T5 (0.25.0) umgesetzt – Details in docs/konzept/uebungskatalog.md Abschnitt 13
 probleme_loesungen:
   - datum: 2026-09-29
     was: Abgleich des Auftrags mit dem Code – YouTube-Einbettung scheitert an Referrer-Policy same-origin, Linkprüfung per GET erkennt gelöschte Videos nicht, Server-Abruf beliebiger URLs (SSRF), normalisierter Name ohne eigene Spalte
@@ -2680,6 +2680,9 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: T4 – Rückkehr aus S10 in S9 ohne Rückfrage, Cache-Adressen der Übungsseiten, Längenregel der Kalenderbeschreibung, Name der Kletterblöcke
     loesung: Einzelheiten im Auftrag Abschnitt 13, T4
+  - datum: 2026-09-29
+    was: T5 – Linkprüfung im Spiegel-Cron ohne Rückwirkung auf dessen Antwort, Reihenfolge bei mehr als 50 Links, Zählung nicht prüfbarer Links, Schreibsperre
+    loesung: Einzelheiten im Auftrag Abschnitt 13, T5
 ```
 
 # 16. Prüfprotokoll (separates Dokument)
@@ -2767,6 +2770,7 @@ noch_zu_pruefen:
 | 2026-09-28 | Neu D-63 (Favicon V3 gerundet, ändert D-59 für das Favicon), AP-13 `probleme_loesungen` ergänzt (Code-Stand 0.20.2). |
 | 2026-09-29 | L-T1-07 Laursen/Buchheit einsortiert (Gesamt-PDF und Kapitel-PDFs, D-51): `datei`/`kapitel`/`zugang`, 13.4 „vorhanden“ und Stand (37 Volltexte), V-13, AP-06 Teilschritt und `probleme_loesungen`. Doppelt hochgeladene Kenney-Datei entfernt. |
 | 2026-09-29 | Neu (Fable, Konzept; vom Athleten bestätigt): Auftrag `docs/konzept/uebungskatalog.md`, AP-16 Übungskatalog in der Reihenfolge nach AP-14; D-64 bis D-69 aus E-01 bis E-06; Code-Instanz ergänzt E-17 bis E-20 (Referrer am Video-iframe, oEmbed-Prüfung, Schutz der Linkprüfung, `name_norm`). AP-16 begonnen: T1 umgesetzt (Code-Stand 0.21.0, Schema 23). |
+| 2026-09-29 | AP-16 T5 umgesetzt (Code-Stand 0.25.0): wöchentliche Linkprüfung im Cron. |
 | 2026-09-29 | AP-16 T4 umgesetzt (Code-Stand 0.24.0): Verlinkung aus S3, S9 und Kalender, Übungsseiten offline. |
 | 2026-09-29 | AP-16 T3 umgesetzt (Code-Stand 0.23.0): S10 Übung, S10a Übungskatalog, S8-Eintrag, CSP `frame-src` nur für S10. |
 | 2026-09-29 | AP-16 T2 umgesetzt (Code-Stand 0.22.0): MCP-Tools des Übungskatalogs, Linkprüfung, Warnungen in `write_week_plan`/`update_session`. |

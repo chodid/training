@@ -811,6 +811,10 @@ geprueft:
     wie: automatisiert (tests/e2e/uebung.e2e.cjs mit Chromium über run.sh; gefuehrt.e2e.cjs 14 Prüfungen und Node-Tests 18 Fälle weiter grün)
     ergebnis: ok
     datum: 2026-09-29
+  - was: "T5 Cron: Lauf nur einmal je 7 Tage; 404 → links_pruefen, nach 7 Tagen erreichbar → aktiv; Timeout zählt als nicht prüfbar ohne Statuswechsel; archivierte nicht geprüft; höchstens 50 Links, nie geprüfte zuerst; Audit exercise_linkcheck (cron) mit Zusammenfassung; keine neue Fassung; S8 „1 Übung mit defekten Links“; ohne Tabelle kein Abbruch des Crons"
+    wie: automatisiert (Integration ExerciseLinkCheckCronTest; MirrorTest, CalendarTest weiter grün)
+    ergebnis: ok
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: T1 Migration 0023 und Schemata gegen MySQL 8.4
     wie: CI (GitHub Actions) mit dem Pull Request
@@ -822,8 +826,8 @@ noch_zu_pruefen:
     wie: Athlet nach Deployment
   - was: O-05 Kalenderbeschreibung mit Links je Übung oder nur Link zur Einheit
     wie: Entscheidung des Athleten bei der Abnahme von T4
-  - was: T5 und T6
-    wie: siehe Auftrag Abschnitt 9 und 11
+  - was: "T5 Abnahme: stündlicher Cron-Lauf auf dem Server – nach dem ersten Lauf steht im Audit „Linkprüfung: … Links …“ (Einstellungen bzw. Datenbank), Antwort mit linkpruefung"
+    wie: Athlet nach Deployment (Cron-Aufruf im Browser oder Lima-City-Protokoll)
 ```
 
 ## AP-05 MCP-Tools produktiv

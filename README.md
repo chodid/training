@@ -60,7 +60,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | GET | `/health` | Zustand als JSON: PHP-Erweiterungen, Konfiguration, `var/` beschreibbar, Datenbank, Schemastand. `200` = in Ordnung, `503` = Handlungsbedarf. Enthält keine Secrets. |
 | POST | `/admin/migrate` | Führt ausstehende Migrationen aus, vorher verschlüsselter Pre-Migration-Dump nach `backups/` (die letzten 5 bleiben). Header `X-Migration-Secret` muss `MIGRATION_SECRET` entsprechen. `401` ohne Header, `403` bei falschem Secret, `409` wenn bereits eine Migration läuft oder die Datenbank neuer als der Code ist, `500` wenn der Dump fehlschlägt (dann keine Migration). |
 | GET | `/cron/backup-mail?key=…` | Backup per E-Mail für den Lima-City-Cronjob (`CRON_SECRET`); versendet nur nach Ablauf des Intervalls, `&force=1` sofort |
-| GET | `/cron/intervals-sync?key=…` | Spiegel Intervals.icu → MySQL (D-43): Aktivitäten und Wellness der letzten 14 Tage (`&tage=…` bis 400), entfernt dort gelöschte Aktivitäten; gleicht außerdem den CalDAV-Kalender ab (AP-11) |
+| GET | `/cron/intervals-sync?key=…` | Spiegel Intervals.icu → MySQL (D-43): Aktivitäten und Wellness der letzten 14 Tage (`&tage=…` bis 400), entfernt dort gelöschte Aktivitäten; gleicht außerdem den CalDAV-Kalender ab (AP-11) und prüft einmal je 7 Tage bis zu 50 Links des Übungskatalogs (AP-16, Ergebnis unter `linkpruefung`, Audit `exercise_linkcheck`) |
 | GET/POST | `/setup` | S0: legt den einzigen Benutzer an (verlangt `MIGRATION_SECRET`, D-34). Sobald ein Benutzer existiert: `404`. |
 | GET/POST | `/login` | S1: Anmeldung, Session 30 Tage gleitend. Nach 10 Fehlversuchen 5 min Sperre, jeder weitere Fehlversuch verdoppelt bis 24 h (D-33). |
 | POST | `/logout` | Abmelden (mit CSRF-Token) |
