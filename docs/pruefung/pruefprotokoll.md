@@ -1138,6 +1138,12 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: Hilfsskript split.py lief beim Import vollständig mit (kein Main-Schutz)
     loesung: git status geprüft – keine bestehende Datei verändert; Teilfunktion ins neue Skript übernommen
+  - datum: 2026-09-29
+    was: Abschluss der Literatursuche – L-T4-35 Freiwald nicht beschaffbar; Q-22 und Status L-T3-15 offen
+    loesung: Entscheidung Athlet – L-T4-35 nicht aufgenommen (Eintrag bleibt, 13.3); Q-22 nach Empfehlung (Band 1 nicht aufnehmen, 13.3); L-T3-15 Anderson als Stufe C optional aufgenommen, Beschaffung offen; T4 Teil B mit L-T4-34 abgeschlossen
+  - datum: 2026-09-29
+    was: L-R-29 Brukner & Khan liegt nur als Scan der 5. Aufl. (Band 1 Injuries, 2017) ohne Textebene vor, 1227 S., 120 MB; ocrmypdf im Container defekt (Pillow-Bibliothek)
+    loesung: vorhandene Ausgabe verwenden (Nachtrag D-51); Texterkennung selbst gebaut (Tesseract 5, 300 dpi, unsichtbare Textebene über der unveränderten Originalseite); wegen > 100 MB nur Kapitel-PDFs (D-31)
 geprueft:
   - was: Zuordnung der 29 PDFs zu IDs aus 13.2 – Titel, Autoren und DOI auf den ersten Seiten gegen 13.2 abgeglichen
     wie: Textextraktion (pypdf) aller Dateien, Abgleich je Datei
@@ -1363,12 +1369,20 @@ geprueft:
     wie: alle Pfade in `datei`, `kapitel`, `datei_epub`, `corrigendum_datei`; YAML gegen main; Linkprüfung README (alle Dateien einschließlich Kapitel)
     ergebnis: ok – 138 Pfade vorhanden; keine neuen YAML-Fehler; 703 Links, keiner kaputt; 702 Dateien, alle verlinkt
     datum: 2026-09-29
+  - was: L-R-29 Brukner & Khan – Band, Auflage, Texterkennung, Kapitel
+    wie: Titel- und Impressumsseite per Texterkennung; Textebene je Seite geprüft (vier defekte Seiten aus dem abgebrochenen Lauf neu erkannt); Kapitelanfänge laut Inhaltsverzeichnis gegen den Seitentext; Seitensumme
+    ergebnis: Volume 1 Injuries, 5. Aufl., © 2017, ISBN 978-1-74376-138-0; 18 Seiten ohne Text sind Bildseiten; 48 von 48 Kapitelanfängen bestätigt (Kap. 1 nach der Teil-Titelseite); Druckseite = PDF-Seite − 41 durchgehend bis S. 1034; 55 Dateien, 1227/1227 Seiten, größte Datei 6 MB
+    datum: 2026-09-29
+  - was: Konzept und README nach Abschluss der Literatursuche
+    wie: Pfade, YAML gegen main, Linkprüfung
+    ergebnis: ok – 139 Pfade vorhanden; keine neuen YAML-Fehler; alle Dateien verlinkt, keine kaputten Links
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
     wie: manuell durch Athlet bei der ersten Kartensitzung
   - was: Druckseiten der Scans (Uphill Athlete, Overcoming Gravity) an zwei, drei Stellen gegen das Seitenbild prüfen, bevor Seitenangaben in Karten übernommen werden
     wie: manuell in der Kartensitzung
-  - was: Restliche Beschaffung laut 13.4 (L-R-29 Brukner & Khan, L-T4-35 Freiwald); vorhandene Ausgaben gelten (Nachtrag D-51)
+  - was: Restliche Beschaffung laut 13.4 (L-T3-15 Anderson); vorhandene Ausgaben gelten (Nachtrag D-51)
     wie: Athlet (D-26), Eintrag durch Code-Instanz
   - was: Schwellenwerte Schmerzmonitoring-Modell am Volltext L-P13 (V-07), danach Entscheidung Q-13
     wie: manuell in der Kartensitzung, der Volltext liegt vor; Entscheidung in AP-07
@@ -1412,8 +1426,4 @@ noch_zu_pruefen:
     wie: Volltext bzw. Verlagsseite
   - was: T4-Fragen Q-18 (Einheiten vs. Block), Q-19 (Dehnintensität), Q-20 (Hüft-ROM-Verlaufsmessung)
     wie: AP-07 bzw. AP-08
-  - was: V-24 Rest – Format L-R-29 und L-T4-35; Inhaltsverzeichnis L-R-29, ISBN L-T4-35
-    wie: vor Kauf (Athlet), Eintrag durch Code-Instanz
-  - was: Q-22 (Band 1 Brukner & Khan), Status L-T3-15 (Vorschlag nicht_aufnehmen) und L-T3-17 (Platzhalter)
-    wie: Entscheidung Athlet
 ```

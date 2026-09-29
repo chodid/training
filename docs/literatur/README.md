@@ -145,6 +145,7 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-R-26 | A | Doherty et al. 2017 – Ankle Sprain, Overview of Reviews | [`L-R-26_Doherty-2017_Ankle-Sprain-Overview-of-Reviews.pdf`](r-reha/L-R-26_Doherty-2017_Ankle-Sprain-Overview-of-Reviews.pdf) | 18 |  |
 | L-R-27 | A | Deng et al. 2025 – Long-term Prognosis of Athletes With Patellar Tendinopathy Receiving Physical Therapy: Patient-… (optional) | [`L-R-27_Deng-2025_Patellar-Tendinopathy-Long-Term-Prognosis.pdf`](r-reha/L-R-27_Deng-2025_Patellar-Tendinopathy-Long-Term-Prognosis.pdf) | 9 |  |
 | L-R-28 | A | Hjortshoej et al. 2025 – Effect of Low-Load Blood-Flow Restricted Training Versus Heavy Slow Resistance Training in Unil… (optional) | [`L-R-28_Hjortshoej-2025_BFR-vs-HSR-Patellar-Tendinopathy.pdf`](r-reha/L-R-28_Hjortshoej-2025_BFR-vs-HSR-Patellar-Tendinopathy.pdf) | 12 |  |
+| L-R-29 | B | Brukner & Khan 2017 – Clinical Sports Medicine, Vol. 1 Injuries, 5. Aufl. (optional) | nur Kapitel-PDFs: [`L-R-29_kapitel/`](r-reha/L-R-29_kapitel/) | 1227 | 5. statt 6. Aufl. (Nachtrag D-51); Scan mit Texterkennung durch die Code-Instanz (Tesseract, kann Erkennungsfehler enthalten); Gesamt 120 MB, daher nur Kapitel; Druckseite = PDF-Seite − 41 |
 | L-R-30 | B | Engelhardt (Hrsg.) 2016 – Sportverletzungen (GOTS-Manual), 3. Aufl. (optional) | [`L-R-30_Engelhardt-2016_Sportverletzungen-GOTS-Manual_3ed.pdf`](r-reha/L-R-30_Engelhardt-2016_Sportverletzungen-GOTS-Manual_3ed.pdf) | 912 | 3. statt 4. Aufl. (Nachtrag D-51); Druckseiten je Kapitel siehe unten (Versatz nicht konstant). Kapitel-PDFs in `L-R-30_kapitel/` |
 
 ### T4 Beweglichkeit/Mobilität (13.2.6)
@@ -170,18 +171,17 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T4-34 | C | Nelson, Kokkonen 2021 – Stretching Anatomy, 3. Aufl. (EPUB) | [`L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.epub`](t4-beweglichkeit/L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.epub) | EPUB | ohne DRM, Seitenmarken der Druckausgabe; nicht umgewandelt (Entscheidung Athlet) |
 | L-T4-36 | C | Schleip, Wilke (Hrsg.) 2021 – Fascia in Sport and Movement, 2. Aufl. (optional) | nur Kapitel-PDFs: [`L-T4-36_kapitel/`](t4-beweglichkeit/L-T4-36_kapitel/) | 618 | Gesamt-PDF 159 MB über dem GitHub-Limit (D-31), daher nur 50 Kapitel-PDFs; Druckseite = PDF-Seite − 19 |
 
-Summe: 116 Werke in 118 Dateien (davon 15 Bücher mit Kapitel-PDFs – L-T4-36 nur als Kapitel –, 5 EPUBs mit Kapitel-Markdown und Ansichts-PDFs; dazu 2 Corrigenda und L-T4-34 zusätzlich als EPUB).
+Summe: 117 Werke in 118 Dateien (davon 16 Bücher mit Kapitel-PDFs – L-T4-36 und L-R-29 nur als Kapitel –, 5 EPUBs mit Kapitel-Markdown und Ansichts-PDFs; dazu 2 Corrigenda und L-T4-34 zusätzlich als EPUB).
 
 ## Noch nicht vorhanden
 
-Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nachsteuerung, T4 und Lückenprüfung Standardwerke eingearbeitet). Vorhandene Ausgaben gelten, auf Neuauflagen wird nicht gewartet (Nachtrag D-51).
+Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nachsteuerung, T4 und Lückenprüfung Standardwerke eingearbeitet). Vorhandene Ausgaben gelten, auf Neuauflagen wird nicht gewartet (Nachtrag D-51). Die Literatursuche ist abgeschlossen (2026-09-29); L-T4-35 Freiwald entfällt (nicht beschaffbar). Offen ist nur noch L-T3-15.
 
 ### Kaufen oder über die Bibliothek (nicht frei verfügbar)
 
 | Prio | ID | Quelle | Wofür |
 |---|---|---|---|
-| 2 | L-R-29 | Brukner & Khan, Clinical Sports Medicine – Managing Injuries, 6. Aufl. 2026 (Buch) | Block R, Stufe B, optional (D-80); Format prüfen (V-24) |
-| 2 | L-T4-35 | Freiwald, Optimales Dehnen, 3. Aufl. 2020 (Buch) | T4, Stufe B, optional; deutsche Fachbegriffe; ISBN prüfen |
+| 2 | L-T3-15 | Anderson/Anderson, The Rock Climber's Training Manual, 2014 (Buch) | T3, Stufe C, optional; Planungsvorlage Periodisierung/Hangboard (Entscheidung Athlet 2026-09-29) |
 
 ### Frei verfügbar (PubMed Central)
 
@@ -765,6 +765,68 @@ Keine offenen Titel mehr.
 | 47 | Mental imagery, fascia and movement | 588–597 | 569–578 | [`L-T4-36_47_Mental-imagery-fascia-and-movement.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_47_Mental-imagery-fascia-and-movement.pdf) |
 | 48 | Periodized fascia training for speed, power, and injury resilience | 598–608 | 579–589 | [`L-T4-36_48_Periodized-fascia-training-for-speed-power-and-injury-resili.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_48_Periodized-fascia-training-for-speed-power-and-injury-resili.pdf) |
 | 90 | Permissions and Index | 609–618 | 590–599 | [`L-T4-36_90_Permissions-and-Index.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_90_Permissions-and-Index.pdf) |
+
+### L-R-29 Brukner & Khan – Clinical Sports Medicine, Vol. 1 Injuries (5. Aufl.) – `r-reha/L-R-29_kapitel/`
+
+55 Dateien, 1227 PDF-Seiten. Nur Kapitel-PDFs (Gesamt 120 MB). Scan mit eigener Texterkennung. Druckseite = PDF-Seite − 41; Teil-Titelseiten gehören zum folgenden Kapitel; das Literaturverzeichnis am Ende hat eine eigene Zählung.
+
+| Nr. | Titel | PDF-Seiten | Druckseiten | Datei |
+|---|---|---|---|---|
+| 00 | Vorspann | 1–41 | – | [`L-R-29_00_Vorspann.pdf`](r-reha/L-R-29_kapitel/L-R-29_00_Vorspann.pdf) |
+| 01 | Sport and exercise medicine – the team approach | 42–49 | 1–8 | [`L-R-29_01_Sport-and-exercise-medicine-the-team-approach.pdf`](r-reha/L-R-29_kapitel/L-R-29_01_Sport-and-exercise-medicine-the-team-approach.pdf) |
+| 02 | Integrating evidence into shared decision making with patients | 50–53 | 9–12 | [`L-R-29_02_Integrating-evidence-into-shared-decision-making-with-patien.pdf`](r-reha/L-R-29_kapitel/L-R-29_02_Integrating-evidence-into-shared-decision-making-with-patien.pdf) |
+| 03 | Sports injuries – acute | 54–69 | 13–28 | [`L-R-29_03_Sports-injuries-acute.pdf`](r-reha/L-R-29_kapitel/L-R-29_03_Sports-injuries-acute.pdf) |
+| 04 | Sports injuries – overuse | 70–95 | 29–54 | [`L-R-29_04_Sports-injuries-overuse.pdf`](r-reha/L-R-29_kapitel/L-R-29_04_Sports-injuries-overuse.pdf) |
+| 05 | Pain – why and how does it hurt? | 96–105 | 55–64 | [`L-R-29_05_Pain-why-and-how-does-it-hurt.pdf`](r-reha/L-R-29_kapitel/L-R-29_05_Pain-why-and-how-does-it-hurt.pdf) |
+| 06 | Pain – the clinical aspects | 106–117 | 65–76 | [`L-R-29_06_Pain-the-clinical-aspects.pdf`](r-reha/L-R-29_kapitel/L-R-29_06_Pain-the-clinical-aspects.pdf) |
+| 07 | Beware – conditions that masquerade as sports injuries | 118–125 | 77–84 | [`L-R-29_07_Beware-conditions-that-masquerade-as-sports-injuries.pdf`](r-reha/L-R-29_kapitel/L-R-29_07_Beware-conditions-that-masquerade-as-sports-injuries.pdf) |
+| 08 | Introduction to clinical biomechanics | 126–161 | 85–120 | [`L-R-29_08_Introduction-to-clinical-biomechanics.pdf`](r-reha/L-R-29_kapitel/L-R-29_08_Introduction-to-clinical-biomechanics.pdf) |
+| 09 | Biomechanical aspects of injury in specific sports | 162–179 | 121–138 | [`L-R-29_09_Biomechanical-aspects-of-injury-in-specific-sports.pdf`](r-reha/L-R-29_kapitel/L-R-29_09_Biomechanical-aspects-of-injury-in-specific-sports.pdf) |
+| 10 | Training programming and prescription | 180–193 | 139–152 | [`L-R-29_10_Training-programming-and-prescription.pdf`](r-reha/L-R-29_kapitel/L-R-29_10_Training-programming-and-prescription.pdf) |
+| 11 | Core stability | 194–205 | 153–164 | [`L-R-29_11_Core-stability.pdf`](r-reha/L-R-29_kapitel/L-R-29_11_Core-stability.pdf) |
+| 12 | Preventing injury | 206–229 | 165–188 | [`L-R-29_12_Preventing-injury.pdf`](r-reha/L-R-29_kapitel/L-R-29_12_Preventing-injury.pdf) |
+| 13 | Recovery | 230–241 | 189–200 | [`L-R-29_13_Recovery.pdf`](r-reha/L-R-29_kapitel/L-R-29_13_Recovery.pdf) |
+| 14 | Clinical assessment – moving from rote to rigorous | 242–249 | 201–208 | [`L-R-29_14_Clinical-assessment-moving-from-rote-to-rigorous.pdf`](r-reha/L-R-29_kapitel/L-R-29_14_Clinical-assessment-moving-from-rote-to-rigorous.pdf) |
+| 15 | How to make the diagnosis | 250–271 | 209–230 | [`L-R-29_15_How-to-make-the-diagnosis.pdf`](r-reha/L-R-29_kapitel/L-R-29_15_How-to-make-the-diagnosis.pdf) |
+| 16 | Patient-reported outcome measures in sports medicine | 272–279 | 231–238 | [`L-R-29_16_Patient-reported-outcome-measures-in-sports-medicine.pdf`](r-reha/L-R-29_kapitel/L-R-29_16_Patient-reported-outcome-measures-in-sports-medicine.pdf) |
+| 17 | Treatment of sports injuries | 280–317 | 239–276 | [`L-R-29_17_Treatment-of-sports-injuries.pdf`](r-reha/L-R-29_kapitel/L-R-29_17_Treatment-of-sports-injuries.pdf) |
+| 18 | Principles of sports injury rehabilitation | 318–325 | 277–284 | [`L-R-29_18_Principles-of-sports-injury-rehabilitation.pdf`](r-reha/L-R-29_kapitel/L-R-29_18_Principles-of-sports-injury-rehabilitation.pdf) |
+| 19 | Return to play | 326–335 | 285–294 | [`L-R-29_19_Return-to-play.pdf`](r-reha/L-R-29_kapitel/L-R-29_19_Return-to-play.pdf) |
+| 20 | Sports concussion | 336–357 | 295–316 | [`L-R-29_20_Sports-concussion.pdf`](r-reha/L-R-29_kapitel/L-R-29_20_Sports-concussion.pdf) |
+| 21 | Headache | 358–371 | 317–330 | [`L-R-29_21_Headache.pdf`](r-reha/L-R-29_kapitel/L-R-29_21_Headache.pdf) |
+| 22 | Face, eyes and teeth | 372–387 | 331–346 | [`L-R-29_22_Face-eyes-and-teeth.pdf`](r-reha/L-R-29_kapitel/L-R-29_22_Face-eyes-and-teeth.pdf) |
+| 23 | Neck pain | 388–417 | 347–376 | [`L-R-29_23_Neck-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_23_Neck-pain.pdf) |
+| 24-1 | Shoulder pain (Teil 1/2) | 418–448 | 377–407 | [`L-R-29_24-1_Shoulder-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_24-1_Shoulder-pain.pdf) |
+| 24-2 | Shoulder pain (Teil 2/2) | 449–479 | 408–438 | [`L-R-29_24-2_Shoulder-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_24-2_Shoulder-pain.pdf) |
+| 25 | Elbow and arm pain | 480–503 | 439–462 | [`L-R-29_25_Elbow-and-arm-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_25_Elbow-and-arm-pain.pdf) |
+| 26 | Wrist pain | 504–529 | 463–488 | [`L-R-29_26_Wrist-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_26_Wrist-pain.pdf) |
+| 27 | Hand and finger injuries | 530–547 | 489–506 | [`L-R-29_27_Hand-and-finger-injuries.pdf`](r-reha/L-R-29_kapitel/L-R-29_27_Hand-and-finger-injuries.pdf) |
+| 28 | Thoracic and chest pain | 548–561 | 507–520 | [`L-R-29_28_Thoracic-and-chest-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_28_Thoracic-and-chest-pain.pdf) |
+| 29 | Low back pain | 562–607 | 521–566 | [`L-R-29_29_Low-back-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_29_Low-back-pain.pdf) |
+| 30 | Buttock pain | 608–633 | 567–592 | [`L-R-29_30_Buttock-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_30_Buttock-pain.pdf) |
+| 31 | Hip pain | 634–669 | 593–628 | [`L-R-29_31_Hip-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_31_Hip-pain.pdf) |
+| 32 | Groin pain | 670–699 | 629–658 | [`L-R-29_32_Groin-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_32_Groin-pain.pdf) |
+| 33 | Anterior thigh pain | 700–719 | 659–678 | [`L-R-29_33_Anterior-thigh-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_33_Anterior-thigh-pain.pdf) |
+| 34 | Posterior thigh pain | 720–753 | 679–712 | [`L-R-29_34_Posterior-thigh-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_34_Posterior-thigh-pain.pdf) |
+| 35 | Acute knee injuries | 754–809 | 713–768 | [`L-R-29_35_Acute-knee-injuries.pdf`](r-reha/L-R-29_kapitel/L-R-29_35_Acute-knee-injuries.pdf) |
+| 36 | Anterior knee pain | 810–845 | 769–804 | [`L-R-29_36_Anterior-knee-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_36_Anterior-knee-pain.pdf) |
+| 37 | Lateral, medial and posterior knee pain | 846–865 | 805–824 | [`L-R-29_37_Lateral-medial-and-posterior-knee-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_37_Lateral-medial-and-posterior-knee-pain.pdf) |
+| 38 | Leg pain | 866–887 | 825–846 | [`L-R-29_38_Leg-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_38_Leg-pain.pdf) |
+| 39 | Calf pain | 888–905 | 847–864 | [`L-R-29_39_Calf-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_39_Calf-pain.pdf) |
+| 40 | Pain in the Achilles region | 906–933 | 865–892 | [`L-R-29_40_Pain-in-the-Achilles-region.pdf`](r-reha/L-R-29_kapitel/L-R-29_40_Pain-in-the-Achilles-region.pdf) |
+| 41 | Acute ankle injuries | 934–957 | 893–916 | [`L-R-29_41_Acute-ankle-injuries.pdf`](r-reha/L-R-29_kapitel/L-R-29_41_Acute-ankle-injuries.pdf) |
+| 42 | Ankle pain | 958–977 | 917–936 | [`L-R-29_42_Ankle-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_42_Ankle-pain.pdf) |
+| 43 | Foot pain | 978–1013 | 937–972 | [`L-R-29_43_Foot-pain.pdf`](r-reha/L-R-29_kapitel/L-R-29_43_Foot-pain.pdf) |
+| 44 | The younger athlete | 1014–1031 | 973–990 | [`L-R-29_44_The-younger-athlete.pdf`](r-reha/L-R-29_kapitel/L-R-29_44_The-younger-athlete.pdf) |
+| 45 | Military personnel | 1032–1043 | 991–1002 | [`L-R-29_45_Military-personnel.pdf`](r-reha/L-R-29_kapitel/L-R-29_45_Military-personnel.pdf) |
+| 46 | Periodic medical assessment of athletes | 1044–1057 | 1003–1016 | [`L-R-29_46_Periodic-medical-assessment-of-athletes.pdf`](r-reha/L-R-29_kapitel/L-R-29_46_Periodic-medical-assessment-of-athletes.pdf) |
+| 47 | Working and travelling with teams | 1058–1067 | 1017–1026 | [`L-R-29_47_Working-and-travelling-with-teams.pdf`](r-reha/L-R-29_kapitel/L-R-29_47_Working-and-travelling-with-teams.pdf) |
+| 48 | Career development | 1068–1075 | 1027–1034 | [`L-R-29_48_Career-development.pdf`](r-reha/L-R-29_kapitel/L-R-29_48_Career-development.pdf) |
+| 90 | Quotation sources | 1076–1079 | – | [`L-R-29_90_Quotation-sources.pdf`](r-reha/L-R-29_kapitel/L-R-29_90_Quotation-sources.pdf) |
+| 91 | Index | 1080–1097 | – | [`L-R-29_91_Index.pdf`](r-reha/L-R-29_kapitel/L-R-29_91_Index.pdf) |
+| 92-1 | References (Teil 1/3) | 1098–1140 | – | [`L-R-29_92-1_References.pdf`](r-reha/L-R-29_kapitel/L-R-29_92-1_References.pdf) |
+| 92-2 | References (Teil 2/3) | 1141–1184 | – | [`L-R-29_92-2_References.pdf`](r-reha/L-R-29_kapitel/L-R-29_92-2_References.pdf) |
+| 92-3 | References (Teil 3/3) | 1185–1227 | – | [`L-R-29_92-3_References.pdf`](r-reha/L-R-29_kapitel/L-R-29_92-3_References.pdf) |
 
 ## Kapitel-Markdown mit Ansichts-PDF (EPUB, D-71)
 
