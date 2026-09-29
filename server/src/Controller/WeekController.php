@@ -99,7 +99,8 @@ final class WeekController extends AppController
     /**
      * Seiten, die der Service Worker für die Offline-Nutzung vorlädt (D-45): aktuelle und nächste Woche mit ihren
      * Einheiten, Check-in und Schmerz für heute, dazu die geführte Einheit (S9) für heutige und morgige geeignete
-     * Einheiten (AP-14, 6.7) und die Übungsseiten (S10) aller Einheiten beider Wochen (AP-16, E-15). Nur in der Ansicht
+     * Einheiten (AP-14, 6.7), die Übungsseiten (S10) aller Einheiten beider Wochen (AP-16, E-15) und die Blockseite (S11)
+     * des aktiven Blocks (AP-15). Nur in der Ansicht
      * der aktuellen Woche.
      * @param list<array<string, mixed>> $sessions
      * @return list<string>
@@ -123,6 +124,12 @@ final class WeekController extends AppController
                     $urls[] = '/uebung?id=' . rawurlencode($slug) . '&von=' . (int) $s['id'] . '&modus=start';
                 }
             }
+        }
+
+        // Blockseite des aktiven Blocks (AP-15, T5) mit derselben Adresse wie die Karte „Block“
+        $active = $this->app->pdo()->query("SELECT id FROM training_block WHERE status = 'aktiv' ORDER BY start_date DESC LIMIT 1")->fetchColumn();
+        if ($active !== false) {
+            $urls[] = '/block?id=' . (int) $active;
         }
 
         return array_values(array_unique($urls));

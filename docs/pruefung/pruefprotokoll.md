@@ -888,11 +888,21 @@ geprueft:
     wie: Rauchtest gegen Radicale 3.8.1 (lokal, http nur für den Test)
     ergebnis: ok
     datum: 2026-09-29
+  - was: "T5 S11: Leerzustände (kein Block, Block ohne Reviews mit Fälligkeit und Restlaufzeit), 404 für unbekannte/ungültige id; voller Block mit Zielklärung (alle Abschnitte, Entscheidungen mit Verworfen, Fassungen 1 Entwurf/2 bestätigt mit Grund), Revision als Zeitleiste, Bilanz (gültig v1, neuer Entwurf v2, Bewertungsmarken, Kennzahlen 12 Wochen), weitere Blöcke; nur Entwurf → markiert und weiter fällig; Anmeldung nötig; S6 Abschnitt Blöcke mit Fälligkeit; Vorladen /block?id=<aktiv>; gesamte Suite 303 Tests grün"
+    wie: automatisiert (Integration BlockPageTest gegen MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T5 Browser 375 px: S11 mit Zielklärung, Revision und Bilanz ohne seitliches Scrollen (Tabellen scrollen in der Karte), Fassungen aufklappbar; S6 „Blöcke“ mit Link; Sicht auf das Bildschirmfoto"
+    wie: automatisiert (tests/e2e/erinnerung.e2e.cjs Schritt 3) und Sicht
+    ergebnis: ok
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: T1 Migration 0024 und Schemata gegen MySQL 8.4
     wie: CI (GitHub Actions) mit dem Pull Request
   - was: "T2 Abnahme aus dem Projekt-Chat: get_handover liefert Block, Zielklärung, Bilanz und Fälligkeiten in ≤ 8 000 Zeichen; write_block_review legt eine Fassung an und meldet Kennzahlen"
     wie: Athlet im Projekt-Chat nach Deployment (erste echte Zielklärung in AP-08)
+  - was: "T5 Sichtprüfung der Blockseite S11 und des Abschnitts „Blöcke“ in S6 auf dem Smartphone"
+    wie: Athlet nach Deployment und erster Zielklärung (AP-08)
   - was: "T4 Abnahme: im Nextcloud-Kalender (Web und Handy) steht der Termin am Blockende 08:00–10:00 mit Erinnerung am Vortag 08:00"
     wie: Athlet nach Deployment und erstem upsert_block (AP-08)
   - was: "T3 Abnahme auf dem Smartphone: Overlay erscheint bei fälliger Bilanz, verschwindet nach „Morgen wieder erinnern“ bis zum nächsten Tag und kommt dann wieder; offline quittiert → „1 Eingabe wartet auf Netz: Erinnerung quittiert“, Overlay ausgeblendet"

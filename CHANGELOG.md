@@ -7,6 +7,16 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ### Dokumentation
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 
+## [0.30.0] – 2026-09-29
+
+AP-15 T5: Blockseite und Blöcke im Verlauf.
+
+### Hinzugefügt
+- S11 Blockseite `/block?id=…` (ohne id der aktive Block): Kopf mit Status, Zeitraum, Restlaufzeit und Fälligkeiten; Zielklärung mit Ausgangslage, Phase, Prioritäten, Zielen, Zielevents, Entscheidungen als Tabelle mit verworfenen Alternativen, Risiken, Ableitung für den Block und offenen Fragen; Revisionen als Zeitleiste; Bilanz mit Ziel/Soll/Ist/Bewertung, Tests, geänderten Annahmen, Empfehlung und den eingefrorenen Kennzahlen; Fassungen je Datensatz aufklappbar; weitere Blöcke. Nur lesen, ohne JavaScript; Entwürfe sind markiert.
+- S6 Verlauf: Abschnitt „Blöcke“ mit allen Blöcken, Status, Fälligkeiten und Link zur Blockseite.
+- Offline: Die Woche lädt die Blockseite des aktiven Blocks vor; der Service Worker speichert `/block`.
+- Mockup `s11-block.html` (aktiv mit Zielklärung, mit Bilanz, ohne Reviews); Browser-Test prüft S11 und S6 bei 375 px.
+
 ## [0.29.0] – 2026-09-29
 
 AP-15 T4: Termin für Blockbilanz und Zielklärung im Kalender.

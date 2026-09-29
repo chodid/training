@@ -493,12 +493,23 @@ T4:
     - was: Das Suchfenster für verwaiste Blocktermine ist ohne Zeitraum nicht begrenzt
       loesung: REPORT von heute − 400 bis heute + 800 Tage (deckt Blöcke bis gut zwei Jahre voraus ab)
 T5:
-  status: offen
-  datum: null
-  ergebnis: null
-  tests: null
-  abnahme: null
-  probleme_loesungen: []
+  status: erledigt
+  datum: 2026-09-29
+  ergebnis: >-
+    Training\Controller\BlockController (GET /block, Standard aktiver bzw. zuletzt begonnener Block, 404) und
+    templates/block.php (Kopf mit Fälligkeiten, Zielklärung als Karten, Entscheidungen als Tabelle, Revisionen als
+    Zeitleiste, Bilanz mit Tabelle und Kennzahlen, Fassungen per details, weitere Blöcke); S6 Abschnitt „Blöcke“;
+    Service Worker /block in PAGE_PATHS, Vorladen der Blockseite des aktiven Blocks; Mockup s11-block.html mit drei
+    Zuständen, Einträge im Mockup-Index (auch S2 ?state=erinnerung). Code-Stand 0.30.0.
+  tests: >-
+    Integration BlockPageTest (Leerzustände, 404, voller Block mit Fassungen und Entwürfen, S6, Vorladen, Anmeldung);
+    Browser erinnerung.e2e.cjs Schritt 3 (S11 und S6 bei 375 px); gesamte Suite 303 Tests grün.
+  abnahme: automatisiert; Sichtprüfung durch den Athleten auf dem Smartphone offen
+  probleme_loesungen:
+    - was: Die Entscheidungs- und Bilanztabellen sind bei 375 px breiter als der Bildschirm
+      loesung: Tabellen in .table-scroll (seitliches Scrollen nur innerhalb der Karte, wie S6-Tabelle); Seite ohne Überlauf
+    - was: T5 legt keinen Navigationsbereich für S11 fest
+      loesung: S11 gehört zum Bereich Verlauf (Zurück zu /verlauf#bloecke); Einstieg aus S2-Karte, S6, Overlay und Kalendertermin
 T6:
   status: offen
   datum: null

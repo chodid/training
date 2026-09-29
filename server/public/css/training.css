@@ -150,3 +150,12 @@ a.ex-link{display:inline-flex;align-items:center;gap:var(--space-1)}
 body.has-overlay{overflow:hidden}
 /* S2 Karte „Block“ (AP-15, 6.2) */
 .block-card .faellig{margin:0;padding-left:1.2em;display:grid;gap:var(--space-1);color:var(--text-secondary)}
+/* S11 Blockseite (AP-15, T5): nur lesen; Listen mit Aufzählungszeichen, Revisionen als Zeitleiste */
+.block-page ul.bullet{margin:0;padding-left:1.2em;display:grid;gap:var(--space-1);overflow-wrap:anywhere}
+.block-page .timeline{list-style:none;margin:0;padding:0 0 0 var(--space-4);border-left:2px solid var(--border-subtle);display:grid;gap:var(--space-4)}
+.block-page .timeline>li{position:relative}
+.block-page .timeline>li::before{content:"";position:absolute;left:calc(-1 * var(--space-4) - 7px);top:22px;width:12px;height:12px;border-radius:50%;background:var(--plum-400)}
+.block-page .entscheidungen td,.block-page .bilanz-ziele td{vertical-align:top;overflow-wrap:anywhere}
+.block-page .entscheidungen ul.bullet{padding-left:1em}
+.block-page .kv dd{overflow-wrap:anywhere}
+.block-page .badge{white-space:nowrap}

@@ -2,6 +2,7 @@
  * AP-15 T3: Browser-Durchlauf der Erinnerung an Blockbilanz und Zielklärung (docs/konzept/blockbilanz.md 6.1, 11.4):
  * Overlay mit zwei Punkten auf S2, Fokus auf „Morgen wieder erinnern“, Seite dahinter inert, 375 px ohne seitliches
  * Scrollen; Wegklicken führt zurück auf die Seite, danach Karte „Block“ mit den Fälligkeiten und kein Overlay mehr.
+ * T5: Blockseite S11 mit Zielklärung, Revision und Bilanz sowie S6 „Blöcke“ bei 375 px.
  *
  * Voraussetzung wie gefuehrt.e2e.cjs; wird von run.sh zuletzt gestartet (legt einen aktiven Block an).
  *   E2E_BASE_URL=http://127.0.0.1:8080 E2E_MCP_TOKEN=… E2E_MIGRATION_SECRET=… node server/tests/e2e/erinnerung.e2e.cjs
@@ -27,6 +28,8 @@ const PASSWORD = process.env.E2E_PASSWORD || 'richtig-langes-passwort';
 const TOKEN = process.env.E2E_MCP_TOKEN || '';
 const SECRET = process.env.E2E_MIGRATION_SECRET || '';
 const SHOTS = process.env.E2E_SCREENSHOT_DIR || '';
+// Gültige Beispiele je Art (wie tests/fixtures/review-beispiele.json)
+const BEISPIELE = {"zielklaerung": {"ausgangslage": {"zeitbudget": "6–8 h/Woche, Mo/Do abends Halle", "umstaende": "Herbst, kaum Reisen", "einschraenkungen": "Patellasehne rechts reizbar (Morgentest ≤ 3)", "ausruestung": null}, "phase": "grundlagen", "phase_text": "Aerobe Basis und Kraftgrundlage aufbauen, Sehne belastbar machen.", "prioritaeten": {"t1": "A", "t2": "B", "t3": "B"}, "ziele": [{"id": "z-1", "bereich": "t1", "ziel": "Lockerer Lauf 60 min in Z2 ohne Kniereiz", "messgroesse": "Dauer Z2-Lauf, Morgentest", "kriterium": "60 min, Morgentest am Folgetag ≤ 3", "termin": "2026-12-13"}, {"id": "z-2", "bereich": "reha", "ziel": "Patellasehne belastbar", "messgroesse": "Morgentest rechts", "kriterium": "4 Wochen Mittel ≤ 2", "termin": null}], "zielevents": [{"name": "Skitour Silvretta", "datum": "2027-02-01", "art": "Tour"}], "entscheidungen": [{"thema": "Laufumfang", "entscheidung": "Steigerung nur über Einzellauflänge", "rationale": "Einzellauf-Regel statt Wochenprozent, weil die Sehne auf Spitzen reagiert.", "verworfen": ["10 % Wochenregel – reagiert zu spät auf Einzelspitzen"], "quelle": "L-R-24"}], "risiken": [{"risiko": "Sehnenreizung", "regel": "Morgentest > 5: Laufen streichen"}], "block": {"dauer_wochen": 12, "phasen": [{"name": "Einstieg", "wochen": "1–4", "fokus": "Gewöhnung"}], "tests_start": ["Morgentest-Baseline", "20-min-Lauf Z2"]}, "offene_fragen": ["Orthese beim Trailrunning?"]}, "revision": {"anlass": "schmerz", "befund": "Morgentest rechts zwei Tage in Folge 5.", "aenderungen": [{"was": "Intervalle bergab gestrichen", "warum": "Exzentrische Last auf die Sehne", "bis": "2026-10-25"}], "wirkung_pruefen": "Morgentest in zwei Wochen wieder ≤ 3."}, "bilanz": {"zeitraum": {"von": "2026-09-21", "bis": "2026-12-13"}, "ziele": [{"ziel_id": "z-1", "ziel": "Lockerer Lauf 60 min in Z2", "soll": "60 min", "ist": "55 min", "bewertung": "teilweise", "grund": "Zwei Wochen Ausfall durch Erkältung."}, {"ziel_id": "z-2", "ziel": "Patellasehne belastbar", "soll": "Mittel ≤ 2", "ist": "Mittel 1,8", "bewertung": "erreicht", "grund": "Morgentest stabil."}], "tests": [{"name": "20-min-Lauf Z2", "start": "4,2 km", "ende": "4,6 km", "datum": "2026-12-10", "bewertung": "besser"}], "gelungen": ["Krafteinheiten regelmäßig"], "nicht_gelungen": ["Mobilität oft ausgelassen"], "annahmen_geaendert": [{"was": "Mobilität am Ende der Krafteinheit", "neu": "Mobilität morgens 10 min", "begruendung": "Am Abend oft ausgelassen.", "vorschlag_trainerregel": false}], "empfehlung": "Nächster Block: Aufbau mit einer Schwelleneinheit je Woche.", "offene_fragen": ["Zweite Klettereinheit möglich?"]}};
 
 async function mcp(tool, args) {
   const h = { Authorization: 'Bearer ' + TOKEN, 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream' };
@@ -106,6 +109,24 @@ async function anmelden(page) {
     await page.goto(BASE + '/einstellungen');
     assert.equal(await page.locator('[data-review-overlay]').count(), 0, 'auch auf anderen Seiten bis morgen Ruhe');
     ok('U-02 Morgen wieder erinnern: Overlay weg, Karte zeigt die Fälligkeit');
+
+    // T5: Blockseite S11 mit Zielklärung, Revision und Bilanz, S6 Abschnitt „Blöcke“ – 375 px ohne seitliches Scrollen
+    const block = (await mcp('get_block', {})).id;
+    for (const [kind, content] of Object.entries(BEISPIELE)) {
+      await mcp('write_block_review', { block_id: block, kind, review_date: tag(0), summary: 'E2E ' + kind, content, status: 'bestaetigt', reason: 'E2E' });
+    }
+    await page.goto(BASE + '/block?id=' + block);
+    assert.ok((await page.textContent('main')).includes('Verworfen'), 'Entscheidungstabelle');
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth), 0, 'S11 375 px ohne seitliches Scrollen');
+    await page.click('#bilanz details summary');
+    assert.ok(await page.locator('#bilanz details .list-item').first().isVisible(), 'Fassungen aufklappbar');
+    if (SHOTS) {
+      await page.screenshot({ path: path.join(SHOTS, 'block-375.png'), fullPage: true });
+    }
+    await page.goto(BASE + '/verlauf#bloecke');
+    assert.ok(await page.locator('#bloecke a[href="/block?id=' + block + '"]').isVisible(), 'S6 Abschnitt Blöcke mit Link');
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth), 0, 'S6 375 px');
+    ok('T5 Blockseite mit allen Abschnitten und S6 „Blöcke“ bei 375 px');
 
     assert.deepEqual(fehler, [], 'keine Skriptfehler');
     console.log('Alle ' + schritt + ' Prüfungen bestanden.');

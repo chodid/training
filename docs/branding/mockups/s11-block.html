@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Block Herbst 2026 – Training</title>
+<link rel="icon" href="icon-optionen/v3-favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+<style>
+  /* S11 Blockseite (AP-15, blockbilanz.md T5; Code-Instanz aus vorhandenen Bausteinen, branding.md Abschnitt 8).
+     Zustände: Standard = aktiv mit Zielklärung und Revision, ?state=bilanz = mit Bilanz, ?state=leer = ohne Reviews. */
+  .only-bilanz,.only-leer{display:none}
+  body.st-bilanz .only-bilanz{display:block}
+  body.st-leer .only-leer{display:block}
+  body.st-leer .has-reviews{display:none}
+  ul.bullet{margin:0;padding-left:1.2em;display:grid;gap:var(--space-1)}
+  .timeline{list-style:none;margin:0;padding:0 0 0 var(--space-4);border-left:2px solid var(--border-subtle);display:grid;gap:var(--space-4)}
+  .timeline>li{position:relative}
+  .timeline>li::before{content:"";position:absolute;left:calc(-1 * var(--space-4) - 7px);top:22px;width:12px;height:12px;border-radius:50%;background:var(--plum-400)}
+  .table-scroll{overflow-x:auto}.table-wide{min-width:560px}
+  td{vertical-align:top}
+  details.more>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center;gap:var(--space-2)}
+  .kurz{color:var(--text-secondary)}
+</style>
+</head>
+<body class="app">
+<header class="topbar">
+  <a class="btn btn-icon" href="s6-verlauf.html" aria-label="Zum Verlauf"><svg class="ic ic-lg"><use href="#i-arrow-left"/></svg></a>
+  <h1>Block Herbst 2026</h1>
+</header>
+<nav class="nav" aria-label="Hauptnavigation">
+  <a class="nav-brand" href="s2-woche.html"><img src="../chadid-design-system/assets/logo/lama-symbol-flaeche.svg" alt=""><span class="brand"><span>Training</span></span></a>
+  <a href="s2-woche.html"><svg class="ic"><use href="#i-calendar-week"/></svg>Woche</a>
+  <a href="s4-checkin.html"><svg class="ic"><use href="#i-checkup-list"/></svg>Check-in</a>
+  <a href="s6-verlauf.html" aria-current="page"><svg class="ic"><use href="#i-chart-line"/></svg>Verlauf</a>
+  <a href="s8-einstellungen.html"><svg class="ic"><use href="#i-settings"/></svg>Einstellungen</a>
+  <div class="nav-foot">philipp · Block 2, Woche 5</div>
+</nav>
+<main class="main">
+<div class="stack-lg">
+  <div class="page-head">
+    <div class="eyebrow">Block · <span class="badge badge-success">aktiv</span></div>
+    <h1>Herbst 2026</h1>
+    <p class="muted">21.09.2026 – 13.12.2026 · noch 7 Wochen</p>
+  </div>
+  <div class="alert alert-warning only-leer"><svg class="ic"><use href="#i-alert-triangle"/></svg><div><b>Zielklärung fällig.</b> <span class="body">Block „Herbst 2026“ hat noch keine bestätigte Zielklärung. Im Projekt-Chat erstellen.</span></div></div>
+  <div class="alert alert-warning only-bilanz"><svg class="ic"><use href="#i-alert-triangle"/></svg><div><b>Zielklärung fällig.</b> <span class="body">Block „Herbst 2026“ endet am 13.12. – Ziele für den nächsten Block klären. Im Projekt-Chat erstellen.</span></div></div>
+
+  <section class="stack">
+    <div class="section-title"><h2>Zielklärung</h2><span class="hint has-reviews">19.09.2026 · Fassung 2</span></div>
+    <div class="card only-leer"><p class="muted">Noch keine Zielklärung für diesen Block.</p></div>
+    <div class="card stack has-reviews">
+      <div class="card-head"><h3 class="h-card">Aufbau</h3><span class="badge badge-success">bestätigt</span></div>
+      <p class="kurz">Aufbau Schwelle, Sehne stabil halten</p>
+      <p>Aerobe Basis ausbauen, eine Schwelleneinheit je Woche, Kraft erhaltend.</p>
+      <p class="small">Prioritäten: <span class="badge badge-brand">Ausdauer A</span> <span class="badge badge-neutral">Kraft/Haltung B</span> <span class="badge badge-neutral">Klettern B</span></p>
+    </div>
+    <div class="card has-reviews"><div class="card-head"><h3 class="h-card">Ziele</h3></div>
+      <div class="list">
+        <div class="list-item"><div><div class="t"><span class="mono">z-1</span> Lockerer Lauf 60 min in Z2 ohne Kniereiz</div><div class="s">Ausdauer (T1) · Messgröße: Dauer Z2-Lauf, Morgentest · erreicht, wenn 60 min, Morgentest am Folgetag ≤ 3 · bis 13.12.2026</div></div></div>
+        <div class="list-item"><div><div class="t"><span class="mono">z-2</span> Patellasehne belastbar</div><div class="s">Reha · Messgröße: Morgentest rechts · erreicht, wenn 4 Wochen Mittel ≤ 2</div></div></div>
+      </div>
+    </div>
+    <div class="card has-reviews"><div class="card-head"><h3 class="h-card">Entscheidungen</h3><span class="hint">mit verworfenen Alternativen</span></div>
+      <div class="table-scroll"><table class="plan-table table-wide">
+        <thead><tr><th>Thema</th><th>Entscheidung</th><th>Begründung</th><th>Verworfen</th></tr></thead>
+        <tbody><tr><td>Laufumfang</td><td>Steigerung nur über Einzellauflänge<div class="hint">L-R-24</div></td><td>Einzellauf-Regel statt Wochenprozent, weil die Sehne auf Spitzen reagiert.</td><td><ul class="bullet"><li>10 % Wochenregel – reagiert zu spät auf Einzelspitzen</li></ul></td></tr></tbody>
+      </table></div>
+    </div>
+    <div class="card has-reviews"><div class="card-head"><h3 class="h-card">Risiken und Abbruchkriterien</h3></div><ul class="bullet"><li>Sehnenreizung → Morgentest &gt; 5: Laufen streichen</li></ul></div>
+    <details class="more has-reviews"><summary><svg class="ic ic-sm"><use href="#i-chevron-right"/></svg>Fassungen <span class="hint">2, zuletzt 19.09.2026</span></summary>
+      <div class="list"><div class="list-item"><div><span class="t">Fassung 2 · bestätigt</span><div class="s">vom Athleten bestätigt</div></div><span class="hint">19.09.2026</span></div>
+      <div class="list-item"><div><span class="t">Fassung 1 · Entwurf</span><div class="s">erste Fassung</div></div><span class="hint">18.09.2026</span></div></div>
+    </details>
+  </section>
+
+  <section class="stack">
+    <div class="section-title"><h2>Revisionen</h2><span class="hint">Belastungssteuerung alle 3–4 Wochen</span></div>
+    <div class="card only-leer"><p class="muted">Noch keine Revision in diesem Block.</p></div>
+    <ol class="timeline has-reviews">
+      <li class="card stack">
+        <div class="card-head"><h3 class="h-card">19.10.2026 · Schmerz</h3><span class="badge badge-success">bestätigt</span></div>
+        <p>Morgentest rechts zwei Tage in Folge 5.</p>
+        <ul class="bullet"><li>Intervalle bergab gestrichen – Exzentrische Last auf die Sehne (bis 25.10.2026)</li></ul>
+        <p class="small"><b>Wirkung prüfen:</b> Morgentest in zwei Wochen wieder ≤ 3.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="stack">
+    <div class="section-title"><h2>Blockbilanz</h2></div>
+    <div class="card" data-hide-bilanz><p class="muted only-leer">Noch keine Bilanz – sie entsteht am Blockende im Projekt-Chat.</p><p class="muted has-reviews">Noch keine Bilanz – sie entsteht am Blockende im Projekt-Chat. (Zustand ?state=bilanz zeigt sie.)</p></div>
+    <div class="card stack only-bilanz">
+      <div class="card-head"><h3 class="h-card">21.09.2026 – 13.12.2026</h3><span><span class="badge badge-success">bestätigt</span> <span class="badge badge-hint">neuer Entwurf v2</span></span></div>
+      <div class="table-scroll"><table class="plan-table table-wide">
+        <thead><tr><th>Ziel</th><th>Soll</th><th>Ist</th><th>Bewertung</th></tr></thead>
+        <tbody>
+          <tr><td><span class="mono">z-1</span> Lockerer Lauf 60 min in Z2</td><td>60 min</td><td>55 min</td><td><span class="badge badge-warning">teilweise</span><div class="hint">Zwei Wochen Ausfall durch Erkältung.</div></td></tr>
+          <tr><td><span class="mono">z-2</span> Patellasehne belastbar</td><td>Mittel ≤ 2</td><td>Mittel 1,8</td><td><span class="badge badge-success">erreicht</span><div class="hint">Morgentest stabil.</div></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="card only-bilanz"><div class="card-head"><h3 class="h-card">Kennzahlen</h3><span class="hint">vom Server eingefroren, 12 Wochen</span></div>
+      <dl class="kv"><dt>Erledigt</dt><dd>Ausdauer 30/34 · Kraft 20/24 · Klettern 11/12</dd><dt>sRPE</dt><dd>18 640 gesamt</dd><dt>Morgentest</dt><dd>links 1,2 · rechts 2,1 · rote Tage 1</dd><dt>Check-in</dt><dd>88 % der Tage</dd></dl>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><h2>Weitere Blöcke</h2></div>
+    <div class="card list"><a class="list-item" href="#"><div><div class="t">Sommer 2026</div><div class="s">01.07.2026 – 20.09.2026</div></div><span class="badge badge-neutral">abgeschlossen</span></a></div>
+  </section>
+</div>
+</main>
+<script>
+  const s=new URLSearchParams(location.search).get('state');if(s)document.body.classList.add('st-'+s);
+  if(s==='bilanz')document.querySelector('[data-hide-bilanz]').style.display='none';
+</script>
+</body>
+</html>

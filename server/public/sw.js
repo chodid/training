@@ -1,6 +1,6 @@
 /*
  * Service Worker der Training-App (D-45): Offline lesen und Eingaben puffern.
- * - Seiten /woche, /einheit (auch geführt: ?modus=start), /checkin, /schmerz, /uebung, /uebungen: erst Netz (5 s), sonst
+ * - Seiten /woche, /einheit (auch geführt: ?modus=start), /checkin, /schmerz, /uebung, /uebungen, /block (AP-15): erst Netz (5 s), sonst
  *   gespeicherter Stand (markiert mit data-offline-stand). Eine Übung (AP-16) passt aus jeder gespeicherten Einheit.
  * - Gestaltung (/assets, /css, /js, /app-icons, Manifest, /favicon.ico): aus dem Cache der jeweiligen Version.
  * - Formulare Check-in, Rückmeldung, Schmerz, Quittierung der Erinnerung (AP-15): ohne Netz in IndexedDB gepuffert und später mit frischem CSRF-Token gesendet
@@ -12,7 +12,7 @@
 const VERSION = new URL(self.location.href).searchParams.get('v') || '0';
 const STATIC = 'training-static-' + VERSION;
 const PAGES = 'training-pages';
-const PAGE_PATHS = ['/woche', '/einheit', '/checkin', '/schmerz', '/uebung', '/uebungen'];
+const PAGE_PATHS = ['/woche', '/einheit', '/checkin', '/schmerz', '/uebung', '/uebungen', '/block'];
 const FORM_PATHS = ['/checkin', '/einheit', '/schmerz', '/erinnerung'];
 const STATIC_PREFIXES = ['/assets/', '/css/', '/js/', '/app-icons/'];
 const STATIC_FILES = ['/manifest.webmanifest', '/favicon.ico'];

@@ -21,7 +21,7 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.29.0';
+    public const VERSION = '0.30.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
     public const SCHEMA_VERSION = 24;
@@ -94,6 +94,7 @@ final class App
             '/cron/backup-mail' => ['GET' => fn (): Response => (new \Training\Controller\CronController($this))->backupMail($request)],
             '/uebung' => ['GET' => fn (): Response => (new \Training\Controller\ExerciseController($this))->show($request)],
             '/uebungen' => ['GET' => fn (): Response => (new \Training\Controller\ExerciseController($this))->list($request)],
+            '/block' => ['GET' => fn (): Response => (new \Training\Controller\BlockController($this))->handle($request)],
             '/erinnerung' => ['POST' => fn (): Response => (new \Training\Controller\ReminderController($this))->handle($request)],
             '/verlauf' => ['GET' => fn (): Response => (new \Training\Controller\HistoryController($this))->handle($request)],
             '/intervals' => ['GET' => fn (): Response => (new IntervalsController($this, $this->intervalsTransport))->handle($request), 'POST' => fn (): Response => (new IntervalsController($this, $this->intervalsTransport))->handle($request)],
