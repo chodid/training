@@ -799,6 +799,18 @@ geprueft:
     wie: Chromium (Playwright, lokale Instanz, Screenshots)
     ergebnis: ok
     datum: 2026-09-29
+  - was: "T4 W-04 S3: Link nur bei Übungen mit exercise_id (von=<Einheit>), Kletterblock „Hangboard · Max Hang 20 mm“; S9: ein Link „Ausführung“ (modus=start), S10 führt zurück in die geführte Einheit; Vorladen der S10-Adressen (S3 alle Einheiten beider Wochen, S9 heute/morgen), ohne Doppelte"
+    wie: automatisiert (Integration ExerciseLinksTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T4 Kalender: Link je Übung mit ID unter der Kurzplanzeile (Kraft und Kletterblock), 30 Übungen → Kurzplan vollständig, Kurzplan + Links ≤ 1 000 Zeichen, hintere Links entfallen"
+    wie: automatisiert (Unit DayEventTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T4 Browser: W-04 S3 → S10 (Video-iframe, Vorsicht, 375 px) → zurück; S10a 375 px; W-05 S9 Satz erledigt, Ist-Wert geändert → Ausführung → zurück: gleiche Übung und Satz, Ist-Wert bleibt, keine Rückfrage; normales Neuladen fragt weiter; W-06 echter Netzausfall (Proxy): Übung aus dem Cache mit data-offline-stand, Ausführung lesbar, Link zum Video, andere Adresse derselben Übung ebenfalls; keine Skriptfehler"
+    wie: automatisiert (tests/e2e/uebung.e2e.cjs mit Chromium über run.sh; gefuehrt.e2e.cjs 14 Prüfungen und Node-Tests 18 Fälle weiter grün)
+    ergebnis: ok
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: T1 Migration 0023 und Schemata gegen MySQL 8.4
     wie: CI (GitHub Actions) mit dem Pull Request
@@ -806,7 +818,11 @@ noch_zu_pruefen:
     wie: Athlet im Projekt-Chat nach Deployment
   - was: "T3 Abnahme auf dem Smartphone: Video spielt eingebettet (YouTube, Vimeo), Vorsicht-Abschnitt sichtbar"
     wie: Athlet nach Deployment
-  - was: T4 bis T6
+  - was: "T4 Abnahme auf dem Smartphone: Woche mit Netz öffnen, Flugmodus, Einheit → Übung öffnen: Ausführung lesbar, Platzhalter statt Video; S9 → Ausführung → zurück ohne Rückfrage"
+    wie: Athlet nach Deployment
+  - was: O-05 Kalenderbeschreibung mit Links je Übung oder nur Link zur Einheit
+    wie: Entscheidung des Athleten bei der Abnahme von T4
+  - was: T5 und T6
     wie: siehe Auftrag Abschnitt 9 und 11
 ```
 

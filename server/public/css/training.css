@@ -137,3 +137,4 @@ a.chip[aria-current]{background:var(--bg-subtle);border-color:var(--border-brand
 .video figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2);font:var(--type-body-sm)}
 .link-host{overflow-wrap:anywhere}
 a.ex-link{display:inline-flex;align-items:center;gap:var(--space-1)}
+.phase-card .ausfuehrung{justify-self:center;min-height:44px;font:var(--type-body-sm);color:var(--text-brand)}

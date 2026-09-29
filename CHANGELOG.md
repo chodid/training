@@ -7,6 +7,17 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ### Dokumentation
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 
+## [0.24.0] – 2026-09-29
+
+AP-16 T4: Verlinkung der Übungen und Offline.
+
+### Hinzugefügt
+- S3: Übungen und Kletterblöcke mit Katalogeintrag sind Links auf die Übungsseite (Icon Buch); Zurück führt in die Einheit.
+- S9 geführte Einheit: Link „Ausführung“ in der Karte der aktuellen Übung; zurück geht es ohne Rückfrage an derselben Stelle weiter (Übung, Satz, Eingaben).
+- Kalender: im Kurzplan unter jeder Übung mit Katalogeintrag der Link auf die Übungsseite; Kurzplan und Links zusammen höchstens 1 000 Zeichen, sonst entfallen Links.
+- Offline: Die Woche lädt die Übungsseiten aller Einheiten der laufenden und nächsten Woche vor; ohne Netz zeigt die Übungsseite statt des Videos den Link. Der Service Worker speichert `/uebung` und `/uebungen`.
+- Browser-Test `tests/e2e/uebung.e2e.cjs` (läuft über `run.sh` und in der CI).
+
 ## [0.23.0] – 2026-09-29
 
 AP-16 T3: Übungsseiten auf der Webseite.

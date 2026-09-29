@@ -24,6 +24,8 @@ final class DayEvent
     public const LEGACY_PREFIX = 'training-session-';
     /** Ausführlicher Text je Einheit in der Terminbeschreibung, höchstens so viele Zeichen (AP-13, 5.3) */
     private const TEXT_MAX = 1000;
+    /** Kurzplan mit Links auf die Übungen im Katalog, höchstens so viele Zeichen (AP-16, 6.3; Links entfallen zuerst) */
+    private const LINKS_MAX = 1000;
     /** Trennlinie zwischen den Einheiten eines Tages */
     private const SEPARATOR = '——————————';
 
@@ -183,8 +185,12 @@ final class DayEvent
         }
         $plan = is_array($s['plan'] ?? null) ? $s['plan'] : [];
         $rows = [implode(' · ', $head)];
+        $links = []; // Zeilenindex → Link auf die Übung im Katalog (AP-16, 6.3)
         foreach ($plan['exercises'] ?? [] as $x) {
             $rows[] = '- ' . $x['name'] . ': ' . $x['sets'] . ' × ' . $x['reps'] . (isset($x['load']) ? ' · ' . $x['load'] : '');
+            if (is_string($x['exercise_id'] ?? null)) {
+                $links[count($rows) - 1] = '  ' . $base . '/uebung?id=' . rawurlencode($x['exercise_id']);
+            }
         }
         foreach ($plan['blocks'] ?? [] as $b) {
             $kind = (string) ($b['kind'] ?? '');
@@ -195,7 +201,11 @@ final class DayEvent
                 $b['target'] ?? null,
             ]);
             $rows[] = '- ' . implode(' · ', $bits);
+            if (is_string($b['exercise_id'] ?? null)) {
+                $links[count($rows) - 1] = '  ' . $base . '/uebung?id=' . rawurlencode($b['exercise_id']);
+            }
         }
+        $rows = self::withLinks($rows, $links);
         if (isset($plan['summary'])) {
             $rows[] = (string) $plan['summary'];
         }
@@ -213,6 +223,35 @@ final class DayEvent
         $parts[] = 'In der App: ' . $base . '/einheit?id=' . (int) $s['id'];
 
         return implode("\n\n", $parts);
+    }
+
+    /**
+     * Links je Übung unter die Zeile des Kurzplans (AP-16, 6.3): Kurzplan und Links zusammen höchstens LINKS_MAX Zeichen;
+     * reicht der Platz nicht, entfallen Links (von hinten), der Kurzplan selbst wird nie gekürzt.
+     * @param list<string> $rows
+     * @param array<int, string> $links Zeilenindex → Linkzeile
+     * @return list<string>
+     */
+    private static function withLinks(array $rows, array $links): array
+    {
+        $length = mb_strlen(implode("\n", $rows));
+        $keep = [];
+        foreach ($links as $i => $line) {
+            if ($length + 1 + mb_strlen($line) > self::LINKS_MAX) {
+                break;
+            }
+            $length += 1 + mb_strlen($line);
+            $keep[$i] = $line;
+        }
+        $out = [];
+        foreach ($rows as $i => $row) {
+            $out[] = $row;
+            if (isset($keep[$i])) {
+                $out[] = $keep[$i];
+            }
+        }
+
+        return $out;
     }
 
     /** TEXT-Wert escapen (RFC 5545 3.3.11). */

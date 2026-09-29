@@ -945,6 +945,19 @@
         bediene('zurueck-abschluss');
       }
     });
+    // Ausführung im Übungskatalog (AP-16, uebungskatalog.md 6.3): vor dem Wechsel zu S10 merken; die Rückkehr setzt
+    // ohne Rückfrage fort (Schritt, Satz und Ist-Werte bleiben, E-19)
+    const uebungSchluessel = schluessel + '.uebung';
+    form.addEventListener('click', (e) => {
+      if (e.target.closest('a[data-ausfuehrung]') && modus === 'lauf') {
+        speichern();
+        try {
+          sessionStorage.setItem(uebungSchluessel, '1');
+        } catch (err) {
+          // ohne Speicher: Rückkehr mit Rückfrage
+        }
+      }
+    });
     fortsetzen.addEventListener('click', (e) => {
       const b = e.target.closest('[data-aktion]');
       if (!b) {
@@ -1110,8 +1123,18 @@
       }
       z = neuerZustand(steps, { stand, stumm: stummVorgabe(), jetzt: Date.now() });
     }
+    let ausUebung = false;
+    try {
+      ausUebung = sessionStorage.getItem(uebungSchluessel) === '1';
+      sessionStorage.removeItem(uebungSchluessel);
+    } catch (e) {
+      ausUebung = false;
+    }
     zeigeStumm();
     zeige(false);
+    if (ausUebung && modus === 'fragen') {
+      fortsetzen.querySelector('[data-aktion="fortsetzen"]').click();
+    }
     window.setInterval(tick, 250);
   }
 })(typeof self !== 'undefined' ? self : this);

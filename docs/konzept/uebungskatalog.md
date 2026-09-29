@@ -410,12 +410,30 @@ T3:
     - was: Sichtprüfung mit eingebettetem Video in der Code-Umgebung nicht möglich (YouTube gesperrt)
       loesung: Rahmen und Link geprüft; Wiedergabe Teil der Abnahme durch den Athleten
 T4:
-  status: offen
-  datum: null
-  ergebnis: null
-  tests: null
-  abnahme: null
-  probleme_loesungen: []
+  status: erledigt
+  datum: 2026-09-29
+  ergebnis: >-
+    S3: Übungsname bzw. Kletterblock mit exercise_id als Link (Icon book, von=<Einheit>); S9: Textlink „Ausführung“ in der
+    Phase-Karte (von=<Einheit>&modus=start), Rückkehr setzt ohne Rückfrage fort (js/gefuehrt.js merkt den Wechsel in
+    sessionStorage); Kalender: Link je Übung im Kurzplan, Kurzplan mit Links ≤ 1 000 Zeichen, Links entfallen von hinten;
+    WeekController::prefetch mit den S10-Adressen beider Wochen (wie aus S3, heute/morgen zusätzlich wie aus S9);
+    Service Worker: PAGE_PATHS um /uebung und /uebungen, eine Übung passt aus jeder gespeicherten Adresse; Mockups S3 und S9.
+    Code-Stand 0.24.0.
+  tests: >-
+    Integration ExerciseLinksTest (W-04 S3 nur mit ID, Kletterblock, S9-Link und Rückweg, Vorladen); Unit DayEventTest
+    (Links im Kurzplan, Kletterblock, Kürzung bei 30 Übungen); Browser tests/e2e/uebung.e2e.cjs (W-04, 375 px S10/S10a,
+    W-05 Schritt/Satz/Ist-Wert bleiben ohne Rückfrage, normales Neuladen fragt weiter, W-06 echter Netzausfall über Proxy:
+    Übung aus dem Cache, Ausführung lesbar, Link statt Video, andere Adresse derselben Übung); gefuehrt.e2e.cjs und Node-Tests unverändert grün.
+  abnahme: offen – auf dem Smartphone ohne Netz Einheit → Übung öffnen (Ausführung lesbar, Platzhalter statt Video); O-05 Kalenderlinks
+  probleme_loesungen:
+    - was: S9 fragt nach jedem Neuladen „Fortsetzen oder Neu starten“ (E-19 in gefuehrte-einheit.md); W-05 verlangt die Rückkehr mit Schritt und Satz
+      loesung: der Link „Ausführung“ speichert den Stand und setzt eine Marke; die Rückkehr setzt ohne Rückfrage fort, sonst bleibt die Rückfrage. Ein laufender Timer läuft weiter (Stand über Endzeit), wie beim Neuladen
+    - was: Der Service Worker speichert Seiten je vollständiger Adresse; dieselbe Übung aus S3, S9 oder der Liste hätte drei getrennte Einträge
+      loesung: Vorladen mit genau den Link-Adressen; ohne Netz passt jede gespeicherte Adresse derselben Übung
+    - was: „Beschreibung bleibt ≤ 1 000 Zeichen“ (6.3) – bisher gilt 1 000 nur für die Trainer-Begründung, die Beschreibung ist länger
+      loesung: Grenze für Kurzplan + Links je Einheit (1 000 Zeichen); Kurzplan und Begründung unverändert; Links entfallen von hinten
+    - was: Kletterblöcke haben in S3 keinen Namen, nur die Art
+      loesung: Link „Art · Katalogname“ (z. B. „Hangboard · Max Hang 20 mm“)
 T5:
   status: offen
   datum: null
@@ -441,3 +459,4 @@ T6:
 | 2026-09-29 | Code-Instanz | T1 umgesetzt (Code-Stand 0.21.0), Befunde in Abschnitt 13 |
 | 2026-09-29 | Code-Instanz | T2 umgesetzt (Code-Stand 0.22.0), Befunde in Abschnitt 13 |
 | 2026-09-29 | Code-Instanz | T3 umgesetzt (Code-Stand 0.23.0), Befunde in Abschnitt 13 |
+| 2026-09-29 | Code-Instanz | T4 umgesetzt (Code-Stand 0.24.0), Befunde in Abschnitt 13 |
