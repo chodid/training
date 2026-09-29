@@ -10,6 +10,7 @@ zweck: Eine neue Claude-Code-Sitzung (Opus) stellt mit diesem Dokument die Umgeb
 ## 0. Kurzfassung für die neue Sitzung
 
 1. `bash docs/extraktion/steuerung/wiederherstellen.sh <dein-scratchpad> <heutiges-datum>` ausführen (Abschnitt 3).
+   **Vorher:** `origin/main` in den Branch mergen und die neue Literatur einarbeiten (Abschnitt 5a). Die Beschaffung ist abgeschlossen, und die Warteschlange enthält die neuen Quellen noch nicht.
 2. Dieses Dokument vollständig lesen, danach `docs/konzept/wissenskarten.md` Abschnitte 4, 9 (U2) und 11.
 3. Warteschlange abarbeiten (Abschnitt 4). Die nächste Einheit ist `L-T3-09_k13`.
 4. Wenn T3 fertig ist: T3-Bericht an den Athleten geben (Abschnitt 6.1). Danach ohne Pause mit R und T4 weitermachen.
@@ -159,6 +160,51 @@ Die Code-/Dokumentations-Instanz (Opus) führt AP-06 „Wissensbasis“, Teil Ex
 - L-T3-20: EPUB mit Seitenmarken. Das Ansichts-PDF ist um +13 versetzt, eine Abschnittsgrenze liegt laut Marke eine Seite anders als im PDF; zitiert wird nach den Marken.
 - L-T3-10 und L-T3-21: noch keine Muster.
 
+## 5a. Literatur vollständig (Nachtrag 2026-09-29, nach der Pause auf `main` eingegangen)
+
+Die Literaturbeschaffung ist **abgeschlossen**. Auf `main` liegen die Merges der PRs 31–33: Bestand 118 Werke, „Beschaffung abgeschlossen“. Grundlage sind die Commits bis `d87c0ba`. Der Branch enthält das noch **nicht**.
+
+**Entscheidungen des Athleten**, auf `main` ins Hauptkonzept eingetragen (13.2, D-51/D-70/D-80, Q-22):
+- **Vorhandene Ausgaben gelten, Neuauflagen werden nicht beschafft.**
+  - L-A01, 7. Aufl. 2019: gilt. Abgleich bzw. Neuextraktion mit der 8./9. Aufl. **entfällt**, damit ist der Blocker für UB/UP „L-A01 8./9. Aufl.“ erledigt.
+  - L-T2-33 McGill: 3. Aufl. 2016.
+  - L-R-29 Brukner & Khan: 5. Aufl. 2017, Vol. 1.
+- Freiwald (L-T4-35) entfällt.
+- Anderson (L-T3-15) ist aufgenommen.
+- Q-22 ist entschieden (Wortlaut siehe 13.2 bzw. D-80 auf `main`).
+
+**Neu vorhandene Quellen** (Ablage und Hinweise in `docs/literatur/README.md` auf `main`):
+
+| ID | Zieldatei | Stufe | Rolle | Format / Hinweis |
+|---|---|---|---|---|
+| L-T3-16 Bechtel, Logical Progression 2. Aufl. | T3 | C | ausgewaehlt (Kern) | PDF + `L-T3-16_kapitel/` (13 Dateien); bisher fehlende Kernquelle T3 |
+| L-T3-15 Anderson, Rock Climber's Training Manual | T3 | C | optional | PDF + Kapitel (20 Dateien) |
+| L-T4-17 Behm 2026, Responses to Stretching | T4 | A | Kern | Artikel; bisher fehlende Kernquelle T4 |
+| L-T4-13 Skopal 2024, Mobility Training Methods | T4 | A | optional | Artikel |
+| L-T4-36 Schleip/Wilke, Fascia in Sport and Movement 2. Aufl. | T4 | C | optional | nur Kapitel-PDFs (50 Dateien) |
+| L-R-29 Brukner & Khan, 5. Aufl. Vol. 1 | R | B | optional | nur Kapitel-PDFs (55 Dateien), Scan mit eigener Texterkennung, Druckseite = PDF − 41 |
+| L-R-30 Engelhardt, GOTS-Manual 3. Aufl. | R | B | optional | PDF + Kapitel (94 Dateien) |
+| L-T1-16 Koop, Training Essentials for Ultrarunning 2. Aufl. | T1 | C | optional | EPUB → Markdown-Kapitel (45 Dateien) |
+| L-T2-33 McGill, Low Back Disorders 3. Aufl. | T2 | B | optional | PDF |
+
+Die Angaben zu Zieldatei, Stufe und Rolle stammen aus `docs/literatur/README.md` auf `main`. Vor der Verwendung mit 13.2 abgleichen.
+
+**Schritte vor der Fortsetzung:**
+1. `git fetch origin main && git merge origin/main` in den Branch.
+   - Mögliche Konflikte: `CHANGELOG.md` (beide Einträge behalten) und `docs/pruefung/pruefprotokoll.md`.
+   - `docs/konzept/wissenskarten.md` und `docs/extraktion/` sind auf `main` nicht geändert.
+   - Danach pushen.
+2. Grunddaten neu erzeugen: `parse.py` (13.2 → entries.json), `inv.py` (Dateiinventar, Seitenzahlen, Durchsuchbarkeit nach W-10) und das Kapitelverzeichnis (litreadme.json aus `docs/literatur/README.md`).
+   - Durchsuchbarkeit der neuen PDFs prüfen; L-R-29 hat eine eigene Texterkennung.
+3. **Kapitelauswahl der neuen Bücher** (L-T3-15, L-T3-16, L-T4-36, L-R-29, L-R-30, L-T1-16, L-T2-33) vorschlagen und vom Athleten bestätigen lassen, wie bei Entscheidung 4: Rückfrage per AskUserQuestion mit Vorschlag je Kapitel und Grund. Danach `auswahl.py` ergänzen.
+4. `units.py` erweitern:
+   - ORDER: T3 um L-T3-16 und L-T3-15; R um L-R-29 und L-R-30; T4 um L-T4-17, L-T4-13 und L-T4-36; T1 um L-T1-16; T2 um L-T2-33.
+   - Die neuen Auftragsdateien erzeugen, bestehende nicht überschreiben.
+   - Neue Einheiten in `queue.txt` einfügen: T3-Ergänzungen **vor** den R-Einheiten, damit T3 vor seinem Bericht vollständig ist.
+5. **Rückfrage an den Athleten:** Wann laufen die T1- und T2-Nachträge (L-T1-16, L-T2-33), deren Zieldateien schon als fertig berichtet sind? Empfehlung: gleich am Anfang, dann ein kurzer Nachtragsbericht T1/T2. Alternative: nach T4.
+6. Statusblock U2 in wissenskarten.md und README neu erzeugen (Kernquellen L-T3-16 und L-T4-17 nicht mehr fehlend), dann Commit und Push.
+7. Die Rückfrage L-T3-16 aus 6.1 **entfällt**: Die Quelle liegt vor und wird extrahiert.
+
 ## 6. Offene Punkte
 
 ### 6.1 T3-Bericht (fällig, sobald T3 fertig ist)
@@ -175,19 +221,16 @@ Die Code-/Dokumentations-Instanz (Opus) führt AP-06 „Wissensbasis“, Teil Ex
      - L-T3-09: −16.
    - Auffälligkeiten: viele Widersprüche Text vs. Tabelle, Abbildungsverweise in L-T3-06 falsch, Summen in Tabellen stimmen nicht.
    - Gestoppte Agenten (Abschnitt 5).
-   - **Rückfrage L-T3-16** per AskUserQuestion: Stufe C (Planungsvorlage), aber `ausgewaehlt`, und die Datei fehlt. Nach W-10 blockiert sie die T3-Synthese. Optionen:
-     - (Empfehlung) beschaffen,
-     - auf `optional` setzen (Entscheidung Athlet, Eintrag in 13.2 wäre eine Änderung im Hauptkonzept außerhalb der drei erlaubten Stellen, also nur mit ausdrücklicher Zustimmung),
-     - Synthese ohne L-T3-16.
+   - ~~Rückfrage L-T3-16~~ entfällt (Abschnitt 5a): L-T3-16 liegt vor und wird in T3 extrahiert.
 4. Danach ohne Pause mit R weitermachen.
 
 ### 6.2 R- und T4-Bericht
 
-Gleiches Vorgehen wie 6.1. T4: Die Kernquelle L-T4-17 fehlt (Beschaffung durch den Athleten), im README vermerkt.
+Gleiches Vorgehen wie 6.1. T4: L-T4-17 liegt jetzt vor (Abschnitt 5a).
 
 ### 6.3 Weitere offene Punkte
 
-1. **L-A01, 8./9. Aufl.:** Beschaffung durch den Athleten. Danach Abgleich bzw. Neuextraktion (UB/UP bleiben bis dahin „Synthese startbereit: nein“).
+1. ~~L-A01, 8./9. Aufl.~~ entfällt: Die 7. Aufl. gilt (Abschnitt 5a). Im README bei UB/UP „Fehlende Kernquellen“ nach dem Neuerzeugen der Grunddaten prüfen.
 2. **L-T2-04:** Seite xv der Einleitung fehlt im Scan (Befund, keine Aktion in U2).
 3. **Nebenbefunde Hauptkonzept** (gemeldet, nicht geändert):
    - Der YAML-Block T1 in 13.2 ist nicht parsebar.
@@ -201,7 +244,7 @@ Gleiches Vorgehen wie 6.1. T4: Die Kernquelle L-T4-17 fehlt (Beschaffung durch d
 
 1. Alle Zieldateien sind extrahiert und committet (README: „x von x extrahiert“ je Tabelle, außer den fehlenden Quellen).
 2. In wissenskarten.md, Abschnitt 11:
-   - `U2: erledigt` mit Datum und Kommentar (nur verfügbare Quellen; fehlend sind L-A01 8./9. Aufl., L-T3-16, L-T4-17, R-/T1-/T2-Quellen laut README).
+   - `U2: erledigt` mit Datum und Kommentar (Literatur vollständig laut Abschnitt 5a; eventuell nicht beschaffte oder entfallene Werke laut README nennen).
    - Abschlusseintrag in `probleme_loesungen`.
    - Zeile im Änderungsprotokoll (Abschnitt 12).
 3. Im Hauptkonzept, AP-06-Statusblock, den Teilschritt „Karten-Template und Karten“ nachziehen, z. B. „Auftrag docs/konzept/wissenskarten.md; U1/U2 erledigt, U3 offen“. Außerdem eine Zeile im Änderungsprotokoll. Sonst nichts ändern.
