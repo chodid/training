@@ -1018,7 +1018,22 @@ probleme_loesungen:
     loesung: Athlet entschied 3. Aufl. behalten und Übungsband als L-T3-20; Managing Injuries als L-T3-21 Stufe C vorläufig (Code-Instanz, Bestätigung offen); umnummeriert D-64 → D-70, D-65 → D-71
   - datum: 2026-09-29
     was: Repo öffentlich; Verlagswerke unter docs/literatur/ sind öffentlich abrufbar (widerspricht D-31)
-    loesung: offen – Athlet hat am 2026-09-29 entschieden, dass das Repo vorerst öffentlich bleibt; D-31 bleibt unverändert, der Widerspruch ist bewusst in Kauf genommen. Die Git-History enthält alle Volltexte – vor einer dauerhaften Veröffentlichung Literatur auslagern und History bereinigen
+    loesung: als Q-21 geführt – Athlet hat am 2026-09-29 entschieden, dass das Repo vorerst öffentlich bleibt; D-31 bleibt unverändert, der Widerspruch ist bewusst in Kauf genommen. Die Git-History enthält alle Volltexte – vor einer dauerhaften Veröffentlichung Literatur auslagern und History bereinigen
+  - datum: 2026-09-29
+    was: Commit „Lit“ mit 13 PDFs – 11 Titel der Beschaffungsliste, erneut Hörst 3. Aufl. (bytegleich mit L-T3-09, gleicher Git-Blob) und VISA-P (L-R-08) doppelt; für Block R gab es noch keinen Ordner
+    loesung: 11 PDFs nach D-51 umbenannt und einsortiert, neuer Ordner `r-reha/`; Dubletten entfernt (behalten wurde die VISA-P-Fassung mit Metadaten). Befund – das VISA-P-PDF enthält das Erratum 2013 zu den Punktwerten der Items 8b/8c (bei L-R-08 vermerkt)
+  - datum: 2026-09-29
+    was: Übergabe T4 Teil A stand auf „vorgeschlagen“ und sah die Einarbeitung erst nach Teil B vor; ein eigener T4-Bereich braucht eine 7. Sammeldatei, 13.1 erlaubte 4–6
+    loesung: Athlet bestätigte Teil A und die sofortige Einarbeitung; 13.1 auf 4–7 Dateien erweitert (D-72); IDs der Übergabe umnummeriert – Q-T4-1 bis -5 → Q-17 bis Q-21, V-T4-1 bis -6 → V-18 bis V-23, PF-T4-a bis -k → D-72 (a)–(k)
+  - datum: 2026-09-29
+    was: Hüftspezifische Evidenz ist dünn; chronische Studien fast nur Hamstrings, Quadrizeps, Wade; einzige chronische Hüftbeuger-RCT (L-T4-19) klein
+    loesung: Hüftrichtungen über allgemeine Metaanalysen (L-T4-02, L-T4-03) begründen, Übertragung als „Einschätzung“ kennzeichnen (D-72 i)
+  - datum: 2026-09-29
+    was: Dosisbefunde T4 widersprechen sich (L-T4-02 vs. L-T4-04/L-T4-05)
+    loesung: Dosis als Richtwert, Widerspruch in der Karte unter „Grenzen“ (D-72 b)
+  - datum: 2026-09-29
+    was: Yoga – keine belastbare Evidenz für gesunde Sportler gefunden
+    loesung: Yoga nur als Übungsfundus in Teil B (Stufe C); Begründung über L-T4-13
 geprueft:
   - was: Zuordnung der 29 PDFs zu IDs aus 13.2 – Titel, Autoren und DOI auf den ersten Seiten gegen 13.2 abgeglichen
     wie: Textextraktion (pypdf) aller Dateien, Abgleich je Datei
@@ -1176,12 +1191,32 @@ geprueft:
     wie: grep nach L-T1-01, L-T3-08, L-T3-09, L-T3-10, L-T3-16, Hottenrott, Köstermeyer in docs/; YAML-Blöcke des Konzepts gegen main (keine neuen Parse-Fehler); Links in docs/literatur/README.md
     ergebnis: ok – verbleibende Fundstellen passen zum neuen Stand (historische Einträge im Änderungsprotokoll unverändert); 371 Links, keiner kaputt
     datum: 2026-09-29
+  - was: Zuordnung der 13 PDFs aus Commit „Lit“ zu IDs
+    wie: Titel, Autoren und DOI der ersten Seiten gegen 13.2; Dubletten per Git-Blob-Hash (Hörst) bzw. Textvergleich (VISA-P, 12 Seiten, gleiche Seitenfolge inkl. Erratum)
+    ergebnis: 11 IDs (L-P11, L-P15, L-T2-10, -11, -12, -20, -21, L-R-02, -03, -08, -13, -26) – DOI jeweils gleich dem Konzepteintrag; 2 Dubletten entfernt
+    datum: 2026-09-29
+  - was: Lizenzangaben im Volltext der neuen PDFs
+    wie: Textsuche nach Creative Commons/Open Access
+    ergebnis: L-P15 CC BY 4.0 (MDPI), L-P11 CC BY-NC 4.0 (BMJ Open Access), L-T2-12 Open Access (Konzept – CC BY 4.0); übrige Verlagsfassungen ohne offene Lizenz (L-T2-20/-21 „exclusive licence to Springer Nature“)
+    datum: 2026-09-29
+  - was: Erratum VISA-P (L-R-08)
+    wie: letzte Seite des PDFs (JOSPT 2013;43(9):679)
+    ergebnis: Punktwerte Items 8b/8c im Artikel falsch; richtig 8b 0, 4, 10, 14, 20 und 8c 0, 2, 5, 7, 10; im Konzept bei L-R-08 vermerkt; die App enthält noch keinen VISA-P-Rechner (grep server/)
+    datum: 2026-09-29
+  - was: Einarbeitung T4 Teil A – IDs, YAML, Konsistenz
+    wie: ID-Kollisionsprüfung (L-T4, D-72, Q-17 bis Q-21, V-18 bis V-23 frei); YAML-Blöcke des Konzepts gegen main (keine neuen Parse-Fehler; 13.2.6 Kern 16, optional 17 Einträge); grep nach T1–T3/„drei Bereiche“ (Abschnitte 1.2, 6, 13.1, 14 angepasst); Verweise der Übergabe (V-T4-x, Q-T4-x, P-1, PF-T4-x) vollständig ersetzt
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: Literatur-README nach Commit „Lit“
+    wie: Linkprüfung; jede PDF/EPUB außerhalb der Kapitelordner in der README verlinkt
+    ergebnis: ok – 383 Links, keiner kaputt; 54 Dateien, alle verlinkt
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
     wie: manuell durch Athlet bei der ersten Kartensitzung
   - was: Druckseiten der Scans (Uphill Athlete, Overcoming Gravity) an zwei, drei Stellen gegen das Seitenbild prüfen, bevor Seitenangaben in Karten übernommen werden
     wie: manuell in der Kartensitzung
-  - was: Restliche Beschaffung laut 13.4 (L-A01 8./9. Aufl., L-T3-16, L-T3-09 Neuauflage ab Erscheinen); Format vor Kauf prüfen (V-13, D-71); neue Dateien nach D-51/D-71 ablegen und eintragen
+  - was: Restliche Beschaffung laut 13.4 (L-A01 8./9. Aufl., L-T3-16, L-T3-09 Neuauflage ab Erscheinen, L-T2-26, T4-Artikel); Format vor Kauf prüfen (V-13, D-71); neue Dateien nach D-51/D-71 ablegen und eintragen
     wie: Athlet (D-26), Eintrag durch Code-Instanz
   - was: Schwellenwerte Schmerzmonitoring-Modell am Volltext L-P13 (V-07), danach Entscheidung Q-13
     wie: manuell in der Kartensitzung, der Volltext liegt vor; Entscheidung in AP-07
@@ -1198,13 +1233,13 @@ noch_zu_pruefen:
   - was: Kernaussagen L-T2-15 bis L-T2-18 am Volltext (Dosierungsdetails für Karten)
     wie: manuell nach Beschaffung, Kartenerstellung 13.1
   - was: Schmerzregel L-R-02 am Volltext (Q-13)
-    wie: manuell nach Beschaffung
+    wie: manuell in der Kartensitzung; der Volltext liegt vor
   - was: Einzelempfehlungen L-R-13 (Balance, Orthese) am Volltext
-    wie: manuell nach Beschaffung
+    wie: manuell in der Kartensitzung; der Volltext liegt vor
   - was: Artikelnummer L-R-06; Lizenzen der PMC-Volltexte (Abschnitt 8)
     wie: Verlagsseiten
-  - was: Wortlaut VISA-P-G (L-R-08) gegen WebApp-Rechner
-    wie: manuell nach Beschaffung; ggf. Code-Auftrag
+  - was: Wortlaut VISA-P-G (L-R-08) gegen WebApp-Rechner, dabei korrigierte Punktwerte 8b/8c laut Erratum 2013; korrigierten Fragebogen (jospt.org) beschaffen
+    wie: manuell, der Volltext liegt vor; ggf. Code-Auftrag
   - was: Redundanz zu L-P08, Corrigendum L-T2-23
     wie: V-16 am Volltext
   - was: Kernaussagen am Volltext
@@ -1217,10 +1252,14 @@ noch_zu_pruefen:
     wie: Stichprobe in der ersten Kartensitzung
   - was: Seitenbezug L-T3-19 und L-T3-10 (V-17)
     wie: optional an Druckausgabe/Leseprobe; bis dahin Kapitel/Abschnitt zitieren
-  - was: Lizenz L-P15 vor Ablage im Repo (D-31)
-    wie: Verlagsseite MDPI
   - was: L-T3-21 Managing Injuries – Aufnahme als Stufe C bestätigen
     wie: Athlet (vorläufig durch Code-Instanz vergeben)
-  - was: Repo öffentlich trotz D-31 – Literatur auslagern oder Repo privat stellen, History bereinigen vor dauerhafter Veröffentlichung
+  - was: Repo öffentlich trotz D-23/D-31 (Q-21) – Literatur auslagern oder Repo privat stellen, History bereinigen vor dauerhafter Veröffentlichung
     wie: Entscheidung Athlet (2026-09-29 vorerst öffentlich)
+  - was: T4 Teil B (Übungsquellen – Bücher, Yoga, Mobility-Systeme, Klettern), Formatprüfung D-26/V-13
+    wie: eigene Literatur-Sitzung, Übergabe mit IDs ab L-T4-34
+  - was: T4-Verifikationen V-18 (Delphi-Konsens Dosierung am Volltext), V-19 (Thomas 2018 – Bezug der 5 min), V-20 (Lizenzen PMC-Volltexte T4), V-21 (Format L-T4-32), V-22 (DOI L-T4-19), V-23 (Artikelnummer L-T4-03)
+    wie: Volltext bzw. Verlagsseite
+  - was: T4-Fragen Q-18 (Einheiten vs. Block), Q-19 (Dehnintensität), Q-20 (Hüft-ROM-Verlaufsmessung)
+    wie: AP-07 bzw. AP-08
 ```
