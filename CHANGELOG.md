@@ -5,6 +5,7 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ## [Unreleased]
 
 ### Dokumentation
+- AP-06 U2 (Extraktion) pausiert: Zwischenstand gesichert, Steuerung und Übergabe unter `docs/extraktion/steuerung/` (Wiederherstellungsskript, `UEBERGABE.md`).
 - Wissenskarten U2 vorbereitet: Kapitelauswahl der Bücher (99 Kapitel ohne Bezug zu Zweck/Profil nicht extrahiert, Grund je Kapitel), `lesemethode: markdown_epub` für EPUB-Quellen, Dateinamen je Kapiteldatei; Statustabellen lesen den Stand aus den Extraktionsdateien.
 - Wissenskarten U1 (Vorbereitung): neuer Ordner `docs/extraktion/` mit README (Statustabellen je Zieldatei, Quelle und Kapitel als Prüfdokument für Extraktion und Gegenprüfung; T4 als siebte Zieldatei), leerem Lückenregister `luecken.md` und Blockordnern wie `docs/literatur/`; Verweis im Prüfprotokoll AP-06.
 - Auftrag Wissenskarten (AP-06, Schritte 13.1 (2)–(5)) als `docs/konzept/wissenskarten.md` hinterlegt; Verweis in Konzept 13.1, AP-06-Teilschritt „Karten-Template und Karten“ auf U1/U2 in Arbeit.

@@ -1,0 +1,5780 @@
+{
+ "files": {
+  ".gitkeep": {
+   "datei": ".gitkeep"
+  },
+  "t1-ausdauer/L-T1-02_Seiler-2010_Intensity-and-Duration-Distribution.pdf": {
+   "datei": "t1-ausdauer/L-T1-02_Seiler-2010_Intensity-and-Duration-Distribution.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    2247,
+    2149,
+    302
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-03_Casado-2022_Periodization-Elite-Distance-Runners.pdf": {
+   "datei": "t1-ausdauer/L-T1-03_Casado-2022_Periodization-Elite-Distance-Runners.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    5168,
+    4760,
+    692
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-04_Haugen-2022_World-Class-Distance-Runners.pdf": {
+   "datei": "t1-ausdauer/L-T1-04_Haugen-2022_World-Class-Distance-Runners.pdf",
+   "pdfseiten": 18,
+   "s1": [
+    3515,
+    3250,
+    509
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-05_Vernillo-2017_Uphill-and-Downhill-Running.pdf": {
+   "datei": "t1-ausdauer/L-T1-05_Vernillo-2017_Uphill-and-Downhill-Running.pdf",
+   "pdfseiten": 15,
+   "s1": [
+    2662,
+    2487,
+    352
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-06_Bortolan-2021_Ski-Mountaineering-Perspectives.pdf": {
+   "datei": "t1-ausdauer/L-T1-06_Bortolan-2021_Ski-Mountaineering-Perspectives.pdf",
+   "pdfseiten": 7,
+   "s1": [
+    3210,
+    2963,
+    408
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_Laursen-2019_Science-and-Application-of-HIIT.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_Laursen-2019_Science-and-Application-of-HIIT.pdf",
+   "pdfseiten": 673,
+   "s1": [
+    0,
+    0,
+    0
+   ],
+   "s23": [
+    2249,
+    1908,
+    294
+   ],
+   "leer": [
+    1,
+    2,
+    8,
+    9,
+    23,
+    39,
+    125,
+    143,
+    167,
+    231,
+    232,
+    233,
+    267,
+    317,
+    331,
+    353,
+    369,
+    385,
+    417,
+    449,
+    653,
+    673
+   ]
+  },
+  "t1-ausdauer/L-T1-08_House-2019_Training-for-the-Uphill-Athlete.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_House-2019_Training-for-the-Uphill-Athlete.pdf",
+   "pdfseiten": 380,
+   "s1": [
+    14,
+    14,
+    3
+   ],
+   "s23": [
+    160,
+    148,
+    22
+   ],
+   "leer": [
+    1,
+    3,
+    4,
+    12,
+    15,
+    18,
+    22,
+    23,
+    24,
+    30,
+    36,
+    37,
+    60,
+    61,
+    70,
+    71,
+    72,
+    82,
+    83,
+    91,
+    98,
+    109,
+    111,
+    120,
+    134,
+    135,
+    143,
+    152,
+    159,
+    164,
+    165,
+    174,
+    175,
+    186,
+    189,
+    192,
+    193,
+    194,
+    203,
+    204,
+    209,
+    230,
+    231,
+    239,
+    240,
+    244,
+    257,
+    258,
+    259,
+    260,
+    269,
+    270,
+    278,
+    284,
+    298,
+    299,
+    310,
+    312,
+    316,
+    338,
+    346,
+    347,
+    362,
+    364,
+    378,
+    379
+   ]
+  },
+  "t1-ausdauer/L-T1-09_Toennessen-2024_Training-Session-Models.pdf": {
+   "datei": "t1-ausdauer/L-T1-09_Toennessen-2024_Training-Session-Models.pdf",
+   "pdfseiten": 19,
+   "s1": [
+    2861,
+    2657,
+    379
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-10_Sandbakk-2025_Best-Practice-Norwegian-Coaches.pdf": {
+   "datei": "t1-ausdauer/L-T1-10_Sandbakk-2025_Best-Practice-Norwegian-Coaches.pdf",
+   "pdfseiten": 23,
+   "s1": [
+    3586,
+    3373,
+    494
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-12_Joyner-2008_Physiology-of-Champions.pdf": {
+   "datei": "t1-ausdauer/L-T1-12_Joyner-2008_Physiology-of-Champions.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    3587,
+    3349,
+    498
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_00_Vorspann-und-Foreword.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_00_Vorspann-und-Foreword.pdf",
+   "pdfseiten": 18,
+   "s1": [
+    14,
+    14,
+    3
+   ],
+   "s23": [
+    160,
+    148,
+    22
+   ],
+   "leer": [
+    1,
+    3,
+    4,
+    12,
+    15,
+    18
+   ]
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_01_How-to-Use-This-Book.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_01_How-to-Use-This-Book.pdf",
+   "pdfseiten": 4,
+   "s1": [
+    1675,
+    1641,
+    275
+   ],
+   "leer": [
+    4
+   ]
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_02_The-Physiology-of-Endurance.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_02_The-Physiology-of-Endurance.pdf",
+   "pdfseiten": 48,
+   "s1": [
+    11,
+    10,
+    1
+   ],
+   "s23": [
+    1358,
+    1316,
+    213
+   ],
+   "leer": [
+    1,
+    2,
+    8,
+    14,
+    15,
+    38,
+    39,
+    48
+   ]
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_03_The-Methodologies-of-Endurance-Training.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_03_The-Methodologies-of-Endurance-Training.pdf",
+   "pdfseiten": 50,
+   "s1": [
+    0,
+    0,
+    0
+   ],
+   "s23": [
+    1704,
+    1665,
+    266
+   ],
+   "leer": [
+    1,
+    2,
+    12,
+    13,
+    21,
+    28,
+    39,
+    41,
+    50
+   ]
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_04_Monitoring-Your-Training.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_04_Monitoring-Your-Training.pdf",
+   "pdfseiten": 32,
+   "s1": [
+    1617,
+    1578,
+    269
+   ],
+   "leer": [
+    14,
+    15,
+    23,
+    32
+   ]
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_05_The-Application-Process.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_05_The-Application-Process.pdf",
+   "pdfseiten": 40,
+   "s1": [
+    1309,
+    1261,
+    215
+   ],
+   "leer": [
+    7,
+    12,
+    13,
+    22,
+    23,
+    34,
+    37,
+    40
+   ]
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_06_Strength-Training-for-the-Uphill-Athlete.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_06_Strength-Training-for-the-Uphill-Athlete.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    39,
+    39,
+    7
+   ],
+   "s23": [
+    1565,
+    1518,
+    238
+   ],
+   "leer": [
+    1,
+    2,
+    11,
+    12
+   ]
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_07_General-Strength-Assessment-and-Improvement.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_07_General-Strength-Assessment-and-Improvement.pdf",
+   "pdfseiten": 36,
+   "s1": [
+    1596,
+    1547,
+    271
+   ],
+   "leer": [
+    5,
+    26,
+    27,
+    35,
+    36
+   ]
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_08_Specific-Strength-Training-Methods.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_08_Specific-Strength-Training-Methods.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    1492,
+    1451,
+    232
+   ],
+   "leer": [
+    4
+   ]
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_09_Programming.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_09_Programming.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    0,
+    0,
+    0
+   ],
+   "s23": [
+    16,
+    14,
+    1
+   ],
+   "leer": [
+    1,
+    2,
+    3,
+    4,
+    13,
+    14
+   ]
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_10_Transition-Period-Training.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_10_Transition-Period-Training.pdf",
+   "pdfseiten": 8,
+   "s1": [
+    1396,
+    1354,
+    228
+   ],
+   "leer": [
+    8
+   ]
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_11_Introduction-to-the-Base-Period.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_11_Introduction-to-the-Base-Period.pdf",
+   "pdfseiten": 34,
+   "s1": [
+    1644,
+    1602,
+    272
+   ],
+   "leer": [
+    6,
+    20,
+    21,
+    32,
+    34
+   ]
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_12_Special-Considerations-for-Skimo-and-Ski-Mountaineering.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_12_Special-Considerations-for-Skimo-and-Ski-Mountaineering.pdf",
+   "pdfseiten": 26,
+   "s1": [
+    1206,
+    1165,
+    194
+   ],
+   "leer": [
+    4,
+    26
+   ]
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_13_Special-Considerations-for-Mountain-Running.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_13_Special-Considerations-for-Mountain-Running.pdf",
+   "pdfseiten": 26,
+   "s1": [
+    1287,
+    1224,
+    202
+   ],
+   "leer": [
+    8,
+    9,
+    24,
+    26
+   ]
+  },
+  "t1-ausdauer/L-T1-08_kapitel/L-T1-08_90_Glossary-and-Index.pdf": {
+   "datei": "t1-ausdauer/L-T1-08_kapitel/L-T1-08_90_Glossary-and-Index.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    3418,
+    3317,
+    522
+   ],
+   "leer": [
+    14,
+    15
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_00_Vorspann.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_00_Vorspann.pdf",
+   "pdfseiten": 7,
+   "s1": [
+    0,
+    0,
+    0
+   ],
+   "s23": [
+    2249,
+    1908,
+    294
+   ],
+   "leer": [
+    1,
+    2
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_01_Genesis-and-Evolution-of-High-Intensity-Interval-Training.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_01_Genesis-and-Evolution-of-High-Intensity-Interval-Training.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    48,
+    47,
+    6
+   ],
+   "s23": [
+    2457,
+    2364,
+    360
+   ],
+   "leer": [
+    1,
+    2,
+    16
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_02_Traditional-Methods-of-HIIT-Programming.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_02_Traditional-Methods-of-HIIT-Programming.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    2427,
+    2273,
+    364
+   ],
+   "leer": [
+    16
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_03_Physiological-Targets-of-HIIT.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_03_Physiological-Targets-of-HIIT.pdf",
+   "pdfseiten": 18,
+   "s1": [
+    2337,
+    2258,
+    335
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_04_Manipulating-HIIT-Variables.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_04_Manipulating-HIIT-Variables.pdf",
+   "pdfseiten": 22,
+   "s1": [
+    2376,
+    2276,
+    381
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_05_Using-HIIT-Weapons.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_05_Using-HIIT-Weapons.pdf",
+   "pdfseiten": 46,
+   "s1": [
+    2443,
+    2277,
+    365
+   ],
+   "leer": [
+    46
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_06_Incorporating-HIIT-Into-a-Concurrent-Training-Program.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_06_Incorporating-HIIT-Into-a-Concurrent-Training-Program.pdf",
+   "pdfseiten": 18,
+   "s1": [
+    2647,
+    2457,
+    350
+   ],
+   "leer": [
+    18
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_07_HIIT-and-Its-Influence-on-Stress-Fatigue-and-Athlete-Health.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_07_HIIT-and-Its-Influence-on-Stress-Fatigue-and-Athlete-Health.pdf",
+   "pdfseiten": 24,
+   "s1": [
+    2294,
+    2185,
+    350
+   ],
+   "leer": [
+    24
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_08_Quantifying-Training-Load.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_08_Quantifying-Training-Load.pdf",
+   "pdfseiten": 18,
+   "s1": [
+    2430,
+    2324,
+    381
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_09_Response-to-Load.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_09_Response-to-Load.pdf",
+   "pdfseiten": 34,
+   "s1": [
+    2361,
+    2258,
+    355
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_10_Putting-It-All-Together.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_10_Putting-It-All-Together.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    2146,
+    2066,
+    323
+   ],
+   "leer": [
+    12
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_11_Combat-Sports.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_11_Combat-Sports.pdf",
+   "pdfseiten": 22,
+   "s1": [
+    63,
+    61,
+    8
+   ],
+   "s23": [
+    2143,
+    2027,
+    312
+   ],
+   "leer": [
+    1,
+    2
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_12_Cross-Country-Skiing.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_12_Cross-Country-Skiing.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    2287,
+    2130,
+    325
+   ],
+   "leer": [
+    14
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_13_Middle-Distance-Running.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_13_Middle-Distance-Running.pdf",
+   "pdfseiten": 22,
+   "s1": [
+    1843,
+    1571,
+    255
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_14_Road-Running.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_14_Road-Running.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    2121,
+    1931,
+    292
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_15_Road-Cycling.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_15_Road-Cycling.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    2198,
+    2096,
+    324
+   ],
+   "leer": [
+    14
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_16_Rowing.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_16_Rowing.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    2119,
+    2013,
+    337
+   ],
+   "leer": [
+    14
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_17_Swimming.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_17_Swimming.pdf",
+   "pdfseiten": 22,
+   "s1": [
+    2359,
+    2171,
+    363
+   ],
+   "leer": [
+    22
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_18_Tennis.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_18_Tennis.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    2266,
+    2130,
+    325
+   ],
+   "leer": [
+    16
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_19_Triathlon.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_19_Triathlon.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    1934,
+    1776,
+    277
+   ],
+   "leer": [
+    16
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_20_American-Football.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_20_American-Football.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    2186,
+    2031,
+    337
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_21_Australian-Football.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_21_Australian-Football.pdf",
+   "pdfseiten": 18,
+   "s1": [
+    2178,
+    2054,
+    351
+   ],
+   "leer": [
+    18
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_22_Baseball.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_22_Baseball.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    2315,
+    2179,
+    381
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_23_Basketball.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_23_Basketball.pdf",
+   "pdfseiten": 18,
+   "s1": [
+    2207,
+    2047,
+    305
+   ],
+   "leer": [
+    18
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_24_Cricket.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_24_Cricket.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    2291,
+    2147,
+    375
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_25_Field-Hockey.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_25_Field-Hockey.pdf",
+   "pdfseiten": 22,
+   "s1": [
+    2266,
+    2127,
+    362
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_26_Ice-Hockey.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_26_Ice-Hockey.pdf",
+   "pdfseiten": 18,
+   "s1": [
+    2260,
+    2172,
+    360
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_27_Handball.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_27_Handball.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    1938,
+    1857,
+    286
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_28_Rugby-Union.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_28_Rugby-Union.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    2178,
+    2027,
+    344
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_29_Rugby-Sevens.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_29_Rugby-Sevens.pdf",
+   "pdfseiten": 22,
+   "s1": [
+    2226,
+    2087,
+    351
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_30_Soccer.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_30_Soccer.pdf",
+   "pdfseiten": 18,
+   "s1": [
+    2160,
+    2053,
+    335
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_90-1_References.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_90-1_References.pdf",
+   "pdfseiten": 41,
+   "s1": [
+    2649,
+    2156,
+    306
+   ],
+   "leer": []
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_90-2_References.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_90-2_References.pdf",
+   "pdfseiten": 41,
+   "s1": [
+    3467,
+    2767,
+    406
+   ],
+   "leer": [
+    41
+   ]
+  },
+  "t1-ausdauer/L-T1-07_kapitel/L-T1-07_91_Index-and-Contributors.pdf": {
+   "datei": "t1-ausdauer/L-T1-07_kapitel/L-T1-07_91_Index-and-Contributors.pdf",
+   "pdfseiten": 20,
+   "s1": [
+    2353,
+    1797,
+    249
+   ],
+   "leer": [
+    20
+   ]
+  },
+  "t3-klettern/L-T3-01_Stien-2023_Climbing-and-Resistance-Training-Meta-Analysis.pdf": {
+   "datei": "t3-klettern/L-T3-01_Stien-2023_Climbing-and-Resistance-Training-Meta-Analysis.pdf",
+   "pdfseiten": 13,
+   "s1": [
+    4601,
+    4082,
+    589
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-02_Langer-2023_Strength-Training-in-Climbing.pdf": {
+   "datei": "t3-klettern/L-T3-02_Langer-2023_Strength-Training-in-Climbing.pdf",
+   "pdfseiten": 17,
+   "s1": [
+    5085,
+    4746,
+    696
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf": {
+   "datei": "t3-klettern/L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf",
+   "pdfseiten": 23,
+   "s1": [
+    3868,
+    3592,
+    507
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-04_Draper-2015_IRCRA-Grading-Position-Statement.pdf": {
+   "datei": "t3-klettern/L-T3-04_Draper-2015_IRCRA-Grading-Position-Statement.pdf",
+   "pdfseiten": 8,
+   "s1": [
+    1680,
+    1461,
+    227
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-05_Lopez-Rivera-2012_Grip-Strength-Edge-Depth.pdf": {
+   "datei": "t3-klettern/L-T3-05_Lopez-Rivera-2012_Grip-Strength-Edge-Depth.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    2020,
+    1849,
+    287
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf": {
+   "datei": "t3-klettern/L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf",
+   "pdfseiten": 319,
+   "s1": [
+    100,
+    97,
+    13
+   ],
+   "s23": [
+    114,
+    113,
+    15
+   ],
+   "leer": [
+    2,
+    3,
+    21,
+    72,
+    136,
+    153,
+    174,
+    187,
+    212,
+    253,
+    314
+   ]
+  },
+  "t3-klettern/L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf": {
+   "datei": "t3-klettern/L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf",
+   "pdfseiten": 356,
+   "s1": [
+    133,
+    106,
+    16
+   ],
+   "leer": [
+    2,
+    8,
+    10,
+    16,
+    28,
+    34,
+    46,
+    72,
+    104,
+    132,
+    162,
+    180,
+    232,
+    234,
+    262,
+    278,
+    294,
+    320,
+    336,
+    354,
+    355
+   ]
+  },
+  "t3-klettern/L-T3-10_Mobraten-2020_Climbing-Bible.epub": {
+   "datei": "t3-klettern/L-T3-10_Mobraten-2020_Climbing-Bible.epub"
+  },
+  "t3-klettern/L-T3-18_Lopez-Rivera-2019_Hangboard-Training-Programs.pdf": {
+   "datei": "t3-klettern/L-T3-18_Lopez-Rivera-2019_Hangboard-Training-Programs.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    3043,
+    2788,
+    407
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-19_Consuegra-2023_Science-of-Climbing-Training.epub": {
+   "datei": "t3-klettern/L-T3-19_Consuegra-2023_Science-of-Climbing-Training.epub"
+  },
+  "t3-klettern/L-T3-20_Mobraten-2022_Climbing-Bible-Practical-Exercises.epub": {
+   "datei": "t3-klettern/L-T3-20_Mobraten-2022_Climbing-Bible-Practical-Exercises.epub"
+  },
+  "t3-klettern/L-T3-21_Christophersen-2024_Climbing-Bible-Managing-Injuries.epub": {
+   "datei": "t3-klettern/L-T3-21_Christophersen-2024_Climbing-Bible-Managing-Injuries.epub"
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_00_Vorspann.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_00_Vorspann.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    100,
+    97,
+    13
+   ],
+   "s23": [
+    114,
+    113,
+    15
+   ],
+   "leer": [
+    2,
+    3
+   ]
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_01_Introduction.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_01_Introduction.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    614,
+    539,
+    71
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_02_Injury-Statistics.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_02_Injury-Statistics.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    11,
+    11,
+    2
+   ],
+   "s23": [
+    4497,
+    4148,
+    628
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_03_Anatomy-and-Biomechanics-of-the-Hand.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_03_Anatomy-and-Biomechanics-of-the-Hand.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    781,
+    700,
+    93
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_04_Historical-Development-of-a-Physiological-Model-for-Rock.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_04_Historical-Development-of-a-Physiological-Model-for-Rock.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    408,
+    340,
+    48
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_05_Imaging-of-Climbing-Injuries.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_05_Imaging-of-Climbing-Injuries.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    364,
+    295,
+    42
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_06_Hand-and-Fingers.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_06_Hand-and-Fingers.pdf",
+   "pdfseiten": 49,
+   "s1": [
+    36,
+    36,
+    5
+   ],
+   "s23": [
+    2769,
+    2542,
+    389
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_07_Wrist-Injuries.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_07_Wrist-Injuries.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    1207,
+    1088,
+    155
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_08_Elbow-and-Forearm.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_08_Elbow-and-Forearm.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    858,
+    768,
+    103
+   ],
+   "leer": [
+    5
+   ]
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_09_Shoulder-Injuries.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_09_Shoulder-Injuries.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    773,
+    687,
+    94
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_10_Foot-and-Ankle.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_10_Foot-and-Ankle.pdf",
+   "pdfseiten": 13,
+   "s1": [
+    37,
+    37,
+    6
+   ],
+   "s23": [
+    4529,
+    4102,
+    668
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_11_Hip-and-Knee-Injuries.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_11_Hip-and-Knee-Injuries.pdf",
+   "pdfseiten": 8,
+   "s1": [
+    708,
+    626,
+    84
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_12_The-Spine.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_12_The-Spine.pdf",
+   "pdfseiten": 13,
+   "s1": [
+    27,
+    27,
+    4
+   ],
+   "s23": [
+    4035,
+    3813,
+    595
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_13_Long-Term-Effects-of-Intensive-Rock-Climbing-to-the-Hand.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_13_Long-Term-Effects-of-Intensive-Rock-Climbing-to-the-Hand.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    19,
+    19,
+    4
+   ],
+   "s23": [
+    4168,
+    3860,
+    572
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_14_Pediatric-Aspects-in-Young-Rock-Climbers.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_14_Pediatric-Aspects-in-Young-Rock-Climbers.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    773,
+    689,
+    92
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_15_Climbing-in-Older-Athletes.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_15_Climbing-in-Older-Athletes.pdf",
+   "pdfseiten": 5,
+   "s1": [
+    731,
+    649,
+    88
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_16_Anorexia-Athletica-and-Relative-Energy-Deficiency.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_16_Anorexia-Athletica-and-Relative-Energy-Deficiency.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    34,
+    34,
+    4
+   ],
+   "s23": [
+    4092,
+    3830,
+    588
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_17_Sport-Climbing-with-Pre-existing-Medical-Conditions.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_17_Sport-Climbing-with-Pre-existing-Medical-Conditions.pdf",
+   "pdfseiten": 17,
+   "s1": [
+    673,
+    589,
+    86
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_18_Sport-Climbing-During-Pregnancy.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_18_Sport-Climbing-During-Pregnancy.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    476,
+    401,
+    58
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_19_Sports-Medical-Supervision-of-Competition-Climbers-and.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_19_Sports-Medical-Supervision-of-Competition-Climbers-and.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    795,
+    710,
+    92
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_20_Climbing-Injury-Rehabilitation.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_20_Climbing-Injury-Rehabilitation.pdf",
+   "pdfseiten": 25,
+   "s1": [
+    34,
+    34,
+    5
+   ],
+   "s23": [
+    4093,
+    3826,
+    543
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_21_Injury-Prevention.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_21_Injury-Prevention.pdf",
+   "pdfseiten": 17,
+   "s1": [
+    1731,
+    1598,
+    215
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_22_Taping.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_22_Taping.pdf",
+   "pdfseiten": 19,
+   "s1": [
+    698,
+    618,
+    81
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-06_kapitel/L-T3-06_23_Future-Aspects-Climbing-in-the-Olympics.pdf": {
+   "datei": "t3-klettern/L-T3-06_kapitel/L-T3-06_23_Future-Aspects-Climbing-in-the-Olympics.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    26,
+    26,
+    4
+   ],
+   "s23": [
+    2130,
+    1930,
+    285
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t3-klettern/L-T3-20_kapitel/L-T3-20_00a_Vorspann.md": {
+   "datei": "t3-klettern/L-T3-20_kapitel/L-T3-20_00a_Vorspann.md",
+   "woerter": 2147,
+   "seitenbezug": "Druckseiten 2–11 laut Seitenmarken [S. n] (D-71)",
+   "smarks": [
+    2,
+    11
+   ]
+  },
+  "t3-klettern/L-T3-20_kapitel/L-T3-20_00a_Vorspann.pdf": {
+   "datei": "t3-klettern/L-T3-20_kapitel/L-T3-20_00a_Vorspann.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    0,
+    0,
+    0
+   ],
+   "s23": [
+    1100,
+    1062,
+    164
+   ],
+   "leer": [
+    1,
+    2
+   ]
+  },
+  "t3-klettern/L-T3-20_kapitel/L-T3-20_00b_Warming-Up.md": {
+   "datei": "t3-klettern/L-T3-20_kapitel/L-T3-20_00b_Warming-Up.md",
+   "woerter": 904,
+   "seitenbezug": "Druckseiten 14–19 laut Seitenmarken [S. n] (D-71)",
+   "smarks": [
+    14,
+    19
+   ]
+  },
+  "t3-klettern/L-T3-20_kapitel/L-T3-20_00b_Warming-Up.pdf": {
+   "datei": "t3-klettern/L-T3-20_kapitel/L-T3-20_00b_Warming-Up.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    1619,
+    1565,
+    267
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-20_kapitel/L-T3-20_01_Technique.md": {
+   "datei": "t3-klettern/L-T3-20_kapitel/L-T3-20_01_Technique.md",
+   "woerter": 10555,
+   "seitenbezug": "Druckseiten 20–87 laut Seitenmarken [S. n] (D-71)",
+   "smarks": [
+    20,
+    87
+   ]
+  },
+  "t3-klettern/L-T3-20_kapitel/L-T3-20_01_Technique.pdf": {
+   "datei": "t3-klettern/L-T3-20_kapitel/L-T3-20_01_Technique.pdf",
+   "pdfseiten": 60,
+   "s1": [
+    2076,
+    2031,
+    336
+   ],
+   "leer": [
+    17,
+    60
+   ]
+  },
+  "t3-klettern/L-T3-20_kapitel/L-T3-20_02_Strength-and-Power.md": {
+   "datei": "t3-klettern/L-T3-20_kapitel/L-T3-20_02_Strength-and-Power.md",
+   "woerter": 10747,
+   "seitenbezug": "Druckseiten 88–142 laut Seitenmarken [S. n] (D-71)",
+   "smarks": [
+    88,
+    142
+   ]
+  },
+  "t3-klettern/L-T3-20_kapitel/L-T3-20_02_Strength-and-Power.pdf": {
+   "datei": "t3-klettern/L-T3-20_kapitel/L-T3-20_02_Strength-and-Power.pdf",
+   "pdfseiten": 63,
+   "s1": [
+    1771,
+    1712,
+    280
+   ],
+   "leer": [
+    6
+   ]
+  },
+  "t3-klettern/L-T3-20_kapitel/L-T3-20_03_Children-and-Youths.md": {
+   "datei": "t3-klettern/L-T3-20_kapitel/L-T3-20_03_Children-and-Youths.md",
+   "woerter": 7030,
+   "seitenbezug": "Druckseiten 143–192 laut Seitenmarken [S. n] (D-71)",
+   "smarks": [
+    143,
+    192
+   ]
+  },
+  "t3-klettern/L-T3-20_kapitel/L-T3-20_03_Children-and-Youths.pdf": {
+   "datei": "t3-klettern/L-T3-20_kapitel/L-T3-20_03_Children-and-Youths.pdf",
+   "pdfseiten": 45,
+   "s1": [
+    1187,
+    1154,
+    187
+   ],
+   "leer": [
+    44
+   ]
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_00_Vorspann.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_00_Vorspann.md",
+   "woerter": 1496,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_00_Vorspann.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_00_Vorspann.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    0,
+    0,
+    0
+   ],
+   "s23": [
+    1955,
+    1839,
+    266
+   ],
+   "leer": [
+    1,
+    2
+   ]
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_01_The-Process-of-Training.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_01_The-Process-of-Training.md",
+   "woerter": 2001,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_01_The-Process-of-Training.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_01_The-Process-of-Training.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    46,
+    46,
+    6
+   ],
+   "s23": [
+    3485,
+    3339,
+    537
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_02_Understanding-the-Importance-of-Strength.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_02_Understanding-the-Importance-of-Strength.md",
+   "woerter": 3178,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_02_Understanding-the-Importance-of-Strength.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_02_Understanding-the-Importance-of-Strength.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    36,
+    36,
+    4
+   ],
+   "s23": [
+    5177,
+    4949,
+    819
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_03_Understanding-and-Optimising-Mobility.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_03_Understanding-and-Optimising-Mobility.md",
+   "woerter": 3676,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_03_Understanding-and-Optimising-Mobility.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_03_Understanding-and-Optimising-Mobility.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    34,
+    34,
+    4
+   ],
+   "s23": [
+    5174,
+    4962,
+    796
+   ],
+   "leer": [
+    1,
+    9
+   ]
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_04_Brief-Notes-on-Anatomy.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_04_Brief-Notes-on-Anatomy.md",
+   "woerter": 2371,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_04_Brief-Notes-on-Anatomy.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_04_Brief-Notes-on-Anatomy.pdf",
+   "pdfseiten": 15,
+   "s1": [
+    923,
+    893,
+    153
+   ],
+   "leer": [
+    12
+   ]
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_05_Fascia-Muscle-Chains-and-Biotensegrity.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_05_Fascia-Muscle-Chains-and-Biotensegrity.md",
+   "woerter": 972,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_05_Fascia-Muscle-Chains-and-Biotensegrity.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_05_Fascia-Muscle-Chains-and-Biotensegrity.pdf",
+   "pdfseiten": 3,
+   "s1": [
+    1198,
+    1157,
+    181
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_06_Bioenergetics-and-Metabolism.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_06_Bioenergetics-and-Metabolism.md",
+   "woerter": 1249,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_06_Bioenergetics-and-Metabolism.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_06_Bioenergetics-and-Metabolism.pdf",
+   "pdfseiten": 3,
+   "s1": [
+    3480,
+    3343,
+    543
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_07_Physiological-Factors-in-Climbing-Performance.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_07_Physiological-Factors-in-Climbing-Performance.md",
+   "woerter": 3084,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_07_Physiological-Factors-in-Climbing-Performance.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_07_Physiological-Factors-in-Climbing-Performance.pdf",
+   "pdfseiten": 7,
+   "s1": [
+    58,
+    58,
+    7
+   ],
+   "s23": [
+    4997,
+    4744,
+    746
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_08-1_What-Can-I-Optimise-in-My-Training-Sessions.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_08-1_What-Can-I-Optimise-in-My-Training-Sessions.md",
+   "woerter": 7927,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_08-1_What-Can-I-Optimise-in-My-Training-Sessions.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_08-1_What-Can-I-Optimise-in-My-Training-Sessions.pdf",
+   "pdfseiten": 19,
+   "s1": [
+    65,
+    64,
+    8
+   ],
+   "s23": [
+    5145,
+    4915,
+    833
+   ],
+   "leer": [
+    1,
+    9
+   ]
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_08-2_What-Can-I-Optimise-in-My-Training-Sessions.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_08-2_What-Can-I-Optimise-in-My-Training-Sessions.md",
+   "woerter": 6874,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_08-2_What-Can-I-Optimise-in-My-Training-Sessions.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_08-2_What-Can-I-Optimise-in-My-Training-Sessions.pdf",
+   "pdfseiten": 22,
+   "s1": [
+    2716,
+    2551,
+    423
+   ],
+   "leer": [
+    3,
+    4,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_08-3_What-Can-I-Optimise-in-My-Training-Sessions.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_08-3_What-Can-I-Optimise-in-My-Training-Sessions.md",
+   "woerter": 10300,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_08-3_What-Can-I-Optimise-in-My-Training-Sessions.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_08-3_What-Can-I-Optimise-in-My-Training-Sessions.pdf",
+   "pdfseiten": 32,
+   "s1": [
+    2243,
+    2041,
+    317
+   ],
+   "leer": [
+    8,
+    15,
+    19,
+    25,
+    26
+   ]
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_09_Training-Session-Design.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_09_Training-Session-Design.md",
+   "woerter": 1279,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_09_Training-Session-Design.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_09_Training-Session-Design.pdf",
+   "pdfseiten": 4,
+   "s1": [
+    48,
+    48,
+    8
+   ],
+   "s23": [
+    4389,
+    4091,
+    672
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_10_Periodisation-Models.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_10_Periodisation-Models.md",
+   "woerter": 3978,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_10_Periodisation-Models.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_10_Periodisation-Models.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    45,
+    44,
+    6
+   ],
+   "s23": [
+    4868,
+    4619,
+    714
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_11_Detraining.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_11_Detraining.md",
+   "woerter": 734,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_11_Detraining.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_11_Detraining.pdf",
+   "pdfseiten": 3,
+   "s1": [
+    10,
+    10,
+    1
+   ],
+   "s23": [
+    3386,
+    3143,
+    509
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_90_Bibliography.md": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_90_Bibliography.md",
+   "woerter": 4459,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71, V-17)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-19_kapitel/L-T3-19_90_Bibliography.pdf": {
+   "datei": "t3-klettern/L-T3-19_kapitel/L-T3-19_90_Bibliography.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    5369,
+    4197,
+    555
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_00_Vorspann-Foreword-und-Introduction.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_00_Vorspann-Foreword-und-Introduction.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    133,
+    106,
+    16
+   ],
+   "leer": [
+    2,
+    8,
+    10,
+    16
+   ]
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_01_An-Overview-of-Training-for-Climbing.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_01_An-Overview-of-Training-for-Climbing.pdf",
+   "pdfseiten": 18,
+   "s1": [
+    2505,
+    2428,
+    399
+   ],
+   "leer": [
+    12,
+    18
+   ]
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_02_Self-Assessment-and-Goal-Setting.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_02_Self-Assessment-and-Goal-Setting.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    2616,
+    2525,
+    434
+   ],
+   "leer": [
+    12
+   ]
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_03_Mental-Training.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_03_Mental-Training.pdf",
+   "pdfseiten": 26,
+   "s1": [
+    2606,
+    2509,
+    440
+   ],
+   "leer": [
+    26
+   ]
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_04_Training-Technique-and-Skill.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_04_Training-Technique-and-Skill.pdf",
+   "pdfseiten": 32,
+   "s1": [
+    2635,
+    2571,
+    404
+   ],
+   "leer": [
+    32
+   ]
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_05_The-Physiology-of-Climbing.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_05_The-Physiology-of-Climbing.pdf",
+   "pdfseiten": 28,
+   "s1": [
+    2477,
+    2386,
+    404
+   ],
+   "leer": [
+    28
+   ]
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_06_Mobility-Stability-Antagonist-Training.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_06_Mobility-Stability-Antagonist-Training.pdf",
+   "pdfseiten": 30,
+   "s1": [
+    2702,
+    2585,
+    414
+   ],
+   "leer": [
+    30
+   ]
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_07_Core-Legs-and-Aerobic-Training.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_07_Core-Legs-and-Aerobic-Training.pdf",
+   "pdfseiten": 18,
+   "s1": [
+    2539,
+    2453,
+    433
+   ],
+   "leer": [
+    18
+   ]
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_08_Finger-Training-for-Strength-and-Endurance.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_08_Finger-Training-for-Strength-and-Endurance.pdf",
+   "pdfseiten": 34,
+   "s1": [
+    2622,
+    2543,
+    404
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_09_Pull-Muscle-and-Power-Training.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_09_Pull-Muscle-and-Power-Training.pdf",
+   "pdfseiten": 20,
+   "s1": [
+    2600,
+    2504,
+    417
+   ],
+   "leer": [
+    18,
+    20
+   ]
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_10_Designing-Your-Training-Program.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_10_Designing-Your-Training-Program.pdf",
+   "pdfseiten": 28,
+   "s1": [
+    2715,
+    2615,
+    433
+   ],
+   "leer": [
+    28
+   ]
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_11_Performance-Nutrition.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_11_Performance-Nutrition.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    2595,
+    2484,
+    407
+   ],
+   "leer": [
+    16
+   ]
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_12_Accelerating-Recovery.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_12_Accelerating-Recovery.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    2520,
+    2446,
+    392
+   ],
+   "leer": [
+    16
+   ]
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_13_Injury-Treatment-and-Prevention.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_13_Injury-Treatment-and-Prevention.pdf",
+   "pdfseiten": 26,
+   "s1": [
+    2710,
+    2627,
+    430
+   ],
+   "leer": [
+    26
+   ]
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_90_Afterword-and-Appendices-A-C.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_90_Afterword-and-Appendices-A-C.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    1131,
+    1094,
+    196
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_91_Glossary-Suggested-Reading-References.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_91_Glossary-Suggested-Reading-References.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    2483,
+    2372,
+    360
+   ],
+   "leer": [
+    6
+   ]
+  },
+  "t3-klettern/L-T3-09_kapitel/L-T3-09_92_Index-and-About-the-Author.pdf": {
+   "datei": "t3-klettern/L-T3-09_kapitel/L-T3-09_92_Index-and-About-the-Author.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    1961,
+    1358,
+    194
+   ],
+   "leer": [
+    12,
+    13
+   ]
+  },
+  "t3-klettern/L-T3-21_kapitel/L-T3-21_00_Vorspann-und-Introduction.md": {
+   "datei": "t3-klettern/L-T3-21_kapitel/L-T3-21_00_Vorspann-und-Introduction.md",
+   "woerter": 2711,
+   "seitenbezug": "Druckseiten 2–11 laut Seitenmarken [S. n] (D-71)",
+   "smarks": [
+    2,
+    11
+   ]
+  },
+  "t3-klettern/L-T3-21_kapitel/L-T3-21_00_Vorspann-und-Introduction.pdf": {
+   "datei": "t3-klettern/L-T3-21_kapitel/L-T3-21_00_Vorspann-und-Introduction.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    0,
+    0,
+    0
+   ],
+   "s23": [
+    2654,
+    2500,
+    375
+   ],
+   "leer": [
+    1,
+    2,
+    5,
+    8,
+    11
+   ]
+  },
+  "t3-klettern/L-T3-21_kapitel/L-T3-21_01_Handling-Acute-Soft-Tissue-and-Overuse-Injuries.md": {
+   "datei": "t3-klettern/L-T3-21_kapitel/L-T3-21_01_Handling-Acute-Soft-Tissue-and-Overuse-Injuries.md",
+   "woerter": 6270,
+   "seitenbezug": "Druckseiten 12–37 laut Seitenmarken [S. n] (D-71)",
+   "smarks": [
+    12,
+    37
+   ]
+  },
+  "t3-klettern/L-T3-21_kapitel/L-T3-21_01_Handling-Acute-Soft-Tissue-and-Overuse-Injuries.pdf": {
+   "datei": "t3-klettern/L-T3-21_kapitel/L-T3-21_01_Handling-Acute-Soft-Tissue-and-Overuse-Injuries.pdf",
+   "pdfseiten": 21,
+   "s1": [
+    18,
+    16,
+    2
+   ],
+   "s23": [
+    3120,
+    3004,
+    492
+   ],
+   "leer": [
+    1,
+    2,
+    13
+   ]
+  },
+  "t3-klettern/L-T3-21_kapitel/L-T3-21_02-1_Injuries-and-Body-Parts.md": {
+   "datei": "t3-klettern/L-T3-21_kapitel/L-T3-21_02-1_Injuries-and-Body-Parts.md",
+   "woerter": 11427,
+   "seitenbezug": "Druckseiten 38–86 laut Seitenmarken [S. n] (D-71)",
+   "smarks": [
+    38,
+    86
+   ]
+  },
+  "t3-klettern/L-T3-21_kapitel/L-T3-21_02-1_Injuries-and-Body-Parts.pdf": {
+   "datei": "t3-klettern/L-T3-21_kapitel/L-T3-21_02-1_Injuries-and-Body-Parts.pdf",
+   "pdfseiten": 49,
+   "s1": [
+    941,
+    919,
+    157
+   ],
+   "leer": [
+    28,
+    41
+   ]
+  },
+  "t3-klettern/L-T3-21_kapitel/L-T3-21_02-2_Injuries-and-Body-Parts.md": {
+   "datei": "t3-klettern/L-T3-21_kapitel/L-T3-21_02-2_Injuries-and-Body-Parts.md",
+   "woerter": 10961,
+   "seitenbezug": "Druckseiten 87–141 laut Seitenmarken [S. n] (D-71)",
+   "smarks": [
+    87,
+    141
+   ]
+  },
+  "t3-klettern/L-T3-21_kapitel/L-T3-21_02-2_Injuries-and-Body-Parts.pdf": {
+   "datei": "t3-klettern/L-T3-21_kapitel/L-T3-21_02-2_Injuries-and-Body-Parts.pdf",
+   "pdfseiten": 63,
+   "s1": [
+    2241,
+    2171,
+    359
+   ],
+   "leer": [
+    17,
+    21,
+    44,
+    50
+   ]
+  },
+  "t3-klettern/L-T3-21_kapitel/L-T3-21_03_What-Is-Pain-Really.md": {
+   "datei": "t3-klettern/L-T3-21_kapitel/L-T3-21_03_What-Is-Pain-Really.md",
+   "woerter": 3676,
+   "seitenbezug": "Druckseiten 142–151 laut Seitenmarken [S. n] (D-71)",
+   "smarks": [
+    142,
+    151
+   ]
+  },
+  "t3-klettern/L-T3-21_kapitel/L-T3-21_03_What-Is-Pain-Really.pdf": {
+   "datei": "t3-klettern/L-T3-21_kapitel/L-T3-21_03_What-Is-Pain-Really.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    1059,
+    1016,
+    174
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-21_kapitel/L-T3-21_90_Glossary-and-References.md": {
+   "datei": "t3-klettern/L-T3-21_kapitel/L-T3-21_90_Glossary-and-References.md",
+   "woerter": 3006,
+   "seitenbezug": "Druckseiten 152–157 laut Seitenmarken [S. n] (D-71)",
+   "smarks": [
+    152,
+    157
+   ]
+  },
+  "t3-klettern/L-T3-21_kapitel/L-T3-21_90_Glossary-and-References.pdf": {
+   "datei": "t3-klettern/L-T3-21_kapitel/L-T3-21_90_Glossary-and-References.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    2769,
+    2651,
+    442
+   ],
+   "leer": []
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_00_Vorspann.md": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_00_Vorspann.md",
+   "woerter": 3364,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_00_Vorspann.pdf": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_00_Vorspann.pdf",
+   "pdfseiten": 29,
+   "s1": [
+    0,
+    0,
+    0
+   ],
+   "s23": [
+    0,
+    0,
+    0
+   ],
+   "leer": [
+    1,
+    2,
+    3,
+    4,
+    19,
+    23,
+    25,
+    29
+   ]
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_01-1_Technique.md": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_01-1_Technique.md",
+   "woerter": 8206,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_01-1_Technique.pdf": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_01-1_Technique.pdf",
+   "pdfseiten": 79,
+   "s1": [
+    978,
+    947,
+    152
+   ],
+   "leer": [
+    4,
+    10,
+    17,
+    19,
+    21,
+    23,
+    26,
+    29,
+    32,
+    34,
+    35,
+    43,
+    45,
+    46,
+    49,
+    52,
+    58,
+    60,
+    63,
+    64,
+    68,
+    72,
+    73,
+    77,
+    78,
+    79
+   ]
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_01-2_Technique.md": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_01-2_Technique.md",
+   "woerter": 8084,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_01-2_Technique.pdf": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_01-2_Technique.pdf",
+   "pdfseiten": 50,
+   "s1": [
+    219,
+    211,
+    39
+   ],
+   "leer": [
+    4,
+    8,
+    9,
+    15,
+    18,
+    20,
+    21,
+    23,
+    29,
+    32,
+    33,
+    38,
+    40,
+    41,
+    47,
+    50
+   ]
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_02-1_Physical-Training.md": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_02-1_Physical-Training.md",
+   "woerter": 8060,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_02-1_Physical-Training.pdf": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_02-1_Physical-Training.pdf",
+   "pdfseiten": 57,
+   "s1": [
+    841,
+    813,
+    131
+   ],
+   "leer": [
+    2,
+    4,
+    6,
+    8,
+    11,
+    14,
+    18,
+    20,
+    26,
+    33,
+    36,
+    45,
+    46,
+    56,
+    57
+   ]
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_02-2_Physical-Training.md": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_02-2_Physical-Training.md",
+   "woerter": 7985,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_02-2_Physical-Training.pdf": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_02-2_Physical-Training.pdf",
+   "pdfseiten": 46,
+   "s1": [
+    1738,
+    1704,
+    284
+   ],
+   "leer": [
+    6,
+    8,
+    11,
+    13,
+    19,
+    21,
+    26,
+    28,
+    30,
+    31,
+    46
+   ]
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_03_Mental-Training.md": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_03_Mental-Training.md",
+   "woerter": 9600,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_03_Mental-Training.pdf": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_03_Mental-Training.pdf",
+   "pdfseiten": 38,
+   "s1": [
+    819,
+    797,
+    136
+   ],
+   "leer": [
+    9,
+    19,
+    23,
+    30,
+    31,
+    34,
+    36,
+    37,
+    38
+   ]
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_04_Tactics.md": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_04_Tactics.md",
+   "woerter": 11829,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_04_Tactics.pdf": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_04_Tactics.pdf",
+   "pdfseiten": 53,
+   "s1": [
+    709,
+    688,
+    116
+   ],
+   "leer": [
+    8,
+    9,
+    12,
+    17,
+    19,
+    25,
+    31,
+    32,
+    35,
+    37,
+    43,
+    44,
+    48,
+    49,
+    53
+   ]
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_05-1_General-Training-and-Injury-Prevention.md": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_05-1_General-Training-and-Injury-Prevention.md",
+   "woerter": 6234,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_05-1_General-Training-and-Injury-Prevention.pdf": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_05-1_General-Training-and-Injury-Prevention.pdf",
+   "pdfseiten": 35,
+   "s1": [
+    1048,
+    1028,
+    160
+   ],
+   "leer": [
+    4,
+    7,
+    9,
+    11,
+    34,
+    35
+   ]
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_05-2_General-Training-and-Injury-Prevention.md": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_05-2_General-Training-and-Injury-Prevention.md",
+   "woerter": 6511,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_05-2_General-Training-and-Injury-Prevention.pdf": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_05-2_General-Training-and-Injury-Prevention.pdf",
+   "pdfseiten": 34,
+   "s1": [
+    2057,
+    2007,
+    356
+   ],
+   "leer": [
+    2,
+    9,
+    14,
+    19,
+    20,
+    21,
+    23,
+    29,
+    34
+   ]
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_06_Training-Plans.md": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_06_Training-Plans.md",
+   "woerter": 10419,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_06_Training-Plans.pdf": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_06_Training-Plans.pdf",
+   "pdfseiten": 33,
+   "s1": [
+    2171,
+    2121,
+    344
+   ],
+   "leer": [
+    3,
+    23,
+    29,
+    33
+   ]
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_90_Epilogue-Glossary-Read-More.md": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_90_Epilogue-Glossary-Read-More.md",
+   "woerter": 6320,
+   "seitenbezug": "keiner – Zitat mit Kapitel und Abschnitt (D-71)",
+   "smarks": null
+  },
+  "t3-klettern/L-T3-10_kapitel/L-T3-10_90_Epilogue-Glossary-Read-More.pdf": {
+   "datei": "t3-klettern/L-T3-10_kapitel/L-T3-10_90_Epilogue-Glossary-Read-More.pdf",
+   "pdfseiten": 29,
+   "s1": [
+    2760,
+    2683,
+    449
+   ],
+   "leer": [
+    3,
+    10,
+    14,
+    15,
+    29
+   ]
+  },
+  "t4-beweglichkeit/L-T4-01_Warneke-2025_Delphi-Consensus-Stretching.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-01_Warneke-2025_Delphi-Consensus-Stretching.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    4270,
+    3845,
+    511
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-02_Konrad-2024_Chronic-Stretching-ROM-Meta-Analysis.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-02_Konrad-2024_Chronic-Stretching-ROM-Meta-Analysis.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    4064,
+    3704,
+    515
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-03_Oba-2026_Moderators-Chronic-Static-Stretching.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-03_Oba-2026_Moderators-Chronic-Static-Stretching.pdf",
+   "pdfseiten": 24,
+   "s1": [
+    2931,
+    2695,
+    392
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-04_Arntz-2023_Static-Stretching-Strength-and-Power.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-04_Arntz-2023_Static-Stretching-Strength-and-Power.pdf",
+   "pdfseiten": 23,
+   "s1": [
+    3457,
+    3017,
+    435
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-05_Thomas-2018_Stretching-Typology-and-Duration.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-05_Thomas-2018_Stretching-Typology-and-Duration.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    3331,
+    3073,
+    467
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-06_Behm-2016_Acute-Effects-of-Stretching.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-06_Behm-2016_Acute-Effects-of-Stretching.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    5064,
+    4571,
+    643
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-08_Warneke-2024_Foam-Rolling-Stretching-Warm-up.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-08_Warneke-2024_Foam-Rolling-Stretching-Warm-up.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    3906,
+    3580,
+    490
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-10_Alizadeh-2023_Resistance-Training-ROM.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-10_Alizadeh-2023_Resistance-Training-ROM.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    2755,
+    2500,
+    350
+   ],
+   "leer": [
+    6
+   ]
+  },
+  "t4-beweglichkeit/L-T4-12_Konrad-2024_Stretching-vs-Foam-Rolling-ROM.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-12_Konrad-2024_Stretching-vs-Foam-Rolling-ROM.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    3447,
+    3101,
+    475
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-14_Lauersen-2014_Exercise-Interventions-Injury-Prevention.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-14_Lauersen-2014_Exercise-Interventions-Injury-Prevention.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    5897,
+    5397,
+    761
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-16_Herbert-2011_Stretching-Muscle-Soreness-Cochrane.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-16_Herbert-2011_Stretching-Muscle-Soreness-Cochrane.pdf",
+   "pdfseiten": 50,
+   "s1": [
+    464,
+    399,
+    53
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-19_Winters-2004_Passive-vs-Active-Hip-Flexor-Stretching.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-19_Winters-2004_Passive-vs-Active-Hip-Flexor-Stretching.pdf",
+   "pdfseiten": 8,
+   "s1": [
+    2047,
+    1954,
+    260
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-32_Behm-2025_Science-and-Physiology-of-Flexibility-and-Stretching_2ed.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_Behm-2025_Science-and-Physiology-of-Flexibility-and-Stretching_2ed.pdf",
+   "pdfseiten": 281,
+   "s1": [
+    0,
+    0,
+    0
+   ],
+   "s23": [
+    1304,
+    1254,
+    184
+   ],
+   "leer": [
+    1,
+    3,
+    5,
+    16,
+    17,
+    189,
+    190,
+    191,
+    252,
+    268,
+    281
+   ]
+  },
+  "t4-beweglichkeit/L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.epub": {
+   "datei": "t4-beweglichkeit/L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.epub"
+  },
+  "t4-beweglichkeit/L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.pdf",
+   "pdfseiten": 265,
+   "s1": [
+    142,
+    133,
+    22
+   ],
+   "leer": [
+    2,
+    4,
+    19,
+    47,
+    117,
+    127,
+    151,
+    183,
+    195,
+    219,
+    261,
+    263,
+    264
+   ]
+  },
+  "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_00_Vorspann-und-Preface.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_00_Vorspann-und-Preface.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    142,
+    133,
+    22
+   ],
+   "leer": [
+    2,
+    4
+   ]
+  },
+  "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_01_Stretching-Fundamentals.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_01_Stretching-Fundamentals.pdf",
+   "pdfseiten": 8,
+   "s1": [
+    1758,
+    1701,
+    251
+   ],
+   "leer": [
+    8
+   ]
+  },
+  "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_02_Feet-and-Calves.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_02_Feet-and-Calves.pdf",
+   "pdfseiten": 28,
+   "s1": [
+    2112,
+    2051,
+    360
+   ],
+   "leer": [
+    28
+   ]
+  },
+  "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_03_Knees-and-Thighs.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_03_Knees-and-Thighs.pdf",
+   "pdfseiten": 22,
+   "s1": [
+    1902,
+    1842,
+    324
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_04_Hips.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_04_Hips.pdf",
+   "pdfseiten": 22,
+   "s1": [
+    2379,
+    2275,
+    397
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_05_Lower-Trunk.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_05_Lower-Trunk.pdf",
+   "pdfseiten": 26,
+   "s1": [
+    1662,
+    1594,
+    267
+   ],
+   "leer": [
+    26
+   ]
+  },
+  "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_06_Arms-Wrists-and-Hands.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_06_Arms-Wrists-and-Hands.pdf",
+   "pdfseiten": 34,
+   "s1": [
+    1612,
+    1519,
+    272
+   ],
+   "leer": [
+    10,
+    34
+   ]
+  },
+  "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_07_Shoulders-Back-and-Chest.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_07_Shoulders-Back-and-Chest.pdf",
+   "pdfseiten": 32,
+   "s1": [
+    1729,
+    1621,
+    275
+   ],
+   "leer": [
+    32
+   ]
+  },
+  "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_08_Neck.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_08_Neck.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    1555,
+    1458,
+    235
+   ],
+   "leer": [
+    12
+   ]
+  },
+  "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_09_Dynamic-Stretches.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_09_Dynamic-Stretches.pdf",
+   "pdfseiten": 24,
+   "s1": [
+    1566,
+    1515,
+    248
+   ],
+   "leer": [
+    24
+   ]
+  },
+  "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_10_Programs-for-Daily-Mobility-and-Flexibility.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_10_Programs-for-Daily-Mobility-and-Flexibility.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    1599,
+    1552,
+    242
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_11_Sport-Specific-Stretching-Programs.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_11_Sport-Specific-Stretching-Programs.pdf",
+   "pdfseiten": 28,
+   "s1": [
+    1637,
+    1594,
+    264
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_90_Stretch-Finder-and-About-the-Authors.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_90_Stretch-Finder-and-About-the-Authors.pdf",
+   "pdfseiten": 8,
+   "s1": [
+    2243,
+    1187,
+    193
+   ],
+   "leer": [
+    4,
+    6,
+    7
+   ]
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_00_Vorspann.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_00_Vorspann.pdf",
+   "pdfseiten": 15,
+   "s1": [
+    0,
+    0,
+    0
+   ],
+   "s23": [
+    1304,
+    1254,
+    184
+   ],
+   "leer": [
+    1,
+    3,
+    5
+   ]
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_01_My-Personal-Motivation-for-Stretching.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_01_My-Personal-Motivation-for-Stretching.pdf",
+   "pdfseiten": 8,
+   "s1": [
+    43,
+    43,
+    6
+   ],
+   "s23": [
+    2055,
+    1917,
+    343
+   ],
+   "leer": [
+    1,
+    2
+   ]
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_02_History-of-Stretching.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_02_History-of-Stretching.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    1091,
+    1023,
+    159
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_03_Types-of-Stretching-and-the-Effects-on-Flexibility.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_03_Types-of-Stretching-and-the-Effects-on-Flexibility.pdf",
+   "pdfseiten": 35,
+   "s1": [
+    1932,
+    1761,
+    252
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_04_Mechanisms-Underlying-Acute-Changes-in-Range-of-Motion.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_04_Mechanisms-Underlying-Acute-Changes-in-Range-of-Motion.pdf",
+   "pdfseiten": 30,
+   "s1": [
+    2107,
+    1973,
+    296
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_05_Stretch-Training-Related-ROM-Changes-and-Mechanisms.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_05_Stretch-Training-Related-ROM-Changes-and-Mechanisms.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    2133,
+    1965,
+    306
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_06_Global-Effects-of-Stretching.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_06_Global-Effects-of-Stretching.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    1983,
+    1862,
+    289
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_07_Recommendations-for-Stretching-Prescription.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_07_Recommendations-for-Stretching-Prescription.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    1946,
+    1822,
+    282
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_08_Stretching-Effects-on-Injury-Reduction-and-Health.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_08_Stretching-Effects-on-Injury-Reduction-and-Health.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    2206,
+    2085,
+    334
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_09_Does-Stretching-Affect-Performance.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_09_Does-Stretching-Affect-Performance.pdf",
+   "pdfseiten": 32,
+   "s1": [
+    2059,
+    1914,
+    312
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_10_Effect-of-Stretch-Training-on-Functional-Performance.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_10_Effect-of-Stretch-Training-on-Functional-Performance.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    2121,
+    1996,
+    290
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_11_Effects-of-Stretch-Training-on-Muscle-Strength-and-Hypertrophy.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_11_Effects-of-Stretch-Training-on-Muscle-Strength-and-Hypertrophy.pdf",
+   "pdfseiten": 8,
+   "s1": [
+    2049,
+    1947,
+    293
+   ],
+   "leer": [
+    8
+   ]
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_12_Effects-of-Resistance-Training-on-Range-of-Motion.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_12_Effects-of-Resistance-Training-on-Range-of-Motion.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    81,
+    81,
+    11
+   ],
+   "s23": [
+    2215,
+    2113,
+    308
+   ],
+   "leer": [
+    1,
+    2
+   ]
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_13_Foam-Rolling-Effects-on-Range-of-Motion-and-Performance.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_13_Foam-Rolling-Effects-on-Range-of-Motion-and-Performance.pdf",
+   "pdfseiten": 21,
+   "s1": [
+    1940,
+    1796,
+    284
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_14_Local-Vibration-Effects-on-Range-of-Motion-and-Performance.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_14_Local-Vibration-Effects-on-Range-of-Motion-and-Performance.pdf",
+   "pdfseiten": 5,
+   "s1": [
+    686,
+    605,
+    93
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_15_Instrument-Assisted-Soft-Tissue-Mobilization.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_15_Instrument-Assisted-Soft-Tissue-Mobilization.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    1927,
+    1748,
+    277
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_16_Flossing-Effects-on-Range-of-Motion-and-Performance.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_16_Flossing-Effects-on-Range-of-Motion-and-Performance.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    748,
+    648,
+    101
+   ],
+   "leer": []
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_17_Stretching-Exercise-Illustration.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_17_Stretching-Exercise-Illustration.pdf",
+   "pdfseiten": 24,
+   "s1": [
+    1218,
+    1101,
+    163
+   ],
+   "leer": [
+    6,
+    22
+   ]
+  },
+  "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_90_Index.pdf": {
+   "datei": "t4-beweglichkeit/L-T4-32_kapitel/L-T4-32_90_Index.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    1703,
+    980,
+    139
+   ],
+   "leer": [
+    11
+   ]
+  },
+  "t2-kraft/L-T2-03_Schumann-2019_Concurrent-Aerobic-and-Strength-Training.pdf": {
+   "datei": "t2-kraft/L-T2-03_Schumann-2019_Concurrent-Aerobic-and-Strength-Training.pdf",
+   "pdfseiten": 408,
+   "s1": [
+    115,
+    111,
+    15
+   ],
+   "leer": [
+    2,
+    16,
+    94,
+    184,
+    253,
+    318
+   ]
+  },
+  "t2-kraft/L-T2-04_Low-2016_Overcoming-Gravity_2ed.pdf": {
+   "datei": "t2-kraft/L-T2-04_Low-2016_Overcoming-Gravity_2ed.pdf",
+   "pdfseiten": 600,
+   "s1": [
+    88,
+    87,
+    12
+   ],
+   "s23": [
+    2522,
+    2384,
+    370
+   ],
+   "leer": [
+    1,
+    15,
+    16,
+    82,
+    83,
+    84,
+    182,
+    183,
+    184,
+    233,
+    234,
+    275,
+    276,
+    536,
+    594,
+    598,
+    599,
+    600
+   ]
+  },
+  "t2-kraft/L-T2-08_Kotarsky-2018_Progressive-Push-up-Training.pdf": {
+   "datei": "t2-kraft/L-T2-08_Kotarsky-2018_Progressive-Push-up-Training.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    4132,
+    3830,
+    553
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-09_vandenTillaar-2019_Push-up-vs-Bench-Press.pdf": {
+   "datei": "t2-kraft/L-T2-09_vandenTillaar-2019_Push-up-vs-Bench-Press.pdf",
+   "pdfseiten": 8,
+   "s1": [
+    3231,
+    2885,
+    467
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-10_Wiedenmann-2025_Resistance-Training-Modalities-Older-Adults.pdf": {
+   "datei": "t2-kraft/L-T2-10_Wiedenmann-2025_Resistance-Training-Modalities-Older-Adults.pdf",
+   "pdfseiten": 13,
+   "s1": [
+    2788,
+    2496,
+    354
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-11_Ronnestad-2014_Strength-Training-Running-and-Cycling.pdf": {
+   "datei": "t2-kraft/L-T2-11_Ronnestad-2014_Strength-Training-Running-and-Cycling.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    3987,
+    3707,
+    533
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-12_Blagrove-2018_Strength-Training-Distance-Running.pdf": {
+   "datei": "t2-kraft/L-T2-12_Blagrove-2018_Strength-Training-Distance-Running.pdf",
+   "pdfseiten": 33,
+   "s1": [
+    2759,
+    2576,
+    375
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf": {
+   "datei": "t2-kraft/L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf",
+   "pdfseiten": 23,
+   "s1": [
+    3642,
+    3434,
+    488
+   ],
+   "leer": [
+    8
+   ]
+  },
+  "t2-kraft/L-T2-15_Warneke-2024_Stretching-or-Strengthening-Posture.pdf": {
+   "datei": "t2-kraft/L-T2-15_Warneke-2024_Stretching-or-Strengthening-Posture.pdf",
+   "pdfseiten": 13,
+   "s1": [
+    3013,
+    2772,
+    397
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-16_Khorramroo-2026_Corrective-Exercises-Posture.pdf": {
+   "datei": "t2-kraft/L-T2-16_Khorramroo-2026_Corrective-Exercises-Posture.pdf",
+   "pdfseiten": 30,
+   "s1": [
+    2958,
+    2586,
+    370
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-17_Shiri-2018_Exercise-Prevention-Low-Back-Pain.pdf": {
+   "datei": "t2-kraft/L-T2-17_Shiri-2018_Exercise-Prevention-Low-Back-Pain.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    3796,
+    3413,
+    522
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-18_Steffens-2016_Prevention-of-Low-Back-Pain.pdf": {
+   "datei": "t2-kraft/L-T2-18_Steffens-2016_Prevention-of-Low-Back-Pain.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    3238,
+    2849,
+    426
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-19_Carrasco-Uribarren-2026_Therapeutic-Exercise-Forward-Head-Posture.pdf": {
+   "datei": "t2-kraft/L-T2-19_Carrasco-Uribarren-2026_Therapeutic-Exercise-Forward-Head-Posture.pdf",
+   "pdfseiten": 13,
+   "s1": [
+    1015,
+    855,
+    132
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-20_Pelland-2026_Resistance-Training-Dose-Response.pdf": {
+   "datei": "t2-kraft/L-T2-20_Pelland-2026_Resistance-Training-Dose-Response.pdf",
+   "pdfseiten": 25,
+   "s1": [
+    3616,
+    3362,
+    505
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-21_Robinson-2024_Proximity-to-Failure-Dose-Response.pdf": {
+   "datei": "t2-kraft/L-T2-21_Robinson-2024_Proximity-to-Failure-Dose-Response.pdf",
+   "pdfseiten": 23,
+   "s1": [
+    2827,
+    2664,
+    396
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-22_Refalo-2023_Proximity-to-Failure-Hypertrophy.pdf": {
+   "datei": "t2-kraft/L-T2-22_Refalo-2023_Proximity-to-Failure-Hypertrophy.pdf",
+   "pdfseiten": 17,
+   "s1": [
+    2419,
+    2126,
+    304
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-23_Lopez-2021_Training-Load-Hypertrophy-Strength.pdf": {
+   "datei": "t2-kraft/L-T2-23_Lopez-2021_Training-Load-Hypertrophy-Strength.pdf",
+   "pdfseiten": 13,
+   "s1": [
+    844,
+    685,
+    105
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-23_Lopez-2022_Corrigendum.pdf": {
+   "datei": "t2-kraft/L-T2-23_Lopez-2022_Corrigendum.pdf",
+   "pdfseiten": 1,
+   "s1": [
+    1317,
+    1165,
+    173
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf": {
+   "datei": "t2-kraft/L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf",
+   "pdfseiten": 7,
+   "s1": [
+    3928,
+    3550,
+    510
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-24_Lopes-2020_Corrigendum.pdf": {
+   "datei": "t2-kraft/L-T2-24_Lopes-2020_Corrigendum.pdf",
+   "pdfseiten": 2,
+   "s1": [
+    4426,
+    3809,
+    617
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-25_Lundberg-2022_Concurrent-Training-Fiber-Hypertrophy.pdf": {
+   "datei": "t2-kraft/L-T2-25_Lundberg-2022_Concurrent-Training-Fiber-Hypertrophy.pdf",
+   "pdfseiten": 13,
+   "s1": [
+    3441,
+    3114,
+    436
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-26_Monserda-Vilaro-2023_Concurrent-Continuous-vs-Intermittent.pdf": {
+   "datei": "t2-kraft/L-T2-26_Monserda-Vilaro-2023_Concurrent-Continuous-vs-Intermittent.pdf",
+   "pdfseiten": 22,
+   "s1": [
+    4640,
+    4273,
+    596
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-27_Schoenfeld-2019_Training-Frequency-Hypertrophy.pdf": {
+   "datei": "t2-kraft/L-T2-27_Schoenfeld-2019_Training-Frequency-Hypertrophy.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    868,
+    729,
+    116
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-28_Refalo-2021_Training-Load-Hypertrophy.pdf": {
+   "datei": "t2-kraft/L-T2-28_Refalo-2021_Training-Load-Hypertrophy.pdf",
+   "pdfseiten": 24,
+   "s1": [
+    1001,
+    860,
+    128
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-29_Carvalho-2022_Volume-Matched-Loads-Hypertrophy.pdf": {
+   "datei": "t2-kraft/L-T2-29_Carvalho-2022_Volume-Matched-Loads-Hypertrophy.pdf",
+   "pdfseiten": 58,
+   "s1": [
+    1072,
+    998,
+    147
+   ],
+   "leer": [
+    3,
+    57,
+    58
+   ]
+  },
+  "t2-kraft/L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf": {
+   "datei": "t2-kraft/L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    3800,
+    3416,
+    488
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-31_Wilson-2012_Concurrent-Training-Interference.pdf": {
+   "datei": "t2-kraft/L-T2-31_Wilson-2012_Concurrent-Training-Interference.pdf",
+   "pdfseiten": 15,
+   "s1": [
+    3932,
+    3557,
+    506
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-32_Sabag-2018_Concurrent-HIIT-and-Resistance.pdf": {
+   "datei": "t2-kraft/L-T2-32_Sabag-2018_Concurrent-HIIT-and-Resistance.pdf",
+   "pdfseiten": 13,
+   "s1": [
+    917,
+    776,
+    121
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_00_Vorspann-und-Introduction.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_00_Vorspann-und-Introduction.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    88,
+    87,
+    12
+   ],
+   "s23": [
+    2522,
+    2384,
+    370
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_01_Principles-of-Bodyweight-Training.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_01_Principles-of-Bodyweight-Training.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    31,
+    31,
+    5
+   ],
+   "s23": [
+    2119,
+    2062,
+    325
+   ],
+   "leer": [
+    1,
+    2
+   ]
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_02_Physiology-of-Strength-and-Hypertrophy.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_02_Physiology-of-Strength-and-Hypertrophy.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    2205,
+    2138,
+    348
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_03_Progression-Charts-and-Goal-Setting.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_03_Progression-Charts-and-Goal-Setting.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    2260,
+    2197,
+    356
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_04_Structural-Balance-Considerations.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_04_Structural-Balance-Considerations.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    1402,
+    1360,
+    216
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_05_Intro-to-Programming-Attributes-Hierarchy-of-a-Routine.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_05_Intro-to-Programming-Attributes-Hierarchy-of-a-Routine.pdf",
+   "pdfseiten": 15,
+   "s1": [
+    2001,
+    1927,
+    305
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_06_Population-Considerations.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_06_Population-Considerations.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    1458,
+    1426,
+    219
+   ],
+   "leer": [
+    10
+   ]
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_07_Constructing-Your-Workout-Routine.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_07_Constructing-Your-Workout-Routine.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    30,
+    30,
+    5
+   ],
+   "s23": [
+    2151,
+    2089,
+    346
+   ],
+   "leer": [
+    1,
+    2
+   ]
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_08_Warm-up-and-Skill-Work.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_08_Warm-up-and-Skill-Work.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    1100,
+    1020,
+    164
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_09_Strength-Work.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_09_Strength-Work.pdf",
+   "pdfseiten": 25,
+   "s1": [
+    1689,
+    1556,
+    255
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_10_Methods-of-Progression.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_10_Methods-of-Progression.pdf",
+   "pdfseiten": 22,
+   "s1": [
+    1985,
+    1911,
+    298
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_11_Prehabilitation-Isolation-Flexibility-Cool-Down.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_11_Prehabilitation-Isolation-Flexibility-Cool-Down.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    1571,
+    1502,
+    249
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_12_Mesocycle-Planning.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_12_Mesocycle-Planning.pdf",
+   "pdfseiten": 18,
+   "s1": [
+    1431,
+    1352,
+    219
+   ],
+   "leer": [
+    18
+   ]
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_13_Endurance-Cardio-Cross-Training-Hybrid-Templates.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_13_Endurance-Cardio-Cross-Training-Hybrid-Templates.pdf",
+   "pdfseiten": 19,
+   "s1": [
+    37,
+    37,
+    6
+   ],
+   "s23": [
+    1622,
+    1560,
+    229
+   ],
+   "leer": [
+    1,
+    2
+   ]
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_14_Overreaching-and-Overtraining.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_14_Overreaching-and-Overtraining.pdf",
+   "pdfseiten": 7,
+   "s1": [
+    905,
+    874,
+    126
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_15_Health-and-Injury-Management.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_15_Health-and-Injury-Management.pdf",
+   "pdfseiten": 17,
+   "s1": [
+    1964,
+    1901,
+    290
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_16_Lifestyle-Factors.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_16_Lifestyle-Factors.pdf",
+   "pdfseiten": 7,
+   "s1": [
+    1925,
+    1823,
+    330
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_17_Untrained-Beginner.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_17_Untrained-Beginner.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    29,
+    29,
+    4
+   ],
+   "s23": [
+    1966,
+    1910,
+    324
+   ],
+   "leer": [
+    1,
+    2
+   ]
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_18_Trained-Beginner.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_18_Trained-Beginner.pdf",
+   "pdfseiten": 8,
+   "s1": [
+    1689,
+    1623,
+    249
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_19_Intermediate.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_19_Intermediate.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    1770,
+    1694,
+    267
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_20_Advanced.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_20_Advanced.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    1817,
+    1751,
+    289
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_21_Common-Bodyweight-Training-Injuries.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_21_Common-Bodyweight-Training-Injuries.pdf",
+   "pdfseiten": 31,
+   "s1": [
+    62,
+    60,
+    8
+   ],
+   "s23": [
+    2173,
+    2108,
+    327
+   ],
+   "leer": [
+    1,
+    2
+   ]
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_22_Prehabilitation-Mobility-Flexibility-Resources.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_22_Prehabilitation-Mobility-Flexibility-Resources.pdf",
+   "pdfseiten": 21,
+   "s1": [
+    1838,
+    1763,
+    295
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_23_Exercise-Technique-Descriptions-Tips.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_23_Exercise-Technique-Descriptions-Tips.pdf",
+   "pdfseiten": 5,
+   "s1": [
+    1791,
+    1702,
+    288
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_24-1_Handstand-Variations.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_24-1_Handstand-Variations.pdf",
+   "pdfseiten": 30,
+   "s1": [
+    1843,
+    1792,
+    284
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_24-2_Handstand-Variations.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_24-2_Handstand-Variations.pdf",
+   "pdfseiten": 31,
+   "s1": [
+    2372,
+    2311,
+    379
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_25-1_Pulling-Exercises.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_25-1_Pulling-Exercises.pdf",
+   "pdfseiten": 39,
+   "s1": [
+    2390,
+    2307,
+    388
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_25-2_Pulling-Exercises.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_25-2_Pulling-Exercises.pdf",
+   "pdfseiten": 39,
+   "s1": [
+    1181,
+    1148,
+    205
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_26-1_Pushing-Variations.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_26-1_Pushing-Variations.pdf",
+   "pdfseiten": 33,
+   "s1": [
+    1632,
+    1583,
+    278
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_26-2_Pushing-Variations.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_26-2_Pushing-Variations.pdf",
+   "pdfseiten": 33,
+   "s1": [
+    1758,
+    1698,
+    290
+   ],
+   "leer": [
+    33
+   ]
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_27_Multi-Plane-Exercises-Core-and-Legs.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_27_Multi-Plane-Exercises-Core-and-Legs.pdf",
+   "pdfseiten": 58,
+   "s1": [
+    1431,
+    1377,
+    250
+   ],
+   "leer": [
+    58
+   ]
+  },
+  "t2-kraft/L-T2-04_kapitel/L-T2-04_90_Resources.pdf": {
+   "datei": "t2-kraft/L-T2-04_kapitel/L-T2-04_90_Resources.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    2143,
+    2021,
+    310
+   ],
+   "leer": [
+    4,
+    5,
+    6
+   ]
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_00_Vorspann.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_00_Vorspann.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    115,
+    111,
+    15
+   ],
+   "leer": [
+    2
+   ]
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_01_A-Brief-Historical-Overview-on-the-Science-of-Concurrent.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_01_A-Brief-Historical-Overview-on-the-Science-of-Concurrent.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    1867,
+    1737,
+    264
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_02_The-Functional-Genome-in-Physical-Exercise.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_02_The-Functional-Genome-in-Physical-Exercise.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    34,
+    34,
+    5
+   ],
+   "s23": [
+    4389,
+    4162,
+    608
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_03_Molecular-and-Physiological-Adaptations-to-Endurance.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_03_Molecular-and-Physiological-Adaptations-to-Endurance.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    1465,
+    1374,
+    196
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_04_Neural-Adaptations-to-Endurance-Training.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_04_Neural-Adaptations-to-Endurance-Training.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    1828,
+    1698,
+    254
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_05_Physiological-and-Molecular-Adaptations-to-Strength-Training.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_05_Physiological-and-Molecular-Adaptations-to-Strength-Training.pdf",
+   "pdfseiten": 23,
+   "s1": [
+    2055,
+    1922,
+    257
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_06_Neural-Adaptations-to-Strength-Training.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_06_Neural-Adaptations-to-Strength-Training.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    1724,
+    1618,
+    250
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_07_Proposed-Mechanisms-Underlying-the-Interference-Effect.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_07_Proposed-Mechanisms-Underlying-the-Interference-Effect.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    27,
+    27,
+    4
+   ],
+   "s23": [
+    4784,
+    4467,
+    664
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_08_Molecular-Adaptations-to-Concurrent-Strength-and-Endurance.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_08_Molecular-Adaptations-to-Concurrent-Strength-and-Endurance.pdf",
+   "pdfseiten": 25,
+   "s1": [
+    1511,
+    1392,
+    193
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_09_Effects-of-Endurance-Strength-and-Concurrent-Training-on.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_09_Effects-of-Endurance-Strength-and-Concurrent-Training-on.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    1825,
+    1702,
+    253
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_10_Immediate-Effects-of-Endurance-Exercise-on-Subsequent.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_10_Immediate-Effects-of-Endurance-Exercise-on-Subsequent.pdf",
+   "pdfseiten": 16,
+   "s1": [
+    2010,
+    1890,
+    268
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_11_Acute-Effects-of-Strength-Exercise-on-Subsequent-Endurance.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_11_Acute-Effects-of-Strength-Exercise-on-Subsequent-Endurance.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    1835,
+    1687,
+    234
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_12_Long-Term-Effects-of-Supplementary-Aerobic-Training-on.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_12_Long-Term-Effects-of-Supplementary-Aerobic-Training-on.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    1960,
+    1840,
+    268
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_13_Methodological-Considerations-for-Concurrent-Training.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_13_Methodological-Considerations-for-Concurrent-Training.pdf",
+   "pdfseiten": 15,
+   "s1": [
+    83,
+    82,
+    11
+   ],
+   "s23": [
+    3416,
+    3162,
+    439
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_14_Effects-of-the-Concurrent-Training-Mode-on-Physiological.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_14_Effects-of-the-Concurrent-Training-Mode-on-Physiological.pdf",
+   "pdfseiten": 15,
+   "s1": [
+    1844,
+    1722,
+    238
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_15_Recovery-Strategies-to-Optimise-Adaptations-to-Concurrent.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_15_Recovery-Strategies-to-Optimise-Adaptations-to-Concurrent.pdf",
+   "pdfseiten": 15,
+   "s1": [
+    2094,
+    1944,
+    263
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_16_Nutritional-Considerations-for-Concurrent-Training.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_16_Nutritional-Considerations-for-Concurrent-Training.pdf",
+   "pdfseiten": 24,
+   "s1": [
+    1672,
+    1559,
+    205
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_17_Concurrent-Training-in-Children-and-Adolescents.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_17_Concurrent-Training-in-Children-and-Adolescents.pdf",
+   "pdfseiten": 22,
+   "s1": [
+    63,
+    63,
+    9
+   ],
+   "s23": [
+    3933,
+    3582,
+    523
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_18_Concurrent-Training-in-Elderly.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_18_Concurrent-Training-in-Elderly.pdf",
+   "pdfseiten": 15,
+   "s1": [
+    1973,
+    1823,
+    244
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_19_Concurrent-Aerobic-and-Strength-Training-for-Body.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_19_Concurrent-Aerobic-and-Strength-Training-for-Body.pdf",
+   "pdfseiten": 15,
+   "s1": [
+    1594,
+    1471,
+    215
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_20_Sex-Differences-in-Concurrent-Aerobic-and-Strength-Training.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_20_Sex-Differences-in-Concurrent-Aerobic-and-Strength-Training.pdf",
+   "pdfseiten": 13,
+   "s1": [
+    1814,
+    1699,
+    243
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_21_Long-Term-Effects-of-Strength-Training-on-Aerobic-Capacity.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_21_Long-Term-Effects-of-Strength-Training-on-Aerobic-Capacity.pdf",
+   "pdfseiten": 8,
+   "s1": [
+    63,
+    63,
+    9
+   ],
+   "s23": [
+    4786,
+    4544,
+    658
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_22_Strength-Training-for-Endurance-Cyclists.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_22_Strength-Training-for-Endurance-Cyclists.pdf",
+   "pdfseiten": 8,
+   "s1": [
+    1901,
+    1763,
+    253
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_23_Strength-Training-for-Endurance-Runners.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_23_Strength-Training-for-Endurance-Runners.pdf",
+   "pdfseiten": 15,
+   "s1": [
+    1730,
+    1519,
+    226
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_24_Strength-Training-for-Cross-Country-Skiers.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_24_Strength-Training-for-Cross-Country-Skiers.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    1972,
+    1822,
+    271
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_25_Strength-Training-for-Swimmers.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_25_Strength-Training-for-Swimmers.pdf",
+   "pdfseiten": 18,
+   "s1": [
+    1593,
+    1479,
+    208
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_26_General-Aspects-of-Concurrent-Aerobic-and-Strength-Training.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_26_General-Aspects-of-Concurrent-Aerobic-and-Strength-Training.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    2092,
+    1932,
+    280
+   ],
+   "leer": []
+  },
+  "t2-kraft/L-T2-03_kapitel/L-T2-03_27_Concurrent-Aerobic-and-Strength-Training-for-Performance-in.pdf": {
+   "datei": "t2-kraft/L-T2-03_kapitel/L-T2-03_27_Concurrent-Aerobic-and-Strength-Training-for-Performance-in.pdf",
+   "pdfseiten": 20,
+   "s1": [
+    1847,
+    1675,
+    239
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A01_Kenney-2019_Physiology-of-Sport-and-Exercise_7ed.pdf": {
+   "datei": "uebergreifend/L-A01_Kenney-2019_Physiology-of-Sport-and-Exercise_7ed.pdf",
+   "pdfseiten": 1379,
+   "s1": [
+    0,
+    0,
+    0
+   ],
+   "s23": [
+    1238,
+    1187,
+    201
+   ],
+   "leer": [
+    1,
+    15,
+    23,
+    26,
+    27,
+    32,
+    35,
+    96,
+    143,
+    189,
+    232,
+    245,
+    246,
+    280,
+    350,
+    351,
+    403,
+    446,
+    503,
+    504,
+    546,
+    586,
+    657,
+    658,
+    717,
+    722,
+    769,
+    770,
+    772,
+    819,
+    902,
+    963,
+    1005,
+    1055,
+    1105,
+    1106,
+    1116,
+    1122,
+    1148,
+    1197,
+    1379
+   ]
+  },
+  "uebergreifend/L-A02_Ferrauti-2025_Trainingswissenschaft-fuer-die-Sportpraxis_2ed.pdf": {
+   "datei": "uebergreifend/L-A02_Ferrauti-2025_Trainingswissenschaft-fuer-die-Sportpraxis_2ed.pdf",
+   "pdfseiten": 911,
+   "s1": [
+    132,
+    128,
+    17
+   ],
+   "leer": [
+    2,
+    286,
+    296,
+    297,
+    309
+   ]
+  },
+  "uebergreifend/L-A03_NSCA-2026_Essentials-of-Strength-Training-and-Conditioning_5ed.pdf": {
+   "datei": "uebergreifend/L-A03_NSCA-2026_Essentials-of-Strength-Training-and-Conditioning_5ed.pdf",
+   "pdfseiten": 1876,
+   "s1": [
+    1,
+    0,
+    0
+   ],
+   "s23": [
+    1229,
+    1182,
+    198
+   ],
+   "leer": [
+    1,
+    2,
+    6,
+    10,
+    20,
+    31,
+    34,
+    45,
+    71,
+    94,
+    119,
+    124,
+    126,
+    127,
+    169,
+    178,
+    246,
+    288,
+    324,
+    389,
+    437,
+    548,
+    614,
+    751,
+    769,
+    784,
+    817,
+    818,
+    819,
+    847,
+    942,
+    991,
+    998,
+    1013,
+    1091,
+    1095,
+    1160,
+    1168,
+    1173,
+    1178,
+    1185,
+    1334,
+    1365,
+    1371,
+    1377,
+    1383,
+    1429,
+    1510,
+    1678,
+    1696,
+    1721,
+    1768,
+    1769,
+    1789,
+    1820,
+    1823,
+    1824,
+    1865,
+    1869,
+    1872,
+    1876
+   ]
+  },
+  "uebergreifend/L-P01_Kiely-2018_Periodization-Theory.pdf": {
+   "datei": "uebergreifend/L-P01_Kiely-2018_Periodization-Theory.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    2904,
+    2777,
+    377
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P02_Mujika-2018_Integrated-Approach-to-Periodization.pdf": {
+   "datei": "uebergreifend/L-P02_Mujika-2018_Integrated-Approach-to-Periodization.pdf",
+   "pdfseiten": 24,
+   "s1": [
+    4931,
+    4732,
+    673
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P03_Bourdon-2017_Monitoring-Training-Loads-Consensus.pdf": {
+   "datei": "uebergreifend/L-P03_Bourdon-2017_Monitoring-Training-Loads-Consensus.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    5049,
+    4787,
+    714
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P04_Impellizzeri-2019_Internal-and-External-Training-Load.pdf": {
+   "datei": "uebergreifend/L-P04_Impellizzeri-2019_Internal-and-External-Training-Load.pdf",
+   "pdfseiten": 4,
+   "s1": [
+    5227,
+    5002,
+    719
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P05_Kellmann-2018_Recovery-and-Performance-Consensus.pdf": {
+   "datei": "uebergreifend/L-P05_Kellmann-2018_Recovery-and-Performance-Consensus.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    5692,
+    5414,
+    742
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P06_Meeusen-2013_Overtraining-Syndrome-Consensus.pdf": {
+   "datei": "uebergreifend/L-P06_Meeusen-2013_Overtraining-Syndrome-Consensus.pdf",
+   "pdfseiten": 20,
+   "s1": [
+    3459,
+    3262,
+    471
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P07_Schumann-2022_Concurrent-Training-Meta-Analysis.pdf": {
+   "datei": "uebergreifend/L-P07_Schumann-2022_Concurrent-Training-Meta-Analysis.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    3320,
+    2963,
+    430
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P08_Currier-2026_ACSM-Resistance-Training-Prescription.pdf": {
+   "datei": "uebergreifend/L-P08_Currier-2026_ACSM-Resistance-Training-Prescription.pdf",
+   "pdfseiten": 22,
+   "s1": [
+    4586,
+    4129,
+    568
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P09_Held-2026_Concurrent-Training-Umbrella-Review.pdf": {
+   "datei": "uebergreifend/L-P09_Held-2026_Concurrent-Training-Umbrella-Review.pdf",
+   "pdfseiten": 24,
+   "s1": [
+    3663,
+    3329,
+    467
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P10_Foster-2001_Monitoring-Exercise-Training-sRPE.pdf": {
+   "datei": "uebergreifend/L-P10_Foster-2001_Monitoring-Exercise-Training-sRPE.pdf",
+   "pdfseiten": 7,
+   "s1": [
+    4123,
+    3842,
+    572
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P11_Saw-2016_Monitoring-Athlete-Training-Response.pdf": {
+   "datei": "uebergreifend/L-P11_Saw-2016_Monitoring-Athlete-Training-Response.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    5183,
+    4863,
+    701
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P12_Impellizzeri-2020_ACWR-Conceptual-Issues.pdf": {
+   "datei": "uebergreifend/L-P12_Impellizzeri-2020_ACWR-Conceptual-Issues.pdf",
+   "pdfseiten": 7,
+   "s1": [
+    5281,
+    5036,
+    737
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P13_Silbernagel-2007_Pain-Monitoring-Model-Achilles.pdf": {
+   "datei": "uebergreifend/L-P13_Silbernagel-2007_Pain-Monitoring-Model-Achilles.pdf",
+   "pdfseiten": 10,
+   "s1": [
+    3500,
+    3205,
+    457
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P14_Impellizzeri-2021_Chronic-Workloads-ACWR.pdf": {
+   "datei": "uebergreifend/L-P14_Impellizzeri-2021_Chronic-Workloads-ACWR.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    3327,
+    3018,
+    445
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P15_Manresa-Rocamora-2021_HRV-Guided-Training-Meta-Analysis.pdf": {
+   "datei": "uebergreifend/L-P15_Manresa-Rocamora-2021_HRV-Guided-Training-Meta-Analysis.pdf",
+   "pdfseiten": 22,
+   "s1": [
+    3955,
+    3454,
+    489
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-P16_Dueking-2021_HRV-Guided-Training-Wearables.pdf": {
+   "datei": "uebergreifend/L-P16_Dueking-2021_HRV-Guided-Training-Wearables.pdf",
+   "pdfseiten": 13,
+   "s1": [
+    4406,
+    3993,
+    555
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_00a_Vorspann.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_00a_Vorspann.pdf",
+   "pdfseiten": 34,
+   "s1": [
+    0,
+    0,
+    0
+   ],
+   "s23": [
+    1238,
+    1187,
+    201
+   ],
+   "leer": [
+    1,
+    15,
+    23,
+    26,
+    27,
+    32
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_00b_Introduction-An-Introduction-to-Exercise-and-Sport.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_00b_Introduction-An-Introduction-to-Exercise-and-Sport.pdf",
+   "pdfseiten": 59,
+   "s1": [
+    2,
+    0,
+    0
+   ],
+   "s23": [
+    1502,
+    1444,
+    199
+   ],
+   "leer": [
+    1
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_01_Structure-and-Function-of-Exercising-Muscle.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_01_Structure-and-Function-of-Exercising-Muscle.pdf",
+   "pdfseiten": 50,
+   "s1": [
+    1466,
+    1418,
+    215
+   ],
+   "leer": [
+    3,
+    50
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_02_Fuel-for-Exercise-Bioenergetics-and-Muscle-Metabolism.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_02_Fuel-for-Exercise-Bioenergetics-and-Muscle-Metabolism.pdf",
+   "pdfseiten": 46,
+   "s1": [
+    1055,
+    1000,
+    162
+   ],
+   "leer": [
+    46
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_03_Neural-Control-of-Exercising-Muscle.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_03_Neural-Control-of-Exercising-Muscle.pdf",
+   "pdfseiten": 43,
+   "s1": [
+    907,
+    874,
+    129
+   ],
+   "leer": [
+    43
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_04_Hormonal-Control-During-Exercise.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_04_Hormonal-Control-During-Exercise.pdf",
+   "pdfseiten": 48,
+   "s1": [
+    1259,
+    1211,
+    173
+   ],
+   "leer": [
+    13,
+    14,
+    48
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_05-1_Energy-Expenditure-Fatigue-and-Muscle-Soreness.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_05-1_Energy-Expenditure-Fatigue-and-Muscle-Soreness.pdf",
+   "pdfseiten": 31,
+   "s1": [
+    1116,
+    1086,
+    163
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_05-2_Energy-Expenditure-Fatigue-and-Muscle-Soreness.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_05-2_Energy-Expenditure-Fatigue-and-Muscle-Soreness.pdf",
+   "pdfseiten": 37,
+   "s1": [
+    1641,
+    1335,
+    186
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_06_The-Cardiovascular-System-and-Its-Control.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_06_The-Cardiovascular-System-and-Its-Control.pdf",
+   "pdfseiten": 55,
+   "s1": [
+    1149,
+    1114,
+    174
+   ],
+   "leer": [
+    2,
+    3,
+    55
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_07_The-Respiratory-System-and-Its-Regulation.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_07_The-Respiratory-System-and-Its-Regulation.pdf",
+   "pdfseiten": 43,
+   "s1": [
+    910,
+    877,
+    134
+   ],
+   "leer": [
+    43
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_08_Cardiorespiratory-Responses-to-Acute-Exercise.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_08_Cardiorespiratory-Responses-to-Acute-Exercise.pdf",
+   "pdfseiten": 55,
+   "s1": [
+    1041,
+    1010,
+    133
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_09_Principles-of-Exercise-Training.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_09_Principles-of-Exercise-Training.pdf",
+   "pdfseiten": 45,
+   "s1": [
+    1291,
+    1246,
+    173
+   ],
+   "leer": [
+    2,
+    3,
+    45
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_10_Adaptations-to-Resistance-Training.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_10_Adaptations-to-Resistance-Training.pdf",
+   "pdfseiten": 40,
+   "s1": [
+    1145,
+    1111,
+    161
+   ],
+   "leer": [
+    40
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_11-1_Adaptations-to-Aerobic-and-Anaerobic-Training.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_11-1_Adaptations-to-Aerobic-and-Anaerobic-Training.pdf",
+   "pdfseiten": 34,
+   "s1": [
+    1333,
+    1283,
+    167
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_11-2_Adaptations-to-Aerobic-and-Anaerobic-Training.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_11-2_Adaptations-to-Aerobic-and-Anaerobic-Training.pdf",
+   "pdfseiten": 35,
+   "s1": [
+    1929,
+    1868,
+    250
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_12-1_Exercise-in-Hot-and-Cold-Environments.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_12-1_Exercise-in-Hot-and-Cold-Environments.pdf",
+   "pdfseiten": 29,
+   "s1": [
+    1069,
+    1039,
+    158
+   ],
+   "leer": [
+    2,
+    3
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_12-2_Exercise-in-Hot-and-Cold-Environments.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_12-2_Exercise-in-Hot-and-Cold-Environments.pdf",
+   "pdfseiten": 38,
+   "s1": [
+    1441,
+    1403,
+    214
+   ],
+   "leer": [
+    33,
+    38
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_13_Exercise-at-Altitude.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_13_Exercise-at-Altitude.pdf",
+   "pdfseiten": 45,
+   "s1": [
+    1044,
+    1007,
+    128
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_14_Training-for-Sport.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_14_Training-for-Sport.pdf",
+   "pdfseiten": 52,
+   "s1": [
+    965,
+    931,
+    138
+   ],
+   "leer": [
+    2,
+    3,
+    5,
+    52
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_15-1_Body-Composition-and-Nutrition-for-Sport.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_15-1_Body-Composition-and-Nutrition-for-Sport.pdf",
+   "pdfseiten": 42,
+   "s1": [
+    908,
+    861,
+    126
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_15-2_Body-Composition-and-Nutrition-for-Sport.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_15-2_Body-Composition-and-Nutrition-for-Sport.pdf",
+   "pdfseiten": 41,
+   "s1": [
+    2141,
+    2051,
+    337
+   ],
+   "leer": [
+    41
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_16_Ergogenic-Aids-in-Sport.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_16_Ergogenic-Aids-in-Sport.pdf",
+   "pdfseiten": 58,
+   "s1": [
+    713,
+    690,
+    106
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_17_Children-and-Adolescents-in-Sport-and-Exercise.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_17_Children-and-Adolescents-in-Sport-and-Exercise.pdf",
+   "pdfseiten": 45,
+   "s1": [
+    1321,
+    1288,
+    192
+   ],
+   "leer": [
+    3,
+    45
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_18_Aging-in-Sport-and-Exercise.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_18_Aging-in-Sport-and-Exercise.pdf",
+   "pdfseiten": 50,
+   "s1": [
+    1050,
+    1001,
+    152
+   ],
+   "leer": [
+    50
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_19_Sex-Differences-in-Sport-and-Exercise.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_19_Sex-Differences-in-Sport-and-Exercise.pdf",
+   "pdfseiten": 48,
+   "s1": [
+    854,
+    827,
+    118
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_20_Prescription-of-Exercise-for-Health-and-Fitness.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_20_Prescription-of-Exercise-for-Health-and-Fitness.pdf",
+   "pdfseiten": 45,
+   "s1": [
+    1129,
+    1090,
+    162
+   ],
+   "leer": [
+    2,
+    3,
+    13,
+    19,
+    45
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_21_Cardiovascular-Disease-and-Physical-Activity.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_21_Cardiovascular-Disease-and-Physical-Activity.pdf",
+   "pdfseiten": 49,
+   "s1": [
+    991,
+    960,
+    129
+   ],
+   "leer": [
+    49
+   ]
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_22_Obesity-Diabetes-and-Physical-Activity.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_22_Obesity-Diabetes-and-Physical-Activity.pdf",
+   "pdfseiten": 50,
+   "s1": [
+    1029,
+    985,
+    148
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_90_Glossary.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_90_Glossary.pdf",
+   "pdfseiten": 30,
+   "s1": [
+    1624,
+    1552,
+    228
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_91_References.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_91_References.pdf",
+   "pdfseiten": 44,
+   "s1": [
+    1697,
+    1319,
+    183
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A01_kapitel/L-A01_92_Index.pdf": {
+   "datei": "uebergreifend/L-A01_kapitel/L-A01_92_Index.pdf",
+   "pdfseiten": 58,
+   "s1": [
+    1075,
+    726,
+    98
+   ],
+   "leer": [
+    58
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_00_Vorspann.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_00_Vorspann.pdf",
+   "pdfseiten": 37,
+   "s1": [
+    1,
+    0,
+    0
+   ],
+   "s23": [
+    1229,
+    1182,
+    198
+   ],
+   "leer": [
+    1,
+    2,
+    6,
+    10,
+    20,
+    31,
+    34
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_01-1_Structure-and-Function-of-Body-Systems.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_01-1_Structure-and-Function-of-Body-Systems.pdf",
+   "pdfseiten": 30,
+   "s1": [
+    927,
+    900,
+    129
+   ],
+   "leer": [
+    8
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_01-2_Structure-and-Function-of-Body-Systems.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_01-2_Structure-and-Function-of-Body-Systems.pdf",
+   "pdfseiten": 36,
+   "s1": [
+    1338,
+    1285,
+    214
+   ],
+   "leer": [
+    4,
+    27
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_02-1_Biomechanics-of-Resistance-Exercise.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_02-1_Biomechanics-of-Resistance-Exercise.pdf",
+   "pdfseiten": 44,
+   "s1": [
+    792,
+    772,
+    108
+   ],
+   "leer": [
+    16,
+    21,
+    23,
+    24
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_02-2_Biomechanics-of-Resistance-Exercise.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_02-2_Biomechanics-of-Resistance-Exercise.pdf",
+   "pdfseiten": 26,
+   "s1": [
+    1373,
+    1286,
+    197
+   ],
+   "leer": [
+    22
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_03_Bioenergetics-of-Exercise-and-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_03_Bioenergetics-of-Exercise-and-Training.pdf",
+   "pdfseiten": 53,
+   "s1": [
+    807,
+    783,
+    108
+   ],
+   "leer": [
+    5
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_04_Endocrine-Responses-to-Resistance-Exercise-and-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_04_Endocrine-Responses-to-Resistance-Exercise-and-Training.pdf",
+   "pdfseiten": 54,
+   "s1": [
+    803,
+    778,
+    110
+   ],
+   "leer": [
+    20
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_05_Adaptations-to-Anaerobic-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_05_Adaptations-to-Anaerobic-Training.pdf",
+   "pdfseiten": 58,
+   "s1": [
+    863,
+    839,
+    118
+   ],
+   "leer": [
+    8,
+    44
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_06_Adaptations-to-Aerobic-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_06_Adaptations-to-Aerobic-Training.pdf",
+   "pdfseiten": 45,
+   "s1": [
+    960,
+    933,
+    133
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_07_Age-Related-Differences-and-Their-Implications-for.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_07_Age-Related-Differences-and-Their-Implications-for.pdf",
+   "pdfseiten": 54,
+   "s1": [
+    815,
+    790,
+    113
+   ],
+   "leer": [
+    6,
+    54
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_08_Sex-Related-Differences-and-Their-Implications-for.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_08_Sex-Related-Differences-and-Their-Implications-for.pdf",
+   "pdfseiten": 27,
+   "s1": [
+    816,
+    795,
+    110
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_09-1_Psychological-Foundations-of-Performance.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_09-1_Psychological-Foundations-of-Performance.pdf",
+   "pdfseiten": 40,
+   "s1": [
+    925,
+    884,
+    119
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_09-2_Psychological-Foundations-of-Performance.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_09-2_Psychological-Foundations-of-Performance.pdf",
+   "pdfseiten": 31,
+   "s1": [
+    1656,
+    1550,
+    230
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_10-1_Basic-Nutritional-Factors-Affecting-Health.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_10-1_Basic-Nutritional-Factors-Affecting-Health.pdf",
+   "pdfseiten": 39,
+   "s1": [
+    883,
+    858,
+    128
+   ],
+   "leer": [
+    13
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_10-2_Basic-Nutritional-Factors-Affecting-Health.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_10-2_Basic-Nutritional-Factors-Affecting-Health.pdf",
+   "pdfseiten": 38,
+   "s1": [
+    1284,
+    1121,
+    182
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_11_Nutrition-Strategies-for-Maximizing-Performance.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_11_Nutrition-Strategies-for-Maximizing-Performance.pdf",
+   "pdfseiten": 46,
+   "s1": [
+    1334,
+    1291,
+    191
+   ],
+   "leer": [
+    2
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_12-1_Performance-Enhancing-Substances-and-Methods.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_12-1_Performance-Enhancing-Substances-and-Methods.pdf",
+   "pdfseiten": 39,
+   "s1": [
+    828,
+    796,
+    115
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_12-2_Performance-Enhancing-Substances-and-Methods.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_12-2_Performance-Enhancing-Substances-and-Methods.pdf",
+   "pdfseiten": 31,
+   "s1": [
+    2505,
+    2344,
+    340
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_13_Principles-of-Test-Selection-and-Administration.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_13_Principles-of-Test-Selection-and-Administration.pdf",
+   "pdfseiten": 35,
+   "s1": [
+    884,
+    863,
+    133
+   ],
+   "leer": [
+    23
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_14-1_Administration-Scoring-and-Interpretation-of-Selected-Tests.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_14-1_Administration-Scoring-and-Interpretation-of-Selected-Tests.pdf",
+   "pdfseiten": 45,
+   "s1": [
+    1253,
+    1214,
+    180
+   ],
+   "leer": [
+    6,
+    21
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_14-2_Administration-Scoring-and-Interpretation-of-Selected-Tests.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_14-2_Administration-Scoring-and-Interpretation-of-Selected-Tests.pdf",
+   "pdfseiten": 45,
+   "s1": [
+    772,
+    708,
+    119
+   ],
+   "leer": [
+    9,
+    10,
+    11,
+    39
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_15-1_Performance-Preparation-Mobility-and-Flexibility.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_15-1_Performance-Preparation-Mobility-and-Flexibility.pdf",
+   "pdfseiten": 25,
+   "s1": [
+    764,
+    739,
+    104
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_15-2_Performance-Preparation-Mobility-and-Flexibility.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_15-2_Performance-Preparation-Mobility-and-Flexibility.pdf",
+   "pdfseiten": 37,
+   "s1": [
+    1630,
+    1565,
+    237
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_15-3_Performance-Preparation-Mobility-and-Flexibility.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_15-3_Performance-Preparation-Mobility-and-Flexibility.pdf",
+   "pdfseiten": 31,
+   "s1": [
+    411,
+    374,
+    69
+   ],
+   "leer": [
+    27
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_16-1_Exercise-Technique-for-Free-Weight-and-Machine-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_16-1_Exercise-Technique-for-Free-Weight-and-Machine-Training.pdf",
+   "pdfseiten": 35,
+   "s1": [
+    766,
+    742,
+    109
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_16-2_Exercise-Technique-for-Free-Weight-and-Machine-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_16-2_Exercise-Technique-for-Free-Weight-and-Machine-Training.pdf",
+   "pdfseiten": 35,
+   "s1": [
+    489,
+    473,
+    88
+   ],
+   "leer": [
+    10,
+    17,
+    32
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_16-3_Exercise-Technique-for-Free-Weight-and-Machine-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_16-3_Exercise-Technique-for-Free-Weight-and-Machine-Training.pdf",
+   "pdfseiten": 36,
+   "s1": [
+    649,
+    628,
+    112
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_16-4_Exercise-Technique-for-Free-Weight-and-Machine-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_16-4_Exercise-Technique-for-Free-Weight-and-Machine-Training.pdf",
+   "pdfseiten": 35,
+   "s1": [
+    622,
+    610,
+    117
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_17-1_Exercise-Technique-for-Alternative-Modes-and-Nontraditional.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_17-1_Exercise-Technique-for-Alternative-Modes-and-Nontraditional.pdf",
+   "pdfseiten": 31,
+   "s1": [
+    777,
+    758,
+    109
+   ],
+   "leer": [
+    4,
+    8
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_17-2_Exercise-Technique-for-Alternative-Modes-and-Nontraditional.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_17-2_Exercise-Technique-for-Alternative-Modes-and-Nontraditional.pdf",
+   "pdfseiten": 34,
+   "s1": [
+    1376,
+    1296,
+    176
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_17-3_Exercise-Technique-for-Alternative-Modes-and-Nontraditional.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_17-3_Exercise-Technique-for-Alternative-Modes-and-Nontraditional.pdf",
+   "pdfseiten": 33,
+   "s1": [
+    1306,
+    1275,
+    223
+   ],
+   "leer": [
+    8,
+    16,
+    21,
+    26,
+    33
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_18-1_Program-Design-for-Resistance-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_18-1_Program-Design-for-Resistance-Training.pdf",
+   "pdfseiten": 35,
+   "s1": [
+    1387,
+    1334,
+    192
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_18-2_Program-Design-for-Resistance-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_18-2_Program-Design-for-Resistance-Training.pdf",
+   "pdfseiten": 39,
+   "s1": [
+    222,
+    208,
+    31
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_19-1_Program-Design-and-Technique-for-Plyometric-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_19-1_Program-Design-and-Technique-for-Plyometric-Training.pdf",
+   "pdfseiten": 29,
+   "s1": [
+    746,
+    723,
+    106
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_19-2_Program-Design-and-Technique-for-Plyometric-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_19-2_Program-Design-and-Technique-for-Plyometric-Training.pdf",
+   "pdfseiten": 40,
+   "s1": [
+    477,
+    456,
+    66
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_19-3_Program-Design-and-Technique-for-Plyometric-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_19-3_Program-Design-and-Technique-for-Plyometric-Training.pdf",
+   "pdfseiten": 35,
+   "s1": [
+    1225,
+    1192,
+    207
+   ],
+   "leer": [
+    6
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_19-4_Program-Design-and-Technique-for-Plyometric-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_19-4_Program-Design-and-Technique-for-Plyometric-Training.pdf",
+   "pdfseiten": 34,
+   "s1": [
+    666,
+    645,
+    105
+   ],
+   "leer": [
+    2,
+    8,
+    14,
+    20
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_20-1_Program-Design-and-Technique-for-Speed-and-Agility-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_20-1_Program-Design-and-Technique-for-Speed-and-Agility-Training.pdf",
+   "pdfseiten": 40,
+   "s1": [
+    754,
+    719,
+    105
+   ],
+   "leer": [
+    32
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_20-2_Program-Design-and-Technique-for-Speed-and-Agility-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_20-2_Program-Design-and-Technique-for-Speed-and-Agility-Training.pdf",
+   "pdfseiten": 35,
+   "s1": [
+    1418,
+    1365,
+    199
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_20-3_Program-Design-and-Technique-for-Speed-and-Agility-Training.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_20-3_Program-Design-and-Technique-for-Speed-and-Agility-Training.pdf",
+   "pdfseiten": 39,
+   "s1": [
+    1452,
+    1392,
+    210
+   ],
+   "leer": [
+    38
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_21-1_Program-Design-and-Technique-for-Aerobic-Endurance-and.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_21-1_Program-Design-and-Technique-for-Aerobic-Endurance-and.pdf",
+   "pdfseiten": 31,
+   "s1": [
+    698,
+    671,
+    100
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_21-2_Program-Design-and-Technique-for-Aerobic-Endurance-and.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_21-2_Program-Design-and-Technique-for-Aerobic-Endurance-and.pdf",
+   "pdfseiten": 36,
+   "s1": [
+    1370,
+    1267,
+    184
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_22_Periodization.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_22_Periodization.pdf",
+   "pdfseiten": 51,
+   "s1": [
+    1514,
+    1457,
+    207
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_23_Rehabilitation-Reconditioning-and-Medical-Issues.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_23_Rehabilitation-Reconditioning-and-Medical-Issues.pdf",
+   "pdfseiten": 49,
+   "s1": [
+    742,
+    717,
+    106
+   ],
+   "leer": [
+    49
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_24_Overreaching-Overtraining-and-Recovery.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_24_Overreaching-Overtraining-and-Recovery.pdf",
+   "pdfseiten": 48,
+   "s1": [
+    784,
+    759,
+    101
+   ],
+   "leer": [
+    18,
+    43
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_25_Facility-Design-Layout-and-Organization.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_25_Facility-Design-Layout-and-Organization.pdf",
+   "pdfseiten": 48,
+   "s1": [
+    934,
+    901,
+    132
+   ],
+   "leer": [
+    42,
+    43
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_26_Facility-Policies-Procedures-and-Legal-Issues.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_26_Facility-Policies-Procedures-and-Legal-Issues.pdf",
+   "pdfseiten": 45,
+   "s1": [
+    850,
+    826,
+    121
+   ],
+   "leer": [
+    15
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_90_Answers-to-Study-Questions.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_90_Answers-to-Study-Questions.pdf",
+   "pdfseiten": 4,
+   "s1": [
+    4,
+    0,
+    0
+   ],
+   "s23": [
+    666,
+    299,
+    26
+   ],
+   "leer": [
+    1,
+    4
+   ]
+  },
+  "uebergreifend/L-A03_kapitel/L-A03_91_Index-and-Contributors.pdf": {
+   "datei": "uebergreifend/L-A03_kapitel/L-A03_91_Index-and-Contributors.pdf",
+   "pdfseiten": 53,
+   "s1": [
+    4,
+    0,
+    0
+   ],
+   "s23": [
+    2433,
+    1634,
+    221
+   ],
+   "leer": [
+    1,
+    42,
+    46,
+    49,
+    53
+   ]
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_00_Vorspann.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_00_Vorspann.pdf",
+   "pdfseiten": 17,
+   "s1": [
+    132,
+    128,
+    17
+   ],
+   "leer": [
+    2
+   ]
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_01_Aufgaben-und-Inhalte-der-Trainingswissenschaft.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_01_Aufgaben-und-Inhalte-der-Trainingswissenschaft.pdf",
+   "pdfseiten": 27,
+   "s1": [
+    881,
+    733,
+    72
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_02_Grundlagenwissen-zum-sportlichen-Training.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_02_Grundlagenwissen-zum-sportlichen-Training.pdf",
+   "pdfseiten": 51,
+   "s1": [
+    1576,
+    1312,
+    144
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_03-1_Leistungssteuerung.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_03-1_Leistungssteuerung.pdf",
+   "pdfseiten": 45,
+   "s1": [
+    1440,
+    1179,
+    128
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_03-2_Leistungssteuerung.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_03-2_Leistungssteuerung.pdf",
+   "pdfseiten": 43,
+   "s1": [
+    3377,
+    3224,
+    432
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_03-3_Leistungssteuerung.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_03-3_Leistungssteuerung.pdf",
+   "pdfseiten": 43,
+   "s1": [
+    2921,
+    2664,
+    353
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_04-1_Krafttraining.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_04-1_Krafttraining.pdf",
+   "pdfseiten": 41,
+   "s1": [
+    1352,
+    1063,
+    125
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_04-2_Krafttraining.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_04-2_Krafttraining.pdf",
+   "pdfseiten": 40,
+   "s1": [
+    3166,
+    2990,
+    373
+   ],
+   "leer": [
+    19,
+    29,
+    30
+   ]
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_05-1_Schnelligkeitstraining.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_05-1_Schnelligkeitstraining.pdf",
+   "pdfseiten": 35,
+   "s1": [
+    1385,
+    1107,
+    116
+   ],
+   "leer": [
+    2
+   ]
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_05-2_Schnelligkeitstraining.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_05-2_Schnelligkeitstraining.pdf",
+   "pdfseiten": 38,
+   "s1": [
+    3247,
+    3102,
+    421
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_06_Beweglichkeitstraining.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_06_Beweglichkeitstraining.pdf",
+   "pdfseiten": 27,
+   "s1": [
+    789,
+    626,
+    68
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_07-1_Ausdauertraining.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_07-1_Ausdauertraining.pdf",
+   "pdfseiten": 38,
+   "s1": [
+    1216,
+    966,
+    94
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_07-2_Ausdauertraining.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_07-2_Ausdauertraining.pdf",
+   "pdfseiten": 37,
+   "s1": [
+    2455,
+    2277,
+    289
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_08_Techniktraining.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_08_Techniktraining.pdf",
+   "pdfseiten": 49,
+   "s1": [
+    1212,
+    990,
+    127
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_09-1_Regenerationsmanagement-und-Ernaehrung.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_09-1_Regenerationsmanagement-und-Ernaehrung.pdf",
+   "pdfseiten": 32,
+   "s1": [
+    1139,
+    898,
+    119
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_09-2_Regenerationsmanagement-und-Ernaehrung.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_09-2_Regenerationsmanagement-und-Ernaehrung.pdf",
+   "pdfseiten": 31,
+   "s1": [
+    3357,
+    3154,
+    418
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_10_Training-im-Kindes-und-Jugendalter.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_10_Training-im-Kindes-und-Jugendalter.pdf",
+   "pdfseiten": 53,
+   "s1": [
+    1201,
+    967,
+    121
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_11-1_Training-mit-Frauen.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_11-1_Training-mit-Frauen.pdf",
+   "pdfseiten": 37,
+   "s1": [
+    1186,
+    941,
+    123
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_11-2_Training-mit-Frauen.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_11-2_Training-mit-Frauen.pdf",
+   "pdfseiten": 35,
+   "s1": [
+    3282,
+    3154,
+    420
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_12_Training-im-mittleren-und-hoeheren-Lebensalter.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_12_Training-im-mittleren-und-hoeheren-Lebensalter.pdf",
+   "pdfseiten": 42,
+   "s1": [
+    977,
+    786,
+    87
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_13_Trainingswissenschaft-in-den-Ausdauersportarten.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_13_Trainingswissenschaft-in-den-Ausdauersportarten.pdf",
+   "pdfseiten": 23,
+   "s1": [
+    718,
+    548,
+    59
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_14-1_Trainingswissenschaft-in-den-Mannschaftssportarten.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_14-1_Trainingswissenschaft-in-den-Mannschaftssportarten.pdf",
+   "pdfseiten": 37,
+   "s1": [
+    1080,
+    805,
+    81
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_14-2_Trainingswissenschaft-in-den-Mannschaftssportarten.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_14-2_Trainingswissenschaft-in-den-Mannschaftssportarten.pdf",
+   "pdfseiten": 39,
+   "s1": [
+    2013,
+    1836,
+    244
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_15_Trainingswissenschaft-in-den-Rueckschlagsportarten.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_15_Trainingswissenschaft-in-den-Rueckschlagsportarten.pdf",
+   "pdfseiten": 40,
+   "s1": [
+    818,
+    635,
+    70
+   ],
+   "leer": []
+  },
+  "uebergreifend/L-A02_kapitel/L-A02_90_Serviceteil.pdf": {
+   "datei": "uebergreifend/L-A02_kapitel/L-A02_90_Serviceteil.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    252,
+    192,
+    26
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-01_Breda-2021_Progressive-Tendon-Loading.pdf": {
+   "datei": "r-reha/L-R-01_Breda-2021_Progressive-Tendon-Loading.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    5480,
+    4936,
+    718
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-02_Kongsgaard-2009_Patellar-Tendinopathy-HSR.pdf": {
+   "datei": "r-reha/L-R-02_Kongsgaard-2009_Patellar-Tendinopathy-HSR.pdf",
+   "pdfseiten": 13,
+   "s1": [
+    4088,
+    3607,
+    512
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-03_Agergaard-2021_Heavy-vs-Moderate-Loads-Patellar-Tendinopathy.pdf": {
+   "datei": "r-reha/L-R-03_Agergaard-2021_Heavy-vs-Moderate-Loads-Patellar-Tendinopathy.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    3130,
+    2822,
+    434
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-04_Agergaard-2026_TEREX-Extended-Restitution.pdf": {
+   "datei": "r-reha/L-R-04_Agergaard-2026_TEREX-Extended-Restitution.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    3384,
+    3116,
+    432
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-05_Challoumas-2023_Lower-Limb-Tendinopathy-Living-Review.pdf": {
+   "datei": "r-reha/L-R-05_Challoumas-2023_Lower-Limb-Tendinopathy-Living-Review.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    3425,
+    3218,
+    472
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-06_Liu-2026_Patellar-Tendinopathy-Network-Meta-Analysis.pdf": {
+   "datei": "r-reha/L-R-06_Liu-2026_Patellar-Tendinopathy-Network-Meta-Analysis.pdf",
+   "pdfseiten": 14,
+   "s1": [
+    3677,
+    3399,
+    478
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-07_Visentini-1998_VISA-Score.pdf": {
+   "datei": "r-reha/L-R-07_Visentini-1998_VISA-Score.pdf",
+   "pdfseiten": 7,
+   "s1": [
+    2657,
+    2426,
+    292
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-08_Lohrer-2011_VISA-P-German.pdf": {
+   "datei": "r-reha/L-R-08_Lohrer-2011_VISA-P-German.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    4284,
+    3931,
+    584
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-09_Hernandez-Sanchez-2014_VISA-P-Responsiveness.pdf": {
+   "datei": "r-reha/L-R-09_Hernandez-Sanchez-2014_VISA-P-Responsiveness.pdf",
+   "pdfseiten": 7,
+   "s1": [
+    5286,
+    4922,
+    741
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-10_Clifford-2020_Isometric-Exercise-Patellar-Tendinopathy.pdf": {
+   "datei": "r-reha/L-R-10_Clifford-2020_Isometric-Exercise-Patellar-Tendinopathy.pdf",
+   "pdfseiten": 19,
+   "s1": [
+    4358,
+    4007,
+    569
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-11_Sprague-2018_Patellar-Tendinopathy-Risk-Factors.pdf": {
+   "datei": "r-reha/L-R-11_Sprague-2018_Patellar-Tendinopathy-Risk-Factors.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    5410,
+    4934,
+    711
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-12_Backman-2011_Ankle-Dorsiflexion-Patellar-Tendinopathy.pdf": {
+   "datei": "r-reha/L-R-12_Backman-2011_Ankle-Dorsiflexion-Patellar-Tendinopathy.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    902,
+    766,
+    118
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-13_Martin-2021_Lateral-Ankle-Sprain-Guideline.pdf": {
+   "datei": "r-reha/L-R-13_Martin-2021_Lateral-Ankle-Sprain-Guideline.pdf",
+   "pdfseiten": 80,
+   "s1": [
+    2773,
+    2034,
+    302
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-14_Hupperets-2009_Home-Programme-Ankle-Sprain-Recurrence.pdf": {
+   "datei": "r-reha/L-R-14_Hupperets-2009_Home-Programme-Ankle-Sprain-Recurrence.pdf",
+   "pdfseiten": 6,
+   "s1": [
+    4367,
+    4022,
+    590
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-15_Schiftan-2015_Proprioceptive-Training-Ankle-Sprain.pdf": {
+   "datei": "r-reha/L-R-15_Schiftan-2015_Proprioceptive-Training-Ankle-Sprain.pdf",
+   "pdfseiten": 7,
+   "s1": [
+    4300,
+    3936,
+    559
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-16_Tang-2024_Balance-Training-Dosage-Ankle.pdf": {
+   "datei": "r-reha/L-R-16_Tang-2024_Balance-Training-Dosage-Ankle.pdf",
+   "pdfseiten": 20,
+   "s1": [
+    3503,
+    2999,
+    453
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-17_Donovan-2016_Destabilization-Devices-Ankle.pdf": {
+   "datei": "r-reha/L-R-17_Donovan-2016_Destabilization-Devices-Ankle.pdf",
+   "pdfseiten": 19,
+   "s1": [
+    4061,
+    3789,
+    544
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-18_Nielsen-2014_Running-Distance-Progression-Injuries.pdf": {
+   "datei": "r-reha/L-R-18_Nielsen-2014_Running-Distance-Progression-Injuries.pdf",
+   "pdfseiten": 25,
+   "s1": [
+    1774,
+    1506,
+    206
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-19_Kiers-2012_Unstable-Surface-Ankle-Proprioception.pdf": {
+   "datei": "r-reha/L-R-19_Kiers-2012_Unstable-Surface-Ankle-Proprioception.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    2826,
+    2629,
+    388
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-20_Fakontis-2023_Elastic-Bands-vs-Proprioceptive-Training.pdf": {
+   "datei": "r-reha/L-R-20_Fakontis-2023_Elastic-Bands-vs-Proprioceptive-Training.pdf",
+   "pdfseiten": 11,
+   "s1": [
+    3775,
+    3409,
+    485
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-21_Giboin-2018_Slackline-Training.pdf": {
+   "datei": "r-reha/L-R-21_Giboin-2018_Slackline-Training.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    3217,
+    2910,
+    437
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-22_Delahunt-2018_ROAST-Consensus.pdf": {
+   "datei": "r-reha/L-R-22_Delahunt-2018_ROAST-Consensus.pdf",
+   "pdfseiten": 7,
+   "s1": [
+    4994,
+    4604,
+    656
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-23_Lopes-2025_Exercise-for-Patellar-Tendinopathy-Cochrane.pdf": {
+   "datei": "r-reha/L-R-23_Lopes-2025_Exercise-for-Patellar-Tendinopathy-Cochrane.pdf",
+   "pdfseiten": 65,
+   "s1": [
+    442,
+    373,
+    54
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-24_SchusterBrandtFrandsen-2025_High-Risk-Running-Sessions.pdf": {
+   "datei": "r-reha/L-R-24_SchusterBrandtFrandsen-2025_High-Risk-Running-Sessions.pdf",
+   "pdfseiten": 8,
+   "s1": [
+    4828,
+    4219,
+    642
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-25_Wagemans-2022_Rehabilitation-Reinjury-Ankle-Sprain.pdf": {
+   "datei": "r-reha/L-R-25_Wagemans-2022_Rehabilitation-Reinjury-Ankle-Sprain.pdf",
+   "pdfseiten": 20,
+   "s1": [
+    3118,
+    2724,
+    386
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-26_Doherty-2017_Ankle-Sprain-Overview-of-Reviews.pdf": {
+   "datei": "r-reha/L-R-26_Doherty-2017_Ankle-Sprain-Overview-of-Reviews.pdf",
+   "pdfseiten": 18,
+   "s1": [
+    5247,
+    4947,
+    760
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-27_Deng-2025_Patellar-Tendinopathy-Long-Term-Prognosis.pdf": {
+   "datei": "r-reha/L-R-27_Deng-2025_Patellar-Tendinopathy-Long-Term-Prognosis.pdf",
+   "pdfseiten": 9,
+   "s1": [
+    3489,
+    3129,
+    457
+   ],
+   "leer": []
+  },
+  "r-reha/L-R-28_Hjortshoej-2025_BFR-vs-HSR-Patellar-Tendinopathy.pdf": {
+   "datei": "r-reha/L-R-28_Hjortshoej-2025_BFR-vs-HSR-Patellar-Tendinopathy.pdf",
+   "pdfseiten": 12,
+   "s1": [
+    3067,
+    2702,
+    379
+   ],
+   "leer": []
+  }
+ },
+ "bad_names": [
+  "docs/literatur/.gitkeep"
+ ]
+}

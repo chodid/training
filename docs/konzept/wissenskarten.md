@@ -442,7 +442,7 @@ begonnen: 2026-09-29
 abgeschlossen: null
 unterpunkte:
   U1: erledigt     # 2026-09-29, docs/extraktion/ mit README (Statustabellen) und luecken.md
-  U2: in_arbeit    # je Quelle: siehe docs/extraktion/README.md; 287 Läufe (195 Buchkapitel, 92 Artikel); Zieldateien UB, UP, T1 und T2 extrahiert (2026-09-29)
+  U2: in_arbeit    # je Quelle: siehe docs/extraktion/README.md; 287 Läufe (195 Buchkapitel, 92 Artikel); Zieldateien UB, UP, T1 und T2 extrahiert, T3 teilweise (49 von 63); pausiert 2026-09-29 – Wiederaufnahme nach docs/extraktion/steuerung/UEBERGABE.md
   U3: offen
   U4: offen        # je Zieldatei: uebergreifend-belastung, uebergreifend-planung, t1, t2, t3, r, t4
   U5: offen
@@ -491,6 +491,9 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: U2 Zieldatei T2 extrahiert – 76 Dateien (20 Artikel, L-A03 28, L-T2-03 12 und L-T2-04 16 Kapitel; L-P08 in UP); 4 876 Aussagen, davon 87 `unsicher: true`, 204 offene Stellen; keine Formfehler, kein Kapitel „nicht verwertbar“, alle pdf_nativ
     loesung: Muster im README – L-A03 zitiert die E-Book-Paginierung (= Gesamt-PDF-Seite), Druckseiten nicht bestimmbar (interne Querverweise auf Druckseiten, Versatz nicht konstant) – Entscheidung Athlet 2026-09-29: E-Book-Seite zitieren, Vermerk im README genügt; L-T2-03 Versatz je Kapitel (−6 bis +8); L-T2-04 Scan, Druckseite = Gesamt-PDF − 14, am Seitenbild gelesen, Seite xv der Einleitung fehlt im Scan, PDF 577/578 vertauscht, Progressionscharts („Page n, Column m“) nicht in den Kapiteldateien, Übungsteile ohne Dosierung
+  - datum: 2026-09-29
+    was: U2 auf Wunsch des Athleten pausiert (Fortsetzung in ca. 2 Tagen); Zwischenstand und Steuerung lagen nur im Container (Scratchpad, lokal ausgeschlossene Quellordner) und wären bei dessen Löschung verloren
+    loesung: Entscheidung Athlet – alles im Branch sichern: laufende Unteragenten gestoppt, 15 angefangene Einheiten zurück in die Warteschlange (3 bereits vollständig geschriebene Dateien übernommen, ohne Rückmeldung – Seitenbezug in U3 mitprüfen); L-T3-09 (12/13), L-T3-10 (2/8), L-T3-20 (1/3) als „teilweise extrahiert“ committet; Steuerung (Briefing, 287 Auftragsdateien, Warteschlange, Skripte, Protokolle) unter docs/extraktion/steuerung/ mit Wiederherstellungsskript und Übergabe (UEBERGABE.md) – eine neue Sitzung setzt damit ohne Rückfragen fort
   - datum: 2026-09-29
     was: Nebenbefunde Hauptkonzept – YAML-Block T1 in 13.2 nicht parsebar (ISBN-Zeile L-T1-01 mit „: “); in 13.2 fehlen `stufe` bei L-A01, L-A02, L-P01 bis L-P09 und `themenfelder` für übergreifend und T1; L-T3-04 (ausgewaehlt) und L-P14 (optional) keiner Zieldatei in AP-06 Punkt 3 zugeordnet; L-T2-08 bis L-T2-10 mit Status `verifiziert` als Belege im T2-Zuschnitt
     loesung: gemeldet, nicht geändert (Hauptkonzept nur an drei Stellen änderbar); Stufe für die Tabellen aus docs/literatur/README.md übernommen
