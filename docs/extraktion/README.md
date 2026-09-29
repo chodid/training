@@ -55,14 +55,14 @@ Reihenfolge nach W-04, T4 zuletzt. Innerhalb einer Tabelle: Kern vor optional in
 
 ### 4.1 UB – `uebergreifend-belastung-monitoring-erholung`
 
-Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 Dateien. Davon extrahiert: 9. Nicht zu extrahieren (Vorspann/Anhang): 6; ausgelassen nach Kapitelauswahl: 19.
+Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 Dateien. Davon extrahiert: 10. Nicht zu extrahieren (Vorspann/Anhang): 6; ausgelassen nach Kapitelauswahl: 19.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
 | L-P03 | UB | `L-P03_Bourdon-2017_Monitoring-Training-Loads-Consensus.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 49 Aussagen · 1 unsicher · 0 offene Stellen · pdf_nativ · Muster: Seiten S2-161–S2-170 (Supplement-Paginierung), Versatz PDF n → S2-(160+n); Tab. 1 im PDF gedreht |
 | L-P04 | UB | `L-P04_Impellizzeri-2019_Internal-and-External-Training-Load.pdf` | 4 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 33 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ · Muster: PDF ist Ahead-of-Print-Fassung, Seiten 1–4 der Vorabpaginierung (nicht Heftpaginierung), Versatz 0 |
 | L-P05 | UB | `L-P05_Kellmann-2018_Recovery-and-Performance-Consensus.pdf` | 6 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 50 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 239+n |
-| L-P06 | UB | `L-P06_Meeusen-2013_Overtraining-Syndrome-Consensus.pdf` | 20 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
+| L-P06 | UB | `L-P06_Meeusen-2013_Overtraining-Syndrome-Consensus.pdf` | 20 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 125 Aussagen · 1 unsicher · 5 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 185+n; Abb. 3 nur als Bild (gerendert gelesen); pdftotext liest in Tab. 1 „95%“ statt „>5%“ |
 | **L-A01** | UB, UP | **Ordner `uebergreifend/L-A01_kapitel/`** (31 Kapitel-PDFs, 1379 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · 7. Aufl. 2019 vorläufig (D-51); **8./9. Aufl. fehlt (Beschaffung, Athlet)** |
 | L-A01 | UB, UP | `00a` Vorspann | PDF 1–34 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · S. 1 ohne Text, ab S. 2 ✓ |
 | L-A01 | UB, UP | `00b` Introduction: An Introduction to Exercise and Sport Physiology | PDF 35–93 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Einführung ins Fach; Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
@@ -127,7 +127,7 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 D
 | L-P13 | UB | `L-P13_Silbernagel-2007_Pain-Monitoring-Model-Achilles.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 48 Aussagen · 1 unsicher · 4 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 896+n; Befund: Widersprüche Text/Tabellen im Original (Baseline VISA-A-S 57/58, Tab. 7 Signifikanz, fehlende Einheiten), unter Offene Stellen |
 | L-P15 | UB | `L-P15_Manresa-Rocamora-2021_HRV-Guided-Training-Meta-Analysis.pdf` | 22 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** · 51 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ · Muster: Artikelnummer 10299, Seiten „n of 22“, Versatz 0; Befund: Text vs. Tab. 2 widersprüchlich (Referenzfenster, Stabilisierung), unter Offene Stellen |
 | L-P16 | UB | `L-P16_Dueking-2021_HRV-Guided-Training-Wearables.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 43 Aussagen · 2 unsicher · 9 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 1179+n; Befund: mehrere Inkonsistenzen im Original (Abstract vertauscht g-Werte, N 198 vs. 228, Tab. 2), unter Offene Stellen |
-| **Synthese startbereit** | UB | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 9 von 41 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
+| **Synthese startbereit** | UB | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 10 von 41 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
 
 ### 4.2 UP – `uebergreifend-planung-kombiniertes-training`
 
