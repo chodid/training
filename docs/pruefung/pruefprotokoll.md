@@ -1117,6 +1117,9 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: Yoga – keine belastbare Evidenz für gesunde Sportler gefunden
     loesung: Yoga nur als Übungsfundus in Teil B (Stufe C); Begründung über L-T4-13
+  - datum: 2026-09-29
+    was: Commit „Literatur“ mit 37 PDFs, überwiegend mit Verlags- oder DOI-Dateinamen; L-P16 doppelt (Pre-Proof und Verlagsfassung); L-T2-29 und L-R-18 nur als Autorenmanuskript; Corrigenda zu L-T2-23 und L-T2-24 fehlen
+    loesung: Zuordnung über DOI (32) bzw. Titel (5), 36 PDFs nach D-51 umbenannt und einsortiert; Pre-Proof entfernt; Manuskriptfassungen und fehlende Corrigenda beim Eintrag (`zugang`) vermerkt; Lizenzen aus dem Volltext übernommen, wo angegeben
 geprueft:
   - was: Zuordnung der 29 PDFs zu IDs aus 13.2 – Titel, Autoren und DOI auf den ersten Seiten gegen 13.2 abgeglichen
     wie: Textextraktion (pypdf) aller Dateien, Abgleich je Datei
@@ -1294,12 +1297,28 @@ geprueft:
     wie: Linkprüfung; jede PDF/EPUB außerhalb der Kapitelordner in der README verlinkt
     ergebnis: ok – 383 Links, keiner kaputt; 54 Dateien, alle verlinkt
     datum: 2026-09-29
+  - was: Zuordnung der 37 PDFs aus Commit „Literatur“ zu IDs
+    wie: DOI aus Dateiname bzw. den ersten drei Seiten gegen das Feld `doi` in 13.2 (32 Treffer); übrige 5 über Titel und Autoren (L-T2-26, L-T2-29, L-T2-31, L-R-07, L-R-18)
+    ergebnis: 36 IDs ohne Mehrdeutigkeit; L-P16 als Pre-Proof (45 S.) und Verlagsfassung (13 S.) → Pre-Proof entfernt; keine der IDs hatte bereits eine Datei
+    datum: 2026-09-29
+  - was: Fassung und Lizenz der neuen PDFs
+    wie: Textsuche nach Creative Commons, „Pre-proof“, „Manuscript“, Corrigendum/Erratum
+    ergebnis: CC BY 4.0 – L-T2-15, -16, -22, -25, L-R-05; CC BY – L-R-04; CC BY-NC 4.0 – L-R-01, -24 (L-T2-24 wie bekannt); CC BY-NC-ND 4.0 – L-T2-23, L-R-06, -16; übrige ohne Lizenzangabe im Text. Autorenmanuskript – L-T2-29 (APNM R2), L-R-18 (Zeilennummern). Corrigenda L-T2-23 und L-T2-24 nicht enthalten
+    datum: 2026-09-29
+  - was: Bibliografie aus den Volltexten
+    wie: erste Seite der PDFs
+    ergebnis: L-T2-16 Artikelnummer 18:302, L-R-06 18:296 (Zitate ergänzt); L-T2-19 weiterhin nur online (11.06.2026), Band/Heft noch nicht vergeben
+    datum: 2026-09-29
+  - was: Literatur-README nach Commit „Literatur“
+    wie: Linkprüfung; jede PDF/EPUB außerhalb der Kapitelordner verlinkt
+    ergebnis: ok – 419 Links, keiner kaputt; 90 Dateien, alle verlinkt
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
     wie: manuell durch Athlet bei der ersten Kartensitzung
   - was: Druckseiten der Scans (Uphill Athlete, Overcoming Gravity) an zwei, drei Stellen gegen das Seitenbild prüfen, bevor Seitenangaben in Karten übernommen werden
     wie: manuell in der Kartensitzung
-  - was: Restliche Beschaffung laut 13.4 (L-A01 8./9. Aufl., L-T3-16, L-T3-09 Neuauflage ab Erscheinen, L-T2-26, T4-Artikel); Format vor Kauf prüfen (V-13, D-71); neue Dateien nach D-51/D-71 ablegen und eintragen
+  - was: Restliche Beschaffung laut 13.4 (L-A01 8./9. Aufl., L-T3-16, L-T3-09 Neuauflage ab Erscheinen, L-R-10, -11, -14, -17, -21, T4-Artikel, Corrigenda L-T2-23 und L-T2-24); Format vor Kauf prüfen (V-13, D-71); neue Dateien nach D-51/D-71 ablegen und eintragen
     wie: Athlet (D-26), Eintrag durch Code-Instanz
   - was: Schwellenwerte Schmerzmonitoring-Modell am Volltext L-P13 (V-07), danach Entscheidung Q-13
     wie: manuell in der Kartensitzung, der Volltext liegt vor; Entscheidung in AP-07
@@ -1309,17 +1328,15 @@ noch_zu_pruefen:
     wie: beim Kauf (Verlagsshop)
   - was: L-T3-18 PubMed-Metadaten
     wie: PubMed-Connector
-  - was: Lizenz L-T2-15, L-T2-16 (für Ablage im Repo, D-31)
-    wie: Verlagsseite (BMC/Springer Open)
-  - was: Artikelnummer L-T2-16, Band/Heft L-T2-19
-    wie: bei Beschaffung
+  - was: Band/Heft L-T2-19 (bisher nur online, 11.06.2026)
+    wie: später über PubMed
   - was: Kernaussagen L-T2-15 bis L-T2-18 am Volltext (Dosierungsdetails für Karten)
-    wie: manuell nach Beschaffung, Kartenerstellung 13.1
+    wie: Kartenerstellung 13.1; die Volltexte liegen vor
   - was: Schmerzregel L-R-02 am Volltext (Q-13)
     wie: manuell in der Kartensitzung; der Volltext liegt vor
   - was: Einzelempfehlungen L-R-13 (Balance, Orthese) am Volltext
     wie: manuell in der Kartensitzung; der Volltext liegt vor
-  - was: Artikelnummer L-R-06; Lizenzen der PMC-Volltexte (Abschnitt 8)
+  - was: Lizenzen der PMC-Volltexte ohne Angabe im Text (Abschnitt 8)
     wie: Verlagsseiten
   - was: Wortlaut VISA-P-G (L-R-08) gegen WebApp-Rechner, dabei korrigierte Punktwerte 8b/8c laut Erratum 2013; korrigierten Fragebogen (jospt.org) beschaffen
     wie: manuell, der Volltext liegt vor; ggf. Code-Auftrag
