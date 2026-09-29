@@ -767,10 +767,32 @@ geprueft:
     wie: automatisiert (BackupTest, McpToolsTest, ProfileTest, MorningCheckinTest) gegen MariaDB 10.11
     ergebnis: ok
     datum: 2026-09-29
+  - was: "T2 T-01 bis T-10 über /mcp: leerer Katalog mit Hinweis; Anlage mit 2 Text-/2 Videolinks (Status aktiv, embed YouTube/Vimeo, geprueft_am heute, hinweis_chat, Eingabe-Serverfelder ignoriert, Videos über oEmbed, ein paralleler Durchgang); 404 → Link defekt, Übung links_pruefen, kein Toolfehler; Name als Alias vorhanden → abgelehnt mit Treffer; 3 Videolinks → Schemafehler ohne Abruf; Ändern ohne reason abgelehnt; mit reason Fassung 1, version 2, Slug gleich; Suche Treffer + ähnlich; Archivieren bei geplanter Einheit abgelehnt mit Einheit; Wochenplan gemischt → geschrieben mit einer Warnung"
+    wie: automatisiert (Integration ExerciseToolsTest gegen MariaDB 10.11, simulierte Linkantworten)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T2 weitere Fälle: unbekannte ID im Wochenplan → nichts geschrieben; Bouldern mit ID → Schemafehler; update_session mit Namensabweichung → Warnung, ohne plan_json keine Prüfung; archivierte Übung nicht mehr planbar und nur mit include_archived auffindbar; Varianten und Schleifenschutz; unveränderter Inhalt ohne neue Fassung; get_week_overview exercise_ids; Tool-Liste enthält die vier neuen Tools"
+    wie: automatisiert (ExerciseToolsTest, McpToolsTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T2 Budget mit 40 Übungen: find_exercise (10 Treffer, Kurztexte fast 200 Zeichen) < 4 000 Zeichen, get_exercise (reichhaltiger Eintrag mit Fassungen) < 6 000, list_exercises < 8 000; Schreibsperre bei Code > Datenbank"
+    wie: automatisiert (ExerciseToolsTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T2 Linkbewertung (2xx, 404/410, 403 Text vs. oEmbed, 5xx/429, Netzfehler mit früherem Ergebnis, gesperrtes Ziel, Weiterleitungen) und Schutzregeln (nur https, Port 443, keine Zugangsdaten, localhost/127.0.0.1/10.x/::1/169.254.169.254 gesperrt und nicht abgerufen)"
+    wie: automatisiert (Unit LinkCheckerTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T2 Live-Abruf YouTube/Vimeo-oEmbed und example.org aus der Code-Umgebung"
+    wie: manuell (curl, CurlLinkFetcher)
+    ergebnis: offen – die Netzrichtlinie der Code-Umgebung sperrt die Hosts; Prüfung auf dem Server nach Deployment
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: T1 Migration 0023 und Schemata gegen MySQL 8.4
     wie: CI (GitHub Actions) mit dem Pull Request
-  - was: T2 bis T6
+  - was: "T2 Abnahme aus dem Projekt-Chat: find_exercise(„split squat“) findet nichts → upsert_exercise mit echten Links (YouTube, Vimeo, Textseite) → Links ok, eingebettet, hinweis_chat erscheint; ein gelöschtes YouTube-Video wird defekt; write_week_plan mit exercise_id ohne Warnung, ohne ID mit Warnung"
+    wie: Athlet im Projekt-Chat nach Deployment
+  - was: T3 bis T6
     wie: siehe Auftrag Abschnitt 9 und 11
 ```
 

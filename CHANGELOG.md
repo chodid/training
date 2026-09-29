@@ -7,6 +7,15 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ### Dokumentation
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 
+## [0.22.0] – 2026-09-29
+
+AP-16 T2: MCP-Tools des Übungskatalogs und Linkprüfung.
+
+### Hinzugefügt
+- MCP-Tools `find_exercise` (Suche: exakter Name/Alias, Teilstring, ähnliche Übungen mit gleichem Bewegungsmuster), `get_exercise` (vollständiger Eintrag, Varianten, Fassungen, früherer Stand), `list_exercises` (Kompaktliste), `upsert_exercise` (anlegen/ändern mit Grund und Fassung, Duplikatschutz über Namen und Aliase, Varianten ohne Schleifen, Archivieren nur ohne geplante Verwendung, `hinweis_chat` für den Chat).
+- Linkprüfung durch den Server: Videos über oEmbed (erkennt gelöschte und private Videos), Textseiten per GET; nur öffentliche https-Ziele auf Port 443, höchstens 3 Weiterleitungen, 64 kB, 5 s, alle Links parallel. Ein defekter Link setzt die Übung auf „Links prüfen“, ist aber kein Fehler.
+- `write_week_plan`/`update_session`: Übungen ohne `exercise_id` werden angenommen und als `warnungen` gemeldet; unbekannte oder archivierte IDs sind Fehler (nichts geschrieben). `get_week_overview` nennt je Einheit die `exercise_ids`.
+
 ## [0.21.0] – 2026-09-29
 
 AP-16 T1: Datenmodell, Schemata und Validator für den Übungskatalog (Auftrag `docs/konzept/uebungskatalog.md`, D-64 bis D-69).

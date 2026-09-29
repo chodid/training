@@ -346,12 +346,43 @@ T1:
     - was: Testhilfe rollbackLastMigration löschte nur die erste angelegte Tabelle; Rückweg-Test Morgen-Check-in kannte 0023 nicht
       loesung: alle Tabellen der letzten Migration in umgekehrter Reihenfolge löschen; Rückweg 0023 im Test ergänzt
 T2:
-  status: offen
-  datum: null
-  ergebnis: null
-  tests: null
-  abnahme: null
-  probleme_loesungen: []
+  status: erledigt
+  datum: 2026-09-29
+  ergebnis: >-
+    Tools find_exercise, get_exercise, list_exercises, upsert_exercise (Training\Mcp\ExerciseTools, ToolRegistry);
+    Linkprüfung Training\Exercise\LinkChecker mit CurlLinkFetcher (curl_multi, oEmbed für Videos E-18, Schutzregeln E-19);
+    write_week_plan/update_session mit ExerciseLink (Fehler vor dem Schreiben, warnungen und hinweis_warnungen in der Antwort);
+    get_week_overview je Einheit exercise_ids; Tool-Beschreibungen mit der Regel (5.1); Audit exercise_write. Code-Stand 0.22.0.
+  tests: >-
+    Integration ExerciseToolsTest (T-01 bis T-10 mit simulierten Linkantworten, Budget mit 40 Übungen, Schreibsperre,
+    Varianten/Schleifenschutz, unveränderter Inhalt ohne neue Fassung, Lese-Tools); Unit LinkCheckerTest (Bewertung,
+    früheres Ergebnis bei Netzfehler, ein Durchgang für mehrere Übungen, Schutzregeln); gesamte Suite grün (MariaDB 10.11).
+  abnahme: >-
+    automatisiert ok; offen: aus dem Projekt-Chat find_exercise („split squat“) → upsert_exercise mit echten Links
+    (Prüfung auf dem Server), hinweis_chat; write_week_plan mit/ohne exercise_id (nach Deployment)
+  probleme_loesungen:
+    - was: curl_errno liefert bei curl_multi immer 0; Abrufe ohne Antwort erschienen als „Fehler 0“
+      loesung: Ergebniscode je Abruf über curl_multi_info_read
+    - was: Die Code-Umgebung darf YouTube, Vimeo und beliebige Seiten nicht abrufen (Netzrichtlinie); Live-Test der Linkprüfung nicht möglich
+      loesung: Bewertung und Schutzregeln mit simuliertem Abruf getestet; Live-Prüfung Teil der Abnahme auf dem Server (Prüfprotokoll)
+    - was: 5.1 nennt warnungen als {session, position, name, hinweis}; bei vielen Freitext-Übungen wiederholt sich derselbe Hinweis (Budget 8.3)
+      loesung: je Warnung session, datum (write_week_plan), position, name, code; hinweis nur bei name_abweichend, für ohne_katalog einmal hinweis_warnungen
+    - was: find_exercise mit 10 Treffern und fast 200 Zeichen Kurztext knapp über 1 000 Tokens
+      loesung: status nur, wenn nicht aktiv, aehnlich nur, wenn true (in der Tool-Beschreibung genannt)
+    - was: get_exercise – die Schemagrenzen 4.3 erlauben Einträge von rund 2 800 Tokens, E-16 nennt 1 500
+      loesung: Budget gilt für typische Einträge (Test mit reichhaltigem, realistischem Eintrag < 6 000 Zeichen); Schemagrenzen unverändert
+    - was: list_exercises ohne Statusfilter – archivierte Übungen im Überblick unnötig
+      loesung: ohne status ohne archivierte; Zeilen als Liste [slug, name, category, pattern, status nur wenn nicht aktiv] mit Feldnamen einmal
+    - was: Bewertung einzelner Antworten nicht festgelegt (E-10 nennt ok/defekt/ungeprueft)
+      loesung: 2xx ok; 404/410 und übrige 4xx defekt; 401/403 bei oEmbed defekt (privat, Einbettung gesperrt), bei Textseiten ungeprueft (Bot-Schutz); 429/5xx, Netzfehler und mehr als 3 Weiterleitungen ungeprueft; gesperrtes Ziel defekt; bei ungeprueft bleibt ein früheres Ergebnis derselben Adresse
+    - was: Änderung ohne inhaltlichen Unterschied hätte bei jeder Linkprüfung eine Fassung erzeugt (geprueft_am)
+      loesung: Vergleich ohne Linkstatus; unverändert → keine Fassung, nur Linkstatus nachgetragen (unveraendert true)
+    - was: status als Eingabe von upsert_exercise nicht abgegrenzt
+      loesung: nur aktiv oder archiviert; links_pruefen setzt ausschließlich der Server; eine archivierte Übung bleibt archiviert, bis status aktiv kommt
+    - was: variant_of könnte eine Schleife bilden
+      loesung: Prüfung der Elternkette beim Setzen
+    - was: 5.1 get_session_detail „je Übung exercise_id“ – plan_json enthält die ID bereits
+      loesung: get_session_detail unverändert; get_week_overview je Einheit exercise_ids (nur Slugs)
 T3:
   status: offen
   datum: null
@@ -389,3 +420,4 @@ T6:
 | 2026-09-29 | Fable | Erstfassung nach Klärung E-01 bis E-06 mit dem Athleten |
 | 2026-09-29 | Code-Instanz | Konzept vom Athleten bestätigt (E-07 bis E-16 gelten); E-17 bis E-20 aus dem Abgleich mit dem Code ergänzt und bestätigt; 4.1 um `name_norm` ergänzt |
 | 2026-09-29 | Code-Instanz | T1 umgesetzt (Code-Stand 0.21.0), Befunde in Abschnitt 13 |
+| 2026-09-29 | Code-Instanz | T2 umgesetzt (Code-Stand 0.22.0), Befunde in Abschnitt 13 |

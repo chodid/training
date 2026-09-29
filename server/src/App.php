@@ -21,7 +21,7 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.21.0';
+    public const VERSION = '0.22.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
     public const SCHEMA_VERSION = 23;
@@ -45,6 +45,8 @@ final class App
         private readonly ?\Training\Backup\Mailer $mailer = null,
         /** Nur für Tests: Ersatz für den HTTP-Transport zum CalDAV-Kalender */
         private readonly ?\Training\Intervals\HttpTransport $calendarTransport = null,
+        /** Nur für Tests: Ersatz für die Abrufe der Linkprüfung im Übungskatalog */
+        private readonly ?\Training\Exercise\LinkFetcher $linkFetcher = null,
     ) {
         $this->clock = $clock ?? new SystemClock();
     }
@@ -173,6 +175,14 @@ final class App
         $reminder = $client !== null ? (new \Training\Data\SettingsRepository($this->pdo(), $this->clock))->calendarReminder() : null;
 
         return new \Training\Calendar\CalendarSync($this->pdo(), $this->clock, $client, (string) $config->get('APP_URL'), $this->host(), $this->varDir() . '/calendar-sync.json', $reminder);
+    }
+
+    /** Linkprüfung des Übungskatalogs (AP-16, E-10/E-18/E-19). */
+    public function linkChecker(): \Training\Exercise\LinkChecker
+    {
+        $fetcher = $this->linkFetcher ?? new \Training\Exercise\CurlLinkFetcher('Mozilla/5.0 (compatible; training-linkcheck; +' . $this->config()->get('APP_URL') . ')');
+
+        return new \Training\Exercise\LinkChecker($fetcher, $this->clock);
     }
 
     public function backupDir(): string

@@ -52,8 +52,7 @@ final class ExerciseLink
                     continue;
                 }
                 if ($slug === null) {
-                    $warnings[] = $where + ['name' => $label, 'code' => 'ohne_katalog',
-                        'hinweis' => 'Ohne exercise_id: mit find_exercise suchen, sonst nach Bestätigung mit upsert_exercise anlegen (oder Freitext begründen).'];
+                    $warnings[] = $where + ['name' => $label, 'code' => 'ohne_katalog', 'hinweis' => self::HINT_WITHOUT_CATALOG];
                     continue;
                 }
                 $exercise = is_string($slug) ? ($known[$slug] ?? null) : null;
@@ -69,6 +68,36 @@ final class ExerciseLink
         }
 
         return ['fehler' => $errors, 'warnungen' => $warnings];
+    }
+
+    /** Gemeinsamer Hinweis zu Warnungen ohne Katalog (einmal je Antwort statt je Übung, Budget 8.3). */
+    public const HINT_WITHOUT_CATALOG = 'ohne_katalog: Übung ohne exercise_id – mit find_exercise suchen, sonst nach Bestätigung mit upsert_exercise anlegen und mit update_session nachtragen (oder Freitext begründen).';
+
+    /**
+     * Warnungen für Tool-Antworten: ohne_katalog ohne Einzelhinweis (ein gemeinsamer Hinweis), name_abweichend mit Hinweis.
+     * @param list<array<string, mixed>> $warnings
+     * @param array<int|string, string> $dates Session-Kennung → Datum (optional)
+     * @return array{warnungen?: list<array<string, mixed>>, hinweis_warnungen?: string}
+     */
+    public static function forResponse(array $warnings, array $dates = []): array
+    {
+        if ($warnings === []) {
+            return [];
+        }
+        $out = [];
+        $without = false;
+        foreach ($warnings as $w) {
+            $row = ['session' => $w['session']] + (isset($dates[$w['session']]) ? ['datum' => $dates[$w['session']]] : [])
+                + ['position' => $w['position'], 'name' => $w['name'], 'code' => $w['code']];
+            if ($w['code'] === 'ohne_katalog') {
+                $without = true;
+            } else {
+                $row['hinweis'] = $w['hinweis'];
+            }
+            $out[] = $row;
+        }
+
+        return ['warnungen' => $out] + ($without ? ['hinweis_warnungen' => self::HINT_WITHOUT_CATALOG] : []);
     }
 
     /**
