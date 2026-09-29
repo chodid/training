@@ -150,31 +150,31 @@ Ablage: `docs/extraktion/uebergreifend/` (Quellen anderer Blöcke unter deren Bl
 
 ### 4.3 T1 – `t1-ausdauer`
 
-Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dateien; zusätzlich L-A02 Kap. 02, 03-2, 03-3, 07-1, 07-2 (Tabelle UB). Davon extrahiert: 9. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 17.
+Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dateien; zusätzlich L-A02 Kap. 02, 03-2, 03-3, 07-1, 07-2 (Tabelle UB). Davon extrahiert: 16. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 17.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
 | L-T1-02 | T1 | `L-T1-02_Seiler-2010_Intensity-and-Duration-Distribution.pdf` | 16 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 72 Aussagen · 2 unsicher · 5 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 275+n; Tab. 2 „?%“ im Original, Z1-Verteilung ergibt 101 % |
 | L-T1-03 | T1 | `L-T1-03_Casado-2022_Periodization-Elite-Distance-Runners.pdf` | 14 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 70 Aussagen · 2 unsicher · 0 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 819+n; Tab. 3/4 gedreht (mit pdftotext abgeglichen); Grafikwerte Abb. 2 unsicher |
 | L-T1-04 | T1 | `L-T1-04_Haugen-2022_World-Class-Distance-Runners.pdf` | 18 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 91 Aussagen · 1 unsicher · 3 offene Stellen · pdf_nativ · Muster: Artikel 46, Seiten „Page n of 18“, Versatz 0; Befund: Medaillensummen Tab. 1, 6- vs. 7-Zonen-Skala, Fußnoten b/c in Tab. 3 vertauscht |
-| L-T1-05 | T1 | `L-T1-05_Vernillo-2017_Uphill-and-Downhill-Running.pdf` | 15 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
+| L-T1-05 | T1 | `L-T1-05_Vernillo-2017_Uphill-and-Downhill-Running.pdf` | 15 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 88 Aussagen · 7 unsicher · 6 offene Stellen · pdf_nativ · Muster: Online-First-Fassung ohne Seitenzahlen – Stelle als Abschnitt/Tabelle/Abbildung, seiten „–“; Befund: Studienzuordnung Tab. 2 (Padulo vs. Lussiana), Cr-Formel-Einheit, Tibialis-Richtung Text vs. Tab. 3 |
 | L-T1-06 | T1 | `L-T1-06_Bortolan-2021_Ski-Mountaineering-Perspectives.pdf` | 7 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 61 Aussagen · 3 unsicher · 3 offene Stellen · pdf_nativ · Muster: Artikel 737249, Seiten 1–7, Versatz 0; Befund: Korrelationsrichtung Rennzeit–VO2max Abstract vs. Text widersprüchlich; Populationen teils aus Literaturliste (markiert) |
 | **L-T1-07** | T1 | **Ordner `t1-ausdauer/L-T1-07_kapitel/`** (34 Kapitel-PDFs, 673 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · Druckseiten je Kapitel in U2 bestimmen |
 | L-T1-07 | T1 | `00` Vorspann | PDF 1–7 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · S. 1 ohne Text, ab S. 2 ✓ |
 | L-T1-07 | T1 | `01` Genesis and Evolution of High- Intensity Interval Training | PDF 8–23 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · 48 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T1-07 | T1 | `02` Traditional Methods of HIIT Programming | PDF 24–39 | 2026-09-29 / opus | offen | Text ✓ · 54 Aussagen · 1 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T1-07 | T1 | `03` Physiological Targets of HIIT | PDF 40–57 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `04` Manipulating HIIT Variables | PDF 58–79 | offen | offen | Text ✓ |
+| L-T1-07 | T1 | `04` Manipulating HIIT Variables | PDF 58–79 | 2026-09-29 / opus | offen | Text ✓ · 63 Aussagen · 2 unsicher · 5 offene Stellen · pdf_nativ |
 | L-T1-07 | T1 | `05` Using HIIT Weapons | PDF 80–125 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `06` Incorporating HIIT Into a Concurrent Training Program | PDF 126–143 | offen | offen | Text ✓ |
+| L-T1-07 | T1 | `06` Incorporating HIIT Into a Concurrent Training Program | PDF 126–143 | 2026-09-29 / opus | offen | Text ✓ · 76 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T1-07 | T1 | `07` HIIT and Its Influence on Stress, Fatigue, and Athlete Health | PDF 144–167 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `08` Quantifying Training Load | PDF 168–185 | offen | offen | Text ✓ |
+| L-T1-07 | T1 | `08` Quantifying Training Load | PDF 168–185 | 2026-09-29 / opus | offen | Text ✓ · 56 Aussagen · 3 unsicher · 3 offene Stellen · pdf_nativ |
 | L-T1-07 | T1 | `09` Response to Load | PDF 186–219 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `10` Putting It All Together | PDF 220–231 | offen | offen | Text ✓ |
+| L-T1-07 | T1 | `10` Putting It All Together | PDF 220–231 | 2026-09-29 / opus | offen | Text ✓ · 57 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T1-07 | T1 | `11` Combat Sports | PDF 232–253 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
-| L-T1-07 | T1 | `12` Cross-Country Skiing | PDF 254–267 | offen | offen | Text ✓ |
+| L-T1-07 | T1 | `12` Cross-Country Skiing | PDF 254–267 | 2026-09-29 / opus | offen | Text ✓ · 68 Aussagen · 2 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T1-07 | T1 | `13` Middle-Distance Running | PDF 268–289 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `14` Road Running | PDF 290–303 | offen | offen | Text ✓ |
+| L-T1-07 | T1 | `14` Road Running | PDF 290–303 | 2026-09-29 / opus | offen | Text ✓ · 65 Aussagen · 3 unsicher · 4 offene Stellen · pdf_nativ |
 | L-T1-07 | T1 | `15` Road Cycling | PDF 304–317 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
 | L-T1-07 | T1 | `16` Rowing | PDF 318–331 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
 | L-T1-07 | T1 | `17` Swimming | PDF 332–353 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
@@ -217,7 +217,7 @@ Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dat
 | L-T1-12 | T1 | `L-T1-12_Joyner-2008_Physiology-of-Champions.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 55 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 34+n; Laktatanstieg 75–90 % (Text) vs. 75–85 % (Abb. 4) im Original |
 | L-T1-14 | T1 | – | – | – | – | optional · B · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
 | L-T1-16 | T1 | – | – | – | – | optional · C · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
-| **Synthese startbereit** | T1 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 9 von 35 extrahiert; gegengeprüft: 0. |
+| **Synthese startbereit** | T1 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 16 von 35 extrahiert; gegengeprüft: 0. |
 
 ### 4.4 T2 – `t2-kraft-haltung`
 
@@ -633,3 +633,4 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-T1-12 | Versatz PDF n → S. 34+n; Laktatanstieg 75–90 % (Text) vs. 75–85 % (Abb. 4) im Original | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T1-04 | Artikel 46, Seiten „Page n of 18“, Versatz 0; Befund: Medaillensummen Tab. 1, 6- vs. 7-Zonen-Skala, Fußnoten b/c in Tab. 3 vertauscht | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T1-02 | Versatz PDF n → S. 275+n; Tab. 2 „?%“ im Original, Z1-Verteilung ergibt 101 % | U2-Extraktion (Rückmeldung Unteragent) |
+| L-T1-05 | Online-First-Fassung ohne Seitenzahlen – Stelle als Abschnitt/Tabelle/Abbildung, seiten „–“; Befund: Studienzuordnung Tab. 2 (Padulo vs. Lussiana), Cr-Formel-Einheit, Tibialis-Richtung Text vs. Tab. 3 | U2-Extraktion (Rückmeldung Unteragent) |
