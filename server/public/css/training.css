@@ -138,3 +138,24 @@ a.chip[aria-current]{background:var(--bg-subtle);border-color:var(--border-brand
 .link-host{overflow-wrap:anywhere}
 a.ex-link{display:inline-flex;align-items:center;gap:var(--space-1)}
 .phase-card .ausfuehrung{justify-self:center;min-height:44px;font:var(--type-body-sm);color:var(--text-brand)}
+
+/* Erinnerung an Blockbilanz und Zielklärung (AP-15, E-05/E-14): Karte über abgedunkeltem Hintergrund, Rand in der
+   Statusfarbe Warnung; ohne JavaScript bedienbar, Inhalt dahinter inert. */
+.review-overlay{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:var(--space-4);background:rgb(20 12 28 / .55);overflow-y:auto}
+.review-dialog{width:100%;max-width:520px;border:2px solid var(--status-warning);box-shadow:0 12px 40px rgb(0 0 0 / .25)}
+.review-dialog h2{display:flex;align-items:center;gap:var(--space-2);margin:0}
+.review-dialog .ic-warning{color:var(--status-warning-text)}
+.review-items{margin:0;padding-left:1.2em;display:grid;gap:var(--space-2);overflow-wrap:anywhere}
+.review-dialog .btn-row{flex-wrap:wrap}
+body.has-overlay{overflow:hidden}
+/* S2 Karte „Block“ (AP-15, 6.2) */
+.block-card .faellig{margin:0;padding-left:1.2em;display:grid;gap:var(--space-1);color:var(--text-secondary)}
+/* S11 Blockseite (AP-15, T5): nur lesen; Listen mit Aufzählungszeichen, Revisionen als Zeitleiste */
+.block-page ul.bullet{margin:0;padding-left:1.2em;display:grid;gap:var(--space-1);overflow-wrap:anywhere}
+.block-page .timeline{list-style:none;margin:0;padding:0 0 0 var(--space-4);border-left:2px solid var(--border-subtle);display:grid;gap:var(--space-4)}
+.block-page .timeline>li{position:relative}
+.block-page .timeline>li::before{content:"";position:absolute;left:calc(-1 * var(--space-4) - 7px);top:22px;width:12px;height:12px;border-radius:50%;background:var(--plum-400)}
+.block-page .entscheidungen td,.block-page .bilanz-ziele td{vertical-align:top;overflow-wrap:anywhere}
+.block-page .entscheidungen ul.bullet{padding-left:1em}
+.block-page .kv dd{overflow-wrap:anywhere}
+.block-page .badge{white-space:nowrap}

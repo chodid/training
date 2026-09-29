@@ -10,6 +10,86 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 - L-T3-09 Hörst, Training for Climbing (3. Aufl. 2016), einsortiert: Gesamt-PDF und 17 Kapitel-PDFs.
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 
+## [0.30.2] – 2026-09-29
+
+AP-15: Erinnerung nicht während der geführten Einheit (Wunsch des Athleten).
+
+### Geändert
+- Das Overlay „Blockbilanz/Zielklärung fällig“ erscheint nicht mehr in der geführten Einheit (S9) und nicht auf einer Übungsseite, die aus S9 geöffnet wurde. Nach dem Abschluss leitet S9 wie bisher auf die Wochenansicht (S2), dort erscheint es sofort.
+
+### Dokumentation
+- Die Entscheidungen von AP-15 im Hauptkonzept heißen jetzt D-72 bis D-78, weil D-70/D-71 parallel für die Literatur-Nachsteuerung vergeben wurden (PR #23).
+
+## [0.30.1] – 2026-09-29
+
+AP-15 T6: Dokumentation zu Blockbilanz, Zielklärung und Übergabe.
+
+### Dokumentation
+- Hauptkonzept: D-70 bis D-76 (seit 0.30.2: D-72 bis D-78); Abschnitt 3.3 (System of Record), 6 (Wochenplanung beginnt mit `get_handover`, Revision als Datensatz, neuer Schritt 9 „Blockwechsel“), 7 (`block_review`, `app_setting`), 8.2/8.3 (neue Tools, Erweiterungen, Budget), 10 (S2-Karte, S6, S8, S11, Overlay), 14 (Kapitel 10), 15 (AP-15 mit Statusblock), 17.
+- `datenmodell.md` mit `block_review` im ER-Diagramm und Schema 24; `branding.md` mit S11 und dem Overlay-Zustand von S2; README (Endpunkte `/block`, `/erinnerung`, Tools, Tests).
+- `docs/regeln/trainerregeln.md`: Vorabkapitel 10 (R-UEB-01 bis R-UEB-06); die übrigen Kapitel folgen in AP-07.
+- Auftrag `docs/konzept/blockbilanz.md`: Entscheidungen E-21/E-22, Status T1–T6, Korrektur K-B2.
+
+## [0.30.0] – 2026-09-29
+
+AP-15 T5: Blockseite und Blöcke im Verlauf.
+
+### Hinzugefügt
+- S11 Blockseite `/block?id=…` (ohne id der aktive Block): Kopf mit Status, Zeitraum, Restlaufzeit und Fälligkeiten; Zielklärung mit Ausgangslage, Phase, Prioritäten, Zielen, Zielevents, Entscheidungen als Tabelle mit verworfenen Alternativen, Risiken, Ableitung für den Block und offenen Fragen; Revisionen als Zeitleiste; Bilanz mit Ziel/Soll/Ist/Bewertung, Tests, geänderten Annahmen, Empfehlung und den eingefrorenen Kennzahlen; Fassungen je Datensatz aufklappbar; weitere Blöcke. Nur lesen, ohne JavaScript; Entwürfe sind markiert.
+- S6 Verlauf: Abschnitt „Blöcke“ mit allen Blöcken, Status, Fälligkeiten und Link zur Blockseite.
+- Offline: Die Woche lädt die Blockseite des aktiven Blocks vor; der Service Worker speichert `/block`.
+- Mockup `s11-block.html` (aktiv mit Zielklärung, mit Bilanz, ohne Reviews); Browser-Test prüft S11 und S6 bei 375 px.
+
+## [0.29.0] – 2026-09-29
+
+AP-15 T4: Termin für Blockbilanz und Zielklärung im Kalender.
+
+### Hinzugefügt
+- Ein Termin je Block (`training-block-<id>.ics`) am Blockende, Standard 08:00–10:00 in der Zeitzone des Athleten mit Erinnerung am Vortag 08:00; Titel „Blockbilanz + Zielklärung: <Block>“ bzw. nur der noch fehlende Teil; Beschreibung mit Zweck, Blockzeitraum und Link zur Blockseite; Kategorie „Planung“. Liegt das Blockende mehr als 16 Wochen nach Blockbeginn, steht der Termin auf Blockbeginn + 112 Tage.
+- Der Termin entsteht bzw. ändert sich mit `upsert_block` und `write_block_review` und wird gelöscht, sobald die Bilanz des Blocks und die Zielklärung eines Folgeblocks bestätigt sind (neue Fassung der Ressource nach dem Löschen wie bei den Tagesterminen). Beginn, Dauer und Erinnerung sind in den Einstellungen änderbar; eine Änderung überträgt die Termine sofort.
+- Der stündliche Abgleich (und „Abgleichen“ in S8) schreibt die Termine aller geplanten und aktiven Blöcke und entfernt verwaiste Blocktermine; Ergebnis unter `kalender.blocktermine`. Audit `calendar_block_event`, Fehler als `calendar_error` (entity `kalender_block`) und `fehler_kalender` in der Tool-Antwort.
+
+## [0.28.0] – 2026-09-29
+
+AP-15 T3: Erinnerung an Blockbilanz und Zielklärung auf der Webseite.
+
+### Hinzugefügt
+- Overlay auf jeder Seite nach dem Login, solange eine Blockbilanz oder Zielklärung fällig ist: Karte mit Grund und Link zur Blockseite, „Morgen wieder erinnern“ (Fokus) oder „Diese Woche nicht mehr“. Die Seite dahinter ist gesperrt (`inert`); ohne JavaScript bedienbar. Es kommt am nächsten Tag bzw. nach 7 Tagen wieder und verschwindet, sobald die Fassung im Chat bestätigt ist. Nicht bei Schreibsperre. Quittierung `POST /erinnerung` (Audit `reminder_ack`).
+- Offline: Die Quittierung läuft über den Formularpuffer des Service Workers; solange sie wartet, blendet die gespeicherte Seite das Overlay aus.
+- S2: Karte „Block“ unter dem Morgen-Check-in mit Restlaufzeit, allen Fälligkeiten (auch Revision) und Link zur Blockseite; ohne aktiven Block „Kein aktiver Block – Zielklärung im Projekt-Chat“.
+- S8 „Training“: Unterseite „Blockbilanz und Zielklärung“ mit Erinnerung an/aus, Vorlauf Bilanz (0–28 Tage) und Zielklärung (0–42 Tage) sowie Beginn, Dauer und Erinnerung des Blocktermins im Kalender (Termin selbst folgt in T4).
+- Mockup `s2-woche.html` mit Blockkarte und Zustand `?state=erinnerung`; Browser-Test `tests/e2e/erinnerung.e2e.cjs`.
+
+### Geändert
+- Browser-Tests der geführten Einheit und des Übungskatalogs legen zum Testblock eine bestätigte Zielklärung an (sonst deckt die Erinnerung die Seiten ab).
+
+## [0.27.0] – 2026-09-29
+
+AP-15 T2: MCP-Tools für Übergabe, Blockbilanz, Zielklärung und Revision.
+
+### Hinzugefügt
+- `get_handover` (Pflichtaufruf zu Beginn jeder Planungssitzung): aktiver Block, gültige Zielklärung, die zwei jüngsten Bilanzen, Revisionen des Blocks, Kennzahlen der letzten 4 Wochen gegen das Blockmittel, Wochentexte der letzten 4 Wochen (`wochen_kurz`), Fälligkeiten, offene Fragen, Stand je Profilabschnitt und offene Entwürfe; höchstens 8 000 Zeichen (bei Bedarf stufenweise gekürzt, Feld `gekuerzt`). `detail: true` liefert zusätzlich die Volltexte der jüngsten Zielklärung und Bilanz.
+- `get_block_reviews`: gültige Fassungen eines Blocks mit Inhalt und Kennzahlen; mit `fassungen` alle Versionen samt Entwürfen und Grund.
+- `write_block_review`: neue Fassung einer Revision, Bilanz oder Zielklärung mit Schemaprüfung (Fehler mit Pfad, nichts geschrieben), `reason` ab Fassung 2, Revisionen fortlaufend nummeriert; der Server berechnet die Kennzahlen (Bilanz: Blockzeitraum, Revision: 28 Tage bis zum Gesprächsdatum, sonst `period_start`/`period_end`). Zielklärung nur für geplante oder aktive Blöcke. Audit `review_write`; eine bestätigte Fassung löscht die Quittierungen der Erinnerung dieser Art.
+
+### Geändert
+- `get_block` nennt die Reviews des Blocks (Kurzliste) und seine Fälligkeiten.
+- `upsert_block` antwortet mit den Fälligkeiten des Blocks und dem Hinweis `zielklaerung_fehlt`.
+- `write_week_plan` lehnt Wochen nach dem Ende des aktiven Blocks mit `blockwechsel_erforderlich` ab, solange kein Folgeblock mit bestätigter Zielklärung existiert; Wochen bis zum Blockende bleiben möglich. Die Antwort nennt offene Fälligkeiten (`faellig`).
+
+## [0.26.0] – 2026-09-29
+
+AP-15 T1: Datenmodell für Blockbilanz, Zielklärung und Revision.
+
+### Hinzugefügt
+- Migration 0024 `block_review`: je Trainingsblock Revisionen (1, 2, …), eine Blockbilanz und eine Zielklärung, jeweils mit Fassungen (`version`, `reason`), Status Entwurf/bestätigt, Zeitraum, Kurzsatz, Inhalt (`content_json`) und vom Server eingefrorenen Kennzahlen (`kennzahlen_auto`). Ein Block mit Reviews lässt sich nicht löschen.
+- JSON-Schemata `server/schemas/review-zielklaerung.json`, `review-bilanz.json`, `review-revision.json` und `Training\Review\ReviewValidator` (Pfadangaben in Fehlermeldungen, Bilanz: Zeitraum von ≤ bis).
+- `Training\Data\ReviewRepository`: Fassungen, gültige Fassung je Block/Art/Nummer (jüngste bestätigte, neuerer Entwurf zusätzlich), nächste Revisionsnummer.
+- `Training\Review\Kennzahlen`: Planerfüllung je Typ, sRPE (Summe, je Woche, je Typ), Ausdauer aus dem Intervals.icu-Spiegel (km, Höhenmeter, Zeit je HF-Zone), Schmerz je Ort mit Trend, Morgentest (Mittel links/rechts, rote Tage), Check-in-Abdeckung, Wellness-Mittel; fehlende Quellen liefern null.
+- `Training\Review\Faelligkeit`: fällige Bilanz, Zielklärung und Revision aus Blöcken, bestätigten Reviews, Vorlauftagen und heute.
+- Einstellungen (ohne Oberfläche, folgt in T3): Vorlauf Bilanz (7 Tage) und Zielklärung (14 Tage), Overlay an/aus, Quittierung, Uhrzeit, Dauer und Erinnerung des Blocktermins.
+- JSON-Export: `kennzahlen_auto` als Objekt.
+
 ## [0.25.1] – 2026-09-29
 
 AP-16 T6: Dokumentation des Übungskatalogs.

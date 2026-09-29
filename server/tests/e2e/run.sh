@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Browser-Durchläufe der geführten Einheit S9 (AP-14 T5, tests/e2e/gefuehrt.e2e.cjs) und des Übungskatalogs (AP-16 T4,
-# tests/e2e/uebung.e2e.cjs) gegen eine lokal gestartete App.
+# Browser-Durchläufe der geführten Einheit S9 (AP-14 T5, tests/e2e/gefuehrt.e2e.cjs), des Übungskatalogs (AP-16 T4,
+# tests/e2e/uebung.e2e.cjs) und der Erinnerung an Blockbilanz/Zielklärung (AP-15 T3, tests/e2e/erinnerung.e2e.cjs) gegen eine lokal gestartete App.
 # Nutzt die Testdatenbank aus TEST_DB_* (alle Tabellen werden gelöscht) und ein eigenes Basisverzeichnis mit eigener
 # .env (eine vorhandene server/.env bleibt unberührt). Aufruf in server/: bash tests/e2e/run.sh
 # Braucht PHP, Node und Playwright (lokal, global oder im Ordner installiert); CHROME_PATH wählt einen anderen Browser.
@@ -64,3 +64,6 @@ E2E_BASE_URL="http://127.0.0.1:$PORT" E2E_MCP_TOKEN="$TOKEN" E2E_MIGRATION_SECRE
 # Übungskatalog (AP-16 T4): Verlinkung, Rückkehr in S9, Offline
 E2E_BASE_URL="http://127.0.0.1:$PORT" E2E_MCP_TOKEN="$TOKEN" E2E_MIGRATION_SECRET="$SECRET" \
   node "$SERVER/tests/e2e/uebung.e2e.cjs" || { echo "--- Server-Protokoll ---"; tail -n 50 "$BASE/server.log"; exit 1; }
+# Erinnerung an Blockbilanz und Zielklärung (AP-15 T3): legt einen aktiven Block an, daher zuletzt
+E2E_BASE_URL="http://127.0.0.1:$PORT" E2E_MCP_TOKEN="$TOKEN" E2E_MIGRATION_SECRET="$SECRET" \
+  node "$SERVER/tests/e2e/erinnerung.e2e.cjs" || { echo "--- Server-Protokoll ---"; tail -n 50 "$BASE/server.log"; exit 1; }

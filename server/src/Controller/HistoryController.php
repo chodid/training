@@ -11,7 +11,8 @@ use Training\View\Labels;
 
 /**
  * S6 Verlauf (Abschnitt 10, AP-09): sRPE-Wochenlast je Bereich über 8 Wochen als kleine Vielfache mit gemeinsamer Achse,
- * Schmerz je Ort als Raster (stärkste Meldung der Woche), Kennzahlen und Tabelle (Branding Abschnitt 5).
+ * Schmerz je Ort als Raster (stärkste Meldung der Woche), Kennzahlen und Tabelle (Branding Abschnitt 5); Abschnitt
+ * „Blöcke“ mit Link auf die Blockseite S11 (AP-15).
  */
 final class HistoryController extends AppController
 {
@@ -90,6 +91,23 @@ final class HistoryController extends AppController
                 'pains' => $painTotal,
             ],
             'weekday' => Dates::WEEKDAYS_SHORT[Dates::weekdayIndex($today)],
+            'blocks' => $this->blocks($today),
         ]);
+    }
+
+    /**
+     * Abschnitt „Blöcke“ (AP-15, E-18): alle Blöcke, neueste zuerst, mit Anzahl der Fälligkeiten je Block.
+     * @return list<array<string, mixed>>
+     */
+    private function blocks(string $today): array
+    {
+        try {
+            $faellig = \Training\Review\Faelligkeit::load($this->app->pdo(), $this->app->clock(), $today);
+            $blocks = $this->app->pdo()->query('SELECT id, name, start_date, end_date, status FROM training_block ORDER BY start_date DESC, id DESC')->fetchAll();
+        } catch (\PDOException) {
+            return [];
+        }
+
+        return array_map(static fn (array $b): array => $b + ['faellig' => array_map(static fn (array $f): string => Labels::REVIEW_KINDS[$f['kind']], \Training\Review\Faelligkeit::forBlock($faellig, (int) $b['id']))], $blocks);
     }
 }

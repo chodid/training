@@ -386,7 +386,23 @@ final class ReadTools
                 'start' => $w['week_start'], 'status' => $w['status'], 'fokus' => $w['focus'],
                 'einheiten' => (int) $w['sessions'], 'erledigt' => (int) $w['done'],
             ], $weeks->weeksOfBlock((int) $block['id'])),
+            // AP-15 (5.2): Kurzliste der Reviews und Fälligkeiten dieses Blocks
+            'reviews' => $this->reviewList((int) $block['id']),
+            'faellig' => ReviewTools::faelligOut(\Training\Review\Faelligkeit::forBlock(\Training\Review\Faelligkeit::load($this->pdo, $this->clock, $today), (int) $block['id'])),
         ];
+    }
+
+    /** Gültige Fassungen und offene Entwürfe eines Blocks in Kurzform (AP-15). @return list<array<string, mixed>> */
+    private function reviewList(int $blockId): array
+    {
+        try {
+            $rows = (new \Training\Data\ReviewRepository($this->pdo, $this->clock))->current($blockId);
+        } catch (\PDOException) {
+            return []; // Schema älter als 24
+        }
+
+        return array_map(static fn (array $r): array => ['kind' => $r['kind'], 'sequence' => $r['sequence'], 'version' => $r['version'], 'status' => $r['status'],
+            'review_date' => $r['review_date'], 'summary' => $r['summary']] + (isset($r['entwurf']) ? ['entwurf_version' => $r['entwurf']['version']] : []), $rows);
     }
 
     /**

@@ -43,7 +43,7 @@ Ablage: `docs/branding/mockups/`. Jede Seite ist eine eigenständige HTML-Datei,
 | S0 Setup | `s0-setup.html` | – | AP-01 |
 | S1 Login | `s1-login.html` | `?state=fehler`, `?state=gesperrt` | AP-01 |
 | S7 OAuth-Freigabe | `s7-freigabe.html` | – | AP-01 |
-| S2 Woche | `s2-woche.html` | `?state=leer` | AP-04; Kurzsatz mit „mehr“ ergänzt (AP-13) |
+| S2 Woche | `s2-woche.html` | `?state=leer`, `?state=erinnerung` (Overlay Blockbilanz/Zielklärung) | AP-04; Kurzsatz mit „mehr“ ergänzt (AP-13); Karte „Block“ und Overlay (AP-15, Code-Instanz) |
 | S3 Einheit | `s3-einheit.html` | `?typ=kraft` (Standard), `?typ=ausdauer`, `?typ=klettern`, zusätzlich `&schmerz=ja` | AP-04; Kurzsatz mit „mehr“ und „Einheit starten“ ergänzt (AP-13/AP-14) |
 | S4 Check-in | `s4-checkin.html` | `?schmerz=ja` | AP-04 |
 | S5 Schmerz | `s5-schmerz.html` | – | AP-04 |
@@ -52,6 +52,7 @@ Ablage: `docs/branding/mockups/`. Jede Seite ist eine eigenständige HTML-Datei,
 | S9 Einheit geführt | `s9-einheit-gefuehrt.html` | `?state=bereit` (Standard), `laeuft`, `pause`, `offen`, `abschluss` | AP-14 (Fable, 2026-09-28) |
 | S10 Übung | `s10-uebung.html` | `?state=voll` (Standard), `links`, `offline` | AP-16 (Code-Instanz, 2026-09-29, aus vorhandenen Bausteinen) |
 | S10a Übungskatalog | `s10a-uebungen.html` | – | AP-16 (Code-Instanz, 2026-09-29) |
+| S11 Block | `s11-block.html` | Standard (aktiv mit Zielklärung und Revision), `?state=bilanz`, `?state=leer` | AP-15 (Code-Instanz, 2026-09-29, aus vorhandenen Bausteinen) |
 | Icon-Optionen | `icon-optionen.html` (Varianten-SVGs in `icon-optionen/`) | – | AP-13, Q-14 (Fable, 2026-09-28) |
 
 Die Beispieldaten (Block 2 „Grundlage Herbst“, KW 39, Athlet „philipp“) sind erfunden und zeigen typische Fälle: erledigte Einheit ohne Feedback, teilweise erledigte Krafteinheit, verschobene Ausdauereinheit, Ruhetag, wiederholte Schmerzmeldung an einer Stelle.

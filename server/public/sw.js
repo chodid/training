@@ -1,9 +1,9 @@
 /*
  * Service Worker der Training-App (D-45): Offline lesen und Eingaben puffern.
- * - Seiten /woche, /einheit (auch geführt: ?modus=start), /checkin, /schmerz, /uebung, /uebungen: erst Netz (5 s), sonst
+ * - Seiten /woche, /einheit (auch geführt: ?modus=start), /checkin, /schmerz, /uebung, /uebungen, /block (AP-15): erst Netz (5 s), sonst
  *   gespeicherter Stand (markiert mit data-offline-stand). Eine Übung (AP-16) passt aus jeder gespeicherten Einheit.
  * - Gestaltung (/assets, /css, /js, /app-icons, Manifest, /favicon.ico): aus dem Cache der jeweiligen Version.
- * - Formulare Check-in, Rückmeldung, Schmerz: ohne Netz in IndexedDB gepuffert und später mit frischem CSRF-Token gesendet
+ * - Formulare Check-in, Rückmeldung, Schmerz, Quittierung der Erinnerung (AP-15): ohne Netz in IndexedDB gepuffert und später mit frischem CSRF-Token gesendet
  *   (Kopfzeile X-Offline-Queue; Server antwortet 204/401/409/422). Geänderte Einträge werden nicht überschrieben (409).
  * Die Seite /login löscht die gespeicherten Seiten (Abmelden); der Puffer bleibt und wird nach dem Login gesendet.
  */
@@ -12,8 +12,8 @@
 const VERSION = new URL(self.location.href).searchParams.get('v') || '0';
 const STATIC = 'training-static-' + VERSION;
 const PAGES = 'training-pages';
-const PAGE_PATHS = ['/woche', '/einheit', '/checkin', '/schmerz', '/uebung', '/uebungen'];
-const FORM_PATHS = ['/checkin', '/einheit', '/schmerz'];
+const PAGE_PATHS = ['/woche', '/einheit', '/checkin', '/schmerz', '/uebung', '/uebungen', '/block'];
+const FORM_PATHS = ['/checkin', '/einheit', '/schmerz', '/erinnerung'];
 const STATIC_PREFIXES = ['/assets/', '/css/', '/js/', '/app-icons/'];
 const STATIC_FILES = ['/manifest.webmanifest', '/favicon.ico'];
 const PRECACHE = ['/assets/ds/styles.css', '/assets/app.css', '/css/training.css', '/js/offline.js?v=' + VERSION, '/js/gefuehrt.js?v=' + VERSION, '/assets/lama.svg'];
@@ -212,9 +212,9 @@ async function postForm(req) {
     await queuePut({
       path,
       body: body.toString(),
-      key: path === '/checkin' ? 'checkin:' + body.get('datum') : (path === '/einheit' ? 'einheit:' + body.get('id') : null),
+      key: path === '/checkin' ? 'checkin:' + body.get('datum') : (path === '/einheit' ? 'einheit:' + body.get('id') : (path === '/erinnerung' ? 'erinnerung' : null)),
       label: body.get('offline_label') || 'Eingabe',
-      formUrl: path === '/einheit' ? '/einheit?id=' + encodeURIComponent(body.get('id') || '') : path + '?datum=' + encodeURIComponent(body.get('datum') || ''),
+      formUrl: path === '/einheit' ? '/einheit?id=' + encodeURIComponent(body.get('id') || '') : (path === '/erinnerung' ? '/woche' : path + '?datum=' + encodeURIComponent(body.get('datum') || '')),
       created: Date.now(),
       status: 'wartet',
       message: '',

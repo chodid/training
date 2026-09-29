@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://training.gen-em.org/schemas/review-revision.json",
+  "title": "content_json einer Revision (AP-15, docs/konzept/blockbilanz.md 4.3)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "anlass",
+    "befund",
+    "aenderungen"
+  ],
+  "properties": {
+    "anlass": {
+      "enum": [
+        "turnus",
+        "schmerz",
+        "ausfall",
+        "ermuedung",
+        "sonstiges"
+      ]
+    },
+    "befund": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1500
+    },
+    "aenderungen": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "was",
+          "warum"
+        ],
+        "properties": {
+          "was": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "warum": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "bis": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          }
+        }
+      }
+    },
+    "wirkung_pruefen": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 1500
+    }
+  }
+}

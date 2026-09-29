@@ -168,6 +168,25 @@
     });
   }
 
+  // Erinnerung an Bilanz/Zielklärung (AP-15, O-02): eine offline gepufferte Quittierung blendet das Overlay der
+  // gespeicherten Seite aus, bis der Puffer gesendet ist (die Meldung „wartet auf Netz“ bleibt sichtbar).
+  function hideAcknowledgedOverlay(items) {
+    var overlay = document.querySelector('[data-review-overlay]');
+    var pending = items.some(function (i) { return i.path === '/erinnerung' && ['wartet', 'erzwingen', 'anmeldung'].indexOf(i.status) !== -1; });
+    if (!overlay || !pending) {
+      return;
+    }
+    overlay.hidden = true;
+    document.body.classList.remove('has-overlay');
+    ['.topbar', '.nav', '.main'].forEach(function (sel) {
+      var node = document.querySelector(sel);
+      if (node) {
+        node.removeAttribute('inert');
+        node.removeAttribute('aria-hidden');
+      }
+    });
+  }
+
   function render() {
     var status = document.getElementById('offline-status');
     if (!status) {
@@ -179,6 +198,7 @@
       if (!navigator.onLine && !document.body.getAttribute('data-offline-stand')) {
         status.appendChild(alertBox('warning', 'Kein Netz.', 'Eingaben werden auf dem Gerät gepuffert und gesendet, sobald Netz da ist.'));
       }
+      hideAcknowledgedOverlay(items);
       var waiting = items.filter(function (i) { return i.status === 'wartet' || i.status === 'erzwingen'; });
       var login = items.filter(function (i) { return i.status === 'anmeldung'; });
       if (waiting.length) {

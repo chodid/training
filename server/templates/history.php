@@ -78,4 +78,17 @@ $h = static fn (int $v) => (int) (round(min(100, 100 * $v / $axis) / 5) * 5);
       </table>
     </div>
   </section>
+
+  <section id="bloecke">
+    <div class="section-title"><h2>Blöcke</h2><span class="hint">Zielklärung, Revisionen, Bilanz</span></div>
+<?php if (empty($blocks)): ?>
+    <div class="card"><p class="muted">Noch kein Trainingsblock – er entsteht im Projekt-Chat.</p></div>
+<?php else: ?>
+    <div class="card list">
+<?php foreach ($blocks as $b): [$bl, $bc] = \Training\View\Labels::BLOCK_STATUS[$b['status']]; ?>
+      <a class="list-item link-row" href="/block?id=<?= (int) $b['id'] ?>"><div><div class="t"><?= $this->e($b['name']) ?></div><div class="s"><?= $this->e((new DateTimeImmutable((string) $b['start_date']))->format('d.m.Y')) ?> – <?= $this->e((new DateTimeImmutable((string) $b['end_date']))->format('d.m.Y')) ?><?= $b['faellig'] !== [] ? ' · fällig: ' . $this->e(implode(', ', $b['faellig'])) : '' ?></div></div><span class="badge badge-<?= $bc ?>"><?= $this->e($bl) ?></span></a>
+<?php endforeach ?>
+    </div>
+<?php endif ?>
+  </section>
 </div>
