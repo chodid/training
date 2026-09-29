@@ -5,6 +5,7 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ## [Unreleased]
 
 ### Dokumentation
+- Vorhandene Ausgaben gelten (Nachtrag D-51): L-A01 7. Aufl. und L-T3-09 3. Aufl. endgültig, keine Neuauflagen mehr auf der Beschaffungsliste. Eingeordnet: L-T3-16 Logical Progression, L-T2-33 McGill (3. Aufl.), L-R-30 GOTS (3. Aufl.) und L-T4-36 Fascia (nur Kapitel, 159 MB) als Kapitel-PDFs, L-T1-16 Koop als Kapitel-Markdown mit Ansichts-PDFs, L-T4-13, L-T4-17; Brukner Band 2 und Consuegra-Dublette entfernt. Bestand 116 Werke.
 - Übergabe Lückenprüfung Standardwerke eingearbeitet (D-80): sechs optionale Bücher (L-T1-16 Koop, L-T2-33 McGill, L-R-29 Brukner & Khan, L-R-30 GOTS-Manual, L-T4-35 Freiwald, L-T4-36 Schleip/Wilke), sieben geprüfte Werke in 13.3, Q-22, V-24, Hinweis Heimausrüstung bei L-A03.
 - L-T4-22 (Witvrouw 2001) nicht aufgenommen: Status `nicht_aufgenommen`, aus Kern, Beschaffungsliste, Kartenzuschnitt und Regelvorschlag entfernt; Knie-Einzelbefund jetzt L-T4-23.
 - Aktualisierte Übergabe T4 eingearbeitet: Behm 2025 (L-T4-32) im Kern, neu Stretching Anatomy (L-T4-34, Übungskatalog), 13.3 ergänzt, Q-21 – Repo wird wieder privat. 19 weitere Volltexte (T4, Block R) und die Corrigenda zu L-T2-23/-24 einsortiert, neuer Ordner `t4-beweglichkeit/` mit Kapitel-PDFs für L-T4-32 und L-T4-34; falsch zugeordnetes Witvrouw-PDF und Dubletten entfernt. Bestand 109 Werke.

@@ -27,7 +27,7 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 
 | ID | Stufe | Quelle | Datei | Seiten | Hinweis |
 |---|---|---|---|---|---|
-| L-A01 | B | Kenney, Wilmore, Costill – Physiology of Sport and Exercise, **7. Aufl. 2019** | [`L-A01_Kenney-2019_Physiology-of-Sport-and-Exercise_7ed.pdf`](uebergreifend/L-A01_Kenney-2019_Physiology-of-Sport-and-Exercise_7ed.pdf) | 1379 | Ausgewählt ist die 8. Aufl. (2022). Die 7. Aufl. gilt vorläufig, die 8./9. Aufl. bleibt auf der Beschaffungsliste (D-51). E-Book, Kapitel-PDFs in `L-A01_kapitel/` |
+| L-A01 | B | Kenney, Wilmore, Costill – Physiology of Sport and Exercise, **7. Aufl. 2019** | [`L-A01_Kenney-2019_Physiology-of-Sport-and-Exercise_7ed.pdf`](uebergreifend/L-A01_Kenney-2019_Physiology-of-Sport-and-Exercise_7ed.pdf) | 1379 | Ausgabe gilt (Nachtrag D-51, 2026-09-29). E-Book, Kapitel-PDFs in `L-A01_kapitel/` |
 | L-A02 | B | Ferrauti, Wiewelhove (Hrsg.) – Trainingswissenschaft für die Sportpraxis, 2. Aufl. 2025 | [`L-A02_Ferrauti-2025_Trainingswissenschaft-fuer-die-Sportpraxis_2ed.pdf`](uebergreifend/L-A02_Ferrauti-2025_Trainingswissenschaft-fuer-die-Sportpraxis_2ed.pdf) | 911 | Geliefert als 355-MB-PDF mit mehrfach eingebetteten Schriften und Bildern; hier ohne Dubletten (94 MB), Text und Bilder aller Seiten gleich dem Original. Kapitel-PDFs in `L-A02_kapitel/` |
 | L-A03 | B | NSCA (Hrsg.) – Essentials of Strength Training and Conditioning, 5. Aufl. | [`L-A03_NSCA-2026_Essentials-of-Strength-Training-and-Conditioning_5ed.pdf`](uebergreifend/L-A03_NSCA-2026_Essentials-of-Strength-Training-and-Conditioning_5ed.pdf) | 1876 | E-Book, Kapitel-PDFs in `L-A03_kapitel/` |
 | L-P01 | A | Kiely 2018 – Periodization Theory | [`L-P01_Kiely-2018_Periodization-Theory.pdf`](uebergreifend/L-P01_Kiely-2018_Periodization-Theory.pdf) | 12 | Open Access |
@@ -61,6 +61,7 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T1-09 | C | Tønnessen et al. 2024 – Training Session Models (optional) | [`L-T1-09_Toennessen-2024_Training-Session-Models.pdf`](t1-ausdauer/L-T1-09_Toennessen-2024_Training-Session-Models.pdf) | 19 | Open Access |
 | L-T1-10 | C | Sandbakk et al. 2025 – Norwegian World-Class Coaches (optional) | [`L-T1-10_Sandbakk-2025_Best-Practice-Norwegian-Coaches.pdf`](t1-ausdauer/L-T1-10_Sandbakk-2025_Best-Practice-Norwegian-Coaches.pdf) | 23 | CC BY 4.0 |
 | L-T1-12 | A | Joyner & Coyle 2008 – Physiology of Champions (optional) | [`L-T1-12_Joyner-2008_Physiology-of-Champions.pdf`](t1-ausdauer/L-T1-12_Joyner-2008_Physiology-of-Champions.pdf) | 10 | Open Access |
+| L-T1-16 | C | Koop, Rutberg, Malcolm 2021 – Training Essentials for Ultrarunning, 2. Aufl. (optional) | [`L-T1-16_Koop-2021_Training-Essentials-for-Ultrarunning_2ed.epub`](t1-ausdauer/L-T1-16_Koop-2021_Training-Essentials-for-Ultrarunning_2ed.epub) | EPUB | ohne DRM, keine Seitenmarken; Kapitel-Markdown und Ansichts-PDFs in `L-T1-16_kapitel/` |
 
 ### T2 Kraft/Haltung (13.2.3)
 
@@ -92,6 +93,7 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T2-30 | A | Grgic et al. 2022 – Effects of resistance training performed to repetition failure or non-failure on muscular stren… (optional) | [`L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf`](t2-kraft/L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf) | 10 |  |
 | L-T2-31 | A | Wilson et al. 2012 – Concurrent training: a meta-analysis examining interference of aerobic and resistance exercises (optional) | [`L-T2-31_Wilson-2012_Concurrent-Training-Interference.pdf`](t2-kraft/L-T2-31_Wilson-2012_Concurrent-Training-Interference.pdf) | 15 |  |
 | L-T2-32 | A | Sabag et al. 2018 – The compatibility of concurrent high intensity interval training and resistance training for mu… (optional) | [`L-T2-32_Sabag-2018_Concurrent-HIIT-and-Resistance.pdf`](t2-kraft/L-T2-32_Sabag-2018_Concurrent-HIIT-and-Resistance.pdf) | 13 |  |
+| L-T2-33 | B | McGill 2016 – Low Back Disorders, 3. Aufl. (optional) | [`L-T2-33_McGill-2016_Low-Back-Disorders_3ed.pdf`](t2-kraft/L-T2-33_McGill-2016_Low-Back-Disorders_3ed.pdf) | 905 | 3. statt 4. Aufl. (Nachtrag D-51); Druckseite = PDF-Seite. Kapitel-PDFs in `L-T2-33_kapitel/` |
 
 ### T3 Klettern/Bouldern (13.2.4)
 
@@ -105,6 +107,7 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T3-06 | B | Schöffl et al. (Hrsg.) 2022 – Climbing Medicine | [`L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf`](t3-klettern/L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf) | 319 | Kapitel-PDFs in `L-T3-06_kapitel/` |
 | L-T3-09 | B | Hörst EJ – Training for Climbing, 3. Aufl. 2016 | [`L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf`](t3-klettern/L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf) | 356 | Scan (Internet Archive) mit Texterkennung, ohne Lesezeichen; Druckseite = PDF-Seite − 16. Kapitel-PDFs in `L-T3-09_kapitel/` |
 | L-T3-10 | C | Mobråten, Christophersen 2020 – The Climbing Bible | [`L-T3-10_Mobraten-2020_Climbing-Bible.epub`](t3-klettern/L-T3-10_Mobraten-2020_Climbing-Bible.epub) | EPUB | ohne DRM; keine Seitenmarken; Kapitel-Markdown und Ansichts-PDFs in `L-T3-10_kapitel/` |
+| L-T3-16 | C | Bechtel 2020 – Logical Progression, 2. Aufl. | [`L-T3-16_Bechtel-2020_Logical-Progression_2ed.pdf`](t3-klettern/L-T3-16_Bechtel-2020_Logical-Progression_2ed.pdf) | 238 | ohne Lesezeichen; Druckseite = PDF-Seite − 14. Kapitel-PDFs in `L-T3-16_kapitel/` |
 | L-T3-18 | A | López-Rivera & González-Badillo 2019 – Comparison of the Effects of Three Hangboard Strength and Endurance Training Programs on Grip E… | [`L-T3-18_Lopez-Rivera-2019_Hangboard-Training-Programs.pdf`](t3-klettern/L-T3-18_Lopez-Rivera-2019_Hangboard-Training-Programs.pdf) | 11 |  |
 | L-T3-19 | B | Consuegra 2023 – The Science of Climbing Training | [`L-T3-19_Consuegra-2023_Science-of-Climbing-Training.epub`](t3-klettern/L-T3-19_Consuegra-2023_Science-of-Climbing-Training.epub) | EPUB (216 S. Druck) | ohne DRM; keine Seitenmarken; Kapitel-Markdown und Ansichts-PDFs in `L-T3-19_kapitel/` |
 | L-T3-20 | C | Mobråten, Christophersen 2022 – The Climbing Bible: Practical Exercises | [`L-T3-20_Mobraten-2022_Climbing-Bible-Practical-Exercises.epub`](t3-klettern/L-T3-20_Mobraten-2022_Climbing-Bible-Practical-Exercises.epub) | EPUB (Seitenmarken bis S. 192) | ohne DRM; Kapitel-Markdown und Ansichts-PDFs in `L-T3-20_kapitel/` |
@@ -142,6 +145,7 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-R-26 | A | Doherty et al. 2017 – Ankle Sprain, Overview of Reviews | [`L-R-26_Doherty-2017_Ankle-Sprain-Overview-of-Reviews.pdf`](r-reha/L-R-26_Doherty-2017_Ankle-Sprain-Overview-of-Reviews.pdf) | 18 |  |
 | L-R-27 | A | Deng et al. 2025 – Long-term Prognosis of Athletes With Patellar Tendinopathy Receiving Physical Therapy: Patient-… (optional) | [`L-R-27_Deng-2025_Patellar-Tendinopathy-Long-Term-Prognosis.pdf`](r-reha/L-R-27_Deng-2025_Patellar-Tendinopathy-Long-Term-Prognosis.pdf) | 9 |  |
 | L-R-28 | A | Hjortshoej et al. 2025 – Effect of Low-Load Blood-Flow Restricted Training Versus Heavy Slow Resistance Training in Unil… (optional) | [`L-R-28_Hjortshoej-2025_BFR-vs-HSR-Patellar-Tendinopathy.pdf`](r-reha/L-R-28_Hjortshoej-2025_BFR-vs-HSR-Patellar-Tendinopathy.pdf) | 12 |  |
+| L-R-30 | B | Engelhardt (Hrsg.) 2016 – Sportverletzungen (GOTS-Manual), 3. Aufl. (optional) | [`L-R-30_Engelhardt-2016_Sportverletzungen-GOTS-Manual_3ed.pdf`](r-reha/L-R-30_Engelhardt-2016_Sportverletzungen-GOTS-Manual_3ed.pdf) | 912 | 3. statt 4. Aufl. (Nachtrag D-51); Druckseiten je Kapitel siehe unten (Versatz nicht konstant). Kapitel-PDFs in `L-R-30_kapitel/` |
 
 ### T4 Beweglichkeit/Mobilität (13.2.6)
 
@@ -156,34 +160,28 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T4-08 | A | Warneke et al. 2024 – Foam Rolling and Stretching in the Warm-up | [`L-T4-08_Warneke-2024_Foam-Rolling-Stretching-Warm-up.pdf`](t4-beweglichkeit/L-T4-08_Warneke-2024_Foam-Rolling-Stretching-Warm-up.pdf) | 12 | CC BY-NC-ND 4.0 |
 | L-T4-10 | A | Alizadeh et al. 2023 – Resistance Training and ROM | [`L-T4-10_Alizadeh-2023_Resistance-Training-ROM.pdf`](t4-beweglichkeit/L-T4-10_Alizadeh-2023_Resistance-Training-ROM.pdf) | 16 |  |
 | L-T4-12 | A | Konrad et al. 2024 – Static Stretching vs. Foam Rolling | [`L-T4-12_Konrad-2024_Stretching-vs-Foam-Rolling-ROM.pdf`](t4-beweglichkeit/L-T4-12_Konrad-2024_Stretching-vs-Foam-Rolling-ROM.pdf) | 16 |  |
+| L-T4-13 | A | Skopal et al. 2024 – Mobility Training Methods in Sporting Populations (optional) | [`L-T4-13_Skopal-2024_Mobility-Training-Methods.pdf`](t4-beweglichkeit/L-T4-13_Skopal-2024_Mobility-Training-Methods.pdf) | 16 |  |
 | L-T4-14 | A | Lauersen et al. 2014 – Exercise Interventions to Prevent Sports Injuries | [`L-T4-14_Lauersen-2014_Exercise-Interventions-Injury-Prevention.pdf`](t4-beweglichkeit/L-T4-14_Lauersen-2014_Exercise-Interventions-Injury-Prevention.pdf) | 10 |  |
 | L-T4-16 | A | Herbert et al. 2011 – Stretching and Muscle Soreness (Cochrane) | [`L-T4-16_Herbert-2011_Stretching-Muscle-Soreness-Cochrane.pdf`](t4-beweglichkeit/L-T4-16_Herbert-2011_Stretching-Muscle-Soreness-Cochrane.pdf) | 50 |  |
+| L-T4-17 | A | Behm et al. 2026 – Responses to Stretching (narrativer Review) | [`L-T4-17_Behm-2026_Responses-to-Stretching.pdf`](t4-beweglichkeit/L-T4-17_Behm-2026_Responses-to-Stretching.pdf) | 11 |  |
 | L-T4-19 | A | Winters et al. 2004 – Passive vs. Active Hip Flexor Stretching (RCT) | [`L-T4-19_Winters-2004_Passive-vs-Active-Hip-Flexor-Stretching.pdf`](t4-beweglichkeit/L-T4-19_Winters-2004_Passive-vs-Active-Hip-Flexor-Stretching.pdf) | 8 | DOI nicht ermittelt (V-22) |
 | L-T4-32 | B | Behm 2025 – The Science and Physiology of Flexibility and Stretching, 2. Aufl. | [`L-T4-32_Behm-2025_Science-and-Physiology-of-Flexibility-and-Stretching_2ed.pdf`](t4-beweglichkeit/L-T4-32_Behm-2025_Science-and-Physiology-of-Flexibility-and-Stretching_2ed.pdf) | 281 | E-Book-PDF; Druckseite = PDF-Seite − 15. Kapitel-PDFs in `L-T4-32_kapitel/` |
 | L-T4-34 | C | Nelson, Kokkonen 2021 – Stretching Anatomy, 3. Aufl. | [`L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.pdf`](t4-beweglichkeit/L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.pdf) | 265 | Übungskatalog; Druckseite = PDF-Seite − 11. Kapitel-PDFs in `L-T4-34_kapitel/`; zusätzlich als EPUB |
 | L-T4-34 | C | Nelson, Kokkonen 2021 – Stretching Anatomy, 3. Aufl. (EPUB) | [`L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.epub`](t4-beweglichkeit/L-T4-34_Nelson-2021_Stretching-Anatomy_3ed.epub) | EPUB | ohne DRM, Seitenmarken der Druckausgabe; nicht umgewandelt (Entscheidung Athlet) |
+| L-T4-36 | C | Schleip, Wilke (Hrsg.) 2021 – Fascia in Sport and Movement, 2. Aufl. (optional) | nur Kapitel-PDFs: [`L-T4-36_kapitel/`](t4-beweglichkeit/L-T4-36_kapitel/) | 618 | Gesamt-PDF 159 MB über dem GitHub-Limit (D-31), daher nur 50 Kapitel-PDFs; Druckseite = PDF-Seite − 19 |
 
-Summe: 109 Werke in 112 Dateien (davon 11 Bücher mit Kapitel-PDFs, 4 EPUBs mit Kapitel-Markdown und Ansichts-PDFs; dazu 2 Corrigenda und L-T4-34 zusätzlich als EPUB).
+Summe: 116 Werke in 118 Dateien (davon 15 Bücher mit Kapitel-PDFs – L-T4-36 nur als Kapitel –, 5 EPUBs mit Kapitel-Markdown und Ansichts-PDFs; dazu 2 Corrigenda und L-T4-34 zusätzlich als EPUB).
 
 ## Noch nicht vorhanden
 
-Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nachsteuerung, T4 und Lückenprüfung Standardwerke eingearbeitet).
+Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nachsteuerung, T4 und Lückenprüfung Standardwerke eingearbeitet). Vorhandene Ausgaben gelten, auf Neuauflagen wird nicht gewartet (Nachtrag D-51).
 
 ### Kaufen oder über die Bibliothek (nicht frei verfügbar)
 
 | Prio | ID | Quelle | Wofür |
 |---|---|---|---|
-| 1 | L-A01 | Kenney/Wilmore/Costill, 8. (2022) oder 9. Aufl. (2024) (Buch) | ersetzt die vorläufige 7. Aufl. (D-51) |
-| 2 | L-T3-16 | Bechtel, Logical Progression, 2. Aufl. (Buch) | Stufe C, Planungsvorlage; Kindle ungeeignet |
-| 2 | L-T4-13 | Skopal et al. 2024, J Sports Sci 42(1):46–60 | T4 Mobility/Yoga ohne Leistungsnachteil (optional, in 13.4 Prio 2) |
-| 2 | L-T4-17 | Behm et al. 2026, Eur J Appl Physiol 126(6):2977–2987 | T4 Wohlbefinden |
 | 2 | L-R-29 | Brukner & Khan, Clinical Sports Medicine – Managing Injuries, 6. Aufl. 2026 (Buch) | Block R, Stufe B, optional (D-80); Format prüfen (V-24) |
-| 2 | L-R-30 | Engelhardt (Hrsg.), Sportverletzungen – GOTS Manual, 4. Aufl. 2022 (Buch) | Block R, Stufe B, optional; deutsches Gegenstück zu L-R-29 |
-| 2 | L-T2-33 | McGill, Low Back Disorders, 4. Aufl. 2026 (Buch) | Haltung/Rücken, Stufe B, optional; kein VitalSource-DRM |
-| 2 | L-T1-16 | Koop/Rutberg/Malcolm, Training Essentials for Ultrarunning, 2. Aufl. 2021 (Buch) | Trail-Spezifik, Stufe C, optional; Kindle ungeeignet |
 | 2 | L-T4-35 | Freiwald, Optimales Dehnen, 3. Aufl. 2020 (Buch) | T4, Stufe B, optional; deutsche Fachbegriffe; ISBN prüfen |
-| 2 | L-T4-36 | Schleip/Wilke (Hrsg.), Fascia in Sport and Movement, 2. Aufl. 2021 (Buch) | T4, Stufe C, optional; Faszienrolle-Hintergrund |
-| 3 | L-T3-09 | Hörst, Training for Climbing, Neuauflage (Buch) | nach Erscheinen (angekündigt 02.03.2027), zusätzlich zur vorhandenen 3. Aufl. |
 
 ### Frei verfügbar (PubMed Central)
 
@@ -561,6 +559,213 @@ Keine offenen Titel mehr.
 | 11 | Sport-Specific Stretching Programs | 230–257 | 219–246 | [`L-T4-34_11_Sport-Specific-Stretching-Programs.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_11_Sport-Specific-Stretching-Programs.pdf) |
 | 90 | Stretch Finder and About the Authors | 258–265 | 247–254 | [`L-T4-34_90_Stretch-Finder-and-About-the-Authors.pdf`](t4-beweglichkeit/L-T4-34_kapitel/L-T4-34_90_Stretch-Finder-and-About-the-Authors.pdf) |
 
+### L-T3-16 Bechtel – Logical Progression (2. Aufl.) – `t3-klettern/L-T3-16_kapitel/`
+
+12 Dateien, 238 PDF-Seiten. Druckseite = PDF-Seite − 14 (Vorspann mit römischen Seitenzahlen).
+
+| Nr. | Titel | PDF-Seiten | Druckseiten | Datei |
+|---|---|---|---|---|
+| 00 | Vorspann, Preface und Introduction | 1–13 | – | [`L-T3-16_00_Vorspann-Preface-und-Introduction.pdf`](t3-klettern/L-T3-16_kapitel/L-T3-16_00_Vorspann-Preface-und-Introduction.pdf) |
+| 01 | Philosophy of Training | 14–33 | 1–19 | [`L-T3-16_01_Philosophy-of-Training.pdf`](t3-klettern/L-T3-16_kapitel/L-T3-16_01_Philosophy-of-Training.pdf) |
+| 02 | Periodization and Planning | 34–63 | 20–49 | [`L-T3-16_02_Periodization-and-Planning.pdf`](t3-klettern/L-T3-16_kapitel/L-T3-16_02_Periodization-and-Planning.pdf) |
+| 03 | The Climb Strong Nonlinear Programs | 64–71 | 50–57 | [`L-T3-16_03_The-Climb-Strong-Nonlinear-Programs.pdf`](t3-klettern/L-T3-16_kapitel/L-T3-16_03_The-Climb-Strong-Nonlinear-Programs.pdf) |
+| 04 | Block Programming | 72–97 | 58–83 | [`L-T3-16_04_Block-Programming.pdf`](t3-klettern/L-T3-16_kapitel/L-T3-16_04_Block-Programming.pdf) |
+| 05 | Simple Testing | 98–107 | 84–93 | [`L-T3-16_05_Simple-Testing.pdf`](t3-klettern/L-T3-16_kapitel/L-T3-16_05_Simple-Testing.pdf) |
+| 06-1 | Methods of Training (Teil 1/2) | 108–147 | 94–133 | [`L-T3-16_06-1_Methods-of-Training.pdf`](t3-klettern/L-T3-16_kapitel/L-T3-16_06-1_Methods-of-Training.pdf) |
+| 06-2 | Methods of Training (Teil 2/2) | 148–187 | 134–173 | [`L-T3-16_06-2_Methods-of-Training.pdf`](t3-klettern/L-T3-16_kapitel/L-T3-16_06-2_Methods-of-Training.pdf) |
+| 07 | Performance on the Rock | 188–195 | 174–181 | [`L-T3-16_07_Performance-on-the-Rock.pdf`](t3-klettern/L-T3-16_kapitel/L-T3-16_07_Performance-on-the-Rock.pdf) |
+| 08 | Detailed Program Design | 196–209 | 182–195 | [`L-T3-16_08_Detailed-Program-Design.pdf`](t3-klettern/L-T3-16_kapitel/L-T3-16_08_Detailed-Program-Design.pdf) |
+| 09 | Exercises | 210–232 | 196–218 | [`L-T3-16_09_Exercises.pdf`](t3-klettern/L-T3-16_kapitel/L-T3-16_09_Exercises.pdf) |
+| 90 | Final Thoughts, Acknowledgements, About the Author | 233–238 | 219–224 | [`L-T3-16_90_Final-Thoughts-Acknowledgements-About-the-Author.pdf`](t3-klettern/L-T3-16_kapitel/L-T3-16_90_Final-Thoughts-Acknowledgements-About-the-Author.pdf) |
+
+### L-T2-33 McGill – Low Back Disorders (3. Aufl.) – `t2-kraft/L-T2-33_kapitel/`
+
+24 Dateien, 905 PDF-Seiten. Druckseite = PDF-Seite. Kapitel über 60 Seiten an Abschnittsgrenzen geteilt.
+
+| Nr. | Titel | PDF-Seiten | Druckseiten | Datei |
+|---|---|---|---|---|
+| 00 | Vorspann und Preface | 1–24 | 1–24 | [`L-T2-33_00_Vorspann-und-Preface.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_00_Vorspann-und-Preface.pdf) |
+| 01 | Introduction to the Issues and Scientific Approach | 25–82 | 25–82 | [`L-T2-33_01_Introduction-to-the-Issues-and-Scientific-Approach.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_01_Introduction-to-the-Issues-and-Scientific-Approach.pdf) |
+| 02 | Epidemiological Studies and What They Really Mean | 83–121 | 83–121 | [`L-T2-33_02_Epidemiological-Studies-and-What-They-Really-Mean.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_02_Epidemiological-Studies-and-What-They-Really-Mean.pdf) |
+| 03-1 | Functional Anatomy of the Lumbar Spine (Teil 1/3) | 122–157 | 122–157 | [`L-T2-33_03-1_Functional-Anatomy-of-the-Lumbar-Spine.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_03-1_Functional-Anatomy-of-the-Lumbar-Spine.pdf) |
+| 03-2 | Functional Anatomy of the Lumbar Spine (Teil 2/3) | 158–198 | 158–198 | [`L-T2-33_03-2_Functional-Anatomy-of-the-Lumbar-Spine.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_03-2_Functional-Anatomy-of-the-Lumbar-Spine.pdf) |
+| 03-3 | Functional Anatomy of the Lumbar Spine (Teil 3/3) | 199–236 | 199–236 | [`L-T2-33_03-3_Functional-Anatomy-of-the-Lumbar-Spine.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_03-3_Functional-Anatomy-of-the-Lumbar-Spine.pdf) |
+| 04-1 | Normal and Injury Mechanics of the Lumbar Spine (Teil 1/3) | 237–272 | 237–272 | [`L-T2-33_04-1_Normal-and-Injury-Mechanics-of-the-Lumbar-Spine.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_04-1_Normal-and-Injury-Mechanics-of-the-Lumbar-Spine.pdf) |
+| 04-2 | Normal and Injury Mechanics of the Lumbar Spine (Teil 2/3) | 273–308 | 273–308 | [`L-T2-33_04-2_Normal-and-Injury-Mechanics-of-the-Lumbar-Spine.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_04-2_Normal-and-Injury-Mechanics-of-the-Lumbar-Spine.pdf) |
+| 04-3 | Normal and Injury Mechanics of the Lumbar Spine (Teil 3/3) | 309–344 | 309–344 | [`L-T2-33_04-3_Normal-and-Injury-Mechanics-of-the-Lumbar-Spine.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_04-3_Normal-and-Injury-Mechanics-of-the-Lumbar-Spine.pdf) |
+| 05 | Myths and Realities of Lumbar Spine Stability | 345–375 | 345–375 | [`L-T2-33_05_Myths-and-Realities-of-Lumbar-Spine-Stability.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_05_Myths-and-Realities-of-Lumbar-Spine-Stability.pdf) |
+| 06 | LBD Risk Assessment | 376–398 | 376–398 | [`L-T2-33_06_LBD-Risk-Assessment.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_06_LBD-Risk-Assessment.pdf) |
+| 07-1 | Reducing the Risk of Low Back Injury (Teil 1/2) | 399–442 | 399–442 | [`L-T2-33_07-1_Reducing-the-Risk-of-Low-Back-Injury.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_07-1_Reducing-the-Risk-of-Low-Back-Injury.pdf) |
+| 07-2 | Reducing the Risk of Low Back Injury (Teil 2/2) | 443–487 | 443–487 | [`L-T2-33_07-2_Reducing-the-Risk-of-Low-Back-Injury.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_07-2_Reducing-the-Risk-of-Low-Back-Injury.pdf) |
+| 08-1 | Building Better Rehabilitation Programs (Teil 1/2) | 488–527 | 488–527 | [`L-T2-33_08-1_Building-Better-Rehabilitation-Programs.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_08-1_Building-Better-Rehabilitation-Programs.pdf) |
+| 08-2 | Building Better Rehabilitation Programs (Teil 2/2) | 528–568 | 528–568 | [`L-T2-33_08-2_Building-Better-Rehabilitation-Programs.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_08-2_Building-Better-Rehabilitation-Programs.pdf) |
+| 09-1 | Evaluating the Patient (Teil 1/3) | 569–601 | 569–601 | [`L-T2-33_09-1_Evaluating-the-Patient.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_09-1_Evaluating-the-Patient.pdf) |
+| 09-2 | Evaluating the Patient (Teil 2/3) | 602–652 | 602–652 | [`L-T2-33_09-2_Evaluating-the-Patient.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_09-2_Evaluating-the-Patient.pdf) |
+| 09-3 | Evaluating the Patient (Teil 3/3) | 653–684 | 653–684 | [`L-T2-33_09-3_Evaluating-the-Patient.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_09-3_Evaluating-the-Patient.pdf) |
+| 10 | Developing the Exercise Program | 685–744 | 685–744 | [`L-T2-33_10_Developing-the-Exercise-Program.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_10_Developing-the-Exercise-Program.pdf) |
+| 11 | Advanced Exercises | 745–782 | 745–782 | [`L-T2-33_11_Advanced-Exercises.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_11_Advanced-Exercises.pdf) |
+| 90 | Epilogue and Handouts | 783–815 | 783–815 | [`L-T2-33_90_Epilogue-and-Handouts.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_90_Epilogue-and-Handouts.pdf) |
+| 91 | Appendix and Glossary | 816–825 | 816–825 | [`L-T2-33_91_Appendix-and-Glossary.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_91_Appendix-and-Glossary.pdf) |
+| 92-1 | References and About the Author (Teil 1/2) | 826–865 | 826–865 | [`L-T2-33_92-1_References-and-About-the-Author.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_92-1_References-and-About-the-Author.pdf) |
+| 92-2 | References and About the Author (Teil 2/2) | 866–905 | 866–905 | [`L-T2-33_92-2_References-and-About-the-Author.pdf`](t2-kraft/L-T2-33_kapitel/L-T2-33_92-2_References-and-About-the-Author.pdf) |
+
+### L-R-30 Engelhardt – Sportverletzungen, GOTS-Manual (3. Aufl.) – `r-reha/L-R-30_kapitel/`
+
+93 Dateien, 912 PDF-Seiten. Kapitelgrenzen und Druckseiten aus den Kopfzeilen; der Versatz zwischen PDF- und Druckseite ist nicht konstant.
+
+| Nr. | Titel | PDF-Seiten | Druckseiten | Datei |
+|---|---|---|---|---|
+| 00 | Vorspann | 1–15 | – | [`L-R-30_00_Vorspann.pdf`](r-reha/L-R-30_kapitel/L-R-30_00_Vorspann.pdf) |
+| 01 | Reaktion und Anpassung an sportliche Beanspruchung | 16–24 | 4–11 | [`L-R-30_01_Reaktion-und-Anpassung-an-sportliche-Beanspruchung.pdf`](r-reha/L-R-30_kapitel/L-R-30_01_Reaktion-und-Anpassung-an-sportliche-Beanspruchung.pdf) |
+| 02 | Alters- und geschlechtsspezifische Aspekte | 25–40 | 14–28 | [`L-R-30_02_Alters-und-geschlechtsspezifische-Aspekte.pdf`](r-reha/L-R-30_kapitel/L-R-30_02_Alters-und-geschlechtsspezifische-Aspekte.pdf) |
+| 03 | Sport bei Erkrankungen | 41–46 | 30–34 | [`L-R-30_03_Sport-bei-Erkrankungen.pdf`](r-reha/L-R-30_kapitel/L-R-30_03_Sport-bei-Erkrankungen.pdf) |
+| 04 | Anti-Doping-Vorgaben im Leistungssport | 47–55 | 36–43 | [`L-R-30_04_Anti-Doping-Vorgaben-im-Leistungssport.pdf`](r-reha/L-R-30_kapitel/L-R-30_04_Anti-Doping-Vorgaben-im-Leistungssport.pdf) |
+| 05 | Behindertensport | 56–67 | 46–56 | [`L-R-30_05_Behindertensport.pdf`](r-reha/L-R-30_kapitel/L-R-30_05_Behindertensport.pdf) |
+| 06 | Klinische und funktionelle Untersuchung | 68–74 | 60–65 | [`L-R-30_06_Klinische-und-funktionelle-Untersuchung.pdf`](r-reha/L-R-30_kapitel/L-R-30_06_Klinische-und-funktionelle-Untersuchung.pdf) |
+| 07 | Sonografie | 75–88 | 68–80 | [`L-R-30_07_Sonografie.pdf`](r-reha/L-R-30_kapitel/L-R-30_07_Sonografie.pdf) |
+| 08 | Bildgebung | 89–126 | 82–118 | [`L-R-30_08_Bildgebung.pdf`](r-reha/L-R-30_kapitel/L-R-30_08_Bildgebung.pdf) |
+| 09 | Arthroskopie | 127–146 | 120–138 | [`L-R-30_09_Arthroskopie.pdf`](r-reha/L-R-30_kapitel/L-R-30_09_Arthroskopie.pdf) |
+| 10 | Klinische Biomechanik | 147–156 | 140–148 | [`L-R-30_10_Klinische-Biomechanik.pdf`](r-reha/L-R-30_kapitel/L-R-30_10_Klinische-Biomechanik.pdf) |
+| 11 | Bewegungsanalyse | 157–172 | 152–165 | [`L-R-30_11_Bewegungsanalyse.pdf`](r-reha/L-R-30_kapitel/L-R-30_11_Bewegungsanalyse.pdf) |
+| 12 | Zentrales und peripheres Nervensystem | 173–219 | 170–215 | [`L-R-30_12_Zentrales-und-peripheres-Nervensystem.pdf`](r-reha/L-R-30_kapitel/L-R-30_12_Zentrales-und-peripheres-Nervensystem.pdf) |
+| 13 | Augen | 220–239 | 218–236 | [`L-R-30_13_Augen.pdf`](r-reha/L-R-30_kapitel/L-R-30_13_Augen.pdf) |
+| 14 | Ohren, Gesichtsschädel und Halsweichteile | 240–246 | 238–243 | [`L-R-30_14_Ohren-Gesichtsschaedel-und-Halsweichteile.pdf`](r-reha/L-R-30_kapitel/L-R-30_14_Ohren-Gesichtsschaedel-und-Halsweichteile.pdf) |
+| 15 | Schultergelenk | 247–263 | 246–261 | [`L-R-30_15_Schultergelenk.pdf`](r-reha/L-R-30_kapitel/L-R-30_15_Schultergelenk.pdf) |
+| 16 | Ellenbogen und Unterarm | 264–271 | 264–270 | [`L-R-30_16_Ellenbogen-und-Unterarm.pdf`](r-reha/L-R-30_kapitel/L-R-30_16_Ellenbogen-und-Unterarm.pdf) |
+| 17 | Hand und Handgelenk | 272–288 | 272–287 | [`L-R-30_17_Hand-und-Handgelenk.pdf`](r-reha/L-R-30_kapitel/L-R-30_17_Hand-und-Handgelenk.pdf) |
+| 18 | Becken und Hüftgelenk | 289–304 | 290–304 | [`L-R-30_18_Becken-und-Hueftgelenk.pdf`](r-reha/L-R-30_kapitel/L-R-30_18_Becken-und-Hueftgelenk.pdf) |
+| 19 | Leiste | 305–313 | 306–313 | [`L-R-30_19_Leiste.pdf`](r-reha/L-R-30_kapitel/L-R-30_19_Leiste.pdf) |
+| 20 | Das Kniegelenk | 314–330 | 316–331 | [`L-R-30_20_Das-Kniegelenk.pdf`](r-reha/L-R-30_kapitel/L-R-30_20_Das-Kniegelenk.pdf) |
+| 21 | Unterschenkel, Sprunggelenk und Fuß | 331–361 | 334–363 | [`L-R-30_21_Unterschenkel-Sprunggelenk-und-Fuss.pdf`](r-reha/L-R-30_kapitel/L-R-30_21_Unterschenkel-Sprunggelenk-und-Fuss.pdf) |
+| 22 | Muskulatur | 362–382 | 366–385 | [`L-R-30_22_Muskulatur.pdf`](r-reha/L-R-30_kapitel/L-R-30_22_Muskulatur.pdf) |
+| 23 | Stressreaktionen des Knochens | 383–389 | 388–393 | [`L-R-30_23_Stressreaktionen-des-Knochens.pdf`](r-reha/L-R-30_kapitel/L-R-30_23_Stressreaktionen-des-Knochens.pdf) |
+| 24 | Knorpel | 390–399 | 396–404 | [`L-R-30_24_Knorpel.pdf`](r-reha/L-R-30_kapitel/L-R-30_24_Knorpel.pdf) |
+| 25 | Sehnenverletzungen | 400–407 | 406–412 | [`L-R-30_25_Sehnenverletzungen.pdf`](r-reha/L-R-30_kapitel/L-R-30_25_Sehnenverletzungen.pdf) |
+| 26 | Biathlon | 408–411 | 416–418 | [`L-R-30_26_Biathlon.pdf`](r-reha/L-R-30_kapitel/L-R-30_26_Biathlon.pdf) |
+| 27 | Eisschnelllauf – Shorttrack | 412–415 | 420–422 | [`L-R-30_27_Eisschnelllauf-Shorttrack.pdf`](r-reha/L-R-30_kapitel/L-R-30_27_Eisschnelllauf-Shorttrack.pdf) |
+| 28 | Kanu | 416–420 | 424–427 | [`L-R-30_28_Kanu.pdf`](r-reha/L-R-30_kapitel/L-R-30_28_Kanu.pdf) |
+| 29 | Laufen | 421–427 | 430–435 | [`L-R-30_29_Laufen.pdf`](r-reha/L-R-30_kapitel/L-R-30_29_Laufen.pdf) |
+| 30 | Orientierungslauf | 428–432 | 438–441 | [`L-R-30_30_Orientierungslauf.pdf`](r-reha/L-R-30_kapitel/L-R-30_30_Orientierungslauf.pdf) |
+| 31 | Radsport | 433–437 | 444–447 | [`L-R-30_31_Radsport.pdf`](r-reha/L-R-30_kapitel/L-R-30_31_Radsport.pdf) |
+| 32 | Rudern | 438–444 | 450–455 | [`L-R-30_32_Rudern.pdf`](r-reha/L-R-30_kapitel/L-R-30_32_Rudern.pdf) |
+| 33 | Schwimmen | 445–450 | 458–462 | [`L-R-30_33_Schwimmen.pdf`](r-reha/L-R-30_kapitel/L-R-30_33_Schwimmen.pdf) |
+| 34 | Skilanglauf | 451–456 | 464–468 | [`L-R-30_34_Skilanglauf.pdf`](r-reha/L-R-30_kapitel/L-R-30_34_Skilanglauf.pdf) |
+| 35 | Triathlon | 457–461 | 470–473 | [`L-R-30_35_Triathlon.pdf`](r-reha/L-R-30_kapitel/L-R-30_35_Triathlon.pdf) |
+| 36 | Bobsport | 462–464 | 476–477 | [`L-R-30_36_Bobsport.pdf`](r-reha/L-R-30_kapitel/L-R-30_36_Bobsport.pdf) |
+| 37 | Bodybuilding | 465–468 | 480–482 | [`L-R-30_37_Bodybuilding.pdf`](r-reha/L-R-30_kapitel/L-R-30_37_Bodybuilding.pdf) |
+| 38 | Gewichtheben | 469–473 | 484–487 | [`L-R-30_38_Gewichtheben.pdf`](r-reha/L-R-30_kapitel/L-R-30_38_Gewichtheben.pdf) |
+| 39 | Leichtathletik (Sprung und Wurf) | 474–482 | 490–497 | [`L-R-30_39_Leichtathletik-Sprung-und-Wurf.pdf`](r-reha/L-R-30_kapitel/L-R-30_39_Leichtathletik-Sprung-und-Wurf.pdf) |
+| 40 | Rennrodeln | 483–486 | 500–502 | [`L-R-30_40_Rennrodeln.pdf`](r-reha/L-R-30_kapitel/L-R-30_40_Rennrodeln.pdf) |
+| 41 | Skeleton | 487–489 | 504–505 | [`L-R-30_41_Skeleton.pdf`](r-reha/L-R-30_kapitel/L-R-30_41_Skeleton.pdf) |
+| 42 | Carving-Skifahren | 490–494 | 508–511 | [`L-R-30_42_Carving-Skifahren.pdf`](r-reha/L-R-30_kapitel/L-R-30_42_Carving-Skifahren.pdf) |
+| 43 | Skisprunglauf | 495–498 | 514–516 | [`L-R-30_43_Skisprunglauf.pdf`](r-reha/L-R-30_kapitel/L-R-30_43_Skisprunglauf.pdf) |
+| 44 | Sportklettern | 499–502 | 518–520 | [`L-R-30_44_Sportklettern.pdf`](r-reha/L-R-30_kapitel/L-R-30_44_Sportklettern.pdf) |
+| 45 | Aikido | 503–509 | 522–527 | [`L-R-30_45_Aikido.pdf`](r-reha/L-R-30_kapitel/L-R-30_45_Aikido.pdf) |
+| 46 | Boxen | 510–514 | 530–533 | [`L-R-30_46_Boxen.pdf`](r-reha/L-R-30_kapitel/L-R-30_46_Boxen.pdf) |
+| 47 | Fechten | 515–518 | 536–538 | [`L-R-30_47_Fechten.pdf`](r-reha/L-R-30_kapitel/L-R-30_47_Fechten.pdf) |
+| 48 | Judo | 519–529 | 540–549 | [`L-R-30_48_Judo.pdf`](r-reha/L-R-30_kapitel/L-R-30_48_Judo.pdf) |
+| 49 | Karate | 530–532 | 552–553 | [`L-R-30_49_Karate.pdf`](r-reha/L-R-30_kapitel/L-R-30_49_Karate.pdf) |
+| 50 | Ringen | 533–539 | 556–561 | [`L-R-30_50_Ringen.pdf`](r-reha/L-R-30_kapitel/L-R-30_50_Ringen.pdf) |
+| 51 | Taekwondo | 540–543 | 564–566 | [`L-R-30_51_Taekwondo.pdf`](r-reha/L-R-30_kapitel/L-R-30_51_Taekwondo.pdf) |
+| 52 | American Football | 544–547 | 568–570 | [`L-R-30_52_American-Football.pdf`](r-reha/L-R-30_kapitel/L-R-30_52_American-Football.pdf) |
+| 53 | Baseball | 548–555 | 572–578 | [`L-R-30_53_Baseball.pdf`](r-reha/L-R-30_kapitel/L-R-30_53_Baseball.pdf) |
+| 54 | Basketball | 556–565 | 580–588 | [`L-R-30_54_Basketball.pdf`](r-reha/L-R-30_kapitel/L-R-30_54_Basketball.pdf) |
+| 55 | Beach-Soccer | 566–570 | 590–593 | [`L-R-30_55_Beach-Soccer.pdf`](r-reha/L-R-30_kapitel/L-R-30_55_Beach-Soccer.pdf) |
+| 56 | Eishockey | 571–575 | 596–599 | [`L-R-30_56_Eishockey.pdf`](r-reha/L-R-30_kapitel/L-R-30_56_Eishockey.pdf) |
+| 57 | Fußball | 576–593 | 602–618 | [`L-R-30_57_Fussball.pdf`](r-reha/L-R-30_kapitel/L-R-30_57_Fussball.pdf) |
+| 58 | Handball | 594–601 | 620–626 | [`L-R-30_58_Handball.pdf`](r-reha/L-R-30_kapitel/L-R-30_58_Handball.pdf) |
+| 59 | Feldhockey | 602–605 | 628–630 | [`L-R-30_59_Feldhockey.pdf`](r-reha/L-R-30_kapitel/L-R-30_59_Feldhockey.pdf) |
+| 60 | Rugby | 606–610 | 632–635 | [`L-R-30_60_Rugby.pdf`](r-reha/L-R-30_kapitel/L-R-30_60_Rugby.pdf) |
+| 61 | Badminton | 611–617 | 638–643 | [`L-R-30_61_Badminton.pdf`](r-reha/L-R-30_kapitel/L-R-30_61_Badminton.pdf) |
+| 62 | Beachvolleyball | 618–623 | 646–650 | [`L-R-30_62_Beachvolleyball.pdf`](r-reha/L-R-30_kapitel/L-R-30_62_Beachvolleyball.pdf) |
+| 63 | Squash | 624–627 | 652–654 | [`L-R-30_63_Squash.pdf`](r-reha/L-R-30_kapitel/L-R-30_63_Squash.pdf) |
+| 64 | Tennis | 628–635 | 656–662 | [`L-R-30_64_Tennis.pdf`](r-reha/L-R-30_kapitel/L-R-30_64_Tennis.pdf) |
+| 65 | Tischtennis | 636–639 | 664–666 | [`L-R-30_65_Tischtennis.pdf`](r-reha/L-R-30_kapitel/L-R-30_65_Tischtennis.pdf) |
+| 66 | Volleyball | 640–647 | 668–674 | [`L-R-30_66_Volleyball.pdf`](r-reha/L-R-30_kapitel/L-R-30_66_Volleyball.pdf) |
+| 67 | Balletttanz | 648–652 | 676–679 | [`L-R-30_67_Balletttanz.pdf`](r-reha/L-R-30_kapitel/L-R-30_67_Balletttanz.pdf) |
+| 68 | Eiskunstlauf | 653–657 | 682–685 | [`L-R-30_68_Eiskunstlauf.pdf`](r-reha/L-R-30_kapitel/L-R-30_68_Eiskunstlauf.pdf) |
+| 69 | Gerätturnen | 658–667 | 688–696 | [`L-R-30_69_Geraetturnen.pdf`](r-reha/L-R-30_kapitel/L-R-30_69_Geraetturnen.pdf) |
+| 70 | Rhythmische Sportgymnastik | 668–671 | 698–700 | [`L-R-30_70_Rhythmische-Sportgymnastik.pdf`](r-reha/L-R-30_kapitel/L-R-30_70_Rhythmische-Sportgymnastik.pdf) |
+| 71 | Tanzsport | 672–677 | 702–706 | [`L-R-30_71_Tanzsport.pdf`](r-reha/L-R-30_kapitel/L-R-30_71_Tanzsport.pdf) |
+| 72 | Wasserspringen | 678–681 | 708–710 | [`L-R-30_72_Wasserspringen.pdf`](r-reha/L-R-30_kapitel/L-R-30_72_Wasserspringen.pdf) |
+| 73 | Inlineskating | 682–685 | 712–714 | [`L-R-30_73_Inlineskating.pdf`](r-reha/L-R-30_kapitel/L-R-30_73_Inlineskating.pdf) |
+| 74 | Kitesurfen | 686–692 | 716–721 | [`L-R-30_74_Kitesurfen.pdf`](r-reha/L-R-30_kapitel/L-R-30_74_Kitesurfen.pdf) |
+| 75 | Mountainbiken | 693–696 | 724–726 | [`L-R-30_75_Mountainbiken.pdf`](r-reha/L-R-30_kapitel/L-R-30_75_Mountainbiken.pdf) |
+| 76 | Paragliding | 697–700 | 728–730 | [`L-R-30_76_Paragliding.pdf`](r-reha/L-R-30_kapitel/L-R-30_76_Paragliding.pdf) |
+| 77 | Snowboarden | 701–710 | 732–740 | [`L-R-30_77_Snowboarden.pdf`](r-reha/L-R-30_kapitel/L-R-30_77_Snowboarden.pdf) |
+| 78 | Golf | 711–714 | 742–744 | [`L-R-30_78_Golf.pdf`](r-reha/L-R-30_kapitel/L-R-30_78_Golf.pdf) |
+| 79 | Motorsport | 715–725 | 746–755 | [`L-R-30_79_Motorsport.pdf`](r-reha/L-R-30_kapitel/L-R-30_79_Motorsport.pdf) |
+| 80 | Reitsport | 726–730 | 758–761 | [`L-R-30_80_Reitsport.pdf`](r-reha/L-R-30_kapitel/L-R-30_80_Reitsport.pdf) |
+| 81 | Zielsportarten | 731–735 | 764–767 | [`L-R-30_81_Zielsportarten.pdf`](r-reha/L-R-30_kapitel/L-R-30_81_Zielsportarten.pdf) |
+| 82 | Segeln | 736–739 | 770–772 | [`L-R-30_82_Segeln.pdf`](r-reha/L-R-30_kapitel/L-R-30_82_Segeln.pdf) |
+| 83 | Tauchen | 740–744 | 774–777 | [`L-R-30_83_Tauchen.pdf`](r-reha/L-R-30_kapitel/L-R-30_83_Tauchen.pdf) |
+| 84 | Rehabilitation nach Sportverletzungen | 745–769 | 782–805 | [`L-R-30_84_Rehabilitation-nach-Sportverletzungen.pdf`](r-reha/L-R-30_kapitel/L-R-30_84_Rehabilitation-nach-Sportverletzungen.pdf) |
+| 85 | Todesfälle im Sport | 770–789 | 810–828 | [`L-R-30_85_Todesfaelle-im-Sport.pdf`](r-reha/L-R-30_kapitel/L-R-30_85_Todesfaelle-im-Sport.pdf) |
+| 86 | Ernährung | 790–815 | 832–856 | [`L-R-30_86_Ernaehrung.pdf`](r-reha/L-R-30_kapitel/L-R-30_86_Ernaehrung.pdf) |
+| 87 | Sportbekleidung | 816–822 | 858–863 | [`L-R-30_87_Sportbekleidung.pdf`](r-reha/L-R-30_kapitel/L-R-30_87_Sportbekleidung.pdf) |
+| 88 | Sportschuhe | 823–830 | 866–872 | [`L-R-30_88_Sportschuhe.pdf`](r-reha/L-R-30_kapitel/L-R-30_88_Sportschuhe.pdf) |
+| 89 | Orthesen | 831–844 | 874–886 | [`L-R-30_89_Orthesen.pdf`](r-reha/L-R-30_kapitel/L-R-30_89_Orthesen.pdf) |
+| 90 | Ausgewählte Rechtsfragen in der (Sport-)Medizin | 845–868 | 890–912 | [`L-R-30_90_Ausgewaehlte-Rechtsfragen-in-der-Sport-Medizin.pdf`](r-reha/L-R-30_kapitel/L-R-30_90_Ausgewaehlte-Rechtsfragen-in-der-Sport-Medizin.pdf) |
+| 91 | Register | 869–896 | – | [`L-R-30_91_Register.pdf`](r-reha/L-R-30_kapitel/L-R-30_91_Register.pdf) |
+| 92 | Farbtafel | 897–912 | – | [`L-R-30_92_Farbtafel.pdf`](r-reha/L-R-30_kapitel/L-R-30_92_Farbtafel.pdf) |
+
+### L-T4-36 Schleip/Wilke – Fascia in Sport and Movement (2. Aufl.) – `t4-beweglichkeit/L-T4-36_kapitel/`
+
+50 Dateien, 618 PDF-Seiten. Nur Kapitel-PDFs (Gesamt-PDF 159 MB). Druckseite = PDF-Seite − 19.
+
+| Nr. | Titel | PDF-Seiten | Druckseiten | Datei |
+|---|---|---|---|---|
+| 00 | Vorspann | 1–19 | – | [`L-T4-36_00_Vorspann.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_00_Vorspann.pdf) |
+| 01 | Highlights of fascial anatomy, morphology and function | 20–35 | 1–16 | [`L-T4-36_01_Highlights-of-fascial-anatomy-morphology-and-function.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_01_Highlights-of-fascial-anatomy-morphology-and-function.pdf) |
+| 02 | Surprising facts about fascial physiology and biochemistry | 36–49 | 17–30 | [`L-T4-36_02_Surprising-facts-about-fascial-physiology-and-biochemistry.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_02_Surprising-facts-about-fascial-physiology-and-biochemistry.pdf) |
+| 03 | Sex hormonal effects on tendons and ligaments | 50–63 | 31–44 | [`L-T4-36_03_Sex-hormonal-effects-on-tendons-and-ligaments.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_03_Sex-hormonal-effects-on-tendons-and-ligaments.pdf) |
+| 04 | Stress loading and matrix remodeling in tendon and skeletal muscle: Cellular mechano-stimulation and tissue remodeling | 64–71 | 45–52 | [`L-T4-36_04_Stress-loading-and-matrix-remodeling-in-tendon-and-skeletal.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_04_Stress-loading-and-matrix-remodeling-in-tendon-and-skeletal.pdf) |
+| 05 | Mechanical loading and adaptive responses of tendinous tissues | 72–81 | 53–62 | [`L-T4-36_05_Mechanical-loading-and-adaptive-responses-of-tendinous-tissu.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_05_Mechanical-loading-and-adaptive-responses-of-tendinous-tissu.pdf) |
+| 06 | Nutrition and loading to improve fascia function | 82–95 | 63–76 | [`L-T4-36_06_Nutrition-and-loading-to-improve-fascia-function.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_06_Nutrition-and-loading-to-improve-fascia-function.pdf) |
+| 07 | Hypo- and hypermobility | 96–115 | 77–96 | [`L-T4-36_07_Hypo-and-hypermobility.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_07_Hypo-and-hypermobility.pdf) |
+| 08 | Elastic storage and recoil dynamics | 116–125 | 97–106 | [`L-T4-36_08_Elastic-storage-and-recoil-dynamics.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_08_Elastic-storage-and-recoil-dynamics.pdf) |
+| 09 | Water and fluid dynamics in fascia | 126–135 | 107–116 | [`L-T4-36_09_Water-and-fluid-dynamics-in-fascia.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_09_Water-and-fluid-dynamics-in-fascia.pdf) |
+| 10 | What is it good for? An evidence-based review of stretching in sport and movement | 136–147 | 117–128 | [`L-T4-36_10_What-is-it-good-for-An-evidence-based-review-of-stretching-i.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_10_What-is-it-good-for-An-evidence-based-review-of-stretching-i.pdf) |
+| 11 | Biotensegrity in sport and movement | 148–159 | 129–140 | [`L-T4-36_11_Biotensegrity-in-sport-and-movement.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_11_Biotensegrity-in-sport-and-movement.pdf) |
+| 12 | Myofascial continuity: Towards a new understanding of human anatomy | 160–165 | 141–146 | [`L-T4-36_12_Myofascial-continuity-Towards-a-new-understanding-of-human-a.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_12_Myofascial-continuity-Towards-a-new-understanding-of-human-a.pdf) |
+| 13 | Mechanical force transmission across myofascial chains | 166–175 | 147–156 | [`L-T4-36_13_Mechanical-force-transmission-across-myofascial-chains.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_13_Mechanical-force-transmission-across-myofascial-chains.pdf) |
+| 14 | Myofascial force transmission to synergistic and antagonistic muscles | 176–187 | 157–168 | [`L-T4-36_14_Myofascial-force-transmission-to-synergistic-and-antagonisti.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_14_Myofascial-force-transmission-to-synergistic-and-antagonisti.pdf) |
+| 15 | Fascia as sensory organ | 188–199 | 169–180 | [`L-T4-36_15_Fascia-as-sensory-organ.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_15_Fascia-as-sensory-organ.pdf) |
+| 16 | Fascia and musculoskeletal injury: An underestimated association? | 200–209 | 181–190 | [`L-T4-36_16_Fascia-and-musculoskeletal-injury-An-underestimated-associat.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_16_Fascia-and-musculoskeletal-injury-An-underestimated-associat.pdf) |
+| 17 | Classification of athletic injuries to muscular tissues | 210–217 | 191–198 | [`L-T4-36_17_Classification-of-athletic-injuries-to-muscular-tissues.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_17_Classification-of-athletic-injuries-to-muscular-tissues.pdf) |
+| 18 | Fascia, exercise and oncology | 218–231 | 199–212 | [`L-T4-36_18_Fascia-exercise-and-oncology.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_18_Fascia-exercise-and-oncology.pdf) |
+| 19 | Assessment of joint mobility | 232–243 | 213–224 | [`L-T4-36_19_Assessment-of-joint-mobility.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_19_Assessment-of-joint-mobility.pdf) |
+| 20 | Imaging techniques (ultrasound) | 244–253 | 225–234 | [`L-T4-36_20_Imaging-techniques-ultrasound.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_20_Imaging-techniques-ultrasound.pdf) |
+| 21 | Mechanical assessment | 254–263 | 235–244 | [`L-T4-36_21_Mechanical-assessment.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_21_Mechanical-assessment.pdf) |
+| 22 | Palpation and functional assessment methods for fascia-related dysfunction | 264–279 | 245–260 | [`L-T4-36_22_Palpation-and-functional-assessment-methods-for-fascia-relat.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_22_Palpation-and-functional-assessment-methods-for-fascia-relat.pdf) |
+| 23 | Integrating clinical experience and scientific evidence: Roadmap for a healthy dialog between health practitioners and academic researchers | 280–287 | 261–268 | [`L-T4-36_23_Integrating-clinical-experience-and-scientific-evidence-Road.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_23_Integrating-clinical-experience-and-scientific-evidence-Road.pdf) |
+| 24 | Fascial Fitness | 288–299 | 269–280 | [`L-T4-36_24_Fascial-Fitness.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_24_Fascial-Fitness.pdf) |
+| 25 | Basic principles of plyometric training | 300–309 | 281–290 | [`L-T4-36_25_Basic-principles-of-plyometric-training.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_25_Basic-principles-of-plyometric-training.pdf) |
+| 26 | Eccentric training: The key for a stronger, more resilient athlete? | 310–319 | 291–300 | [`L-T4-36_26_Eccentric-training-The-key-for-a-stronger-more-resilient-ath.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_26_Eccentric-training-The-key-for-a-stronger-more-resilient-ath.pdf) |
+| 27 | Foam rolling and roller massage effects and mechanisms | 320–333 | 301–314 | [`L-T4-36_27_Foam-rolling-and-roller-massage-effects-and-mechanisms.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_27_Foam-rolling-and-roller-massage-effects-and-mechanisms.pdf) |
+| 28 | Fascial stretching | 334–345 | 315–326 | [`L-T4-36_28_Fascial-stretching.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_28_Fascial-stretching.pdf) |
+| 29 | Food for the fascia: Molecular and biochemical processes | 346–357 | 327–338 | [`L-T4-36_29_Food-for-the-fascia-Molecular-and-biochemical-processes.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_29_Food-for-the-fascia-Molecular-and-biochemical-processes.pdf) |
+| 30 | Walking: The benefit of being on two legs | 358–371 | 339–352 | [`L-T4-36_30_Walking-The-benefit-of-being-on-two-legs.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_30_Walking-The-benefit-of-being-on-two-legs.pdf) |
+| 31 | Functional training methods for the runner’s myofascial systems | 372–389 | 353–370 | [`L-T4-36_31_Functional-training-methods-for-the-runners-myofascial-syste.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_31_Functional-training-methods-for-the-runners-myofascial-syste.pdf) |
+| 32 | Shoes or no shoes during locomotion and exercise: Training potential for fascial structures of the lower extremity | 390–403 | 371–384 | [`L-T4-36_32_Shoes-or-no-shoes-during-locomotion-and-exercise-Training-po.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_32_Shoes-or-no-shoes-during-locomotion-and-exercise-Training-po.pdf) |
+| 33 | Overarm throwing in humans | 404–411 | 385–392 | [`L-T4-36_33_Overarm-throwing-in-humans.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_33_Overarm-throwing-in-humans.pdf) |
+| 34 | The secret role of fascia in the martial arts | 412–421 | 393–402 | [`L-T4-36_34_The-secret-role-of-fascia-in-the-martial-arts.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_34_The-secret-role-of-fascia-in-the-martial-arts.pdf) |
+| 35 | The world as a playground: Ninja and parkour training | 422–429 | 403–410 | [`L-T4-36_35_The-world-as-a-playground-Ninja-and-parkour-training.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_35_The-world-as-a-playground-Ninja-and-parkour-training.pdf) |
+| 36 | Anatomy Trains in motion | 430–443 | 411–424 | [`L-T4-36_36_Anatomy-Trains-in-motion.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_36_Anatomy-Trains-in-motion.pdf) |
+| 37 | Fascial form in yoga | 444–455 | 425–436 | [`L-T4-36_37_Fascial-form-in-yoga.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_37_Fascial-form-in-yoga.pdf) |
+| 38 | Yin yoga as a fascia-oriented practice | 456–469 | 437–450 | [`L-T4-36_38_Yin-yoga-as-a-fascia-oriented-practice.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_38_Yin-yoga-as-a-fascia-oriented-practice.pdf) |
+| 39 | Fascia-focused Pilates training | 470–509 | 451–490 | [`L-T4-36_39_Fascia-focused-Pilates-training.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_39_Fascia-focused-Pilates-training.pdf) |
+| 40 | Three-dimensional fascia-oriented training | 510–521 | 491–502 | [`L-T4-36_40_Three-dimensional-fascia-oriented-training.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_40_Three-dimensional-fascia-oriented-training.pdf) |
+| 41 | Dance | 522–531 | 503–512 | [`L-T4-36_41_Dance.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_41_Dance.pdf) |
+| 42 | Kettlebell training | 532–539 | 513–520 | [`L-T4-36_42_Kettlebell-training.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_42_Kettlebell-training.pdf) |
+| 43 | Fascia-oriented strength training in a conventional gym environment | 540–547 | 521–528 | [`L-T4-36_43_Fascia-oriented-strength-training-in-a-conventional-gym-envi.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_43_Fascia-oriented-strength-training-in-a-conventional-gym-envi.pdf) |
+| 44 | Rehabilitation in sport medicine | 548–559 | 529–540 | [`L-T4-36_44_Rehabilitation-in-sport-medicine.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_44_Rehabilitation-in-sport-medicine.pdf) |
+| 45 | How to train fascia in soccer | 560–571 | 541–552 | [`L-T4-36_45_How-to-train-fascia-in-soccer.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_45_How-to-train-fascia-in-soccer.pdf) |
+| 46 | Movement therapy for breast cancer survivors | 572–587 | 553–568 | [`L-T4-36_46_Movement-therapy-for-breast-cancer-survivors.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_46_Movement-therapy-for-breast-cancer-survivors.pdf) |
+| 47 | Mental imagery, fascia and movement | 588–597 | 569–578 | [`L-T4-36_47_Mental-imagery-fascia-and-movement.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_47_Mental-imagery-fascia-and-movement.pdf) |
+| 48 | Periodized fascia training for speed, power, and injury resilience | 598–608 | 579–589 | [`L-T4-36_48_Periodized-fascia-training-for-speed-power-and-injury-resili.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_48_Periodized-fascia-training-for-speed-power-and-injury-resili.pdf) |
+| 90 | Permissions and Index | 609–618 | 590–599 | [`L-T4-36_90_Permissions-and-Index.pdf`](t4-beweglichkeit/L-T4-36_kapitel/L-T4-36_90_Permissions-and-Index.pdf) |
+
 ## Kapitel-Markdown mit Ansichts-PDF (EPUB, D-71)
 
 Markdown ist die Arbeitsfassung für die Kartensitzungen (13.1). Das Ansichts-PDF gleichen Namens zeigt die Abbildungen; seine Seitenzahlen sind nicht zitierfähig.
@@ -629,3 +834,32 @@ Markdown ist die Arbeitsfassung für die Kartensitzungen (13.1). Das Ansichts-PD
 | 02-2 | Injuries and Body Parts (Teil 2/2) | 10.800 | 87–141 | [`L-T3-21_02-2_Injuries-and-Body-Parts.md`](t3-klettern/L-T3-21_kapitel/L-T3-21_02-2_Injuries-and-Body-Parts.md) | [PDF](t3-klettern/L-T3-21_kapitel/L-T3-21_02-2_Injuries-and-Body-Parts.pdf) |
 | 03 | What Is Pain, Really? | 3.600 | 142–151 | [`L-T3-21_03_What-Is-Pain-Really.md`](t3-klettern/L-T3-21_kapitel/L-T3-21_03_What-Is-Pain-Really.md) | [PDF](t3-klettern/L-T3-21_kapitel/L-T3-21_03_What-Is-Pain-Really.pdf) |
 | 90 | Glossary, References and Bibliography | 3.200 | 152–157 | [`L-T3-21_90_Glossary-and-References.md`](t3-klettern/L-T3-21_kapitel/L-T3-21_90_Glossary-and-References.md) | [PDF](t3-klettern/L-T3-21_kapitel/L-T3-21_90_Glossary-and-References.pdf) |
+
+### L-T1-16 Koop/Rutberg/Malcolm – Training Essentials for Ultrarunning (2. Aufl.) – `t1-ausdauer/L-T1-16_kapitel/`
+
+22 Kapiteldateien, zusammen ca. 164.180 Wörter. Keine Seitenmarken: zitiert wird mit Kapitel und Abschnitt (D-71). Kapitel 16 ist in zwei Teile geteilt.
+
+| Nr. | Titel | Wörter (ca.) | Markdown | Ansichts-PDF |
+|---|---|---|---|---|
+| 00 | Vorspann und Foreword | 1.100 | [`L-T1-16_00_Vorspann-und-Foreword.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_00_Vorspann-und-Foreword.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_00_Vorspann-und-Foreword.pdf) |
+| 01 | The Ultrarunning Revolution | 2.800 | [`L-T1-16_01_The-Ultrarunning-Revolution.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_01_The-Ultrarunning-Revolution.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_01_The-Ultrarunning-Revolution.pdf) |
+| 02 | The Physiology of a Better Engine | 11.000 | [`L-T1-16_02_The-Physiology-of-a-Better-Engine.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_02_The-Physiology-of-a-Better-Engine.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_02_The-Physiology-of-a-Better-Engine.pdf) |
+| 03 | The Anatomy of Ultramarathon Performance | 5.300 | [`L-T1-16_03_The-Anatomy-of-Ultramarathon-Performance.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_03_The-Anatomy-of-Ultramarathon-Performance.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_03_The-Anatomy-of-Ultramarathon-Performance.pdf) |
+| 04 | Failure Points and How to Fix Them | 10.400 | [`L-T1-16_04_Failure-Points-and-How-to-Fix-Them.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_04_Failure-Points-and-How-to-Fix-Them.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_04_Failure-Points-and-How-to-Fix-Them.pdf) |
+| 05 | The Four Disciplines of Ultrarunning | 4.200 | [`L-T1-16_05_The-Four-Disciplines-of-Ultrarunning.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_05_The-Four-Disciplines-of-Ultrarunning.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_05_The-Four-Disciplines-of-Ultrarunning.pdf) |
+| 06 | Tracking Training in Ultrarunning | 9.500 | [`L-T1-16_06_Tracking-Training-in-Ultrarunning.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_06_Tracking-Training-in-Ultrarunning.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_06_Tracking-Training-in-Ultrarunning.pdf) |
+| 07 | Environmental Conditions and How to Adapt | 5.600 | [`L-T1-16_07_Environmental-Conditions-and-How-to-Adapt.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_07_Environmental-Conditions-and-How-to-Adapt.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_07_Environmental-Conditions-and-How-to-Adapt.pdf) |
+| 08 | Recovery Modalities and When to Use Them | 8.200 | [`L-T1-16_08_Recovery-Modalities-and-When-to-Use-Them.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_08_Recovery-Modalities-and-When-to-Use-Them.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_08_Recovery-Modalities-and-When-to-Use-Them.pdf) |
+| 09 | Train Smarter, Not More: Key Workouts | 6.500 | [`L-T1-16_09_Train-Smarter-Not-More-Key-Workouts.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_09_Train-Smarter-Not-More-Key-Workouts.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_09_Train-Smarter-Not-More-Key-Workouts.pdf) |
+| 10 | Organizing Your Training: The Long-Range Plan | 8.100 | [`L-T1-16_10_Organizing-Your-Training-The-Long-Range-Plan.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_10_Organizing-Your-Training-The-Long-Range-Plan.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_10_Organizing-Your-Training-The-Long-Range-Plan.pdf) |
+| 11 | Strength Training for Ultrarunning | 3.800 | [`L-T1-16_11_Strength-Training-for-Ultrarunning.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_11_Strength-Training-for-Ultrarunning.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_11_Strength-Training-for-Ultrarunning.pdf) |
+| 12 | Activating Your Training: The Short-Range Plan | 5.500 | [`L-T1-16_12_Activating-Your-Training-The-Short-Range-Plan.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_12_Activating-Your-Training-The-Short-Range-Plan.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_12_Activating-Your-Training-The-Short-Range-Plan.pdf) |
+| 13 | Fueling and Hydrating for the Long Haul | 10.300 | [`L-T1-16_13_Fueling-and-Hydrating-for-the-Long-Haul.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_13_Fueling-and-Hydrating-for-the-Long-Haul.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_13_Fueling-and-Hydrating-for-the-Long-Haul.pdf) |
+| 14 | Adapting Sports Nutrition Guidelines for Ultrarunning Events | 7.800 | [`L-T1-16_14_Adapting-Sports-Nutrition-Guidelines-for-Ultrarunning-Events.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_14_Adapting-Sports-Nutrition-Guidelines-for-Ultrarunning-Events.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_14_Adapting-Sports-Nutrition-Guidelines-for-Ultrarunning-Events.pdf) |
+| 15 | Mental Skills for Ultrarunning | 9.600 | [`L-T1-16_15_Mental-Skills-for-Ultrarunning.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_15_Mental-Skills-for-Ultrarunning.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_15_Mental-Skills-for-Ultrarunning.pdf) |
+| 16-1 | Creating Your Personal Race Strategies (Teil 1/2) | 7.000 | [`L-T1-16_16-1_Creating-Your-Personal-Race-Strategies.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_16-1_Creating-Your-Personal-Race-Strategies.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_16-1_Creating-Your-Personal-Race-Strategies.pdf) |
+| 16-2 | Creating Your Personal Race Strategies (Teil 2/2) | 6.900 | [`L-T1-16_16-2_Creating-Your-Personal-Race-Strategies.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_16-2_Creating-Your-Personal-Race-Strategies.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_16-2_Creating-Your-Personal-Race-Strategies.pdf) |
+| 17 | Racing Wisely | 1.900 | [`L-T1-16_17_Racing-Wisely.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_17_Racing-Wisely.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_17_Racing-Wisely.pdf) |
+| 18 | Coaching Guide to Major Ultramarathons | 11.800 | [`L-T1-16_18_Coaching-Guide-to-Major-Ultramarathons.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_18_Coaching-Guide-to-Major-Ultramarathons.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_18_Coaching-Guide-to-Major-Ultramarathons.pdf) |
+| 90 | References | 13.300 | [`L-T1-16_90_References.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_90_References.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_90_References.pdf) |
+| 91 | About the Authors and Index | 13.400 | [`L-T1-16_91_About-the-Authors-and-Index.md`](t1-ausdauer/L-T1-16_kapitel/L-T1-16_91_About-the-Authors-and-Index.md) | [PDF](t1-ausdauer/L-T1-16_kapitel/L-T1-16_91_About-the-Authors-and-Index.pdf) |
