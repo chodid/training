@@ -90,6 +90,7 @@ final class WeekController extends AppController
             'next' => $next,
             'prefetch' => $monday === Dates::monday($today) ? $this->prefetch($monday, $next, $today, $sessions) : [],
             'morning' => $monday === Dates::monday($today) ? $this->morning($today) : null,
+            'blockCard' => $monday === Dates::monday($today) ? $this->blockCard($today) : null,
             'intervalsError' => $lookup->error,
             'mailError' => $this->app->mailBackup()->state()['error'] ?? null,
         ]);
@@ -98,7 +99,8 @@ final class WeekController extends AppController
     /**
      * Seiten, die der Service Worker für die Offline-Nutzung vorlädt (D-45): aktuelle und nächste Woche mit ihren
      * Einheiten, Check-in und Schmerz für heute, dazu die geführte Einheit (S9) für heutige und morgige geeignete
-     * Einheiten (AP-14, 6.7) und die Übungsseiten (S10) aller Einheiten beider Wochen (AP-16, E-15). Nur in der Ansicht
+     * Einheiten (AP-14, 6.7), die Übungsseiten (S10) aller Einheiten beider Wochen (AP-16, E-15) und die Blockseite (S11)
+     * des aktiven Blocks (AP-15). Nur in der Ansicht
      * der aktuellen Woche.
      * @param list<array<string, mixed>> $sessions
      * @return list<string>
@@ -124,6 +126,12 @@ final class WeekController extends AppController
             }
         }
 
+        // Blockseite des aktiven Blocks (AP-15, T5) mit derselben Adresse wie die Karte „Block“
+        $active = $this->app->pdo()->query("SELECT id FROM training_block WHERE status = 'aktiv' ORDER BY start_date DESC LIMIT 1")->fetchColumn();
+        if ($active !== false) {
+            $urls[] = '/block?id=' . (int) $active;
+        }
+
         return array_values(array_unique($urls));
     }
 
@@ -141,6 +149,42 @@ final class WeekController extends AppController
         }
 
         return ['summary' => null, 'form' => (new CheckinController($this->app))->formVars($today)];
+    }
+
+    /**
+     * Karte „Block“ unter dem Morgen-Check-in (AP-15, 6.2): aktiver Block mit Restlaufzeit und allen Fälligkeiten
+     * (auch Revision, E-07). Fehler unterdrücken nur die Karte.
+     * @return ?array{block: ?array<string, mixed>, rest: ?string, faellig: list<array<string, mixed>>}
+     */
+    private function blockCard(string $today): ?array
+    {
+        try {
+            $pdo = $this->app->pdo();
+            $block = $pdo->query("SELECT * FROM training_block WHERE status = 'aktiv' ORDER BY start_date DESC LIMIT 1")->fetch() ?: null;
+
+            return [
+                'block' => $block,
+                'rest' => $block !== null ? self::restText($today, (string) $block['end_date']) : null,
+                'faellig' => \Training\Review\Faelligkeit::load($pdo, $this->app->clock(), $today),
+            ];
+        } catch (\Throwable $e) {
+            error_log('[training] Blockkarte: ' . $e->getMessage());
+
+            return null;
+        }
+    }
+
+    /** Restlaufzeit: „noch 3 Wochen“, „noch 5 Tage“, „endet heute“, „seit 2 Tagen beendet“. */
+    public static function restText(string $today, string $end): string
+    {
+        $days = (int) ((strtotime($end) - strtotime($today)) / 86400);
+
+        return match (true) {
+            $days < 0 => $days === -1 ? 'seit gestern beendet' : 'seit ' . -$days . ' Tagen beendet',
+            $days === 0 => 'endet heute',
+            $days < 14 => 'noch ' . ($days + 1) . ' Tage',
+            default => 'noch ' . intdiv($days + 1, 7) . ' Wochen',
+        };
     }
 
     /** Aktivitäten aus dem Spiegel (D-43); ohne Intervals-Konfiguration nur der vorhandene Spiegel. */

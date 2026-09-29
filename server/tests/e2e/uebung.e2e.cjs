@@ -74,7 +74,12 @@ async function vorbereiten() {
       throw e;
     }
   });
-  await mcp('upsert_block', { block: { name: 'E2E Übungskatalog', start_date: WEEK, end_date: '2030-01-20', status: 'geplant' } });
+  const block = await mcp('upsert_block', { block: { name: 'E2E Übungskatalog', start_date: WEEK, end_date: '2030-01-20', status: 'geplant' } });
+  // Bestätigte Zielklärung zum Block (AP-15): sonst deckt die Erinnerung an die fehlende Zielklärung die Seiten ab
+  await mcp('write_block_review', { block_id: block.id, kind: 'zielklaerung', review_date: WEEK, summary: 'E2E', status: 'bestaetigt', reason: 'E2E-Lauf',
+    content: { ausgangslage: { zeitbudget: '5 h' }, phase: 'grundlagen', phase_text: 'Test', prioritaeten: { t1: 'A', t2: 'B', t3: 'C' },
+      ziele: [{ id: 'z-1', bereich: 't2', ziel: 'Test', messgroesse: 'Test', kriterium: 'Test' }],
+      entscheidungen: [{ thema: 'Test', entscheidung: 'Test', rationale: 'Test', verworfen: ['keine'] }], risiken: [], block: { dauer_wochen: 1 } } });
   const plan = await mcp('write_week_plan', {
     week_start: WEEK, replace_existing: true, focus: 'Testwoche Übungskatalog',
     sessions: [{ date: WEEK, type: 'kraft', title: 'E2E Katalog', coach_summary: 'Testeinheit mit Katalogübung',

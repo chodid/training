@@ -136,17 +136,18 @@ final class MorningCheckinTest extends AppTestCase
 
     public function testMigrationOnFilledDatabaseAndNewPainLocations(): void
     {
-        // Rückweg aus 0023/0022/0021/0020 anwenden, Altbestand anlegen, erneut migrieren
+        // Rückweg aus 0024/0023/0022/0021/0020 anwenden, Altbestand anlegen, erneut migrieren
         $this->pdo->exec("ALTER TABLE pain_event MODIFY location ENUM('finger_ringband','finger_gelenk','handgelenk','ellbogen_medial','ellbogen_lateral','schulter','nacken','lws','huefte','knie','achillessehne','wade','schienbein','fuss','sonstiges') NOT NULL");
         $this->pdo->exec('ALTER TABLE checkin DROP CONSTRAINT ck_checkin_mt_links, DROP CONSTRAINT ck_checkin_mt_rechts, DROP CONSTRAINT ck_checkin_nacken_bws, DROP CONSTRAINT ck_checkin_hand_rechts, DROP COLUMN mt_links, DROP COLUMN mt_rechts, DROP COLUMN nacken_bws, DROP COLUMN osg_umgeknickt, DROP COLUMN osg_schwellung, DROP COLUMN hand_rechts, DROP COLUMN warnzeichen');
         $this->pdo->exec('ALTER TABLE `session` DROP COLUMN coach_summary'); // Rückweg 0022 (spätere Migration, AP-13)
         $this->pdo->exec('DROP TABLE exercise_version, exercise_alias, exercise'); // Rückweg 0023 (AP-16)
-        $this->pdo->exec('DELETE FROM schema_version WHERE version IN (20, 21, 22, 23)');
+        $this->pdo->exec('DROP TABLE block_review'); // Rückweg 0024 (AP-15)
+        $this->pdo->exec('DELETE FROM schema_version WHERE version IN (20, 21, 22, 23, 24)');
         $this->pdo->exec("INSERT INTO checkin (date, recovery_1_5, soreness_1_5, pain_flag, notes, created_at, updated_at) VALUES ('2026-09-20', 3, 2, 1, 'alt', NOW(), NOW())");
         $this->pdo->exec("INSERT INTO pain_event (date, location, side, intensity_0_10, timing, created_at) VALUES ('2026-09-20', 'knie', 'L', 3, 'danach', NOW())");
 
         $applied = (new Migrator($this->pdo, dirname(__DIR__, 2) . '/migrations'))->migrate();
-        self::assertSame([20, 21, 22, 23], array_column($applied, 'version'));
+        self::assertSame([20, 21, 22, 23, 24], array_column($applied, 'version'));
         $row = $this->pdo->query("SELECT * FROM checkin WHERE date = '2026-09-20'")->fetch();
         self::assertSame([3, 2, 'alt', null, null, 0], [(int) $row['recovery_1_5'], (int) $row['soreness_1_5'], $row['notes'], $row['mt_links'], $row['warnzeichen'], (int) $row['osg_umgeknickt']]);
         self::assertSame('knie', $this->pdo->query('SELECT location FROM pain_event')->fetchColumn());

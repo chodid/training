@@ -36,6 +36,8 @@ final class WriteTools
         private readonly ?IntervalsClient $intervals,
         private readonly PlanValidator $validator,
         private readonly ?\Training\Calendar\CalendarSync $calendar = null,
+        /** Zeitzone des Athleten (heute für die Fälligkeit, AP-15) */
+        private readonly string $tz = 'Europe/Berlin',
     ) {
     }
 
@@ -48,6 +50,7 @@ final class WriteTools
         if (!Dates::isDate($weekStart) || Dates::weekdayIndex($weekStart) !== 0) {
             throw new ToolError('week_start muss ein Montag im Format YYYY-MM-DD sein.');
         }
+        $this->checkBlockChange($weekStart);
         $sunday = Dates::addDays($weekStart, 6);
         $weeks = new WeekRepository($this->pdo, $this->clock);
         $block = $weeks->blockFor($weekStart) ?? $weeks->blockFor($sunday);
@@ -165,6 +168,7 @@ final class WriteTools
             'fehler_intervals' => array_merge($intervalsErrors, $failed > 0 ? [$failed . ' Ausdauereinheit(en) ohne Event – mit update_session (sync_intervals) erneut versuchen.'] : []),
             'fehler_kalender' => $calendarErrors,
             'status' => $failed > 0 || $intervalsErrors !== [] || $calendarErrors !== [] ? 'teilweise' : 'ok',
+            'faellig' => $this->faellig(), // AP-15: offene Bilanz/Zielklärung/Revision (nur wenn vorhanden)
         ], static fn ($v): bool => $v !== []) + \Training\Plan\ExerciseLink::forResponse($catalog['warnungen'], array_column($clean, 'date'));
     }
 
@@ -295,9 +299,13 @@ final class WriteTools
             $goals === null ? null : json_encode($goals, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR),
             isset($input['phase_notes']) ? (string) $input['phase_notes'] : null, $status,
             isset($input['doc_ref']) ? mb_substr((string) $input['doc_ref'], 0, 255) : null];
+        $closedIds = [];
         $this->pdo->beginTransaction();
         try {
             if ($status === 'aktiv') {
+                $stmt = $this->pdo->prepare("SELECT id FROM training_block WHERE status = 'aktiv' AND id <> ?");
+                $stmt->execute([$blockId ?? 0]);
+                $closedIds = array_map('intval', $stmt->fetchAll(\PDO::FETCH_COLUMN));
                 $this->pdo->prepare("UPDATE training_block SET status = 'abgeschlossen', updated_at = ? WHERE status = 'aktiv' AND id <> ?")->execute([$now, $blockId ?? 0]);
             }
             if ($blockId === null) {
@@ -320,7 +328,56 @@ final class WriteTools
             throw $e;
         }
 
-        return ['id' => $blockId, 'name' => $values[0], 'start' => $values[1], 'ende' => $values[2], 'status' => $status];
+        $result = ['id' => $blockId, 'name' => $values[0], 'start' => $values[1], 'ende' => $values[2], 'status' => $status];
+        // Blocktermin im Kalender (AP-15, E-15): anlegen/ändern, bei abgeschlossenen Blöcken ggf. löschen
+        if ($this->calendar !== null && $this->calendar->enabled()) {
+            $error = $this->calendar->pushBlocks([$blockId, ...$closedIds], 'mcp');
+            if ($error !== null) {
+                $result['fehler_kalender'] = [$error . ' Der stündliche Abgleich überträgt den Termin erneut.'];
+            }
+        }
+        $faellig = \Training\Review\Faelligkeit::forBlock($this->faellig(), $blockId);
+        if ($faellig !== []) {
+            $result['faellig'] = $faellig;
+        }
+        if ($status !== 'abgeschlossen' && (new \Training\Data\ReviewRepository($this->pdo, $this->clock))->current($blockId, 'zielklaerung', true) === []) {
+            $result['zielklaerung_fehlt'] = true;
+            $result['hinweis'] = 'Für diesen Block fehlt noch die bestätigte Zielklärung (write_block_review, kind zielklaerung).';
+        }
+
+        return $result;
+    }
+
+    /**
+     * Blockwechsel erzwingen (AP-15, E-19): eine Woche, die nach dem Ende des aktiven Blocks beginnt, braucht einen
+     * Folgeblock (geplant/aktiv) mit bestätigter Zielklärung. Wochen innerhalb des aktiven Blocks bleiben möglich.
+     */
+    private function checkBlockChange(string $weekStart): void
+    {
+        $active = $this->pdo->query("SELECT * FROM training_block WHERE status = 'aktiv' ORDER BY start_date DESC LIMIT 1")->fetch();
+        if ($active === false || $weekStart <= (string) $active['end_date']) {
+            return;
+        }
+        try {
+            $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM block_review r JOIN training_block b ON b.id = r.block_id
+                WHERE r.kind = 'zielklaerung' AND r.status = 'bestaetigt' AND b.id <> ? AND b.status IN ('geplant', 'aktiv') AND b.start_date > ?");
+            $stmt->execute([(int) $active['id'], (string) $active['start_date']]);
+            if ((int) $stmt->fetchColumn() > 0) {
+                return;
+            }
+        } catch (\PDOException) {
+            return; // Schema älter als 24: keine Sperre
+        }
+        $faellig = $this->faellig();
+        throw new ToolError('blockwechsel_erforderlich: Die Woche ab ' . $weekStart . ' liegt nach dem Ende von Block „' . $active['name'] . '“ (' . $active['end_date']
+            . '). Zuerst Blockbilanz und Zielklärung (write_block_review), dann den Folgeblock mit upsert_block anlegen; Wochen bis zum Blockende sind weiter möglich.',
+            array_map(static fn (array $f): string => $f['kind'] . ' (' . $f['grund'] . '): ' . \Training\Review\Faelligkeit::text($f), $faellig));
+    }
+
+    /** @return list<array<string, mixed>> Fälligkeiten mit Satz (AP-15, 5.1) */
+    private function faellig(): array
+    {
+        return ReviewTools::faelligOut(\Training\Review\Faelligkeit::load($this->pdo, $this->clock, Dates::today($this->clock, $this->tz)));
     }
 
     /**

@@ -21,10 +21,10 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.25.1';
+    public const VERSION = '0.30.2';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
-    public const SCHEMA_VERSION = 23;
+    public const SCHEMA_VERSION = 24;
 
     private ?Config $config = null;
     private ?PDO $pdo = null;
@@ -94,6 +94,8 @@ final class App
             '/cron/backup-mail' => ['GET' => fn (): Response => (new \Training\Controller\CronController($this))->backupMail($request)],
             '/uebung' => ['GET' => fn (): Response => (new \Training\Controller\ExerciseController($this))->show($request)],
             '/uebungen' => ['GET' => fn (): Response => (new \Training\Controller\ExerciseController($this))->list($request)],
+            '/block' => ['GET' => fn (): Response => (new \Training\Controller\BlockController($this))->handle($request)],
+            '/erinnerung' => ['POST' => fn (): Response => (new \Training\Controller\ReminderController($this))->handle($request)],
             '/verlauf' => ['GET' => fn (): Response => (new \Training\Controller\HistoryController($this))->handle($request)],
             '/intervals' => ['GET' => fn (): Response => (new IntervalsController($this, $this->intervalsTransport))->handle($request), 'POST' => fn (): Response => (new IntervalsController($this, $this->intervalsTransport))->handle($request)],
             '/.well-known/oauth-authorization-server' => ['GET' => fn (): Response => $oauth()->metadata(), 'OPTIONS' => $preflight],
@@ -176,7 +178,9 @@ final class App
 
         $reminder = $client !== null ? (new \Training\Data\SettingsRepository($this->pdo(), $this->clock))->calendarReminder() : null;
 
-        return new \Training\Calendar\CalendarSync($this->pdo(), $this->clock, $client, (string) $config->get('APP_URL'), $this->host(), $this->varDir() . '/calendar-sync.json', $reminder);
+        $tz = $client !== null ? ($this->users()->first()?->tz ?? 'Europe/Berlin') : 'Europe/Berlin';
+
+        return new \Training\Calendar\CalendarSync($this->pdo(), $this->clock, $client, (string) $config->get('APP_URL'), $this->host(), $this->varDir() . '/calendar-sync.json', $reminder, $tz);
     }
 
     /** Linkprüfung des Übungskatalogs (AP-16, E-10/E-18/E-19). */

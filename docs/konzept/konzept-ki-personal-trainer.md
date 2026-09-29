@@ -40,7 +40,7 @@ Ein System, mit dem Claude (im Projekt-Chat) als Personal Trainer fungiert:
 | T1 | Ausdauer | Lauftraining für Trailrunning und Skitouren (bergauf-orientierte Ausdauer) |
 | T2 | Kraft/Haltung | Haltungstraining für den Alltag, allgemeine Kräftigung |
 | T3 | Klettern | Gezieltes Training für Bouldern und Klettern (Fingerkraft, Zugkraft, Technik-Volumen) |
-| T4 | Beweglichkeit/Mobilität | Dehnen (statisch, dynamisch, PNF), Mobility (Kräftigung in Endposition), Faszienrolle, Yoga als Übungsfundus; Schwerpunkt Hüfte in allen Bewegungsrichtungen, dazu Beweglichkeit rund ums Knie; Ganzkörper als Reserve (D-72) |
+| T4 | Beweglichkeit/Mobilität | Dehnen (statisch, dynamisch, PNF), Mobility (Kräftigung in Endposition), Faszienrolle, Yoga als Übungsfundus; Schwerpunkt Hüfte in allen Bewegungsrichtungen, dazu Beweglichkeit rund ums Knie; Ganzkörper als Reserve (D-79) |
 
 Alle vier Bereiche werden in einem gemeinsamen Wochenplan geführt; Priorisierung erfolgt blockweise (Abschnitt 14).
 
@@ -122,6 +122,7 @@ flowchart LR
 | Backups (verschlüsselte DB-Dumps) | Manuell heruntergeladen bzw. per E-Mail beim Athleten; Pre-Migration-Dumps lokal außerhalb Docroot | D-18 |
 | Branding-Dokument | K7 Repo (docs/branding/) | D-19 |
 | Blockplan, Begründungen, Trainerregeln, Wissenskarten | K7 Repo + K5 Projekt-Wissen | Textdokumente |
+| Zielklärung, Revisionen und Blockbilanz je Block (Ziele, Entscheidungen mit verworfenen Alternativen, Bewertung, Kennzahlen) | K3 MySQL (`block_review`, D-72; Zugriff über `get_handover`, `get_block_reviews`, `write_block_review`) | `docs/plaene/` und K5 nur Spiegel; `training_block.doc_ref` optional (AP-15) |
 | Athletenprofil (Ziele, Zeitbudget, Ausrüstung, Einschränkungen, Leistungswerte) | K3 MySQL (`athlete_profile`, D-48; Zugriff über `get_athlete_profile`/`update_athlete_profile`) | Nicht in K6 Memory; nicht mehr als Datei in K7/K5 (vorher D-15) |
 | OAuth-Clients, Auth-Codes, Refresh-Tokens (gehasht), Web-Sessions, Audit-Log der MCP-Schreibzugriffe | K3 MySQL | Access-Tokens sind signierte JWT und werden nicht gespeichert (D-32); Web-Session in `web_session` (D-33) |
 | MCP-Sitzungsdateien des SDK (nur für Clients älterer Protokollrevisionen) | K3 Dateisystem `<Ordner>/var/` | Außerhalb Docroot, vom Deployment nicht berührt (D-17) |
@@ -201,7 +202,14 @@ flowchart LR
 | D-69 | Quellenpflicht im Katalog (E-06): jede Übung trägt `konfidenz` (hoch, mittel, niedrig, einschaetzung) und mindestens eine Quelle (Literatur-, Regel- oder Entscheidungs-ID oder „Einschätzung“). | Entscheidung des Athleten; Begründungsspur wie bei den Trainerregeln (Abschnitt 14). | 2026-09-29 |
 | D-70 | Literatur-Nachsteuerung T1/T3 und HRV: (a) L-T1-01 wird nicht aufgenommen; seine Rolle übernimmt L-A02 über den Verweis L-T1-15 (Kapitelangaben dort), Periodisierung tragen L-P01, L-P02, L-A03 Kap. 22, L-T1-03 und L-T1-08. (b) L-T3-08 wird zurückgestellt; L-T3-19 (Consuegra) ersetzt L-T3-08 im Evidenzkern T3 (ändert D-31/E6): Kern L-T3-01, -02, -03, -06, -19 und L-T3-09 mit der vorhandenen 3. Aufl. 2016; die Neuauflage (angekündigt 02.03.2027) wird nach Erscheinen zusätzlich beschafft. (c) Stufe-C-Quellen T3: L-T3-10 (Ideenfundus), L-T3-20 (Übungsband zu L-T3-10), L-T3-21 (Verletzungsmanagement, Ergänzung zu L-T3-06 und Block R; vorläufig bis zur Bestätigung durch den Athleten) und L-T3-16 (Planungsvorlage, 2. Aufl.); D-31 gilt unverändert (nie alleiniger Beleg für Belastungsparameter). (d) L-P15 (Kern) und L-P16 (optional) sind die Literaturbasis für HRV-gestützte Steuerung (Abschnitt 14 Kap. 4; Baseline in `get_wellness_trend`). | L-T1-01 und L-T3-08 nicht digital erhältlich, Gesamtscan nicht vorgesehen. Abdeckung L-T1-01 am Inhaltsverzeichnis L-A02 geprüft; für L-T3-08 kein gleichwertiges deutschsprachiges Werk digital verfügbar. HRV-Abweichung als Deload-Trigger war ohne Quelle. Bestätigt durch Athlet (Übergabe AP-06 Literatur-Nachsteuerung, dort D-64). Abweichend von der Übergabe (E-3) auf Entscheidung des Athleten 2026-09-29: 3. Aufl. L-T3-09 behalten (lag bereits vor), Übungsband als eigene ID L-T3-20. L-T3-10 lag entgegen der Übergabe als EPUB ohne DRM vor. L-T3-21 wurde ohne Übergabe bereitgestellt; ID und Stufe hat die Code-Instanz analog L-T3-20 vergeben. | 2026-09-29 |
 | D-71 | EPUB als Volltext (ergänzt D-26 und D-51): DRM-freie oder nur wasserzeichengeschützte EPUBs sind zulässig; Kindle und Adobe DRM bleiben ungeeignet. Ablage wie D-51 mit Endung .epub. Kapitel als Markdown in `<ID>_kapitel/` (`<ID>_<Kapitelnr>[-<Teil>]_<Kapiteltitel>.md`); Kapitel über ca. 12 000 Wörter an Abschnittsgrenzen in etwa gleich große Teile. Seitenangaben: Enthält das EPUB eine Seitenliste der Druckausgabe (page-list bzw. pagebreak-Marken), wird die Druckseite zitiert; die Marken stehen im Markdown als „[S. n]“ an der Stelle des Seitenwechsels. Sonst Kapitel und Abschnittsüberschrift. Zusätzlich je Kapiteldatei ein Ansichts-PDF gleichen Namens (aus dem EPUB gerendert, mit Abbildungen); es dient nur zum Betrachten der Abbildungen, seine Seitenzahlen werden nie zitiert. | Mehrere Titel sind nur als E-Book erhältlich; EPUB-Text ist ohne Texterkennung durchsuchbar. Reflowable EPUBs haben keine festen Seiten, daher die Zitierregel (Übergabe AP-06 Literatur-Nachsteuerung, dort D-65). Ansichts-PDF zusätzlich zum Markdown: Der Athlet hat beide Varianten zugelassen und die Abwägung der Code-Instanz überlassen (2026-09-29). Abbildungen tragen Inhalt (Diagramme in L-T3-19 Kap. 10, Übungsfotos in L-T3-10, -20, -21), der im Markdown nur als Bildunterschrift erscheint. L-T3-19 und L-T3-10 haben keine Seitenliste, L-T3-20 und L-T3-21 haben Seitenmarken (geprüft 2026-09-29). | 2026-09-29 |
-| D-72 | Neuer Bereich T4 Beweglichkeit/Mobilität (Tabelle 1.2) mit Literaturblock 13.2.6, IDs L-T4-nn, Wissenskarte `docs/wissen/t4-beweglichkeit.md` (Dateiname Vorschlag); 13.1 erlaubt dafür 4–7 Sammeldateien. Vorgaben des Athleten: Ziele ROM, Wohlbefinden und Verletzungsprävention; alle Hüftrichtungen gleichrangig; Methoden Dehnen (statisch, dynamisch, PNF), Mobility (Kräftigung in Endposition, CARs u. ä.), Faszienrolle, Yoga als Übungsfundus; Knie (Quadrizeps, Hamstrings) mit Verweis auf Block R; eigener Bereich, nicht Teilblock von T2. Teil A (Evidenz und Dosierung) – Kern L-T4-01 bis -06, -08, -10, -12, -14, -16, -17, -19, -22 (Verweise -24 auf L-R-11, -33 auf L-T2-15); optional L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -32. Teil B (Übungsquellen) folgt als eigene Übergabe. Planungsfolgen (in AP-07 als Regeln auszuformulieren, nicht hier entschieden): (a) ROM chronisch mit statischem Dehnen oder PNF, dynamisch nur zur Vorbereitung; (b) Dosis-Richtwert ≥ 5 min je Zielmuskelgruppe und Woche auf möglichst viele Tage verteilt (≥ 2, besser ≥ 5), widersprüchlich belegt – keine harte Schwelle; (c) Kräftigung mit Zusatzlast über den vollen Bewegungsumfang ist gleichwertige ROM-Maßnahme, reine Körpergewichtsübungen zählen nicht als ROM-Maßnahme; (d) Dehnen im Aufwärmen optional, statisch < 60 s je Muskelgruppe mit anschließender dynamischer Aktivität, vor dem Laufen kein Verbot; (e) Dehnen nicht als Verletzungsprävention begründen, Prävention über Kraft und Balance (T2, Block R), Knie-Beweglichkeit nur als Einzelbefund; (f) Dehnen nicht zur Regeneration oder gegen Muskelkater einplanen; (g) ruhige Dehn-/Mobility-Einheiten als Wohlbefindens-Baustein mit Kennzeichnung „schwache Evidenz“; (h) Dehnen nicht zur Haltungskorrektur (D-54 a); (i) Hüftrichtungen einzeln planen, Übertragung der Dosis aus Hamstring-/Wadenstudien als Einschätzung kennzeichnen (D-13); (j) Klettern – Hüftbeweglichkeit bis funktionelles Niveau, Verlauf mit kletterspezifischen Tests (Einschätzung); (k) Blöcke ≤ 4 Wochen – Dehnen statt Faszienrolle für ROM. | Übergabe Literaturblock T4 Teil A (2026-09-29), alle Quellen per PubMed geprüft; vom Athleten am 2026-09-29 bestätigt und zur sofortigen Einarbeitung freigegeben (abweichend von der Übergabe, die die Einarbeitung erst nach Teil B vorsah). Zielzahl der Sammeldateien von 6 auf 7 erhöht, weil T4 ein eigener Bereich ist (bei ca. 13 Dateien schaltet das Projektwissen in den Retrieval-Modus, 13.1). | 2026-09-29 |
+| D-72 | Blockbilanz, Zielklärung und Revision sind Datensätze in der Datenbank (Tabelle `block_review`, AP-15, E-01): Master ist die Datenbank, zugänglich über MCP; `docs/plaene/` und das Projekt-Wissen sind nur Spiegel; `training_block.doc_ref` bleibt optional. | Die planende Instanz arbeitet über MCP; eine Repo-Datei veraltet. Entscheidung des Athleten. | 2026-09-29 |
+| D-73 | Drei Ebenen mit getrennter Funktion (AP-15, E-02/E-03): Revision alle 3–4 Wochen (nur Belastungssteuerung), Blockbilanz am Blockende (Rückblick), Zielklärung vor jedem Block (Ausblick); getrennte Datensätze, typischerweise im selben Chat. Kein fester Kalendertakt: Blockgrenze plus Sicherheitsnetz (Zielklärung fällig, wenn die letzte bestätigte älter als 16 Wochen ist oder ein Trigger eintritt). | Rückblick und Ausblick beantworten verschiedene Fragen; Zielphasen laufen über Monate, die 3–4-Wochen-Revision bleibt für Deload/Schmerz/Ausfall (L-A03, L-P08). Entscheidung des Athleten. | 2026-09-29 |
+| D-74 | Overlay-Erinnerung auf der Webseite (AP-15, E-05/E-14): Ist eine Bilanz oder Zielklärung fällig, zeigt jede Seite nach dem Login ein Overlay, das aktiv weggeklickt werden muss („Morgen wieder erinnern“ bzw. „Diese Woche nicht mehr“); es kommt wieder, bis die Fassung bestätigt ist; abschaltbar in S8; nicht während der geführten Einheit (S9, S10 aus S9), dann unmittelbar danach auf S2 (E-23, Entscheidung des Athleten 2026-09-29). Revisionen erinnern nicht per Overlay oder Kalender (E-07). | Wunsch des Athleten (Erinnerung über mehrere Tage). | 2026-09-29 |
+| D-75 | Kalendertermin für Bilanz und Zielklärung (AP-15, E-06/E-15/E-22): je Block ein Termin am Blockende mit Uhrzeit (Standard 08:00–10:00, Zeitzone des Athleten) und Erinnerung am Vortag (24 h vorher); Beginn, Dauer und Vorlauf der Erinnerung in S8 einstellbar; gelöscht, sobald Bilanz und Zielklärung des Folgeblocks bestätigt sind. | Wunsch des Athleten; Einstellbarkeit sofort statt später (O-05). | 2026-09-29 |
+| D-76 | Übergabe durch Code, nicht durch KI (AP-15, E-08): `get_handover` stellt bei Aufruf deterministisch zusammen (Block, Zielklärung, Bilanzen, Revisionen, Kennzahlen, Wochentexte, Fälligkeiten); Interpretationen stehen nur in den bestätigten Datensätzen; Kennzahlen friert der Server beim Schreiben ein (E-12). Kein Cron. | Eine KI-Zusammenfassung wäre teuer, unbestätigt und entkoppelt von der Bestätigung des Athleten. Entscheidung des Athleten. | 2026-09-29 |
+| D-77 | Entwurf durch KI, Bestätigung im Chat (AP-15, E-09, wie D-11): `write_block_review` schreibt mit Status `entwurf` oder `bestaetigt`; nur bestätigte Fassungen zählen für Übergabe, Fälligkeit, Overlay und Kalender. Wochen nach dem Ende des aktiven Blocks lehnt `write_week_plan` ab, solange kein Folgeblock mit bestätigter Zielklärung existiert (E-19). | Wie Wochenplan und Athletenprofil. Entscheidung des Athleten. | 2026-09-29 |
+| D-78 | Wochentexte in der Übergabe (AP-15, E-21, O-04): `get_handover` liefert `wochen_kurz` – die letzten 4 Wochen bis zur laufenden, je Woche eine Zeile „Wochenbeginn: Kurzsatz“. | Günstiger Kontext ohne zusätzlichen Aufruf von `get_week_overview`. Entscheidung des Athleten (Vorschlag Fable). | 2026-09-29 |
+| D-79 | Neuer Bereich T4 Beweglichkeit/Mobilität (Tabelle 1.2) mit Literaturblock 13.2.6, IDs L-T4-nn, Wissenskarte `docs/wissen/t4-beweglichkeit.md` (Dateiname Vorschlag); 13.1 erlaubt dafür 4–7 Sammeldateien. Vorgaben des Athleten: Ziele ROM, Wohlbefinden und Verletzungsprävention; alle Hüftrichtungen gleichrangig; Methoden Dehnen (statisch, dynamisch, PNF), Mobility (Kräftigung in Endposition, CARs u. ä.), Faszienrolle, Yoga als Übungsfundus; Knie (Quadrizeps, Hamstrings) mit Verweis auf Block R; eigener Bereich, nicht Teilblock von T2. Teil A (Evidenz und Dosierung) – Kern L-T4-01 bis -06, -08, -10, -12, -14, -16, -17, -19, -22 (Verweise -24 auf L-R-11, -33 auf L-T2-15); optional L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -32. Teil B (Übungsquellen) folgt als eigene Übergabe. Planungsfolgen (in AP-07 als Regeln auszuformulieren, nicht hier entschieden): (a) ROM chronisch mit statischem Dehnen oder PNF, dynamisch nur zur Vorbereitung; (b) Dosis-Richtwert ≥ 5 min je Zielmuskelgruppe und Woche auf möglichst viele Tage verteilt (≥ 2, besser ≥ 5), widersprüchlich belegt – keine harte Schwelle; (c) Kräftigung mit Zusatzlast über den vollen Bewegungsumfang ist gleichwertige ROM-Maßnahme, reine Körpergewichtsübungen zählen nicht als ROM-Maßnahme; (d) Dehnen im Aufwärmen optional, statisch < 60 s je Muskelgruppe mit anschließender dynamischer Aktivität, vor dem Laufen kein Verbot; (e) Dehnen nicht als Verletzungsprävention begründen, Prävention über Kraft und Balance (T2, Block R), Knie-Beweglichkeit nur als Einzelbefund; (f) Dehnen nicht zur Regeneration oder gegen Muskelkater einplanen; (g) ruhige Dehn-/Mobility-Einheiten als Wohlbefindens-Baustein mit Kennzeichnung „schwache Evidenz“; (h) Dehnen nicht zur Haltungskorrektur (D-54 a); (i) Hüftrichtungen einzeln planen, Übertragung der Dosis aus Hamstring-/Wadenstudien als Einschätzung kennzeichnen (D-13); (j) Klettern – Hüftbeweglichkeit bis funktionelles Niveau, Verlauf mit kletterspezifischen Tests (Einschätzung); (k) Blöcke ≤ 4 Wochen – Dehnen statt Faszienrolle für ROM. | Übergabe Literaturblock T4 Teil A (2026-09-29), alle Quellen per PubMed geprüft; vom Athleten am 2026-09-29 bestätigt und zur sofortigen Einarbeitung freigegeben (abweichend von der Übergabe, die die Einarbeitung erst nach Teil B vorsah). Zielzahl der Sammeldateien von 6 auf 7 erhöht, weil T4 ein eigener Bereich ist (bei ca. 13 Dateien schaltet das Projektwissen in den Retrieval-Modus, 13.1). | 2026-09-29 |
 
 # 5. Offene Fragen und Verifikationen
 
@@ -225,7 +233,7 @@ flowchart LR
 | Q-14 | Welche Lama-Variante als App-Icon, Favicon und App-Kennung (Topbar, Navigation, Login)? Mockup `docs/branding/mockups/icon-optionen.html` mit V1 Linie auf Papier, V2 Fläche auf Papier, V3 Fläche hell auf Pflaume 600, V4 Linie hell auf Pflaume 800, V5 Kopf (bisher). | Empfehlung Fable: V3 als App-Icon (Android/iOS, maskable), V2 als Favicon 16/32 px und App-Kennung. Mischung oder eine Variante überall möglich. AP-13 Teil A wartet auf die Wahl. | entschieden → D-59 (2026-09-28) |
 | Q-15 | Laufprogression als Regel je Einheit statt als Wochenprozent? Vorschlag laut L-R-24 – Einzellauf höchstens 10 % länger als der längste Lauf der letzten 30 Tage; Wochenumfang nur noch als grobe Leitplanke. Automatische Prüfung aus Intervals.icu-/Garmin-Daten in der WebApp (Hinweis bei Planung oder nach Import)? | Regel in AP-07 übernehmen (mit Kennzeichnung „explorativer Kohortenbefund“); automatische Prüfung als Kandidat für AP-09 bzw. eigenes Arbeitspaket, Entscheidung durch Athlet. Einschätzung: Garmin-Streckendaten liegen bereits vor, Aufwand gering. (Teil C: Q-10) | offen (AP-07 Regel, AP-09 Automatik) |
 | Q-16 | Orthese oder Tape beim Trailrunning (und ggf. weiteren Sportarten mit Umknickrisiko) als Rezidivschutz zusätzlich zum Balancetraining? | In AP-07 als Option aufnehmen; L-R-26 bewertet die Evidenz für Orthesen zur Rezidivprophylaxe als stark. Entscheidung durch Athlet; Details (Orthesentyp, Einsatzbereich) am Volltext L-R-13/L-R-26 prüfen. (Teil C: Q-11) | offen (AP-07) |
-| Q-17 | Bereichskennung und ID-Präfix für Beweglichkeit/Mobilität | T4 „Beweglichkeit/Mobilität“ in Tabelle 1.2, IDs `L-T4-nn` | entschieden → D-72 (2026-09-29) |
+| Q-17 | Bereichskennung und ID-Präfix für Beweglichkeit/Mobilität | T4 „Beweglichkeit/Mobilität“ in Tabelle 1.2, IDs `L-T4-nn` | entschieden → D-79 (2026-09-29) |
 | Q-18 | Wie wird T4 im Wochenplan geführt: eigene Einheiten (Typ `mobilitaet`, D-39) oder als Block in Kraft-/Klettereinheiten? | Beides zulassen; Entscheidung in AP-07 | offen |
 | Q-19 | Dehnintensität in Plan/Rückmeldung erfassen? | Nur subjektiv (z. B. Hinweis „deutlich spürbar, nicht schmerzhaft“), kein neues Pflichtfeld (L-T4-30) | offen |
 | Q-20 | Verlaufsmessung Hüft-ROM (AP-08) | Tests aus L-T4-26 prüfen, ergänzt um einfache Heimtests; eigene Recherche nötig | offen |
@@ -261,14 +269,15 @@ flowchart LR
 
 # 6. Betriebsablauf (Wochenzyklus)
 
-1. **Blockplan** (8–16 Wochen): Phasen, Prioritäten je Bereich T1–T4, Zielevents, Begründung mit Quellen. Erarbeitet im Projekt-Chat, vom Athleten bestätigt, abgelegt in `docs/plaene/block-<nr>.md` und im Projekt-Wissen.
-2. **Wochenplanung** (Chat, typischerweise Sonntag): Claude ruft `get_week_overview` (Vorwoche), `get_wellness_trend`, `get_pain_history`; liest Blockplan, Trainerregeln und das Athletenprofil (`get_athlete_profile`); erstellt Wochenvorschlag mit Begründung im Chat.
+1. **Blockplan** (8–16 Wochen): Phasen, Prioritäten je Bereich T1–T4, Zielevents, Begründung mit Quellen. Erarbeitet im Projekt-Chat, vom Athleten bestätigt, begründet durch die Zielklärung in der Datenbank (AP-15, D-72); `docs/plaene/` und das Projekt-Wissen sind nur Spiegel.
+2. **Wochenplanung** (Chat, typischerweise Sonntag): Claude ruft **zuerst `get_handover`** (AP-15, D-76), dann `get_week_overview` (Vorwoche), `get_wellness_trend`, `get_pain_history`, `get_athlete_profile`; liest Trainerregeln; meldet Fälligkeiten (Bilanz, Zielklärung, Revision) dem Athleten, bevor ein Wochenvorschlag mit Begründung im Chat entsteht.
 3. **Bestätigung**: Athlet bestätigt oder ändert im Chat (D-11).
 4. **Schreiben**: Claude ruft `write_week_plan`. Server legt Einheiten in MySQL an; Ausdauereinheiten zusätzlich als Events in Intervals.icu (Workout-Syntax); Event-IDs werden gespeichert; Audit-Log-Eintrag.
 5. **Sync**: Intervals.icu überträgt Ausdauer-Workouts an Garmin Connect; nach Sync der Uhr sind sie dort sichtbar.
 6. **Ausführung**: Ausdauer über die Uhr; Kraft/Klettern/Haltung über Webseite (Einheit öffnen, Ist-Werte eintragen).
 7. **Feedback**: Nach jeder Einheit auf der Webseite (RPE, Feel, Schmerz, Abweichung, Notiz); täglich Check-in (D-16).
-8. **Rückkopplung**: nächster Chat → Schritt 2. Blockplan-Revision alle 3–4 Wochen oder bei Schmerzereignis/Ausfall (Trigger in Abschnitt 14).
+8. **Rückkopplung**: nächster Chat → Schritt 2. **Revision** alle 3–4 Wochen oder bei Schmerzereignis/Ausfall (Trigger in Abschnitt 14): Ergebnis als `write_block_review(kind: revision)` (AP-15, D-73).
+9. **Blockwechsel** (ab Fälligkeit, spätestens am Blockende; AP-15, D-73/D-77): (a) Bilanz im Chat erarbeiten – Claude ruft `get_handover(detail: true)` und `get_block_reviews`, schlägt die Bewertung je Ziel vor, Athlet bestätigt → `write_block_review(kind: bilanz, status: bestaetigt)`; (b) Zielklärung – Fragen aus dem Schema (`docs/konzept/blockbilanz.md` 4.3) der Reihe nach, Entscheidungen mit verworfenen Alternativen protokollieren, Athlet bestätigt; (c) `upsert_block` für den Folgeblock (Status `geplant`), dann `write_block_review(kind: zielklaerung)` für diesen Block; (d) Athletenprofil abgleichen (`update_athlete_profile`, wenn sich die Ausgangslage geändert hat); (e) erste Woche nach Schritt 2–4. Wochen nach dem Blockende lehnt `write_week_plan` bis dahin ab.
 
 Ad-hoc-Anpassung unter der Woche: Athlet meldet sich im Chat; Claude ruft `get_week_overview` (laufende Woche) und schreibt Änderungen per `update_session` nach Bestätigung.
 
@@ -297,6 +306,8 @@ Feldtypen sind konzeptionell. Die konkreten Migrationen entstehen in zwei Schrit
 | `exercise` | id, slug (eindeutig, unveränderlich), name, name_norm (eindeutig), category(`kraft`,`haltung`,`mobilitaet`,`hangboard`,`campus`,`zugkraft`,`antagonisten`), pattern (13 Bewegungsmuster), equipment_json, variant_of(null), difficulty(1–5, null), status(`aktiv`,`links_pruefen`,`archiviert`), konfidenz(`hoch`,`mittel`,`niedrig`,`einschaetzung`), content_json (Schema `exercise.json`), version, created_by, created_at, updated_at | Übungskatalog (D-64 bis D-69); keine Löschfunktion; AP-16 |
 | `exercise_alias` | exercise_id, alias, alias_norm (eindeutig über alle Übungen) | Duplikatschutz und Suche (E-09); AP-16 |
 | `exercise_version` | id, exercise_id, version, snapshot_json, reason, created_by, created_at | Schnappschuss vor jeder Änderung (E-07); AP-16 |
+| `block_review` | id, block_id, kind(`revision`,`bilanz`,`zielklaerung`), sequence, version, status(`entwurf`,`bestaetigt`), review_date, period_start, period_end, summary, content_json (Schema je Art, `server/schemas/review-<kind>.json`), kennzahlen_auto (vom Server), reason, created_by(`mcp`,`web`), created_at, confirmed_at | Revision, Blockbilanz, Zielklärung mit Fassungen (D-72); gültig je (block_id, kind, sequence) die jüngste bestätigte Fassung; Bilanz/Zielklärung nur sequence 1; Block mit Reviews nicht löschbar; AP-15 |
+| `app_setting` | setting_key, value, updated_at | Einstellungen (D-52): `calendar_reminder`, `checkin_hand_rechts_bis`, `timer_ton`, Fassungen `kalender_tag_<Datum>`; AP-15: `bilanz_vorlauf_tage` (7), `zielklaerung_vorlauf_tage` (14), `review_overlay` (an/aus), `erinnerung_<kind>_<block_id>` (Tag, ab dem das Overlay wieder erscheint), `kalender_block_beginn` (08:00), `kalender_block_dauer_min` (120), `kalender_block_erinnerung_h` (24), Fassung `kalender_block_<id>` |
 
 ## 7.1 `plan_json` / `actual_json` (Schema je Typ)
 
@@ -361,13 +372,16 @@ Zuordnung der übrigen Typen (D-39): `mobilitaet` nutzt das Schema `kraft_oder_h
 | `get_session_detail` | session_id | plan_json, actual_json, Feedback, Notizen, coach_summary, coach_rationale (D-56) | nein |
 | `get_pain_history` | days (default 56) | je Ort: Ereignisse (Datum, Intensität, Timing), 7-Tage-Trend | nein |
 | `get_wellness_trend` | days (default 28) | tageweise: HRV, Ruhepuls, Schlaf (h, Score), Check-in-Werte; 7d-vs-28d-Baseline für HRV/Ruhepuls | nein |
-| `get_block` | block_id (optional) | aktiver Block, Wochenstatus, Phase | nein |
-| `write_week_plan` | week_start, sessions[], replace_existing(bool), focus (Pflicht, D-56), coach_notes | angelegte Session-IDs, Intervals.icu-Event-IDs, Fehler je Session; je Session `coach_summary` Pflicht außer `ruhe`, `coach_rationale` optional (D-56) | ja (DB + Intervals.icu) |
+| `get_block` | block_id (optional) | aktiver Block, Wochenstatus, Phase; Kurzliste der Reviews und Fälligkeiten des Blocks (AP-15) | nein |
+| `write_week_plan` | week_start, sessions[], replace_existing(bool), focus (Pflicht, D-56), coach_notes | angelegte Session-IDs, Intervals.icu-Event-IDs, Fehler je Session; je Session `coach_summary` Pflicht außer `ruhe`, `coach_rationale` optional (D-56); Wochen nach dem Ende des aktiven Blocks ohne Folgeblock mit bestätigter Zielklärung → Fehler `blockwechsel_erforderlich` mit Fälligkeiten, sonst `faellig` in der Antwort (AP-15) | ja (DB + Intervals.icu) |
 | `update_session` | session_id, changes (inkl. coach_summary, coach_rationale; D-56) | aktualisierte Session; bei Ausdauer auch Event-Update | ja |
 | `get_morning_checks` (D-53) | days (Standard 14, 7–90) | Zusammenfassung für heute (Ampel mit Grund, Morgentest links/rechts/Steuerwert, Wochenausgangswert, Vortagseinheiten, grüne Tage und Abdeckung der letzten 7 Tage, abklaerung_empfohlen) und je Tag alle Felder und Ableitungen, neueste zuerst; Format `docs/konzept/morgen-checkin.md` 6.1 | nein |
 | `get_athlete_profile` (D-48) | section, as_of, include_history (alle optional) | Abschnitte (Markdown) mit Stand, Urheber, Grund und Anzahl Fassungen; mit as_of der Stand am Ende dieses Tages; mit include_history die Fassungen eines Abschnitts (höchstens 20) | nein |
 | `update_athlete_profile` (D-48) | section, content (vollständiger Abschnitt), reason (optional) | Version; `unveraendert`, wenn der Text gleich ist | ja (neue Fassung) |
-| `upsert_block` (D-40) | block_id (optional), block {name, start_date, end_date, status, goal_events, phase_notes, doc_ref} | Block-ID | ja |
+| `upsert_block` (D-40) | block_id (optional), block {name, start_date, end_date, status, goal_events, phase_notes, doc_ref} | Block-ID; Fälligkeiten des Blocks, `zielklaerung_fehlt`; Blocktermin im Kalender (AP-15) | ja |
+| `get_handover` (AP-15, D-76) | detail (bool) | Pflichtaufruf zu Beginn jeder Planungssitzung: aktiver Block, gültige Zielklärung (Phase, Prioritäten, Ziele, Entscheidungen, Risiken), zwei jüngste Bilanzen, Revisionen des Blocks, Kennzahlen der letzten 4 Wochen gegen das Blockmittel, `wochen_kurz` (D-78), `faellig`, offene Fragen, Stand je Profilabschnitt, offene Entwürfe; mit detail die Volltexte der jüngsten Zielklärung und Bilanz | nein |
+| `get_block_reviews` (AP-15) | block_id (optional = aktiver), kind, fassungen | gültige Fassungen mit content_json und kennzahlen_auto (neuerer Entwurf markiert); mit fassungen alle Versionen mit reason | nein |
+| `write_block_review` (AP-15, D-77) | block_id, kind, sequence (nur Revision), review_date, period_start/period_end, summary, content, status (`entwurf`/`bestaetigt`), reason (ab Fassung 2 Pflicht) | id, version, status, Kennzahlen (Kurzform), `faellig`; Schemafehler mit Pfad, nichts geschrieben; Zielklärung nur für Blöcke geplant/aktiv; Kalendertermin nachgezogen | ja (neue Fassung) |
 | `find_exercise` (AP-16) | query, category, pattern, equipment, limit, include_archived | Treffer nach Rang (exakt, Teilstring, ähnlich über das Bewegungsmuster) kompakt: slug, name, category, pattern, equipment, konfidenz, kurz, variant_of; status nur wenn nicht aktiv, aehnlich nur wenn true; leer → Hinweis auf `upsert_exercise` | nein |
 | `get_exercise` (AP-16) | slug oder id, fassungen, version | vollständiger Eintrag mit Aliasen, Varianten, Inhalt und Linkstatus; Fassungen bzw. früherer Stand | nein |
 | `list_exercises` (AP-16) | category, status | Kompaktliste slug, name, category, pattern (ohne status ohne archivierte) | nein |
@@ -383,6 +397,7 @@ Rechte (AP-05): Lese-Tools verlangen den Scope `training:read`, Schreib-Tools `t
 
 - Jede Tool-Antwort ≤ ca. 3 000 Tokens; `get_week_overview` Ziel ≤ 2 000.
 - Übungskatalog (AP-16, E-16): `find_exercise` ≤ 1 000, `get_exercise` ≤ 1 500 für typische Einträge (die Schemagrenzen erlauben mehr), `list_exercises` ≤ 2 000.
+- Übergabe (AP-15, E-17): `get_handover` ohne detail ≤ 2 000 Tokens (Prüfgrenze 8 000 Zeichen; bei Bedarf stufenweise gekürzt, Feld `gekuerzt`), mit detail ≤ 8 000 Tokens; `get_block_reviews` je Datensatz content_json ≤ 1 500 Tokens, sonst Kurzsatz mit Hinweis.
 - Keine Streams, keine Rohlisten über 60 Einträge; bei Bedarf Paginierung über `days`/`week_start`.
 - Zahlen gerundet (Dauer min, Distanz 0,1 km, Höhenmeter 10 m).
 
@@ -407,19 +422,21 @@ Anforderung Gestaltung: Alle Screens sind **mobil- und tabletfreundlich** (Smart
 |---|---|---|
 | S0 Setup (einmalig) | Anlage des einzigen Benutzers, nur solange kein Benutzer existiert (D-34) | `MIGRATION_SECRET`, Login, Passwort (2×), Zeitzone |
 | S1 Login | Passwort (D-33), Session 30 Tage; Hinweis bei gesperrtem Konto | Login, Passwort; Abmelden (widerruft die Web-Session) |
-| S2 Woche | 7 Tage, je Tag Einheiten (Typ-Icon, Titel, Dauer, Status); heutiger Tag hervorgehoben; Check-in-Status pro Tag; Navigation ±Woche; Wochensumme sRPE; Kurzsatz der Woche mit „mehr“ unter der Kopfzeile (D-56) | Einheit öffnen; Check-in öffnen |
+| S2 Woche | 7 Tage, je Tag Einheiten (Typ-Icon, Titel, Dauer, Status); heutiger Tag hervorgehoben; Check-in-Status pro Tag; Navigation ±Woche; Wochensumme sRPE; Kurzsatz der Woche mit „mehr“ unter der Kopfzeile (D-56); Karte „Block“ unter dem Morgen-Check-in mit Restlaufzeit und Fälligkeiten (AP-15) | Einheit öffnen; Check-in öffnen |
 | S3 Einheit | Kurzsatz der Planung mit „mehr“ (D-56); Knopf „Einheit starten“ → S9 (D-57); Plan (Übungen/Blöcke mit Soll), Ist-Eingabe pro Übung (vorbelegt mit Soll), Feedback-Block | RPE 0–10; Feel 1–5; Schmerz ja/nein → Ort, Seite, Stärke, Timing; Abweichungsgrund; Notiz; Status setzen (erledigt/teilweise/ausgelassen/verschoben); bei Ausdauer: verknüpfte Intervals.icu-Aktivität anzeigen |
 | S4 Check-in | Tagesformular vor dem Frühstück mit Morgentest (D-53); Formular bzw. Zusammenfassung mit Ampel auch als Karte oben in S2 | Morgentest links/rechts 0–10, Erholung 1–5, Muskelkater 1–5; unter „Weitere Angaben“ Nacken/BWS, Sprunggelenk links, Hand rechts, Warnzeichen, Schmerz ja/nein (→ S5-Kurzform), Notiz optional |
 | S5 Schmerz | Kurzformular | Ort (Enum 7.2), Seite, 0–10, Timing, Notiz |
-| S6 Verlauf (optional, AP-09) | Schmerz je Ort über 8 Wochen; sRPE-Wochenlast je Typ | |
+| S6 Verlauf (optional, AP-09) | Schmerz je Ort über 8 Wochen; sRPE-Wochenlast je Typ; Abschnitt „Blöcke“ mit Status, Fälligkeiten und Link auf S11 (AP-15) | |
 | S7 OAuth-Freigabe | Freigabeseite im Authorize-Schritt (D-36): zeigt Client-Name, Redirect-Host und angeforderten Scope | Freigeben / Ablehnen |
 | Profil (AP-09, D-48) | Athletenprofil je Abschnitt mit Stand und Urheber; Bearbeiten je Abschnitt; frühere Fassungen | Abschnitt bearbeiten (Text, Grund); Fassungen ansehen |
-| S8 Einstellungen | Athletenprofil (Link), Übungskatalog (Link, Hinweis auf Übungen mit defekten Links, AP-16), Konto (Abmelden, Zeitzone, Passwort, Passkeys, Morgen-Check-in), Training (Timer-Signale an/aus, D-58), Backup (Download, JSON-Export, E-Mail-Status), Update (Schemastand, Migration), Verbindungen (Intervals.icu, Spiegel, Kalender mit Erinnerung, freigegebene OAuth-Clients, statisches Token) | Abmelden; Timer-Signale speichern; Backup herunterladen; Migration ausführen; Freigabe widerrufen |
+| S8 Einstellungen | Athletenprofil (Link), Übungskatalog (Link, Hinweis auf Übungen mit defekten Links, AP-16), Konto (Abmelden, Zeitzone, Passwort, Passkeys, Morgen-Check-in), Training (Timer-Signale an/aus, D-58; Blockbilanz und Zielklärung: Erinnerung an/aus, Vorlauf Bilanz/Zielklärung, Beginn/Dauer/Erinnerung des Blocktermins, AP-15), Backup (Download, JSON-Export, E-Mail-Status), Update (Schemastand, Migration), Verbindungen (Intervals.icu, Spiegel, Kalender mit Erinnerung, freigegebene OAuth-Clients, statisches Token) | Abmelden; Timer-Signale speichern; Backup herunterladen; Migration ausführen; Freigabe widerrufen |
 | S9 Einheit geführt (AP-14, D-57/D-58) | Schrittweise Führung durch eine Einheit: Fortschritt, aktuelle Übung mit Satz, Soll und Timer (Arbeit grün, Pause rot), Ist-Felder der Übung, „Als Nächstes“, Abschluss mit Rückmeldung wie S3; Stummschalter in der Kopfzeile; Link „Ausführung“ auf S10 (AP-16, Rückkehr ohne Rückfrage) | Start/Anhalten/Pause beenden/Satz erledigt/Weiter/Zurück/Überspringen; Speichern (wie S3) |
 | S10 Übung (AP-16, D-64/D-67) | Katalogeintrag: Kategorie, Muster, Ausrüstung, Konfidenz; Kurz/Ziel, Voraussetzung, Ausführung, Worauf achten, Fehlerquellen, Vorsicht, Progression/Regression mit Varianten, Dosierungshinweis, eingebettete Videos (YouTube-nocookie, Vimeo) mit Link, Links mit Prüfstatus, Quellen, Fassungen; offline mit Link statt Video | nur lesen (Bearbeiten über den Chat, O-01); aus S3 (Übungsname), S9 („Ausführung“), Kalender und S10a |
 | S10a Übungskatalog (AP-16) | Liste der Übungen als Karten mit Status | Suche, Filter Kategorie, archivierte zeigen |
+| S11 Block (AP-15, D-72/D-74) | Block mit Status, Zeitraum, Restlaufzeit und Fälligkeiten; Zielklärung (Ausgangslage, Phase, Prioritäten, Ziele, Zielevents, Entscheidungen als Tabelle mit verworfenen Alternativen, Risiken, Ableitung, offene Fragen); Revisionen als Zeitleiste; Bilanz (Ziel/Soll/Ist/Bewertung, Tests, geänderte Annahmen, Empfehlung, eingefrorene Kennzahlen); Fassungen je Datensatz; weitere Blöcke | nur lesen (O-01 im Auftrag); aus S2-Karte, S6, Overlay und Kalendertermin |
+| Overlay Erinnerung (AP-15, D-74) | auf allen Seiten nach dem Login (nicht S0, S1, S7 und nicht während der geführten Einheit S9 bzw. S10 aus S9 – dann nach dem Abschluss auf S2), solange Bilanz oder Zielklärung fällig und nicht quittiert: Karte mit Grund und Link auf S11, Seite dahinter gesperrt | „Morgen wieder erinnern“ (Fokus), „Diese Woche nicht mehr“ (`POST /erinnerung`, offline gepuffert) |
 
-Screens S0, S1 und S7 entstehen in AP-01, S2–S5 und S8 in AP-04 (Backup/Update-Funktionen in S8 aus AP-10), S6 und Profil in AP-09; Mockups in AP-01a (Profil ohne Mockup, aus vorhandenen Bausteinen – branding.md Abschnitt 8); S9 in AP-14 mit Mockup `s9-einheit-gefuehrt.html` (Fable, 2026-09-28), Anpassungen S2/S3/S8 in AP-13/AP-14; S10/S10a in AP-16 mit Mockups `s10-uebung.html`, `s10a-uebungen.html` (Code-Instanz aus vorhandenen Bausteinen), Anpassungen S3/S8/S9.
+Screens S0, S1 und S7 entstehen in AP-01, S2–S5 und S8 in AP-04 (Backup/Update-Funktionen in S8 aus AP-10), S6 und Profil in AP-09; Mockups in AP-01a (Profil ohne Mockup, aus vorhandenen Bausteinen – branding.md Abschnitt 8); S9 in AP-14 mit Mockup `s9-einheit-gefuehrt.html` (Fable, 2026-09-28), Anpassungen S2/S3/S8 in AP-13/AP-14; S10/S10a in AP-16 mit Mockups `s10-uebung.html`, `s10a-uebungen.html` (Code-Instanz aus vorhandenen Bausteinen), Anpassungen S3/S8/S9. S11 und das Overlay in AP-15 mit Mockup `s11-block.html` bzw. `s2-woche.html?state=erinnerung` (Code-Instanz aus vorhandenen Bausteinen), Anpassungen S2/S6/S8.
 
 # 11. Feedback- und Check-in-Definitionen
 
@@ -460,7 +477,7 @@ Regeln für fehlende Daten:
 - Aufbau: Kernaussagen (je mit Quellenverweis) → Zahlen/Protokolle → Anwendung im Plan → Grenzen/Widersprüche in der Literatur.
 - PubMed-Workflow: Bei Entscheidungen, die eine Primärquelle brauchen, Abfrage über den PubMed-Connector im Projekt-Chat; DOI in die Karte übernehmen.
 - Zitierregel D-13 gilt in jedem Chat.
-- Bündelung und Budget: Projektwissen wird vollständig in jeden Chat geladen, solange es unter dem Kontextlimit bleibt; darüber (und beobachtet bereits ab etwa 13 Dateien) schaltet das Projekt in den Retrieval-Modus, in dem nur gefundene Passagen sichtbar sind. Daher: wenige Sammeldateien (je Bereich T1–T4 plus übergreifend und R, 4–7 Dateien; 7 seit D-72) statt vieler Einzelkarten; Gesamtbudget des Projektwissens inkl. Regeln, Profil und aktuellem Blockplan unter ca. 40 000 Tokens halten.
+- Bündelung und Budget: Projektwissen wird vollständig in jeden Chat geladen, solange es unter dem Kontextlimit bleibt; darüber (und beobachtet bereits ab etwa 13 Dateien) schaltet das Projekt in den Retrieval-Modus, in dem nur gefundene Passagen sichtbar sind. Daher: wenige Sammeldateien (je Bereich T1–T4 plus übergreifend und R, 4–7 Dateien; 7 seit D-79) statt vieler Einzelkarten; Gesamtbudget des Projektwissens inkl. Regeln, Profil und aktuellem Blockplan unter ca. 40 000 Tokens halten.
 - Erstellungsprozess (in eigenen Sitzungen, nicht im Trainingsprojekt): (1) PDF kapitelweise aufteilen (20–40 Seiten; für die vorhandenen Bücher erledigt, `docs/literatur/<block>/<ID>_kapitel/`, D-51); EPUB kapitelweise als Markdown mit Ansichts-PDF (D-71); (2) Extraktion je Kapitel mit Template und Regeln: nur Textinhalt, Seitenzahl je Aussage, Zahlen exakt mit Einheit, Modellschlüsse markiert, Lücken des Kapitels aufgelistet; (3) Prüfung: 3–5 Aussagen je Karte gegen das PDF, dann `konfidenz` setzen; (4) Synthesekarte je Thema über alle Quellen mit Widersprüchen und geltender Regel (Vorarbeit AP-07); (5) Ablage in `docs/wissen/`, Spiegelung ins Projektwissen. PDFs liegen lokal und dürfen zusätzlich im privaten Repo unter `docs/literatur/` liegen (D-31), nie im Projektwissen.
 
 ## 13.2 Literaturkandidaten und -auswahl (AP-06)
@@ -469,7 +486,7 @@ Literatur wird blockweise ausgewählt (ein Block je Bereich), in eigenen Sitzung
 
 ID-Konvention:
 - übergreifend: `L-A<nn>` Bücher, `L-P<nn>` Paper
-- Bereiche: `L-T1-<nn>` (Ausdauer), `L-T2-<nn>` (Kraft/Haltung), `L-T3-<nn>` (Klettern), `L-T4-<nn>` (Beweglichkeit/Mobilität, D-72), `L-R-<nn>` (Reha/Prävention, themenübergreifend, D-61); der Quellentyp steht im Feld `typ`
+- Bereiche: `L-T1-<nn>` (Ausdauer), `L-T2-<nn>` (Kraft/Haltung), `L-T3-<nn>` (Klettern), `L-T4-<nn>` (Beweglichkeit/Mobilität, D-79), `L-R-<nn>` (Reha/Prävention, themenübergreifend, D-61); der Quellentyp steht im Feld `typ`
 - Verweise auf einen Eintrag eines anderen Blocks: eigenes `id` mit `status: verweis` und Feld `verweis: <id>`, nie eine zweite Definition
 
 Statuswerte: `kandidat` (unverifiziert) · `verifiziert` (bibliografisch bzw. PubMed) · `vorgeschlagen` (von der Sitzung empfohlen, vom Athleten noch nicht bestätigt) · `ausgewaehlt` (vom Athleten bestätigt) · `optional` · `zurueckgestellt` · `verweis` · `nicht_aufgenommen`
@@ -1857,7 +1874,7 @@ Laufumfang und Verletzungsrisiko:
 
 Themenfeld-Vokabular R (für Karten und Datenmodell): patellasehne, progressive_belastung, hsr, lastdosierung, trainingsfrequenz, isometrie, erstlinie, methodenvergleich, evidenzgrenzen, prognose, risikofaktoren, dorsalextension, blutflussrestriktion, messinstrument, visa_p, mcid, sprunggelenk, rezidivprophylaxe, dosierung, geraete, unterlage, propriozeption, kraeftigung, balance, aufgabenspezifitaet, befunderhebung, orthese, leitlinie, laufumfang, verletzungsrisiko, belastungssteuerung.
 
-### 13.2.6 T4 Beweglichkeit/Mobilität (Teil A bestätigt 2026-09-29, D-72)
+### 13.2.6 T4 Beweglichkeit/Mobilität (Teil A bestätigt 2026-09-29, D-79)
 
 Eigener Bereich (Tabelle 1.2) mit Schwerpunkt Hüftmobilität in allen Bewegungsrichtungen, Beweglichkeit rund ums Knie (Verweis Block R) und Ganzkörper als Reserve. Teil A (Evidenz und Dosierung) ist eingearbeitet; Teil B (Übungsquellen – Bücher, Yoga, Mobility-Systeme, Klettern; Formatprüfung D-26/V-13) folgt als eigene Übergabe mit den nächsten freien Nummern ab L-T4-34. Alle Quellen per PubMed geprüft (Literatur-Sitzung T4 Teil A).
 
@@ -2441,7 +2458,7 @@ Formatprüfung je Titel vor dem Kauf (V-13). EPUB ohne DRM ist zulässig (D-71).
 | 2 | T2 | L-T2-20 Pelland 2026, L-T2-21 Robinson 2024 (Sports Med), L-T2-26 Monserdà-Vilaró 2023 (JSCR) | Artikel | PDF | nicht in PMC → Bibliothekszugang | L-T2-20, L-T2-21 ✓; L-T2-26 offen |
 | frei | T2 | L-T2-22 Refalo 2023, L-T2-23 Lopez 2021 (mit Corrigendum), L-T2-24 Lopes 2019 (mit Corrigendum), L-T2-25 Lundberg 2022 | – | PDF aus PMC | L-T2-24 CC BY-NC 4.0; übrige ohne Lizenzangabe → vor Ablage im Repo prüfen (D-31) | offen |
 | bei Bedarf | T2 | L-T2-27 bis L-T2-32 | Artikel | PDF | optional; L-T2-30 in PMC | – |
-| 2 | T4 | L-T4-05 Thomas 2018 (IJSM), L-T4-06 Behm 2016 (APNM), L-T4-14 Lauersen 2014 (BJSM), L-T4-17 Behm 2026 (EJAP), L-T4-19 Winters 2004 (Phys Ther), L-T4-22 Witvrouw 2001 (AJSM) | Artikel | PDF | nicht in PMC → Bibliothekszugang (D-72) | offen |
+| 2 | T4 | L-T4-05 Thomas 2018 (IJSM), L-T4-06 Behm 2016 (APNM), L-T4-14 Lauersen 2014 (BJSM), L-T4-17 Behm 2026 (EJAP), L-T4-19 Winters 2004 (Phys Ther), L-T4-22 Witvrouw 2001 (AJSM) | Artikel | PDF | nicht in PMC → Bibliothekszugang (D-79) | offen |
 | 2 | T4 | L-T4-16 Herbert 2011 (Cochrane) | Artikel | PDF | Abstract frei, Volltext Cochrane Library | offen |
 | frei | T4 | L-T4-01, -02, -03, -04, -08, -10, -12 | – | PDF aus PMC | Lizenzen vor Ablage prüfen (V-20) | offen |
 | bei Bedarf | T4 | L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -31 | Artikel | PDF | optional; in PMC: -07, -09, -11, -15, -18, -21, -27 bis -30; L-T4-31 ggf. frei beim Verlag | – |
@@ -2463,10 +2480,11 @@ Vorgesehene Kapitel:
 7. Schreibregel D-11 (nur nach Bestätigung).
 8. Zonenmodell: Abbildung des Drei-Zonen-Modells (LT1/LT2) auf die fünf Garmin-Zonen (%LTHR), Grenzwerte, Umgang mit nur einer Schwelle auf der Uhr (D-27). Kletterregeln tragen die Kennzeichnung „Evidenz: begrenzt“ (13.2.4).
 9. Übungskatalog (AP-16, D-64 bis D-69): R-UEB-10 bis R-UEB-14 – `find_exercise` vor jeder Planung, Anlage nach Bestätigung mit `hinweis_chat`, Quellen- und Konfidenzpflicht, keine erfundenen Links, Vorsicht mit Reha-Regel und Schmerzgrenze, die Einheit beschreibt nur die Dosierung. Als Vorabkapitel in `docs/regeln/trainerregeln.md` (Wortlaut aus `docs/konzept/uebungskatalog.md` Abschnitt 8); AP-07 übernimmt es beim Ausformulieren.
+10. Übergabe, Revision, Bilanz und Zielklärung (AP-15, D-72 bis D-78): R-UEB-01 bis R-UEB-06 – jede Planungssitzung beginnt mit `get_handover`, Fälligkeiten vor dem Wochenvorschlag nennen; Zielklärung nie ohne den Athleten, jede Entscheidung mit mindestens einer verworfenen Alternative oder „keine“; die Bilanz bewertet jedes Ziel („nicht bewertbar“ mit Grund); Änderungen an Trainerregeln nur aus einer Bilanz oder einem Schmerzereignis; Revisionen ändern Belastung, nicht Ziele; keine Wochen über das Blockende ohne bestätigte Zielklärung des Folgeblocks. Als Vorabkapitel in `docs/regeln/trainerregeln.md` (Wortlaut aus `docs/konzept/blockbilanz.md` 8.2); bis AP-07 gelten die Tool-Beschreibungen.
 
 # 15. Arbeitspakete
 
-Reihenfolge Code-Instanz: AP-00 → **AP-01a (Fable, Vorarbeit)** → AP-01 → AP-02 → AP-03 → AP-04 → AP-10 → AP-05 → AP-09 → AP-11 (ergänzt 2026-09-28) → AP-12 (ergänzt 2026-09-28) → AP-13 → AP-14 (beide ergänzt 2026-09-28, Auftrag `docs/konzept/gefuehrte-einheit.md`) → AP-16 (ergänzt 2026-09-29, Auftrag `docs/konzept/uebungskatalog.md`; AP-15 ist ein eigener Auftrag und davon unabhängig).
+Reihenfolge Code-Instanz: AP-00 → **AP-01a (Fable, Vorarbeit)** → AP-01 → AP-02 → AP-03 → AP-04 → AP-10 → AP-05 → AP-09 → AP-11 (ergänzt 2026-09-28) → AP-12 (ergänzt 2026-09-28) → AP-13 → AP-14 (beide ergänzt 2026-09-28, Auftrag `docs/konzept/gefuehrte-einheit.md`) → AP-16 (ergänzt 2026-09-29, Auftrag `docs/konzept/uebungskatalog.md`; AP-15 ist ein eigener Auftrag und davon unabhängig) → AP-15 (ergänzt 2026-09-29, Auftrag `docs/konzept/blockbilanz.md`; nach AP-16 umgesetzt).
 Parallel im Projekt-Chat: AP-06 → AP-07 → AP-08. Training kann mit AP-06 bis AP-08 und Plan-als-Dokument (Übergangslösung) starten, bevor der Code fertig ist.
 Hinweis zur Nummerierung: AP-10 wurde nachträglich eingefügt und steht bewusst vor AP-05, weil Migrationen und Backups produktiv sein müssen, bevor Claude über MCP schreibt. AP-01a wurde nachträglich als eigenes Vorpaket eingefügt (D-37), weil es von einem anderen Modell (Fable) bearbeitet und vom Athleten abgenommen wird und damit einen eigenen Statusblock braucht; AP-01 hängt davon ab.
 
@@ -2758,9 +2776,9 @@ probleme_loesungen:
 
 - **Ziel:** Literaturauswahl je Block, Beschaffung, Wissenskarten gemäß 13.1.
 - **Umfang:**
-  1. Literaturblöcke: übergreifend (bestätigt), T1 Ausdauer (bestätigt), T2 Kraft/Calisthenics (bestätigt), Haltung/Rücken (bestätigt, D-54) und Hypertrophie-Ergänzung (bestätigt, D-62), T3 Klettern/Bouldern (bestätigt; E3–E6 → D-31), R Reha/Prävention (bestätigt, D-61: Patellasehne, Sprunggelenk, Laufumfang), T4 Beweglichkeit/Mobilität (Teil A bestätigt, D-72; Teil B Übungsquellen offen). Regel für weitere Sitzungen: aktuelle Konzeptfassung laden, Übergabedokument liefern, Konzept nicht direkt editieren.
+  1. Literaturblöcke: übergreifend (bestätigt), T1 Ausdauer (bestätigt), T2 Kraft/Calisthenics (bestätigt), Haltung/Rücken (bestätigt, D-54) und Hypertrophie-Ergänzung (bestätigt, D-62), T3 Klettern/Bouldern (bestätigt; E3–E6 → D-31), R Reha/Prävention (bestätigt, D-61: Patellasehne, Sprunggelenk, Laufumfang), T4 Beweglichkeit/Mobilität (Teil A bestätigt, D-79; Teil B Übungsquellen offen). Regel für weitere Sitzungen: aktuelle Konzeptfassung laden, Übergabedokument liefern, Konzept nicht direkt editieren.
   2. Beschaffung nach 13.4 (Athlet, D-26); Formatprüfung je Titel (V-13); EPUB ohne DRM zulässig (D-71).
-  3. Kartenzuschnitt (Bündelungsregel 13.1, Zielzahl 7 Dateien seit D-72):
+  3. Kartenzuschnitt (Bündelungsregel 13.1, Zielzahl 7 Dateien seit D-79):
      - `docs/wissen/uebergreifend-belastung-monitoring-erholung.md` ← L-P03, L-P04, L-P05, L-P06, L-A01, L-A02, L-P10, L-P11, L-P12, L-P13; L-P15, optional L-P16 (HRV-gesteuerte Steuerung, D-70)
      - `docs/wissen/uebergreifend-planung-kombiniertes-training.md` ← L-P01, L-P02, L-P07, L-P08, L-P09, L-A01, L-A02; L-T2-25, L-T2-26 (Interferenz auf Faserebene, D-62 d), optional L-T2-31, L-T2-32; Widerspruch zur Modalität (Laufen vs. Rad) unter „Grenzen/Widersprüche“
      - `docs/wissen/t1-ausdauer.md` ← L-T1-02 bis L-T1-08 und L-A02 über L-T1-15 (Kapitelangaben dort) (Karten: Intensitätsverteilung und Zonenmodell D-27; Bergauf-Ausdauer und Skitour-Spezifik; Intervallprogrammierung); optionale Quellen nur bei konkreter Planungsfrage; Budget ca. 8 000–10 000 Tokens
@@ -2784,7 +2802,7 @@ teilschritte:
   - Literaturauswahl T3 Klettern/Bouldern: erledigt (D-31)
   - Literaturauswahl Block R Reha/Prävention: erledigt (D-61)
   - Literaturauswahl T2 Hypertrophie-Ergänzung: erledigt (D-62)
-  - Literaturauswahl T4 Beweglichkeit/Mobilität Teil A: erledigt (D-72), Teil B Übungsquellen offen
+  - Literaturauswahl T4 Beweglichkeit/Mobilität Teil A: erledigt (D-79), Teil B Übungsquellen offen
   - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-29 – 54 Volltexte, Kapitel-PDFs für 9 Bücher, Kapitel-Markdown mit Ansichts-PDF für 4 EPUBs (L-T3-10, -19, -20, -21), D-51, D-71; offen nach 13.4 sind L-A01 in 8./9. Aufl., L-T3-16, L-T3-09 in der Neuauflage ab Erscheinen, L-T2-26 und die T4-Artikel)
   - Literatur-Nachsteuerung L-T1-01/L-T3-08, HRV, EPUB: erledigt (D-70, D-71)
   - Primärquellen verifizieren: weitgehend erledigt (V-06, V-14 erledigt; V-07, V-15 teilweise, Rest nach Beschaffung)
@@ -2933,13 +2951,13 @@ probleme_loesungen:
     loesung: 11 PDFs nach D-51 umbenannt und einsortiert, neuer Ordner `r-reha/`; Dubletten entfernt (behalten wurde die VISA-P-Fassung mit Metadaten). Befund – das VISA-P-PDF enthält das Erratum 2013 zu den Punktwerten der Items 8b/8c (bei L-R-08 vermerkt)
   - datum: 2026-09-29
     was: Übergabe T4 Teil A stand auf „vorgeschlagen“ und sah die Einarbeitung erst nach Teil B vor; ein eigener T4-Bereich braucht eine 7. Sammeldatei, 13.1 erlaubte 4–6
-    loesung: Athlet bestätigte Teil A und die sofortige Einarbeitung; 13.1 auf 4–7 Dateien erweitert (D-72); IDs der Übergabe umnummeriert – Q-T4-1 bis -5 → Q-17 bis Q-21, V-T4-1 bis -6 → V-18 bis V-23, PF-T4-a bis -k → D-72 (a)–(k)
+    loesung: Athlet bestätigte Teil A und die sofortige Einarbeitung; 13.1 auf 4–7 Dateien erweitert (D-79; zunächst als D-72 vergeben, wegen paralleler Vergabe D-72 bis D-78 in AP-15 umnummeriert); IDs der Übergabe umnummeriert – Q-T4-1 bis -5 → Q-17 bis Q-21, V-T4-1 bis -6 → V-18 bis V-23, PF-T4-a bis -k → D-79 (a)–(k)
   - datum: 2026-09-29
     was: Hüftspezifische Evidenz ist dünn; chronische Studien fast nur Hamstrings, Quadrizeps, Wade; einzige chronische Hüftbeuger-RCT (L-T4-19) klein
-    loesung: Hüftrichtungen über allgemeine Metaanalysen (L-T4-02, L-T4-03) begründen, Übertragung als „Einschätzung“ kennzeichnen (D-72 i)
+    loesung: Hüftrichtungen über allgemeine Metaanalysen (L-T4-02, L-T4-03) begründen, Übertragung als „Einschätzung“ kennzeichnen (D-79 i)
   - datum: 2026-09-29
     was: Dosisbefunde T4 widersprechen sich (L-T4-02 vs. L-T4-04/L-T4-05)
-    loesung: Dosis als Richtwert, Widerspruch in der Karte unter „Grenzen“ (D-72 b)
+    loesung: Dosis als Richtwert, Widerspruch in der Karte unter „Grenzen“ (D-79 b)
   - datum: 2026-09-29
     was: Yoga – keine belastbare Evidenz für gesunde Sportler gefunden
     loesung: Yoga nur als Übungsfundus in Teil B (Stufe C); Begründung über L-T4-13
@@ -2949,7 +2967,7 @@ Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage
 ## AP-07 Trainerregeln (Projekt-Chat)
 
 - **Ziel:** `docs/regeln/trainerregeln.md` gemäß Abschnitt 14.
-- **Vorgaben aus AP-06** (Kapitel 2 und 3 in 14; D-54, D-61, D-62, D-72, Q-13, Q-15, Q-16, Q-18, Q-19):
+- **Vorgaben aus AP-06** (Kapitel 2 und 3 in 14; D-54, D-61, D-62, D-79, Q-13, Q-15, Q-16, Q-18, Q-19):
 ```yaml
 - regelvorschlag: Haltungsarbeit = Kräftigung BWS/HWS-Extensoren und Schulterblattmuskulatur, kombiniert HWS + BWS; Dehnen nicht als Haltungskorrektur einplanen
   quelle: L-T2-15, L-T2-16, L-T2-19
@@ -2982,27 +3000,27 @@ Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage
   quelle: L-T2-25, L-T2-26 (optional L-T2-31, L-T2-32)
 - hinweis: Ernährung/Protein ist nicht im Umfang der Ergänzung (D-62)
 - regelvorschlag: T4 ROM chronisch mit statischem Dehnen oder PNF; dynamisches Dehnen nur für Aufwärmen/Vorbereitung
-  quelle: D-72 (a); L-T4-02, L-T4-25
+  quelle: D-79 (a); L-T4-02, L-T4-25
 - regelvorschlag: T4 Dosis-Richtwert ≥ 5 min Dehnzeit je Zielmuskelgruppe und Woche, verteilt auf möglichst viele Tage (≥ 2, besser ≥ 5); als Richtwert kennzeichnen (widersprüchlich zu L-T4-02)
-  quelle: D-72 (b); L-T4-05, L-T4-04, L-T4-31
+  quelle: D-79 (b); L-T4-05, L-T4-04, L-T4-31
 - regelvorschlag: Kräftigung mit Zusatzlast über den vollen Bewegungsumfang darf Dehnzeit ersetzen; reine Körpergewichtsübungen nicht als ROM-Maßnahme zählen
-  quelle: D-72 (c); L-T4-10, L-T4-11, L-T4-29
+  quelle: D-79 (c); L-T4-10, L-T4-11, L-T4-29
 - regelvorschlag: Dehnen im Aufwärmen optional; statisch < 60 s je Muskelgruppe, danach dynamische, sportspezifische Aktivität; vor dem Laufen kein Verbot
-  quelle: D-72 (d); L-T4-06, L-T4-08, L-T4-09
+  quelle: D-79 (d); L-T4-06, L-T4-08, L-T4-09
 - regelvorschlag: Dehnen nicht als Verletzungsprävention begründen; Prävention über Kraft und Balance (T2, Block R); Knie-Beweglichkeit als Zusatzbaustein mit Kennzeichnung „Einzelbefund“
-  quelle: D-72 (e); L-T4-14, L-T4-01, L-T4-22, L-R-11
+  quelle: D-79 (e); L-T4-14, L-T4-01, L-T4-22, L-R-11
 - regelvorschlag: Dehnen nach Belastung nicht zur Erholung oder gegen Muskelkater einplanen; aus Gründen des Wohlbefindens zulässig
-  quelle: D-72 (f); L-T4-15, L-T4-16
+  quelle: D-79 (f); L-T4-15, L-T4-16
 - regelvorschlag: Ruhige Dehn-/Mobility-Einheiten (z. B. abends, Ruhetag) als Wohlbefindens-Baustein, Kennzeichnung „schwache Evidenz“
-  quelle: D-72 (g); L-T4-17, L-T4-18
+  quelle: D-79 (g); L-T4-17, L-T4-18
 - regelvorschlag: Dehnen nicht zur Haltungskorrektur
-  quelle: D-72 (h), D-54 (a); L-T2-15, L-T4-01
+  quelle: D-79 (h), D-54 (a); L-T2-15, L-T4-01
 - regelvorschlag: Hüftrichtungen einzeln planen; Dosisübertragung aus Hamstring-/Wadenstudien als Einschätzung kennzeichnen; Ausführungsdetails (z. B. Beckenkippung beim Hüftbeuger) im Übungskatalog
-  quelle: D-72 (i); L-T4-19, L-T4-21, L-T4-07, L-T4-03
+  quelle: D-79 (i); L-T4-19, L-T4-21, L-T4-07, L-T4-03
 - regelvorschlag: Klettern – Hüftbeweglichkeit bis funktionelles Niveau entwickeln, darüber keine Priorität; Verlauf mit kletterspezifischen Tests (Einschätzung)
-  quelle: D-72 (j); L-T4-26, L-T4-27
+  quelle: D-79 (j); L-T4-26, L-T4-27
 - regelvorschlag: Blöcke ≤ 4 Wochen – Dehnen statt Faszienrolle für das ROM-Ziel
-  quelle: D-72 (k); L-T4-12
+  quelle: D-79 (k); L-T4-12
 - offene_frage: Q-18 T4 als eigene Einheiten (`mobilitaet`) oder als Block in Kraft-/Klettereinheiten; Q-19 Dehnintensität nur subjektiv
 ```
 - **Abhängigkeiten:** AP-06 (Quellen).
@@ -3324,6 +3342,48 @@ probleme_loesungen:
     loesung: Pausenhinweis nur, wenn noch ein Satz folgt; Leiste unten nur mit normalem Innenabstand (die Navigation hält die Safe Area frei); Abstand unter dem eingebetteten Check-in (Einzelheiten Auftrag Abschnitt 12, T9)
 ```
 
+## AP-15 Blockbilanz, Zielklärung und Übergabe
+
+- **Ziel:** Die planende Instanz kennt zu Beginn jeder Planungssitzung die bisherigen Ziele, ihre Begründung, verworfene Alternativen, Ergebnisse und Fälligkeiten – aus der Datenbank, deterministisch zusammengestellt (D-72 bis D-78).
+- **Umfang:** Auftrag `docs/konzept/blockbilanz.md`, Unterpunkte T1 (Tabelle `block_review`, Schemata je Art, Kennzahlen, Fälligkeit), T2 (MCP-Tools `get_handover`, `get_block_reviews`, `write_block_review`; Erweiterungen `get_block`, `upsert_block`, `write_week_plan`), T3 (Overlay-Erinnerung, Karte „Block“ in S2, Einstellungen), T4 (Kalendertermin je Block), T5 (Blockseite S11, Abschnitt „Blöcke“ in S6), T6 (Dokumentation, Trainerregeln Kapitel 10, Betriebsablauf).
+- **Abhängigkeiten:** AP-05 (Schreibtools), AP-09 (Verlauf S6, Spiegel für Kennzahlen, Offline), AP-11 (Kalender, `app_setting`); AP-08 nutzt das Schema der Zielklärung für die erste Zielklärung.
+- **Abnahmekriterien:** Testfälle 11.1 bis 11.4 des Auftrags grün; aus dem Projekt-Chat liefert `get_handover` Block, Zielklärung, Bilanz und Fälligkeiten in ≤ 8 000 Zeichen und `write_block_review` legt eine Fassung mit Kennzahlen an; auf dem Smartphone erscheint das Overlay bei fälliger Bilanz, verschwindet nach „Morgen wieder erinnern“ bis zum nächsten Tag und kommt dann wieder; im Nextcloud-Kalender steht der Termin am Blockende 08:00–10:00 mit Erinnerung am Vortag; Sichtprüfung S11.
+- **Status:**
+```yaml
+status: in_arbeit
+begonnen: 2026-09-29
+abgeschlossen: null
+teilpakete: T1 (Code-Stand 0.26.0, Schema 24), T2 (0.27.0), T3 (0.28.0), T4 (0.29.0), T5 (0.30.0) und T6 (Dokumentation, 0.30.1) umgesetzt, Nachtrag E-23 (0.30.2); Abnahme durch den Athleten offen (Projekt-Chat, Smartphone, Nextcloud-Kalender) – Details in docs/konzept/blockbilanz.md Abschnitt 13
+probleme_loesungen:
+  - datum: 2026-09-29
+    was: O-04 und O-05 des Auftrags offen
+    loesung: vom Athleten entschieden – wochen_kurz in der Übergabe (E-21, D-78), Uhrzeit, Dauer und Erinnerung des Blocktermins sofort in S8 einstellbar (E-22, D-75)
+  - datum: 2026-09-29
+    was: T1 – Dauererinnerung für alte Blöcke ohne Bilanz, Bezugsblock der Zielklärung, Grenzfälle 28 Tage/16 Wochen, Kennzahlen der Revision, Schmerztrend
+    loesung: Einzelheiten im Auftrag Abschnitt 13, T1
+  - datum: 2026-09-29
+    was: T2 – Budget der Übergabe bei vollen Listen, Zeitraum der Revision, Quittierungen des Folgeblocks, zielklaerung_fehlt, Reihenfolge der Blockwechsel-Prüfung
+    loesung: Einzelheiten im Auftrag Abschnitt 13, T2
+  - datum: 2026-09-29
+    was: T3 – Bedeutung des Quittierungsdatums, zwei Knöpfe statt Radio, Browser-Tests vom Overlay verdeckt, Overlay auch in S9, Schreibsperre
+    loesung: Einzelheiten im Auftrag Abschnitt 13, T3
+  - datum: 2026-09-29
+    was: T4 – Rechenfehler in K-B2 (08:00 MESZ = 06:00Z), Folgeblock-Regel des Termins, Zählung im Abgleich, Suchfenster für verwaiste Termine
+    loesung: Einzelheiten im Auftrag Abschnitt 13, T4
+  - datum: 2026-09-29
+    was: T5 – breite Tabellen bei 375 px, Navigationsbereich von S11
+    loesung: Einzelheiten im Auftrag Abschnitt 13, T5
+  - datum: 2026-09-29
+    was: Overlay unterbrach die geführte Einheit (S9)
+    loesung: Entscheidung des Athleten (E-23, 0.30.2) – kein Overlay in S9 und S10 aus S9, unmittelbar nach dem Abschluss auf S2
+  - datum: 2026-09-29
+    was: D-70/D-71 wurden parallel für die Literatur-Nachsteuerung vergeben (PR #23)
+    loesung: Entscheidungen von AP-15 auf D-72 bis D-78 umnummeriert (Konzept, Auftrag, Dokumente)
+  - datum: 2026-09-29
+    was: T6 – Präfix R-UEB in Kapitel 9 (Übungskatalog, 10–14) und Kapitel 10 (Übergabe, 01–06)
+    loesung: Nummern überschneiden sich nicht; Wortlaut und IDs wie im Auftrag übernommen, Hinweis im Kapitel
+```
+
 ## AP-16 Übungskatalog
 
 - **Ziel:** Übungen stehen einmal mit Ausführung, Achtungspunkten, Fehlerquellen, Vorsicht, Progression, Links und Videos in der Datenbank; Einheiten verlinken sie über `exercise_id` und beschreiben nur die Dosierung (D-64 bis D-69).
@@ -3452,5 +3512,7 @@ noch_zu_pruefen:
 | 2026-09-29 | AP-16 T2 umgesetzt (Code-Stand 0.22.0): MCP-Tools des Übungskatalogs, Linkprüfung, Warnungen in `write_week_plan`/`update_session`. |
 | 2026-09-29 | L-T3-09 Hörst (3. Aufl. 2016) einsortiert: Gesamt-PDF und 17 Kapitel-PDFs, `datei`/`kapitel`/`zugang`, 13.4 „vorhanden“ und Stand (38 Volltexte), AP-06. Zwei EPUBs (Climbing Bible – Practical Exercises; Consuegra) warten auf Angaben des Athleten. |
 | 2026-09-29 | Übergabe AP-06 Literatur-Nachsteuerung eingearbeitet: L-T1-01 nicht aufgenommen (Abdeckung durch L-A02, Verweis L-T1-15); L-T3-08 zurückgestellt (9. Aufl. 2019 bibliografisch korrigiert), L-T3-19 Consuegra neu im Evidenzkern T3, L-T3-09 mit der 3. Aufl. ausgewählt (Neuauflage nach Erscheinen), L-T3-10 und L-T3-16 als Stufe C ausgewählt, neu L-T3-20 (Übungsband) und L-T3-21 (Managing Injuries, vorläufig); L-P15/L-P16 zu HRV-gesteuertem Training; neu D-70 (ändert D-31/E6), D-71 (EPUB mit Markdown und Ansichts-PDF, ergänzt D-26/D-51), V-17 (IDs der Übergabe D-64/D-65 umnummeriert); V-13, V-15, 13.1, 13.3, 13.4 (42 Volltexte), Abschnitt 14 Kap. 4, AP-06, README und Prüfprotokoll angepasst. Repo bleibt vorerst öffentlich (Entscheidung Athlet, Widerspruch zu D-31 in AP-06 `probleme_loesungen`). |
+| 2026-09-29 | AP-15 Blockbilanz, Zielklärung und Übergabe (Auftrag `docs/konzept/blockbilanz.md`, Fable; O-04/O-05 vom Athleten entschieden) umgesetzt, Code-Stand 0.26.0–0.30.1, Schema 24: D-72 bis D-78; Abschnitt 6 (Schritte 1, 2, 8 neu gefasst, Schritt 9 Blockwechsel), 7 (`block_review`, `app_setting`), 8.2/8.3 (drei neue Tools, Erweiterungen, Budget), 10 (S2-Karte, S6, S8, S11, Overlay), 14 (Kapitel 10), 15 (AP-15 mit Statusblock). |
+| 2026-09-29 | AP-15 Nachtrag (Code-Stand 0.30.2): kein Overlay während der geführten Einheit, danach auf S2 (E-23, Entscheidung des Athleten); Entscheidungen von AP-15 auf D-72 bis D-78 umnummeriert (D-70/D-71 parallel vergeben). |
 | 2026-09-29 | Commit „Lit“ einsortiert: 11 Volltexte (L-P11, L-P15, L-T2-10, -11, -12, -20, -21, L-R-02, -03, -08, -13, -26), neuer Ordner `r-reha/`, Dubletten Hörst und VISA-P entfernt; L-R-08 um das Erratum 2013 (Punktwerte 8b/8c) ergänzt; L-T2-10 Zitat vervollständigt; Lizenzen L-P11 (CC BY-NC 4.0) und L-P15 (CC BY 4.0) aus dem Volltext; 13.4 und Stand (54 Volltexte). |
-| 2026-09-29 | Übergabe Literaturblock T4 Beweglichkeit/Dehnen Teil A eingearbeitet (vom Athleten bestätigt): Tabelle 1.2 um T4 erweitert, neuer Abschnitt 13.2.6 (L-T4-01 bis L-T4-33, Kern und optional), D-72 (Planungsfolgen a–k), Q-17 bis Q-21 (Q-21 Repo öffentlich, entschieden: vorerst öffentlich), V-18 bis V-23; 13.1 (4–7 Sammeldateien, `geltungsbereich` T1–T4, ID-Konvention), 13.3, 13.4, Abschnitte 6 und 14 (T1–T4), AP-06, AP-07, AP-08; Konzeptkopf und D-23 um den Hinweis auf Q-21 ergänzt. |
+| 2026-09-29 | Übergabe Literaturblock T4 Beweglichkeit/Dehnen Teil A eingearbeitet (vom Athleten bestätigt): Tabelle 1.2 um T4 erweitert, neuer Abschnitt 13.2.6 (L-T4-01 bis L-T4-33, Kern und optional), D-79 (Planungsfolgen a–k; wegen paralleler Vergabe in AP-15 nicht D-72), Q-17 bis Q-21 (Q-21 Repo öffentlich, entschieden: vorerst öffentlich), V-18 bis V-23; 13.1 (4–7 Sammeldateien, `geltungsbereich` T1–T4, ID-Konvention), 13.3, 13.4, Abschnitte 6 und 14 (T1–T4), AP-06, AP-07, AP-08; Konzeptkopf und D-23 um den Hinweis auf Q-21 ergänzt. |

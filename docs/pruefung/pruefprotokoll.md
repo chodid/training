@@ -834,6 +834,89 @@ noch_zu_pruefen:
     wie: Athlet nach Deployment (Cron-Aufruf im Browser oder Lima-City-Protokoll)
 ```
 
+## AP-15 Blockbilanz, Zielklärung und Übergabe
+
+```yaml
+ap: AP-15
+auftrag: docs/konzept/blockbilanz.md (T1–T6)
+geprueft:
+  - was: "T1 Fälligkeit F-01 bis F-10 (heute 2026-10-01): Bilanz ab Vorlauf, Entwurf zählt nicht, bestätigte Bilanz, abgeschlossen ohne Bilanz (nur der zuletzt beendete Block), Folgeblock ohne/mit Zielklärung, Block ohne Zielklärung, Zielklärung älter als 16 Wochen, Revision nach 28 Tagen, kein aktiver Block (block_id null)"
+    wie: automatisiert (Unit FaelligkeitTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 Schemata je Art: gültige Beispiele; Fehler mit Pfad (Enum, fehlende Pflichtfelder, verworfen leer, zusätzliches Feld, Länge 1 501, 21 Listeneinträge, Ziele leer, Bilanz ohne bewertung, Zeitraum bis < von, Revision ohne Änderungen, Liste statt Objekt)"
+    wie: automatisiert (Unit ReviewValidatorTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 Tabelle block_review: CHECK sequence bei Bilanz/Zielklärung, doppelte Fassung, Zeitraum, Löschschutz des Blocks; Fassungen (Entwurf über bestätigt, gültige Fassung, Entwurf zusätzlich, nächste Nummer); Kennzahlen gegen die erweiterte Beispielwoche und leerer Zeitraum (null statt Fehler); Migration 0024 zurück und vor ohne Datenverlust; Rückweg-Tests auf 0024 umgestellt"
+    wie: automatisiert (Integration ReviewDataTest, MorningCheckinTest, ExercisePagesTest gegen MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T2 H-01 bis H-08 über /mcp: Übergabe mit zwei Blöcken (alle Abschnitte, Bilanz des Vorblocks, Revisionen, wochen_kurz mit fehlendem Fokus, offene Fragen aus Zielklärung und Bilanz) ≤ 8 000 Zeichen; detail mit Volltexten; Bilanz ohne bewertung → Fehler mit Pfad, nichts geschrieben; Fassung 2 ohne reason abgelehnt; Entwurf über bestätigter Fassung (gültig v1, Entwurf v2, faellig ohne Bilanz, Fassungsliste mit reason, entwuerfe in der Übergabe); Revisionen 1/2 mit Standard- und eigenem Zeitraum, neue Fassung einer Revision, unbekannte Nummer abgelehnt, Audit-Text; Zielklärung/Revision für abgeschlossenen Block und unbekannter Block abgelehnt; Woche nach Blockende → blockwechsel_erforderlich mit Fälligkeiten, Woche im Block möglich, Folgeblock ohne Zielklärung reicht nicht, mit bestätigter Zielklärung möglich"
+    wie: automatisiert (Integration ReviewToolsTest gegen MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T2 Budget mit gefüllter Fixture (zwei Blöcke, drei Revisionen, Zielklärung mit 20 Zielen/Entscheidungen/Risiken/Fragen an den Längengrenzen) ≤ 8 000 Zeichen mit Feld gekuerzt; get_block mit Reviews und Fälligkeiten (Blockende 13.12.); Schreibsperre bei Code > Datenbank; Tool-Liste mit den drei neuen Tools; gesamte Suite 285 Tests grün"
+    wie: automatisiert (ReviewToolsTest, McpToolsTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T3 U-01 bis U-06: Overlay auf S2, S4, S5, S6, S8 (Dialog, inert, autofocus auf der ersten Schaltfläche, Link zur Blockseite), nicht auf S1; Morgen → Ruhe bis morgen, am Folgetag wieder da; Woche → 7 Tage; Bestätigung über MCP löscht Quittierung und Overlay; aus in S8 → kein Overlay, Karte in S2 zeigt weiter; zwei Fälligkeiten → ein Overlay, Quittierung je Art; ohne aktiven Block Schlüssel _0 und Karte „Kein aktiver Block“"
+    wie: automatisiert (Integration ReminderTest gegen MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T3 Quittierung: ungültige Dauer/Art → 422, CSRF → 403, fremdes Rücksprungziel → /woche, gepufferte Sendung → 204; bei Schreibsperre kein Overlay; S8-Unterseite (Anzeige, 422 mit Werten, Speichern aller sechs Werte, Vorlauf wirkt sofort); gesamte Suite 293 Tests grün"
+    wie: automatisiert (ReminderTest; GuidedSessionTest an inert angepasst)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T3 Browser (Chromium, 375 px): Overlay mit zwei Punkten, Fokus auf „Morgen wieder erinnern“, Navigation und Inhalt inert, kein seitliches Scrollen; nach dem Klick zurück auf S2 ohne Overlay, Karte „Block“ mit Fälligkeiten und „noch 4 Tage“, S8 ohne Overlay; Sichtprüfung der Bildschirmfotos; geführte Einheit (14) und Übungskatalog (4) weiter grün"
+    wie: automatisiert (tests/e2e/erinnerung.e2e.cjs über run.sh) und Sicht auf die Bildschirmfotos
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T3 Offline-Quittierung (O-02): Formularpuffer für /erinnerung, Overlay der gespeicherten Seite ausgeblendet, solange die Quittierung wartet"
+    wie: Durchsicht von sw.js/offline.js; kein Browser-Test mit echtem Netzausfall
+    ergebnis: offen – Prüfung auf dem Smartphone
+    datum: 2026-09-29
+  - was: "T4 K-B1 bis K-B6: Winter 07:00Z–09:00Z, VALARM -P1D; Sommer 06:00Z (08:00 MESZ; Konzept nannte 05:00Z); Blockende verschoben → gleiche Ressource, SEQUENCE höher; Bilanz bestätigt → „Zielklärung: …“; Zielklärung des Folgeblocks bestätigt → gelöscht, Fassung kalender_block_<id> = 1; > 16 Wochen → Beginn + 112 Tage; Faltung, Escaping, Trigger -PT5H/-P2D/PT0S"
+    wie: automatisiert (Unit BlockEventTest, Integration BlockCalendarTest mit simuliertem CalDAV-Server)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T4 Einstellungen E-22 überträgt sofort (18:00, 60 min, 2 h); Papierkorb: nach dem Löschen neue Fassung -1; Abgleich entfernt den Termin eines gelöschten Blocks, fremde Termine bleiben; Kalenderfehler bei upsert_block gemeldet, Block trotzdem angelegt, Abgleich holt nach; bestehende Kalendertests auf Tagestermine eingegrenzt (Ergebnis blocktermine gesondert); gesamte Suite 300 Tests grün"
+    wie: automatisiert (BlockCalendarTest, CalendarTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T4 echter CalDAV-Server: Blocktermin mit Uhrzeit, Sonderzeichen und VALARM angenommen; REPORT findet ihn im Dezember, nicht im Oktober; Ersetzen mit neuem Datum; Löschen (zweites Löschen 404)"
+    wie: Rauchtest gegen Radicale 3.8.1 (lokal, http nur für den Test)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T5 S11: Leerzustände (kein Block, Block ohne Reviews mit Fälligkeit und Restlaufzeit), 404 für unbekannte/ungültige id; voller Block mit Zielklärung (alle Abschnitte, Entscheidungen mit Verworfen, Fassungen 1 Entwurf/2 bestätigt mit Grund), Revision als Zeitleiste, Bilanz (gültig v1, neuer Entwurf v2, Bewertungsmarken, Kennzahlen 12 Wochen), weitere Blöcke; nur Entwurf → markiert und weiter fällig; Anmeldung nötig; S6 Abschnitt Blöcke mit Fälligkeit; Vorladen /block?id=<aktiv>; gesamte Suite 303 Tests grün"
+    wie: automatisiert (Integration BlockPageTest gegen MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T5 Browser 375 px: S11 mit Zielklärung, Revision und Bilanz ohne seitliches Scrollen (Tabellen scrollen in der Karte), Fassungen aufklappbar; S6 „Blöcke“ mit Link; Sicht auf das Bildschirmfoto"
+    wie: automatisiert (tests/e2e/erinnerung.e2e.cjs Schritt 3) und Sicht
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T6 Dokumente konsistent: Hauptkonzept (D-72 bis D-78, 3.3, 6, 7, 8.2, 8.3, 10, 14, 15, 17), datenmodell.md (Schema 24, ER), branding.md, README (Endpunkte, Tools, Tests), trainerregeln.md (Vorabkapitel 10), CHANGELOG 0.26.0–0.30.1, Auftrag Abschnitt 13/14; App.php 0.30.1, SCHEMA_VERSION 24; Tool-, Feld- und Seitennamen gegen den Code abgeglichen"
+    wie: Durchsicht und Suche nach veralteten Angaben; Suite und Browser-Tests grün
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "E-23 (0.30.2): kein Overlay in S9 und auf S10 aus S9, dagegen in S3, S10 aus S3 und auf S2 nach dem Abschluss (/woche?…&ok=einheit); geführte Einheit ohne inert"
+    wie: automatisiert (ReminderTest, GuidedSessionTest)
+    ergebnis: ok
+    datum: 2026-09-29
+noch_zu_pruefen:
+  - was: T1 Migration 0024 und Schemata gegen MySQL 8.4
+    wie: CI (GitHub Actions) mit dem Pull Request
+  - was: "T2 Abnahme aus dem Projekt-Chat: get_handover liefert Block, Zielklärung, Bilanz und Fälligkeiten in ≤ 8 000 Zeichen; write_block_review legt eine Fassung an und meldet Kennzahlen"
+    wie: Athlet im Projekt-Chat nach Deployment (erste echte Zielklärung in AP-08)
+  - was: "T5 Sichtprüfung der Blockseite S11 und des Abschnitts „Blöcke“ in S6 auf dem Smartphone"
+    wie: Athlet nach Deployment und erster Zielklärung (AP-08)
+  - was: "T4 Abnahme: im Nextcloud-Kalender (Web und Handy) steht der Termin am Blockende 08:00–10:00 mit Erinnerung am Vortag 08:00"
+    wie: Athlet nach Deployment und erstem upsert_block (AP-08)
+  - was: "T3 Abnahme auf dem Smartphone: Overlay erscheint bei fälliger Bilanz, verschwindet nach „Morgen wieder erinnern“ bis zum nächsten Tag und kommt dann wieder; offline quittiert → „1 Eingabe wartet auf Netz: Erinnerung quittiert“, Overlay ausgeblendet"
+    wie: Athlet nach Deployment
+```
+
 ## AP-05 MCP-Tools produktiv
 
 ```yaml
@@ -1024,13 +1107,13 @@ probleme_loesungen:
     loesung: 11 PDFs nach D-51 umbenannt und einsortiert, neuer Ordner `r-reha/`; Dubletten entfernt (behalten wurde die VISA-P-Fassung mit Metadaten). Befund – das VISA-P-PDF enthält das Erratum 2013 zu den Punktwerten der Items 8b/8c (bei L-R-08 vermerkt)
   - datum: 2026-09-29
     was: Übergabe T4 Teil A stand auf „vorgeschlagen“ und sah die Einarbeitung erst nach Teil B vor; ein eigener T4-Bereich braucht eine 7. Sammeldatei, 13.1 erlaubte 4–6
-    loesung: Athlet bestätigte Teil A und die sofortige Einarbeitung; 13.1 auf 4–7 Dateien erweitert (D-72); IDs der Übergabe umnummeriert – Q-T4-1 bis -5 → Q-17 bis Q-21, V-T4-1 bis -6 → V-18 bis V-23, PF-T4-a bis -k → D-72 (a)–(k)
+    loesung: Athlet bestätigte Teil A und die sofortige Einarbeitung; 13.1 auf 4–7 Dateien erweitert (D-79; zunächst als D-72 vergeben, wegen paralleler Vergabe D-72 bis D-78 in AP-15 umnummeriert); IDs der Übergabe umnummeriert – Q-T4-1 bis -5 → Q-17 bis Q-21, V-T4-1 bis -6 → V-18 bis V-23, PF-T4-a bis -k → D-79 (a)–(k)
   - datum: 2026-09-29
     was: Hüftspezifische Evidenz ist dünn; chronische Studien fast nur Hamstrings, Quadrizeps, Wade; einzige chronische Hüftbeuger-RCT (L-T4-19) klein
-    loesung: Hüftrichtungen über allgemeine Metaanalysen (L-T4-02, L-T4-03) begründen, Übertragung als „Einschätzung“ kennzeichnen (D-72 i)
+    loesung: Hüftrichtungen über allgemeine Metaanalysen (L-T4-02, L-T4-03) begründen, Übertragung als „Einschätzung“ kennzeichnen (D-79 i)
   - datum: 2026-09-29
     was: Dosisbefunde T4 widersprechen sich (L-T4-02 vs. L-T4-04/L-T4-05)
-    loesung: Dosis als Richtwert, Widerspruch in der Karte unter „Grenzen“ (D-72 b)
+    loesung: Dosis als Richtwert, Widerspruch in der Karte unter „Grenzen“ (D-79 b)
   - datum: 2026-09-29
     was: Yoga – keine belastbare Evidenz für gesunde Sportler gefunden
     loesung: Yoga nur als Übungsfundus in Teil B (Stufe C); Begründung über L-T4-13
@@ -1204,7 +1287,7 @@ geprueft:
     ergebnis: Punktwerte Items 8b/8c im Artikel falsch; richtig 8b 0, 4, 10, 14, 20 und 8c 0, 2, 5, 7, 10; im Konzept bei L-R-08 vermerkt; die App enthält noch keinen VISA-P-Rechner (grep server/)
     datum: 2026-09-29
   - was: Einarbeitung T4 Teil A – IDs, YAML, Konsistenz
-    wie: ID-Kollisionsprüfung (L-T4, D-72, Q-17 bis Q-21, V-18 bis V-23 frei); YAML-Blöcke des Konzepts gegen main (keine neuen Parse-Fehler; 13.2.6 Kern 16, optional 17 Einträge); grep nach T1–T3/„drei Bereiche“ (Abschnitte 1.2, 6, 13.1, 14 angepasst); Verweise der Übergabe (V-T4-x, Q-T4-x, P-1, PF-T4-x) vollständig ersetzt
+    wie: ID-Kollisionsprüfung (L-T4, D-79, Q-17 bis Q-21, V-18 bis V-23 frei); YAML-Blöcke des Konzepts gegen main (keine neuen Parse-Fehler; 13.2.6 Kern 16, optional 17 Einträge); grep nach T1–T3/„drei Bereiche“ (Abschnitte 1.2, 6, 13.1, 14 angepasst); Verweise der Übergabe (V-T4-x, Q-T4-x, P-1, PF-T4-x) vollständig ersetzt
     ergebnis: ok
     datum: 2026-09-29
   - was: Literatur-README nach Commit „Lit“

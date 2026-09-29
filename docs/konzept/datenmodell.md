@@ -1,7 +1,7 @@
 ---
 titel: Datenmodell – ER-Diagramm und Umsetzungsdetails
-bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitt 7, AP-01 (D-35), AP-03, AP-09 (D-43, D-44, D-48), AP-11 (D-52, D-60), AP-12 (D-53), AP-13 (D-56), AP-14 (D-58), AP-16 (D-64)
-schemastand: 23 (Migrationen 0001–0023)
+bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitt 7, AP-01 (D-35), AP-03, AP-09 (D-43, D-44, D-48), AP-11 (D-52, D-60), AP-12 (D-53), AP-13 (D-56), AP-14 (D-58), AP-15 (D-72), AP-16 (D-64)
+schemastand: 24 (Migrationen 0001–0024)
 ---
 
 # Datenmodell
@@ -19,6 +19,7 @@ erDiagram
     oauth_client ||--o{ oauth_auth_code : "erhält"
     oauth_client ||--o{ oauth_token : "erhält"
     training_block ||--o{ training_week : "enthält"
+    training_block ||--o{ block_review : "Zielklärung, Revision, Bilanz"
     training_week ||--o{ session : "enthält"
     session ||--o| session_execution : "wird durchgeführt"
     session |o--o{ pain_event : "optional zugeordnet"
@@ -225,6 +226,24 @@ erDiagram
         varchar alias_norm PK "UK über alle"
         varchar alias
     }
+    block_review {
+        int id PK
+        int block_id FK
+        enum kind "revision, bilanz, zielklaerung"
+        smallint sequence "bilanz/zielklaerung 1"
+        smallint version "Fassung"
+        enum status "entwurf, bestaetigt"
+        date review_date
+        date period_start "null"
+        date period_end "null"
+        varchar summary
+        json content_json "review-<kind>.json"
+        json kennzahlen_auto "vom Server, null"
+        varchar reason "ab Fassung 2"
+        enum created_by
+        datetime created_at
+        datetime confirmed_at "null"
+    }
     exercise_version {
         int id PK
         int exercise_id FK
@@ -236,7 +255,7 @@ erDiagram
     }
 ```
 
-`audit_log`, `schema_version`, `ext_cache`, `app_setting` (Einstellungen als Schlüssel/Wert: `calendar_reminder` D-52, `checkin_hand_rechts_bis` D-53, `timer_ton` D-58, `linkcheck_zuletzt` AP-16; intern `kalender_tag_<Datum>` = Fassung des Kalender-Tagestermins D-60), `athlete_profile` (D-48, nur Einfügen; jüngste Fassung je Abschnitt gilt) und die Spiegeltabellen `ext_activity`/`ext_wellness` (D-43) stehen für sich (`ext_activity.paired_event_id` entspricht lose `session.intervals_event_id`); `audit_log` verweist über `entity`/`entity_id` lose auf die geänderte Zeile, damit Einträge das Löschen überdauern.
+`audit_log`, `schema_version`, `ext_cache`, `app_setting` (Einstellungen als Schlüssel/Wert: `calendar_reminder` D-52, `checkin_hand_rechts_bis` D-53, `timer_ton` D-58, `linkcheck_zuletzt` AP-16, AP-15: `bilanz_vorlauf_tage`, `zielklaerung_vorlauf_tage`, `review_overlay`, `erinnerung_<kind>_<block_id>` (Tag, ab dem das Overlay wieder erscheint; 0 = ohne Block), `kalender_block_beginn`, `kalender_block_dauer_min`, `kalender_block_erinnerung_h`; intern `kalender_tag_<Datum>` = Fassung des Kalender-Tagestermins D-60 und `kalender_block_<id>` = Fassung des Blocktermins D-75), `athlete_profile` (D-48, nur Einfügen; jüngste Fassung je Abschnitt gilt) und die Spiegeltabellen `ext_activity`/`ext_wellness` (D-43) stehen für sich (`ext_activity.paired_event_id` entspricht lose `session.intervals_event_id`); `audit_log` verweist über `entity`/`entity_id` lose auf die geänderte Zeile, damit Einträge das Löschen überdauern.
 
 ## Umsetzungsdetails
 
@@ -251,6 +270,7 @@ erDiagram
 | JSON | `plan_json`, `actual_json`, `goal_events_json` als `JSON` (Datenbank prüft Syntax); Struktur prüft `Training\Plan\PlanValidator` gegen `server/schemas/` |
 | Montag | `training_week.week_start` muss ein Montag sein – Prüfung in der Anwendung (AP-04/AP-05) |
 | Übungskatalog (AP-16, D-64) | `exercise` mit `name_norm` und `exercise_alias.alias_norm` (normalisiert: Kleinschreibung, Umlaute ae/oe/ue/ss, Akzente, Satzzeichen = Leerzeichen; je Tabelle eindeutig, Name gegen Alias einer anderen Übung prüft `upsert_exercise`). Keine Löschfunktion (`status = archiviert`); Aliase und Fassungen kaskadierend; `variant_of` bei gelöschter Grundübung `NULL`. Jede Änderung schreibt vorher einen Schnappschuss (alle Spalten und Aliase) nach `exercise_version`; die Linkprüfung ändert nur Serverfelder und Status ohne Fassung. `session.plan_json` verweist lose über den Slug (kein Fremdschlüssel; `Training\Plan\ExerciseLink` prüft beim Schreiben) |
+| Blockbilanz, Zielklärung, Revision (AP-15, D-72) | `block_review`: jede Änderung ist eine neue Zeile (`version + 1`, `reason` ab Fassung 2 Pflicht, prüft `write_block_review`); gültig je (`block_id`, `kind`, `sequence`) die bestätigte Zeile mit der höchsten `version`, ein neuerer Entwurf wird zusätzlich gezeigt. `UNIQUE (block_id, kind, sequence, version)`; `CHECK`: Bilanz und Zielklärung nur `sequence = 1`, `period_end >= period_start`. Fremdschlüssel auf `training_block` mit `ON DELETE RESTRICT` (Block mit Reviews nicht löschbar). `kennzahlen_auto` berechnet `Training\Review\Kennzahlen` beim Schreiben (Bilanz, Revision) und friert sie ein. Keine Löschfunktion |
 | Begründungstexte (D-56) | Woche: `focus` VARCHAR(255) = Kurzsatz (Pflicht in `write_week_plan`), `coach_notes` = ausführlicher Text; Einheit: `coach_summary` VARCHAR(200) = Kurzsatz (Migration 0022, Pflicht außer `ruhe`), `coach_rationale` = ausführlicher Text. Längen (Kurzsatz Woche ≤ 255, Einheit ≤ 200, Texte ≤ 1 500 Zeichen) prüft die Anwendung (`WriteTools`); Altdaten vor AP-13 behalten `coach_rationale` ohne Kurzsatz |
 
 ## JSON-Schemata (`server/schemas/`)
@@ -260,6 +280,7 @@ erDiagram
 | `kraft`, `haltung`, `mobilitaet` | `plan-kraft_oder_haltung.json` – `exercises[]` mit `name`, `sets`, `reps` (Pflicht), `exercise_id` (Slug, AP-16), `load`, `tempo`, `rest_s`, `notes` | `actual-kraft_oder_haltung.json` |
 | `klettern` | `plan-klettern.json` – `blocks[]` mit `kind` (Pflicht), `exercise_id` (nur `hangboard`, `campus`, `zugkraft`, `antagonisten`; `if`/`then` im Schema), `spezifitaet`, Hangboard-Feldern, `duration_min`, `target`, `notes` | `actual-klettern.json` |
 | Übung (AP-16) | `exercise.json` – `content_json`: `kurz`, `ziel`, `ausfuehrung` (2–12), `quellen` (≥ 1) Pflicht; `muskeln`, `voraussetzung`, `achten`, `fehler`, `vorsicht`, `progression`, `regression`, `dosierung_hinweis`, `links` (≤ 2 Text, ≤ 2 Video, nur https; `embed`, `geprueft_am`, `status` setzt der Server), `notizen` | – |
+| Review (AP-15) | `review-zielklaerung.json`, `review-bilanz.json`, `review-revision.json` – `content_json` je Art (Konzept `blockbilanz.md` 4.3); Listen ≤ 20, Einträge ≤ 500, `rationale`/`grund`/`empfehlung`/`befund` ≤ 1 500 Zeichen; Entscheidungen mit mindestens einer verworfenen Alternative; Prüfung `Training\Review\ReviewValidator` | – |
 | `ausdauer` | `plan-ausdauer.json` – `intervals_workout_text`, `target_type`, `summary` (Pflicht), `notes` | `actual-ausdauer.json` |
 | `ruhe` | `plan-ruhe.json` – leer oder nur `notes`; `plan_json` darf `NULL` sein | `actual-ruhe.json` |
 

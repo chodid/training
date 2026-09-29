@@ -62,7 +62,7 @@ final class GuidedSessionTest extends AppTestCase
         self::assertSame(200, $r->status, $r->body);
         $body = $r->body;
         self::assertStringContainsString('<title>Haltung und Rumpf – Training</title>', $body);
-        self::assertStringContainsString('<main class="main gefuehrt">', $body);
+        self::assertStringContainsString('<main class="main gefuehrt">', $body); // kein Overlay in S9 (AP-15)
         self::assertStringContainsString('href="/einheit?id=' . $this->ids['haltung'] . '" aria-label="Zurück zur Einheit"', $body);
         self::assertStringContainsString('id="gf-stumm" aria-pressed="false"', $body, 'Stummschalter in der Kopfzeile');
         self::assertStringContainsString('<p class="kurz gf-intro mb-4">Haltung erhaltend</p>', $body, 'Kurzsatz im Startschritt (5.3)');

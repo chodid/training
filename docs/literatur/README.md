@@ -1,6 +1,6 @@
 ---
 titel: Literaturverzeichnis (Volltexte)
-bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitte 13.1, 13.2, 13.4; D-31, D-51, D-71, D-72
+bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitte 13.1, 13.2, 13.4; D-31, D-51, D-71, D-79
 stand: 2026-09-29
 ---
 
@@ -11,7 +11,7 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 
 ## Ablage und Dateinamen (D-51, D-71)
 
-- Unterordner je Block: `uebergreifend/`, `t1-ausdauer/`, `t2-kraft/`, `t3-klettern/`, `r-reha/` (Block R), künftig `t4-beweglichkeit/` (D-72). Eine Datei liegt in dem Block, in dem ihre ID definiert ist; L-P08 liegt also unter `uebergreifend/`, obwohl T2 per L-T2-01 darauf verweist.
+- Unterordner je Block: `uebergreifend/`, `t1-ausdauer/`, `t2-kraft/`, `t3-klettern/`, `r-reha/` (Block R), künftig `t4-beweglichkeit/` (D-79). Eine Datei liegt in dem Block, in dem ihre ID definiert ist; L-P08 liegt also unter `uebergreifend/`, obwohl T2 per L-T2-01 darauf verweist.
 - Dateiname: `<ID>_<Erstautor>-<Jahr>_<Kurztitel>[_<Auflage>].pdf`, nur ASCII (ø → oe, ö → oe). Das Jahr ist das Jahr der Zitierfassung im Konzept.
 - Bücher zusätzlich als Kapitel-PDFs in `<ID>_kapitel/` (13.1 Schritt 1): `<ID>_<Kapitelnr>[-<Teil>]_<Kapiteltitel>.pdf`. `00` ist der Vorspann (Titelei, Inhaltsverzeichnis), `9x` sind Anhänge (Glossar, Literatur, Index). Kapitel mit mehr als 60 PDF-Seiten sind in etwa gleich große Teile (`-1`, `-2`, …) geteilt, möglichst an Abschnittsgrenzen. Teil-Titelseiten gehören zum folgenden Kapitel.
 - Das Originalbuch bleibt vollständig liegen, zum Durchsuchen und Zitieren über das ganze Werk. Die Kapitel-PDFs haben die Lesezeichen des Kapitels, aber keine internen Verweise (Inhaltsverzeichnis- und Index-Links); die bleiben im Original.
@@ -149,7 +149,7 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nach
 | L-T2-23 | Lopez et al. 2021, Med Sci Sports Exerc (mit Corrigendum 2022;54(2):370) | PMC8126497 | Hypertrophie (D-62) |
 | L-T2-24 | Lopes et al. 2019, SAGE Open Med (mit Corrigendum 2020) | PMC6383082 | CC BY-NC 4.0 (D-62) |
 | L-T2-25 | Lundberg et al. 2022, Sports Med | PMC9474354 | Hypertrophie (D-62) |
-| L-T4-01 | Warneke et al. 2025, J Sport Health Sci (Delphi-Konsens Dehnen) | PMC12305623 | T4 Anker (D-72) |
+| L-T4-01 | Warneke et al. 2025, J Sport Health Sci (Delphi-Konsens Dehnen) | PMC12305623 | T4 Anker (D-79) |
 | L-T4-02 | Konrad et al. 2024, J Sport Health Sci | PMC10980866 | T4 |
 | L-T4-03 | Oba et al. 2026, Sports Med Open | PMC13356130 | T4; Artikelnummer offen (V-23) |
 | L-T4-04 | Arntz et al. 2023, Sports Med | PMC9935669 | T4 |
@@ -161,7 +161,7 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nach
 
 - L-P14 Impellizzeri et al. 2021 (optional, Ergänzung zu L-P12)
 - L-P16 Düking et al. 2021 (optional, HRV mit Wearables; nicht in PMC)
-- T4 Beweglichkeit (optional, D-72): L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -31 (in PMC: -07, -09, -11, -15, -18, -21, -27 bis -30); Buch L-T4-32 Behm, The Science and Physiology of Flexibility and Stretching, 2. Aufl. (Format vor Kauf prüfen, V-21)
+- T4 Beweglichkeit (optional, D-79): L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -31 (in PMC: -07, -09, -11, -15, -18, -21, -27 bis -30); Buch L-T4-32 Behm, The Science and Physiology of Flexibility and Stretching, 2. Aufl. (Format vor Kauf prüfen, V-21)
 - L-T2-19 Carrasco-Uribarren et al. 2026 (optional)
 - L-T3-05 López-Rivera & González-Badillo 2012 (nur falls L-T3-18 nicht genügt)
 - Block R (optional bzw. Kernaussage aus Abstract ausreichend): L-R-07 Visentini, L-R-09 Hernandez-Sanchez, L-R-12 Backman, L-R-15 Schiftan, L-R-18 Nielsen RØ, L-R-19 Kiers, L-R-20 Fakontis, L-R-22 Delahunt, L-R-28 Hjortshoej
