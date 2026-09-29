@@ -221,7 +221,7 @@ Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dat
 
 ### 4.4 T2 – `t2-kraft-haltung`
 
-Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateien; zusätzlich L-P08 (Tabelle UP). Davon extrahiert: 20. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 48.
+Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateien; zusätzlich L-P08 (Tabelle UP). Davon extrahiert: 22. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 48.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -352,16 +352,16 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-T2-22 | T2 | `L-T2-22_Refalo-2023_Proximity-to-Failure-Hypertrophy.pdf` | 17 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** · 50 Aussagen · 4 unsicher · 4 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 648+n; Befund: Egger-Test Wortlaut vs. p, KI Text vs. Tab. 4 |
 | L-T2-23 | T2 | `L-T2-23_Lopez-2021_Training-Load-Hypertrophy-Strength.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · Corrigendum als eigene Datei (Zeile darunter) · **Lizenz vor Ablage prüfen (Athlet)** · 55 Aussagen · 5 unsicher · 8 offene Stellen · pdf_nativ · Muster: Repositoriumsfassung, PDF 1–2 Deckblätter, PDF n → S. 1203+n; Corrigendum S. 370 (Abb. 4) eingearbeitet und markiert – hoch vs. mittel schwächer (0,16–0,17, P 0,13–0,15); I², Bias, 98,2 % unklar ob neu berechnet (unsicher); mehrere Widersprüche im Original |
 | L-T2-23 | T2 | `L-T2-23_Lopez-2022_Corrigendum.pdf` | 1 (PDF) | in k00 | in k00 | Corrigendum zu L-T2-23 · Text ✓ · im selben Lauf wie der Artikel extrahiert (`L-T2-23_k00.md`, Entscheidung Athlet 2026-09-29) |
-| L-T2-24 | T2 | `L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf` | 7 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ · Corrigendum als eigene Datei (Zeile darunter) |
+| L-T2-24 | T2 | `L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf` | 7 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · Corrigendum als eigene Datei (Zeile darunter) · 40 Aussagen · 1 unsicher · 11 offene Stellen · pdf_nativ |
 | L-T2-24 | T2 | `L-T2-24_Lopes-2020_Corrigendum.pdf` | 2 (PDF) | in k00 | in k00 | Corrigendum zu L-T2-24 · Text ✓ · im selben Lauf wie der Artikel extrahiert (`L-T2-24_k00.md`, Entscheidung Athlet 2026-09-29) |
 | L-T2-14 | T2 | `L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf` | 23 (PDF) | offen | offen | optional · A · optional · Text ✓ |
 | L-T2-19 | T2 | `L-T2-19_Carrasco-Uribarren-2026_Therapeutic-Exercise-Forward-Head-Posture.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 47 Aussagen · 2 unsicher · 3 offene Stellen · pdf_nativ · Muster: Online-First, Verlagsdeckblatt, gedruckt = PDF − 1, S. 1 ohne Zahl (Abschnitt); Befund: n=256 vs. 156, Unpräzision Text vs. Tab. 4, Tab. 1 vs. 2 widersprüchlich |
 | L-T2-33 | T2 | – | – | – | – | optional · B · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
 | L-T2-27 | T2 | `L-T2-27_Schoenfeld-2019_Training-Frequency-Hypertrophy.pdf` | 11 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 41 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ · Muster: Online-First-Fassung (online 2018), Verlagsdeckblatt, gedruckt = PDF − 1, S. 1 ohne Zahl (Abschnitt); Befund: Omnibustest P = 0,08 (Ergebnis) vs. 0,04 (Diskussion) |
-| L-T2-28 | T2 | `L-T2-28_Refalo-2021_Training-Load-Hypertrophy.pdf` | 24 (PDF) | offen | offen | optional · A · optional · Text ✓ |
+| L-T2-28 | T2 | `L-T2-28_Refalo-2021_Training-Load-Hypertrophy.pdf` | 24 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 67 Aussagen · 4 unsicher · 6 offene Stellen · pdf_nativ |
 | L-T2-29 | T2 | `L-T2-29_Carvalho-2022_Volume-Matched-Loads-Hypertrophy.pdf` | 58 (PDF) | offen | offen | optional · A · optional · Text ✓ · Autorenmanuskript, Seitenzahlen nicht zitierfähig |
-| L-T2-30 | T2 | `L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 39 Aussagen · 0 unsicher · 7 offene Stellen · pdf_nativ |
-| **Synthese startbereit** | T2 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 20 von 76 extrahiert; gegengeprüft: 0. |
+| L-T2-30 | T2 | `L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 39 Aussagen · 0 unsicher · 7 offene Stellen · pdf_nativ · Muster: Article in Press (J Sport Health Sci 2021, vorläufige Seiten 1–10), Versatz 0; Befund: Jahresangabe Rooney 2020 vs. 1994, KI Karsten ohne Minus u. a. |
+| **Synthese startbereit** | T2 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 22 von 76 extrahiert; gegengeprüft: 0. |
 
 ### 4.5 T3 – `t3-klettern`
 
@@ -642,3 +642,4 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-T2-27 | Online-First-Fassung (online 2018), Verlagsdeckblatt, gedruckt = PDF − 1, S. 1 ohne Zahl (Abschnitt); Befund: Omnibustest P = 0,08 (Ergebnis) vs. 0,04 (Diskussion) | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-19 | Online-First, Verlagsdeckblatt, gedruckt = PDF − 1, S. 1 ohne Zahl (Abschnitt); Befund: n=256 vs. 156, Unpräzision Text vs. Tab. 4, Tab. 1 vs. 2 widersprüchlich | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-23 | Repositoriumsfassung, PDF 1–2 Deckblätter, PDF n → S. 1203+n; Corrigendum S. 370 (Abb. 4) eingearbeitet und markiert – hoch vs. mittel schwächer (0,16–0,17, P 0,13–0,15); I², Bias, 98,2 % unklar ob neu berechnet (unsicher); mehrere Widersprüche im Original | U2-Extraktion (Rückmeldung Unteragent) |
+| L-T2-30 | Article in Press (J Sport Health Sci 2021, vorläufige Seiten 1–10), Versatz 0; Befund: Jahresangabe Rooney 2020 vs. 1994, KI Karsten ohne Minus u. a. | U2-Extraktion (Rückmeldung Unteragent) |
