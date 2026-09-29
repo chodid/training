@@ -174,14 +174,14 @@ Summe: 116 Werke in 118 Dateien (davon 15 Bücher mit Kapitel-PDFs – L-T4-36 n
 
 ## Noch nicht vorhanden
 
-Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nachsteuerung, T4 und Lückenprüfung Standardwerke eingearbeitet). Vorhandene Ausgaben gelten, auf Neuauflagen wird nicht gewartet (Nachtrag D-51).
+Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D, Literatur-Nachsteuerung, T4 und Lückenprüfung Standardwerke eingearbeitet). Vorhandene Ausgaben gelten, auf Neuauflagen wird nicht gewartet (Nachtrag D-51). Die Literatursuche ist abgeschlossen (2026-09-29); L-T4-35 Freiwald entfällt (nicht beschaffbar).
 
 ### Kaufen oder über die Bibliothek (nicht frei verfügbar)
 
 | Prio | ID | Quelle | Wofür |
 |---|---|---|---|
 | 2 | L-R-29 | Brukner & Khan, Clinical Sports Medicine – Managing Injuries, 6. Aufl. 2026 (Buch) | Block R, Stufe B, optional (D-80); Format prüfen (V-24) |
-| 2 | L-T4-35 | Freiwald, Optimales Dehnen, 3. Aufl. 2020 (Buch) | T4, Stufe B, optional; deutsche Fachbegriffe; ISBN prüfen |
+| 2 | L-T3-15 | Anderson/Anderson, The Rock Climber's Training Manual, 2014 (Buch) | T3, Stufe C, optional; Planungsvorlage Periodisierung/Hangboard (Entscheidung Athlet 2026-09-29) |
 
 ### Frei verfügbar (PubMed Central)
 
