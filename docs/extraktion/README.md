@@ -365,7 +365,7 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 
 ### 4.5 T3 – `t3-klettern`
 
-Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 63 Dateien. Davon extrahiert: 38. Nicht zu extrahieren (Vorspann/Anhang): 10; ausgelassen nach Kapitelauswahl: 10.
+Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 63 Dateien. Davon extrahiert: 49. Nicht zu extrahieren (Vorspann/Anhang): 10; ausgelassen nach Kapitelauswahl: 10.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -418,34 +418,34 @@ Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 63 Dat
 | L-T3-09 | T3 | `01` An Overview of Training for Climbing | PDF 17–34; Druck 1–18 | 2026-09-29 / opus | offen | Text ✓ · 45 Aussagen · 1 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T3-09 | T3 | `02` Self-Assessment and Goal Setting | PDF 35–46; Druck 19–30 | 2026-09-29 / opus | offen | Text ✓ · 43 Aussagen · 1 unsicher · 3 offene Stellen · pdf_nativ |
 | L-T3-09 | T3 | `03` Mental Training | PDF 47–72; Druck 31–56 | 2026-09-29 / opus | offen | Text ✓ · 66 Aussagen · 1 unsicher · 1 offene Stellen · pdf_nativ |
-| L-T3-09 | T3 | `04` Training Technique and Skill | PDF 73–104; Druck 57–88 | offen | offen | Text ✓ |
-| L-T3-09 | T3 | `05` The Physiology of Climbing | PDF 105–132; Druck 89–116 | offen | offen | Text ✓ |
-| L-T3-09 | T3 | `06` Mobility, Stability, Antagonist Training | PDF 133–162; Druck 117–146 | offen | offen | Text ✓ |
-| L-T3-09 | T3 | `07` Core, Legs, and Aerobic Training | PDF 163–180; Druck 147–164 | offen | offen | Text ✓ |
-| L-T3-09 | T3 | `08` Finger Training for Strength and Endurance | PDF 181–214; Druck 165–198 | offen | offen | Text ✓ |
-| L-T3-09 | T3 | `09` Pull-Muscle and Power Training | PDF 215–234; Druck 199–218 | offen | offen | Text ✓ |
-| L-T3-09 | T3 | `10` Designing Your Training Program | PDF 235–262; Druck 219–246 | offen | offen | Text ✓ |
+| L-T3-09 | T3 | `04` Training Technique and Skill | PDF 73–104; Druck 57–88 | 2026-09-29 / opus | offen | Text ✓ · 99 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
+| L-T3-09 | T3 | `05` The Physiology of Climbing | PDF 105–132; Druck 89–116 | 2026-09-29 / opus | offen | Text ✓ · 113 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ |
+| L-T3-09 | T3 | `06` Mobility, Stability, Antagonist Training | PDF 133–162; Druck 117–146 | 2026-09-29 / opus | offen | Text ✓ · 84 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
+| L-T3-09 | T3 | `07` Core, Legs, and Aerobic Training | PDF 163–180; Druck 147–164 | 2026-09-29 / opus | offen | Text ✓ · 75 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ |
+| L-T3-09 | T3 | `08` Finger Training for Strength and Endurance | PDF 181–214; Druck 165–198 | 2026-09-29 / opus | offen | Text ✓ · 98 Aussagen · 1 unsicher · 3 offene Stellen · pdf_nativ |
+| L-T3-09 | T3 | `09` Pull-Muscle and Power Training | PDF 215–234; Druck 199–218 | 2026-09-29 / opus | offen | Text ✓ · 81 Aussagen · 0 unsicher · 4 offene Stellen · pdf_nativ |
+| L-T3-09 | T3 | `10` Designing Your Training Program | PDF 235–262; Druck 219–246 | 2026-09-29 / opus | offen | Text ✓ · 86 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ |
 | L-T3-09 | T3 | `11` Performance Nutrition | PDF 263–278; Druck 247–262 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Ernährung; Athlet 2026-09-29) · Text ✓ |
-| L-T3-09 | T3 | `12` Accelerating Recovery | PDF 279–294; Druck 263–278 | offen | offen | Text ✓ |
+| L-T3-09 | T3 | `12` Accelerating Recovery | PDF 279–294; Druck 263–278 | 2026-09-29 / opus | offen | Text ✓ · 73 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T3-09 | T3 | `13` Injury Treatment and Prevention | PDF 295–320; Druck 279–304 | offen | offen | Text ✓ |
 | L-T3-09 | T3 | `90` Afterword and Appendices A-C | PDF 321–330; Druck 305–314 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | L-T3-09 | T3 | `91` Glossary, Suggested Reading, References | PDF 331–342; Druck 315–326 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | L-T3-09 | T3 | `92` Index and About the Author | PDF 343–356; Druck 327–340 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | **L-T3-10** | T3 | **Ordner `t3-klettern/L-T3-10_kapitel/`** (11 Markdown-Dateien + Ansichts-PDFs) | – | – | – | ausgewaehlt (ideenfundus, Stufe C) · C · Kern · EPUB → Markdown, keine Seitenmarken (Kapitel/Abschnitt, D-71) |
 | L-T3-10 | T3 | `00` Vorspann | EPUB, ca. 3.400 Wörter | entfällt | entfällt | nicht zu extrahieren (Vorspann) · Markdown ✓ |
-| L-T3-10 | T3 | `01-1` Technique (Teil 1/2) | EPUB, ca. 8.100 Wörter | offen | offen | Markdown ✓ |
+| L-T3-10 | T3 | `01-1` Technique (Teil 1/2) | EPUB, ca. 8.100 Wörter | 2026-09-29 / opus | offen | Markdown ✓ · 97 Aussagen · 0 unsicher · 0 offene Stellen · markdown_epub |
 | L-T3-10 | T3 | `01-2` Technique (Teil 2/2) | EPUB, ca. 8.000 Wörter | offen | offen | Markdown ✓ |
 | L-T3-10 | T3 | `02-1` Physical Training (Teil 1/2) | EPUB, ca. 8.100 Wörter | offen | offen | Markdown ✓ |
 | L-T3-10 | T3 | `02-2` Physical Training (Teil 2/2) | EPUB, ca. 7.900 Wörter | offen | offen | Markdown ✓ |
 | L-T3-10 | T3 | `03` Mental Training | EPUB, ca. 9.600 Wörter | offen | offen | Markdown ✓ |
 | L-T3-10 | T3 | `04` Tactics | EPUB, ca. 11.800 Wörter | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Taktik (kein Themenfeld der Quelle); Athlet 2026-09-29) · Markdown ✓ |
-| L-T3-10 | T3 | `05-1` General Training and Injury Prevention (Teil 1/2) | EPUB, ca. 6.100 Wörter | offen | offen | Markdown ✓ |
+| L-T3-10 | T3 | `05-1` General Training and Injury Prevention (Teil 1/2) | EPUB, ca. 6.100 Wörter | 2026-09-29 / opus | offen | Markdown ✓ · 72 Aussagen · 1 unsicher · 0 offene Stellen · markdown_epub |
 | L-T3-10 | T3 | `05-2` General Training and Injury Prevention (Teil 2/2) | EPUB, ca. 6.500 Wörter | offen | offen | Markdown ✓ |
 | L-T3-10 | T3 | `06` Training Plans | EPUB, ca. 10.300 Wörter | offen | offen | Markdown ✓ |
 | L-T3-10 | T3 | `90` The Joy of Climbing, Ten Commandments, Epilogue, Glossary, Read More | EPUB, ca. 6.300 Wörter | entfällt | entfällt | nicht zu extrahieren (Anhang) · Markdown ✓ |
 | **L-T3-20** | T3 | **Ordner `t3-klettern/L-T3-20_kapitel/`** (5 Markdown-Dateien + Ansichts-PDFs) | – | – | – | ausgewaehlt (ideenfundus, Stufe C) · C · Kern · EPUB → Markdown mit Seitenmarken [S. n] |
 | L-T3-20 | T3 | `00a` Vorspann | Druck 2–11 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · Markdown ✓ |
-| L-T3-20 | T3 | `00b` Warming Up | Druck 14–19 | offen | offen | Markdown ✓ |
+| L-T3-20 | T3 | `00b` Warming Up | Druck 14–19 | 2026-09-29 / opus | offen | Markdown ✓ · 29 Aussagen · 1 unsicher · 1 offene Stellen · markdown_epub |
 | L-T3-20 | T3 | `01` Technique | Druck 20–87 | offen | offen | Markdown ✓ |
 | L-T3-20 | T3 | `02` Strength & Power | Druck 88–142 | offen | offen | Markdown ✓ |
 | L-T3-20 | T3 | `03` Children & Youths | Druck 143–192 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Kinder und Jugendliche; Athlet 2026-09-29) · Markdown ✓ |
@@ -460,7 +460,7 @@ Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 63 Dat
 | L-T3-18 | T3 | `L-T3-18_Lopez-Rivera-2019_Hangboard-Training-Programs.pdf` | 11 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 54 Aussagen · 0 unsicher · 5 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 182+n; Befund: 23,9 % nicht aus Tab. 2 nachvollziehbar, 10- vs. 8-Wochen-Studie, p-Werte uneinheitlich |
 | L-T3-05 | T3 | `L-T3-05_Lopez-Rivera-2012_Grip-Strength-Edge-Depth.pdf` | 12 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt (ergaenzend) · A · Kern · Text ✓ · 55 Aussagen · 4 unsicher · 0 offene Stellen · pdf_nativ · Muster: PDF-Seite 1 Verlagsdeckblatt, danach PDF n → S. 98+n; Zahlenwidersprüche zwischen Ergebnis- und Diskussionsteil (ET2/ET3, Detraining −18 % vs. −8 %, Vorzeichen r) |
 | L-T3-07 | T3 | – | – | entfällt | entfällt | optional (Alternative zu L-T3-06, D-31) · B · keine Datei; nicht benötigt, solange L-T3-06 vorliegt |
-| **Synthese startbereit** | T3 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-T3-16. Stand Extraktion: 38 von 63 extrahiert; gegengeprüft: 0. L-T3-16 ist Stufe C (Planungsvorlage), aber `ausgewaehlt` – nach W-10 zählt es als Kernquelle; bestätigen. L-T3-09 in der Neuauflage (ab 03/2027) nicht gezählt, die 3. Aufl. gilt (D-70). L-T3-21 vorläufig (Bestätigung Athlet offen). |
+| **Synthese startbereit** | T3 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-T3-16. Stand Extraktion: 49 von 63 extrahiert; gegengeprüft: 0. L-T3-16 ist Stufe C (Planungsvorlage), aber `ausgewaehlt` – nach W-10 zählt es als Kernquelle; bestätigen. L-T3-09 in der Neuauflage (ab 03/2027) nicht gezählt, die 3. Aufl. gilt (D-70). L-T3-21 vorläufig (Bestätigung Athlet offen). |
 
 ### 4.6 R – `r-reha-praevention`
 
