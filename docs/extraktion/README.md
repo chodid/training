@@ -221,7 +221,7 @@ Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dat
 
 ### 4.4 T2 – `t2-kraft-haltung`
 
-Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateien; zusätzlich L-P08 (Tabelle UP). Davon extrahiert: 71. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 48.
+Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateien; zusätzlich L-P08 (Tabelle UP). Davon extrahiert: 75. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 48.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -333,12 +333,12 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-T2-04 | T2 | `22` Prehabilitation, Mobility, Flexibility Resources | PDF 306–326; Druck 292–312 | 2026-09-29 / opus | offen | Text ✓ · 78 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T2-04 | T2 | `23` Exercise Technique, Descriptions, Tips | PDF 327–331; Druck 313–317 | 2026-09-29 / opus | offen | Text ✓ · 24 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T2-04 | T2 | `24-1` Handstand Variations (Teil 1/2) | PDF 332–361; Druck 318–347 | 2026-09-29 / opus | offen | Text ✓ · 109 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ |
-| L-T2-04 | T2 | `24-2` Handstand Variations (Teil 2/2) | PDF 362–392; Druck 348–378 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `25-1` Pulling Exercises (Teil 1/2) | PDF 393–431; Druck 379–417 | offen | offen | Text ✓ |
+| L-T2-04 | T2 | `24-2` Handstand Variations (Teil 2/2) | PDF 362–392; Druck 348–378 | 2026-09-29 / opus | offen | Text ✓ · 99 Aussagen · 2 unsicher · 7 offene Stellen · pdf_nativ |
+| L-T2-04 | T2 | `25-1` Pulling Exercises (Teil 1/2) | PDF 393–431; Druck 379–417 | 2026-09-29 / opus | offen | Text ✓ · 130 Aussagen · 2 unsicher · 6 offene Stellen · pdf_nativ |
 | L-T2-04 | T2 | `25-2` Pulling Exercises (Teil 2/2) | PDF 432–470; Druck 418–456 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `26-1` Pushing Variations (Teil 1/2) | PDF 471–503; Druck 457–489 | offen | offen | Text ✓ |
+| L-T2-04 | T2 | `26-1` Pushing Variations (Teil 1/2) | PDF 471–503; Druck 457–489 | 2026-09-29 / opus | offen | Text ✓ · 67 Aussagen · 1 unsicher · 1 offene Stellen · pdf_nativ |
 | L-T2-04 | T2 | `26-2` Pushing Variations (Teil 2/2) | PDF 504–536; Druck 490–522 | 2026-09-29 / opus | offen | Text ✓ · 79 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
-| L-T2-04 | T2 | `27` Multi-Plane Exercises, Core, and Legs | PDF 537–594; Druck 523–580 | offen | offen | Text ✓ |
+| L-T2-04 | T2 | `27` Multi-Plane Exercises, Core, and Legs | PDF 537–594; Druck 523–580 | 2026-09-29 / opus | offen | Text ✓ · 78 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T2-04 | T2 | `90` Resources | PDF 595–600; Druck 581–586 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓; 3 von 6 Seiten fast ohne Text |
 | L-T2-08 | T2 | `L-T2-08_Kotarsky-2018_Progressive-Push-up-Training.pdf` | 9 (PDF) | 2026-09-29 / opus | offen | verifiziert · A · Kern · Text ✓ · 46 Aussagen · 0 unsicher · 1 offene Stellen · pdf_nativ |
 | L-T2-09 | T2 | `L-T2-09_vandenTillaar-2019_Push-up-vs-Bench-Press.pdf` | 8 (PDF) | 2026-09-29 / opus | offen | verifiziert · A · Kern · Text ✓ · 36 Aussagen · 4 unsicher · 6 offene Stellen · pdf_nativ · Muster: Seiten mit Präfix E (E74–E81) |
@@ -361,28 +361,28 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-T2-28 | T2 | `L-T2-28_Refalo-2021_Training-Load-Hypertrophy.pdf` | 24 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 67 Aussagen · 4 unsicher · 6 offene Stellen · pdf_nativ · Muster: Verlagsdeckblatt, gedruckt = PDF − 1; Befund: Abstract-ES 0,34 vs. Ergebnis 0,41, Studienzahlen 8+13/22/20, Tab. 1 teils nicht lesbar (unsicher) |
 | L-T2-29 | T2 | `L-T2-29_Carvalho-2022_Volume-Matched-Loads-Hypertrophy.pdf` | 58 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · Autorenmanuskript, Seitenzahlen nicht zitierfähig · 79 Aussagen · 9 unsicher · 9 offene Stellen · pdf_nativ · Muster: Autorenmanuskript (ScholarOne), Stelle als Abschnitt/Tab./Abb., seiten „–“; Forest-Plots gering aufgelöst (Einzelwerte nicht extrahiert); viele Widersprüche im Manuskript |
 | L-T2-30 | T2 | `L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 39 Aussagen · 0 unsicher · 7 offene Stellen · pdf_nativ · Muster: Article in Press (J Sport Health Sci 2021, vorläufige Seiten 1–10), Versatz 0; Befund: Jahresangabe Rooney 2020 vs. 1994, KI Karsten ohne Minus u. a. |
-| **Synthese startbereit** | T2 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 71 von 76 extrahiert; gegengeprüft: 0. |
+| **Synthese startbereit** | T2 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 75 von 76 extrahiert; gegengeprüft: 0. |
 
 ### 4.5 T3 – `t3-klettern`
 
-Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 63 Dateien. Davon extrahiert: 3. Nicht zu extrahieren (Vorspann/Anhang): 10; ausgelassen nach Kapitelauswahl: 10.
+Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 63 Dateien. Davon extrahiert: 10. Nicht zu extrahieren (Vorspann/Anhang): 10; ausgelassen nach Kapitelauswahl: 10.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
-| L-T3-01 | T3 | `L-T3-01_Stien-2023_Climbing-and-Resistance-Training-Meta-Analysis.pdf` | 13 (PDF) | offen | offen | ausgewaehlt (kern) · A · Kern · Text ✓ |
+| L-T3-01 | T3 | `L-T3-01_Stien-2023_Climbing-and-Resistance-Training-Meta-Analysis.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt (kern) · A · Kern · Text ✓ · 73 Aussagen · 4 unsicher · 8 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 178+n (Biol Sport 40(1)); Forest-Plots Abb. 2–4 abgeschnitten (Einzelwerte ohne Studienzuordnung, unsicher); mehrere Widersprüche Text vs. Tabellen/Abb. (8 offene Stellen) |
 | L-T3-02 | T3 | `L-T3-02_Langer-2023_Strength-Training-in-Climbing.pdf` | 17 (PDF) | offen | offen | ausgewaehlt (kern) · A · Kern · Text ✓ |
 | L-T3-03 | T3 | `L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf` | 23 (PDF) | offen | offen | ausgewaehlt (kern) · A · Kern · Text ✓ |
 | **L-T3-06** | T3 | **Ordner `t3-klettern/L-T3-06_kapitel/`** (24 Kapitel-PDFs, 319 PDF-Seiten) | – | – | – | ausgewaehlt (kern) · B · Kern · Druckseiten je Kapitel in U2 bestimmen |
 | L-T3-06 | T3 | `00` Vorspann | PDF 1–11 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · S. 1 ohne Text, ab S. 2 ✓ |
 | L-T3-06 | T3 | `01` Introduction | PDF 12–20 | 2026-09-29 / opus | offen | Text ✓ · 25 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
-| L-T3-06 | T3 | `02` Injury Statistics | PDF 21–34 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
+| L-T3-06 | T3 | `02` Injury Statistics | PDF 21–34 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · 55 Aussagen · 0 unsicher · 1 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `03` Anatomy and Biomechanics of the Hand | PDF 35–48 | 2026-09-29 / opus | offen | Text ✓ · 54 Aussagen · 1 unsicher · 3 offene Stellen · pdf_nativ |
-| L-T3-06 | T3 | `04` Historical Development of a Physiological Model for Rock Climbing Performance | PDF 49–60 | offen | offen | Text ✓ |
+| L-T3-06 | T3 | `04` Historical Development of a Physiological Model for Rock Climbing Performance | PDF 49–60 | 2026-09-29 / opus | offen | Text ✓ · 60 Aussagen · 4 unsicher · 4 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `05` Imaging of Climbing Injuries | PDF 61–71 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Bildgebung/Diagnostik (N5); Athlet 2026-09-29) · Text ✓ |
 | L-T3-06 | T3 | `06` Hand and Fingers | PDF 72–120 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
-| L-T3-06 | T3 | `07` Wrist Injuries | PDF 121–131 | offen | offen | Text ✓ |
-| L-T3-06 | T3 | `08` Elbow and Forearm | PDF 132–142 | offen | offen | Text ✓ |
-| L-T3-06 | T3 | `09` Shoulder Injuries | PDF 143–152 | offen | offen | Text ✓ |
+| L-T3-06 | T3 | `07` Wrist Injuries | PDF 121–131 | 2026-09-29 / opus | offen | Text ✓ · 61 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
+| L-T3-06 | T3 | `08` Elbow and Forearm | PDF 132–142 | 2026-09-29 / opus | offen | Text ✓ · 73 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
+| L-T3-06 | T3 | `09` Shoulder Injuries | PDF 143–152 | 2026-09-29 / opus | offen | Text ✓ · 59 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ |
 | L-T3-06 | T3 | `10` Foot and Ankle | PDF 153–165 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
 | L-T3-06 | T3 | `11` Hip and Knee Injuries | PDF 166–173 | offen | offen | Text ✓ |
 | L-T3-06 | T3 | `12` The Spine | PDF 174–186 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
@@ -458,9 +458,9 @@ Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 63 Dat
 | L-T3-21 | T3 | `90` Glossary, References and Bibliography | Druck 152–157 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Markdown ✓ |
 | L-T3-16 | T3 | – | – | – | – | ausgewaehlt (planungsvorlage, Stufe C) · C · Kern · **fehlt (Beschaffung, Athlet)** |
 | L-T3-18 | T3 | `L-T3-18_Lopez-Rivera-2019_Hangboard-Training-Programs.pdf` | 11 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 54 Aussagen · 0 unsicher · 5 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 182+n; Befund: 23,9 % nicht aus Tab. 2 nachvollziehbar, 10- vs. 8-Wochen-Studie, p-Werte uneinheitlich |
-| L-T3-05 | T3 | `L-T3-05_Lopez-Rivera-2012_Grip-Strength-Edge-Depth.pdf` | 12 (PDF) | offen | offen | ausgewaehlt (ergaenzend) · A · Kern · Text ✓ |
+| L-T3-05 | T3 | `L-T3-05_Lopez-Rivera-2012_Grip-Strength-Edge-Depth.pdf` | 12 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt (ergaenzend) · A · Kern · Text ✓ · 55 Aussagen · 4 unsicher · 0 offene Stellen · pdf_nativ · Muster: PDF-Seite 1 Verlagsdeckblatt, danach PDF n → S. 98+n; Zahlenwidersprüche zwischen Ergebnis- und Diskussionsteil (ET2/ET3, Detraining −18 % vs. −8 %, Vorzeichen r) |
 | L-T3-07 | T3 | – | – | entfällt | entfällt | optional (Alternative zu L-T3-06, D-31) · B · keine Datei; nicht benötigt, solange L-T3-06 vorliegt |
-| **Synthese startbereit** | T3 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-T3-16. Stand Extraktion: 3 von 63 extrahiert; gegengeprüft: 0. L-T3-16 ist Stufe C (Planungsvorlage), aber `ausgewaehlt` – nach W-10 zählt es als Kernquelle; bestätigen. L-T3-09 in der Neuauflage (ab 03/2027) nicht gezählt, die 3. Aufl. gilt (D-70). L-T3-21 vorläufig (Bestätigung Athlet offen). |
+| **Synthese startbereit** | T3 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-T3-16. Stand Extraktion: 10 von 63 extrahiert; gegengeprüft: 0. L-T3-16 ist Stufe C (Planungsvorlage), aber `ausgewaehlt` – nach W-10 zählt es als Kernquelle; bestätigen. L-T3-09 in der Neuauflage (ab 03/2027) nicht gezählt, die 3. Aufl. gilt (D-70). L-T3-21 vorläufig (Bestätigung Athlet offen). |
 
 ### 4.6 R – `r-reha-praevention`
 
@@ -650,3 +650,5 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-A03 | Die Fußzeilenzahl ist die fortlaufende E-Book-Paginierung = Gesamtbuch-PDF-Seite (alle 28 Kapitel); interne Querverweise nennen Seiten der Druckausgabe (z. B. „table 21.1, page 697“ auf E-Book-S. 1524), Versatz zur Druckausgabe nicht konstant (ca. zwei E-Book-Seiten je Druckseite) – Druckseiten nicht bestimmbar; zitiert wird die E-Book-Seite (im Repo-PDF prüfbar). Kapitelteile beginnen/enden mitten in Übungen/Tabellen; Literaturverzeichnis nicht in den Kapiteldateien; Zweck „Overreaching“ nur in k24 | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-03 | Springer-Sammelband; Versatz Gesamtbuch-PDF → Druckseite je Kapitel verschieden (k07 −6, k08 −5, k10/k11 −4, k12 −3, k13/k14 −2, k15 +1, k18 +2, k21 +6, k23 +7, k24 +8), innerhalb der Kapiteldatei konstant; Teil-Titelseiten ohne Zahl am Kapitelanfang; Literaturverzeichnis je Kapitel enthalten; Populationen teils nur aus Literaturtiteln (markiert); häufig Widersprüche Text vs. Tabelle | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T3-18 | Versatz PDF n → S. 182+n; Befund: 23,9 % nicht aus Tab. 2 nachvollziehbar, 10- vs. 8-Wochen-Studie, p-Werte uneinheitlich | U2-Extraktion (Rückmeldung Unteragent) |
+| L-T3-01 | Versatz PDF n → S. 178+n (Biol Sport 40(1)); Forest-Plots Abb. 2–4 abgeschnitten (Einzelwerte ohne Studienzuordnung, unsicher); mehrere Widersprüche Text vs. Tabellen/Abb. (8 offene Stellen) | U2-Extraktion (Rückmeldung Unteragent) |
+| L-T3-05 | PDF-Seite 1 Verlagsdeckblatt, danach PDF n → S. 98+n; Zahlenwidersprüche zwischen Ergebnis- und Diskussionsteil (ET2/ET3, Detraining −18 % vs. −8 %, Vorzeichen r) | U2-Extraktion (Rückmeldung Unteragent) |
