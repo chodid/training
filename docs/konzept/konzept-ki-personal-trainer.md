@@ -268,7 +268,7 @@ flowchart LR
 | V-21 | Behm 2025 (L-T4-32) und Nelson/Kokkonen (L-T4-34): E-Book-Format/DRM | vor Kauf (D-26, V-13, D-71); bei Nelson/Kokkonen zuerst die PDF-Ausgabe | AP-06 | erledigt 2026-09-29: beide als durchsuchbares PDF vorhanden, L-T4-34 zusätzlich als EPUB ohne DRM |
 | V-22 | Winters 2004 (L-T4-19): DOI | Verlagsseite | AP-06 | offen – auch im Volltext keine DOI |
 | V-23 | Oba 2026 (L-T4-03): Artikelnummer | beim Abruf | AP-06 | erledigt 2026-09-29: 12:95 (Volltext) |
-| V-24 | Formatprüfung (D-26, D-71, V-13) für L-R-29, L-R-30, L-T2-33, L-T1-16, L-T4-35, L-T4-36; beim Erwerb zusätzlich Inhaltsverzeichnis L-R-29 (Kapitel Patellatendinopathie und Sprunggelenk in der 6. Aufl.) und ISBN der 3. Aufl. L-T4-35 bestätigen | vor Kauf | AP-06 | teilweise 2026-09-29: L-T1-16 (EPUB ohne DRM), L-T2-33 und L-R-30 (je 3. Aufl. als PDF), L-T4-36 (Verlags-PDF) vorhanden; offen L-R-29, L-T4-35 |
+| V-24 | Formatprüfung (D-26, D-71, V-13) für L-R-29, L-R-30, L-T2-33, L-T1-16, L-T4-35, L-T4-36; beim Erwerb zusätzlich Inhaltsverzeichnis L-R-29 (Kapitel Patellatendinopathie und Sprunggelenk in der 6. Aufl.) und ISBN der 3. Aufl. L-T4-35 bestätigen | vor Kauf | AP-06 | erledigt 2026-09-29: alle vorhandenen Bücher geprüft (L-T1-16 EPUB ohne DRM; L-T2-33, L-R-30 je 3. Aufl. als PDF; L-T4-36 Verlags-PDF; L-R-29 5. Aufl. als Scan mit eigener Texterkennung); L-T4-35 entfällt |
 
 # 6. Betriebsablauf (Wochenzyklus)
 
@@ -1798,18 +1798,20 @@ Patellatendinopathie:
   rolle: stützt D-61 (a) Lasthöhe nicht entscheidend
 - id: L-R-29
   status: optional
+  kapitel: r-reha/L-R-29_kapitel/
   stufe: B
   typ: lehrbuch
-  zitat: "Brukner P, Khan K (Hrsg.). Brukner & Khan's Clinical Sports Medicine: Managing Injuries. 6. Aufl. McGraw-Hill Education (Australia); 2026."
-  isbn: 9781761000027 (Print)
-  umfang: 32 Kapitel, 86 Autorinnen und Autoren (Verlagsangabe)
+  zitat: "Brukner P, Clarsen B, Cook J, Cools A, Crossley K, Hutchinson M, McCrory P, Bahr R, Khan K. Brukner & Khan's Clinical Sports Medicine. Volume 1: Injuries. 5. Aufl. Sydney: McGraw-Hill Education (Australia); 2017."
+  isbn: 978-1-74376-138-0 (5. Aufl., vorliegende Ausgabe)
+  neuauflage: 6. Aufl. „Managing Injuries“ 2026, ISBN 9781761000027, 32 Kapitel – nicht beschafft (vorhandene Ausgabe gilt, Nachtrag D-51)
+  umfang: 48 Kapitel in drei Teilen (Fundamental principles, Regional problems, Practical sports medicine), 1227 PDF-Seiten
   reihe: 6. Aufl. dreibändig – Foundations of Clinical Practice (2025, ISBN 9781761000010), Managing Injuries, The Medicine of Exercise; aufgenommen nur Managing Injuries (Band 1 → Q-22; Band 3 ohne Bezug, Gesundheitssport/Erkrankungen)
-  inhalt: laut Autorenseite u. a. Kap. 25 Patellar tendinopathy, Kap. 30 Acute ankle injuries, Kap. 31 Ankle pain – Zuordnung zur 6. Aufl. beim Erwerb prüfen (V-24)
+  inhalt: 5. Aufl. u. a. Kap. 12 Preventing injury, 18 Principles of sports injury rehabilitation, 19 Return to play, 36 Anterior knee pain (Patellar tendinopathy ab S. 793), 41 Acute ankle injuries, 42 Ankle pain
   sprache: en
   themenfelder: [patellasehne, sprunggelenk, progressive_belastung, rezidivprophylaxe, befunderhebung]
   zweck: internationales Standardwerk der Sportmedizin; Nachschlagewerk zu Verletzungsbildern und Rehabilitationsverlauf für Block R
   einschraenkung: keine Regelquelle (D-22) – Belastungsregeln aus Stufe A (L-R-01 ff.); Diagnostik und Therapie bleiben bei Fachpersonen (N5)
-  zugang: Kauf; E-Book-Format/DRM prüfen (V-24)
+  zugang: Scan ohne Textebene (1227 S., 120 MB); Texterkennung durch Code-Instanz (Tesseract 5, 300 dpi, unsichtbare Textebene über der Originalseite, 2026-09-29) – Text kann Erkennungsfehler enthalten; wegen > 100 MB nur 55 Kapitel-PDFs (D-31); Druckseite = PDF-Seite − 41; Literaturverzeichnis am Ende mit eigener Zählung
   verifikation: Verlagsseite McGraw-Hill Education Australia (erhältlich ab 28.04.2026), Autorenseite clinicalsportsmedicine.com 2026-09-29
   bestaetigt: Athlet 2026-09-29 (SW-E1)
 - id: L-R-30
@@ -2679,13 +2681,13 @@ Formatprüfung je Titel vor dem Kauf (V-13). EPUB ohne DRM ist zulässig (D-71).
 | 2 | T4 | L-T4-16 Herbert 2011 (Cochrane) | Artikel | PDF | Abstract frei, Volltext Cochrane Library | ✓ |
 | frei | T4 | L-T4-01, -02, -03, -04, -08, -10, -12 | – | PDF aus PMC | Lizenzen vor Ablage prüfen (V-20) | ✓ alle |
 | bei Bedarf | T4 | L-T4-07, -09, -11, -15, -18, -20, -21, -23, -25 bis -31 | Artikel | PDF | optional; in PMC: -07, -09, -11, -15, -18, -21, -27 bis -30; L-T4-31 ggf. frei beim Verlag | – |
-| 2 | R | L-R-29 Brukner & Khan, Managing Injuries, 6. Aufl. | Buch | DRM-freies PDF oder EPUB (D-26, D-71) | Stufe B, optional; Inhaltsverzeichnis prüfen (V-24) | offen |
+| 2 | R | L-R-29 Brukner & Khan, Clinical Sports Medicine Vol. 1 Injuries (5. Aufl. 2017 statt 6. Aufl.) | Buch | DRM-freies PDF oder EPUB (D-26, D-71) | Stufe B, optional | ✓ Scan mit eigener Texterkennung, nur Kapitel-PDFs |
 | 2 | R | L-R-30 GOTS-Manual (3. Aufl. 2016 statt 4. Aufl.) | Buch | DRM-freies PDF oder EPUB | Stufe B, optional; deutsches Gegenstück zu L-R-29 | ✓ 3. Aufl., Kapitel-PDFs |
 | 2 | T2 | L-T2-33 McGill, Low Back Disorders (3. Aufl. 2016 statt 4. Aufl.) | Buch | kein VitalSource-DRM (D-26) | Stufe B, optional | ✓ 3. Aufl., Kapitel-PDFs |
 | 2 | T1 | L-T1-16 Koop, Training Essentials for Ultrarunning, 2. Aufl. | Buch | Kindle ungeeignet (D-71); Hardcover beim Autor | Stufe C, optional | ✓ EPUB, Kapitel-Markdown und Ansichts-PDFs |
 | 2 | T4 | L-T4-36 Schleip/Wilke, Fascia in Sport and Movement, 2. Aufl. | Buch | DRM-freies PDF oder EPUB | Stufe C, optional | ✓ nur Kapitel-PDFs (Gesamt-PDF 159 MB) |
 
-Stand 2026-09-29: 116 Werke als Volltext vorhanden (D-51, D-71; L-T4-36 nur als Kapitel-PDFs), Verzeichnis in `docs/literatur/README.md`. Vorhandene Ausgaben gelten, auf neuere Auflagen wird nicht gewartet (Nachtrag D-51). Offen sind 2 Bücher (L-R-29 Brukner & Khan, L-T4-35 Freiwald). Bei Bedarf: T4 15 Artikel; optionale Bücher L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-11.
+Stand 2026-09-29: 117 Werke als Volltext vorhanden (D-51, D-71; L-T4-36 und L-R-29 nur als Kapitel-PDFs), Verzeichnis in `docs/literatur/README.md`. Vorhandene Ausgaben gelten, auf neuere Auflagen wird nicht gewartet (Nachtrag D-51). Die Literatursuche ist abgeschlossen (2026-09-29). Offen ist nur L-T3-15 Anderson (Buch, Stufe C, optional). Bei Bedarf: T4 15 Artikel; optionale Bücher L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-11.
 
 # 14. Trainerregeln (Struktur; Inhalte in AP-07)
 
@@ -3026,7 +3028,7 @@ teilschritte:
   - Literaturauswahl T4 Beweglichkeit/Mobilität Teil A: erledigt (D-79), Teil B Übungsquellen erledigt (L-T4-34)
   - Lückenprüfung Standardwerke (en/de): erledigt (D-80)
   - Literatursuche insgesamt: abgeschlossen 2026-09-29 (Entscheidung Athlet; Q-22 entschieden, L-T3-15 aufgenommen, L-T4-35 entfallen)
-  - Beschaffung und Formatprüfung: weitgehend erledigt (Stand 2026-09-29 – 116 Werke, Kapitel-PDFs für 15 Bücher, Kapitel-Markdown mit Ansichts-PDF für 5 EPUBs (L-T1-16, L-T3-10, -19, -20, -21), D-51, D-71; vorhandene Ausgaben gelten; offen nach 13.4 sind L-R-29 und L-T4-35)
+  - Beschaffung und Formatprüfung: erledigt bis auf L-T3-15 (Stand 2026-09-29 – 117 Werke, Kapitel-PDFs für 16 Bücher, Kapitel-Markdown mit Ansichts-PDF für 5 EPUBs, D-51, D-71; vorhandene Ausgaben gelten)
   - Literatur-Nachsteuerung L-T1-01/L-T3-08, HRV, EPUB: erledigt (D-70, D-71)
   - Primärquellen verifizieren: weitgehend erledigt (V-06, V-14 erledigt; V-07, V-15 teilweise, Rest nach Beschaffung)
   - Karten-Template und Karten: offen
@@ -3208,6 +3210,12 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: Beim Teilen lief das Hilfsskript split.py versehentlich vollständig mit (Import ohne Main-Schutz)
     loesung: Arbeitsbaum geprüft – keine bestehende Datei verändert; Teilfunktion in das neue Skript übernommen
+  - datum: 2026-09-29
+    was: L-R-29 Brukner & Khan liegt nur als Scan der 5. Aufl. (Band 1 Injuries, 2017) ohne Textebene vor, 1227 S., 120 MB; ocrmypdf im Container defekt
+    loesung: vorhandene Ausgabe verwendet (Nachtrag D-51); eigene Texterkennung (Tesseract 5, 300 dpi, unsichtbare Textebene über der Originalseite); Kapitelgrenzen aus dem Inhaltsverzeichnis, geprüft am Seitentext (48 von 48); Druckseite = PDF-Seite − 41; nur 55 Kapitel-PDFs (D-31)
+  - datum: 2026-09-29
+    was: Abschluss der Literatursuche – L-T4-35 Freiwald nicht beschaffbar; Q-22 und Status L-T3-15 offen
+    loesung: Entscheidung Athlet – L-T4-35 nicht aufgenommen; Q-22 nach Empfehlung; L-T3-15 Anderson als Stufe C optional aufgenommen (Beschaffung offen); T4 Teil B mit L-T4-34 abgeschlossen
 ```
 Hinweis Prüfprotokoll: Die Einträge unter `probleme_loesungen` sind bei Anlage von `docs/pruefung/pruefprotokoll.md` als AP-06-Block zu übernehmen.
 
@@ -3768,3 +3776,4 @@ noch_zu_pruefen:
 | 2026-09-29 | L-T4-22 Witvrouw 2001 nicht aufgenommen (Entscheidung Athlet): Status `nicht_aufgenommen`, aus D-79-Kernliste, 13.4, Kartenzuschnitt AP-06 und Regelvorschlag D-79 (e) entfernt (Knie-Einzelbefund jetzt L-T4-23), 13.3 ergänzt. |
 | 2026-09-29 | Übergabe Lückenprüfung Standardwerke eingearbeitet (D-80): neu optional L-T1-16 Koop, L-T2-33 McGill, L-R-29 Brukner & Khan, L-R-30 GOTS-Manual, L-T4-35 Freiwald (aus 13.3 übernommen, K-8 revidiert), L-T4-36 Schleip/Wilke; L-A03 Hinweis Heimausrüstung (Kap. 17); 13.3 um sieben Werke ergänzt; Nachträge D-54, D-61, D-79; Q-22, V-24; 13.4 (sechs Bücher Prio 2), 13.2.6-Einleitung, AP-06. |
 | 2026-09-29 | Vorhandene Ausgaben gelten (Nachtrag D-51, D-70; Entscheidung Athlet): L-A01 7. Aufl. nicht mehr vorläufig, keine Hörst-Neuauflage, L-T2-33 und L-R-30 in der 3. Aufl.; eingeordnet L-T3-16 (2. Aufl., Kapitel-PDFs), L-T2-33, L-R-30 (je Kapitel-PDFs), L-T1-16 (EPUB, Kapitel-Markdown), L-T4-36 (nur Kapitel-PDFs), L-T4-13, L-T4-17; Brukner Band 2 und Consuegra-Dublette entfernt; V-13, V-24, 13.4 (Stand 116 Werke), AP-06. |
+| 2026-09-29 | Literatursuche abgeschlossen (Entscheidung Athlet): L-T4-35 Freiwald nicht aufgenommen (nicht beschaffbar), L-T3-15 Anderson optional aufgenommen, Q-22 entschieden (Brukner Band 1 nicht aufnehmen), T4 Teil B mit L-T4-34 abgeschlossen; L-R-29 Brukner & Khan Vol. 1 Injuries in der 5. Aufl. 2017 eingeordnet (Scan mit eigener Texterkennung, 55 Kapitel-PDFs); D-80 Nachtrag, V-24 erledigt, 13.3, 13.4 (Stand 117 Werke), AP-06. |

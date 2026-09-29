@@ -1369,6 +1369,14 @@ geprueft:
     wie: alle Pfade in `datei`, `kapitel`, `datei_epub`, `corrigendum_datei`; YAML gegen main; Linkprüfung README (alle Dateien einschließlich Kapitel)
     ergebnis: ok – 138 Pfade vorhanden; keine neuen YAML-Fehler; 703 Links, keiner kaputt; 702 Dateien, alle verlinkt
     datum: 2026-09-29
+  - was: L-R-29 Brukner & Khan – Band, Auflage, Texterkennung, Kapitel
+    wie: Titel- und Impressumsseite per Texterkennung; Textebene je Seite geprüft (vier defekte Seiten aus dem abgebrochenen Lauf neu erkannt); Kapitelanfänge laut Inhaltsverzeichnis gegen den Seitentext; Seitensumme
+    ergebnis: Volume 1 Injuries, 5. Aufl., © 2017, ISBN 978-1-74376-138-0; 18 Seiten ohne Text sind Bildseiten; 48 von 48 Kapitelanfängen bestätigt (Kap. 1 nach der Teil-Titelseite); Druckseite = PDF-Seite − 41 durchgehend bis S. 1034; 55 Dateien, 1227/1227 Seiten, größte Datei 6 MB
+    datum: 2026-09-29
+  - was: Konzept und README nach Abschluss der Literatursuche
+    wie: Pfade, YAML gegen main, Linkprüfung
+    ergebnis: ok – 139 Pfade vorhanden; keine neuen YAML-Fehler; alle Dateien verlinkt, keine kaputten Links
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
     wie: manuell durch Athlet bei der ersten Kartensitzung
