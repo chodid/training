@@ -221,7 +221,7 @@ Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dat
 
 ### 4.4 T2 – `t2-kraft-haltung`
 
-Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateien; zusätzlich L-P08 (Tabelle UP). Davon extrahiert: 62. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 48.
+Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateien; zusätzlich L-P08 (Tabelle UP). Davon extrahiert: 63. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 48.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -276,7 +276,7 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-A03 | T2 | `26` Facility Policies, Procedures, and Legal Issues | PDF 1775–1819 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Anlagen/Recht; Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `90` Answers to Study Questions | PDF 1820–1823 | entfällt | entfällt | nicht zu extrahieren (Anhang) · S. 1 ohne Text, ab S. 2 ✓; 2 von 4 Seiten fast ohne Text |
 | L-A03 | T2 | `91` Index and Contributors | PDF 1824–1876 | entfällt | entfällt | nicht zu extrahieren (Anhang) · S. 1 ohne Text, ab S. 2 ✓ |
-| **L-T2-03** | T2 | **Ordner `t2-kraft/L-T2-03_kapitel/`** (28 Kapitel-PDFs, 408 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · Druckseiten je Kapitel in U2 bestimmen |
+| **L-T2-03** | T2 | **Ordner `t2-kraft/L-T2-03_kapitel/`** (28 Kapitel-PDFs, 408 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · Druckseiten je Kapitel in U2 bestimmen · Muster: Springer-Sammelband; Versatz Gesamtbuch-PDF → Druckseite je Kapitel verschieden (k07 −6, k08 −5, k10/k11 −4, k12 −3, k13/k14 −2, k15 +1, k18 +2, k21 +6, k23 +7, k24 +8), innerhalb der Kapiteldatei konstant; Teil-Titelseiten ohne Zahl am Kapitelanfang; Literaturverzeichnis je Kapitel enthalten; Populationen teils nur aus Literaturtiteln (markiert); häufig Widersprüche Text vs. Tabelle |
 | L-T2-03 | T2 | `00` Vorspann | PDF 1–9 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · Text ✓ |
 | L-T2-03 | T2 | `01` A Brief Historical Overview on the Science of Concurrent Aerobic and Strength Training | PDF 10–15 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Geschichte; Athlet 2026-09-29) · Text ✓ |
 | L-T2-03 | T2 | `02` The Functional Genome in Physical Exercise | PDF 16–26 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: molekulare Grundlagen; Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
@@ -331,7 +331,7 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-T2-04 | T2 | `20` Advanced | PDF 265–274; Druck 251–260 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Programmierung/Dosierung/Lebensstil (D-29); Athlet 2026-09-29) · Text ✓ |
 | L-T2-04 | T2 | `21` Common Bodyweight Training Injuries | PDF 275–305; Druck 261–291 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Verletzungen (Stufe C; Block R); Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
 | L-T2-04 | T2 | `22` Prehabilitation, Mobility, Flexibility Resources | PDF 306–326; Druck 292–312 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `23` Exercise Technique, Descriptions, Tips | PDF 327–331; Druck 313–317 | offen | offen | Text ✓ |
+| L-T2-04 | T2 | `23` Exercise Technique, Descriptions, Tips | PDF 327–331; Druck 313–317 | 2026-09-29 / opus | offen | Text ✓ · 24 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T2-04 | T2 | `24-1` Handstand Variations (Teil 1/2) | PDF 332–361; Druck 318–347 | offen | offen | Text ✓ |
 | L-T2-04 | T2 | `24-2` Handstand Variations (Teil 2/2) | PDF 362–392; Druck 348–378 | offen | offen | Text ✓ |
 | L-T2-04 | T2 | `25-1` Pulling Exercises (Teil 1/2) | PDF 393–431; Druck 379–417 | offen | offen | Text ✓ |
@@ -361,7 +361,7 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-T2-28 | T2 | `L-T2-28_Refalo-2021_Training-Load-Hypertrophy.pdf` | 24 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 67 Aussagen · 4 unsicher · 6 offene Stellen · pdf_nativ · Muster: Verlagsdeckblatt, gedruckt = PDF − 1; Befund: Abstract-ES 0,34 vs. Ergebnis 0,41, Studienzahlen 8+13/22/20, Tab. 1 teils nicht lesbar (unsicher) |
 | L-T2-29 | T2 | `L-T2-29_Carvalho-2022_Volume-Matched-Loads-Hypertrophy.pdf` | 58 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · Autorenmanuskript, Seitenzahlen nicht zitierfähig · 79 Aussagen · 9 unsicher · 9 offene Stellen · pdf_nativ · Muster: Autorenmanuskript (ScholarOne), Stelle als Abschnitt/Tab./Abb., seiten „–“; Forest-Plots gering aufgelöst (Einzelwerte nicht extrahiert); viele Widersprüche im Manuskript |
 | L-T2-30 | T2 | `L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 39 Aussagen · 0 unsicher · 7 offene Stellen · pdf_nativ · Muster: Article in Press (J Sport Health Sci 2021, vorläufige Seiten 1–10), Versatz 0; Befund: Jahresangabe Rooney 2020 vs. 1994, KI Karsten ohne Minus u. a. |
-| **Synthese startbereit** | T2 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 62 von 76 extrahiert; gegengeprüft: 0. |
+| **Synthese startbereit** | T2 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 63 von 76 extrahiert; gegengeprüft: 0. |
 
 ### 4.5 T3 – `t3-klettern`
 
@@ -648,3 +648,4 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-T2-14 | Versatz PDF n → S. 1954+n; Befund: Werte Text vs. Tab. 2 vertauscht/abweichend, Tabellenverweis falsch | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-29 | Autorenmanuskript (ScholarOne), Stelle als Abschnitt/Tab./Abb., seiten „–“; Forest-Plots gering aufgelöst (Einzelwerte nicht extrahiert); viele Widersprüche im Manuskript | U2-Extraktion (Rückmeldung Unteragent) |
 | L-A03 | Die Fußzeilenzahl ist die fortlaufende E-Book-Paginierung = Gesamtbuch-PDF-Seite (alle 28 Kapitel); interne Querverweise nennen Seiten der Druckausgabe (z. B. „table 21.1, page 697“ auf E-Book-S. 1524), Versatz zur Druckausgabe nicht konstant (ca. zwei E-Book-Seiten je Druckseite) – Druckseiten nicht bestimmbar; zitiert wird die E-Book-Seite (im Repo-PDF prüfbar). Kapitelteile beginnen/enden mitten in Übungen/Tabellen; Literaturverzeichnis nicht in den Kapiteldateien; Zweck „Overreaching“ nur in k24 | U2-Extraktion (Rückmeldung Unteragent) |
+| L-T2-03 | Springer-Sammelband; Versatz Gesamtbuch-PDF → Druckseite je Kapitel verschieden (k07 −6, k08 −5, k10/k11 −4, k12 −3, k13/k14 −2, k15 +1, k18 +2, k21 +6, k23 +7, k24 +8), innerhalb der Kapiteldatei konstant; Teil-Titelseiten ohne Zahl am Kapitelanfang; Literaturverzeichnis je Kapitel enthalten; Populationen teils nur aus Literaturtiteln (markiert); häufig Widersprüche Text vs. Tabelle | U2-Extraktion (Rückmeldung Unteragent) |
