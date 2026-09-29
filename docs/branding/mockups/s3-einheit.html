@@ -19,6 +19,8 @@
   details.more[open]>summary .ic{transform:rotate(90deg)}
   details.more>p{color:var(--text-secondary);padding-bottom:var(--space-2);max-width:70ch}
   .start-row{margin-top:var(--space-2)}
+  /* AP-16: Übung mit Katalogeintrag als Link (Icon book), ohne Eintrag unverändert */
+  a.ex-link{display:inline-flex;align-items:center;gap:var(--space-1)}
 </style>
 </head>
 <body class="app typ-kraft">
@@ -76,7 +78,7 @@
       <section class="card" data-typ="kraft">
         <div class="card-head"><h2>Plan und Ist</h2><span class="hint">Ist ist mit Soll vorbelegt</span></div>
         <div class="exercise">
-          <div class="between"><span class="name">Kniebeuge</span><span class="soll">Soll 3 × 8 · 40 kg · Tempo 3-1-1 · Pause 120 s</span></div>
+          <div class="between"><a class="name ex-link" href="s10-uebung.html"><svg class="ic ic-sm"><use href="#i-book"/></svg>Kniebeuge</a><span class="soll">Soll 3 × 8 · 40 kg · Tempo 3-1-1 · Pause 120 s</span></div>
           <div class="ist">
             <div class="field"><label>Sätze</label><input class="input mono" value="3" inputmode="numeric"></div>
             <div class="field"><label>Wdh.</label><input class="input mono" value="8" inputmode="numeric"></div>

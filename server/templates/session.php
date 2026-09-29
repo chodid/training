@@ -49,7 +49,7 @@ $mehr = trim((string) ($session['coach_rationale'] ?? ''));
         <div class="card-head"><h2>Plan und Ist</h2><span class="hint">Ist ist mit Soll vorbelegt</span></div>
 <?php foreach ($plan['exercises'] as $i => $x): $ist = $data['ist'][$i] ?? $x; ?>
         <div class="exercise">
-          <div class="between"><span class="name"><?= $this->e($x['name']) ?></span><span class="soll"><?= $this->e($fmtSoll($x)) ?></span></div>
+          <div class="between"><?php if (isset($exerciseLinks[$i])): // Übungskatalog (AP-16, 6.3) ?><a class="name ex-link" href="/uebung?id=<?= $this->e(rawurlencode($exerciseLinks[$i]['slug'])) ?>&amp;von=<?= (int) $session['id'] ?>"><?= $this->icon('book', 'ic ic-sm') ?><?= $this->e($x['name']) ?></a><?php else: ?><span class="name"><?= $this->e($x['name']) ?></span><?php endif ?><span class="soll"><?= $this->e($fmtSoll($x)) ?></span></div>
 <?php if (!empty($x['notes'])): ?><div class="soll"><?= $this->e($x['notes']) ?></div><?php endif ?>
 <?php include __DIR__ . '/_ist_exercise.php'; ?>
         </div>
@@ -60,7 +60,7 @@ $mehr = trim((string) ($session['coach_rationale'] ?? ''));
         <div class="card-head"><h2>Blöcke</h2><span class="hint">Ist ist mit Soll vorbelegt</span></div>
 <?php foreach ($plan['blocks'] as $i => $b): $ist = $data['ist'][$i] ?? $b; ?>
         <div class="exercise">
-          <div class="between"><span class="name"><?= $this->e(Labels::BLOCK_KINDS[$b['kind']] ?? $b['kind']) ?></span><?php if (!empty($b['spezifitaet'])): ?><span class="badge badge-brand"><?= $this->e($b['spezifitaet']) ?></span><?php endif ?></div>
+          <div class="between"><?php if (isset($exerciseLinks[$i])): ?><a class="name ex-link" href="/uebung?id=<?= $this->e(rawurlencode($exerciseLinks[$i]['slug'])) ?>&amp;von=<?= (int) $session['id'] ?>"><?= $this->icon('book', 'ic ic-sm') ?><?= $this->e(Labels::BLOCK_KINDS[$b['kind']] ?? $b['kind']) ?> · <?= $this->e($exerciseLinks[$i]['name']) ?></a><?php else: ?><span class="name"><?= $this->e(Labels::BLOCK_KINDS[$b['kind']] ?? $b['kind']) ?></span><?php endif ?><?php if (!empty($b['spezifitaet'])): ?><span class="badge badge-brand"><?= $this->e($b['spezifitaet']) ?></span><?php endif ?></div>
           <div class="soll"><?= $this->e($fmtBlock($b)) ?></div>
 <?php if (!empty($b['notes'])): ?><div class="soll"><?= $this->e($b['notes']) ?></div><?php endif ?>
 <?php include __DIR__ . '/_ist_block.php'; ?>

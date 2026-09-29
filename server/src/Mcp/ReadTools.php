@@ -84,6 +84,10 @@ final class ReadTools
             if (($s['coach_summary'] ?? null) !== null) {
                 $row['kurz'] = $s['coach_summary']; // Kurzsatz der Einheit (AP-13)
             }
+            $slugs = \Training\Data\ExerciseRepository::slugsInPlan($s['plan']);
+            if ($slugs !== []) {
+                $row['exercise_ids'] = $slugs; // Übungskatalog (AP-16), ohne Katalogtexte (Budget 8.3)
+            }
             if ($s['type'] === 'ruhe') {
                 $out[] = ['id' => $row['id'], 'datum' => $row['datum'], 'typ' => 'ruhe'] + (isset($row['kurz']) ? ['kurz' => $row['kurz']] : []);
                 continue;

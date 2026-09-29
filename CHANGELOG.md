@@ -8,6 +8,65 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 - L-T3-09 Hörst, Training for Climbing (3. Aufl. 2016), einsortiert: Gesamt-PDF und 17 Kapitel-PDFs.
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 
+## [0.25.1] – 2026-09-29
+
+AP-16 T6: Dokumentation des Übungskatalogs.
+
+### Dokumentation
+- Hauptkonzept: Datenmodell (7), `exercise_id` in `plan_json` (7.1), Tools und Budgets (8.2, 8.3), Seiten S8/S9/S10/S10a (10), Trainerregeln Kapitel 9 „Übungskatalog“ (14); `datenmodell.md` mit ER-Diagramm und Schema 23; `gefuehrte-einheit.md` E-19 um den Link „Ausführung“ ergänzt.
+- Neu `docs/regeln/trainerregeln.md` mit Vorabkapitel 9 (R-UEB-10 bis R-UEB-14); die übrigen Kapitel folgen in AP-07.
+
+## [0.25.0] – 2026-09-29
+
+AP-16 T5: wöchentliche Linkprüfung.
+
+### Hinzugefügt
+- Der stündliche Cron `/cron/intervals-sync` prüft einmal je 7 Tage bis zu 50 Links des Übungskatalogs (die am längsten ungeprüften zuerst). Defekte Links setzen die Übung auf „Links prüfen“ (Hinweis in den Einstellungen und in `find_exercise`/`get_exercise`), wieder erreichbare Links setzen sie zurück. Nicht erreichbare Links (Zeitüberschreitung) ändern nichts. Ergebnis in der Cron-Antwort (`linkpruefung`) und im Audit (`exercise_linkcheck`); Fehler brechen den Abgleich nicht ab.
+
+## [0.24.0] – 2026-09-29
+
+AP-16 T4: Verlinkung der Übungen und Offline.
+
+### Hinzugefügt
+- S3: Übungen und Kletterblöcke mit Katalogeintrag sind Links auf die Übungsseite (Icon Buch); Zurück führt in die Einheit.
+- S9 geführte Einheit: Link „Ausführung“ in der Karte der aktuellen Übung; zurück geht es ohne Rückfrage an derselben Stelle weiter (Übung, Satz, Eingaben).
+- Kalender: im Kurzplan unter jeder Übung mit Katalogeintrag der Link auf die Übungsseite; Kurzplan und Links zusammen höchstens 1 000 Zeichen, sonst entfallen Links.
+- Offline: Die Woche lädt die Übungsseiten aller Einheiten der laufenden und nächsten Woche vor; ohne Netz zeigt die Übungsseite statt des Videos den Link. Der Service Worker speichert `/uebung` und `/uebungen`.
+- Browser-Test `tests/e2e/uebung.e2e.cjs` (läuft über `run.sh` und in der CI).
+
+## [0.23.0] – 2026-09-29
+
+AP-16 T3: Übungsseiten auf der Webseite.
+
+### Hinzugefügt
+- S10 Übung (`/uebung?id=<slug>`): Kategorie, Bewegungsmuster, Ausrüstung, Konfidenz; Kurzbeschreibung und Ziel, Voraussetzung, Ausführung (nummeriert), Worauf achten, Fehlerquellen, Vorsicht (hervorgehoben), Progression/Regression mit Varianten, Dosierungshinweis, eingebettete Videos (16:9, erst beim Scrollen geladen, Link darunter), Links mit Prüfstatus, Quellen, Fassungen. Hinweis bei „Links prüfen“ und bei archivierten Übungen. Zurück führt zur aufrufenden Einheit.
+- S10a Übungskatalog (`/uebungen`): Suche, Filter nach Kategorie, archivierte auf Wunsch; Einstieg aus den Einstellungen (mit Anzahl und Hinweis auf Übungen mit defekten Links).
+- Content-Security-Policy: `frame-src https://www.youtube-nocookie.com https://player.vimeo.com` nur auf S10; der Video-Rahmen sendet die Domain als Referrer (sonst verweigert YouTube die Wiedergabe).
+- Icons `book`, `search`, `video` (Tabler); Mockups `s10-uebung.html`, `s10a-uebungen.html`, S3 mit verlinktem Übungsnamen.
+
+## [0.22.0] – 2026-09-29
+
+AP-16 T2: MCP-Tools des Übungskatalogs und Linkprüfung.
+
+### Hinzugefügt
+- MCP-Tools `find_exercise` (Suche: exakter Name/Alias, Teilstring, ähnliche Übungen mit gleichem Bewegungsmuster), `get_exercise` (vollständiger Eintrag, Varianten, Fassungen, früherer Stand), `list_exercises` (Kompaktliste), `upsert_exercise` (anlegen/ändern mit Grund und Fassung, Duplikatschutz über Namen und Aliase, Varianten ohne Schleifen, Archivieren nur ohne geplante Verwendung, `hinweis_chat` für den Chat).
+- Linkprüfung durch den Server: Videos über oEmbed (erkennt gelöschte und private Videos), Textseiten per GET; nur öffentliche https-Ziele auf Port 443, höchstens 3 Weiterleitungen, 64 kB, 5 s, alle Links parallel. Ein defekter Link setzt die Übung auf „Links prüfen“, ist aber kein Fehler.
+- `write_week_plan`/`update_session`: Übungen ohne `exercise_id` werden angenommen und als `warnungen` gemeldet; unbekannte oder archivierte IDs sind Fehler (nichts geschrieben). `get_week_overview` nennt je Einheit die `exercise_ids`.
+
+## [0.21.0] – 2026-09-29
+
+AP-16 T1: Datenmodell, Schemata und Validator für den Übungskatalog (Auftrag `docs/konzept/uebungskatalog.md`, D-64 bis D-69).
+
+### Hinzugefügt
+- Migration 0023 (Schema 23): Tabellen `exercise` (Slug, Name, normalisierter Name, Kategorie, Bewegungsmuster, Ausrüstung, Variante von, Schwierigkeit, Status, Konfidenz, Inhalt `content_json`, Fassungsnummer), `exercise_alias` und `exercise_version` (Schnappschuss je Änderung mit Grund).
+- Schema `server/schemas/exercise.json` für den Inhalt einer Übung: Kurzbeschreibung, Ziel, Muskeln, Voraussetzung, Ausführung (2–12 Schritte), Worauf achten, Fehlerquellen, Vorsicht, Progression/Regression, Dosierungshinweis, höchstens 2 Text- und 2 Videolinks (nur https), Quellen (mindestens eine), Notizen.
+- `plan_json`: optionales `exercise_id` (Slug) je Übung in Kraft/Haltung/Mobilität und je Kletterblock; bei Bouldern, Ausdauerrouten und Technik ist es nicht erlaubt (E-05). Bestehende Pläne bleiben gültig.
+- Normalisierung für Namen und Aliase (Kleinschreibung, Umlaute, Bindestriche, Akzente), Embed-Adressen für YouTube (youtube-nocookie.com) und Vimeo, Prüfung der Verweise aus `plan_json` (`ExerciseLink`: Fehler bei unbekannter oder archivierter Übung, Warnungen ohne Katalog oder bei abweichendem Namen). Die MCP-Tools und die Webseite folgen in T2 bis T4.
+- JSON-Export gibt `equipment_json`, `content_json` und `snapshot_json` als Objekte aus.
+
+### Dokumentation
+- Auftrag `docs/konzept/uebungskatalog.md` im Repo, vom Athleten bestätigt; ergänzt um E-17 bis E-20 (Referrer am Video-iframe, oEmbed-Prüfung für Videos, Schutzregeln der Linkprüfung, `name_norm`). Hauptkonzept: AP-16, D-64 bis D-69.
+
 ## [0.20.2] – 2026-09-28
 
 Favicon mit gerundeten Ecken (D-63, Wunsch des Athleten).

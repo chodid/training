@@ -49,6 +49,9 @@
   body[data-phase="pause"] .phase-card .timer,body[data-phase="pause"] .phase-card .phase,body[data-phase="bereit"] .phase-card .timer,body[data-phase="bereit"] .phase-card .phase{color:var(--status-error-text)}
   body[data-phase="pause"] .phase-card .phase,body[data-phase="bereit"] .phase-card .phase{background:var(--status-error-bg)}
   .topbar .btn-icon[aria-pressed="true"]{color:var(--text-brand);background:var(--plum-100)}
+  /* AP-16: Link „Ausführung“ auf S10 in der Phase-Karte */
+  a.ex-link{display:inline-flex;align-items:center;gap:var(--space-1)}
+  .phase-card .ausfuehrung{justify-self:center;min-height:44px;font:var(--type-body-sm);color:var(--text-brand)}
 </style>
 </head>
 <body class="app" data-phase="bereit">
@@ -91,6 +94,7 @@
       <span class="phase"><svg class="ic ic-sm"><use href="#i-clock"/></svg>Bereit</span>
       <div class="timer">00:45</div>
       <div class="soll">Soll 3 × 45 s · KG · Pause 60 s</div>
+      <a class="ex-link ausfuehrung" href="s10-uebung.html"><svg class="ic ic-sm"><use href="#i-book"/></svg>Ausführung</a>
     </section>
 
     <!-- Zustand laeuft: Arbeitsphase (grün) -->
@@ -100,6 +104,7 @@
       <span class="phase"><svg class="ic ic-sm"><use href="#i-player-play"/></svg>Arbeit</span>
       <div class="timer">00:37</div>
       <div class="soll">Soll 3 × 45 s · KG · Pause 60 s</div>
+      <a class="ex-link ausfuehrung" href="s10-uebung.html"><svg class="ic ic-sm"><use href="#i-book"/></svg>Ausführung</a>
     </section>
 
     <!-- Zustand pause: Pausenphase (rot) -->

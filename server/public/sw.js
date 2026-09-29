@@ -1,7 +1,7 @@
 /*
  * Service Worker der Training-App (D-45): Offline lesen und Eingaben puffern.
- * - Seiten /woche, /einheit (auch geführt: ?modus=start), /checkin, /schmerz: erst Netz (5 s), sonst gespeicherter Stand
- *   (markiert mit data-offline-stand).
+ * - Seiten /woche, /einheit (auch geführt: ?modus=start), /checkin, /schmerz, /uebung, /uebungen: erst Netz (5 s), sonst
+ *   gespeicherter Stand (markiert mit data-offline-stand). Eine Übung (AP-16) passt aus jeder gespeicherten Einheit.
  * - Gestaltung (/assets, /css, /js, /app-icons, Manifest, /favicon.ico): aus dem Cache der jeweiligen Version.
  * - Formulare Check-in, Rückmeldung, Schmerz: ohne Netz in IndexedDB gepuffert und später mit frischem CSRF-Token gesendet
  *   (Kopfzeile X-Offline-Queue; Server antwortet 204/401/409/422). Geänderte Einträge werden nicht überschrieben (409).
@@ -12,7 +12,7 @@
 const VERSION = new URL(self.location.href).searchParams.get('v') || '0';
 const STATIC = 'training-static-' + VERSION;
 const PAGES = 'training-pages';
-const PAGE_PATHS = ['/woche', '/einheit', '/checkin', '/schmerz'];
+const PAGE_PATHS = ['/woche', '/einheit', '/checkin', '/schmerz', '/uebung', '/uebungen'];
 const FORM_PATHS = ['/checkin', '/einheit', '/schmerz'];
 const STATIC_PREFIXES = ['/assets/', '/css/', '/js/', '/app-icons/'];
 const STATIC_FILES = ['/manifest.webmanifest', '/favicon.ico'];
@@ -127,7 +127,16 @@ async function lookup(url) {
     u.searchParams.delete('einheit');
     candidates.push(cacheKey(u));
   }
-  if (url.pathname !== '/einheit') {
+  if (url.pathname === '/uebung') {
+    // Übung (AP-16): jede gespeicherte Fassung der Seite, egal aus welcher Einheit sie geöffnet wurde
+    const plain = '/uebung?id=' + encodeURIComponent(url.searchParams.get('id') || '');
+    candidates.push(plain);
+    const keys = await cache.keys();
+    const other = keys.map((r) => new URL(r.url)).find((k) => k.pathname === '/uebung' && k.searchParams.get('id') === url.searchParams.get('id'));
+    if (other) {
+      candidates.push(other.pathname + other.search);
+    }
+  } else if (url.pathname !== '/einheit') {
     candidates.push(url.pathname);
   }
   for (const key of candidates) {
@@ -150,7 +159,7 @@ function offlinePage() {
     + '<title>Offline – Training</title><link rel="stylesheet" href="/assets/ds/styles.css"><link rel="stylesheet" href="/assets/app.css">'
     + '<link rel="stylesheet" href="/css/training.css"></head><body class="auth"><main class="auth-card stack-lg">'
     + '<h1>Ohne Netz nicht verfügbar</h1><p class="muted">Diese Seite ist nicht für die Offline-Nutzung gespeichert. Woche, Einheiten, '
-    + 'Check-in und Schmerz der aktuellen und nächsten Woche gehen auch ohne Netz, wenn die Woche vorher einmal mit Netz geöffnet wurde.</p>'
+    + 'ihre Übungen, Check-in und Schmerz der aktuellen und nächsten Woche gehen auch ohne Netz, wenn die Woche vorher einmal mit Netz geöffnet wurde.</p>'
     + '<a class="btn btn-primary" href="/woche">Zur Woche</a></main></body></html>';
   return new Response(html, { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } });
 }

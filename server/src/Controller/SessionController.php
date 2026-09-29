@@ -356,6 +356,7 @@ final class SessionController extends AppController
         $stand = $this->standOf($this->weeks()->session((int) $session['id']) ?? $session);
         $offlineLabel = 'Rückmeldung „' . $session['title'] . '“ (' . Dates::short((string) $session['date']) . ')';
 
+        $exerciseLinks = $this->exerciseLinks($session);
         if ($guided) {
             $settings = new \Training\Data\SettingsRepository($this->app->pdo(), $this->app->clock());
 
@@ -372,6 +373,7 @@ final class SessionController extends AppController
                 'data' => $data,
                 'invalid' => $invalid,
                 'timerTon' => $settings->timerTon(),
+                'exerciseLinks' => $exerciseLinks,
             ], $status);
         }
 
@@ -389,7 +391,24 @@ final class SessionController extends AppController
             'data' => $data,
             'invalid' => $invalid,
             'athleteId' => (string) $this->app->config()->get('INTERVALS_ATHLETE_ID', ''),
+            'exerciseLinks' => $exerciseLinks,
         ], $status);
+    }
+
+    /**
+     * Übungen mit Katalogeintrag (AP-16, 6.3): Position in exercises[]/blocks[] → Slug und Name. Vor der Migration
+     * (Tabelle fehlt) leer, damit S3 lesbar bleibt.
+     * @param array<string, mixed> $session
+     * @return array<int, array{slug: string, name: string}>
+     */
+    private function exerciseLinks(array $session): array
+    {
+        try {
+            return (new \Training\Plan\ExerciseLink(new \Training\Data\ExerciseRepository($this->app->pdo(), $this->app->clock())))
+                ->linksFor((string) $session['type'], $session['plan'] ?? null);
+        } catch (\PDOException) {
+            return [];
+        }
     }
 
     /** Stummschalter der geführten Einheit in der Kopfzeile (E-18); nur mit JavaScript sichtbar, gilt nur für diese Einheit. */

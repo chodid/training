@@ -98,7 +98,8 @@ final class WeekController extends AppController
     /**
      * Seiten, die der Service Worker für die Offline-Nutzung vorlädt (D-45): aktuelle und nächste Woche mit ihren
      * Einheiten, Check-in und Schmerz für heute, dazu die geführte Einheit (S9) für heutige und morgige geeignete
-     * Einheiten (AP-14, 6.7). Nur in der Ansicht der aktuellen Woche.
+     * Einheiten (AP-14, 6.7) und die Übungsseiten (S10) aller Einheiten beider Wochen (AP-16, E-15). Nur in der Ansicht
+     * der aktuellen Woche.
      * @param list<array<string, mixed>> $sessions
      * @return list<string>
      */
@@ -110,12 +111,20 @@ final class WeekController extends AppController
             if ($s['type'] !== 'ruhe') {
                 $urls[] = '/einheit?id=' . (int) $s['id'];
             }
-            if (in_array($s['date'], [$today, $tomorrow], true) && Ablaufplan::geeignet((string) $s['type'], $s['plan'] ?? null)) {
+            $guided = in_array($s['date'], [$today, $tomorrow], true) && Ablaufplan::geeignet((string) $s['type'], $s['plan'] ?? null);
+            if ($guided) {
                 $urls[] = '/einheit?id=' . (int) $s['id'] . '&modus=start';
+            }
+            // Übungsseiten (AP-16, E-15) mit derselben Adresse wie die Links aus S3 bzw. S9
+            foreach (\Training\Data\ExerciseRepository::slugsInPlan($s['plan'] ?? null) as $slug) {
+                $urls[] = '/uebung?id=' . rawurlencode($slug) . '&von=' . (int) $s['id'];
+                if ($guided) {
+                    $urls[] = '/uebung?id=' . rawurlencode($slug) . '&von=' . (int) $s['id'] . '&modus=start';
+                }
             }
         }
 
-        return $urls;
+        return array_values(array_unique($urls));
     }
 
     /**

@@ -107,6 +107,37 @@ final class DayEventTest extends TestCase
         self::assertMatchesRegularExpression('/DESCRIPTION:Priorität B · 45 min\\\\n- Kniebeuge/u', str_replace("\r\n ", '', $old), 'Altdaten ohne Kurzsatz: Kurzplan zuerst');
     }
 
+    /** AP-16 6.3: Link je Übung mit Katalogeintrag im Kurzplan; zu lang → Links entfallen von hinten, Kurzplan bleibt. */
+    public function testExerciseLinksInShortPlan(): void
+    {
+        $s = self::kraft(['id' => 7, 'status' => 'geplant', 'plan' => ['exercises' => [
+            ['name' => 'Kniebeuge', 'exercise_id' => 'kniebeuge', 'sets' => 3, 'reps' => '8'],
+            ['name' => 'Wadenheben', 'sets' => 3, 'reps' => '15'],
+        ]]]);
+        $text = str_replace("\r\n ", '', DayEvent::ics('2026-09-30', [$s], 'https://training.example', 'training.example', 1));
+        self::assertStringContainsString('- Kniebeuge: 3 × 8\n  https://training.example/uebung?id=kniebeuge\n- Wadenheben: 3 × 15', $text);
+        self::assertSame(1, substr_count($text, '/uebung?id='), 'nur Übungen mit ID');
+
+        $klettern = self::kraft(['id' => 8, 'type' => 'klettern', 'plan' => ['blocks' => [['kind' => 'hangboard', 'exercise_id' => 'max-hang-20mm', 'sets' => 5], ['kind' => 'bouldern_volumen', 'duration_min' => 30]]]]);
+        self::assertStringContainsString('Sätze\n  https://training.example/uebung?id=max-hang-20mm\n- ', str_replace("\r\n ", '', DayEvent::ics('2026-09-30', [$klettern], 'https://training.example', 'training.example', 1)));
+
+        // 30 Übungen: Kurzplan vollständig, Links nur solange Kurzplan + Links ≤ 1 000 Zeichen
+        $many = [];
+        for ($i = 1; $i <= 30; $i++) {
+            $many[] = ['name' => 'Übung ' . $i, 'exercise_id' => 'uebung-nummer-' . $i, 'sets' => 3, 'reps' => '10'];
+        }
+        $long = str_replace("\r\n ", '', DayEvent::ics('2026-09-30', [self::kraft(['id' => 9, 'plan' => ['exercises' => $many]])], 'https://training.example', 'training.example', 1));
+        self::assertStringContainsString('- Übung 30: 3 × 10', $long, 'Kurzplan ungekürzt');
+        self::assertStringContainsString('uebung?id=uebung-nummer-1\n', $long, 'erste Links bleiben');
+        self::assertStringNotContainsString('uebung?id=uebung-nummer-30', $long, 'hintere Links entfallen');
+        // Kurzplan (Abschnitt ab „Priorität“ bis zur Leerzeile) höchstens 1 000 Zeichen
+        preg_match('/DESCRIPTION:(.*?)\r\n[A-Z]/s', $long, $m);
+        $description = str_replace('\\n', "\n", $m[1]);
+        $kurzplan = explode("\n\n", substr($description, (int) strpos($description, 'Priorität')))[0];
+        self::assertLessThanOrEqual(1000, mb_strlen($kurzplan));
+        self::assertGreaterThan(900, mb_strlen($kurzplan), 'Platz wird genutzt');
+    }
+
     public function testResourceNamesAndRestDays(): void
     {
         self::assertSame('training-tag-2026-09-30.ics', DayEvent::resource('2026-09-30'));

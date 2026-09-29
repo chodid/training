@@ -103,6 +103,7 @@ final class SettingsController extends AppController
             'preMigration' => $this->preMigration(),
             'passkeyList' => $this->passkeyList(),
             'profile' => $this->profileSummary(),
+            'catalog' => $this->catalogSummary(),
             'handBis' => (new SettingsRepository($this->app->pdo(), $this->app->clock()))->handRechtsBis(),
             'timerTon' => (new SettingsRepository($this->app->pdo(), $this->app->clock()))->timerTon(),
             'calendar' => [
@@ -370,5 +371,20 @@ final class SettingsController extends AppController
         $this->audit()->write('web', 'oauth_revoke', 'oauth_client', $clientId, null, 'Freigabe widerrufen (' . $stmt->rowCount() . ' Refresh-Tokens)');
 
         return Response::redirect('/einstellungen?ok=widerrufen');
+    }
+
+    /**
+     * Übungskatalog in S8 (AP-16): Anzahl ohne archivierte, Übungen mit defekten Links (Teil D). Null vor der Migration
+     * (Tabelle fehlt), damit S8 als Ort der Migration immer lädt.
+     * @return ?array{count: int, links_pruefen: int}
+     */
+    private function catalogSummary(): ?array
+    {
+        $repo = new \Training\Data\ExerciseRepository($this->app->pdo(), $this->app->clock());
+        try {
+            return ['count' => count($repo->listCompact()), 'links_pruefen' => $repo->countLinksToCheck()];
+        } catch (\PDOException) {
+            return null;
+        }
     }
 }

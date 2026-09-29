@@ -80,4 +80,38 @@ final class Labels
         'antagonisten' => 'Antagonisten',
     ];
     public const GRIPS = ['halbkrimp' => 'Halbkrimp', 'offen' => 'offen', 'vollkrimp' => 'Vollkrimp', 'zange' => 'Zange'];
+
+    /** Übungskatalog (AP-16): Kategorie → [Text, Icon] */
+    public const EXERCISE_CATEGORIES = [
+        'kraft' => ['Kraft', 'barbell'],
+        'haltung' => ['Haltung', 'yoga'],
+        'mobilitaet' => ['Mobilität', 'stretching-2'],
+        'hangboard' => ['Hangboard', 'mountain'],
+        'campus' => ['Campus', 'mountain'],
+        'zugkraft' => ['Zugkraft', 'mountain'],
+        'antagonisten' => ['Antagonisten', 'mountain'],
+    ];
+
+    public const EXERCISE_PATTERNS = [
+        'druecken_horizontal' => 'Drücken horizontal', 'druecken_vertikal' => 'Drücken vertikal',
+        'ziehen_horizontal' => 'Ziehen horizontal', 'ziehen_vertikal' => 'Ziehen vertikal',
+        'knie_dominant' => 'kniedominant', 'huefte_dominant' => 'hüftdominant', 'rumpf' => 'Rumpf', 'schulter' => 'Schulter',
+        'bws_haltung' => 'BWS/Haltung', 'unterarm_finger' => 'Unterarm/Finger', 'sprunggelenk_fuss' => 'Sprunggelenk/Fuß',
+        'mobilitaet' => 'Mobilität', 'sonstiges' => 'Sonstiges',
+    ];
+
+    public const EQUIPMENT = [
+        'koerpergewicht' => 'Körpergewicht', 'band' => 'Band', 'kettlebell' => 'Kettlebell', 'kurzhantel' => 'Kurzhantel',
+        'langhantel' => 'Langhantel', 'klimmzugstange' => 'Klimmzugstange', 'ringe' => 'Ringe', 'hangboard' => 'Hangboard',
+        'campusboard' => 'Campusboard', 'box' => 'Box', 'matte' => 'Matte', 'faszienrolle' => 'Faszienrolle', 'stab' => 'Stab',
+        'gymnastikball' => 'Gymnastikball', 'gewichtsweste' => 'Gewichtsweste', 'sonstiges' => 'Sonstiges',
+    ];
+
+    /** Konfidenz → [Text, Badge-Klasse] */
+    public const KONFIDENZ = [
+        'hoch' => ['Konfidenz hoch', 'success'],
+        'mittel' => ['Konfidenz mittel', 'info'],
+        'niedrig' => ['Konfidenz niedrig', 'warning'],
+        'einschaetzung' => ['Einschätzung', 'neutral'],
+    ];
 }
