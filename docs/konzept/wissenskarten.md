@@ -437,21 +437,45 @@ Derzeit keine offenen Fragen.
 ## 11. Status
 
 ```yaml
-status: offen
-begonnen: null
+status: in_arbeit
+begonnen: 2026-09-29
 abgeschlossen: null
 unterpunkte:
-  U1: offen
-  U2: offen        # je Quelle: siehe docs/extraktion/README.md
+  U1: erledigt     # 2026-09-29, docs/extraktion/ mit README (Statustabellen) und luecken.md
+  U2: offen        # je Quelle: siehe docs/extraktion/README.md; Start nach Bestätigung durch den Athleten
   U3: offen
-  U4: offen        # je Zieldatei: uebergreifend-belastung, uebergreifend-planung, t1, t2, t3, r
+  U4: offen        # je Zieldatei: uebergreifend-belastung, uebergreifend-planung, t1, t2, t3, r, t4
   U5: offen
   U6: offen
   U7: offen
   U8: bei_bedarf
   U9: laufend
 projektwissen_tokens_gemessen: null
-probleme_loesungen: []
+probleme_loesungen:
+  - datum: 2026-09-29
+    was: Dieses Dokument kennt sechs Zieldateien; seit D-79 gibt es als siebte t4-beweglichkeit (Block T4, 15 Dateien, Kapitel-PDFs L-T4-32, L-T4-34); Relevanzfilter 4.1 Regel 8 nennt T4 nicht
+    loesung: Entscheidung Athlet – T4 wird in U1/U2 aufgenommen, als letzte Zieldatei nach R (T4 verweist auf R und T2); W-04 und Abschnitt 2 bleiben im Wortlaut unverändert, die Abweichung gilt ab U1
+  - datum: 2026-09-29
+    was: Abschnitt 2 nennt Block-Ordner t1, t2, t3, r „wie docs/literatur/“; dort heißen sie t1-ausdauer, t2-kraft, t3-klettern, r-reha, t4-beweglichkeit
+    loesung: Entscheidung Athlet – Ordner unter docs/extraktion/ wie docs/literatur/ (uebergreifend, t1-ausdauer, t2-kraft, t3-klettern, r-reha, t4-beweglichkeit)
+  - datum: 2026-09-29
+    was: Kapitelordner enthalten Vorspann (00) und Anhänge (9x)
+    loesung: Entscheidung Athlet – in der Statustabelle gelistet, nicht extrahiert; Dateien, die Vorspann und Einleitung/Foreword bündeln (L-T1-08_00, L-T2-04_00, L-T3-09_00, L-T3-21_00), sind markiert – Extraktion vor U2 klären
+  - datum: 2026-09-29
+    was: CLAUDE.md verlangt die Pflege von docs/pruefung/pruefprotokoll.md; der Auftrag nennt docs/extraktion/README.md als Prüfdokument
+    loesung: Entscheidung Athlet – im Prüfprotokoll (AP-06) nur ein Verweis-Eintrag, Details ausschließlich im README
+  - datum: 2026-09-29
+    was: Ausgangslage (Abschnitt 0) und W-10 beruhen auf einem älteren Stand – L-T1-01 nicht aufgenommen, L-T3-08 zurückgestellt (D-70), L-T1-07 liegt vor, 11 Bücher mit Kapitel-PDFs plus 4 EPUBs (D-71), von den nicht frei zugänglichen Artikeln fehlen nur L-T4-13 (optional) und L-T4-17 (Kern)
+    loesung: Statustabellen nach aktuellem Konzeptstand; fehlende Kernquellen je Zieldatei – UB/UP L-A01 8./9. Aufl. (7. Aufl. vorläufig vorhanden), T3 L-T3-16 (Stufe C, ausgewaehlt – Zählung als Kernquelle bestätigen), T4 L-T4-17; T1, T2, R vollständig
+  - datum: 2026-09-29
+    was: U1-Prüfung Durchsuchbarkeit – pdftotext auf Seite 1 ist bei 56 PDFs leer (49 Kapitel-PDFs, 7 Gesamtbücher; meist Titelbild), Text ab Seite 2
+    loesung: zusätzlich Seiten 2–3 geprüft; keine Datei nicht durchsuchbar; L-T1-08_09 (Programming) hat Text erst ab S. 5 und 6 von 14 Seiten fast ohne Text (Grafiken/Tabellen?) – Abbruchregel in U2 prüfen
+  - datum: 2026-09-29
+    was: Offene Punkte für U2 – EPUB-Quellen (L-T3-10, -19, -20, -21) haben Markdown statt PDF als Eingabe, lesemethode kennt nur pdf_nativ/pdftotext_layout; geteilte Kapitel (-1, -2) und 00b ohne Namensregel für <L-ID>_k<nn>.md; Corrigenda L-T2-23/-24 als eigene Dateien; Umfang der Buchextraktion (alle Kapitel oder Auswahl)
+    loesung: Rückfrage an den Athleten vor U2
+  - datum: 2026-09-29
+    was: Nebenbefunde Hauptkonzept – YAML-Block T1 in 13.2 nicht parsebar (ISBN-Zeile L-T1-01 mit „: “); in 13.2 fehlen `stufe` bei L-A01, L-A02, L-P01 bis L-P09 und `themenfelder` für übergreifend und T1; L-T3-04 (ausgewaehlt) und L-P14 (optional) keiner Zieldatei in AP-06 Punkt 3 zugeordnet; L-T2-08 bis L-T2-10 mit Status `verifiziert` als Belege im T2-Zuschnitt
+    loesung: gemeldet, nicht geändert (Hauptkonzept nur an drei Stellen änderbar); Stufe für die Tabellen aus docs/literatur/README.md übernommen
 ```
 
 ## 12. Änderungsprotokoll
@@ -460,3 +484,4 @@ probleme_loesungen: []
 |---|---|
 | 2026-09-29 | Erstfassung nach Rücksprache (W-01 bis W-10; Gegenprüfung durch Fable und Athleten-Stichprobe 20 je Gebiet vorgegeben; Lücken-Workflow Abschnitt 8 ergänzt). |
 | 2026-09-29 | WQ-01 bis WQ-05 mit dem Athleten geklärt: W-03 auf Block umgestellt; W-10 umgedreht (Synthese wartet auf vollständige Beschaffung der Kernquellen, Extraktion läuft vorab); W-11 bis W-13 neu; Abschnitte 2, 3, 5.1, 6, 8.1 (d), U1, U2, U4, U5 angepasst. |
+| 2026-09-29 | Nach `docs/konzept/wissenskarten.md` verschoben (Stand-Kopfzeile unverändert). U1 erledigt: `docs/extraktion/` mit README (Statustabellen je Zieldatei, Quelle und Kapitel; Prüfdokument), leerem Lückenregister und Ordnern; Entscheidungen des Athleten zu T4, Ordnernamen, Vorspann/Anhängen und Prüfprotokoll im Statusblock (Abschnitt 11). |

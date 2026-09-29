@@ -1398,4 +1398,6 @@ noch_zu_pruefen:
     wie: vor Kauf (Athlet), Eintrag durch Code-Instanz
   - was: Q-22 (Band 1 Brukner & Khan), Status L-T3-15 (Vorschlag nicht_aufnehmen) und L-T3-17 (Platzhalter)
     wie: Entscheidung Athlet
+  - was: Extraktion und Gegenprüfung der Literatur (Auftrag docs/konzept/wissenskarten.md, U2/U3; ersetzt für die Karten den Punkt „Kernaussagen am Volltext“)
+    wie: Prüfdokument docs/extraktion/README.md – Statustabellen je Zieldatei, Quelle und Kapitel (extrahiert, geprüft, freigabe); hier nur Verweis (Entscheidung Athlet 2026-09-29)
 ```

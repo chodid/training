@@ -5,6 +5,7 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ## [Unreleased]
 
 ### Dokumentation
+- Wissenskarten U1 (Vorbereitung): neuer Ordner `docs/extraktion/` mit README (Statustabellen je Zieldatei, Quelle und Kapitel als Prüfdokument für Extraktion und Gegenprüfung; T4 als siebte Zieldatei), leerem Lückenregister `luecken.md` und Blockordnern wie `docs/literatur/`; Verweis im Prüfprotokoll AP-06.
 - Auftrag Wissenskarten (AP-06, Schritte 13.1 (2)–(5)) als `docs/konzept/wissenskarten.md` hinterlegt; Verweis in Konzept 13.1, AP-06-Teilschritt „Karten-Template und Karten“ auf U1/U2 in Arbeit.
 - Übergabe Lückenprüfung Standardwerke eingearbeitet (D-80): sechs optionale Bücher (L-T1-16 Koop, L-T2-33 McGill, L-R-29 Brukner & Khan, L-R-30 GOTS-Manual, L-T4-35 Freiwald, L-T4-36 Schleip/Wilke), sieben geprüfte Werke in 13.3, Q-22, V-24, Hinweis Heimausrüstung bei L-A03.
 - L-T4-22 (Witvrouw 2001) nicht aufgenommen: Status `nicht_aufgenommen`, aus Kern, Beschaffungsliste, Kartenzuschnitt und Regelvorschlag entfernt; Knie-Einzelbefund jetzt L-T4-23.
