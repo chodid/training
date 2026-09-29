@@ -442,7 +442,7 @@ begonnen: 2026-09-29
 abgeschlossen: null
 unterpunkte:
   U1: erledigt     # 2026-09-29, docs/extraktion/ mit README (Statustabellen) und luecken.md
-  U2: in_arbeit    # je Quelle: siehe docs/extraktion/README.md; 287 Läufe (195 Buchkapitel, 92 Artikel); Zieldateien UB und UP extrahiert (2026-09-29)
+  U2: in_arbeit    # je Quelle: siehe docs/extraktion/README.md; 287 Läufe (195 Buchkapitel, 92 Artikel); Zieldateien UB, UP und T1 extrahiert (2026-09-29)
   U3: offen
   U4: offen        # je Zieldatei: uebergreifend-belastung, uebergreifend-planung, t1, t2, t3, r, t4
   U5: offen
@@ -485,6 +485,9 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: Container-Neustart während U2; 27 laufende Extraktionen waren abgeschlossen, ihre Rückmeldungen gingen verloren
     loesung: Dateien vollständig und formal geprüft (check), Seitenbezug aus den Dateien übernommen; keine Neuextraktion nötig
+  - datum: 2026-09-29
+    was: U2 Zieldatei T1 extrahiert – 35 Dateien (8 Artikel, L-T1-07 13 und L-T1-08 14 Kapitel); 2 171 Aussagen, davon 60 `unsicher: true` in 21 Dateien, 87 offene Stellen; keine Formfehler, kein Kapitel „nicht verwertbar“
+    loesung: Muster im README – L-T1-07 Druckseite = Gesamt-PDF − 7 (alle Kapitel), L-T1-08 Scan-Versatz −2/−4 bestätigt, Druckseiten 149–150 fehlen im Scan; L-T1-05 und L-T2-12 Online-First ohne Paginierung (Stelle als Abschnitt); L-T1-08 k09 (Seiten ohne Text) sind Titel-/Fotoseiten, Abbruchregel nicht ausgelöst; L-T1-07 Text vs. Abbildung bei Intervallwerten mehrfach abweichend
   - datum: 2026-09-29
     was: Nebenbefunde Hauptkonzept – YAML-Block T1 in 13.2 nicht parsebar (ISBN-Zeile L-T1-01 mit „: “); in 13.2 fehlen `stufe` bei L-A01, L-A02, L-P01 bis L-P09 und `themenfelder` für übergreifend und T1; L-T3-04 (ausgewaehlt) und L-P14 (optional) keiner Zieldatei in AP-06 Punkt 3 zugeordnet; L-T2-08 bis L-T2-10 mit Status `verifiziert` als Belege im T2-Zuschnitt
     loesung: gemeldet, nicht geändert (Hauptkonzept nur an drei Stellen änderbar); Stufe für die Tabellen aus docs/literatur/README.md übernommen
