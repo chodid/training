@@ -55,7 +55,7 @@ Reihenfolge nach W-04, T4 zuletzt. Innerhalb einer Tabelle: Kern vor optional in
 
 ### 4.1 UB – `uebergreifend-belastung-monitoring-erholung`
 
-Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 Dateien. Davon extrahiert: 10. Nicht zu extrahieren (Vorspann/Anhang): 6; ausgelassen nach Kapitelauswahl: 19.
+Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 Dateien. Davon extrahiert: 28. Nicht zu extrahieren (Vorspann/Anhang): 6; ausgelassen nach Kapitelauswahl: 19.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -63,31 +63,31 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 D
 | L-P04 | UB | `L-P04_Impellizzeri-2019_Internal-and-External-Training-Load.pdf` | 4 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 33 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ · Muster: PDF ist Ahead-of-Print-Fassung, Seiten 1–4 der Vorabpaginierung (nicht Heftpaginierung), Versatz 0 |
 | L-P05 | UB | `L-P05_Kellmann-2018_Recovery-and-Performance-Consensus.pdf` | 6 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 50 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 239+n |
 | L-P06 | UB | `L-P06_Meeusen-2013_Overtraining-Syndrome-Consensus.pdf` | 20 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 125 Aussagen · 1 unsicher · 5 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 185+n; Abb. 3 nur als Bild (gerendert gelesen); pdftotext liest in Tab. 1 „95%“ statt „>5%“ |
-| **L-A01** | UB, UP | **Ordner `uebergreifend/L-A01_kapitel/`** (31 Kapitel-PDFs, 1379 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · 7. Aufl. 2019 vorläufig (D-51); **8./9. Aufl. fehlt (Beschaffung, Athlet)** |
+| **L-A01** | UB, UP | **Ordner `uebergreifend/L-A01_kapitel/`** (31 Kapitel-PDFs, 1379 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · 7. Aufl. 2019 vorläufig (D-51); **8./9. Aufl. fehlt (Beschaffung, Athlet)** · Muster: Druckseite = Gesamtbuch-PDF-Seite − 1 in allen 18 Kapiteln (Fußzeilen-Paginierung des E-Books; Übereinstimmung mit Druckausgabe nicht prüfbar); Kapiteldateien enthalten Teil-Einleitungen und Bildseiten am Rand, Literaturverzeichnis fehlt je Kapitel; viele Werte aus Grafiken abgelesen (unsicher); zahlreiche Widersprüche Text/Abbildung/Zusammenfassung im Buch selbst unter Offene Stellen |
 | L-A01 | UB, UP | `00a` Vorspann | PDF 1–34 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · S. 1 ohne Text, ab S. 2 ✓ |
 | L-A01 | UB, UP | `00b` Introduction: An Introduction to Exercise and Sport Physiology | PDF 35–93 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Einführung ins Fach; Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
-| L-A01 | UB, UP | `01` Structure and Function of Exercising Muscle | PDF 94–143 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `02` Fuel for Exercise: Bioenergetics and Muscle Metabolism | PDF 144–189 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `03` Neural Control of Exercising Muscle | PDF 190–232 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `04` Hormonal Control During Exercise | PDF 233–280 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `05-1` Energy Expenditure, Fatigue, and Muscle Soreness (Teil 1/2) | PDF 281–311 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `05-2` Energy Expenditure, Fatigue, and Muscle Soreness (Teil 2/2) | PDF 312–348 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `06` The Cardiovascular System and Its Control | PDF 349–403 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `07` The Respiratory System and Its Regulation | PDF 404–446 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `08` Cardiorespiratory Responses to Acute Exercise | PDF 447–501 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `09` Principles of Exercise Training | PDF 502–546 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `10` Adaptations to Resistance Training | PDF 547–586 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `11-1` Adaptations to Aerobic and Anaerobic Training (Teil 1/2) | PDF 587–620 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `11-2` Adaptations to Aerobic and Anaerobic Training (Teil 2/2) | PDF 621–655 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `12-1` Exercise in Hot and Cold Environments (Teil 1/2) | PDF 656–684 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `12-2` Exercise in Hot and Cold Environments (Teil 2/2) | PDF 685–722 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `13` Exercise at Altitude | PDF 723–767 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `14` Training for Sport | PDF 768–819 | offen | offen | Text ✓ |
+| L-A01 | UB, UP | `01` Structure and Function of Exercising Muscle | PDF 94–143 | 2026-09-29 / opus | offen | Text ✓ · 66 Aussagen · 1 unsicher · 4 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `02` Fuel for Exercise: Bioenergetics and Muscle Metabolism | PDF 144–189 | 2026-09-29 / opus | offen | Text ✓ · 82 Aussagen · 5 unsicher · 5 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `03` Neural Control of Exercising Muscle | PDF 190–232 | 2026-09-29 / opus | offen | Text ✓ · 71 Aussagen · 0 unsicher · 2 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `04` Hormonal Control During Exercise | PDF 233–280 | 2026-09-29 / opus | offen | Text ✓ · 74 Aussagen · 3 unsicher · 6 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `05-1` Energy Expenditure, Fatigue, and Muscle Soreness (Teil 1/2) | PDF 281–311 | 2026-09-29 / opus | offen | Text ✓ · 76 Aussagen · 5 unsicher · 6 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `05-2` Energy Expenditure, Fatigue, and Muscle Soreness (Teil 2/2) | PDF 312–348 | 2026-09-29 / opus | offen | Text ✓ · 77 Aussagen · 7 unsicher · 5 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `06` The Cardiovascular System and Its Control | PDF 349–403 | 2026-09-29 / opus | offen | Text ✓ · 63 Aussagen · 4 unsicher · 6 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `07` The Respiratory System and Its Regulation | PDF 404–446 | 2026-09-29 / opus | offen | Text ✓ · 63 Aussagen · 5 unsicher · 7 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `08` Cardiorespiratory Responses to Acute Exercise | PDF 447–501 | 2026-09-29 / opus | offen | Text ✓ · 126 Aussagen · 14 unsicher · 0 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `09` Principles of Exercise Training | PDF 502–546 | 2026-09-29 / opus | offen | Text ✓ · 105 Aussagen · 1 unsicher · 5 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `10` Adaptations to Resistance Training | PDF 547–586 | 2026-09-29 / opus | offen | Text ✓ · 87 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `11-1` Adaptations to Aerobic and Anaerobic Training (Teil 1/2) | PDF 587–620 | 2026-09-29 / opus | offen | Text ✓ · 75 Aussagen · 5 unsicher · 3 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `11-2` Adaptations to Aerobic and Anaerobic Training (Teil 2/2) | PDF 621–655 | 2026-09-29 / opus | offen | Text ✓ · 90 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `12-1` Exercise in Hot and Cold Environments (Teil 1/2) | PDF 656–684 | 2026-09-29 / opus | offen | Text ✓ · 69 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `12-2` Exercise in Hot and Cold Environments (Teil 2/2) | PDF 685–722 | 2026-09-29 / opus | offen | Text ✓ · 66 Aussagen · 1 unsicher · 4 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `13` Exercise at Altitude | PDF 723–767 | 2026-09-29 / opus | offen | Text ✓ · 89 Aussagen · 6 unsicher · 4 offene Stellen · pdf_nativ |
+| L-A01 | UB, UP | `14` Training for Sport | PDF 768–819 | 2026-09-29 / opus | offen | Text ✓ · 105 Aussagen · 7 unsicher · 0 offene Stellen · pdf_nativ |
 | L-A01 | UB, UP | `15-1` Body Composition and Nutrition for Sport (Teil 1/2) | PDF 820–861 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Ernährung; Athlet 2026-09-29) · Text ✓ |
 | L-A01 | UB, UP | `15-2` Body Composition and Nutrition for Sport (Teil 2/2) | PDF 862–902 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Ernährung; Athlet 2026-09-29) · Text ✓ |
 | L-A01 | UB, UP | `16` Ergogenic Aids in Sport | PDF 903–960 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: ergogene Hilfsmittel; Athlet 2026-09-29) · Text ✓ |
 | L-A01 | UB, UP | `17` Children and Adolescents in Sport and Exercise | PDF 961–1005 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Kinder; Athlet 2026-09-29) · Text ✓ |
-| L-A01 | UB, UP | `18` Aging in Sport and Exercise | PDF 1006–1055 | offen | offen | Text ✓ |
+| L-A01 | UB, UP | `18` Aging in Sport and Exercise | PDF 1006–1055 | 2026-09-29 / opus | offen | Text ✓ · 99 Aussagen · 8 unsicher · 7 offene Stellen · pdf_nativ |
 | L-A01 | UB, UP | `19` Sex Differences in Sport and Exercise | PDF 1056–1103 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Geschlecht; Athlet 2026-09-29) · Text ✓ |
 | L-A01 | UB, UP | `20` Prescription of Exercise for Health and Fitness | PDF 1104–1148 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Gesundheitssport; Athlet 2026-09-29) · Text ✓ |
 | L-A01 | UB, UP | `21` Cardiovascular Disease and Physical Activity | PDF 1149–1197 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Herz-Kreislauf-Erkrankungen; Athlet 2026-09-29) · Text ✓ |
@@ -127,7 +127,7 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 D
 | L-P13 | UB | `L-P13_Silbernagel-2007_Pain-Monitoring-Model-Achilles.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 48 Aussagen · 1 unsicher · 4 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 896+n; Befund: Widersprüche Text/Tabellen im Original (Baseline VISA-A-S 57/58, Tab. 7 Signifikanz, fehlende Einheiten), unter Offene Stellen |
 | L-P15 | UB | `L-P15_Manresa-Rocamora-2021_HRV-Guided-Training-Meta-Analysis.pdf` | 22 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** · 51 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ · Muster: Artikelnummer 10299, Seiten „n of 22“, Versatz 0; Befund: Text vs. Tab. 2 widersprüchlich (Referenzfenster, Stabilisierung), unter Offene Stellen |
 | L-P16 | UB | `L-P16_Dueking-2021_HRV-Guided-Training-Wearables.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 43 Aussagen · 2 unsicher · 9 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 1179+n; Befund: mehrere Inkonsistenzen im Original (Abstract vertauscht g-Werte, N 198 vs. 228, Tab. 2), unter Offene Stellen |
-| **Synthese startbereit** | UB | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 10 von 41 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
+| **Synthese startbereit** | UB | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 28 von 41 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
 
 ### 4.2 UP – `uebergreifend-planung-kombiniertes-training`
 
@@ -606,3 +606,15 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-T2-29, L-R-18 | Autorenmanuskript, Seitenzahlen nicht zitierfähig | docs/literatur/README.md |
 | alle übrigen Bücher | Versatz je Kapitel in U2 bestimmen (erste Druckseite des Kapitels im PDF) | – |
 | Artikel | Seite laut Zeitschriften-Paginierung auf dem PDF | – |
+
+| L-P03 | Seiten S2-161–S2-170 (Supplement-Paginierung), Versatz PDF n → S2-(160+n); Tab. 1 im PDF gedreht | U2-Extraktion (Rückmeldung Unteragent) |
+| L-P04 | PDF ist Ahead-of-Print-Fassung, Seiten 1–4 der Vorabpaginierung (nicht Heftpaginierung), Versatz 0 | U2-Extraktion (Rückmeldung Unteragent) |
+| L-P10 | Versatz PDF n → S. 108+n; Befund Extraktion: Tab. 5 Lastwerte teils ≠ RPE × Dauer (Druckfehler im Original?), Tab. 4 SD auffällig – Gegenprüfung beachten | U2-Extraktion (Rückmeldung Unteragent) |
+| L-P05 | Versatz PDF n → S. 239+n | U2-Extraktion (Rückmeldung Unteragent) |
+| L-P12 | Versatz PDF n → S. 906+n; Befund: Gruppengrößen Text vs. Tab. 1 widersprüchlich (im Original), unter Offene Stellen | U2-Extraktion (Rückmeldung Unteragent) |
+| L-P13 | Versatz PDF n → S. 896+n; Befund: Widersprüche Text/Tabellen im Original (Baseline VISA-A-S 57/58, Tab. 7 Signifikanz, fehlende Einheiten), unter Offene Stellen | U2-Extraktion (Rückmeldung Unteragent) |
+| L-P11 | Zeitschriftenseiten 281–291 nur als Bereich in der Fußzeile, Einzelseiten „n of 13“; Stelle als „S. n von 13, Abschnitt …“; Online-Tab. S1 nicht im PDF | U2-Extraktion (Rückmeldung Unteragent) |
+| L-P15 | Artikelnummer 10299, Seiten „n of 22“, Versatz 0; Befund: Text vs. Tab. 2 widersprüchlich (Referenzfenster, Stabilisierung), unter Offene Stellen | U2-Extraktion (Rückmeldung Unteragent) |
+| L-P16 | Versatz PDF n → S. 1179+n; Befund: mehrere Inkonsistenzen im Original (Abstract vertauscht g-Werte, N 198 vs. 228, Tab. 2), unter Offene Stellen | U2-Extraktion (Rückmeldung Unteragent) |
+| L-P06 | Versatz PDF n → S. 185+n; Abb. 3 nur als Bild (gerendert gelesen); pdftotext liest in Tab. 1 „95%“ statt „>5%“ | U2-Extraktion (Rückmeldung Unteragent) |
+| L-A01 | Druckseite = Gesamtbuch-PDF-Seite − 1 in allen 18 Kapiteln (Fußzeilen-Paginierung des E-Books; Übereinstimmung mit Druckausgabe nicht prüfbar); Kapiteldateien enthalten Teil-Einleitungen und Bildseiten am Rand, Literaturverzeichnis fehlt je Kapitel; viele Werte aus Grafiken abgelesen (unsicher); zahlreiche Widersprüche Text/Abbildung/Zusammenfassung im Buch selbst unter Offene Stellen | U2-Extraktion (Rückmeldung Unteragent) |
