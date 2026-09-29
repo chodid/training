@@ -55,12 +55,12 @@ Reihenfolge nach W-04, T4 zuletzt. Innerhalb einer Tabelle: Kern vor optional in
 
 ### 4.1 UB – `uebergreifend-belastung-monitoring-erholung`
 
-Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 Dateien. Davon extrahiert: 1. Nicht zu extrahieren (Vorspann/Anhang): 6; ausgelassen nach Kapitelauswahl: 19.
+Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 Dateien. Davon extrahiert: 2. Nicht zu extrahieren (Vorspann/Anhang): 6; ausgelassen nach Kapitelauswahl: 19.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
-| L-P03 | UB | `L-P03_Bourdon-2017_Monitoring-Training-Loads-Consensus.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 49 Aussagen · 1 unsicher · 0 offene Stellen · pdf_nativ |
-| L-P04 | UB | `L-P04_Impellizzeri-2019_Internal-and-External-Training-Load.pdf` | 4 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
+| L-P03 | UB | `L-P03_Bourdon-2017_Monitoring-Training-Loads-Consensus.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 49 Aussagen · 1 unsicher · 0 offene Stellen · pdf_nativ · Muster: Seiten S2-161–S2-170 (Supplement-Paginierung), Versatz PDF n → S2-(160+n); Tab. 1 im PDF gedreht |
+| L-P04 | UB | `L-P04_Impellizzeri-2019_Internal-and-External-Training-Load.pdf` | 4 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 33 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ · Muster: PDF ist Ahead-of-Print-Fassung, Seiten 1–4 der Vorabpaginierung (nicht Heftpaginierung), Versatz 0 |
 | L-P05 | UB | `L-P05_Kellmann-2018_Recovery-and-Performance-Consensus.pdf` | 6 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-P06 | UB | `L-P06_Meeusen-2013_Overtraining-Syndrome-Consensus.pdf` | 20 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | **L-A01** | UB, UP | **Ordner `uebergreifend/L-A01_kapitel/`** (31 Kapitel-PDFs, 1379 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · 7. Aufl. 2019 vorläufig (D-51); **8./9. Aufl. fehlt (Beschaffung, Athlet)** |
@@ -127,7 +127,7 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 D
 | L-P13 | UB | `L-P13_Silbernagel-2007_Pain-Monitoring-Model-Achilles.pdf` | 10 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-P15 | UB | `L-P15_Manresa-Rocamora-2021_HRV-Guided-Training-Meta-Analysis.pdf` | 22 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** |
 | L-P16 | UB | `L-P16_Dueking-2021_HRV-Guided-Training-Wearables.pdf` | 13 (PDF) | offen | offen | optional · A · optional · Text ✓ |
-| **Synthese startbereit** | UB | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 1 von 41 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
+| **Synthese startbereit** | UB | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 2 von 41 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
 
 ### 4.2 UP – `uebergreifend-planung-kombiniertes-training`
 
