@@ -101,6 +101,9 @@ $saetze = static function (array $st): string {
 <?php if ($st['notiz'] !== null): ?>
           <div class="soll"><?= $this->e($st['notiz']) ?></div>
 <?php endif ?>
+<?php if (isset($exerciseLinks[$i])): // Ausführung im Übungskatalog (AP-16, 6.3); Rückkehr setzt fort (js/gefuehrt.js) ?>
+          <a class="ex-link ausfuehrung" data-ausfuehrung href="/uebung?id=<?= $this->e(rawurlencode($exerciseLinks[$i]['slug'])) ?>&amp;von=<?= (int) $session['id'] ?>&amp;modus=start"><?= $this->icon('book', 'ic ic-sm') ?>Ausführung</a>
+<?php endif ?>
         </div>
 
         <section class="card<?= !empty($invalid['ist_schritte'][$i]) || (!empty($invalid['ist']) && empty($invalid['ist_schritte'])) ? ' invalid' : '' ?>">

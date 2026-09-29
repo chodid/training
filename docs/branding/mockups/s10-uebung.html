@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bulgarian Split Squat – Training</title>
+<link rel="icon" href="icon-optionen/v3-favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+<style>
+  /* wie server/public/css/training.css (AP-16) */
+  .mt-4{margin-top:var(--space-4)}.mt-8{margin-top:8px}.kurz{color:var(--text-secondary)}.link-inline{display:inline-flex;align-items:center;gap:4px}.link-row{text-decoration:none;color:inherit}
+  details.more>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap}
+  details.more>summary .hint{font-weight:400}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  /* Übungskatalog S10/S10a (AP-16, docs/konzept/uebungskatalog.md 6.1/6.2; Mockups s10-uebung.html, s10a-uebungen.html) */
+.chips{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+a.chip{display:inline-flex;align-items:center;min-height:36px;padding:0 var(--space-3);border:var(--border-default);border-radius:var(--radius-full);background:var(--bg-surface);color:var(--text-secondary);font:var(--type-body-sm);text-decoration:none}
+a.chip:hover{border-color:var(--focus-ring)}
+a.chip[aria-current]{background:var(--bg-subtle);border-color:var(--border-brand);color:var(--text-brand);font-weight:600}
+.search-row{display:flex;gap:var(--space-2)}
+.search-row .input{flex:1;min-width:0}
+.ex-card{display:grid;gap:var(--space-1)}
+.ex-card .name{display:inline-flex;align-items:center;gap:var(--space-2);font-weight:600;color:var(--text-primary)}
+.ex-card .s{font:var(--type-body-sm);color:var(--text-tertiary)}
+.ex-card .badge{justify-self:start}
+.exercise-page .lead{font-weight:600;color:var(--text-primary);overflow-wrap:anywhere}
+.exercise-page p,.exercise-page li{overflow-wrap:anywhere}
+.ex-list{margin:0;padding-left:1.4em;display:grid;gap:var(--space-2)}
+.pre-line{white-space:pre-line}
+.vorsicht{background:var(--status-error-bg);border-color:var(--status-error)}
+.vorsicht h2{display:inline-flex;align-items:center;gap:var(--space-2);color:var(--status-error-text)}
+.video{margin:0;display:grid;gap:var(--space-2)}
+.video-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--radius-md);overflow:hidden;background:var(--bg-page)}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2);font:var(--type-body-sm)}
+.link-host{overflow-wrap:anywhere}
+a.ex-link{display:inline-flex;align-items:center;gap:var(--space-1)}
+
+  /* nur Mockup: Zustände über ?state= */
+  [data-state]{display:none}
+  body.st-voll [data-state~="voll"],body.st-links [data-state~="links"],body.st-offline [data-state~="offline"]{display:block}
+  .video-frame .offline-ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:var(--space-4);color:var(--text-tertiary);font:var(--type-body-sm)}
+</style>
+</head>
+<body class="app st-voll">
+<header class="topbar">
+  <a class="btn btn-icon" href="s3-einheit.html" aria-label="Zurück zur Einheit"><svg class="ic ic-lg"><use href="#i-arrow-left"/></svg></a>
+  <h1>Bulgarian Split Squat</h1>
+  <div class="topbar-actions"></div>
+</header>
+<nav class="nav" aria-label="Hauptnavigation">
+  <a class="nav-brand" href="s2-woche.html"><img src="../chadid-design-system/assets/logo/lama-symbol-flaeche.svg" alt=""><span class="brand"><span>Training</span></span></a>
+  <a href="s2-woche.html" aria-current="page"><svg class="ic"><use href="#i-calendar-week"/></svg>Woche</a>
+  <a href="s4-checkin.html"><svg class="ic"><use href="#i-checkup-list"/></svg>Check-in</a>
+  <a href="s6-verlauf.html"><svg class="ic"><use href="#i-chart-line"/></svg>Verlauf</a>
+  <a href="s8-einstellungen.html"><svg class="ic"><use href="#i-settings"/></svg>Einstellungen</a>
+  <div class="nav-foot">philipp · Block 2, Woche 6</div>
+</nav>
+
+<main class="main">
+  <!-- S10 Übung (AP-16, docs/konzept/uebungskatalog.md 6.1). Zustände: ?state=voll (Standard) | links | offline -->
+  <div id="offline-status" class="stack" data-state="offline"><div class="alert alert-warning"><svg class="ic"><use href="#i-alert-triangle"/></svg><div><b>Offline.</b> <span class="body">Gespeicherter Stand vom 29.09., 07:12.</span></div></div></div>
+  <div class="page-head">
+    <div class="eyebrow"><svg class="ic" style="color:var(--plum-600)"><use href="#i-barbell"/></svg>Kraft · kniedominant</div>
+    <h1>Bulgarian Split Squat</h1>
+    <div class="chips mt-8">
+      <span class="badge badge-brand">Kurzhantel</span><span class="badge badge-brand">Box</span>
+      <span class="badge badge-info">Konfidenz mittel</span><span class="badge badge-neutral">Stufe 3/5</span>
+    </div>
+    <p class="hint mt-8">Auch: Bulgarische Kniebeuge</p>
+  </div>
+  <div class="alert alert-warning mt-4" data-state="links"><svg class="ic"><use href="#i-alert-triangle"/></svg><div><b>Links prüfen.</b> <span class="body">Mindestens ein Link war bei der letzten Prüfung nicht erreichbar. Claude kann ihn im Chat ersetzen.</span></div></div>
+
+  <div class="stack-lg mt-4 exercise-page">
+    <section class="card stack">
+      <p class="lead">Einbeinige Kniebeuge mit erhöhtem hinterem Fuß.</p>
+      <p>Kraft für Quadrizeps und Gesäß auf einem Bein, Kniestabilität für Abstiege und Skitouren.</p>
+      <p class="hint">Muskeln: Quadrizeps, Gluteus maximus, Adduktoren</p>
+    </section>
+    <section class="card"><div class="card-head"><h2>Voraussetzung</h2></div><p>Bank oder Box etwa kniehoch, 1 m Platz nach vorn, Kurzhanteln in den Händen.</p></section>
+    <section class="card"><div class="card-head"><h2>Ausführung</h2></div><ol class="ex-list">
+      <li>Mit dem Rücken zur Bank stellen, den hinteren Fuß mit dem Rist auflegen.</li>
+      <li>Vorderen Fuß so weit vorn aufsetzen, dass das Knie in der Tiefe über dem Fuß steht.</li>
+      <li>Senkrecht absenken, bis das hintere Knie fast den Boden berührt.</li>
+      <li>Über die ganze Fußsohle vorn nach oben drücken; nach allen Wiederholungen Seite wechseln.</li>
+    </ol></section>
+    <section class="card"><div class="card-head"><h2>Worauf achten</h2></div><ul class="ex-list"><li>Knie zeigt in Richtung der zweiten Zehe.</li><li>Oberkörper leicht nach vorn, Rücken lang.</li></ul></section>
+    <section class="card"><div class="card-head"><h2>Fehlerquellen</h2></div><ul class="ex-list"><li>Knie fällt nach innen.</li><li>Gewicht auf dem hinteren Bein.</li><li>Ferse vorn hebt ab.</li></ul></section>
+    <section class="card vorsicht"><div class="card-head"><h2><svg class="ic"><use href="#i-alert-triangle"/></svg>Vorsicht</h2></div><ul class="ex-list">
+      <li>Patellasehne: Schmerz während und am Morgen danach höchstens 3/10, sonst Tiefe oder Last verringern (Block R, L-R-02).</li>
+    </ul></section>
+    <section class="card"><div class="card-head"><h2>Progression und Regression</h2></div><dl class="kv">
+      <dt>Schwerer</dt><dd>Kurzhanteln schwerer, Tempo 3-1-1, Gewichtsweste.</dd>
+      <dt>Leichter</dt><dd>Ohne Gewicht, Hand am Stab, geringere Tiefe.</dd>
+      <dt>Grundübung</dt><dd><a href="#">Ausfallschritt</a></dd>
+    </dl></section>
+    <section class="card"><div class="card-head"><h2>Dosierung</h2><span class="hint">Standardbereich, die Einheit gibt die Dosis vor</span></div><p>3–4 × 8–12 je Seite, 2 RIR, 90–120 s Pause.</p></section>
+    <section class="card stack"><div class="card-head"><h2>Videos</h2></div>
+      <figure class="video">
+        <div class="video-frame">
+          <div class="offline-ph" data-state="voll links"><span><svg class="ic ic-lg"><use href="#i-player-play"/></svg><br>Eingebettetes Video (youtube-nocookie.com)</span></div>
+          <div class="offline-ph" data-state="offline"><span><svg class="ic ic-lg"><use href="#i-video"/></svg><br>Ohne Netz kein Video</span></div>
+        </div>
+        <figcaption><svg class="ic ic-sm"><use href="#i-video"/></svg><a href="#">Technik: Bulgarian Split Squat</a></figcaption>
+      </figure>
+    </section>
+    <section class="card"><div class="card-head"><h2>Links</h2></div><div class="list">
+      <div class="list-item"><div><a class="link-inline" href="#"><svg class="ic ic-sm"><use href="#i-external-link"/></svg>Anleitung mit Bildern</a><div class="s link-host">www.example.org · geprüft 29.09.</div></div><span class="badge badge-success">geprüft</span></div>
+      <div class="list-item" data-state="links"><div><a class="link-inline" href="#"><svg class="ic ic-sm"><use href="#i-external-link"/></svg>Häufige Fehler</a><div class="s link-host">blog.example.net · geprüft 29.09.</div></div><span class="badge badge-error">defekt</span></div>
+    </div></section>
+    <section class="card"><div class="card-head"><h2>Quellen</h2></div><p>L-T2-04 · R-UEB-13 · Einschätzung</p></section>
+    <details class="more card"><summary>Fassung 2<span class="hint">· zuletzt geändert 29.09.</span></summary>
+      <div class="list"><div class="list-item"><div><span class="t">Fassung 2</span><div class="s">Vorsicht um Morgentest ergänzt</div></div><span class="hint">29.09.</span></div></div>
+    </details>
+  </div>
+</main>
+<script>const s=new URLSearchParams(location.search).get('state');if(s){document.body.className='app st-'+s}</script>
+</body>
+</html>

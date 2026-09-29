@@ -77,6 +77,14 @@ final class WriteTools
                 $errors[] = 'sessions[' . $i . ']: ' . $e->getMessage() . ($e->details !== [] ? ' (' . implode('; ', $e->details) . ')' : '');
             }
         }
+        // Übungskatalog (AP-16, 5.2): unbekannte/archivierte exercise_id sind Fehler, fehlende IDs nur Warnungen
+        $catalog = ['fehler' => [], 'warnungen' => []];
+        if ($errors === []) {
+            $catalog = $this->exerciseLink()->check(array_map(static fn (int $i, array $s): array => ['session' => $i, 'type' => $s['type'], 'plan' => $s['plan_json']], array_keys($clean), $clean));
+            foreach ($catalog['fehler'] as $f) {
+                $errors[] = 'sessions[' . $f['session'] . ']: plan_json Position ' . $f['position'] . ': ' . $f['hinweis'];
+            }
+        }
         if ($errors !== []) {
             throw new ToolError('Wochenplan ungültig, nichts geschrieben.', $errors);
         }
@@ -157,7 +165,7 @@ final class WriteTools
             'fehler_intervals' => array_merge($intervalsErrors, $failed > 0 ? [$failed . ' Ausdauereinheit(en) ohne Event – mit update_session (sync_intervals) erneut versuchen.'] : []),
             'fehler_kalender' => $calendarErrors,
             'status' => $failed > 0 || $intervalsErrors !== [] || $calendarErrors !== [] ? 'teilweise' : 'ok',
-        ], static fn ($v): bool => $v !== []);
+        ], static fn ($v): bool => $v !== []) + \Training\Plan\ExerciseLink::forResponse($catalog['warnungen'], array_column($clean, 'date'));
     }
 
     /**
@@ -197,6 +205,13 @@ final class WriteTools
             }
         }
         $clean = $this->validateSession($merged, null, null, 0, false);
+        $catalog = ['fehler' => [], 'warnungen' => []];
+        if (array_key_exists('plan_json', $changes)) {
+            $catalog = $this->exerciseLink()->check([['session' => $sessionId, 'type' => (string) $clean['type'], 'plan' => $clean['plan_json']]]);
+            if ($catalog['fehler'] !== []) {
+                throw new ToolError('ungültig', array_map(static fn (array $f): string => 'plan_json Position ' . $f['position'] . ': ' . $f['hinweis'], $catalog['fehler']));
+            }
+        }
         $fields = [];
         foreach (['date', 'title', 'priority', 'planned_duration_min', 'plan_json', 'coach_summary', 'coach_rationale', 'sort_order'] as $k) {
             if (array_key_exists($k, $changes)) {
@@ -248,6 +263,7 @@ final class WriteTools
         }
         $after = $weeks->session($sessionId);
         $result['einheit'] = ['datum' => $after['date'], 'titel' => $after['title'], 'status' => $after['status'], 'prio' => $after['priority'], 'plan_min' => $after['planned_duration_min']];
+        $result += \Training\Plan\ExerciseLink::forResponse($catalog['warnungen']);
 
         return $result;
     }
@@ -407,6 +423,11 @@ final class WriteTools
             'coach_rationale' => $rationale,
             'sort_order' => is_int($s['sort_order'] ?? null) ? $s['sort_order'] : $index,
         ];
+    }
+
+    private function exerciseLink(): \Training\Plan\ExerciseLink
+    {
+        return new \Training\Plan\ExerciseLink(new \Training\Data\ExerciseRepository($this->pdo, $this->clock));
     }
 
     /** Text eines Begründungsfelds: getrimmt, leer bzw. kein Text = null. */

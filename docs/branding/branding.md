@@ -50,6 +50,8 @@ Ablage: `docs/branding/mockups/`. Jede Seite ist eine eigenständige HTML-Datei,
 | S6 Verlauf | `s6-verlauf.html` | – | AP-09 |
 | S8 Einstellungen | `s8-einstellungen.html` | `?state=update` | AP-04 (Backup/Update AP-10) |
 | S9 Einheit geführt | `s9-einheit-gefuehrt.html` | `?state=bereit` (Standard), `laeuft`, `pause`, `offen`, `abschluss` | AP-14 (Fable, 2026-09-28) |
+| S10 Übung | `s10-uebung.html` | `?state=voll` (Standard), `links`, `offline` | AP-16 (Code-Instanz, 2026-09-29, aus vorhandenen Bausteinen) |
+| S10a Übungskatalog | `s10a-uebungen.html` | – | AP-16 (Code-Instanz, 2026-09-29) |
 | Icon-Optionen | `icon-optionen.html` (Varianten-SVGs in `icon-optionen/`) | – | AP-13, Q-14 (Fable, 2026-09-28) |
 
 Die Beispieldaten (Block 2 „Grundlage Herbst“, KW 39, Athlet „philipp“) sind erfunden und zeigen typische Fälle: erledigte Einheit ohne Feedback, teilweise erledigte Krafteinheit, verschobene Ausdauereinheit, Ruhetag, wiederholte Schmerzmeldung an einer Stelle.

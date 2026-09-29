@@ -733,6 +733,107 @@ noch_zu_pruefen:
     wie: Gerätetest durch Athlet (nach Deployment 0.20.0)
 ```
 
+## AP-16 Übungskatalog
+
+```yaml
+ap: AP-16
+auftrag: docs/konzept/uebungskatalog.md (T1–T6)
+geprueft:
+  - was: "T1 Normalisierung (E-09): Groß/Klein, Umlaute ae/oe/ue/ss, Bindestrich = Leerzeichen, Satzzeichen, Akzente, Trimmen; Slug (E-08) gültig/ungültig"
+    wie: automatisiert (Unit ExerciseCatalogTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 Embed-Ableitung (4.3, E-04): YouTube watch (mit/ohne www, mobil, mit Zeitmarke), youtu.be (mit Query), shorts, Vimeo (mit/ohne www) → Embed-URL; http, ungültige ID, Playlist, Vimeo-Kanal, fremder und ähnlich klingender Host → null"
+    wie: automatisiert (Unit ExerciseCatalogTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 content_json (4.3): Serverfelder werden überschrieben (embed, geprueft_am, status), Textlinks ohne embed; abgelehnt: 3 Video-/3 Textlinks, 5 Links, http, URL ohne Host, unbekannte Art, Längen (kurz, Schritt), Schrittzahl 1/13, vorsicht 7, ohne Quelle, unbekanntes Feld"
+    wie: automatisiert (Unit ExerciseCatalogTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 plan_json: exercise_id optional (null/fehlend gültig), Slugformat; Kletterblöcke hangboard/campus/zugkraft/antagonisten mit ID gültig (V-06), bouldern_volumen/bouldern_limit/ausdauer_route/technik mit ID Schemafehler /blocks/0/exercise_id (V-07), ohne ID gültig; Beispielwoche unverändert gültig"
+    wie: automatisiert (Unit ExerciseCatalogTest, PlanValidatorTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 ExerciseLink V-01 bis V-08 (ok, ohne_katalog, unbekannt mit Session und Position, name_abweichend, Alias ok, Hangboard ok, kind_ohne_katalog, archiviert); Kletterblock mit Katalogart ohne ID → Warnung, Bouldern ohne ID → nichts; Ausdauer/Ruhe ohne Prüfung; Verlinkung nur bekannter IDs"
+    wie: automatisiert (Integration ExerciseCatalogTest gegen MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 Repository: Aliase ohne eigenen Namen/Leeres, Duplikatsuche Name/Alias (eigene Übung ausgenommen), Fassung mit Schnappschuss (Name, Aliase, Inhalt) und version 2, Varianten, Suche (exakt vor Teilstring, ähnlich über Muster, Filter, Limit, archivierte), Liste, geplante Verwendung (nur Status geplant, exakter Slug)"
+    wie: automatisiert (Integration ExerciseCatalogTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 Migration 0023 vor/zurück: Schreibsperre-Tests mit Rückweg der letzten Migration (drei Tabellen), Migration auf gefülltem Bestand 20–23; gesamte Suite 242 Tests grün"
+    wie: automatisiert (BackupTest, McpToolsTest, ProfileTest, MorningCheckinTest) gegen MariaDB 10.11
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T2 T-01 bis T-10 über /mcp: leerer Katalog mit Hinweis; Anlage mit 2 Text-/2 Videolinks (Status aktiv, embed YouTube/Vimeo, geprueft_am heute, hinweis_chat, Eingabe-Serverfelder ignoriert, Videos über oEmbed, ein paralleler Durchgang); 404 → Link defekt, Übung links_pruefen, kein Toolfehler; Name als Alias vorhanden → abgelehnt mit Treffer; 3 Videolinks → Schemafehler ohne Abruf; Ändern ohne reason abgelehnt; mit reason Fassung 1, version 2, Slug gleich; Suche Treffer + ähnlich; Archivieren bei geplanter Einheit abgelehnt mit Einheit; Wochenplan gemischt → geschrieben mit einer Warnung"
+    wie: automatisiert (Integration ExerciseToolsTest gegen MariaDB 10.11, simulierte Linkantworten)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T2 weitere Fälle: unbekannte ID im Wochenplan → nichts geschrieben; Bouldern mit ID → Schemafehler; update_session mit Namensabweichung → Warnung, ohne plan_json keine Prüfung; archivierte Übung nicht mehr planbar und nur mit include_archived auffindbar; Varianten und Schleifenschutz; unveränderter Inhalt ohne neue Fassung; get_week_overview exercise_ids; Tool-Liste enthält die vier neuen Tools"
+    wie: automatisiert (ExerciseToolsTest, McpToolsTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T2 Budget mit 40 Übungen: find_exercise (10 Treffer, Kurztexte fast 200 Zeichen) < 4 000 Zeichen, get_exercise (reichhaltiger Eintrag mit Fassungen) < 6 000, list_exercises < 8 000; Schreibsperre bei Code > Datenbank"
+    wie: automatisiert (ExerciseToolsTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T2 Linkbewertung (2xx, 404/410, 403 Text vs. oEmbed, 5xx/429, Netzfehler mit früherem Ergebnis, gesperrtes Ziel, Weiterleitungen) und Schutzregeln (nur https, Port 443, keine Zugangsdaten, localhost/127.0.0.1/10.x/::1/169.254.169.254 gesperrt und nicht abgerufen)"
+    wie: automatisiert (Unit LinkCheckerTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T2 Live-Abruf YouTube/Vimeo-oEmbed und example.org aus der Code-Umgebung"
+    wie: manuell (curl, CurlLinkFetcher)
+    ergebnis: offen – die Netzrichtlinie der Code-Umgebung sperrt die Hosts; Prüfung auf dem Server nach Deployment
+    datum: 2026-09-29
+  - was: "T3 S10: W-01 iframe youtube-nocookie mit loading=lazy, title, allow=fullscreen, referrerpolicy, Link darunter; W-02 nur Links mit embed als iframe; Abschnitte in der Reihenfolge 6.1, Vorsicht hervorgehoben, Varianten verlinkt, Rückweg zur Einheit bzw. geführten Einheit; W-03 404 für unbekannten/ungültigen Slug; W-07 CSP mit frame-src genau den zwei Hosts nur auf S10"
+    wie: automatisiert (Integration ExercisePagesTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T3 S10a und S8: Liste ohne Archiv, Suche über Alias, Filter Kategorie, Archiv-Schalter, Leerzustand; S8-Zeile mit Anzahl und „1 Übung mit defekten Links“; S8 lädt vor der Migration ohne Katalogzeile; Anmeldung nötig"
+    wie: automatisiert (ExercisePagesTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T3 375 px ohne horizontalen Überlauf (S10 mit langem Videotitel und langer Adresse, S10a, S8), Sicht 1280 px"
+    wie: Chromium (Playwright, lokale Instanz, Screenshots)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T4 W-04 S3: Link nur bei Übungen mit exercise_id (von=<Einheit>), Kletterblock „Hangboard · Max Hang 20 mm“; S9: ein Link „Ausführung“ (modus=start), S10 führt zurück in die geführte Einheit; Vorladen der S10-Adressen (S3 alle Einheiten beider Wochen, S9 heute/morgen), ohne Doppelte"
+    wie: automatisiert (Integration ExerciseLinksTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T4 Kalender: Link je Übung mit ID unter der Kurzplanzeile (Kraft und Kletterblock), 30 Übungen → Kurzplan vollständig, Kurzplan + Links ≤ 1 000 Zeichen, hintere Links entfallen"
+    wie: automatisiert (Unit DayEventTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T4 Browser: W-04 S3 → S10 (Video-iframe, Vorsicht, 375 px) → zurück; S10a 375 px; W-05 S9 Satz erledigt, Ist-Wert geändert → Ausführung → zurück: gleiche Übung und Satz, Ist-Wert bleibt, keine Rückfrage; normales Neuladen fragt weiter; W-06 echter Netzausfall (Proxy): Übung aus dem Cache mit data-offline-stand, Ausführung lesbar, Link zum Video, andere Adresse derselben Übung ebenfalls; keine Skriptfehler"
+    wie: automatisiert (tests/e2e/uebung.e2e.cjs mit Chromium über run.sh; gefuehrt.e2e.cjs 14 Prüfungen und Node-Tests 18 Fälle weiter grün)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T5 Cron: Lauf nur einmal je 7 Tage; 404 → links_pruefen, nach 7 Tagen erreichbar → aktiv; Timeout zählt als nicht prüfbar ohne Statuswechsel; archivierte nicht geprüft; höchstens 50 Links, nie geprüfte zuerst; Audit exercise_linkcheck (cron) mit Zusammenfassung; keine neue Fassung; S8 „1 Übung mit defekten Links“; ohne Tabelle kein Abbruch des Crons"
+    wie: automatisiert (Integration ExerciseLinkCheckCronTest; MirrorTest, CalendarTest weiter grün)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T6 Dokumente konsistent: Hauptkonzept (AP-16, D-64 bis D-69, 7, 7.1, 8.2, 8.3, 10, 14), datenmodell.md (Schema 23), gefuehrte-einheit.md, branding.md, trainerregeln.md (Vorabkapitel 9), README, CHANGELOG 0.21.0–0.25.1, Auftrag Abschnitt 13; App.php 0.25.1, SCHEMA_VERSION 23"
+    wie: Durchsicht und Suche nach veralteten Angaben (Version, Schemastand, Tool-/Seitennamen, E-/D-Verweise); Suite und Browser-Tests grün
+    ergebnis: ok
+    datum: 2026-09-29
+noch_zu_pruefen:
+  - was: T1 Migration 0023 und Schemata gegen MySQL 8.4
+    wie: CI (GitHub Actions) mit dem Pull Request
+  - was: "T2 Abnahme aus dem Projekt-Chat: find_exercise(„split squat“) findet nichts → upsert_exercise mit echten Links (YouTube, Vimeo, Textseite) → Links ok, eingebettet, hinweis_chat erscheint; ein gelöschtes YouTube-Video wird defekt; write_week_plan mit exercise_id ohne Warnung, ohne ID mit Warnung"
+    wie: Athlet im Projekt-Chat nach Deployment
+  - was: "T3 Abnahme auf dem Smartphone: Video spielt eingebettet (YouTube, Vimeo), Vorsicht-Abschnitt sichtbar"
+    wie: Athlet nach Deployment
+  - was: "T4 Abnahme auf dem Smartphone: Woche mit Netz öffnen, Flugmodus, Einheit → Übung öffnen: Ausführung lesbar, Platzhalter statt Video; S9 → Ausführung → zurück ohne Rückfrage"
+    wie: Athlet nach Deployment
+  - was: O-05 Kalenderbeschreibung mit Links je Übung oder nur Link zur Einheit
+    wie: Entscheidung des Athleten bei der Abnahme von T4
+  - was: "T5 Abnahme: stündlicher Cron-Lauf auf dem Server – nach dem ersten Lauf steht im Audit „Linkprüfung: … Links …“ (Einstellungen bzw. Datenbank), Antwort mit linkpruefung"
+    wie: Athlet nach Deployment (Cron-Aufruf im Browser oder Lima-City-Protokoll)
+```
+
 ## AP-05 MCP-Tools produktiv
 
 ```yaml

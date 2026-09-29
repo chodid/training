@@ -31,6 +31,16 @@
               "antagonisten"
             ]
           },
+          "exercise_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 3,
+            "maxLength": 60,
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Slug einer Übung im Katalog (AP-16, E-05/E-08); nur bei kind hangboard, campus, zugkraft, antagonisten"
+          },
           "spezifitaet": {
             "enum": [
               "spezifisch",
@@ -110,6 +120,29 @@
               "null"
             ],
             "maxLength": 500
+          }
+        },
+        "if": {
+          "required": [
+            "kind"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "bouldern_volumen",
+                "bouldern_limit",
+                "ausdauer_route",
+                "technik"
+              ]
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "exercise_id": {
+              "type": "null",
+              "description": "Einheitenformat ohne Katalogeintrag (E-05)"
+            }
           }
         }
       }

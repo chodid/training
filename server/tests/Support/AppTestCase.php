@@ -79,10 +79,11 @@ abstract class AppTestCase extends TestCase
     protected ?\Training\Intervals\HttpTransport $intervalsTransport = null;
     protected ?\Training\Intervals\HttpTransport $calendarTransport = null;
     protected ?FakeMailer $mailer = null;
+    protected ?FakeLinkFetcher $linkFetcher = null;
 
     protected function app(): App
     {
-        return new App($this->baseDir, $this->clock, new LoginThrottle(), $this->intervalsTransport, $this->mailer, $this->calendarTransport);
+        return new App($this->baseDir, $this->clock, new LoginThrottle(), $this->intervalsTransport, $this->mailer, $this->calendarTransport, $this->linkFetcher);
     }
 
     /**
@@ -148,7 +149,7 @@ abstract class AppTestCase extends TestCase
 
     /**
      * Setzt die Datenbank um die letzte Migration zurück: Code-Stand > DB-Stand (Schreibsperre). Legt die letzte
-     * Migration eine Tabelle an, wird sie gelöscht; neue Spalten (ADD COLUMN) werden entfernt; bei anderen
+     * Migration Tabellen an, werden sie gelöscht; neue Spalten (ADD COLUMN) werden entfernt; bei anderen
      * Spaltenänderungen (z. B. MODIFY) wird nur der Schemastand zurückgesetzt.
      */
     protected function rollbackLastMigration(): void
@@ -156,8 +157,11 @@ abstract class AppTestCase extends TestCase
         $files = glob(dirname(__DIR__, 2) . '/migrations/*.sql') ?: [];
         sort($files);
         $sql = (string) preg_replace('/^--.*$/m', '', (string) file_get_contents((string) end($files)));
-        if (preg_match('/^CREATE TABLE `?(\w+)`?/m', $sql, $m)) {
-            $this->pdo->exec('DROP TABLE `' . $m[1] . '`');
+        if (preg_match_all('/^CREATE TABLE `?(\w+)`?/m', $sql, $m)) {
+            // Mehrere Tabellen (z. B. mit Fremdschlüsseln untereinander): in umgekehrter Reihenfolge löschen
+            foreach (array_reverse($m[1]) as $table) {
+                $this->pdo->exec('DROP TABLE `' . $table . '`');
+            }
         } elseif (preg_match('/^ALTER TABLE `?(\w+)`?/m', $sql, $t) && preg_match_all('/ADD COLUMN `?(\w+)`?/', $sql, $cols)) {
             foreach ($cols[1] as $col) {
                 $this->pdo->exec('ALTER TABLE `' . $t[1] . '` DROP COLUMN `' . $col . '`');

@@ -1,7 +1,7 @@
 ---
 titel: Datenmodell – ER-Diagramm und Umsetzungsdetails
-bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitt 7, AP-01 (D-35), AP-03, AP-09 (D-43, D-44, D-48), AP-11 (D-52, D-60), AP-12 (D-53), AP-13 (D-56), AP-14 (D-58)
-schemastand: 22 (Migrationen 0001–0022)
+bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitt 7, AP-01 (D-35), AP-03, AP-09 (D-43, D-44, D-48), AP-11 (D-52, D-60), AP-12 (D-53), AP-13 (D-56), AP-14 (D-58), AP-16 (D-64)
+schemastand: 23 (Migrationen 0001–0023)
 ---
 
 # Datenmodell
@@ -22,6 +22,10 @@ erDiagram
     training_week ||--o{ session : "enthält"
     session ||--o| session_execution : "wird durchgeführt"
     session |o--o{ pain_event : "optional zugeordnet"
+    exercise ||--o{ exercise_alias : "heißt auch"
+    exercise ||--o{ exercise_version : "Fassungen"
+    exercise |o--o{ exercise : "Variante von"
+    session }o..o{ exercise : "plan_json.exercise_id (lose)"
 
     user {
         int id PK
@@ -198,9 +202,41 @@ erDiagram
         enum created_by
         datetime created_at
     }
+    exercise {
+        int id PK
+        varchar slug UK "unveränderlich"
+        varchar name
+        varchar name_norm UK
+        enum category
+        enum pattern
+        json equipment_json
+        int variant_of FK "null"
+        tinyint difficulty "1-5, null"
+        enum status "aktiv, links_pruefen, archiviert"
+        enum konfidenz
+        json content_json "exercise.json"
+        smallint version
+        enum created_by
+        datetime created_at
+        datetime updated_at
+    }
+    exercise_alias {
+        int exercise_id PK
+        varchar alias_norm PK "UK über alle"
+        varchar alias
+    }
+    exercise_version {
+        int id PK
+        int exercise_id FK
+        smallint version
+        json snapshot_json
+        varchar reason
+        enum created_by
+        datetime created_at
+    }
 ```
 
-`audit_log`, `schema_version`, `ext_cache`, `app_setting` (Einstellungen als Schlüssel/Wert: `calendar_reminder` D-52, `checkin_hand_rechts_bis` D-53, `timer_ton` D-58; intern `kalender_tag_<Datum>` = Fassung des Kalender-Tagestermins D-60), `athlete_profile` (D-48, nur Einfügen; jüngste Fassung je Abschnitt gilt) und die Spiegeltabellen `ext_activity`/`ext_wellness` (D-43) stehen für sich (`ext_activity.paired_event_id` entspricht lose `session.intervals_event_id`); `audit_log` verweist über `entity`/`entity_id` lose auf die geänderte Zeile, damit Einträge das Löschen überdauern.
+`audit_log`, `schema_version`, `ext_cache`, `app_setting` (Einstellungen als Schlüssel/Wert: `calendar_reminder` D-52, `checkin_hand_rechts_bis` D-53, `timer_ton` D-58, `linkcheck_zuletzt` AP-16; intern `kalender_tag_<Datum>` = Fassung des Kalender-Tagestermins D-60), `athlete_profile` (D-48, nur Einfügen; jüngste Fassung je Abschnitt gilt) und die Spiegeltabellen `ext_activity`/`ext_wellness` (D-43) stehen für sich (`ext_activity.paired_event_id` entspricht lose `session.intervals_event_id`); `audit_log` verweist über `entity`/`entity_id` lose auf die geänderte Zeile, damit Einträge das Löschen überdauern.
 
 ## Umsetzungsdetails
 
@@ -214,14 +250,16 @@ erDiagram
 | Löschen | Woche → Einheiten → Durchführung kaskadierend; Schmerzereignisse bleiben erhalten (`session_id` wird `NULL`); ein Block mit Wochen lässt sich nicht löschen |
 | JSON | `plan_json`, `actual_json`, `goal_events_json` als `JSON` (Datenbank prüft Syntax); Struktur prüft `Training\Plan\PlanValidator` gegen `server/schemas/` |
 | Montag | `training_week.week_start` muss ein Montag sein – Prüfung in der Anwendung (AP-04/AP-05) |
+| Übungskatalog (AP-16, D-64) | `exercise` mit `name_norm` und `exercise_alias.alias_norm` (normalisiert: Kleinschreibung, Umlaute ae/oe/ue/ss, Akzente, Satzzeichen = Leerzeichen; je Tabelle eindeutig, Name gegen Alias einer anderen Übung prüft `upsert_exercise`). Keine Löschfunktion (`status = archiviert`); Aliase und Fassungen kaskadierend; `variant_of` bei gelöschter Grundübung `NULL`. Jede Änderung schreibt vorher einen Schnappschuss (alle Spalten und Aliase) nach `exercise_version`; die Linkprüfung ändert nur Serverfelder und Status ohne Fassung. `session.plan_json` verweist lose über den Slug (kein Fremdschlüssel; `Training\Plan\ExerciseLink` prüft beim Schreiben) |
 | Begründungstexte (D-56) | Woche: `focus` VARCHAR(255) = Kurzsatz (Pflicht in `write_week_plan`), `coach_notes` = ausführlicher Text; Einheit: `coach_summary` VARCHAR(200) = Kurzsatz (Migration 0022, Pflicht außer `ruhe`), `coach_rationale` = ausführlicher Text. Längen (Kurzsatz Woche ≤ 255, Einheit ≤ 200, Texte ≤ 1 500 Zeichen) prüft die Anwendung (`WriteTools`); Altdaten vor AP-13 behalten `coach_rationale` ohne Kurzsatz |
 
 ## JSON-Schemata (`server/schemas/`)
 
 | typ | plan | actual |
 |---|---|---|
-| `kraft`, `haltung`, `mobilitaet` | `plan-kraft_oder_haltung.json` – `exercises[]` mit `name`, `sets`, `reps` (Pflicht), `load`, `tempo`, `rest_s`, `notes` | `actual-kraft_oder_haltung.json` |
-| `klettern` | `plan-klettern.json` – `blocks[]` mit `kind` (Pflicht), `spezifitaet`, Hangboard-Feldern, `duration_min`, `target`, `notes` | `actual-klettern.json` |
+| `kraft`, `haltung`, `mobilitaet` | `plan-kraft_oder_haltung.json` – `exercises[]` mit `name`, `sets`, `reps` (Pflicht), `exercise_id` (Slug, AP-16), `load`, `tempo`, `rest_s`, `notes` | `actual-kraft_oder_haltung.json` |
+| `klettern` | `plan-klettern.json` – `blocks[]` mit `kind` (Pflicht), `exercise_id` (nur `hangboard`, `campus`, `zugkraft`, `antagonisten`; `if`/`then` im Schema), `spezifitaet`, Hangboard-Feldern, `duration_min`, `target`, `notes` | `actual-klettern.json` |
+| Übung (AP-16) | `exercise.json` – `content_json`: `kurz`, `ziel`, `ausfuehrung` (2–12), `quellen` (≥ 1) Pflicht; `muskeln`, `voraussetzung`, `achten`, `fehler`, `vorsicht`, `progression`, `regression`, `dosierung_hinweis`, `links` (≤ 2 Text, ≤ 2 Video, nur https; `embed`, `geprueft_am`, `status` setzt der Server), `notizen` | – |
 | `ausdauer` | `plan-ausdauer.json` – `intervals_workout_text`, `target_type`, `summary` (Pflicht), `notes` | `actual-ausdauer.json` |
 | `ruhe` | `plan-ruhe.json` – leer oder nur `notes`; `plan_json` darf `NULL` sein | `actual-ruhe.json` |
 

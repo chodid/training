@@ -47,7 +47,7 @@
     {id:'s7',title:'S7 OAuth-Freigabe',file:'s7-freigabe.html',desc:'Freigabeseite im Authorize-Schritt (D-36): Client-Name, Redirect-Host, Scope in Klartext. Freigeben ist die Primäraktion, Ablehnen sekundär.'},
     {id:'s2',title:'S2 Woche',file:'s2-woche.html',desc:'Sieben Tage mit Einheiten (Typ-Icon, Titel, Dauer, Priorität, Status), heutiger Tag mit Orange-Punkt und Pflaume-Rahmen, Check-in-Status je Tag, ±Woche, Wochensumme sRPE. Auf dem Desktop sieben Spalten. Neu (Teil B): Kurzsatz der Woche mit „mehr“ unter der Kopfzeile.'},
     {id:'s2l',title:'S2 Woche · leer',file:'s2-woche.html?state=leer',desc:'Noch kein Plan: Leerzustand mit Erklärung und Weg zum Check-in.'},
-    {id:'s3k',title:'S3 Einheit · Kraft',file:'s3-einheit.html?typ=kraft',desc:'Plan mit Soll je Übung, Ist-Felder vorbelegt, Rückmeldung (RPE, Gefühl, Schmerz, Abweichung, Notiz, Status). Auf dem Desktop Plan links, Rückmeldung rechts. Neu (Teil B/C): Kurzsatz der Planung mit „mehr“ und Knopf „Einheit starten“.'},
+    {id:'s3k',title:'S3 Einheit · Kraft',file:'s3-einheit.html?typ=kraft',desc:'Plan mit Soll je Übung, Ist-Felder vorbelegt, Rückmeldung (RPE, Gefühl, Schmerz, Abweichung, Notiz, Status). Auf dem Desktop Plan links, Rückmeldung rechts. Neu (Teil B/C): Kurzsatz der Planung mit „mehr“ und Knopf „Einheit starten“. AP-16: Übungen mit Katalogeintrag als Link (Icon book) auf S10.'},
     {id:'s3a',title:'S3 Einheit · Ausdauer',file:'s3-einheit.html?typ=ausdauer',desc:'Workout-Text für Intervals.icu, verknüpfte Aktivität mit Kennzahlen und Zeit in Zonen.'},
     {id:'s3c',title:'S3 Einheit · Klettern mit Schmerz',file:'s3-einheit.html?typ=klettern&schmerz=ja',desc:'Blöcke mit Spezifität; Schmerz „Ja“ klappt die S5-Kurzform ein.'},
     {id:'s4',title:'S4 Check-in',file:'s4-checkin.html',desc:'Drei Felder (D-16), jede Stufe ein Touch-Ziel. Darunter die Woche als Kontrolle.'},
@@ -61,6 +61,10 @@
     {id:'s9p',title:'S9 Einheit geführt · Pause',file:'s9-einheit-gefuehrt.html?state=pause',desc:'Pausenphase: Seite rot, Restzeit bis zum nächsten Satz, Pause vorzeitig beenden.'},
     {id:'s9o',title:'S9 Einheit geführt · ohne Timer',file:'s9-einheit-gefuehrt.html?state=offen',desc:'Übung mit Wiederholungen: keine Zeit, Wiederholungen und Last groß, „Satz erledigt“ startet den Pausentimer (E-03).'},
     {id:'s9a',title:'S9 Einheit geführt · Abschluss',file:'s9-einheit-gefuehrt.html?state=abschluss',desc:'Zusammenfassung der Übungen, Dauer vorbelegt, Rückmeldung wie S3, Status „teilweise“ vorbelegt nach Überspringen.'},
+    {id:'s10',title:'S10 Übung',file:'s10-uebung.html',desc:'Übungskatalog (AP-16): Kategorie, Muster, Ausrüstung als Chips, Konfidenz; Kurz/Ziel, Voraussetzung, Ausführung nummeriert, Worauf achten, Fehlerquellen, Vorsicht (Fehlerfarbe), Progression/Regression mit Varianten, Dosierung, Video eingebettet (16:9) mit Link darunter, Links mit Prüfstatus, Quellen, Fassungen.'},
+    {id:'s10l',title:'S10 Übung · Links prüfen',file:'s10-uebung.html?state=links',desc:'Mindestens ein Link defekt: Warnhinweis oben, Link mit Marke „defekt“.'},
+    {id:'s10o',title:'S10 Übung · offline',file:'s10-uebung.html?state=offline',desc:'Ohne Netz aus dem Seiten-Cache: Offline-Hinweis, statt des Videos ein Platzhalter, der Link darunter bleibt.'},
+    {id:'s10a',title:'S10a Übungskatalog',file:'s10a-uebungen.html',desc:'Suche, Filterchips je Kategorie, Karten mit Name, Kategorie, Muster, Ausrüstung, Kurztext und Status; archivierte über den Schalter. Einstieg aus den Einstellungen.'},
     {id:'ico',title:'Icon-Optionen',file:'icon-optionen.html',desc:'Teil A (Q-14): fünf Varianten des Lama als Android-, iOS-, Favicon-, Tab-, Topbar- und Login-Darstellung; Empfehlung Fable: V3 als App-Icon, V2 als Favicon und App-Kennung.'},
   ];
   const devices=[

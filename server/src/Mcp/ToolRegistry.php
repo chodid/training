@@ -10,6 +10,7 @@ use Mcp\Types\TextContent;
 use Training\App;
 use Training\Clock;
 use Training\Data\ProfileRepository;
+use Training\Exercise\Catalog;
 use Training\Intervals\IntervalsClient;
 use Training\Plan\PlanValidator;
 
@@ -82,14 +83,14 @@ final class ToolRegistry
                 'title' => ['type' => 'string', 'maxLength' => 191],
                 'priority' => ['enum' => ['A', 'B', 'C'], 'default' => 'B'],
                 'planned_duration_min' => ['type' => 'integer', 'minimum' => 1, 'maximum' => 600],
-                'plan_json' => ['type' => ['object', 'null'], 'description' => 'Schema je Typ (Konzept 7.1): kraft/haltung/mobilitaet {exercises:[{name,sets,reps,load,tempo,rest_s,notes}]}, klettern {blocks:[{kind,spezifitaet,edge_mm,grip,hang_s,rest_s,sets,added_load_kg,duration_min,target,notes}]}, ausdauer {intervals_workout_text,target_type(hf_zone|pace|rpe),summary,sport(Run…)}, ruhe null'],
+                'plan_json' => ['type' => ['object', 'null'], 'description' => 'Schema je Typ (Konzept 7.1): kraft/haltung/mobilitaet {exercises:[{name,exercise_id,sets,reps,load,tempo,rest_s,notes}]}, klettern {blocks:[{kind,exercise_id,spezifitaet,edge_mm,grip,hang_s,rest_s,sets,added_load_kg,duration_min,target,notes}]}, ausdauer {intervals_workout_text,target_type(hf_zone|pace|rpe),summary,sport(Run…)}, ruhe null. exercise_id = Slug aus dem Übungskatalog (find_exercise); bei Kletterblöcken nur für hangboard, campus, zugkraft, antagonisten. Die Einheit beschreibt nur Dosierung und einen kurzen Hinweis, die Ausführung steht im Katalog.'],
                 'coach_summary' => ['type' => 'string', 'maxLength' => WriteTools::SUMMARY_MAX, 'description' => $summaryRule],
                 'coach_rationale' => ['type' => 'string', 'maxLength' => WriteTools::TEXT_MAX, 'description' => 'Ausführliche Begründung der Einheit („mehr“ in der App): ' . $textRule],
                 'sort_order' => ['type' => 'integer'],
             ],
         ];
         $mcp->tool('write_week_plan',
-            'Schreibt den bestätigten Wochenplan (D-11): Einheiten in die Datenbank, Ausdauereinheiten zusätzlich als Workout in Intervals.icu (→ Uhr). Alle Einheiten werden vorher geprüft; bei Fehlern wird nichts geschrieben. replace_existing ersetzt nur geplante Einheiten ohne Rückmeldung. Intervals-Fehler werden je Einheit gemeldet. Begründung (E-10): focus ist Pflicht (Kurzsatz der Woche, Was und warum), coach_notes der ausführliche Text der Woche; je Einheit coach_summary Pflicht außer bei ruhe, coach_rationale ausführlich. Die App zeigt den Kurzsatz, den ausführlichen Text hinter „mehr“.',
+            'Schreibt den bestätigten Wochenplan (D-11): Einheiten in die Datenbank, Ausdauereinheiten zusätzlich als Workout in Intervals.icu (→ Uhr). Alle Einheiten werden vorher geprüft; bei Fehlern wird nichts geschrieben. replace_existing ersetzt nur geplante Einheiten ohne Rückmeldung. Intervals-Fehler werden je Einheit gemeldet. Begründung (E-10): focus ist Pflicht (Kurzsatz der Woche, Was und warum), coach_notes der ausführliche Text der Woche; je Einheit coach_summary Pflicht außer bei ruhe, coach_rationale ausführlich. Die App zeigt den Kurzsatz, den ausführlichen Text hinter „mehr“. Übungen sollen ein exercise_id aus dem Katalog tragen (find_exercise/upsert_exercise); ohne ID kommt eine Warnung (warnungen), eine unbekannte oder archivierte ID ist ein Fehler.',
             fn (string $week_start, array $sessions, bool $replace_existing = false, ?string $focus = null, ?string $coach_notes = null): CallToolResult
                 => $this->run('training:write', fn () => $this->writes()->writeWeekPlan($week_start, $sessions, $replace_existing, $focus, $coach_notes), true),
             title: 'Wochenplan schreiben',
@@ -103,7 +104,7 @@ final class ToolRegistry
             annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => false, 'openWorldHint' => true]);
 
         $mcp->tool('update_session',
-            'Ändert eine Einheit (Datum, Titel, Priorität, Dauer, plan_json, Kurzsatz coach_summary, Begründung coach_rationale, Status, Reihenfolge); nicht übergebene Felder bleiben. Wochentexte (focus, coach_notes) nur über write_week_plan. Bei Ausdauer wird das Intervals.icu-Event nachgezogen (bei „ausgelassen“ gelöscht) bzw. neu angelegt, falls es fehlt.',
+            'Ändert eine Einheit (Datum, Titel, Priorität, Dauer, plan_json, Kurzsatz coach_summary, Begründung coach_rationale, Status, Reihenfolge); nicht übergebene Felder bleiben. Wochentexte (focus, coach_notes) nur über write_week_plan. Bei Ausdauer wird das Intervals.icu-Event nachgezogen (bei „ausgelassen“ gelöscht) bzw. neu angelegt, falls es fehlt. plan_json wie bei write_week_plan: exercise_id aus dem Katalog, ohne ID kommt eine Warnung.',
             fn (int $session_id, array $changes, bool $sync_intervals = true): CallToolResult
                 => $this->run('training:write', fn () => $this->writes()->updateSession($session_id, $changes, $sync_intervals), true),
             title: 'Einheit ändern',
@@ -147,6 +148,60 @@ final class ToolRegistry
                 'reason' => ['type' => 'string', 'maxLength' => ProfileRepository::REASON_MAX],
             ], 'required' => ['section', 'content']],
             annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false]);
+
+        // Übungskatalog (AP-16, docs/konzept/uebungskatalog.md 5.1)
+        $categoryEnum = ['enum' => Catalog::CATEGORIES];
+        $patternEnum = ['enum' => Catalog::PATTERNS];
+        $slug = ['type' => 'string', 'pattern' => '^[a-z0-9]+(-[a-z0-9]+)*$', 'minLength' => 3, 'maxLength' => 60];
+        $mcp->tool('find_exercise',
+            'Sucht im Übungskatalog (vor jeder Wochenplanung Pflicht für jede Kraft-, Haltungs-, Mobilitäts- und Kletterübung hangboard/campus/zugkraft/antagonisten). Rang: exakter Slug/Name/Alias, Teilstring (Umlaute, Bindestriche und Groß/Klein egal), dann ähnlich (gleiches Bewegungsmuster, aehnlich: true). Vorhandene oder ähnliche Einträge verwenden, Varianten mit variant_of anlegen. Je Treffer slug, name, category, pattern, equipment, konfidenz, kurz, variant_of; status nur wenn nicht aktiv, aehnlich nur wenn true. Leer → hinweis auf upsert_exercise.',
+            fn (string $query, ?string $category = null, ?string $pattern = null, ?string $equipment = null, int $limit = 10, bool $include_archived = false): CallToolResult
+                => $this->run('training:read', fn () => $this->exercises()->find($query, $category, $pattern, $equipment, $limit, $include_archived)),
+            title: 'Übung suchen', inputSchema: ['properties' => [
+                'query' => ['type' => 'string', 'minLength' => 2, 'description' => 'Name, Alias oder Teil davon (z. B. „split squat“)'],
+                'category' => $categoryEnum, 'pattern' => $patternEnum, 'equipment' => ['enum' => Catalog::EQUIPMENT],
+                'limit' => ['type' => 'integer', 'minimum' => 1, 'maximum' => 20, 'default' => 10],
+                'include_archived' => ['type' => 'boolean', 'default' => false],
+            ], 'required' => ['query']], annotations: $read);
+
+        $mcp->tool('get_exercise',
+            'Vollständiger Katalogeintrag einer Übung: Spalten, Aliase, Varianten (Eltern und Kinder), Inhalt (kurz, ziel, muskeln, voraussetzung, ausfuehrung, achten, fehler, vorsicht, progression, regression, dosierung_hinweis, links mit Prüfstatus, quellen, notizen). Mit fassungen die Liste der früheren Fassungen (version, reason, created_at), mit version den Stand vor einer Änderung.',
+            fn (?string $slug = null, ?int $id = null, bool $fassungen = false, ?int $version = null): CallToolResult
+                => $this->run('training:read', fn () => $this->exercises()->get($slug, $id, $fassungen, $version)),
+            title: 'Übung', inputSchema: ['properties' => [
+                'slug' => $slug, 'id' => ['type' => 'integer'], 'fassungen' => ['type' => 'boolean', 'default' => false],
+                'version' => ['type' => 'integer', 'minimum' => 1, 'description' => 'frühere Fassung (Schnappschuss)'],
+            ]], annotations: $read);
+
+        $mcp->tool('list_exercises',
+            'Kompaktliste des Übungskatalogs (slug, name, category, pattern; status nur wenn nicht aktiv) für den Gesamtüberblick. Ohne status ohne archivierte Übungen.',
+            fn (?string $category = null, ?string $status = null): CallToolResult => $this->run('training:read', fn () => $this->exercises()->list($category, $status)),
+            title: 'Übungskatalog', inputSchema: ['properties' => ['category' => $categoryEnum, 'status' => ['enum' => Catalog::STATUSES]]], annotations: $read);
+
+        $contentSchema = json_decode((string) file_get_contents(dirname(__DIR__, 2) . '/schemas/exercise.json'), true);
+        unset($contentSchema['$schema'], $contentSchema['$id']);
+        // Eingabe ohne Serverfelder: embed, geprueft_am und status setzt der Server (werden ignoriert)
+        $contentSchema['properties']['links']['items']['required'] = ['url', 'titel', 'art'];
+        $mcp->tool('upsert_exercise',
+            'Legt eine Übung im Katalog an (slug neu) oder ändert sie (slug vorhanden, reason Pflicht, neue Fassung; slug bleibt). Nach Bestätigung des Wochenplans aufrufen; hinweis_chat dem Athleten zeigen. Name und Aliase dürfen keiner anderen Übung gleichen (sonst Ablehnung mit Treffer). content nach Schema (Pflicht: kurz, ziel, ausfuehrung 2–12 Schritte, quellen ≥ 1 mit L-/R-/D-ID oder „Einschätzung“; vorsicht bei Knie, Sprunggelenk, Fingern mit Reha-Regel und Schmerzgrenze); höchstens 2 Text- und 2 Videolinks, nur https, nur tatsächlich bekannte URLs – der Server prüft die Erreichbarkeit (Videos über oEmbed) und bettet YouTube/Vimeo ein; ein defekter Link setzt die Übung auf links_pruefen. Beim Ändern content immer vollständig schicken (vorher get_exercise). Archivieren mit status archiviert, nur ohne geplante Verwendung.',
+            fn (string $slug, ?string $name = null, ?array $aliases = null, ?string $category = null, ?string $pattern = null, ?array $equipment = null,
+                ?string $variant_of = null, ?int $difficulty = null, ?string $konfidenz = null, ?array $content = null, ?string $reason = null, ?string $status = null): CallToolResult
+                => $this->run('training:write', fn () => $this->exercises()->upsert(array_filter([
+                    'slug' => $slug, 'name' => $name, 'aliases' => $aliases, 'category' => $category, 'pattern' => $pattern, 'equipment' => $equipment,
+                    'variant_of' => $variant_of, 'difficulty' => $difficulty, 'konfidenz' => $konfidenz, 'content' => $content, 'reason' => $reason, 'status' => $status,
+                ], static fn ($v): bool => $v !== null)), true),
+            title: 'Übung anlegen/ändern',
+            inputSchema: ['properties' => [
+                'slug' => $slug + ['description' => 'Kennung, unveränderlich (z. B. bulgarian-split-squat)'],
+                'name' => ['type' => 'string', 'maxLength' => 120], 'aliases' => ['type' => 'array', 'items' => ['type' => 'string', 'maxLength' => 120], 'maxItems' => 10],
+                'category' => $categoryEnum, 'pattern' => $patternEnum,
+                'equipment' => ['type' => 'array', 'items' => ['enum' => Catalog::EQUIPMENT], 'minItems' => 1],
+                'variant_of' => $slug + ['description' => 'Slug der Grundübung (Progressionsleiter)'],
+                'difficulty' => ['type' => 'integer', 'minimum' => 1, 'maximum' => 5], 'konfidenz' => ['enum' => Catalog::KONFIDENZ],
+                'content' => $contentSchema, 'reason' => ['type' => 'string', 'maxLength' => ExerciseTools::REASON_MAX, 'description' => 'Pflicht beim Ändern'],
+                'status' => ['enum' => ['aktiv', 'archiviert']],
+            ], 'required' => ['slug']],
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => true]);
     }
 
     /** @param callable(): array<string, mixed> $fn */
@@ -191,6 +246,11 @@ final class ToolRegistry
         $user = $this->app->users()->first();
 
         return new ReadTools($this->app->pdo(), $this->clock, $user?->tz ?? 'Europe/Berlin', $this->intervals());
+    }
+
+    private function exercises(): ExerciseTools
+    {
+        return new ExerciseTools($this->app->pdo(), $this->clock, $this->app->linkChecker());
     }
 
     private function writes(): WriteTools
