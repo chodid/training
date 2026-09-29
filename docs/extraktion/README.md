@@ -221,12 +221,12 @@ Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dat
 
 ### 4.4 T2 – `t2-kraft-haltung`
 
-Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateien; zusätzlich L-P08 (Tabelle UP). Davon extrahiert: 29. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 48.
+Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateien; zusätzlich L-P08 (Tabelle UP). Davon extrahiert: 62. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 48.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
 | L-P08 | UP, T2 | siehe Tabelle UP | – | siehe Tabelle UP | siehe Tabelle UP | ausgewaehlt · A · Kern; Zeilen nur einmal geführt |
-| **L-A03** | T2 | **Ordner `uebergreifend/L-A03_kapitel/`** (49 Kapitel-PDFs, 1876 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · Druckseiten je Kapitel in U2 bestimmen |
+| **L-A03** | T2 | **Ordner `uebergreifend/L-A03_kapitel/`** (49 Kapitel-PDFs, 1876 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · Druckseiten je Kapitel in U2 bestimmen · Muster: Die Fußzeilenzahl ist die fortlaufende E-Book-Paginierung = Gesamtbuch-PDF-Seite (alle 28 Kapitel); interne Querverweise nennen Seiten der Druckausgabe (z. B. „table 21.1, page 697“ auf E-Book-S. 1524), Versatz zur Druckausgabe nicht konstant (ca. zwei E-Book-Seiten je Druckseite) – Druckseiten nicht bestimmbar; zitiert wird die E-Book-Seite (im Repo-PDF prüfbar). Kapitelteile beginnen/enden mitten in Übungen/Tabellen; Literaturverzeichnis nicht in den Kapiteldateien; Zweck „Overreaching“ nur in k24 |
 | L-A03 | T2 | `00` Vorspann | PDF 1–37 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · S. 1 ohne Text, ab S. 2 ✓ |
 | L-A03 | T2 | `01-1` Structure and Function of Body Systems (Teil 1/2) | PDF 38–67 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `01-2` Structure and Function of Body Systems (Teil 2/2) | PDF 68–103 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
@@ -234,7 +234,7 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-A03 | T2 | `02-2` Biomechanics of Resistance Exercise (Teil 2/2) | PDF 148–173 | 2026-09-29 / opus | offen | Text ✓ · 53 Aussagen · 0 unsicher · 1 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `03` Bioenergetics of Exercise and Training | PDF 174–226 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `04` Endocrine Responses to Resistance Exercise and Training | PDF 227–280 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
-| L-A03 | T2 | `05` Adaptations to Anaerobic Training | PDF 281–338 | offen | offen | Text ✓ |
+| L-A03 | T2 | `05` Adaptations to Anaerobic Training | PDF 281–338 | 2026-09-29 / opus | offen | Text ✓ · 123 Aussagen · 1 unsicher · 1 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `06` Adaptations to Aerobic Training | PDF 339–383 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `07` Age-Related Differences and Their Implications for Resistance Training | PDF 384–437 | 2026-09-29 / opus | offen | Text ✓ · 81 Aussagen · 1 unsicher · 1 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `08` Sex-Related Differences and Their Implications for Resistance Training | PDF 438–464 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Geschlecht; Athlet 2026-09-29) · Text ✓ |
@@ -247,31 +247,31 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-A03 | T2 | `12-2` Performance-Enhancing Substances and Methods (Teil 2/2) | PDF 698–728 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Doping/Substanzen; Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `13` Principles of Test Selection and Administration | PDF 729–763 | 2026-09-29 / opus | offen | Text ✓ · 77 Aussagen · 1 unsicher · 0 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `14-1` Administration, Scoring, and Interpretation of Selected Tests (Teil 1/2) | PDF 764–808 | 2026-09-29 / opus | offen | Text ✓ · 57 Aussagen · 0 unsicher · 2 offene Stellen · pdf_nativ |
-| L-A03 | T2 | `14-2` Administration, Scoring, and Interpretation of Selected Tests (Teil 2/2) | PDF 809–853 | offen | offen | Text ✓ |
+| L-A03 | T2 | `14-2` Administration, Scoring, and Interpretation of Selected Tests (Teil 2/2) | PDF 809–853 | 2026-09-29 / opus | offen | Text ✓ · 59 Aussagen · 4 unsicher · 6 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `15-1` Performance Preparation, Mobility, and Flexibility (Teil 1/3) | PDF 854–878 | 2026-09-29 / opus | offen | Text ✓ · 64 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `15-2` Performance Preparation, Mobility, and Flexibility (Teil 2/3) | PDF 879–915 | 2026-09-29 / opus | offen | Text ✓ · 68 Aussagen · 0 unsicher · 5 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `15-3` Performance Preparation, Mobility, and Flexibility (Teil 3/3) | PDF 916–946 | 2026-09-29 / opus | offen | Text ✓ · 34 Aussagen · 1 unsicher · 3 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `16-1` Exercise Technique for Free Weight and Machine Training (Teil 1/4) | PDF 947–981 | 2026-09-29 / opus | offen | Text ✓ · 58 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ |
-| L-A03 | T2 | `16-2` Exercise Technique for Free Weight and Machine Training (Teil 2/4) | PDF 982–1016 | offen | offen | Text ✓ |
-| L-A03 | T2 | `16-3` Exercise Technique for Free Weight and Machine Training (Teil 3/4) | PDF 1017–1052 | offen | offen | Text ✓ |
-| L-A03 | T2 | `16-4` Exercise Technique for Free Weight and Machine Training (Teil 4/4) | PDF 1053–1087 | offen | offen | Text ✓ |
-| L-A03 | T2 | `17-1` Exercise Technique for Alternative Modes and Nontraditional Implement Training (Teil 1/3) | PDF 1088–1118 | offen | offen | Text ✓ |
-| L-A03 | T2 | `17-2` Exercise Technique for Alternative Modes and Nontraditional Implement Training (Teil 2/3) | PDF 1119–1152 | offen | offen | Text ✓ |
-| L-A03 | T2 | `17-3` Exercise Technique for Alternative Modes and Nontraditional Implement Training (Teil 3/3) | PDF 1153–1185 | offen | offen | Text ✓ |
-| L-A03 | T2 | `18-1` Program Design for Resistance Training (Teil 1/2) | PDF 1186–1220 | offen | offen | Text ✓ |
-| L-A03 | T2 | `18-2` Program Design for Resistance Training (Teil 2/2) | PDF 1221–1259 | offen | offen | Text ✓ |
-| L-A03 | T2 | `19-1` Program Design and Technique for Plyometric Training (Teil 1/4) | PDF 1260–1288 | offen | offen | Text ✓ |
-| L-A03 | T2 | `19-2` Program Design and Technique for Plyometric Training (Teil 2/4) | PDF 1289–1328 | offen | offen | Text ✓ |
-| L-A03 | T2 | `19-3` Program Design and Technique for Plyometric Training (Teil 3/4) | PDF 1329–1363 | offen | offen | Text ✓ |
-| L-A03 | T2 | `19-4` Program Design and Technique for Plyometric Training (Teil 4/4) | PDF 1364–1397 | offen | offen | Text ✓ |
+| L-A03 | T2 | `16-2` Exercise Technique for Free Weight and Machine Training (Teil 2/4) | PDF 982–1016 | 2026-09-29 / opus | offen | Text ✓ · 76 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `16-3` Exercise Technique for Free Weight and Machine Training (Teil 3/4) | PDF 1017–1052 | 2026-09-29 / opus | offen | Text ✓ · 87 Aussagen · 1 unsicher · 4 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `16-4` Exercise Technique for Free Weight and Machine Training (Teil 4/4) | PDF 1053–1087 | 2026-09-29 / opus | offen | Text ✓ · 85 Aussagen · 2 unsicher · 4 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `17-1` Exercise Technique for Alternative Modes and Nontraditional Implement Training (Teil 1/3) | PDF 1088–1118 | 2026-09-29 / opus | offen | Text ✓ · 77 Aussagen · 2 unsicher · 3 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `17-2` Exercise Technique for Alternative Modes and Nontraditional Implement Training (Teil 2/3) | PDF 1119–1152 | 2026-09-29 / opus | offen | Text ✓ · 53 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `17-3` Exercise Technique for Alternative Modes and Nontraditional Implement Training (Teil 3/3) | PDF 1153–1185 | 2026-09-29 / opus | offen | Text ✓ · 39 Aussagen · 1 unsicher · 0 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `18-1` Program Design for Resistance Training (Teil 1/2) | PDF 1186–1220 | 2026-09-29 / opus | offen | Text ✓ · 99 Aussagen · 0 unsicher · 4 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `18-2` Program Design for Resistance Training (Teil 2/2) | PDF 1221–1259 | 2026-09-29 / opus | offen | Text ✓ · 95 Aussagen · 3 unsicher · 1 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `19-1` Program Design and Technique for Plyometric Training (Teil 1/4) | PDF 1260–1288 | 2026-09-29 / opus | offen | Text ✓ · 61 Aussagen · 0 unsicher · 1 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `19-2` Program Design and Technique for Plyometric Training (Teil 2/4) | PDF 1289–1328 | 2026-09-29 / opus | offen | Text ✓ · 56 Aussagen · 0 unsicher · 2 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `19-3` Program Design and Technique for Plyometric Training (Teil 3/4) | PDF 1329–1363 | 2026-09-29 / opus | offen | Text ✓ · 56 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `19-4` Program Design and Technique for Plyometric Training (Teil 4/4) | PDF 1364–1397 | 2026-09-29 / opus | offen | Text ✓ · 41 Aussagen · 0 unsicher · 1 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `20-1` Program Design and Technique for Speed and Agility Training (Teil 1/3) | PDF 1398–1437 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Speed/Agility; Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `20-2` Program Design and Technique for Speed and Agility Training (Teil 2/3) | PDF 1438–1472 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Speed/Agility; Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `20-3` Program Design and Technique for Speed and Agility Training (Teil 3/3) | PDF 1473–1511 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Speed/Agility; Athlet 2026-09-29) · Text ✓ |
-| L-A03 | T2 | `21-1` Program Design and Technique for Aerobic Endurance and Metabolic Training (Teil 1/2) | PDF 1512–1542 | offen | offen | Text ✓ |
-| L-A03 | T2 | `21-2` Program Design and Technique for Aerobic Endurance and Metabolic Training (Teil 2/2) | PDF 1543–1578 | offen | offen | Text ✓ |
-| L-A03 | T2 | `22` Periodization | PDF 1579–1629 | offen | offen | Text ✓ |
-| L-A03 | T2 | `23` Rehabilitation, Reconditioning, and Medical Issues | PDF 1630–1678 | offen | offen | Text ✓ |
-| L-A03 | T2 | `24` Overreaching, Overtraining, and Recovery | PDF 1679–1726 | offen | offen | Text ✓ |
+| L-A03 | T2 | `21-1` Program Design and Technique for Aerobic Endurance and Metabolic Training (Teil 1/2) | PDF 1512–1542 | 2026-09-29 / opus | offen | Text ✓ · 98 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `21-2` Program Design and Technique for Aerobic Endurance and Metabolic Training (Teil 2/2) | PDF 1543–1578 | 2026-09-29 / opus | offen | Text ✓ · 73 Aussagen · 1 unsicher · 3 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `22` Periodization | PDF 1579–1629 | 2026-09-29 / opus | offen | Text ✓ · 76 Aussagen · 0 unsicher · 4 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `23` Rehabilitation, Reconditioning, and Medical Issues | PDF 1630–1678 | 2026-09-29 / opus | offen | Text ✓ · 83 Aussagen · 0 unsicher · 1 offene Stellen · pdf_nativ |
+| L-A03 | T2 | `24` Overreaching, Overtraining, and Recovery | PDF 1679–1726 | 2026-09-29 / opus | offen | Text ✓ · 82 Aussagen · 0 unsicher · 1 offene Stellen · pdf_nativ |
 | L-A03 | T2 | `25` Facility Design, Layout, and Organization | PDF 1727–1774 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Anlagen; Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `26` Facility Policies, Procedures, and Legal Issues | PDF 1775–1819 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Anlagen/Recht; Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `90` Answers to Study Questions | PDF 1820–1823 | entfällt | entfällt | nicht zu extrahieren (Anhang) · S. 1 ohne Text, ab S. 2 ✓; 2 von 4 Seiten fast ohne Text |
@@ -284,32 +284,32 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-T2-03 | T2 | `04` Neural Adaptations to Endurance Training | PDF 43–58 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie; Athlet 2026-09-29) · Text ✓ |
 | L-T2-03 | T2 | `05` Physiological and Molecular Adaptations to Strength Training | PDF 59–81 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie; Athlet 2026-09-29) · Text ✓ |
 | L-T2-03 | T2 | `06` Neural Adaptations to Strength Training | PDF 82–93 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie; Athlet 2026-09-29) · Text ✓ |
-| L-T2-03 | T2 | `07` Proposed Mechanisms Underlying the Interference Effect | PDF 94–103 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
-| L-T2-03 | T2 | `08` Molecular Adaptations to Concurrent Strength and Endurance Training | PDF 104–128 | offen | offen | Text ✓ |
+| L-T2-03 | T2 | `07` Proposed Mechanisms Underlying the Interference Effect | PDF 94–103 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · 43 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
+| L-T2-03 | T2 | `08` Molecular Adaptations to Concurrent Strength and Endurance Training | PDF 104–128 | 2026-09-29 / opus | offen | Text ✓ · 93 Aussagen · 0 unsicher · 4 offene Stellen · pdf_nativ |
 | L-T2-03 | T2 | `09` Effects of Endurance-, Strength-, and Concurrent Training on Cytokines and Inflammation | PDF 129–142 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: molekulare Grundlagen; Athlet 2026-09-29) · Text ✓ |
-| L-T2-03 | T2 | `10` Immediate Effects of Endurance Exercise on Subsequent Strength Performance | PDF 143–158 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `11` Acute Effects of Strength Exercise on Subsequent Endurance Performance | PDF 159–169 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `12` Long-Term Effects of Supplementary Aerobic Training on Muscle Hypertrophy | PDF 170–183 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `13` Methodological Considerations for Concurrent Training | PDF 184–198 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
-| L-T2-03 | T2 | `14` Effects of the Concurrent Training Mode on Physiological Adaptations and Performance | PDF 199–213 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `15` Recovery Strategies to Optimise Adaptations to Concurrent Aerobic and Strength Training | PDF 214–228 | offen | offen | Text ✓ |
+| L-T2-03 | T2 | `10` Immediate Effects of Endurance Exercise on Subsequent Strength Performance | PDF 143–158 | 2026-09-29 / opus | offen | Text ✓ · 52 Aussagen · 0 unsicher · 1 offene Stellen · pdf_nativ |
+| L-T2-03 | T2 | `11` Acute Effects of Strength Exercise on Subsequent Endurance Performance | PDF 159–169 | 2026-09-29 / opus | offen | Text ✓ · 57 Aussagen · 0 unsicher · 4 offene Stellen · pdf_nativ |
+| L-T2-03 | T2 | `12` Long-Term Effects of Supplementary Aerobic Training on Muscle Hypertrophy | PDF 170–183 | 2026-09-29 / opus | offen | Text ✓ · 42 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ |
+| L-T2-03 | T2 | `13` Methodological Considerations for Concurrent Training | PDF 184–198 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · 62 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
+| L-T2-03 | T2 | `14` Effects of the Concurrent Training Mode on Physiological Adaptations and Performance | PDF 199–213 | 2026-09-29 / opus | offen | Text ✓ · 52 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
+| L-T2-03 | T2 | `15` Recovery Strategies to Optimise Adaptations to Concurrent Aerobic and Strength Training | PDF 214–228 | 2026-09-29 / opus | offen | Text ✓ · 59 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T2-03 | T2 | `16` Nutritional Considerations for Concurrent Training | PDF 229–252 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Ernährung; Athlet 2026-09-29) · Text ✓ |
 | L-T2-03 | T2 | `17` Concurrent Training in Children and Adolescents | PDF 253–274 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Kinder; Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
-| L-T2-03 | T2 | `18` Concurrent Training in Elderly | PDF 275–289 | offen | offen | Text ✓ |
+| L-T2-03 | T2 | `18` Concurrent Training in Elderly | PDF 275–289 | 2026-09-29 / opus | offen | Text ✓ · 60 Aussagen · 4 unsicher · 7 offene Stellen · pdf_nativ |
 | L-T2-03 | T2 | `19` Concurrent Aerobic and Strength Training for Body Composition and Health | PDF 290–304 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Körperzusammensetzung; Athlet 2026-09-29) · Text ✓ |
 | L-T2-03 | T2 | `20` Sex Differences in Concurrent Aerobic and Strength Training | PDF 305–317 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Geschlecht; Athlet 2026-09-29) · Text ✓ |
-| L-T2-03 | T2 | `21` Long-Term Effects of Strength Training on Aerobic Capacity and Endurance Performance | PDF 318–325 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
+| L-T2-03 | T2 | `21` Long-Term Effects of Strength Training on Aerobic Capacity and Endurance Performance | PDF 318–325 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · 56 Aussagen · 0 unsicher · 1 offene Stellen · pdf_nativ |
 | L-T2-03 | T2 | `22` Strength Training for Endurance Cyclists | PDF 326–333 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Radfahrer; Athlet 2026-09-29) · Text ✓ |
-| L-T2-03 | T2 | `23` Strength Training for Endurance Runners | PDF 334–348 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `24` Strength Training for Cross-Country Skiers | PDF 349–360 | offen | offen | Text ✓ |
+| L-T2-03 | T2 | `23` Strength Training for Endurance Runners | PDF 334–348 | 2026-09-29 / opus | offen | Text ✓ · 62 Aussagen · 2 unsicher · 0 offene Stellen · pdf_nativ |
+| L-T2-03 | T2 | `24` Strength Training for Cross-Country Skiers | PDF 349–360 | 2026-09-29 / opus | offen | Text ✓ · 48 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ |
 | L-T2-03 | T2 | `25` Strength Training for Swimmers | PDF 361–378 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Schwimmer; Athlet 2026-09-29) · Text ✓ |
 | L-T2-03 | T2 | `26` General Aspects of Concurrent Aerobic and Strength Training for Performance in Team Sports | PDF 379–388 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Mannschaftssport; Athlet 2026-09-29) · Text ✓ |
 | L-T2-03 | T2 | `27` Concurrent Aerobic and Strength Training for Performance in Soccer | PDF 389–408 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Fußball; Athlet 2026-09-29) · Text ✓ |
 | L-T2-11 | T2 | `L-T2-11_Ronnestad-2014_Strength-Training-Running-and-Cycling.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 60 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T2-12 | T2 | `L-T2-12_Blagrove-2018_Strength-Training-Distance-Running.pdf` | 33 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 78 Aussagen · 0 unsicher · 2 offene Stellen · pdf_nativ · Muster: Online-First-Fassung ohne Zeitschriften-Paginierung – Stelle als Abschnitt/Tabelle, seiten „–“ |
 | **L-T2-04** | T2 | **Ordner `t2-kraft/L-T2-04_kapitel/`** (32 Kapitel-PDFs, 600 PDF-Seiten) | – | – | – | ausgewaehlt · C · Kern · Scan, fehlerhafte Texterkennung; Druckseite = PDF-Seite − 14; PDF 577/578 vertauscht |
-| L-T2-04 | T2 | `00` Vorspann und Introduction | PDF 1–14 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ · Vorspann mit Einleitung – extrahieren (Entscheidung Athlet 2026-09-29) |
-| L-T2-04 | T2 | `01` Principles of Bodyweight Training | PDF 15–23; Druck 1–9 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
+| L-T2-04 | T2 | `00` Vorspann und Introduction | PDF 1–14 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · Vorspann mit Einleitung – extrahieren (Entscheidung Athlet 2026-09-29) · 13 Aussagen · 1 unsicher · 1 offene Stellen · pdf_nativ |
+| L-T2-04 | T2 | `01` Principles of Bodyweight Training | PDF 15–23; Druck 1–9 | 2026-09-29 / opus | offen | S. 1 ohne Text, ab S. 2 ✓ · 39 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
 | L-T2-04 | T2 | `02` Physiology of Strength and Hypertrophy | PDF 24–34; Druck 10–20 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Physiologie; Athlet 2026-09-29) · Text ✓ |
 | L-T2-04 | T2 | `03` Progression Charts and Goal Setting | PDF 35–48; Druck 21–34 | offen | offen | Text ✓ |
 | L-T2-04 | T2 | `04` Structural Balance Considerations | PDF 49–57; Druck 35–43 | offen | offen | Text ✓ |
@@ -361,7 +361,7 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateie
 | L-T2-28 | T2 | `L-T2-28_Refalo-2021_Training-Load-Hypertrophy.pdf` | 24 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 67 Aussagen · 4 unsicher · 6 offene Stellen · pdf_nativ · Muster: Verlagsdeckblatt, gedruckt = PDF − 1; Befund: Abstract-ES 0,34 vs. Ergebnis 0,41, Studienzahlen 8+13/22/20, Tab. 1 teils nicht lesbar (unsicher) |
 | L-T2-29 | T2 | `L-T2-29_Carvalho-2022_Volume-Matched-Loads-Hypertrophy.pdf` | 58 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · Autorenmanuskript, Seitenzahlen nicht zitierfähig · 79 Aussagen · 9 unsicher · 9 offene Stellen · pdf_nativ · Muster: Autorenmanuskript (ScholarOne), Stelle als Abschnitt/Tab./Abb., seiten „–“; Forest-Plots gering aufgelöst (Einzelwerte nicht extrahiert); viele Widersprüche im Manuskript |
 | L-T2-30 | T2 | `L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 39 Aussagen · 0 unsicher · 7 offene Stellen · pdf_nativ · Muster: Article in Press (J Sport Health Sci 2021, vorläufige Seiten 1–10), Versatz 0; Befund: Jahresangabe Rooney 2020 vs. 1994, KI Karsten ohne Minus u. a. |
-| **Synthese startbereit** | T2 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 29 von 76 extrahiert; gegengeprüft: 0. |
+| **Synthese startbereit** | T2 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 62 von 76 extrahiert; gegengeprüft: 0. |
 
 ### 4.5 T3 – `t3-klettern`
 
@@ -647,3 +647,4 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-T2-24 | Versatz 0 (Volume 7: 1–7); Corrigendum eingearbeitet (obere/untere Extremität getauscht, −0.011 → −0.11, Studienfluss); Vorzeichen der SMD in Forest-Plots unklar; mehrere Widersprüche Text/Tab./Literatur | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-14 | Versatz PDF n → S. 1954+n; Befund: Werte Text vs. Tab. 2 vertauscht/abweichend, Tabellenverweis falsch | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-29 | Autorenmanuskript (ScholarOne), Stelle als Abschnitt/Tab./Abb., seiten „–“; Forest-Plots gering aufgelöst (Einzelwerte nicht extrahiert); viele Widersprüche im Manuskript | U2-Extraktion (Rückmeldung Unteragent) |
+| L-A03 | Die Fußzeilenzahl ist die fortlaufende E-Book-Paginierung = Gesamtbuch-PDF-Seite (alle 28 Kapitel); interne Querverweise nennen Seiten der Druckausgabe (z. B. „table 21.1, page 697“ auf E-Book-S. 1524), Versatz zur Druckausgabe nicht konstant (ca. zwei E-Book-Seiten je Druckseite) – Druckseiten nicht bestimmbar; zitiert wird die E-Book-Seite (im Repo-PDF prüfbar). Kapitelteile beginnen/enden mitten in Übungen/Tabellen; Literaturverzeichnis nicht in den Kapiteldateien; Zweck „Overreaching“ nur in k24 | U2-Extraktion (Rückmeldung Unteragent) |
