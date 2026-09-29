@@ -442,7 +442,7 @@ begonnen: 2026-09-29
 abgeschlossen: null
 unterpunkte:
   U1: erledigt     # 2026-09-29, docs/extraktion/ mit README (Statustabellen) und luecken.md
-  U2: in_arbeit    # je Quelle: siehe docs/extraktion/README.md; 287 Läufe (195 Buchkapitel, 92 Artikel)
+  U2: in_arbeit    # je Quelle: siehe docs/extraktion/README.md; 287 Läufe (195 Buchkapitel, 92 Artikel); Zieldateien UB und UP extrahiert (2026-09-29)
   U3: offen
   U4: offen        # je Zieldatei: uebergreifend-belastung, uebergreifend-planung, t1, t2, t3, r, t4
   U5: offen
@@ -476,6 +476,9 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: U2 hätte 290 Buchkapitel plus 94 Artikel umfasst (W-01 ging von 30–40 Kapiteln aus); viele Buchkapitel ohne Bezug zu Zweck, Zuschnitt oder Profil (Kinder, Mannschafts- und Rückschlagsport, Ernährung, Anlagen/Recht)
     loesung: Entscheidung Athlet – Kapitelauswahl je Buch vor U2; 99 Kapitel nicht extrahiert (88 nach Vorschlag, dazu die Gruppen Geschlecht, Medizin Klettern, Vibration/IASTM/Flossing), extrahiert zusätzlich die Gruppen Alter, Umwelt (Hitze/Kälte, Höhe), Freihantel/Maschine, Zugübungen Calisthenics; Grund je Kapitel in docs/extraktion/README.md; Nachtrag über den Lücken-Workflow (U8). U2 umfasst 195 Buchkapitel und 92 Artikel (287 Läufe; die beiden Corrigenda laufen mit dem Artikel)
+  - datum: 2026-09-29
+    was: U2 Zieldateien UB (41 Dateien – 10 Artikel, L-A01 18 und L-A02 13 Kapitel) und UP (9 Artikel) extrahiert; 3 657 Aussagen, davon 122 `unsicher: true` (fast ausschließlich aus Grafiken abgelesene Werte), 144 offene Stellen; keine Datei mit Formfehler, kein Kapitel „nicht verwertbar“, alle mit lesemethode pdf_nativ
+    loesung: Muster je Quelle im README (Abschnitt 6): L-A01 Druckseite = Gesamt-PDF − 1 in allen Kapiteln (E-Book-Paginierung); L-A02 Versatz je Kapitel verschieden (−17 bis −7), innerhalb der Kapiteldatei konstant; Artikel mit Zeitschriften-Paginierung, Sonderfälle L-P04 (Ahead-of-Print), L-P11 (Seiten „n of 13“ + Abschnitt), L-T2-32 (Verlagsdeckblatt, PDF − 1). Viele offene Stellen sind Widersprüche in den Quellen selbst (Text vs. Tabelle/Abbildung/Abstract), wie gedruckt übernommen – Schwerpunkt für die Gegenprüfung (U3); zwei fachlich zweifelhafte Buchaussagen in L-A01 k03 (muskarinische Rezeptoren an der Endplatte, „extrapyramidal tracts“) wie gedruckt übernommen
   - datum: 2026-09-29
     was: Nebenbefunde Hauptkonzept – YAML-Block T1 in 13.2 nicht parsebar (ISBN-Zeile L-T1-01 mit „: “); in 13.2 fehlen `stufe` bei L-A01, L-A02, L-P01 bis L-P09 und `themenfelder` für übergreifend und T1; L-T3-04 (ausgewaehlt) und L-P14 (optional) keiner Zieldatei in AP-06 Punkt 3 zugeordnet; L-T2-08 bis L-T2-10 mit Status `verifiziert` als Belege im T2-Zuschnitt
     loesung: gemeldet, nicht geändert (Hauptkonzept nur an drei Stellen änderbar); Stufe für die Tabellen aus docs/literatur/README.md übernommen
