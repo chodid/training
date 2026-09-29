@@ -834,6 +834,29 @@ noch_zu_pruefen:
     wie: Athlet nach Deployment (Cron-Aufruf im Browser oder Lima-City-Protokoll)
 ```
 
+## AP-15 Blockbilanz, Zielklärung und Übergabe
+
+```yaml
+ap: AP-15
+auftrag: docs/konzept/blockbilanz.md (T1–T6)
+geprueft:
+  - was: "T1 Fälligkeit F-01 bis F-10 (heute 2026-10-01): Bilanz ab Vorlauf, Entwurf zählt nicht, bestätigte Bilanz, abgeschlossen ohne Bilanz (nur der zuletzt beendete Block), Folgeblock ohne/mit Zielklärung, Block ohne Zielklärung, Zielklärung älter als 16 Wochen, Revision nach 28 Tagen, kein aktiver Block (block_id null)"
+    wie: automatisiert (Unit FaelligkeitTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 Schemata je Art: gültige Beispiele; Fehler mit Pfad (Enum, fehlende Pflichtfelder, verworfen leer, zusätzliches Feld, Länge 1 501, 21 Listeneinträge, Ziele leer, Bilanz ohne bewertung, Zeitraum bis < von, Revision ohne Änderungen, Liste statt Objekt)"
+    wie: automatisiert (Unit ReviewValidatorTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T1 Tabelle block_review: CHECK sequence bei Bilanz/Zielklärung, doppelte Fassung, Zeitraum, Löschschutz des Blocks; Fassungen (Entwurf über bestätigt, gültige Fassung, Entwurf zusätzlich, nächste Nummer); Kennzahlen gegen die erweiterte Beispielwoche und leerer Zeitraum (null statt Fehler); Migration 0024 zurück und vor ohne Datenverlust; Rückweg-Tests auf 0024 umgestellt"
+    wie: automatisiert (Integration ReviewDataTest, MorningCheckinTest, ExercisePagesTest gegen MariaDB 10.11)
+    ergebnis: ok
+    datum: 2026-09-29
+noch_zu_pruefen:
+  - was: T1 Migration 0024 und Schemata gegen MySQL 8.4
+    wie: CI (GitHub Actions) mit dem Pull Request
+```
+
 ## AP-05 MCP-Tools produktiv
 
 ```yaml

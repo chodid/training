@@ -135,6 +135,8 @@ final class ExercisePagesTest extends AppTestCase
     public function testSettingsLoadBeforeMigration(): void
     {
         $this->rollbackLastMigration();
+        $this->pdo->exec('DROP TABLE exercise_version, exercise_alias, exercise'); // Rückweg 0023 zusätzlich (AP-16)
+        $this->pdo->exec('DELETE FROM schema_version WHERE version = 23');
         $r = $this->request('GET', '/einstellungen');
         self::assertSame(200, $r->status, 'S8 lädt ohne Tabellen des Katalogs (Ort der Migration)');
         self::assertStringNotContainsString('href="/uebungen"', $r->body);

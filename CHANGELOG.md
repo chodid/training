@@ -7,6 +7,19 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ### Dokumentation
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 
+## [0.26.0] – 2026-09-29
+
+AP-15 T1: Datenmodell für Blockbilanz, Zielklärung und Revision.
+
+### Hinzugefügt
+- Migration 0024 `block_review`: je Trainingsblock Revisionen (1, 2, …), eine Blockbilanz und eine Zielklärung, jeweils mit Fassungen (`version`, `reason`), Status Entwurf/bestätigt, Zeitraum, Kurzsatz, Inhalt (`content_json`) und vom Server eingefrorenen Kennzahlen (`kennzahlen_auto`). Ein Block mit Reviews lässt sich nicht löschen.
+- JSON-Schemata `server/schemas/review-zielklaerung.json`, `review-bilanz.json`, `review-revision.json` und `Training\Review\ReviewValidator` (Pfadangaben in Fehlermeldungen, Bilanz: Zeitraum von ≤ bis).
+- `Training\Data\ReviewRepository`: Fassungen, gültige Fassung je Block/Art/Nummer (jüngste bestätigte, neuerer Entwurf zusätzlich), nächste Revisionsnummer.
+- `Training\Review\Kennzahlen`: Planerfüllung je Typ, sRPE (Summe, je Woche, je Typ), Ausdauer aus dem Intervals.icu-Spiegel (km, Höhenmeter, Zeit je HF-Zone), Schmerz je Ort mit Trend, Morgentest (Mittel links/rechts, rote Tage), Check-in-Abdeckung, Wellness-Mittel; fehlende Quellen liefern null.
+- `Training\Review\Faelligkeit`: fällige Bilanz, Zielklärung und Revision aus Blöcken, bestätigten Reviews, Vorlauftagen und heute.
+- Einstellungen (ohne Oberfläche, folgt in T3): Vorlauf Bilanz (7 Tage) und Zielklärung (14 Tage), Overlay an/aus, Quittierung, Uhrzeit, Dauer und Erinnerung des Blocktermins.
+- JSON-Export: `kennzahlen_auto` als Objekt.
+
 ## [0.25.1] – 2026-09-29
 
 AP-16 T6: Dokumentation des Übungskatalogs.
