@@ -55,7 +55,7 @@ Reihenfolge nach W-04, T4 zuletzt. Innerhalb einer Tabelle: Kern vor optional in
 
 ### 4.1 UB – `uebergreifend-belastung-monitoring-erholung`
 
-Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 Dateien. Davon extrahiert: 40. Nicht zu extrahieren (Vorspann/Anhang): 6; ausgelassen nach Kapitelauswahl: 19.
+Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 Dateien. Davon extrahiert: 41. Nicht zu extrahieren (Vorspann/Anhang): 6; ausgelassen nach Kapitelauswahl: 19.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -95,7 +95,7 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 D
 | L-A01 | UB, UP | `90` Glossary | PDF 1248–1277 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | L-A01 | UB, UP | `91` References | PDF 1278–1321 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | L-A01 | UB, UP | `92` Index | PDF 1322–1379 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
-| **L-A02** | UB, UP, T1 | **Ordner `uebergreifend/L-A02_kapitel/`** (25 Kapitel-PDFs, 911 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · Druckseiten je Kapitel in U2 bestimmen |
+| **L-A02** | UB, UP, T1 | **Ordner `uebergreifend/L-A02_kapitel/`** (25 Kapitel-PDFs, 911 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · Druckseiten je Kapitel in U2 bestimmen · Muster: Versatz Gesamtbuch-PDF → Druckseite je Kapitel verschieden (k01 −17, k02 −16, k03 −15, k04 −14, k06 −12, k07 −11, k09 −9, k12 −7), innerhalb der Kapiteldatei konstant; Kapiteldatei-Seite 1 = erste Druckseite des Kapitels; Kapitelteile beginnen/enden mitten im Abschnitt; Literaturverzeichnis je Kapitel enthalten; Tab. 4.9–4.11 nur als Bild |
 | L-A02 | UB, UP, T1 | `00` Vorspann | PDF 1–17 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · Text ✓ |
 | L-A02 | UB, UP, T1 | `01` Aufgaben und Inhalte der Trainingswissenschaft | PDF 18–44 | 2026-09-29 / opus | offen | Text ✓ · 50 Aussagen · 1 unsicher · 0 offene Stellen · pdf_nativ |
 | L-A02 | UB, UP, T1, T1 | `02` Grundlagenwissen zum sportlichen Training | PDF 45–95 | 2026-09-29 / opus | offen | Text ✓ · 91 Aussagen · 3 unsicher · 0 offene Stellen · pdf_nativ |
@@ -108,7 +108,7 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 D
 | L-A02 | UB, UP, T1 | `05-2` Schnelligkeitstraining (Teil 2/2) | PDF 343–380 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Schnelligkeit; Athlet 2026-09-29) · Text ✓ |
 | L-A02 | UB, UP, T1 | `06` Beweglichkeitstraining | PDF 381–407 | 2026-09-29 / opus | offen | Text ✓ · 81 Aussagen · 1 unsicher · 0 offene Stellen · pdf_nativ |
 | L-A02 | UB, UP, T1, T1 | `07-1` Ausdauertraining (Teil 1/2) | PDF 408–445 | 2026-09-29 / opus | offen | Text ✓ · 82 Aussagen · 4 unsicher · 1 offene Stellen · pdf_nativ |
-| L-A02 | UB, UP, T1, T1 | `07-2` Ausdauertraining (Teil 2/2) | PDF 446–482 | offen | offen | Text ✓ |
+| L-A02 | UB, UP, T1, T1 | `07-2` Ausdauertraining (Teil 2/2) | PDF 446–482 | 2026-09-29 / opus | offen | Text ✓ · 109 Aussagen · 3 unsicher · 0 offene Stellen · pdf_nativ |
 | L-A02 | UB, UP, T1 | `08` Techniktraining | PDF 483–531 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Techniktraining; Athlet 2026-09-29) · Text ✓ |
 | L-A02 | UB, UP, T1 | `09-1` Regenerationsmanagement und Ernährung (Teil 1/2) | PDF 532–563 | 2026-09-29 / opus | offen | Text ✓ · 103 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ |
 | L-A02 | UB, UP, T1 | `09-2` Regenerationsmanagement und Ernährung (Teil 2/2) | PDF 564–594 | 2026-09-29 / opus | offen | Text ✓ · 90 Aussagen · 0 unsicher · 0 offene Stellen · pdf_nativ |
@@ -127,7 +127,7 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 D
 | L-P13 | UB | `L-P13_Silbernagel-2007_Pain-Monitoring-Model-Achilles.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 48 Aussagen · 1 unsicher · 4 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 896+n; Befund: Widersprüche Text/Tabellen im Original (Baseline VISA-A-S 57/58, Tab. 7 Signifikanz, fehlende Einheiten), unter Offene Stellen |
 | L-P15 | UB | `L-P15_Manresa-Rocamora-2021_HRV-Guided-Training-Meta-Analysis.pdf` | 22 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** · 51 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ · Muster: Artikelnummer 10299, Seiten „n of 22“, Versatz 0; Befund: Text vs. Tab. 2 widersprüchlich (Referenzfenster, Stabilisierung), unter Offene Stellen |
 | L-P16 | UB | `L-P16_Dueking-2021_HRV-Guided-Training-Wearables.pdf` | 13 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 43 Aussagen · 2 unsicher · 9 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 1179+n; Befund: mehrere Inkonsistenzen im Original (Abstract vertauscht g-Werte, N 198 vs. 228, Tab. 2), unter Offene Stellen |
-| **Synthese startbereit** | UB | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 40 von 41 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
+| **Synthese startbereit** | UB | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 41 von 41 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
 
 ### 4.2 UP – `uebergreifend-planung-kombiniertes-training`
 
@@ -627,3 +627,4 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-T2-26 | Versatz PDF n → S. 687+n; Befund: Forest-Plots 7/8/9/11/13 falsch beschriftet (nach Text extrahiert, unsicher); Abstract vs. Ergebnisse (p = 0.15); Studienzahl 22 vs. 25 | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-31 | Versatz PDF n → S. 2292+n; Befund: Druckfehler in KI (Tab. 1, 3), Vorzeichen Korrelation Abstract vs. Ergebnis, Summe Effektstärken 330 vs. 422 | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T2-32 | PDF-Seite 1 = Verlagsdeckblatt, gedruckt = PDF − 1 (Online-Paginierung 1–12); Befund: KI/p-Werte im Original inkonsistent (Rad-HIIT, Pause > 24 h) | U2-Extraktion (Rückmeldung Unteragent) |
+| L-A02 | Versatz Gesamtbuch-PDF → Druckseite je Kapitel verschieden (k01 −17, k02 −16, k03 −15, k04 −14, k06 −12, k07 −11, k09 −9, k12 −7), innerhalb der Kapiteldatei konstant; Kapiteldatei-Seite 1 = erste Druckseite des Kapitels; Kapitelteile beginnen/enden mitten im Abschnitt; Literaturverzeichnis je Kapitel enthalten; Tab. 4.9–4.11 nur als Bild | U2-Extraktion (Rückmeldung Unteragent) |
