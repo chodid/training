@@ -896,8 +896,12 @@ geprueft:
     wie: automatisiert (tests/e2e/erinnerung.e2e.cjs Schritt 3) und Sicht
     ergebnis: ok
     datum: 2026-09-29
-  - was: "T6 Dokumente konsistent: Hauptkonzept (D-70 bis D-76, 3.3, 6, 7, 8.2, 8.3, 10, 14, 15, 17), datenmodell.md (Schema 24, ER), branding.md, README (Endpunkte, Tools, Tests), trainerregeln.md (Vorabkapitel 10), CHANGELOG 0.26.0–0.30.1, Auftrag Abschnitt 13/14; App.php 0.30.1, SCHEMA_VERSION 24; Tool-, Feld- und Seitennamen gegen den Code abgeglichen"
+  - was: "T6 Dokumente konsistent: Hauptkonzept (D-72 bis D-78, 3.3, 6, 7, 8.2, 8.3, 10, 14, 15, 17), datenmodell.md (Schema 24, ER), branding.md, README (Endpunkte, Tools, Tests), trainerregeln.md (Vorabkapitel 10), CHANGELOG 0.26.0–0.30.1, Auftrag Abschnitt 13/14; App.php 0.30.1, SCHEMA_VERSION 24; Tool-, Feld- und Seitennamen gegen den Code abgeglichen"
     wie: Durchsicht und Suche nach veralteten Angaben; Suite und Browser-Tests grün
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "E-23 (0.30.2): kein Overlay in S9 und auf S10 aus S9, dagegen in S3, S10 aus S3 und auf S2 nach dem Abschluss (/woche?…&ok=einheit); geführte Einheit ohne inert"
+    wie: automatisiert (ReminderTest, GuidedSessionTest)
     ergebnis: ok
     datum: 2026-09-29
 noch_zu_pruefen:

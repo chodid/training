@@ -36,7 +36,7 @@ Hinweise zur Umsetzung (Tools): Nach R-UEB-11 legt `upsert_exercise` an und lief
 `write_week_plan` erscheinen als `warnungen` mit `hinweis_warnungen`. Für R-UEB-12 prüft der Server nur die
 Erreichbarkeit (Videos über oEmbed); ein defekter Link setzt die Übung auf „Links prüfen“.
 
-## 10. Übergabe, Revision, Bilanz und Zielklärung (AP-15, D-70 bis D-76)
+## 10. Übergabe, Revision, Bilanz und Zielklärung (AP-15, D-72 bis D-78)
 
 Wortlaut aus `docs/konzept/blockbilanz.md` Abschnitt 8.2. Die Nummern R-UEB-01 bis R-UEB-06 (Übergabe) überschneiden
 sich nicht mit R-UEB-10 bis R-UEB-14 (Kapitel 9, Übungskatalog). Bis AP-07 vorliegt, gelten zusätzlich die

@@ -124,6 +124,32 @@ final class ReminderTest extends AppTestCase
         self::assertStringNotContainsString('Blockbilanz fällig', $this->request('GET', '/woche')->body);
     }
 
+    public function testNoOverlayDuringGuidedSessionButOnHomeAfterwards(): void
+    {
+        $token = 'statisches-token-statisches-token-0123';
+        $this->writeEnv(['MCP_STATIC_TOKEN' => $token, 'MCP_STATIC_TOKEN_ENABLED' => 'true']);
+        $ex = $this->mcpTool($token, 'upsert_exercise', ['slug' => 'test-kniebeuge', 'name' => 'Test-Kniebeuge', 'category' => 'kraft', 'pattern' => 'knie_dominant',
+            'equipment' => ['koerpergewicht'], 'konfidenz' => 'einschaetzung', 'content' => ['kurz' => 'Kniebeuge', 'ziel' => 'Beine', 'ausfuehrung' => ['Stehen', 'Beugen'], 'quellen' => ['Einschätzung']]]);
+        self::assertFalse($ex['isError'], $ex['text']);
+        $plan = $this->mcpTool($token, 'write_week_plan', ['week_start' => '2026-09-28', 'focus' => 'Test', 'sessions' => [
+            ['date' => '2026-10-01', 'type' => 'kraft', 'title' => 'Kraft', 'coach_summary' => 'Test', 'plan_json' => ['exercises' => [['name' => 'Test-Kniebeuge', 'exercise_id' => 'test-kniebeuge', 'sets' => 2, 'reps' => '8']]]],
+        ]]);
+        self::assertFalse($plan['isError'], $plan['text']);
+        $id = $plan['data']['einheiten'][0]['id'];
+
+        // S9 geführt und S10 aus S9 heraus: kein Overlay (Training läuft)
+        $s9 = $this->request('GET', '/einheit?id=' . $id . '&modus=start');
+        self::assertSame(200, $s9->status);
+        self::assertStringContainsString('data-gefuehrt', $s9->body);
+        self::assertStringNotContainsString('data-review-overlay', $s9->body);
+        self::assertStringNotContainsString('data-review-overlay', $this->request('GET', '/uebung?id=test-kniebeuge&von=' . $id . '&modus=start')->body);
+        // S3 und S10 aus S3: Overlay wie überall
+        self::assertStringContainsString('data-review-overlay', $this->request('GET', '/einheit?id=' . $id)->body);
+        self::assertStringContainsString('data-review-overlay', $this->request('GET', '/uebung?id=test-kniebeuge&von=' . $id)->body);
+        // Nach dem Abschluss leitet S9 auf S2 (/woche?…&ok=einheit): dort erscheint es sofort
+        self::assertStringContainsString('data-review-overlay', $this->request('GET', '/woche?start=2026-09-28&ok=einheit')->body);
+    }
+
     public function testU05OverlayOffCardStillShowsDueItems(): void
     {
         $this->settings()->set(SettingsRepository::REVIEW_OVERLAY, 'aus');

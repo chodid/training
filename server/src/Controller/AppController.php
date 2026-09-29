@@ -125,14 +125,16 @@ abstract class AppController
             'navFoot' => $navFoot,
             'writeLocked' => $this->app->writeLocked(),
             'alert' => null,
-            'reminders' => $template !== 'locked' && $status < 400 ? $this->reminders() : [],
+            // Nicht während der geführten Einheit (S9, auch S10 aus S9 heraus): nach dem Abschluss auf S2 (Wunsch des Athleten)
+            'reminders' => $template !== 'locked' && $template !== 'session-start' && empty($vars['guided']) && $status < 400 ? $this->reminders() : [],
             'reminderBack' => $this->requestUri,
             ...$vars,
         ], 'layout-app'));
     }
 
     /**
-     * Overlay-Erinnerung an fällige Bilanz/Zielklärung (AP-15, E-05): auf jeder Seite nach dem Login, nicht bei
+     * Overlay-Erinnerung an fällige Bilanz/Zielklärung (AP-15, E-05): auf jeder Seite nach dem Login außer der geführten
+     * Einheit (S9 und S10 aus S9 heraus; nach dem Speichern leitet S9 auf S2, dort erscheint es), nicht bei
      * Schreibsperre (Quittieren wäre gesperrt). Fehler unterdrücken die Erinnerung, nie die Seite.
      * @return list<array<string, mixed>>
      */

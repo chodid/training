@@ -22,7 +22,7 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | `docs/wissen/` | Wissenskarten (Sammeldateien, 13.1) | AP-06 |
 | `docs/literatur/` | Literatur-Volltexte als PDF, Open Access und gekauft (D-31), je Block in Unterordnern, Bücher zusätzlich als Kapitel-PDFs (D-51); Verzeichnis `README.md`; nie ins Projektwissen | AP-06 |
 | `docs/regeln/` | Trainerregeln (Abschnitt 14); vorab Kapitel 9 „Übungskatalog“ und Kapitel 10 „Übergabe, Revision, Bilanz und Zielklärung“ | AP-07, AP-15, AP-16 |
-| `docs/plaene/` | Blockpläne (nur Spiegel; Master für Zielklärung und Bilanz ist die Datenbank, D-70) | AP-08 |
+| `docs/plaene/` | Blockpläne (nur Spiegel; Master für Zielklärung und Bilanz ist die Datenbank, D-72) | AP-08 |
 | `docs/branding/` | Branding-Dokument `branding.md` (D-19), Gestaltungsvorgaben in `chadid-design-system/` (Einstieg `readme.md`, `SKILL.md`), Mockups in `mockups/` (Einstieg `index.html`, Screenshots mit `mockups/screenshots.cjs`), Icon-Skript `build-icons.cjs` | AP-01a, AP-13 |
 
 ## Server-Layout (Lima-City, D-17)
@@ -84,12 +84,12 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | `get_pain_history` | `training:read` | Schmerz je Ort mit Trend (Standard 56 Tage) |
 | `get_wellness_trend` | `training:read` | HRV, Ruhepuls, Schlaf, Check-in; Baseline 7/28 Tage |
 | `get_block` | `training:read` | aktueller Block mit Wochenstatus, Reviews (Kurzliste) und Fälligkeiten |
-| `get_handover` | `training:read` | Übergabe zu Beginn jeder Planungssitzung (AP-15, D-74): aktiver Block, Zielklärung, zwei jüngste Bilanzen, Revisionen, Kennzahlen 4 Wochen gegen Blockmittel, `wochen_kurz`, Fälligkeiten, offene Fragen, Profilstand, Entwürfe; ≤ 8 000 Zeichen, mit `detail` die Volltexte |
+| `get_handover` | `training:read` | Übergabe zu Beginn jeder Planungssitzung (AP-15, D-76): aktiver Block, Zielklärung, zwei jüngste Bilanzen, Revisionen, Kennzahlen 4 Wochen gegen Blockmittel, `wochen_kurz`, Fälligkeiten, offene Fragen, Profilstand, Entwürfe; ≤ 8 000 Zeichen, mit `detail` die Volltexte |
 | `get_block_reviews` | `training:read` | Zielklärung, Revisionen und Bilanz eines Blocks mit Inhalt und Kennzahlen; mit `fassungen` alle Versionen samt Grund |
 | `get_athlete_profile` | `training:read` | Athletenprofil aus der Datenbank (D-48) je Abschnitt; optional ein Abschnitt, früherer Stand (`as_of`), Fassungen (`include_history`) |
 | `upsert_block` | `training:write` | Block anlegen/ändern (Voraussetzung für Wochenpläne); Antwort mit Fälligkeiten und `zielklaerung_fehlt`, Blocktermin im Kalender |
-| `write_block_review` | `training:write` | Revision, Blockbilanz oder Zielklärung als neue Fassung (AP-15, D-75): Status `entwurf`/`bestaetigt`, Schemaprüfung mit Pfad, `reason` ab Fassung 2, Kennzahlen vom Server; Zielklärung nur für Blöcke geplant/aktiv |
-| `write_week_plan` | `training:write` | Wochenplan schreiben, Ausdauer als Workout nach Intervals.icu; Pflicht: `focus` (Kurzsatz der Woche) und je Einheit außer Ruhetag `coach_summary` (≤ 200 Zeichen), dazu optional `coach_notes`/`coach_rationale` (≤ 1 500 Zeichen, D-56). Übungen ohne `exercise_id` → `warnungen`, unbekannte/archivierte ID → Fehler (D-66). Wochen nach dem Ende des aktiven Blocks ohne Folgeblock mit bestätigter Zielklärung → Fehler `blockwechsel_erforderlich` (AP-15, D-75) |
+| `write_block_review` | `training:write` | Revision, Blockbilanz oder Zielklärung als neue Fassung (AP-15, D-77): Status `entwurf`/`bestaetigt`, Schemaprüfung mit Pfad, `reason` ab Fassung 2, Kennzahlen vom Server; Zielklärung nur für Blöcke geplant/aktiv |
+| `write_week_plan` | `training:write` | Wochenplan schreiben, Ausdauer als Workout nach Intervals.icu; Pflicht: `focus` (Kurzsatz der Woche) und je Einheit außer Ruhetag `coach_summary` (≤ 200 Zeichen), dazu optional `coach_notes`/`coach_rationale` (≤ 1 500 Zeichen, D-56). Übungen ohne `exercise_id` → `warnungen`, unbekannte/archivierte ID → Fehler (D-66). Wochen nach dem Ende des aktiven Blocks ohne Folgeblock mit bestätigter Zielklärung → Fehler `blockwechsel_erforderlich` (AP-15, D-77) |
 | `update_session` | `training:write` | Einheit ändern (auch Kurzsatz und Begründung), Event nachziehen; Katalogprüfung wie `write_week_plan`, wenn `plan_json` geändert wird |
 | `get_morning_checks` | `training:read` | Morgen-Check-ins: Ampel mit Grund, Morgentest links/rechts, Wochenausgangswert, Warnzeichen/Abklärung, je Tag alle Werte (Standard 14 Tage) |
 | `update_athlete_profile` | `training:write` | Profilabschnitt ersetzen (neue Fassung, frühere bleiben erhalten) |

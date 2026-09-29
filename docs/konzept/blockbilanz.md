@@ -35,7 +35,7 @@ Nicht im Umfang: Bearbeiten der Datensätze auf der Webseite (nur lesen, O-01); 
 
 ## 3. Geklärte Entscheidungen
 
-Mit dem Athleten am 2026-09-29 geklärt (E-01 bis E-09, E-21, E-22). E-10 bis E-20 sind Vorschläge von Fable in diesem Dokument und gelten mit der Bestätigung des Konzepts; die Code-Instanz meldet Abweichungen als offene Punkte.
+Mit dem Athleten am 2026-09-29 geklärt (E-01 bis E-09, E-21 bis E-23). E-10 bis E-20 sind Vorschläge von Fable in diesem Dokument und gelten mit der Bestätigung des Konzepts; die Code-Instanz meldet Abweichungen als offene Punkte.
 
 | id | entscheidung | begruendung |
 |---|---|---|
@@ -60,6 +60,7 @@ Mit dem Athleten am 2026-09-29 geklärt (E-01 bis E-09, E-21, E-22). E-10 bis E-
 | E-19 | **Betriebsablauf:** Schritt 2 beginnt mit `get_handover`; neuer Schritt 9 „Blockwechsel“ (Bilanz → Zielklärung → `upsert_block` → erste Woche). Ein Wochenplan für eine Woche nach `end_date` des aktiven Blocks wird von `write_week_plan` mit Hinweis abgelehnt, solange kein Folgeblock mit bestätigter Zielklärung existiert. | Erzwingt den Blockwechsel im Ablauf, ohne die laufende Woche zu blockieren. |
 | E-20 | **Trainerregeln:** neues Kapitel „Übergabe, Revision, Bilanz und Zielklärung“ (Inhalt in Abschnitt 8); bis AP-07 vorliegt, gelten die Tool-Beschreibungen. | Wie bei E-10 in `gefuehrte-einheit.md`. |
 | E-21 | **Wochentexte im Handover (O-04):** `get_handover` liefert zusätzlich `wochen_kurz` – die letzten 4 Wochen bis einschließlich der laufenden, je Woche eine Zeile `<week_start>: <focus>` (fehlender Fokus = „–“). | Entscheidung des Athleten 2026-09-29 (Vorschlag Fable angenommen). Günstiger Kontext (≈ 100–200 Tokens) ohne zusätzlichen Aufruf von `get_week_overview`. |
+| E-23 | **Kein Overlay während der geführten Einheit:** In S9 und auf Übungsseiten, die aus S9 geöffnet wurden, erscheint das Overlay nicht; ist etwas fällig, erscheint es unmittelbar nach dem Abschluss auf der Startseite (S2, Weiterleitung nach dem Speichern). | Entscheidung des Athleten 2026-09-29 (nach Umsetzung von T3): das Training soll nicht unterbrochen werden. Ändert 6.1 „Nicht auf …“. |
 | E-22 | **Uhrzeit des Blocktermins einstellbar (O-05):** S8 „Training“ erhält drei Einstellungen: Beginn (`kalender_block_beginn`, `HH:MM`, Standard `08:00`), Dauer (`kalender_block_dauer_min`, 30–480, Standard 120) und Vorlauf der Erinnerung (`kalender_block_erinnerung_h`, 0–168 Stunden vor Beginn, Standard 24 = Vortag zur selben Uhrzeit; 0 = zu Beginn). Eine Änderung überträgt die Blocktermine aller Blöcke `geplant`/`aktiv` sofort neu. | Entscheidung des Athleten 2026-09-29 (statt „fest, später einstellbar“). Zuschnitt der drei Werte durch die Code-Instanz; E-06/E-15 gelten mit den Standardwerten unverändert. |
 
 ## 4. Teil A · Datenmodell
@@ -218,7 +219,7 @@ Audit-Log: `review_write` (entity `block_review`, summary „<kind> Block <id> v
 - Aufbau: Karte über abgedunkeltem Hintergrund (Design-System: Statusfarbe Warnung für den Rand, keine Serienfarbe), Überschrift „Blockbilanz fällig“ / „Zielklärung fällig“, ein Satz Grund (aus 5.1, z. B. „Block ‚Herbst 2026‘ endet am 12.10.“), Hinweis „Im Projekt-Chat erstellen – `get_handover` meldet die Fälligkeit“, Link zur Blockseite (S11). Formular `POST /erinnerung` mit `kind`, `block_id`, `bis` (Radio: „Morgen wieder erinnern“ vorgewählt, „Diese Woche nicht mehr“), CSRF. Erste Schaltfläche erhält `autofocus`; Seiteninhalt darunter `inert` (Attribut) und `aria-hidden`.
 - Ohne JavaScript vollständig bedienbar (Formular). Kein Timer, keine automatische Wiederholung – erst der nächste Seitenaufbau nach Ablauf zeigt es erneut.
 - Offline: Die gespeicherte Seite zeigt den Stand zum Zeitpunkt des Caches; die Quittierung läuft über `data-offline-form` in den Puffer. Bis zur Zustellung kann das Overlay offline erneut erscheinen (akzeptiert, O-02).
-- Nicht auf S0, S1, S7 und `/erinnerung` selbst.
+- Nicht auf S0, S1, S7, `/erinnerung` selbst sowie in der geführten Einheit S9 und auf S10 aus S9 heraus (E-23); nach dem Abschluss von S9 erscheint es auf S2.
 
 ### 6.2 Karte in S2
 
@@ -461,8 +462,10 @@ T3:
       loesung: kein data-offline-form; gepuffert wird über FORM_PATHS im Service Worker (Pfad /erinnerung)
     - was: Die Browser-Tests der geführten Einheit und des Katalogs scheiterten am Overlay (Testblock ohne Zielklärung)
       loesung: Testvorbereitung schreibt eine bestätigte Zielklärung zum Testblock (entspricht dem Ablauf ab AP-15)
-    - was: Das Overlay erscheint auch in der geführten Einheit (S9), weil 6.1 nur S0, S1, S7 ausnimmt
-      loesung: wie beauftragt umgesetzt; Quittieren ist ein Klick; bei Bedarf S9 ausnehmen (Rückmeldung des Athleten)
+    - was: Das Overlay erschien auch in der geführten Einheit (S9), weil 6.1 nur S0, S1, S7 ausnimmt
+      loesung: >-
+        Rückmeldung des Athleten (E-23, Code-Stand 0.30.2): nicht in S9 und nicht auf S10 aus S9 heraus; nach dem
+        Abschluss leitet S9 auf S2, dort erscheint es sofort. Test ReminderTest::testNoOverlayDuringGuidedSessionButOnHomeAfterwards
     - was: Bei Schreibsperre wäre das Overlay nicht quittierbar
       loesung: kein Overlay, solange Code- und Datenbankstand abweichen
 T4:
@@ -514,7 +517,7 @@ T6:
   status: erledigt
   datum: 2026-09-29
   ergebnis: >-
-    Hauptkonzept: AP-15 mit Statusblock, D-70 bis D-76, Abschnitte 3.3, 6 (Schritte 1, 2, 8, neuer Schritt 9), 7
+    Hauptkonzept: AP-15 mit Statusblock, D-72 bis D-78, Abschnitte 3.3, 6 (Schritte 1, 2, 8, neuer Schritt 9), 7
     (block_review, app_setting), 8.2/8.3, 10 (S2, S6, S8, S11, Overlay), 14 (Kapitel 10), 15, 17; datenmodell.md
     (ER-Diagramm, Schema 24, Schemata); branding.md (S11, S2 ?state=erinnerung); README; CHANGELOG;
     docs/regeln/trainerregeln.md Vorabkapitel 10; Prüfprotokoll AP-15. Code-Stand 0.30.1.
@@ -524,7 +527,7 @@ T6:
     - was: Präfix R-UEB auch in Kapitel 9 (Übungskatalog, R-UEB-10 bis 14)
       loesung: Nummern 01–06 überschneiden sich nicht; wie beauftragt übernommen, Hinweis im Kapitel 10
     - was: "Abschnitt 10 des Auftrags nennt D-Einträge für E-01, E-02/E-03, E-05/E-06, E-08, E-09; E-21/E-22 kamen hinzu"
-      loesung: D-70 bis D-75 wie vorgesehen (E-22 in D-73), zusätzlich D-76 für E-21
+      loesung: D-72 bis D-77 wie vorgesehen (E-22 in D-75), zusätzlich D-78 für E-21
 ```
 
 ## 14. Änderungsprotokoll dieses Dokuments
@@ -538,4 +541,5 @@ T6:
 | 2026-09-29 | Code-Instanz | T3 umgesetzt (0.28.0); O-02 umgesetzt (Overlay bei wartender Quittierung ausgeblendet) |
 | 2026-09-29 | Code-Instanz | T4 umgesetzt (0.29.0); K-B2 korrigiert (08:00 MESZ = 06:00Z) |
 | 2026-09-29 | Code-Instanz | T5 umgesetzt (0.30.0) |
-| 2026-09-29 | Code-Instanz | T6 Dokumentation (0.30.1); Hauptkonzept D-70 bis D-76 (E-01 → D-70, E-02/E-03 → D-71, E-05 → D-72, E-06/E-22 → D-73, E-08 → D-74, E-09 → D-75, E-21 → D-76). Abnahmen durch den Athleten offen (Prüfprotokoll AP-15) |
+| 2026-09-29 | Code-Instanz | E-23 (kein Overlay in S9, danach auf S2) umgesetzt (0.30.2); D-Nummern im Hauptkonzept auf D-72 bis D-78 verschoben, weil D-70/D-71 parallel vergeben wurden |
+| 2026-09-29 | Code-Instanz | T6 Dokumentation (0.30.1); Hauptkonzept D-72 bis D-78 (E-01 → D-72, E-02/E-03 → D-73, E-05 → D-74, E-06/E-22 → D-75, E-08 → D-76, E-09 → D-77, E-21 → D-78). Abnahmen durch den Athleten offen (Prüfprotokoll AP-15) |
