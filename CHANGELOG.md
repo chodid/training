@@ -7,6 +7,16 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ### Dokumentation
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 
+## [0.23.0] – 2026-09-29
+
+AP-16 T3: Übungsseiten auf der Webseite.
+
+### Hinzugefügt
+- S10 Übung (`/uebung?id=<slug>`): Kategorie, Bewegungsmuster, Ausrüstung, Konfidenz; Kurzbeschreibung und Ziel, Voraussetzung, Ausführung (nummeriert), Worauf achten, Fehlerquellen, Vorsicht (hervorgehoben), Progression/Regression mit Varianten, Dosierungshinweis, eingebettete Videos (16:9, erst beim Scrollen geladen, Link darunter), Links mit Prüfstatus, Quellen, Fassungen. Hinweis bei „Links prüfen“ und bei archivierten Übungen. Zurück führt zur aufrufenden Einheit.
+- S10a Übungskatalog (`/uebungen`): Suche, Filter nach Kategorie, archivierte auf Wunsch; Einstieg aus den Einstellungen (mit Anzahl und Hinweis auf Übungen mit defekten Links).
+- Content-Security-Policy: `frame-src https://www.youtube-nocookie.com https://player.vimeo.com` nur auf S10; der Video-Rahmen sendet die Domain als Referrer (sonst verweigert YouTube die Wiedergabe).
+- Icons `book`, `search`, `video` (Tabler); Mockups `s10-uebung.html`, `s10a-uebungen.html`, S3 mit verlinktem Übungsnamen.
+
 ## [0.22.0] – 2026-09-29
 
 AP-16 T2: MCP-Tools des Übungskatalogs und Linkprüfung.

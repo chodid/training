@@ -384,12 +384,31 @@ T2:
     - was: 5.1 get_session_detail „je Übung exercise_id“ – plan_json enthält die ID bereits
       loesung: get_session_detail unverändert; get_week_overview je Einheit exercise_ids (nur Slugs)
 T3:
-  status: offen
-  datum: null
-  ergebnis: null
-  tests: null
-  abnahme: null
-  probleme_loesungen: []
+  status: erledigt
+  datum: 2026-09-29
+  ergebnis: >-
+    ExerciseController mit GET /uebung (S10) und GET /uebungen (S10a), Templates exercise.php und exercises.php, CSS
+    (Chips, Vorsicht-Abschnitt, Video-figure 16:9), CSP frame-src nur auf S10, iframe mit referrerpolicy (E-17), S8-Eintrag
+    „Übungskatalog“ mit Anzahl und Hinweis auf defekte Links; Tabler-Icons book, search, video; Mockups s10-uebung.html
+    (voll, links, offline), s10a-uebungen.html, S3 mit verlinktem Übungsnamen. Code-Stand 0.23.0.
+  tests: >-
+    Integration ExercisePagesTest (W-01, W-02, W-03, W-07, Reihenfolge der Abschnitte, Rückweg zur Einheit und zur
+    geführten Einheit, Varianten, Status links_pruefen/archiviert, Liste mit Suche/Filter/Archiv, S8, Anmeldung, S8 vor
+    der Migration); Sichtprüfung Chromium 375 px (S10, S10a, S8 ohne horizontalen Überlauf) und 1280 px.
+  abnahme: offen – Sichtprüfung durch den Athleten auf dem Smartphone (Video spielt eingebettet, Vorsicht sichtbar)
+  probleme_loesungen:
+    - was: 6.1 nennt frame-src für „die Webseite“; alle Seiten mit frame-src wären unnötig offen
+      loesung: frame-src nur im CSP-Header von S10; übrige Seiten unverändert (W-07 prüft beides)
+    - was: Icon book (6.3) und Icons für Suche/Video fehlten im lokalen Satz (Tabler 3.21.0)
+      loesung: book, search, video in docs/branding/mockups/icons ergänzt, Sprite icons.js neu erzeugt
+    - was: S8 lädt auch vor einer Migration (Ort der Migration); die Katalogabfrage schlug ohne Tabelle fehl
+      loesung: Katalogzeile nur, wenn die Abfrage gelingt (Test mit zurückgesetzter Migration)
+    - was: „Fassungen“ – exercise_version speichert den Grund der Änderung beim Stand davor
+      loesung: Anzeige je Änderung als „Fassung n+1: Grund, Datum“
+    - was: S10a braucht einen Zurück-Weg und eine Zuordnung in der Navigation
+      loesung: S10a gehört zu Einstellungen (Zurück nach S8); S10 mit von=<Einheit> gehört zur Woche, sonst zu Einstellungen
+    - was: Sichtprüfung mit eingebettetem Video in der Code-Umgebung nicht möglich (YouTube gesperrt)
+      loesung: Rahmen und Link geprüft; Wiedergabe Teil der Abnahme durch den Athleten
 T4:
   status: offen
   datum: null
@@ -421,3 +440,4 @@ T6:
 | 2026-09-29 | Code-Instanz | Konzept vom Athleten bestätigt (E-07 bis E-16 gelten); E-17 bis E-20 aus dem Abgleich mit dem Code ergänzt und bestätigt; 4.1 um `name_norm` ergänzt |
 | 2026-09-29 | Code-Instanz | T1 umgesetzt (Code-Stand 0.21.0), Befunde in Abschnitt 13 |
 | 2026-09-29 | Code-Instanz | T2 umgesetzt (Code-Stand 0.22.0), Befunde in Abschnitt 13 |
+| 2026-09-29 | Code-Instanz | T3 umgesetzt (Code-Stand 0.23.0), Befunde in Abschnitt 13 |

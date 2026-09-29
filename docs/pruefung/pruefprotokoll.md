@@ -787,12 +787,26 @@ geprueft:
     wie: manuell (curl, CurlLinkFetcher)
     ergebnis: offen – die Netzrichtlinie der Code-Umgebung sperrt die Hosts; Prüfung auf dem Server nach Deployment
     datum: 2026-09-29
+  - was: "T3 S10: W-01 iframe youtube-nocookie mit loading=lazy, title, allow=fullscreen, referrerpolicy, Link darunter; W-02 nur Links mit embed als iframe; Abschnitte in der Reihenfolge 6.1, Vorsicht hervorgehoben, Varianten verlinkt, Rückweg zur Einheit bzw. geführten Einheit; W-03 404 für unbekannten/ungültigen Slug; W-07 CSP mit frame-src genau den zwei Hosts nur auf S10"
+    wie: automatisiert (Integration ExercisePagesTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T3 S10a und S8: Liste ohne Archiv, Suche über Alias, Filter Kategorie, Archiv-Schalter, Leerzustand; S8-Zeile mit Anzahl und „1 Übung mit defekten Links“; S8 lädt vor der Migration ohne Katalogzeile; Anmeldung nötig"
+    wie: automatisiert (ExercisePagesTest)
+    ergebnis: ok
+    datum: 2026-09-29
+  - was: "T3 375 px ohne horizontalen Überlauf (S10 mit langem Videotitel und langer Adresse, S10a, S8), Sicht 1280 px"
+    wie: Chromium (Playwright, lokale Instanz, Screenshots)
+    ergebnis: ok
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: T1 Migration 0023 und Schemata gegen MySQL 8.4
     wie: CI (GitHub Actions) mit dem Pull Request
   - was: "T2 Abnahme aus dem Projekt-Chat: find_exercise(„split squat“) findet nichts → upsert_exercise mit echten Links (YouTube, Vimeo, Textseite) → Links ok, eingebettet, hinweis_chat erscheint; ein gelöschtes YouTube-Video wird defekt; write_week_plan mit exercise_id ohne Warnung, ohne ID mit Warnung"
     wie: Athlet im Projekt-Chat nach Deployment
-  - was: T3 bis T6
+  - was: "T3 Abnahme auf dem Smartphone: Video spielt eingebettet (YouTube, Vimeo), Vorsicht-Abschnitt sichtbar"
+    wie: Athlet nach Deployment
+  - was: T4 bis T6
     wie: siehe Auftrag Abschnitt 9 und 11
 ```
 

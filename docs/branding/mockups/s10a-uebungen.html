@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Übungskatalog – Training</title>
+<link rel="icon" href="icon-optionen/v3-favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../chadid-design-system/styles.css">
+<link rel="stylesheet" href="app.css">
+<script src="icons.js"></script>
+<style>
+  /* wie server/public/css/training.css (AP-16) */
+  .mt-4{margin-top:var(--space-4)}.mt-8{margin-top:8px}.kurz{color:var(--text-secondary)}.link-inline{display:inline-flex;align-items:center;gap:4px}.link-row{text-decoration:none;color:inherit}
+  details.more>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap}
+  details.more>summary .hint{font-weight:400}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  /* Übungskatalog S10/S10a (AP-16, docs/konzept/uebungskatalog.md 6.1/6.2; Mockups s10-uebung.html, s10a-uebungen.html) */
+.chips{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+a.chip{display:inline-flex;align-items:center;min-height:36px;padding:0 var(--space-3);border:var(--border-default);border-radius:var(--radius-full);background:var(--bg-surface);color:var(--text-secondary);font:var(--type-body-sm);text-decoration:none}
+a.chip:hover{border-color:var(--focus-ring)}
+a.chip[aria-current]{background:var(--bg-subtle);border-color:var(--border-brand);color:var(--text-brand);font-weight:600}
+.search-row{display:flex;gap:var(--space-2)}
+.search-row .input{flex:1;min-width:0}
+.ex-card{display:grid;gap:var(--space-1)}
+.ex-card .name{display:inline-flex;align-items:center;gap:var(--space-2);font-weight:600;color:var(--text-primary)}
+.ex-card .s{font:var(--type-body-sm);color:var(--text-tertiary)}
+.ex-card .badge{justify-self:start}
+.exercise-page .lead{font-weight:600;color:var(--text-primary);overflow-wrap:anywhere}
+.exercise-page p,.exercise-page li{overflow-wrap:anywhere}
+.ex-list{margin:0;padding-left:1.4em;display:grid;gap:var(--space-2)}
+.pre-line{white-space:pre-line}
+.vorsicht{background:var(--status-error-bg);border-color:var(--status-error)}
+.vorsicht h2{display:inline-flex;align-items:center;gap:var(--space-2);color:var(--status-error-text)}
+.video{margin:0;display:grid;gap:var(--space-2)}
+.video-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--radius-md);overflow:hidden;background:var(--bg-page)}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2);font:var(--type-body-sm)}
+.link-host{overflow-wrap:anywhere}
+a.ex-link{display:inline-flex;align-items:center;gap:var(--space-1)}
+
+  /* nur Mockup: Zustände über ?state= */
+  [data-state]{display:none}
+  body.st-voll [data-state~="voll"],body.st-links [data-state~="links"],body.st-offline [data-state~="offline"]{display:block}
+  .video-frame .offline-ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:var(--space-4);color:var(--text-tertiary);font:var(--type-body-sm)}
+</style>
+</head>
+<body class="app">
+<header class="topbar">
+  <a class="btn btn-icon" href="s8-einstellungen.html" aria-label="Zurück zu den Einstellungen"><svg class="ic ic-lg"><use href="#i-arrow-left"/></svg></a>
+  <h1>Übungskatalog</h1>
+  <div class="topbar-actions"></div>
+</header>
+<nav class="nav" aria-label="Hauptnavigation">
+  <a class="nav-brand" href="s2-woche.html"><img src="../chadid-design-system/assets/logo/lama-symbol-flaeche.svg" alt=""><span class="brand"><span>Training</span></span></a>
+  <a href="s2-woche.html"><svg class="ic"><use href="#i-calendar-week"/></svg>Woche</a>
+  <a href="s4-checkin.html"><svg class="ic"><use href="#i-checkup-list"/></svg>Check-in</a>
+  <a href="s6-verlauf.html"><svg class="ic"><use href="#i-chart-line"/></svg>Verlauf</a>
+  <a href="s8-einstellungen.html" aria-current="page"><svg class="ic"><use href="#i-settings"/></svg>Einstellungen</a>
+  <div class="nav-foot">philipp · Block 2, Woche 6</div>
+</nav>
+
+<main class="main">
+  <!-- S10a Übungskatalog (AP-16, docs/konzept/uebungskatalog.md 6.2): Suche, Filter Kategorie, Karten, Archiv-Schalter -->
+  <div class="page-head">
+    <div class="eyebrow"><svg class="ic" style="color:var(--plum-600)"><use href="#i-book"/></svg>Übungen, die Claude plant</div>
+    <h1>Übungskatalog</h1>
+    <p class="kurz">Ausführung, Fehlerquellen und Videos je Übung. Neue Übungen legt Claude im Chat an.</p>
+  </div>
+  <form class="search-row mt-4" role="search"><label class="sr-only" for="q">Übung suchen</label><input class="input" id="q" type="search" placeholder="Name oder Alias"><button class="btn btn-secondary" type="button"><svg class="ic"><use href="#i-search"/></svg>Suchen</button></form>
+  <nav class="chips mt-4" aria-label="Kategorie">
+    <a class="chip" href="#" aria-current="true">Alle</a><a class="chip" href="#">Kraft</a><a class="chip" href="#">Haltung</a><a class="chip" href="#">Mobilität</a><a class="chip" href="#">Hangboard</a><a class="chip" href="#">Campus</a><a class="chip" href="#">Zugkraft</a><a class="chip" href="#">Antagonisten</a>
+  </nav>
+  <div class="stack mt-4">
+    <a class="card ex-card link-row" href="s10-uebung.html"><div class="between"><span class="name"><svg class="ic" style="color:var(--plum-600)"><use href="#i-barbell"/></svg>Bulgarian Split Squat</span><svg class="ic chev"><use href="#i-chevron-right"/></svg></div>
+      <div class="s">Kraft · kniedominant · Kurzhantel, Box</div><p class="kurz">Einbeinige Kniebeuge mit erhöhtem hinterem Fuß.</p></a>
+    <a class="card ex-card link-row" href="s10-uebung.html?state=links"><div class="between"><span class="name"><svg class="ic" style="color:var(--plum-600)"><use href="#i-mountain"/></svg>Max Hang 20 mm</span><svg class="ic chev"><use href="#i-chevron-right"/></svg></div>
+      <div class="s">Hangboard · Unterarm/Finger · Hangboard</div><p class="kurz">Maximalkraft der Finger: 10 s hängen an der 20-mm-Leiste im Halbkrimp.</p><span class="badge badge-warning"><svg class="ic"><use href="#i-alert-triangle"/></svg>Links prüfen</span></a>
+    <a class="card ex-card link-row" href="s10-uebung.html"><div class="between"><span class="name"><svg class="ic" style="color:var(--plum-600)"><use href="#i-yoga"/></svg>Unterarmstütz</span><svg class="ic chev"><use href="#i-chevron-right"/></svg></div>
+      <div class="s">Haltung · Rumpf · Matte</div><p class="kurz">Statische Rumpfspannung auf Unterarmen und Zehen.</p></a>
+  </div>
+  <p class="mt-4"><a class="link-inline" href="#"><svg class="ic ic-sm"><use href="#i-eye"/></svg>Archivierte zeigen</a></p>
+</main>
+</body>
+</html>

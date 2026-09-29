@@ -21,7 +21,7 @@ use Training\View\View;
 
 final class App
 {
-    public const VERSION = '0.22.0';
+    public const VERSION = '0.23.0';
 
     /** Muss der höchsten Nummer in server/migrations/ entsprechen (D-20). */
     public const SCHEMA_VERSION = 23;
@@ -92,6 +92,8 @@ final class App
             '/passkey/login' => ['POST' => fn (): Response => (new \Training\Controller\PasskeyController($this))->login($request)],
             '/cron/intervals-sync' => ['GET' => fn (): Response => (new \Training\Controller\CronController($this))->intervalsSync($request)],
             '/cron/backup-mail' => ['GET' => fn (): Response => (new \Training\Controller\CronController($this))->backupMail($request)],
+            '/uebung' => ['GET' => fn (): Response => (new \Training\Controller\ExerciseController($this))->show($request)],
+            '/uebungen' => ['GET' => fn (): Response => (new \Training\Controller\ExerciseController($this))->list($request)],
             '/verlauf' => ['GET' => fn (): Response => (new \Training\Controller\HistoryController($this))->handle($request)],
             '/intervals' => ['GET' => fn (): Response => (new IntervalsController($this, $this->intervalsTransport))->handle($request), 'POST' => fn (): Response => (new IntervalsController($this, $this->intervalsTransport))->handle($request)],
             '/.well-known/oauth-authorization-server' => ['GET' => fn (): Response => $oauth()->metadata(), 'OPTIONS' => $preflight],
