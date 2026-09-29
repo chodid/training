@@ -150,13 +150,13 @@ Ablage: `docs/extraktion/uebergreifend/` (Quellen anderer Blöcke unter deren Bl
 
 ### 4.3 T1 – `t1-ausdauer`
 
-Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dateien; zusätzlich L-A02 Kap. 02, 03-2, 03-3, 07-1, 07-2 (Tabelle UB). Davon extrahiert: 6. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 17.
+Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dateien; zusätzlich L-A02 Kap. 02, 03-2, 03-3, 07-1, 07-2 (Tabelle UB). Davon extrahiert: 7. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 17.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
-| L-T1-02 | T1 | `L-T1-02_Seiler-2010_Intensity-and-Duration-Distribution.pdf` | 16 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
+| L-T1-02 | T1 | `L-T1-02_Seiler-2010_Intensity-and-Duration-Distribution.pdf` | 16 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 72 Aussagen · 2 unsicher · 5 offene Stellen · pdf_nativ |
 | L-T1-03 | T1 | `L-T1-03_Casado-2022_Periodization-Elite-Distance-Runners.pdf` | 14 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 70 Aussagen · 2 unsicher · 0 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 819+n; Tab. 3/4 gedreht (mit pdftotext abgeglichen); Grafikwerte Abb. 2 unsicher |
-| L-T1-04 | T1 | `L-T1-04_Haugen-2022_World-Class-Distance-Runners.pdf` | 18 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 91 Aussagen · 1 unsicher · 3 offene Stellen · pdf_nativ |
+| L-T1-04 | T1 | `L-T1-04_Haugen-2022_World-Class-Distance-Runners.pdf` | 18 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 91 Aussagen · 1 unsicher · 3 offene Stellen · pdf_nativ · Muster: Artikel 46, Seiten „Page n of 18“, Versatz 0; Befund: Medaillensummen Tab. 1, 6- vs. 7-Zonen-Skala, Fußnoten b/c in Tab. 3 vertauscht |
 | L-T1-05 | T1 | `L-T1-05_Vernillo-2017_Uphill-and-Downhill-Running.pdf` | 15 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-T1-06 | T1 | `L-T1-06_Bortolan-2021_Ski-Mountaineering-Perspectives.pdf` | 7 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 61 Aussagen · 3 unsicher · 3 offene Stellen · pdf_nativ · Muster: Artikel 737249, Seiten 1–7, Versatz 0; Befund: Korrelationsrichtung Rennzeit–VO2max Abstract vs. Text widersprüchlich; Populationen teils aus Literaturliste (markiert) |
 | **L-T1-07** | T1 | **Ordner `t1-ausdauer/L-T1-07_kapitel/`** (34 Kapitel-PDFs, 673 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · Druckseiten je Kapitel in U2 bestimmen |
@@ -217,7 +217,7 @@ Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dat
 | L-T1-12 | T1 | `L-T1-12_Joyner-2008_Physiology-of-Champions.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | optional · A · optional · Text ✓ · 55 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 34+n; Laktatanstieg 75–90 % (Text) vs. 75–85 % (Abb. 4) im Original |
 | L-T1-14 | T1 | – | – | – | – | optional · B · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
 | L-T1-16 | T1 | – | – | – | – | optional · C · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
-| **Synthese startbereit** | T1 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 6 von 35 extrahiert; gegengeprüft: 0. |
+| **Synthese startbereit** | T1 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 7 von 35 extrahiert; gegengeprüft: 0. |
 
 ### 4.4 T2 – `t2-kraft-haltung`
 
@@ -631,3 +631,4 @@ Zitiert wird die **gedruckte Seite** (docs/literatur/README.md), bei EPUB nach D
 | L-T1-06 | Artikel 737249, Seiten 1–7, Versatz 0; Befund: Korrelationsrichtung Rennzeit–VO2max Abstract vs. Text widersprüchlich; Populationen teils aus Literaturliste (markiert) | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T1-03 | Versatz PDF n → S. 819+n; Tab. 3/4 gedreht (mit pdftotext abgeglichen); Grafikwerte Abb. 2 unsicher | U2-Extraktion (Rückmeldung Unteragent) |
 | L-T1-12 | Versatz PDF n → S. 34+n; Laktatanstieg 75–90 % (Text) vs. 75–85 % (Abb. 4) im Original | U2-Extraktion (Rückmeldung Unteragent) |
+| L-T1-04 | Artikel 46, Seiten „Page n of 18“, Versatz 0; Befund: Medaillensummen Tab. 1, 6- vs. 7-Zonen-Skala, Fußnoten b/c in Tab. 3 vertauscht | U2-Extraktion (Rückmeldung Unteragent) |
