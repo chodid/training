@@ -55,7 +55,7 @@ Reihenfolge nach W-04, T4 zuletzt. Innerhalb einer Tabelle: Kern vor optional in
 
 ### 4.1 UB – `uebergreifend-belastung-monitoring-erholung`
 
-Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 Dateien. Davon extrahiert: 6. Nicht zu extrahieren (Vorspann/Anhang): 6; ausgelassen nach Kapitelauswahl: 19.
+Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 Dateien. Davon extrahiert: 8. Nicht zu extrahieren (Vorspann/Anhang): 6; ausgelassen nach Kapitelauswahl: 19.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -122,12 +122,12 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 D
 | L-A02 | UB, UP, T1 | `15` Trainingswissenschaft in den Rückschlagsportarten | PDF 861–900 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Rückschlagsport; Athlet 2026-09-29) · Text ✓ |
 | L-A02 | UB, UP, T1 | `90` Serviceteil | PDF 901–911 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | L-P10 | UB | `L-P10_Foster-2001_Monitoring-Exercise-Training-sRPE.pdf` | 7 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 41 Aussagen · 2 unsicher · 0 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 108+n; Befund Extraktion: Tab. 5 Lastwerte teils ≠ RPE × Dauer (Druckfehler im Original?), Tab. 4 SD auffällig – Gegenprüfung beachten |
-| L-P11 | UB | `L-P11_Saw-2016_Monitoring-Athlete-Training-Response.pdf` | 14 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
+| L-P11 | UB | `L-P11_Saw-2016_Monitoring-Athlete-Training-Response.pdf` | 14 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 50 Aussagen · 0 unsicher · 3 offene Stellen · pdf_nativ · Muster: Zeitschriftenseiten 281–291 nur als Bereich in der Fußzeile, Einzelseiten „n of 13“; Stelle als „S. n von 13, Abschnitt …“; Online-Tab. S1 nicht im PDF |
 | L-P12 | UB | `L-P12_Impellizzeri-2020_ACWR-Conceptual-Issues.pdf` | 7 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 43 Aussagen · 0 unsicher · 2 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 906+n; Befund: Gruppengrößen Text vs. Tab. 1 widersprüchlich (im Original), unter Offene Stellen |
 | L-P13 | UB | `L-P13_Silbernagel-2007_Pain-Monitoring-Model-Achilles.pdf` | 10 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · 48 Aussagen · 1 unsicher · 4 offene Stellen · pdf_nativ · Muster: Versatz PDF n → S. 896+n; Befund: Widersprüche Text/Tabellen im Original (Baseline VISA-A-S 57/58, Tab. 7 Signifikanz, fehlende Einheiten), unter Offene Stellen |
-| L-P15 | UB | `L-P15_Manresa-Rocamora-2021_HRV-Guided-Training-Meta-Analysis.pdf` | 22 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** |
+| L-P15 | UB | `L-P15_Manresa-Rocamora-2021_HRV-Guided-Training-Meta-Analysis.pdf` | 22 (PDF) | 2026-09-29 / opus | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** · 51 Aussagen · 1 unsicher · 2 offene Stellen · pdf_nativ |
 | L-P16 | UB | `L-P16_Dueking-2021_HRV-Guided-Training-Wearables.pdf` | 13 (PDF) | offen | offen | optional · A · optional · Text ✓ |
-| **Synthese startbereit** | UB | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 6 von 41 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
+| **Synthese startbereit** | UB | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 8 von 41 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
 
 ### 4.2 UP – `uebergreifend-planung-kombiniertes-training`
 
