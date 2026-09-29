@@ -5,6 +5,8 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ## [Unreleased]
 
 ### Dokumentation
+- Übergabe AP-06 „Literatur-Nachsteuerung“ eingearbeitet: L-T1-01 nicht aufgenommen (Verweis L-T1-15 auf L-A02), L-T3-08 zurückgestellt, L-T3-19 Consuegra neu im Evidenzkern T3, L-T3-09 mit der 3. Aufl. ausgewählt, L-T3-10/-16/-20/-21 als Stufe C, L-P15/L-P16 zu HRV-gesteuertem Training; neu D-70, D-71 (EPUB) und V-17.
+- Vier EPUBs einsortiert (L-T3-10 The Climbing Bible, L-T3-19 The Science of Climbing Training, L-T3-20 Practical Exercises, L-T3-21 Managing Injuries): Kapitel als Markdown (mit Seitenmarken „[S. n]“, wo das EPUB sie hat) und je Kapitel ein Ansichts-PDF mit Abbildungen; `docs/literatur/README.md` um Ablageregeln und Kapiteltabellen ergänzt.
 - L-T3-09 Hörst, Training for Climbing (3. Aufl. 2016), einsortiert: Gesamt-PDF und 17 Kapitel-PDFs.
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 

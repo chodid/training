@@ -1004,6 +1004,21 @@ probleme_loesungen:
   - datum: 2026-09-29
     was: Commit „Literatur“ mit drei Dateien – Hörst, Training for Climbing (PDF, 3. Aufl., Scan ohne Lesezeichen) sowie zwei EPUBs (Mobråten/Christophersen, The Climbing Bible – Practical Exercises, 2022; Consuegra, The Science of Climbing Training, 2023), beide nicht im Konzept
     loesung: Hörst als L-T3-09 eingeordnet (Status bleibt optional) und nach Inhaltsverzeichnis in 17 Kapitel-PDFs geteilt; die EPUBs bleiben unsortiert liegen, bis der Athlet Angaben zur Einordnung nachliefert; die EPUBs werden danach in PDF umgewandelt (Entscheidung des Athleten)
+  - datum: 2026-09-29
+    was: L-T1-01 und L-T3-08 nicht digital erhältlich; Gesamtscan nicht vorgesehen
+    loesung: Abdeckung L-T1-01 am Inhaltsverzeichnis L-A02 geprüft → nicht aufgenommen, Verweis L-T1-15; Ersatzsuche Klettertraining → L-T3-19 Consuegra (EPUB), dazu L-T3-10, L-T3-16, L-T3-09 (D-70)
+  - datum: 2026-09-29
+    was: Beim Abgleich fiel auf, dass HRV-/Ruhepuls-Abweichung als Deload-Trigger (Abschnitt 14 Kap. 4) ohne Literatur geführt wurde
+    loesung: L-P15 ausgewählt, L-P16 optional (D-70)
+  - datum: 2026-09-29
+    was: EPUB ohne Seitenliste – Druckseiten nicht zitierfähig; Abbildungen fehlen im Markdown
+    loesung: D-71 (Zitat mit Kapitel und Abschnitt, Seitenmarken als „[S. n]“, wo vorhanden), V-17 für optionale Seitenzuordnung; Ansichts-PDF je Kapitel mit Abbildungen, Seitenzahlen nicht zitierfähig
+  - datum: 2026-09-29
+    was: Übergabe Literatur-Nachsteuerung passte nicht zum Repo-Stand – Hörst 3. Aufl. lag bereits vor (Übergabe – nicht beschaffen), L-T3-10 lag als EPUB ohne DRM vor (Übergabe – Kobo-DRM ungeeignet), dazu zwei EPUBs ohne Konzepteintrag (Practical Exercises, Managing Injuries); D-64/D-65 der Übergabe waren im Konzept schon vergeben
+    loesung: Athlet entschied 3. Aufl. behalten und Übungsband als L-T3-20; Managing Injuries als L-T3-21 Stufe C vorläufig (Code-Instanz, Bestätigung offen); umnummeriert D-64 → D-70, D-65 → D-71
+  - datum: 2026-09-29
+    was: Repo öffentlich; Verlagswerke unter docs/literatur/ sind öffentlich abrufbar (widerspricht D-31)
+    loesung: offen – Athlet hat am 2026-09-29 entschieden, dass das Repo vorerst öffentlich bleibt; D-31 bleibt unverändert, der Widerspruch ist bewusst in Kauf genommen. Die Git-History enthält alle Volltexte – vor einer dauerhaften Veröffentlichung Literatur auslagern und History bereinigen
 geprueft:
   - was: Zuordnung der 29 PDFs zu IDs aus 13.2 – Titel, Autoren und DOI auf den ersten Seiten gegen 13.2 abgeglichen
     wie: Textextraktion (pypdf) aller Dateien, Abgleich je Datei
@@ -1129,18 +1144,50 @@ geprueft:
     wie: Textextraktion (pypdf), Abgleich Inhaltsverzeichnis
     ergebnis: ok
     datum: 2026-09-29
+  - was: Abdeckung der für L-T1-01 vorgesehenen Kapitelbereiche durch L-A02
+    wie: Inhaltsverzeichnis L-A02_00_Vorspann.pdf (pdftotext) gegen 13.4-Bemerkung „Adaptation, Ausdauer, Periodisierung, Diagnostik“ (Literatur-Sitzung)
+    ergebnis: alle vier abgedeckt; Periodisierung knapp (S. 53 f.), durch L-P01/L-P02/L-A03/L-T1-03/L-T1-08 getragen
+    datum: 2026-09-29
+  - was: L-T3-19 EPUB – Kopierschutz, Seitenliste, Struktur, Bibliografie
+    wie: entpackt; META-INF ohne encryption.xml; keine page-list/pagebreak-Marken; 24 XHTML-Dateien, 11 Kapitel; Impressum und OPF-Metadaten
+    ergebnis: DRM-frei; keine Seitenliste; ISBN E-Book 978-1-83981-183-8, Paperback 978-1-83981-182-1; Original span. 2020 (Desnivel)
+    datum: 2026-09-29
+  - was: L-T3-10, L-T3-20, L-T3-21 EPUB – Kopierschutz, Seitenmarken, Bibliografie
+    wie: entpackt; META-INF auf encryption.xml geprüft; pagebreak-Marken gezählt; Impressum
+    ergebnis: alle DRM-frei; L-T3-10 ohne Seitenmarken (E-Book-ISBN 978-1-83981-033-6), L-T3-20 mit 188 Marken (S. 2–192, ISBN E-Book 978-1-83981-105-0), L-T3-21 mit 159 Marken (ISBN E-Book 978-1-83981-201-9)
+    datum: 2026-09-29
+  - was: Kapitel-Markdown der vier EPUBs (U-01 und analog) – Vollständigkeit
+    wie: jede XHTML-Inhaltsdatei genau einer Kapiteldatei zugeordnet; Wortsumme Markdown gegen Quelle (Markup und Seitenmarken entfernt); Seitenmarken im Markdown gegen pagebreak-Marken der Quelle; Stichprobe L-T3-19 Kap. 10 Abschnittsüberschriften gegen EPUB-Inhaltsverzeichnis
+    ergebnis: ok – Abweichung Wortsumme L-T3-19 +0,17 %, L-T3-20 +0,18 %, L-T3-10 +0,41 %, L-T3-21 +0,15 % (Bildunterschriften); Seitenmarken L-T3-20 188/188, L-T3-21 156/159 (fehlend S. 158–160 = Danksagung und Verlagswerbung, bewusst nicht übernommen, wie bei L-T3-19); Kap. 10 vollständig
+    datum: 2026-09-29
+  - was: Ansichts-PDFs der vier EPUBs – Abbildungen und Pfade
+    wie: Chromium-Rendering je Kapiteldatei; eingebettete Bilder je PDF gezählt (pypdf); Seitenzahl und Größe je Datei
+    ergebnis: ok – 37 Ansichts-PDFs, zusammen 976 Seiten; Bilder in allen PDFs außer den beiden Literaturverzeichnissen (L-T3-19 Kap. 10 – 30 Bilder, L-T3-20 Kap. 1–3 – 66 bis 85 Bilder)
+    datum: 2026-09-29
+  - was: L-P15, L-P16 bibliografisch
+    wie: PubMed-Connector (Metadaten und Abstract, Literatur-Sitzung)
+    ergebnis: ok; L-P15 in PMC (PMC8507742), L-P16 nicht in PMC
+    datum: 2026-09-29
+  - was: L-T3-08 aktuelle Auflage
+    wie: Websuche Händlerangaben (Literatur-Sitzung)
+    ergebnis: 9. überarb. Aufl. 2019, ISBN 978-3-945271-41-4; keine digitale Ausgabe gefunden
+    datum: 2026-09-29
+  - was: Konsistenz nach Einarbeitung Literatur-Nachsteuerung (U-14)
+    wie: grep nach L-T1-01, L-T3-08, L-T3-09, L-T3-10, L-T3-16, Hottenrott, Köstermeyer in docs/; YAML-Blöcke des Konzepts gegen main (keine neuen Parse-Fehler); Links in docs/literatur/README.md
+    ergebnis: ok – verbleibende Fundstellen passen zum neuen Stand (historische Einträge im Änderungsprotokoll unverändert); 371 Links, keiner kaputt
+    datum: 2026-09-29
 noch_zu_pruefen:
   - was: Stichprobe Kapitel-PDFs im Alltag – Upload in eine claude.ai-Sitzung (Größe, Lesbarkeit von Tabellen und Abbildungen), besonders E-Book-Kapitel von NSCA und Kenney
     wie: manuell durch Athlet bei der ersten Kartensitzung
   - was: Druckseiten der Scans (Uphill Athlete, Overcoming Gravity) an zwei, drei Stellen gegen das Seitenbild prüfen, bevor Seitenangaben in Karten übernommen werden
     wie: manuell in der Kartensitzung
-  - was: Restliche Beschaffung laut 13.4 (L-T1-01, L-T1-07, L-T3-08, L-A01 8./9. Aufl.); neue Dateien nach D-51 ablegen und eintragen
+  - was: Restliche Beschaffung laut 13.4 (L-A01 8./9. Aufl., L-T3-16, L-T3-09 Neuauflage ab Erscheinen); Format vor Kauf prüfen (V-13, D-71); neue Dateien nach D-51/D-71 ablegen und eintragen
     wie: Athlet (D-26), Eintrag durch Code-Instanz
   - was: Schwellenwerte Schmerzmonitoring-Modell am Volltext L-P13 (V-07), danach Entscheidung Q-13
     wie: manuell in der Kartensitzung, der Volltext liegt vor; Entscheidung in AP-07
   - was: Wiederholungsbereiche L-T3-02 am Volltext (V-15)
     wie: manuell in der Kartensitzung; der Volltext liegt bereits im Repo
-  - was: L-T3-08 aktuelle Auflage/ISBN, L-T3-12 Auflage
+  - was: L-T3-12 Auflage
     wie: beim Kauf (Verlagsshop)
   - was: L-T3-18 PubMed-Metadaten
     wie: PubMed-Connector
@@ -1166,6 +1213,14 @@ noch_zu_pruefen:
     wie: Verlagsseite bzw. PDF
   - was: DRM des epub von L-T2-07
     wie: nur bei Aktivierung, V-13
-  - was: EPUBs Climbing Bible – Practical Exercises und Consuegra – Einordnung (ID, Status), danach Umwandlung in PDF und Kapitel-PDFs
-    wie: nach Angaben des Athleten; Umwandlung durch Code-Instanz
+  - was: Kapitel-Markdown der EPUBs – Lesbarkeit (Tabellen, Bildunterschriften) und Ansichts-PDFs im Alltag
+    wie: Stichprobe in der ersten Kartensitzung
+  - was: Seitenbezug L-T3-19 und L-T3-10 (V-17)
+    wie: optional an Druckausgabe/Leseprobe; bis dahin Kapitel/Abschnitt zitieren
+  - was: Lizenz L-P15 vor Ablage im Repo (D-31)
+    wie: Verlagsseite MDPI
+  - was: L-T3-21 Managing Injuries – Aufnahme als Stufe C bestätigen
+    wie: Athlet (vorläufig durch Code-Instanz vergeben)
+  - was: Repo öffentlich trotz D-31 – Literatur auslagern oder Repo privat stellen, History bereinigen vor dauerhafter Veröffentlichung
+    wie: Entscheidung Athlet (2026-09-29 vorerst öffentlich)
 ```

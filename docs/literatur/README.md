@@ -1,21 +1,24 @@
 ---
 titel: Literaturverzeichnis (Volltexte)
-bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitte 13.1, 13.2, 13.4; D-31, D-51
-stand: 2026-09-28
+bezug: docs/konzept/konzept-ki-personal-trainer.md, Abschnitte 13.1, 13.2, 13.4; D-31, D-51, D-71
+stand: 2026-09-29
 ---
 
 # Literatur-Volltexte
 
-Private Ablage der Volltexte (D-31). **Nie ins Projektwissen hochladen.** Dort liegen nur die Wissenskarten aus `docs/wissen/` (D-12, 13.1).
+Ablage der Volltexte, laut D-31 nur in einem privaten Repo. Das Repo ist derzeit öffentlich (Entscheidung des Athleten 2026-09-29, offener Widerspruch zu D-31, siehe Konzept AP-06). **Nie ins Projektwissen hochladen.** Dort liegen nur die Wissenskarten aus `docs/wissen/` (D-12, 13.1).
 Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei zeigt nur, welche Datei zu welcher ID gehört.
 
-## Ablage und Dateinamen (D-51)
+## Ablage und Dateinamen (D-51, D-71)
 
 - Unterordner je Block: `uebergreifend/`, `t1-ausdauer/`, `t2-kraft/`, `t3-klettern/`. Eine Datei liegt in dem Block, in dem ihre ID definiert ist; L-P08 liegt also unter `uebergreifend/`, obwohl T2 per L-T2-01 darauf verweist.
 - Dateiname: `<ID>_<Erstautor>-<Jahr>_<Kurztitel>[_<Auflage>].pdf`, nur ASCII (ø → oe, ö → oe). Das Jahr ist das Jahr der Zitierfassung im Konzept.
 - Bücher zusätzlich als Kapitel-PDFs in `<ID>_kapitel/` (13.1 Schritt 1): `<ID>_<Kapitelnr>[-<Teil>]_<Kapiteltitel>.pdf`. `00` ist der Vorspann (Titelei, Inhaltsverzeichnis), `9x` sind Anhänge (Glossar, Literatur, Index). Kapitel mit mehr als 60 PDF-Seiten sind in etwa gleich große Teile (`-1`, `-2`, …) geteilt, möglichst an Abschnittsgrenzen. Teil-Titelseiten gehören zum folgenden Kapitel.
 - Das Originalbuch bleibt vollständig liegen, zum Durchsuchen und Zitieren über das ganze Werk. Die Kapitel-PDFs haben die Lesezeichen des Kapitels, aber keine internen Verweise (Inhaltsverzeichnis- und Index-Links); die bleiben im Original.
 - Seitenangaben in Wissenskarten beziehen sich auf die **gedruckte Seitenzahl** des Werks, nicht auf die PDF-Seite. Bei den beiden Scans steht der Versatz unten.
+- EPUB (D-71): Dateiname wie PDF mit Endung `.epub`; nur ohne DRM oder mit Wasserzeichen. Kapitel als Markdown in `<ID>_kapitel/`: `<ID>_<Kapitelnr>[-<Teil>]_<Kapiteltitel>.md`; `00` Vorspann (bei L-T3-20 `00a` Vorspann und `00b` Aufwärmen), `9x` Anhänge; Kapitel über ca. 12 000 Wörter an Abschnittsgrenzen geteilt. Jede Markdown-Datei hat einen Kopf mit `id`, `kapitel`, `titel`, `teil`, `quelle_datei`, `quelle_xhtml`, `seitenbezug`; Abbildungen stehen als „[Abbildung: …]“.
+- Zu jeder Kapiteldatei gibt es ein **Ansichts-PDF** gleichen Namens mit Abbildungen, aus dem EPUB gerendert. Es dient nur zum Betrachten; seine Seitenzahlen werden nie zitiert.
+- Seitenangaben bei EPUB: Druckseite nur, wenn das EPUB Seitenmarken der Druckausgabe hat; sie stehen im Markdown als „[S. n]“ am Seitenwechsel (L-T3-20, L-T3-21). Sonst Kapitel und Abschnittsüberschrift (L-T3-10, L-T3-19; V-17).
 - Neue Dateien: nach diesem Schema benennen, hier eintragen, im Konzept beim Eintrag `datei:` ergänzen und in 13.4 als vorhanden markieren.
 
 ## Bestand
@@ -76,37 +79,42 @@ Maßgeblich für Auswahl, Status und Zitierfassung ist Konzept 13.2. Diese Datei
 | L-T3-03 | A | Langer, Simon, Wiemeyer 2023 – Performance Testing in Climbing | [`L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf`](t3-klettern/L-T3-03_Langer-2023_Performance-Testing-in-Climbing.pdf) | 23 | CC BY; Front Sports Act Living Bd. 5, Art. 1130812 |
 | L-T3-04 | A | Draper et al. 2015 – IRCRA Position Statement (Grading Scales, Ability Grouping) | [`L-T3-04_Draper-2015_IRCRA-Grading-Position-Statement.pdf`](t3-klettern/L-T3-04_Draper-2015_IRCRA-Grading-Position-Statement.pdf) | 8 |  |
 | L-T3-06 | B | Schöffl et al. (Hrsg.) 2022 – Climbing Medicine | [`L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf`](t3-klettern/L-T3-06_Schoeffl-2022_Climbing-Medicine.pdf) | 319 | Kapitel-PDFs in `L-T3-06_kapitel/` |
-| L-T3-09 | B | Hörst EJ – Training for Climbing, 3. Aufl. 2016 (optional) | [`L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf`](t3-klettern/L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf) | 356 | Scan (Internet Archive) mit Texterkennung, ohne Lesezeichen; Druckseite = PDF-Seite − 16. Kapitel-PDFs in `L-T3-09_kapitel/` |
+| L-T3-09 | B | Hörst EJ – Training for Climbing, 3. Aufl. 2016 | [`L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf`](t3-klettern/L-T3-09_Hoerst-2016_Training-for-Climbing_3ed.pdf) | 356 | Scan (Internet Archive) mit Texterkennung, ohne Lesezeichen; Druckseite = PDF-Seite − 16. Kapitel-PDFs in `L-T3-09_kapitel/` |
+| L-T3-10 | C | Mobråten, Christophersen 2020 – The Climbing Bible | [`L-T3-10_Mobraten-2020_Climbing-Bible.epub`](t3-klettern/L-T3-10_Mobraten-2020_Climbing-Bible.epub) | EPUB | ohne DRM; keine Seitenmarken; Kapitel-Markdown und Ansichts-PDFs in `L-T3-10_kapitel/` |
+| L-T3-19 | B | Consuegra 2023 – The Science of Climbing Training | [`L-T3-19_Consuegra-2023_Science-of-Climbing-Training.epub`](t3-klettern/L-T3-19_Consuegra-2023_Science-of-Climbing-Training.epub) | EPUB (216 S. Druck) | ohne DRM; keine Seitenmarken; Kapitel-Markdown und Ansichts-PDFs in `L-T3-19_kapitel/` |
+| L-T3-20 | C | Mobråten, Christophersen 2022 – The Climbing Bible: Practical Exercises | [`L-T3-20_Mobraten-2022_Climbing-Bible-Practical-Exercises.epub`](t3-klettern/L-T3-20_Mobraten-2022_Climbing-Bible-Practical-Exercises.epub) | EPUB (Seitenmarken bis S. 192) | ohne DRM; Kapitel-Markdown und Ansichts-PDFs in `L-T3-20_kapitel/` |
+| L-T3-21 | C | Christophersen 2024 – The Climbing Bible: Managing Injuries | [`L-T3-21_Christophersen-2024_Climbing-Bible-Managing-Injuries.epub`](t3-klettern/L-T3-21_Christophersen-2024_Climbing-Bible-Managing-Injuries.epub) | EPUB (Seitenmarken bis S. 157) | ohne DRM; vorläufig aufgenommen (Bestätigung offen); Kapitel-Markdown und Ansichts-PDFs in `L-T3-21_kapitel/` |
 
-Summe: 38 Werke (davon 9 Bücher mit Kapitel-PDFs).
+Summe: 42 Werke (davon 9 Bücher mit Kapitel-PDFs, 4 EPUBs mit Kapitel-Markdown und Ansichts-PDFs).
 
 ## Noch nicht vorhanden
 
-Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D eingearbeitet).
+Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D und Literatur-Nachsteuerung eingearbeitet).
 
 ### Kaufen oder über die Bibliothek (nicht frei verfügbar)
 
 | Prio | ID | Quelle | Wofür |
 |---|---|---|---|
-| 1 | L-T1-01 | Hottenrott/Seidel, Handbuch Trainingswissenschaft – Trainingslehre, 2. Aufl. 2025 (Buch) | T1 Kern; durchsuchbares PDF |
 | 1 | L-A01 | Kenney/Wilmore/Costill, 8. (2022) oder 9. Aufl. (2024) (Buch) | ersetzt die vorläufige 7. Aufl. (D-51) |
 | 1 | L-R-02 | Kongsgaard et al. 2009, Scand J Med Sci Sports 19(6):790–802 | Schmerzregel für Q-13 |
 | 1 | L-R-13 | Martin et al. 2021, J Orthop Sports Phys Ther 51(4):CPG1–CPG80 (Leitlinie) | JOSPT-Leitlinie Sprunggelenk; Einzelempfehlungen, Q-16 |
 | 1 | L-R-08 | Lohrer & Nauck 2011, J Orthop Sports Phys Ther 41(3):180–190 | validierter Wortlaut VISA-P-G für die WebApp |
 | 2 | L-T2-11 | Rønnestad & Mujika 2014, Scand J Med Sci Sports 24(4):603–612 | Kraft für Läufer |
-| 2 | L-T3-08 | Köstermeyer, Peak Performance, 8. Aufl. 2017 (Buch) | T3 Kern; Auflage/ISBN beim Kauf klären (tmms-Shop) |
+| 2 | L-T3-16 | Bechtel, Logical Progression, 2. Aufl. (Buch) | Stufe C, Planungsvorlage; Kindle ungeeignet |
 | 2 | L-T2-10 | Wiedenmann et al. 2025, Gerontology 71(7):576–588 | Beleg Körpergewichtstraining (D-29); Zugang nicht geprüft |
 | 2 | L-R-03 | Agergaard et al. 2021, Am J Sports Med 49(4):982–993 | Lastdosierung Patellasehne |
 | 2 | L-R-26 | Doherty et al. 2017, Br J Sports Med 51(2):113–125 | Rezidivprophylaxe, Orthese (Q-16) |
 | 2 | L-T2-20 | Pelland et al. 2026, Sports Med 56(2):481–505 | Hypertrophie: Volumen/Frequenz (D-62) |
 | 2 | L-T2-21 | Robinson et al. 2024, Sports Med 54(9):2209–2231 | Hypertrophie: Nähe zum Muskelversagen (D-62) |
 | 2 | L-T2-26 | Monserdà-Vilaró et al. 2023, J Strength Cond Res 37(3):688–709 | Interferenz kontinuierlich vs. HIIT (D-62) |
+| 3 | L-T3-09 | Hörst, Training for Climbing, Neuauflage (Buch) | nach Erscheinen (angekündigt 02.03.2027), zusätzlich zur vorhandenen 3. Aufl. |
 
 ### Frei verfügbar (PubMed Central)
 
 | ID | Quelle | PMC | Hinweis |
 |---|---|---|---|
 | L-P11 | Saw et al. 2016, Br J Sports Med | PMC4789708 | BMJ, keine CC-Lizenz |
+| L-P15 | Manresa-Rocamora et al. 2021, Int J Environ Res Public Health | PMC8507742 | HRV-gesteuertes Training (D-70); Lizenz prüfen |
 | L-T2-12 | Blagrove et al. 2018, Sports Med | PMC5889786 | CC BY 4.0 |
 | L-T2-15 | Warneke et al. 2024, Sports Med Open | PMC11150224 | Lizenz laut PubMed nicht ausgewiesen |
 | L-T2-16 | Khorramroo et al. 2026, BMC Sports Sci Med Rehabil | PMC13326462 | Lizenz laut PubMed nicht ausgewiesen |
@@ -133,11 +141,12 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D eingearbeitet).
 ### Nur bei Bedarf
 
 - L-P14 Impellizzeri et al. 2021 (optional, Ergänzung zu L-P12)
+- L-P16 Düking et al. 2021 (optional, HRV mit Wearables; nicht in PMC)
 - L-T2-19 Carrasco-Uribarren et al. 2026 (optional)
 - L-T3-05 López-Rivera & González-Badillo 2012 (nur falls L-T3-18 nicht genügt)
 - Block R (optional bzw. Kernaussage aus Abstract ausreichend): L-R-07 Visentini, L-R-09 Hernandez-Sanchez, L-R-12 Backman, L-R-15 Schiftan, L-R-18 Nielsen RØ, L-R-19 Kiers, L-R-20 Fakontis, L-R-22 Delahunt, L-R-28 Hjortshoej
 - T2 Hypertrophie (optional, D-62): L-T2-27 Schoenfeld 2019, L-T2-28 Refalo 2021, L-T2-29 Carvalho 2022, L-T2-30 Grgic 2022 (PMC9068575), L-T2-31 Wilson 2012, L-T2-32 Sabag 2018
-- optionale Bücher aus 13.4 („bei Bedarf“): L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-10, L-T3-11 (L-T3-09 liegt bereits vor)
+- optionale Bücher aus 13.4 („bei Bedarf“): L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-11
 
 
 ## Kapitel-PDFs
@@ -459,3 +468,72 @@ Stand nach Beschaffungsliste 13.4 (Übergaben AP-06 Teil A bis D eingearbeitet).
 | 26-2 | Pushing Variations (Teil 2/2) | 504–536 | 490–522 | [`L-T2-04_26-2_Pushing-Variations.pdf`](t2-kraft/L-T2-04_kapitel/L-T2-04_26-2_Pushing-Variations.pdf) |
 | 27 | Multi-Plane Exercises, Core, and Legs | 537–594 | 523–580 | [`L-T2-04_27_Multi-Plane-Exercises-Core-and-Legs.pdf`](t2-kraft/L-T2-04_kapitel/L-T2-04_27_Multi-Plane-Exercises-Core-and-Legs.pdf) |
 | 90 | Resources | 595–600 | 581–586 | [`L-T2-04_90_Resources.pdf`](t2-kraft/L-T2-04_kapitel/L-T2-04_90_Resources.pdf) |
+
+## Kapitel-Markdown mit Ansichts-PDF (EPUB, D-71)
+
+Markdown ist die Arbeitsfassung für die Kartensitzungen (13.1). Das Ansichts-PDF gleichen Namens zeigt die Abbildungen; seine Seitenzahlen sind nicht zitierfähig.
+
+### L-T3-19 Consuegra – The Science of Climbing Training – `t3-klettern/L-T3-19_kapitel/`
+
+15 Kapiteldateien, zusammen ca. 54.386 Wörter. Keine Seitenmarken: zitiert wird mit Kapitel und Abschnitt (D-71, V-17). Kapitel 8 ist in drei Teile geteilt; Danksagung und Verlagswerbung sind nicht übernommen.
+
+| Nr. | Titel | Wörter (ca.) | Markdown | Ansichts-PDF |
+|---|---|---|---|---|
+| 00 | Vorspann | 1.500 | [`L-T3-19_00_Vorspann.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_00_Vorspann.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_00_Vorspann.pdf) |
+| 01 | The Process of Training | 2.000 | [`L-T3-19_01_The-Process-of-Training.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_01_The-Process-of-Training.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_01_The-Process-of-Training.pdf) |
+| 02 | Understanding the Importance of Strength | 3.200 | [`L-T3-19_02_Understanding-the-Importance-of-Strength.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_02_Understanding-the-Importance-of-Strength.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_02_Understanding-the-Importance-of-Strength.pdf) |
+| 03 | Understanding and Optimising Mobility | 3.600 | [`L-T3-19_03_Understanding-and-Optimising-Mobility.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_03_Understanding-and-Optimising-Mobility.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_03_Understanding-and-Optimising-Mobility.pdf) |
+| 04 | Brief Notes on Anatomy | 2.300 | [`L-T3-19_04_Brief-Notes-on-Anatomy.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_04_Brief-Notes-on-Anatomy.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_04_Brief-Notes-on-Anatomy.pdf) |
+| 05 | Fascia, Muscle Chains and Biotensegrity | 1.000 | [`L-T3-19_05_Fascia-Muscle-Chains-and-Biotensegrity.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_05_Fascia-Muscle-Chains-and-Biotensegrity.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_05_Fascia-Muscle-Chains-and-Biotensegrity.pdf) |
+| 06 | Bioenergetics and Metabolism | 1.300 | [`L-T3-19_06_Bioenergetics-and-Metabolism.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_06_Bioenergetics-and-Metabolism.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_06_Bioenergetics-and-Metabolism.pdf) |
+| 07 | Physiological Factors in Climbing Performance | 3.100 | [`L-T3-19_07_Physiological-Factors-in-Climbing-Performance.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_07_Physiological-Factors-in-Climbing-Performance.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_07_Physiological-Factors-in-Climbing-Performance.pdf) |
+| 08-1 | What Can I Optimise in My Training Sessions? (Teil 1/3) | 7.900 | [`L-T3-19_08-1_What-Can-I-Optimise-in-My-Training-Sessions.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_08-1_What-Can-I-Optimise-in-My-Training-Sessions.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_08-1_What-Can-I-Optimise-in-My-Training-Sessions.pdf) |
+| 08-2 | What Can I Optimise in My Training Sessions? (Teil 2/3) | 6.900 | [`L-T3-19_08-2_What-Can-I-Optimise-in-My-Training-Sessions.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_08-2_What-Can-I-Optimise-in-My-Training-Sessions.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_08-2_What-Can-I-Optimise-in-My-Training-Sessions.pdf) |
+| 08-3 | What Can I Optimise in My Training Sessions? (Teil 3/3) | 10.200 | [`L-T3-19_08-3_What-Can-I-Optimise-in-My-Training-Sessions.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_08-3_What-Can-I-Optimise-in-My-Training-Sessions.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_08-3_What-Can-I-Optimise-in-My-Training-Sessions.pdf) |
+| 09 | Training Session Design | 1.300 | [`L-T3-19_09_Training-Session-Design.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_09_Training-Session-Design.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_09_Training-Session-Design.pdf) |
+| 10 | Periodisation Models | 3.900 | [`L-T3-19_10_Periodisation-Models.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_10_Periodisation-Models.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_10_Periodisation-Models.pdf) |
+| 11 | Detraining | 700 | [`L-T3-19_11_Detraining.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_11_Detraining.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_11_Detraining.pdf) |
+| 90 | Bibliography | 5.500 | [`L-T3-19_90_Bibliography.md`](t3-klettern/L-T3-19_kapitel/L-T3-19_90_Bibliography.md) | [PDF](t3-klettern/L-T3-19_kapitel/L-T3-19_90_Bibliography.pdf) |
+
+### L-T3-10 Mobråten/Christophersen – The Climbing Bible – `t3-klettern/L-T3-10_kapitel/`
+
+11 Kapiteldateien, zusammen ca. 85.971 Wörter. Keine Seitenmarken: zitiert wird mit Kapitel und Abschnitt (D-71, V-17).
+
+| Nr. | Titel | Wörter (ca.) | Markdown | Ansichts-PDF |
+|---|---|---|---|---|
+| 00 | Vorspann | 3.400 | [`L-T3-10_00_Vorspann.md`](t3-klettern/L-T3-10_kapitel/L-T3-10_00_Vorspann.md) | [PDF](t3-klettern/L-T3-10_kapitel/L-T3-10_00_Vorspann.pdf) |
+| 01-1 | Technique (Teil 1/2) | 8.100 | [`L-T3-10_01-1_Technique.md`](t3-klettern/L-T3-10_kapitel/L-T3-10_01-1_Technique.md) | [PDF](t3-klettern/L-T3-10_kapitel/L-T3-10_01-1_Technique.pdf) |
+| 01-2 | Technique (Teil 2/2) | 8.000 | [`L-T3-10_01-2_Technique.md`](t3-klettern/L-T3-10_kapitel/L-T3-10_01-2_Technique.md) | [PDF](t3-klettern/L-T3-10_kapitel/L-T3-10_01-2_Technique.pdf) |
+| 02-1 | Physical Training (Teil 1/2) | 8.100 | [`L-T3-10_02-1_Physical-Training.md`](t3-klettern/L-T3-10_kapitel/L-T3-10_02-1_Physical-Training.md) | [PDF](t3-klettern/L-T3-10_kapitel/L-T3-10_02-1_Physical-Training.pdf) |
+| 02-2 | Physical Training (Teil 2/2) | 7.900 | [`L-T3-10_02-2_Physical-Training.md`](t3-klettern/L-T3-10_kapitel/L-T3-10_02-2_Physical-Training.md) | [PDF](t3-klettern/L-T3-10_kapitel/L-T3-10_02-2_Physical-Training.pdf) |
+| 03 | Mental Training | 9.600 | [`L-T3-10_03_Mental-Training.md`](t3-klettern/L-T3-10_kapitel/L-T3-10_03_Mental-Training.md) | [PDF](t3-klettern/L-T3-10_kapitel/L-T3-10_03_Mental-Training.pdf) |
+| 04 | Tactics | 11.800 | [`L-T3-10_04_Tactics.md`](t3-klettern/L-T3-10_kapitel/L-T3-10_04_Tactics.md) | [PDF](t3-klettern/L-T3-10_kapitel/L-T3-10_04_Tactics.pdf) |
+| 05-1 | General Training and Injury Prevention (Teil 1/2) | 6.100 | [`L-T3-10_05-1_General-Training-and-Injury-Prevention.md`](t3-klettern/L-T3-10_kapitel/L-T3-10_05-1_General-Training-and-Injury-Prevention.md) | [PDF](t3-klettern/L-T3-10_kapitel/L-T3-10_05-1_General-Training-and-Injury-Prevention.pdf) |
+| 05-2 | General Training and Injury Prevention (Teil 2/2) | 6.500 | [`L-T3-10_05-2_General-Training-and-Injury-Prevention.md`](t3-klettern/L-T3-10_kapitel/L-T3-10_05-2_General-Training-and-Injury-Prevention.md) | [PDF](t3-klettern/L-T3-10_kapitel/L-T3-10_05-2_General-Training-and-Injury-Prevention.pdf) |
+| 06 | Training Plans | 10.300 | [`L-T3-10_06_Training-Plans.md`](t3-klettern/L-T3-10_kapitel/L-T3-10_06_Training-Plans.md) | [PDF](t3-klettern/L-T3-10_kapitel/L-T3-10_06_Training-Plans.pdf) |
+| 90 | The Joy of Climbing, Ten Commandments, Epilogue, Glossary, Read More | 6.300 | [`L-T3-10_90_Epilogue-Glossary-Read-More.md`](t3-klettern/L-T3-10_kapitel/L-T3-10_90_Epilogue-Glossary-Read-More.md) | [PDF](t3-klettern/L-T3-10_kapitel/L-T3-10_90_Epilogue-Glossary-Read-More.pdf) |
+
+### L-T3-20 Mobråten/Christophersen – The Climbing Bible: Practical Exercises – `t3-klettern/L-T3-20_kapitel/`
+
+5 Kapiteldateien, zusammen ca. 30.235 Wörter. Seitenmarken der Druckausgabe als „[S. n]“ im Markdown; Druckseiten laut Marken.
+
+| Nr. | Titel | Wörter (ca.) | Druckseiten | Markdown | Ansichts-PDF |
+|---|---|---|---|---|---|
+| 00a | Vorspann | 2.100 | 2–11 | [`L-T3-20_00a_Vorspann.md`](t3-klettern/L-T3-20_kapitel/L-T3-20_00a_Vorspann.md) | [PDF](t3-klettern/L-T3-20_kapitel/L-T3-20_00a_Vorspann.pdf) |
+| 00b | Warming Up | 900 | 14–19 | [`L-T3-20_00b_Warming-Up.md`](t3-klettern/L-T3-20_kapitel/L-T3-20_00b_Warming-Up.md) | [PDF](t3-klettern/L-T3-20_kapitel/L-T3-20_00b_Warming-Up.pdf) |
+| 01 | Technique | 10.100 | 20–87 | [`L-T3-20_01_Technique.md`](t3-klettern/L-T3-20_kapitel/L-T3-20_01_Technique.md) | [PDF](t3-klettern/L-T3-20_kapitel/L-T3-20_01_Technique.pdf) |
+| 02 | Strength & Power | 10.400 | 88–142 | [`L-T3-20_02_Strength-and-Power.md`](t3-klettern/L-T3-20_kapitel/L-T3-20_02_Strength-and-Power.md) | [PDF](t3-klettern/L-T3-20_kapitel/L-T3-20_02_Strength-and-Power.pdf) |
+| 03 | Children & Youths | 6.700 | 143–192 | [`L-T3-20_03_Children-and-Youths.md`](t3-klettern/L-T3-20_kapitel/L-T3-20_03_Children-and-Youths.md) | [PDF](t3-klettern/L-T3-20_kapitel/L-T3-20_03_Children-and-Youths.pdf) |
+
+### L-T3-21 Christophersen – The Climbing Bible: Managing Injuries – `t3-klettern/L-T3-21_kapitel/`
+
+6 Kapiteldateien, zusammen ca. 37.625 Wörter. Seitenmarken der Druckausgabe als „[S. n]“ im Markdown; Druckseiten laut Marken.
+
+| Nr. | Titel | Wörter (ca.) | Druckseiten | Markdown | Ansichts-PDF |
+|---|---|---|---|---|---|
+| 00 | Vorspann und Introduction | 2.700 | 2–11 | [`L-T3-21_00_Vorspann-und-Introduction.md`](t3-klettern/L-T3-21_kapitel/L-T3-21_00_Vorspann-und-Introduction.md) | [PDF](t3-klettern/L-T3-21_kapitel/L-T3-21_00_Vorspann-und-Introduction.pdf) |
+| 01 | Handling of Acute Soft Tissue Injuries and Overuse Injuries | 6.200 | 12–37 | [`L-T3-21_01_Handling-Acute-Soft-Tissue-and-Overuse-Injuries.md`](t3-klettern/L-T3-21_kapitel/L-T3-21_01_Handling-Acute-Soft-Tissue-and-Overuse-Injuries.md) | [PDF](t3-klettern/L-T3-21_kapitel/L-T3-21_01_Handling-Acute-Soft-Tissue-and-Overuse-Injuries.pdf) |
+| 02-1 | Injuries and Body Parts (Teil 1/2) | 11.200 | 38–86 | [`L-T3-21_02-1_Injuries-and-Body-Parts.md`](t3-klettern/L-T3-21_kapitel/L-T3-21_02-1_Injuries-and-Body-Parts.md) | [PDF](t3-klettern/L-T3-21_kapitel/L-T3-21_02-1_Injuries-and-Body-Parts.pdf) |
+| 02-2 | Injuries and Body Parts (Teil 2/2) | 10.800 | 87–141 | [`L-T3-21_02-2_Injuries-and-Body-Parts.md`](t3-klettern/L-T3-21_kapitel/L-T3-21_02-2_Injuries-and-Body-Parts.md) | [PDF](t3-klettern/L-T3-21_kapitel/L-T3-21_02-2_Injuries-and-Body-Parts.pdf) |
+| 03 | What Is Pain, Really? | 3.600 | 142–151 | [`L-T3-21_03_What-Is-Pain-Really.md`](t3-klettern/L-T3-21_kapitel/L-T3-21_03_What-Is-Pain-Really.md) | [PDF](t3-klettern/L-T3-21_kapitel/L-T3-21_03_What-Is-Pain-Really.pdf) |
+| 90 | Glossary, References and Bibliography | 3.200 | 152–157 | [`L-T3-21_90_Glossary-and-References.md`](t3-klettern/L-T3-21_kapitel/L-T3-21_90_Glossary-and-References.md) | [PDF](t3-klettern/L-T3-21_kapitel/L-T3-21_90_Glossary-and-References.pdf) |
