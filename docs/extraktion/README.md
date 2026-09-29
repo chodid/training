@@ -27,9 +27,11 @@ docs/extraktion/
 
 - **Block-Ordner** wie `docs/literatur/`: `uebergreifend`, `t1-ausdauer`, `t2-kraft`, `t3-klettern`, `r-reha`, `t4-beweglichkeit` (Entscheidung Athlet 2026-09-29; `wissenskarten.md` Abschnitt 2 nennt Kurzformen `t1` … `r` und „wie docs/literatur/“ – aufgelöst zugunsten der Literaturordner). Eine Quelle liegt im Block ihrer ID-Definition (D-51), auch wenn sie mehreren Zieldateien dient (z. B. L-P08 unter `uebergreifend/`, L-T2-25 unter `t2-kraft/`), und wird **einmal** extrahiert.
 - **T4** (`t4-beweglichkeit`, D-79) ist aufgenommen, als letzte Zieldatei nach R (Entscheidung Athlet 2026-09-29; `wissenskarten.md` kennt nur sechs Zieldateien).
-- **Kapitelnummer** `<nn>` = Nummer der Kapiteldatei in `docs/literatur/<block>/<L-ID>_kapitel/` (`<L-ID>_<nn>[-<teil>]_<titel>.pdf|.md`). Für geteilte Kapitel (`-1`, `-2`) und Buchstaben-Nummern (`00b`) ist der Name der Extraktionsdatei vor U2 zu bestätigen (Vorschlag `<L-ID>_k05-1.md`, `<L-ID>_k00b.md`).
-- **Vorspann** (`00`, `00a`) und **Anhänge** (`9x`: Glossar, Literatur, Index) werden gelistet, aber nicht extrahiert (Entscheidung Athlet 2026-09-29). Dateien, die Vorspann und Einleitung/Foreword bündeln, sind in der Tabelle markiert.
-- **EPUB-Quellen** (L-T3-10, -19, -20, -21; D-71): Arbeitsfassung ist die Markdown-Datei; das Ansichts-PDF gleichen Namens zeigt nur Abbildungen, seine Seitenzahlen werden nie zitiert.
+- **Kapitelnummer** `<nn>` = Nummer der Kapiteldatei in `docs/literatur/<block>/<L-ID>_kapitel/` (`<L-ID>_<nn>[-<teil>]_<titel>.pdf|.md`), auch für Teile und Buchstaben-Nummern: je Kapiteldatei genau eine Extraktion, z. B. `<L-ID>_k05-1.md`, `<L-ID>_k00b.md` (Entscheidung Athlet 2026-09-29). Artikel: `<L-ID>_k00.md`; ein Corrigendum wird im selben Lauf mit dem Artikel extrahiert, korrigierte Werte markiert (L-T2-23, L-T2-24).
+- **Vorspann** (`00`, `00a`) und **Anhänge** (`9x`: Glossar, Literatur, Index) werden gelistet, aber nicht extrahiert; ausgenommen die vier Dateien, die Vorspann und Einleitung/Foreword bündeln (L-T1-08, L-T2-04, L-T3-09, L-T3-21 jeweils `00`) – diese werden extrahiert (Entscheidungen Athlet 2026-09-29).
+- **Kapitelauswahl der Bücher** (Entscheidung Athlet 2026-09-29): Kapitel ohne Bezug zu Zweck/Themenfeldern der Quelle (13.2), Zuschnitt (AP-06 Punkt 3) oder Profil werden nicht extrahiert; Grund steht in der Zeile („nicht extrahiert (außerhalb Zweck: …)“). Nachtrag bei konkreter Planungsfrage über den Lücken-Workflow (wissenskarten.md 8, U8).
+- **EPUB-Quellen** (L-T3-10, -19, -20, -21; D-71): Eingabe ist die Markdown-Datei, `lesemethode: markdown_epub`; Stelle = „S. n“ aus den Seitenmarken (L-T3-20, -21) bzw. Kapitel und Abschnitt (L-T3-10, -19). Das Ansichts-PDF gleichen Namens zeigt nur Abbildungen, seine Seitenzahlen werden nie zitiert (Entscheidung Athlet 2026-09-29).
+- **PDF-Quellen**: `lesemethode: pdf_nativ` (PDF direkt gelesen) bzw. `pdftotext_layout` (wissenskarten.md 4.1 Regel 9).
 
 ## 3. Legende der Statustabellen
 
@@ -39,11 +41,11 @@ docs/extraktion/
 | Zieldatei(en) | UB = `uebergreifend-belastung-monitoring-erholung`, UP = `uebergreifend-planung-kombiniertes-training`, T1 = `t1-ausdauer`, T2 = `t2-kraft-haltung`, T3 = `t3-klettern`, R = `r-reha-praevention`, T4 = `t4-beweglichkeit` (Zuordnung AP-06 Punkt 3) |
 | Datei/Kapitel | Artikel: Dateiname in `docs/literatur/<block>/`; Buch: `<nn>` und Kapiteltitel (Datei `<L-ID>_<nn>_…` im Kapitelordner der Kopfzeile) |
 | seiten | Artikel: Seitenzahl des PDF; Kapitel: PDF-Seiten im Gesamtbuch, dazu Druckseiten, soweit in `docs/literatur/README.md` bestimmt; EPUB: Druckseiten laut Marken bzw. Wortzahl |
-| extrahiert | `offen` · `<datum> / opus` · `entfällt` (nicht zu extrahieren) |
-| geprüft | `offen` · `<datum> / fable / freigabe ja\|nein` · `entfällt` |
-| bemerkung | Status (13.2) · Stufe (D-31) · Kern/optional (AP-06 Punkt 3) · Durchsuchbarkeit · Hinweise (Seitenversatz, Lizenz, Muster aus der Gegenprüfung) |
+| extrahiert | `offen` · `<datum> / opus` (aus dem Kopf der Extraktionsdatei) · `entfällt` (Vorspann/Anhang oder Kapitelauswahl) · `in k00` (Corrigendum) |
+| geprüft | `offen` · `<datum> / fable / freigabe ja\|nein` (aus dem Kopf des Prüfprotokolls) · `entfällt` |
+| bemerkung | Status (13.2) · Stufe (D-31) · Kern/optional (AP-06 Punkt 3) · Durchsuchbarkeit · nach der Extraktion: Zahl der Aussagen, davon `unsicher: true`, Zahl der offenen Stellen, Lesemethode · Hinweise (Seitenversatz, Lizenz, Muster aus Extraktion und Gegenprüfung) |
 
-Durchsuchbarkeit (U1, 2026-09-29): `pdftotext -layout` auf Seite 1; ist Seite 1 leer (Kapitel-Titelbild), zusätzlich Seiten 2–3. „Text ✓“ = Seite 1 mit Text; „S. 1 ohne Text, ab S. 2 ✓“ = Titelseite ohne Text, Folgeseiten mit Text; Hinweis „x von n Seiten fast ohne Text“ (weniger als 100 Zeichen) ab einem Drittel der Seiten (Abbruchregel U2 prüfen). Bei L-T1-08 Kap. 09 waren auch die Seiten 2–3 leer; dort wurde die ganze Datei geprüft. Keine Datei war nicht durchsuchbar.
+Durchsuchbarkeit (U1, 2026-09-29): `pdftotext -layout` auf Seite 1; ist Seite 1 leer (Kapitel-Titelbild), zusätzlich Seiten 2–3. „Text ✓“ = Seite 1 mit Text; „S. 1 ohne Text, ab S. 2 ✓“ = Titelseite ohne Text, Folgeseiten mit Text; Hinweis „x von n Seiten fast ohne Text“ ab einem Drittel (Abbruchregel U2 prüfen). Keine Datei war nicht durchsuchbar.
 
 Quellen, die mehreren Zieldateien dienen, haben ihre Zeilen nur in der Tabelle der ersten Zieldatei (Reihenfolge W-04); spätere Tabellen verweisen darauf.
 
@@ -53,7 +55,7 @@ Reihenfolge nach W-04, T4 zuletzt. Innerhalb einer Tabelle: Kern vor optional in
 
 ### 4.1 UB – `uebergreifend-belastung-monitoring-erholung`
 
-Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 60 Dateien. Nicht zu extrahieren (Vorspann/Anhang): 6.
+Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 41 Dateien. Davon extrahiert: 0. Nicht zu extrahieren (Vorspann/Anhang): 6; ausgelassen nach Kapitelauswahl: 19.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -63,7 +65,7 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 60 D
 | L-P06 | UB | `L-P06_Meeusen-2013_Overtraining-Syndrome-Consensus.pdf` | 20 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | **L-A01** | UB, UP | **Ordner `uebergreifend/L-A01_kapitel/`** (31 Kapitel-PDFs, 1379 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · 7. Aufl. 2019 vorläufig (D-51); **8./9. Aufl. fehlt (Beschaffung, Athlet)** |
 | L-A01 | UB, UP | `00a` Vorspann | PDF 1–34 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · S. 1 ohne Text, ab S. 2 ✓ |
-| L-A01 | UB, UP | `00b` Introduction: An Introduction to Exercise and Sport Physiology | PDF 35–93 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
+| L-A01 | UB, UP | `00b` Introduction: An Introduction to Exercise and Sport Physiology | PDF 35–93 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Einführung ins Fach; Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
 | L-A01 | UB, UP | `01` Structure and Function of Exercising Muscle | PDF 94–143 | offen | offen | Text ✓ |
 | L-A01 | UB, UP | `02` Fuel for Exercise: Bioenergetics and Muscle Metabolism | PDF 144–189 | offen | offen | Text ✓ |
 | L-A01 | UB, UP | `03` Neural Control of Exercising Muscle | PDF 190–232 | offen | offen | Text ✓ |
@@ -81,15 +83,15 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 60 D
 | L-A01 | UB, UP | `12-2` Exercise in Hot and Cold Environments (Teil 2/2) | PDF 685–722 | offen | offen | Text ✓ |
 | L-A01 | UB, UP | `13` Exercise at Altitude | PDF 723–767 | offen | offen | Text ✓ |
 | L-A01 | UB, UP | `14` Training for Sport | PDF 768–819 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `15-1` Body Composition and Nutrition for Sport (Teil 1/2) | PDF 820–861 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `15-2` Body Composition and Nutrition for Sport (Teil 2/2) | PDF 862–902 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `16` Ergogenic Aids in Sport | PDF 903–960 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `17` Children and Adolescents in Sport and Exercise | PDF 961–1005 | offen | offen | Text ✓ |
+| L-A01 | UB, UP | `15-1` Body Composition and Nutrition for Sport (Teil 1/2) | PDF 820–861 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Ernährung; Athlet 2026-09-29) · Text ✓ |
+| L-A01 | UB, UP | `15-2` Body Composition and Nutrition for Sport (Teil 2/2) | PDF 862–902 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Ernährung; Athlet 2026-09-29) · Text ✓ |
+| L-A01 | UB, UP | `16` Ergogenic Aids in Sport | PDF 903–960 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: ergogene Hilfsmittel; Athlet 2026-09-29) · Text ✓ |
+| L-A01 | UB, UP | `17` Children and Adolescents in Sport and Exercise | PDF 961–1005 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Kinder; Athlet 2026-09-29) · Text ✓ |
 | L-A01 | UB, UP | `18` Aging in Sport and Exercise | PDF 1006–1055 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `19` Sex Differences in Sport and Exercise | PDF 1056–1103 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `20` Prescription of Exercise for Health and Fitness | PDF 1104–1148 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `21` Cardiovascular Disease and Physical Activity | PDF 1149–1197 | offen | offen | Text ✓ |
-| L-A01 | UB, UP | `22` Obesity, Diabetes, and Physical Activity | PDF 1198–1247 | offen | offen | Text ✓ |
+| L-A01 | UB, UP | `19` Sex Differences in Sport and Exercise | PDF 1056–1103 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Geschlecht; Athlet 2026-09-29) · Text ✓ |
+| L-A01 | UB, UP | `20` Prescription of Exercise for Health and Fitness | PDF 1104–1148 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Gesundheitssport; Athlet 2026-09-29) · Text ✓ |
+| L-A01 | UB, UP | `21` Cardiovascular Disease and Physical Activity | PDF 1149–1197 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Herz-Kreislauf-Erkrankungen; Athlet 2026-09-29) · Text ✓ |
+| L-A01 | UB, UP | `22` Obesity, Diabetes, and Physical Activity | PDF 1198–1247 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Adipositas/Diabetes; Athlet 2026-09-29) · Text ✓ |
 | L-A01 | UB, UP | `90` Glossary | PDF 1248–1277 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | L-A01 | UB, UP | `91` References | PDF 1278–1321 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | L-A01 | UB, UP | `92` Index | PDF 1322–1379 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
@@ -102,22 +104,22 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 60 D
 | L-A02 | UB, UP, T1, T1 | `03-3` Leistungssteuerung (Teil 3/3) | PDF 184–226 | offen | offen | Text ✓ |
 | L-A02 | UB, UP, T1 | `04-1` Krafttraining (Teil 1/2) | PDF 227–267 | offen | offen | Text ✓ |
 | L-A02 | UB, UP, T1 | `04-2` Krafttraining (Teil 2/2) | PDF 268–307 | offen | offen | Text ✓ |
-| L-A02 | UB, UP, T1 | `05-1` Schnelligkeitstraining (Teil 1/2) | PDF 308–342 | offen | offen | Text ✓ |
-| L-A02 | UB, UP, T1 | `05-2` Schnelligkeitstraining (Teil 2/2) | PDF 343–380 | offen | offen | Text ✓ |
+| L-A02 | UB, UP, T1 | `05-1` Schnelligkeitstraining (Teil 1/2) | PDF 308–342 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Schnelligkeit; Athlet 2026-09-29) · Text ✓ |
+| L-A02 | UB, UP, T1 | `05-2` Schnelligkeitstraining (Teil 2/2) | PDF 343–380 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Schnelligkeit; Athlet 2026-09-29) · Text ✓ |
 | L-A02 | UB, UP, T1 | `06` Beweglichkeitstraining | PDF 381–407 | offen | offen | Text ✓ |
 | L-A02 | UB, UP, T1, T1 | `07-1` Ausdauertraining (Teil 1/2) | PDF 408–445 | offen | offen | Text ✓ |
 | L-A02 | UB, UP, T1, T1 | `07-2` Ausdauertraining (Teil 2/2) | PDF 446–482 | offen | offen | Text ✓ |
-| L-A02 | UB, UP, T1 | `08` Techniktraining | PDF 483–531 | offen | offen | Text ✓ |
+| L-A02 | UB, UP, T1 | `08` Techniktraining | PDF 483–531 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Techniktraining; Athlet 2026-09-29) · Text ✓ |
 | L-A02 | UB, UP, T1 | `09-1` Regenerationsmanagement und Ernährung (Teil 1/2) | PDF 532–563 | offen | offen | Text ✓ |
 | L-A02 | UB, UP, T1 | `09-2` Regenerationsmanagement und Ernährung (Teil 2/2) | PDF 564–594 | offen | offen | Text ✓ |
-| L-A02 | UB, UP, T1 | `10` Training im Kindes- und Jugendalter | PDF 595–647 | offen | offen | Text ✓ |
-| L-A02 | UB, UP, T1 | `11-1` Training mit Frauen (Teil 1/2) | PDF 648–684 | offen | offen | Text ✓ |
-| L-A02 | UB, UP, T1 | `11-2` Training mit Frauen (Teil 2/2) | PDF 685–719 | offen | offen | Text ✓ |
+| L-A02 | UB, UP, T1 | `10` Training im Kindes- und Jugendalter | PDF 595–647 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Kinder und Jugendliche; Athlet 2026-09-29) · Text ✓ |
+| L-A02 | UB, UP, T1 | `11-1` Training mit Frauen (Teil 1/2) | PDF 648–684 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Geschlecht; Athlet 2026-09-29) · Text ✓ |
+| L-A02 | UB, UP, T1 | `11-2` Training mit Frauen (Teil 2/2) | PDF 685–719 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Geschlecht; Athlet 2026-09-29) · Text ✓ |
 | L-A02 | UB, UP, T1 | `12` Training im mittleren und höheren Lebensalter | PDF 720–761 | offen | offen | Text ✓ |
-| L-A02 | UB, UP, T1 | `13` Trainingswissenschaft in den Ausdauersportarten | PDF 762–784 | offen | offen | Text ✓ |
-| L-A02 | UB, UP, T1 | `14-1` Trainingswissenschaft in den Mannschaftssportarten (Teil 1/2) | PDF 785–821 | offen | offen | Text ✓ |
-| L-A02 | UB, UP, T1 | `14-2` Trainingswissenschaft in den Mannschaftssportarten (Teil 2/2) | PDF 822–860 | offen | offen | Text ✓ |
-| L-A02 | UB, UP, T1 | `15` Trainingswissenschaft in den Rückschlagsportarten | PDF 861–900 | offen | offen | Text ✓ |
+| L-A02 | UB, UP, T1 | `13` Trainingswissenschaft in den Ausdauersportarten | PDF 762–784 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: nur Schwimmen/Triathlon (L-T1-15); Athlet 2026-09-29) · Text ✓ |
+| L-A02 | UB, UP, T1 | `14-1` Trainingswissenschaft in den Mannschaftssportarten (Teil 1/2) | PDF 785–821 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Mannschaftssport; Athlet 2026-09-29) · Text ✓ |
+| L-A02 | UB, UP, T1 | `14-2` Trainingswissenschaft in den Mannschaftssportarten (Teil 2/2) | PDF 822–860 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Mannschaftssport; Athlet 2026-09-29) · Text ✓ |
+| L-A02 | UB, UP, T1 | `15` Trainingswissenschaft in den Rückschlagsportarten | PDF 861–900 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Rückschlagsport; Athlet 2026-09-29) · Text ✓ |
 | L-A02 | UB, UP, T1 | `90` Serviceteil | PDF 901–911 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | L-P10 | UB | `L-P10_Foster-2001_Monitoring-Exercise-Training-sRPE.pdf` | 7 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-P11 | UB | `L-P11_Saw-2016_Monitoring-Athlete-Training-Response.pdf` | 14 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
@@ -125,11 +127,11 @@ Ablage: `docs/extraktion/uebergreifend/`. Zu extrahieren in dieser Tabelle: 60 D
 | L-P13 | UB | `L-P13_Silbernagel-2007_Pain-Monitoring-Model-Achilles.pdf` | 10 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-P15 | UB | `L-P15_Manresa-Rocamora-2021_HRV-Guided-Training-Meta-Analysis.pdf` | 22 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** |
 | L-P16 | UB | `L-P16_Dueking-2021_HRV-Guided-Training-Wearables.pdf` | 13 (PDF) | offen | offen | optional · A · optional · Text ✓ |
-| **Synthese startbereit** | UB | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Noch nicht extrahiert und gegengeprüft: alle vorhandenen Quellen. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
+| **Synthese startbereit** | UB | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 0 von 41 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
 
 ### 4.2 UP – `uebergreifend-planung-kombiniertes-training`
 
-Ablage: `docs/extraktion/uebergreifend/` (Quellen anderer Blöcke unter deren Block, D-51). Zu extrahieren in dieser Tabelle: 9 Dateien; zusätzlich L-A01, L-A02 (Tabelle UB). Nicht zu extrahieren (Vorspann/Anhang): 0.
+Ablage: `docs/extraktion/uebergreifend/` (Quellen anderer Blöcke unter deren Block, D-51). Zu extrahieren in dieser Tabelle: 9 Dateien; zusätzlich L-A01, L-A02 (Tabelle UB). Davon extrahiert: 0. Nicht zu extrahieren (Vorspann/Anhang): 0; ausgelassen nach Kapitelauswahl: 0.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -144,11 +146,11 @@ Ablage: `docs/extraktion/uebergreifend/` (Quellen anderer Blöcke unter deren Bl
 | L-T2-26 | UP | `L-T2-26_Monserda-Vilaro-2023_Concurrent-Continuous-vs-Intermittent.pdf` | 22 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-T2-31 | UP | `L-T2-31_Wilson-2012_Concurrent-Training-Interference.pdf` | 15 (PDF) | offen | offen | optional · A · optional · Text ✓ |
 | L-T2-32 | UP | `L-T2-32_Sabag-2018_Concurrent-HIIT-and-Resistance.pdf` | 13 (PDF) | offen | offen | optional · A · optional · Text ✓ |
-| **Synthese startbereit** | UP | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Noch nicht extrahiert und gegengeprüft: alle vorhandenen Quellen. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
+| **Synthese startbereit** | UP | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-A01 (8./9. Aufl.; 7. Aufl. liegt vorläufig vor). Stand Extraktion: 0 von 9 extrahiert; gegengeprüft: 0. Die 7. Aufl. wird vorab extrahiert; nach Beschaffung der 8./9. Aufl. Abgleich bzw. Neuextraktion (Entscheidung Athlet). |
 
 ### 4.3 T1 – `t1-ausdauer`
 
-Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 51 Dateien; zusätzlich L-A02 Kap. 02, 03-2, 03-3, 07-1, 07-2 (Tabelle UB). Nicht zu extrahieren (Vorspann/Anhang): 6.
+Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 35 Dateien; zusätzlich L-A02 Kap. 02, 03-2, 03-3, 07-1, 07-2 (Tabelle UB). Davon extrahiert: 0. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 17.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -169,31 +171,31 @@ Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 51 Dat
 | L-T1-07 | T1 | `08` Quantifying Training Load | PDF 168–185 | offen | offen | Text ✓ |
 | L-T1-07 | T1 | `09` Response to Load | PDF 186–219 | offen | offen | Text ✓ |
 | L-T1-07 | T1 | `10` Putting It All Together | PDF 220–231 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `11` Combat Sports | PDF 232–253 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
+| L-T1-07 | T1 | `11` Combat Sports | PDF 232–253 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
 | L-T1-07 | T1 | `12` Cross-Country Skiing | PDF 254–267 | offen | offen | Text ✓ |
 | L-T1-07 | T1 | `13` Middle-Distance Running | PDF 268–289 | offen | offen | Text ✓ |
 | L-T1-07 | T1 | `14` Road Running | PDF 290–303 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `15` Road Cycling | PDF 304–317 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `16` Rowing | PDF 318–331 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `17` Swimming | PDF 332–353 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `18` Tennis | PDF 354–369 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `19` Triathlon | PDF 370–385 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `20` American Football | PDF 386–399 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `21` Australian Football | PDF 400–417 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `22` Baseball | PDF 418–431 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `23` Basketball | PDF 432–449 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `24` Cricket | PDF 450–461 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `25` Field Hockey | PDF 462–483 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `26` Ice Hockey | PDF 484–501 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `27` Handball | PDF 502–517 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `28` Rugby Union | PDF 518–531 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `29` Rugby Sevens | PDF 532–553 | offen | offen | Text ✓ |
-| L-T1-07 | T1 | `30` Soccer | PDF 554–571 | offen | offen | Text ✓ |
+| L-T1-07 | T1 | `15` Road Cycling | PDF 304–317 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `16` Rowing | PDF 318–331 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `17` Swimming | PDF 332–353 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `18` Tennis | PDF 354–369 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `19` Triathlon | PDF 370–385 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `20` American Football | PDF 386–399 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `21` Australian Football | PDF 400–417 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `22` Baseball | PDF 418–431 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `23` Basketball | PDF 432–449 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `24` Cricket | PDF 450–461 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `25` Field Hockey | PDF 462–483 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `26` Ice Hockey | PDF 484–501 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `27` Handball | PDF 502–517 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `28` Rugby Union | PDF 518–531 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `29` Rugby Sevens | PDF 532–553 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
+| L-T1-07 | T1 | `30` Soccer | PDF 554–571 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Sportart ohne Bezug; Athlet 2026-09-29) · Text ✓ |
 | L-T1-07 | T1 | `90-1` References (Teil 1/2) | PDF 572–612 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | L-T1-07 | T1 | `90-2` References (Teil 2/2) | PDF 613–653 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | L-T1-07 | T1 | `91` Index and Contributors | PDF 654–673 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | **L-T1-08** | T1 | **Ordner `t1-ausdauer/L-T1-08_kapitel/`** (15 Kapitel-PDFs, 380 PDF-Seiten) | – | – | – | ausgewaehlt · C · Kern · Scan; Druckseite = PDF-Seite − 2, im Bereich PDF 88–152 − 4 |
-| L-T1-08 | T1 | `00` Vorspann und Foreword | PDF 1–18 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · S. 1 ohne Text, ab S. 2 ✓; 6 von 18 Seiten fast ohne Text · enthält Einleitung – Extraktion klären |
+| L-T1-08 | T1 | `00` Vorspann und Foreword | PDF 1–18 | offen | offen | S. 1 ohne Text, ab S. 2 ✓; 6 von 18 Seiten fast ohne Text · Vorspann mit Einleitung – extrahieren (Entscheidung Athlet 2026-09-29) |
 | L-T1-08 | T1 | `01` How to Use This Book | PDF 19–22; Druck 17–20 | offen | offen | Text ✓ |
 | L-T1-08 | T1 | `02` The Physiology of Endurance | PDF 23–70; Druck 21–68 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
 | L-T1-08 | T1 | `03` The Methodologies of Endurance Training | PDF 71–120; Druck 69–116 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
@@ -202,7 +204,7 @@ Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 51 Dat
 | L-T1-08 | T1 | `06` Strength Training for the Uphill Athlete | PDF 193–204; Druck 191–202 | offen | offen | S. 1 ohne Text, ab S. 2 ✓; 4 von 12 Seiten fast ohne Text |
 | L-T1-08 | T1 | `07` General Strength Assessment and Improvement | PDF 205–240; Druck 203–238 | offen | offen | Text ✓ |
 | L-T1-08 | T1 | `08` Specific Strength-Training Methods | PDF 241–256; Druck 239–254 | offen | offen | Text ✓ |
-| L-T1-08 | T1 | `09` Programming | PDF 257–270; Druck 255–268 | offen | offen | S. 1–4 ohne Text, Text ab S. 5 ✓ (S. 5–12); 6 von 14 Seiten fast ohne Text – Grafiken/Tabellen? Abbruchregel in U2 prüfen |
+| L-T1-08 | T1 | `09` Programming | PDF 257–270; Druck 255–268 | offen | offen | **nicht durchsuchbar**; 6 von 14 Seiten fast ohne Text |
 | L-T1-08 | T1 | `10` Transition Period Training | PDF 271–278; Druck 269–276 | offen | offen | Text ✓ |
 | L-T1-08 | T1 | `11` Introduction to the Base Period | PDF 279–312; Druck 277–310 | offen | offen | Text ✓ |
 | L-T1-08 | T1 | `12` Special Considerations for Skimo and Ski Mountaineering | PDF 313–338; Druck 311–336 | offen | offen | Text ✓ |
@@ -215,34 +217,34 @@ Ablage: `docs/extraktion/t1-ausdauer/`. Zu extrahieren in dieser Tabelle: 51 Dat
 | L-T1-12 | T1 | `L-T1-12_Joyner-2008_Physiology-of-Champions.pdf` | 10 (PDF) | offen | offen | optional · A · optional · Text ✓ |
 | L-T1-14 | T1 | – | – | – | – | optional · B · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
 | L-T1-16 | T1 | – | – | – | – | optional · C · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
-| **Synthese startbereit** | T1 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Noch nicht extrahiert und gegengeprüft: alle vorhandenen Quellen. |
+| **Synthese startbereit** | T1 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 0 von 35 extrahiert; gegengeprüft: 0. |
 
 ### 4.4 T2 – `t2-kraft-haltung`
 
-Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 125 Dateien; zusätzlich L-P08 (Tabelle UP). Nicht zu extrahieren (Vorspann/Anhang): 6.
+Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 76 Dateien; zusätzlich L-P08 (Tabelle UP). Davon extrahiert: 0. Nicht zu extrahieren (Vorspann/Anhang): 5; ausgelassen nach Kapitelauswahl: 48.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
 | L-P08 | UP, T2 | siehe Tabelle UP | – | siehe Tabelle UP | siehe Tabelle UP | ausgewaehlt · A · Kern; Zeilen nur einmal geführt |
 | **L-A03** | T2 | **Ordner `uebergreifend/L-A03_kapitel/`** (49 Kapitel-PDFs, 1876 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · Druckseiten je Kapitel in U2 bestimmen |
 | L-A03 | T2 | `00` Vorspann | PDF 1–37 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · S. 1 ohne Text, ab S. 2 ✓ |
-| L-A03 | T2 | `01-1` Structure and Function of Body Systems (Teil 1/2) | PDF 38–67 | offen | offen | Text ✓ |
-| L-A03 | T2 | `01-2` Structure and Function of Body Systems (Teil 2/2) | PDF 68–103 | offen | offen | Text ✓ |
+| L-A03 | T2 | `01-1` Structure and Function of Body Systems (Teil 1/2) | PDF 38–67 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
+| L-A03 | T2 | `01-2` Structure and Function of Body Systems (Teil 2/2) | PDF 68–103 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `02-1` Biomechanics of Resistance Exercise (Teil 1/2) | PDF 104–147 | offen | offen | Text ✓ |
 | L-A03 | T2 | `02-2` Biomechanics of Resistance Exercise (Teil 2/2) | PDF 148–173 | offen | offen | Text ✓ |
-| L-A03 | T2 | `03` Bioenergetics of Exercise and Training | PDF 174–226 | offen | offen | Text ✓ |
-| L-A03 | T2 | `04` Endocrine Responses to Resistance Exercise and Training | PDF 227–280 | offen | offen | Text ✓ |
+| L-A03 | T2 | `03` Bioenergetics of Exercise and Training | PDF 174–226 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
+| L-A03 | T2 | `04` Endocrine Responses to Resistance Exercise and Training | PDF 227–280 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `05` Adaptations to Anaerobic Training | PDF 281–338 | offen | offen | Text ✓ |
-| L-A03 | T2 | `06` Adaptations to Aerobic Training | PDF 339–383 | offen | offen | Text ✓ |
+| L-A03 | T2 | `06` Adaptations to Aerobic Training | PDF 339–383 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie (L-A01); Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `07` Age-Related Differences and Their Implications for Resistance Training | PDF 384–437 | offen | offen | Text ✓ |
-| L-A03 | T2 | `08` Sex-Related Differences and Their Implications for Resistance Training | PDF 438–464 | offen | offen | Text ✓ |
-| L-A03 | T2 | `09-1` Psychological Foundations of Performance (Teil 1/2) | PDF 465–504 | offen | offen | Text ✓ |
-| L-A03 | T2 | `09-2` Psychological Foundations of Performance (Teil 2/2) | PDF 505–535 | offen | offen | Text ✓ |
-| L-A03 | T2 | `10-1` Basic Nutritional Factors Affecting Health (Teil 1/2) | PDF 536–574 | offen | offen | Text ✓ |
-| L-A03 | T2 | `10-2` Basic Nutritional Factors Affecting Health (Teil 2/2) | PDF 575–612 | offen | offen | Text ✓ |
-| L-A03 | T2 | `11` Nutrition Strategies for Maximizing Performance | PDF 613–658 | offen | offen | Text ✓ |
-| L-A03 | T2 | `12-1` Performance-Enhancing Substances and Methods (Teil 1/2) | PDF 659–697 | offen | offen | Text ✓ |
-| L-A03 | T2 | `12-2` Performance-Enhancing Substances and Methods (Teil 2/2) | PDF 698–728 | offen | offen | Text ✓ |
+| L-A03 | T2 | `08` Sex-Related Differences and Their Implications for Resistance Training | PDF 438–464 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Geschlecht; Athlet 2026-09-29) · Text ✓ |
+| L-A03 | T2 | `09-1` Psychological Foundations of Performance (Teil 1/2) | PDF 465–504 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Psychologie; Athlet 2026-09-29) · Text ✓ |
+| L-A03 | T2 | `09-2` Psychological Foundations of Performance (Teil 2/2) | PDF 505–535 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Psychologie; Athlet 2026-09-29) · Text ✓ |
+| L-A03 | T2 | `10-1` Basic Nutritional Factors Affecting Health (Teil 1/2) | PDF 536–574 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Ernährung; Athlet 2026-09-29) · Text ✓ |
+| L-A03 | T2 | `10-2` Basic Nutritional Factors Affecting Health (Teil 2/2) | PDF 575–612 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Ernährung; Athlet 2026-09-29) · Text ✓ |
+| L-A03 | T2 | `11` Nutrition Strategies for Maximizing Performance | PDF 613–658 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Ernährung; Athlet 2026-09-29) · Text ✓ |
+| L-A03 | T2 | `12-1` Performance-Enhancing Substances and Methods (Teil 1/2) | PDF 659–697 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Doping/Substanzen; Athlet 2026-09-29) · Text ✓ |
+| L-A03 | T2 | `12-2` Performance-Enhancing Substances and Methods (Teil 2/2) | PDF 698–728 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Doping/Substanzen; Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `13` Principles of Test Selection and Administration | PDF 729–763 | offen | offen | Text ✓ |
 | L-A03 | T2 | `14-1` Administration, Scoring, and Interpretation of Selected Tests (Teil 1/2) | PDF 764–808 | offen | offen | Text ✓ |
 | L-A03 | T2 | `14-2` Administration, Scoring, and Interpretation of Selected Tests (Teil 2/2) | PDF 809–853 | offen | offen | Text ✓ |
@@ -262,72 +264,72 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 125 Datei
 | L-A03 | T2 | `19-2` Program Design and Technique for Plyometric Training (Teil 2/4) | PDF 1289–1328 | offen | offen | Text ✓ |
 | L-A03 | T2 | `19-3` Program Design and Technique for Plyometric Training (Teil 3/4) | PDF 1329–1363 | offen | offen | Text ✓ |
 | L-A03 | T2 | `19-4` Program Design and Technique for Plyometric Training (Teil 4/4) | PDF 1364–1397 | offen | offen | Text ✓ |
-| L-A03 | T2 | `20-1` Program Design and Technique for Speed and Agility Training (Teil 1/3) | PDF 1398–1437 | offen | offen | Text ✓ |
-| L-A03 | T2 | `20-2` Program Design and Technique for Speed and Agility Training (Teil 2/3) | PDF 1438–1472 | offen | offen | Text ✓ |
-| L-A03 | T2 | `20-3` Program Design and Technique for Speed and Agility Training (Teil 3/3) | PDF 1473–1511 | offen | offen | Text ✓ |
+| L-A03 | T2 | `20-1` Program Design and Technique for Speed and Agility Training (Teil 1/3) | PDF 1398–1437 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Speed/Agility; Athlet 2026-09-29) · Text ✓ |
+| L-A03 | T2 | `20-2` Program Design and Technique for Speed and Agility Training (Teil 2/3) | PDF 1438–1472 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Speed/Agility; Athlet 2026-09-29) · Text ✓ |
+| L-A03 | T2 | `20-3` Program Design and Technique for Speed and Agility Training (Teil 3/3) | PDF 1473–1511 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Speed/Agility; Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `21-1` Program Design and Technique for Aerobic Endurance and Metabolic Training (Teil 1/2) | PDF 1512–1542 | offen | offen | Text ✓ |
 | L-A03 | T2 | `21-2` Program Design and Technique for Aerobic Endurance and Metabolic Training (Teil 2/2) | PDF 1543–1578 | offen | offen | Text ✓ |
 | L-A03 | T2 | `22` Periodization | PDF 1579–1629 | offen | offen | Text ✓ |
 | L-A03 | T2 | `23` Rehabilitation, Reconditioning, and Medical Issues | PDF 1630–1678 | offen | offen | Text ✓ |
 | L-A03 | T2 | `24` Overreaching, Overtraining, and Recovery | PDF 1679–1726 | offen | offen | Text ✓ |
-| L-A03 | T2 | `25` Facility Design, Layout, and Organization | PDF 1727–1774 | offen | offen | Text ✓ |
-| L-A03 | T2 | `26` Facility Policies, Procedures, and Legal Issues | PDF 1775–1819 | offen | offen | Text ✓ |
+| L-A03 | T2 | `25` Facility Design, Layout, and Organization | PDF 1727–1774 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Anlagen; Athlet 2026-09-29) · Text ✓ |
+| L-A03 | T2 | `26` Facility Policies, Procedures, and Legal Issues | PDF 1775–1819 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Anlagen/Recht; Athlet 2026-09-29) · Text ✓ |
 | L-A03 | T2 | `90` Answers to Study Questions | PDF 1820–1823 | entfällt | entfällt | nicht zu extrahieren (Anhang) · S. 1 ohne Text, ab S. 2 ✓; 2 von 4 Seiten fast ohne Text |
 | L-A03 | T2 | `91` Index and Contributors | PDF 1824–1876 | entfällt | entfällt | nicht zu extrahieren (Anhang) · S. 1 ohne Text, ab S. 2 ✓ |
 | **L-T2-03** | T2 | **Ordner `t2-kraft/L-T2-03_kapitel/`** (28 Kapitel-PDFs, 408 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · Druckseiten je Kapitel in U2 bestimmen |
 | L-T2-03 | T2 | `00` Vorspann | PDF 1–9 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · Text ✓ |
-| L-T2-03 | T2 | `01` A Brief Historical Overview on the Science of Concurrent Aerobic and Strength Training | PDF 10–15 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `02` The Functional Genome in Physical Exercise | PDF 16–26 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
-| L-T2-03 | T2 | `03` Molecular and Physiological Adaptations to Endurance Training | PDF 27–42 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `04` Neural Adaptations to Endurance Training | PDF 43–58 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `05` Physiological and Molecular Adaptations to Strength Training | PDF 59–81 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `06` Neural Adaptations to Strength Training | PDF 82–93 | offen | offen | Text ✓ |
+| L-T2-03 | T2 | `01` A Brief Historical Overview on the Science of Concurrent Aerobic and Strength Training | PDF 10–15 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Geschichte; Athlet 2026-09-29) · Text ✓ |
+| L-T2-03 | T2 | `02` The Functional Genome in Physical Exercise | PDF 16–26 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: molekulare Grundlagen; Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
+| L-T2-03 | T2 | `03` Molecular and Physiological Adaptations to Endurance Training | PDF 27–42 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie; Athlet 2026-09-29) · Text ✓ |
+| L-T2-03 | T2 | `04` Neural Adaptations to Endurance Training | PDF 43–58 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie; Athlet 2026-09-29) · Text ✓ |
+| L-T2-03 | T2 | `05` Physiological and Molecular Adaptations to Strength Training | PDF 59–81 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie; Athlet 2026-09-29) · Text ✓ |
+| L-T2-03 | T2 | `06` Neural Adaptations to Strength Training | PDF 82–93 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Grundlagenphysiologie; Athlet 2026-09-29) · Text ✓ |
 | L-T2-03 | T2 | `07` Proposed Mechanisms Underlying the Interference Effect | PDF 94–103 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
 | L-T2-03 | T2 | `08` Molecular Adaptations to Concurrent Strength and Endurance Training | PDF 104–128 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `09` Effects of Endurance-, Strength-, and Concurrent Training on Cytokines and Inflammation | PDF 129–142 | offen | offen | Text ✓ |
+| L-T2-03 | T2 | `09` Effects of Endurance-, Strength-, and Concurrent Training on Cytokines and Inflammation | PDF 129–142 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: molekulare Grundlagen; Athlet 2026-09-29) · Text ✓ |
 | L-T2-03 | T2 | `10` Immediate Effects of Endurance Exercise on Subsequent Strength Performance | PDF 143–158 | offen | offen | Text ✓ |
 | L-T2-03 | T2 | `11` Acute Effects of Strength Exercise on Subsequent Endurance Performance | PDF 159–169 | offen | offen | Text ✓ |
 | L-T2-03 | T2 | `12` Long-Term Effects of Supplementary Aerobic Training on Muscle Hypertrophy | PDF 170–183 | offen | offen | Text ✓ |
 | L-T2-03 | T2 | `13` Methodological Considerations for Concurrent Training | PDF 184–198 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
 | L-T2-03 | T2 | `14` Effects of the Concurrent Training Mode on Physiological Adaptations and Performance | PDF 199–213 | offen | offen | Text ✓ |
 | L-T2-03 | T2 | `15` Recovery Strategies to Optimise Adaptations to Concurrent Aerobic and Strength Training | PDF 214–228 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `16` Nutritional Considerations for Concurrent Training | PDF 229–252 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `17` Concurrent Training in Children and Adolescents | PDF 253–274 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
+| L-T2-03 | T2 | `16` Nutritional Considerations for Concurrent Training | PDF 229–252 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Ernährung; Athlet 2026-09-29) · Text ✓ |
+| L-T2-03 | T2 | `17` Concurrent Training in Children and Adolescents | PDF 253–274 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Kinder; Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
 | L-T2-03 | T2 | `18` Concurrent Training in Elderly | PDF 275–289 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `19` Concurrent Aerobic and Strength Training for Body Composition and Health | PDF 290–304 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `20` Sex Differences in Concurrent Aerobic and Strength Training | PDF 305–317 | offen | offen | Text ✓ |
+| L-T2-03 | T2 | `19` Concurrent Aerobic and Strength Training for Body Composition and Health | PDF 290–304 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Körperzusammensetzung; Athlet 2026-09-29) · Text ✓ |
+| L-T2-03 | T2 | `20` Sex Differences in Concurrent Aerobic and Strength Training | PDF 305–317 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Geschlecht; Athlet 2026-09-29) · Text ✓ |
 | L-T2-03 | T2 | `21` Long-Term Effects of Strength Training on Aerobic Capacity and Endurance Performance | PDF 318–325 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
-| L-T2-03 | T2 | `22` Strength Training for Endurance Cyclists | PDF 326–333 | offen | offen | Text ✓ |
+| L-T2-03 | T2 | `22` Strength Training for Endurance Cyclists | PDF 326–333 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Radfahrer; Athlet 2026-09-29) · Text ✓ |
 | L-T2-03 | T2 | `23` Strength Training for Endurance Runners | PDF 334–348 | offen | offen | Text ✓ |
 | L-T2-03 | T2 | `24` Strength Training for Cross-Country Skiers | PDF 349–360 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `25` Strength Training for Swimmers | PDF 361–378 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `26` General Aspects of Concurrent Aerobic and Strength Training for Performance in Team Sports | PDF 379–388 | offen | offen | Text ✓ |
-| L-T2-03 | T2 | `27` Concurrent Aerobic and Strength Training for Performance in Soccer | PDF 389–408 | offen | offen | Text ✓ |
+| L-T2-03 | T2 | `25` Strength Training for Swimmers | PDF 361–378 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Schwimmer; Athlet 2026-09-29) · Text ✓ |
+| L-T2-03 | T2 | `26` General Aspects of Concurrent Aerobic and Strength Training for Performance in Team Sports | PDF 379–388 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Mannschaftssport; Athlet 2026-09-29) · Text ✓ |
+| L-T2-03 | T2 | `27` Concurrent Aerobic and Strength Training for Performance in Soccer | PDF 389–408 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Fußball; Athlet 2026-09-29) · Text ✓ |
 | L-T2-11 | T2 | `L-T2-11_Ronnestad-2014_Strength-Training-Running-and-Cycling.pdf` | 10 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-T2-12 | T2 | `L-T2-12_Blagrove-2018_Strength-Training-Distance-Running.pdf` | 33 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | **L-T2-04** | T2 | **Ordner `t2-kraft/L-T2-04_kapitel/`** (32 Kapitel-PDFs, 600 PDF-Seiten) | – | – | – | ausgewaehlt · C · Kern · Scan, fehlerhafte Texterkennung; Druckseite = PDF-Seite − 14; PDF 577/578 vertauscht |
-| L-T2-04 | T2 | `00` Vorspann und Introduction | PDF 1–14 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · S. 1 ohne Text, ab S. 2 ✓ · enthält Einleitung – Extraktion klären |
+| L-T2-04 | T2 | `00` Vorspann und Introduction | PDF 1–14 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ · Vorspann mit Einleitung – extrahieren (Entscheidung Athlet 2026-09-29) |
 | L-T2-04 | T2 | `01` Principles of Bodyweight Training | PDF 15–23; Druck 1–9 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
-| L-T2-04 | T2 | `02` Physiology of Strength and Hypertrophy | PDF 24–34; Druck 10–20 | offen | offen | Text ✓ |
+| L-T2-04 | T2 | `02` Physiology of Strength and Hypertrophy | PDF 24–34; Druck 10–20 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Physiologie; Athlet 2026-09-29) · Text ✓ |
 | L-T2-04 | T2 | `03` Progression Charts and Goal Setting | PDF 35–48; Druck 21–34 | offen | offen | Text ✓ |
 | L-T2-04 | T2 | `04` Structural Balance Considerations | PDF 49–57; Druck 35–43 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `05` Intro to Programming, Attributes, Hierarchy of a Routine | PDF 58–72; Druck 44–58 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `06` Population Considerations | PDF 73–82; Druck 59–68 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `07` Constructing Your Workout Routine | PDF 83–94; Druck 69–80 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
+| L-T2-04 | T2 | `05` Intro to Programming, Attributes, Hierarchy of a Routine | PDF 58–72; Druck 44–58 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Programmierung (Dosierung nur Kernset, D-29); Athlet 2026-09-29) · Text ✓ |
+| L-T2-04 | T2 | `06` Population Considerations | PDF 73–82; Druck 59–68 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Programmierung (D-29); Athlet 2026-09-29) · Text ✓ |
+| L-T2-04 | T2 | `07` Constructing Your Workout Routine | PDF 83–94; Druck 69–80 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Programmierung (D-29); Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
 | L-T2-04 | T2 | `08` Warm-up and Skill Work | PDF 95–103; Druck 81–89 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `09` Strength Work | PDF 104–128; Druck 90–114 | offen | offen | Text ✓ |
+| L-T2-04 | T2 | `09` Strength Work | PDF 104–128; Druck 90–114 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Dosierung (D-29); Athlet 2026-09-29) · Text ✓ |
 | L-T2-04 | T2 | `10` Methods of Progression | PDF 129–150; Druck 115–136 | offen | offen | Text ✓ |
 | L-T2-04 | T2 | `11` Prehabilitation, Isolation, Flexibility, Cool Down | PDF 151–164; Druck 137–150 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `12` Mesocycle Planning | PDF 165–182; Druck 151–168 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `13` Endurance, Cardio, Cross Training, Hybrid Templates | PDF 183–201; Druck 169–187 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
-| L-T2-04 | T2 | `14` Overreaching and Overtraining | PDF 202–208; Druck 188–194 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `15` Health and Injury Management | PDF 209–225; Druck 195–211 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `16` Lifestyle Factors | PDF 226–232; Druck 212–218 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `17` Untrained Beginner | PDF 233–244; Druck 219–230 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
-| L-T2-04 | T2 | `18` Trained Beginner | PDF 245–252; Druck 231–238 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `19` Intermediate | PDF 253–264; Druck 239–250 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `20` Advanced | PDF 265–274; Druck 251–260 | offen | offen | Text ✓ |
-| L-T2-04 | T2 | `21` Common Bodyweight Training Injuries | PDF 275–305; Druck 261–291 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
+| L-T2-04 | T2 | `12` Mesocycle Planning | PDF 165–182; Druck 151–168 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Programmierung/Dosierung/Lebensstil (D-29); Athlet 2026-09-29) · Text ✓ |
+| L-T2-04 | T2 | `13` Endurance, Cardio, Cross Training, Hybrid Templates | PDF 183–201; Druck 169–187 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Programmierung/Dosierung/Lebensstil (D-29); Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
+| L-T2-04 | T2 | `14` Overreaching and Overtraining | PDF 202–208; Druck 188–194 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Programmierung/Dosierung/Lebensstil (D-29); Athlet 2026-09-29) · Text ✓ |
+| L-T2-04 | T2 | `15` Health and Injury Management | PDF 209–225; Druck 195–211 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Programmierung/Dosierung/Lebensstil (D-29); Athlet 2026-09-29) · Text ✓ |
+| L-T2-04 | T2 | `16` Lifestyle Factors | PDF 226–232; Druck 212–218 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Programmierung/Dosierung/Lebensstil (D-29); Athlet 2026-09-29) · Text ✓ |
+| L-T2-04 | T2 | `17` Untrained Beginner | PDF 233–244; Druck 219–230 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Programmierung/Dosierung/Lebensstil (D-29); Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
+| L-T2-04 | T2 | `18` Trained Beginner | PDF 245–252; Druck 231–238 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Programmierung/Dosierung/Lebensstil (D-29); Athlet 2026-09-29) · Text ✓ |
+| L-T2-04 | T2 | `19` Intermediate | PDF 253–264; Druck 239–250 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Programmierung/Dosierung/Lebensstil (D-29); Athlet 2026-09-29) · Text ✓ |
+| L-T2-04 | T2 | `20` Advanced | PDF 265–274; Druck 251–260 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Programmierung/Dosierung/Lebensstil (D-29); Athlet 2026-09-29) · Text ✓ |
+| L-T2-04 | T2 | `21` Common Bodyweight Training Injuries | PDF 275–305; Druck 261–291 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Verletzungen (Stufe C; Block R); Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
 | L-T2-04 | T2 | `22` Prehabilitation, Mobility, Flexibility Resources | PDF 306–326; Druck 292–312 | offen | offen | Text ✓ |
 | L-T2-04 | T2 | `23` Exercise Technique, Descriptions, Tips | PDF 327–331; Druck 313–317 | offen | offen | Text ✓ |
 | L-T2-04 | T2 | `24-1` Handstand Variations (Teil 1/2) | PDF 332–361; Druck 318–347 | offen | offen | Text ✓ |
@@ -349,9 +351,9 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 125 Datei
 | L-T2-21 | T2 | `L-T2-21_Robinson-2024_Proximity-to-Failure-Dose-Response.pdf` | 23 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-T2-22 | T2 | `L-T2-22_Refalo-2023_Proximity-to-Failure-Hypertrophy.pdf` | 17 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ · **Lizenz vor Ablage prüfen (Athlet)** |
 | L-T2-23 | T2 | `L-T2-23_Lopez-2021_Training-Load-Hypertrophy-Strength.pdf` | 13 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ · Corrigendum als eigene Datei (Zeile darunter) · **Lizenz vor Ablage prüfen (Athlet)** |
-| L-T2-23 | T2 | `L-T2-23_Lopez-2022_Corrigendum.pdf` | 1 (PDF) | offen | offen | Corrigendum zu L-T2-23 · Text ✓ · Einbindung in U2 klären |
+| L-T2-23 | T2 | `L-T2-23_Lopez-2022_Corrigendum.pdf` | 1 (PDF) | in k00 | in k00 | Corrigendum zu L-T2-23 · Text ✓ · im selben Lauf wie der Artikel extrahiert (`L-T2-23_k00.md`, Entscheidung Athlet 2026-09-29) |
 | L-T2-24 | T2 | `L-T2-24_Lopes-2019_Elastic-vs-Conventional-Resistance.pdf` | 7 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ · Corrigendum als eigene Datei (Zeile darunter) |
-| L-T2-24 | T2 | `L-T2-24_Lopes-2020_Corrigendum.pdf` | 2 (PDF) | offen | offen | Corrigendum zu L-T2-24 · Text ✓ · Einbindung in U2 klären |
+| L-T2-24 | T2 | `L-T2-24_Lopes-2020_Corrigendum.pdf` | 2 (PDF) | in k00 | in k00 | Corrigendum zu L-T2-24 · Text ✓ · im selben Lauf wie der Artikel extrahiert (`L-T2-24_k00.md`, Entscheidung Athlet 2026-09-29) |
 | L-T2-14 | T2 | `L-T2-14_Cowley-2026_Advanced-Resistance-Training-Methods.pdf` | 23 (PDF) | offen | offen | optional · A · optional · Text ✓ |
 | L-T2-19 | T2 | `L-T2-19_Carrasco-Uribarren-2026_Therapeutic-Exercise-Forward-Head-Posture.pdf` | 13 (PDF) | offen | offen | optional · A · optional · Text ✓ |
 | L-T2-33 | T2 | – | – | – | – | optional · B · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
@@ -359,11 +361,11 @@ Ablage: `docs/extraktion/t2-kraft/`. Zu extrahieren in dieser Tabelle: 125 Datei
 | L-T2-28 | T2 | `L-T2-28_Refalo-2021_Training-Load-Hypertrophy.pdf` | 24 (PDF) | offen | offen | optional · A · optional · Text ✓ |
 | L-T2-29 | T2 | `L-T2-29_Carvalho-2022_Volume-Matched-Loads-Hypertrophy.pdf` | 58 (PDF) | offen | offen | optional · A · optional · Text ✓ · Autorenmanuskript, Seitenzahlen nicht zitierfähig |
 | L-T2-30 | T2 | `L-T2-30_Grgic-2022_Failure-vs-Non-Failure.pdf` | 10 (PDF) | offen | offen | optional · A · optional · Text ✓ |
-| **Synthese startbereit** | T2 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Noch nicht extrahiert und gegengeprüft: alle vorhandenen Quellen. |
+| **Synthese startbereit** | T2 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 0 von 76 extrahiert; gegengeprüft: 0. |
 
 ### 4.5 T3 – `t3-klettern`
 
-Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 71 Dateien. Nicht zu extrahieren (Vorspann/Anhang): 12.
+Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 63 Dateien. Davon extrahiert: 0. Nicht zu extrahieren (Vorspann/Anhang): 10; ausgelassen nach Kapitelauswahl: 10.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -376,7 +378,7 @@ Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 71 Dat
 | L-T3-06 | T3 | `02` Injury Statistics | PDF 21–34 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
 | L-T3-06 | T3 | `03` Anatomy and Biomechanics of the Hand | PDF 35–48 | offen | offen | Text ✓ |
 | L-T3-06 | T3 | `04` Historical Development of a Physiological Model for Rock Climbing Performance | PDF 49–60 | offen | offen | Text ✓ |
-| L-T3-06 | T3 | `05` Imaging of Climbing Injuries | PDF 61–71 | offen | offen | Text ✓ |
+| L-T3-06 | T3 | `05` Imaging of Climbing Injuries | PDF 61–71 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Bildgebung/Diagnostik (N5); Athlet 2026-09-29) · Text ✓ |
 | L-T3-06 | T3 | `06` Hand and Fingers | PDF 72–120 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
 | L-T3-06 | T3 | `07` Wrist Injuries | PDF 121–131 | offen | offen | Text ✓ |
 | L-T3-06 | T3 | `08` Elbow and Forearm | PDF 132–142 | offen | offen | Text ✓ |
@@ -385,16 +387,16 @@ Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 71 Dat
 | L-T3-06 | T3 | `11` Hip and Knee Injuries | PDF 166–173 | offen | offen | Text ✓ |
 | L-T3-06 | T3 | `12` The Spine | PDF 174–186 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
 | L-T3-06 | T3 | `13` Long-Term Effects of Intensive Rock Climbing to the Hand and Fingers | PDF 187–200 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
-| L-T3-06 | T3 | `14` Pediatric Aspects in Young Rock Climbers | PDF 201–206 | offen | offen | Text ✓ |
+| L-T3-06 | T3 | `14` Pediatric Aspects in Young Rock Climbers | PDF 201–206 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Kinder; Athlet 2026-09-29) · Text ✓ |
 | L-T3-06 | T3 | `15` Climbing in Older Athletes | PDF 207–211 | offen | offen | Text ✓ |
-| L-T3-06 | T3 | `16` Anorexia Athletica and Relative Energy Deficiency | PDF 212–217 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
-| L-T3-06 | T3 | `17` Sport Climbing with Pre-existing Medical Conditions | PDF 218–234 | offen | offen | Text ✓ |
-| L-T3-06 | T3 | `18` Sport Climbing During Pregnancy | PDF 235–243 | offen | offen | Text ✓ |
-| L-T3-06 | T3 | `19` Sports-Medical Supervision of Competition Climbers and Climbing Competitions | PDF 244–252 | offen | offen | Text ✓ |
+| L-T3-06 | T3 | `16` Anorexia Athletica and Relative Energy Deficiency | PDF 212–217 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Medizin (RED-S); Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
+| L-T3-06 | T3 | `17` Sport Climbing with Pre-existing Medical Conditions | PDF 218–234 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Vorerkrankungen; Athlet 2026-09-29) · Text ✓ |
+| L-T3-06 | T3 | `18` Sport Climbing During Pregnancy | PDF 235–243 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Schwangerschaft; Athlet 2026-09-29) · Text ✓ |
+| L-T3-06 | T3 | `19` Sports-Medical Supervision of Competition Climbers and Climbing Competitions | PDF 244–252 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Wettkampfbetreuung; Athlet 2026-09-29) · Text ✓ |
 | L-T3-06 | T3 | `20` Climbing Injury Rehabilitation | PDF 253–277 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
 | L-T3-06 | T3 | `21` Injury Prevention | PDF 278–294 | offen | offen | Text ✓ |
 | L-T3-06 | T3 | `22` Taping | PDF 295–313 | offen | offen | Text ✓ |
-| L-T3-06 | T3 | `23` Future Aspects: Climbing in the Olympics | PDF 314–319 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
+| L-T3-06 | T3 | `23` Future Aspects: Climbing in the Olympics | PDF 314–319 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Olympia; Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
 | **L-T3-19** | T3 | **Ordner `t3-klettern/L-T3-19_kapitel/`** (15 Markdown-Dateien + Ansichts-PDFs) | – | – | – | ausgewaehlt (kern) · B · Kern · EPUB → Markdown, keine Seitenmarken (Kapitel/Abschnitt, D-71) |
 | L-T3-19 | T3 | `00` Vorspann | EPUB, ca. 1.500 Wörter | entfällt | entfällt | nicht zu extrahieren (Vorspann) · Markdown ✓ |
 | L-T3-19 | T3 | `01` The Process of Training | EPUB, ca. 2.000 Wörter | offen | offen | Markdown ✓ |
@@ -412,7 +414,7 @@ Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 71 Dat
 | L-T3-19 | T3 | `11` Detraining | EPUB, ca. 700 Wörter | offen | offen | Markdown ✓ |
 | L-T3-19 | T3 | `90` Bibliography | EPUB, ca. 5.500 Wörter | entfällt | entfällt | nicht zu extrahieren (Anhang) · Markdown ✓ |
 | **L-T3-09** | T3 | **Ordner `t3-klettern/L-T3-09_kapitel/`** (17 Kapitel-PDFs, 356 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · Scan; Druckseite = PDF-Seite − 16; 3. Aufl. (Neuauflage ab 03/2027 zusätzlich, D-70) |
-| L-T3-09 | T3 | `00` Vorspann, Foreword und Introduction | PDF 1–16 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · Text ✓ · enthält Einleitung – Extraktion klären |
+| L-T3-09 | T3 | `00` Vorspann, Foreword und Introduction | PDF 1–16 | offen | offen | Text ✓ · Vorspann mit Einleitung – extrahieren (Entscheidung Athlet 2026-09-29) |
 | L-T3-09 | T3 | `01` An Overview of Training for Climbing | PDF 17–34; Druck 1–18 | offen | offen | Text ✓ |
 | L-T3-09 | T3 | `02` Self-Assessment and Goal Setting | PDF 35–46; Druck 19–30 | offen | offen | Text ✓ |
 | L-T3-09 | T3 | `03` Mental Training | PDF 47–72; Druck 31–56 | offen | offen | Text ✓ |
@@ -423,7 +425,7 @@ Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 71 Dat
 | L-T3-09 | T3 | `08` Finger Training for Strength and Endurance | PDF 181–214; Druck 165–198 | offen | offen | Text ✓ |
 | L-T3-09 | T3 | `09` Pull-Muscle and Power Training | PDF 215–234; Druck 199–218 | offen | offen | Text ✓ |
 | L-T3-09 | T3 | `10` Designing Your Training Program | PDF 235–262; Druck 219–246 | offen | offen | Text ✓ |
-| L-T3-09 | T3 | `11` Performance Nutrition | PDF 263–278; Druck 247–262 | offen | offen | Text ✓ |
+| L-T3-09 | T3 | `11` Performance Nutrition | PDF 263–278; Druck 247–262 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Ernährung; Athlet 2026-09-29) · Text ✓ |
 | L-T3-09 | T3 | `12` Accelerating Recovery | PDF 279–294; Druck 263–278 | offen | offen | Text ✓ |
 | L-T3-09 | T3 | `13` Injury Treatment and Prevention | PDF 295–320; Druck 279–304 | offen | offen | Text ✓ |
 | L-T3-09 | T3 | `90` Afterword and Appendices A-C | PDF 321–330; Druck 305–314 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
@@ -436,7 +438,7 @@ Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 71 Dat
 | L-T3-10 | T3 | `02-1` Physical Training (Teil 1/2) | EPUB, ca. 8.100 Wörter | offen | offen | Markdown ✓ |
 | L-T3-10 | T3 | `02-2` Physical Training (Teil 2/2) | EPUB, ca. 7.900 Wörter | offen | offen | Markdown ✓ |
 | L-T3-10 | T3 | `03` Mental Training | EPUB, ca. 9.600 Wörter | offen | offen | Markdown ✓ |
-| L-T3-10 | T3 | `04` Tactics | EPUB, ca. 11.800 Wörter | offen | offen | Markdown ✓ |
+| L-T3-10 | T3 | `04` Tactics | EPUB, ca. 11.800 Wörter | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Taktik (kein Themenfeld der Quelle); Athlet 2026-09-29) · Markdown ✓ |
 | L-T3-10 | T3 | `05-1` General Training and Injury Prevention (Teil 1/2) | EPUB, ca. 6.100 Wörter | offen | offen | Markdown ✓ |
 | L-T3-10 | T3 | `05-2` General Training and Injury Prevention (Teil 2/2) | EPUB, ca. 6.500 Wörter | offen | offen | Markdown ✓ |
 | L-T3-10 | T3 | `06` Training Plans | EPUB, ca. 10.300 Wörter | offen | offen | Markdown ✓ |
@@ -446,9 +448,9 @@ Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 71 Dat
 | L-T3-20 | T3 | `00b` Warming Up | Druck 14–19 | offen | offen | Markdown ✓ |
 | L-T3-20 | T3 | `01` Technique | Druck 20–87 | offen | offen | Markdown ✓ |
 | L-T3-20 | T3 | `02` Strength & Power | Druck 88–142 | offen | offen | Markdown ✓ |
-| L-T3-20 | T3 | `03` Children & Youths | Druck 143–192 | offen | offen | Markdown ✓ |
+| L-T3-20 | T3 | `03` Children & Youths | Druck 143–192 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Kinder und Jugendliche; Athlet 2026-09-29) · Markdown ✓ |
 | **L-T3-21** | T3 | **Ordner `t3-klettern/L-T3-21_kapitel/`** (6 Markdown-Dateien + Ansichts-PDFs) | – | – | – | ausgewaehlt (Stufe C, vorläufig – Bestätigung Athlet offen) · C · Kern · EPUB → Markdown mit Seitenmarken [S. n]; vorläufig (Bestätigung Athlet offen) |
-| L-T3-21 | T3 | `00` Vorspann und Introduction | Druck 2–11 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · Markdown ✓ · enthält Einleitung – Extraktion klären |
+| L-T3-21 | T3 | `00` Vorspann und Introduction | Druck 2–11 | offen | offen | Markdown ✓ · Vorspann mit Einleitung – extrahieren (Entscheidung Athlet 2026-09-29) |
 | L-T3-21 | T3 | `01` Handling of Acute Soft Tissue Injuries and Overuse Injuries | Druck 12–37 | offen | offen | Markdown ✓ |
 | L-T3-21 | T3 | `02-1` Injuries and Body Parts (Teil 1/2) | Druck 38–86 | offen | offen | Markdown ✓ |
 | L-T3-21 | T3 | `02-2` Injuries and Body Parts (Teil 2/2) | Druck 87–141 | offen | offen | Markdown ✓ |
@@ -458,11 +460,11 @@ Ablage: `docs/extraktion/t3-klettern/`. Zu extrahieren in dieser Tabelle: 71 Dat
 | L-T3-18 | T3 | `L-T3-18_Lopez-Rivera-2019_Hangboard-Training-Programs.pdf` | 11 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | L-T3-05 | T3 | `L-T3-05_Lopez-Rivera-2012_Grip-Strength-Edge-Depth.pdf` | 12 (PDF) | offen | offen | ausgewaehlt (ergaenzend) · A · Kern · Text ✓ |
 | L-T3-07 | T3 | – | – | entfällt | entfällt | optional (Alternative zu L-T3-06, D-31) · B · keine Datei; nicht benötigt, solange L-T3-06 vorliegt |
-| **Synthese startbereit** | T3 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-T3-16. Noch nicht extrahiert und gegengeprüft: alle vorhandenen Quellen. L-T3-16 ist Stufe C (Planungsvorlage), aber `ausgewaehlt` – nach W-10 zählt es als Kernquelle; bestätigen. L-T3-09 in der Neuauflage (ab 03/2027) nicht gezählt, die 3. Aufl. gilt (D-70). L-T3-21 vorläufig (Bestätigung Athlet offen). |
+| **Synthese startbereit** | T3 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-T3-16. Stand Extraktion: 0 von 63 extrahiert; gegengeprüft: 0. L-T3-16 ist Stufe C (Planungsvorlage), aber `ausgewaehlt` – nach W-10 zählt es als Kernquelle; bestätigen. L-T3-09 in der Neuauflage (ab 03/2027) nicht gezählt, die 3. Aufl. gilt (D-70). L-T3-21 vorläufig (Bestätigung Athlet offen). |
 
 ### 4.6 R – `r-reha-praevention`
 
-Ablage: `docs/extraktion/r-reha/`. Zu extrahieren in dieser Tabelle: 28 Dateien. Nicht zu extrahieren (Vorspann/Anhang): 0.
+Ablage: `docs/extraktion/r-reha/`. Zu extrahieren in dieser Tabelle: 28 Dateien. Davon extrahiert: 0. Nicht zu extrahieren (Vorspann/Anhang): 0; ausgelassen nach Kapitelauswahl: 0.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -496,11 +498,11 @@ Ablage: `docs/extraktion/r-reha/`. Zu extrahieren in dieser Tabelle: 28 Dateien.
 | L-R-28 | R | `L-R-28_Hjortshoej-2025_BFR-vs-HSR-Patellar-Tendinopathy.pdf` | 12 (PDF) | offen | offen | optional · A · optional · Text ✓ |
 | L-R-29 | R | – | – | – | – | optional · B · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
 | L-R-30 | R | – | – | – | – | optional · B · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
-| **Synthese startbereit** | R | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Noch nicht extrahiert und gegengeprüft: alle vorhandenen Quellen. |
+| **Synthese startbereit** | R | **nein** (W-10) | – | – | – | Fehlende Kernquellen: keine. Stand Extraktion: 0 von 28 extrahiert; gegengeprüft: 0. |
 
 ### 4.7 T4 – `t4-beweglichkeit`
 
-Ablage: `docs/extraktion/t4-beweglichkeit/` (Quellen anderer Blöcke unter deren Block, D-51). Zu extrahieren in dieser Tabelle: 40 Dateien; zusätzlich L-R-11 (Tabelle R), L-T2-15 (Tabelle T2). Nicht zu extrahieren (Vorspann/Anhang): 4.
+Ablage: `docs/extraktion/t4-beweglichkeit/` (Quellen anderer Blöcke unter deren Block, D-51). Zu extrahieren in dieser Tabelle: 35 Dateien; zusätzlich L-R-11 (Tabelle R), L-T2-15 (Tabelle T2). Davon extrahiert: 0. Nicht zu extrahieren (Vorspann/Anhang): 4; ausgelassen nach Kapitelauswahl: 5.
 
 | L-ID | Zieldatei(en) | Datei/Kapitel | seiten | extrahiert (Datum/Modell) | geprüft (Datum/Modell/freigabe) | bemerkung |
 |---|---|---|---|---|---|---|
@@ -519,8 +521,8 @@ Ablage: `docs/extraktion/t4-beweglichkeit/` (Quellen anderer Blöcke unter deren
 | L-T4-19 | T4 | `L-T4-19_Winters-2004_Passive-vs-Active-Hip-Flexor-Stretching.pdf` | 8 (PDF) | offen | offen | ausgewaehlt · A · Kern · Text ✓ |
 | **L-T4-32** | T4 | **Ordner `t4-beweglichkeit/L-T4-32_kapitel/`** (19 Kapitel-PDFs, 281 PDF-Seiten) | – | – | – | ausgewaehlt · B · Kern · Druckseite = PDF-Seite − 15 |
 | L-T4-32 | T4 | `00` Vorspann | PDF 1–15 | entfällt | entfällt | nicht zu extrahieren (Vorspann) · S. 1 ohne Text, ab S. 2 ✓ |
-| L-T4-32 | T4 | `01` My Personal Motivation for Stretching | PDF 16–23; Druck 1–8 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
-| L-T4-32 | T4 | `02` History of Stretching | PDF 24–32; Druck 9–17 | offen | offen | Text ✓ |
+| L-T4-32 | T4 | `01` My Personal Motivation for Stretching | PDF 16–23; Druck 1–8 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: persönliche Motivation; Athlet 2026-09-29) · S. 1 ohne Text, ab S. 2 ✓ |
+| L-T4-32 | T4 | `02` History of Stretching | PDF 24–32; Druck 9–17 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Geschichte; Athlet 2026-09-29) · Text ✓ |
 | L-T4-32 | T4 | `03` Types of Stretching and the Effects on Flexibility | PDF 33–67; Druck 18–52 | offen | offen | Text ✓ |
 | L-T4-32 | T4 | `04` Mechanisms Underlying Acute Changes in Range of Motion | PDF 68–97; Druck 53–82 | offen | offen | Text ✓ |
 | L-T4-32 | T4 | `05` Stretch Training-Related ROM Changes and Mechanisms | PDF 98–103; Druck 83–88 | offen | offen | Text ✓ |
@@ -532,9 +534,9 @@ Ablage: `docs/extraktion/t4-beweglichkeit/` (Quellen anderer Blöcke unter deren
 | L-T4-32 | T4 | `11` Effects of Stretch Training on Muscle Strength and Hypertrophy | PDF 182–189; Druck 167–174 | offen | offen | Text ✓ |
 | L-T4-32 | T4 | `12` Effects of Resistance Training on Range of Motion | PDF 190–205; Druck 175–190 | offen | offen | S. 1 ohne Text, ab S. 2 ✓ |
 | L-T4-32 | T4 | `13` Foam Rolling Effects on Range of Motion and Performance | PDF 206–226; Druck 191–211 | offen | offen | Text ✓ |
-| L-T4-32 | T4 | `14` Local Vibration Effects on Range of Motion and Performance | PDF 227–231; Druck 212–216 | offen | offen | Text ✓ |
-| L-T4-32 | T4 | `15` Instrument-Assisted Soft Tissue Mobilization | PDF 232–240; Druck 217–225 | offen | offen | Text ✓ |
-| L-T4-32 | T4 | `16` Flossing Effects on Range of Motion and Performance | PDF 241–246; Druck 226–231 | offen | offen | Text ✓ |
+| L-T4-32 | T4 | `14` Local Vibration Effects on Range of Motion and Performance | PDF 227–231; Druck 212–216 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Vibration (außerhalb D-79); Athlet 2026-09-29) · Text ✓ |
+| L-T4-32 | T4 | `15` Instrument-Assisted Soft Tissue Mobilization | PDF 232–240; Druck 217–225 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: IASTM (außerhalb D-79); Athlet 2026-09-29) · Text ✓ |
+| L-T4-32 | T4 | `16` Flossing Effects on Range of Motion and Performance | PDF 241–246; Druck 226–231 | entfällt | entfällt | nicht extrahiert (außerhalb Zweck: Flossing (außerhalb D-79); Athlet 2026-09-29) · Text ✓ |
 | L-T4-32 | T4 | `17` Stretching Exercise Illustration | PDF 247–270; Druck 232–255 | offen | offen | Text ✓ |
 | L-T4-32 | T4 | `90` Index | PDF 271–281; Druck 256–266 | entfällt | entfällt | nicht zu extrahieren (Anhang) · Text ✓ |
 | **L-T4-34** | T4 | **Ordner `t4-beweglichkeit/L-T4-34_kapitel/`** (13 Kapitel-PDFs, 265 PDF-Seiten) | – | – | – | ausgewaehlt · C · Kern · Druckseite = PDF-Seite − 11; zusätzlich als EPUB |
@@ -571,7 +573,7 @@ Ablage: `docs/extraktion/t4-beweglichkeit/` (Quellen anderer Blöcke unter deren
 | L-T4-31 | T4 | – | – | – | – | optional · A · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
 | L-T4-35 | T4 | – | – | – | – | optional · B · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
 | L-T4-36 | T4 | – | – | – | – | optional · C · optional · **fehlt (Beschaffung, Athlet)** · blockiert die Synthese nicht (W-10) |
-| **Synthese startbereit** | T4 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-T4-17. Noch nicht extrahiert und gegengeprüft: alle vorhandenen Quellen. |
+| **Synthese startbereit** | T4 | **nein** (W-10) | – | – | – | Fehlende Kernquellen: L-T4-17. Stand Extraktion: 0 von 35 extrahiert; gegengeprüft: 0. |
 
 ## 5. Lizenz vor Ablage prüfen (Athlet)
 

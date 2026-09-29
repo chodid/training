@@ -156,7 +156,7 @@ kapitel: k03
 kapiteltitel: "…"
 seiten: 45-71
 stufe: A
-lesemethode: pdf_nativ | pdftotext_layout
+lesemethode: pdf_nativ | pdftotext_layout | markdown_epub   # markdown_epub: EPUB-Quelle, Eingabe Kapitel-Markdown (D-71); Stelle „S. n“ aus den Seitenmarken, sonst Kapitel und Abschnitt
 modell: opus
 datum: 2026-10-xx
 ---
@@ -442,7 +442,7 @@ begonnen: 2026-09-29
 abgeschlossen: null
 unterpunkte:
   U1: erledigt     # 2026-09-29, docs/extraktion/ mit README (Statustabellen) und luecken.md
-  U2: offen        # je Quelle: siehe docs/extraktion/README.md; Start nach Bestätigung durch den Athleten
+  U2: in_arbeit    # je Quelle: siehe docs/extraktion/README.md; 287 Läufe (195 Buchkapitel, 92 Artikel)
   U3: offen
   U4: offen        # je Zieldatei: uebergreifend-belastung, uebergreifend-planung, t1, t2, t3, r, t4
   U5: offen
@@ -471,8 +471,11 @@ probleme_loesungen:
     was: U1-Prüfung Durchsuchbarkeit – pdftotext auf Seite 1 ist bei 56 PDFs leer (49 Kapitel-PDFs, 7 Gesamtbücher; meist Titelbild), Text ab Seite 2
     loesung: zusätzlich Seiten 2–3 geprüft; keine Datei nicht durchsuchbar; L-T1-08_09 (Programming) hat Text erst ab S. 5 und 6 von 14 Seiten fast ohne Text (Grafiken/Tabellen?) – Abbruchregel in U2 prüfen
   - datum: 2026-09-29
-    was: Offene Punkte für U2 – EPUB-Quellen (L-T3-10, -19, -20, -21) haben Markdown statt PDF als Eingabe, lesemethode kennt nur pdf_nativ/pdftotext_layout; geteilte Kapitel (-1, -2) und 00b ohne Namensregel für <L-ID>_k<nn>.md; Corrigenda L-T2-23/-24 als eigene Dateien; Umfang der Buchextraktion (alle Kapitel oder Auswahl)
-    loesung: Rückfrage an den Athleten vor U2
+    was: Offene Punkte für U2 – EPUB-Quellen (L-T3-10, -19, -20, -21) haben Markdown statt PDF als Eingabe, lesemethode kennt nur pdf_nativ/pdftotext_layout; geteilte Kapitel (-1, -2) und 00b ohne Namensregel für <L-ID>_k<nn>.md; Corrigenda L-T2-23/-24 als eigene Dateien; vier Vorspann-Dateien mit Einleitung
+    loesung: Entscheidungen Athlet – EPUB über Markdown mit `lesemethode: markdown_epub` (in 4.2 ergänzt), Stelle nach D-71; je Kapiteldatei eine Extraktion (`<L-ID>_k05-1.md`, `<L-ID>_k00b.md`); Corrigendum im selben Lauf wie der Artikel (`<L-ID>_k00.md`), korrigierte Werte markiert; L-T1-08_00, L-T2-04_00, L-T3-09_00, L-T3-21_00 werden extrahiert
+  - datum: 2026-09-29
+    was: U2 hätte 290 Buchkapitel plus 94 Artikel umfasst (W-01 ging von 30–40 Kapiteln aus); viele Buchkapitel ohne Bezug zu Zweck, Zuschnitt oder Profil (Kinder, Mannschafts- und Rückschlagsport, Ernährung, Anlagen/Recht)
+    loesung: Entscheidung Athlet – Kapitelauswahl je Buch vor U2; 99 Kapitel nicht extrahiert (88 nach Vorschlag, dazu die Gruppen Geschlecht, Medizin Klettern, Vibration/IASTM/Flossing), extrahiert zusätzlich die Gruppen Alter, Umwelt (Hitze/Kälte, Höhe), Freihantel/Maschine, Zugübungen Calisthenics; Grund je Kapitel in docs/extraktion/README.md; Nachtrag über den Lücken-Workflow (U8). U2 umfasst 195 Buchkapitel und 92 Artikel (287 Läufe; die beiden Corrigenda laufen mit dem Artikel)
   - datum: 2026-09-29
     was: Nebenbefunde Hauptkonzept – YAML-Block T1 in 13.2 nicht parsebar (ISBN-Zeile L-T1-01 mit „: “); in 13.2 fehlen `stufe` bei L-A01, L-A02, L-P01 bis L-P09 und `themenfelder` für übergreifend und T1; L-T3-04 (ausgewaehlt) und L-P14 (optional) keiner Zieldatei in AP-06 Punkt 3 zugeordnet; L-T2-08 bis L-T2-10 mit Status `verifiziert` als Belege im T2-Zuschnitt
     loesung: gemeldet, nicht geändert (Hauptkonzept nur an drei Stellen änderbar); Stufe für die Tabellen aus docs/literatur/README.md übernommen
@@ -485,3 +488,4 @@ probleme_loesungen:
 | 2026-09-29 | Erstfassung nach Rücksprache (W-01 bis W-10; Gegenprüfung durch Fable und Athleten-Stichprobe 20 je Gebiet vorgegeben; Lücken-Workflow Abschnitt 8 ergänzt). |
 | 2026-09-29 | WQ-01 bis WQ-05 mit dem Athleten geklärt: W-03 auf Block umgestellt; W-10 umgedreht (Synthese wartet auf vollständige Beschaffung der Kernquellen, Extraktion läuft vorab); W-11 bis W-13 neu; Abschnitte 2, 3, 5.1, 6, 8.1 (d), U1, U2, U4, U5 angepasst. |
 | 2026-09-29 | Nach `docs/konzept/wissenskarten.md` verschoben (Stand-Kopfzeile unverändert). U1 erledigt: `docs/extraktion/` mit README (Statustabellen je Zieldatei, Quelle und Kapitel; Prüfdokument), leerem Lückenregister und Ordnern; Entscheidungen des Athleten zu T4, Ordnernamen, Vorspann/Anhängen und Prüfprotokoll im Statusblock (Abschnitt 11). |
+| 2026-09-29 | Vor U2: Entscheidungen des Athleten zu EPUB (`lesemethode: markdown_epub` in 4.2), Dateinamen je Kapiteldatei, Corrigenda, Einleitungen im Vorspann und Kapitelauswahl der Bücher im Statusblock; U2 in Arbeit. |
