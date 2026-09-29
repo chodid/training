@@ -9,20 +9,20 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | Pfad | Inhalt | Arbeitspaket |
 |---|---|---|
 | `server/public/` | Document Root (einziger per HTTP erreichbarer Ordner), `index.php` als einziger Einstieg; `css/training.css` (Ergänzungen), `js/` (Seitenskripte: Offline, Check-in, Passkey, geführte Einheit), `sw.js` (Service Worker), `manifest.webmanifest`, `favicon.ico` und `app-icons/` (App-Icon, eingecheckt, siehe „Icons“; nicht `icons/`, diesen Pfad belegt Apache serverweit); `assets/` wird gebaut (siehe unten) | AP-00, AP-01, AP-04, AP-09, AP-13, AP-14 |
-| `server/src/` | PHP-Quellcode (Namespace `Training\`): `Auth/` Login und Session, `OAuth/` Autorisierungsserver, `Mcp/` MCP-Endpunkt, `Intervals/` Intervals.icu-Client, `Data/` Datenzugriff und Audit-Log, `Plan/` Plan-Validierung und Ablaufplan der geführten Einheit, `View/` Seiten | AP-00 ff. |
-| `server/templates/` | Seitenvorlagen nach `docs/branding/` (S0, S1, S7 aus AP-01; S2–S5, S8 aus AP-04; S9 `session-start.php` aus AP-14); Teilvorlagen beginnen mit `_` | AP-01, AP-04, AP-14 |
+| `server/src/` | PHP-Quellcode (Namespace `Training\`): `Auth/` Login und Session, `OAuth/` Autorisierungsserver, `Mcp/` MCP-Endpunkt, `Intervals/` Intervals.icu-Client, `Data/` Datenzugriff und Audit-Log, `Review/` Fälligkeit, Kennzahlen und Schemaprüfung von Bilanz/Zielklärung/Revision (AP-15), `Plan/` Plan-Validierung und Ablaufplan der geführten Einheit, `View/` Seiten | AP-00 ff. |
+| `server/templates/` | Seitenvorlagen nach `docs/branding/` (S0, S1, S7 aus AP-01; S2–S5, S8 aus AP-04; S9 `session-start.php` aus AP-14; S11 `block.php` und Overlay `_review_overlay.php` aus AP-15); Teilvorlagen beginnen mit `_` | AP-01, AP-04, AP-14, AP-15 |
 | `server/bin/build-assets.php` | Kopiert Design-System, `app.css`, Icons und Logo aus `docs/branding/` nach `server/public/assets/` | AP-01 |
 | `server/config/` | Konfiguration ohne Secrets (derzeit leer) | – |
 | `server/migrations/` | Nummerierte Migrationen (D-20) | AP-00, AP-01, AP-03 |
-| `server/schemas/` | JSON-Schemata für `plan_json`/`actual_json` je Einheitentyp (Konzept 7.1) und für den Inhalt einer Übung im Katalog (`exercise.json`) | AP-03, AP-16 |
-| `server/tests/` | PHPUnit-Tests (Unit und Integration gegen MySQL); `js/` Node-Tests und `e2e/` Browser-Durchläufe (geführte Einheit, Übungskatalog) | AP-00 ff., AP-14, AP-16 |
+| `server/schemas/` | JSON-Schemata für `plan_json`/`actual_json` je Einheitentyp (Konzept 7.1) für den Inhalt einer Übung im Katalog (`exercise.json`) und für Zielklärung, Bilanz und Revision (`review-<kind>.json`) | AP-03, AP-15, AP-16 |
+| `server/tests/` | PHPUnit-Tests (Unit und Integration gegen MySQL); `js/` Node-Tests und `e2e/` Browser-Durchläufe (geführte Einheit, Übungskatalog, Erinnerung und Blockseite) | AP-00 ff., AP-14, AP-15, AP-16 |
 | `.github/workflows/deploy.yml` | Test und Deployment (D-17) | AP-00 |
-| `docs/konzept/` | Konzeptdokument; `datenmodell.md` mit ER-Diagramm; Aufträge je Paket (u. a. `gefuehrte-einheit.md`, `uebungskatalog.md`) | – , AP-03, AP-14, AP-16 |
+| `docs/konzept/` | Konzeptdokument; `datenmodell.md` mit ER-Diagramm; Aufträge je Paket (u. a. `gefuehrte-einheit.md`, `uebungskatalog.md`, `blockbilanz.md`) | – , AP-03, AP-14, AP-15, AP-16 |
 | `docs/pruefung/` | Prüfprotokoll (Konzept Abschnitt 16) | alle |
 | `docs/wissen/` | Wissenskarten (Sammeldateien, 13.1) | AP-06 |
 | `docs/literatur/` | Literatur-Volltexte als PDF, Open Access und gekauft (D-31), je Block in Unterordnern, Bücher zusätzlich als Kapitel-PDFs (D-51); Verzeichnis `README.md`; nie ins Projektwissen | AP-06 |
-| `docs/regeln/` | Trainerregeln (Abschnitt 14); vorab Kapitel 9 „Übungskatalog“ | AP-07, AP-16 |
-| `docs/plaene/` | Blockpläne | AP-08 |
+| `docs/regeln/` | Trainerregeln (Abschnitt 14); vorab Kapitel 9 „Übungskatalog“ und Kapitel 10 „Übergabe, Revision, Bilanz und Zielklärung“ | AP-07, AP-15, AP-16 |
+| `docs/plaene/` | Blockpläne (nur Spiegel; Master für Zielklärung und Bilanz ist die Datenbank, D-70) | AP-08 |
 | `docs/branding/` | Branding-Dokument `branding.md` (D-19), Gestaltungsvorgaben in `chadid-design-system/` (Einstieg `readme.md`, `SKILL.md`), Mockups in `mockups/` (Einstieg `index.html`, Screenshots mit `mockups/screenshots.cjs`), Icon-Skript `build-icons.cjs` | AP-01a, AP-13 |
 
 ## Server-Layout (Lima-City, D-17)
@@ -38,29 +38,31 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 └── .ftp-deploy-sync-state.json  ← Statusdatei des Upload-Schritts
 ```
 
-## Endpunkte (Stand AP-14)
+## Endpunkte (Stand AP-15)
 
 | Methode | Pfad | Zweck |
 |---|---|---|
 | GET | `/` | Weiterleitung auf `/woche`; ohne Anmeldung auf `/login` (bzw. `/setup`, solange kein Benutzer existiert) |
-| GET | `/woche` | S2 Wochenansicht (`?start=YYYY-MM-DD` für eine andere Woche); Kurzsatz der Woche mit „mehr“ |
+| GET | `/woche` | S2 Wochenansicht (`?start=YYYY-MM-DD` für eine andere Woche); Kurzsatz der Woche mit „mehr“; Karte „Block“ mit Restlaufzeit und Fälligkeiten (AP-15) |
 | GET/POST | `/einheit` | S3 Einheit (`?id=…`): Kurzsatz mit „mehr“, Plan, Ist-Werte, Rückmeldung, Schmerz, Status; bei Ausdauer verknüpfte Intervals.icu-Aktivität |
 | GET | `/einheit?id=…&modus=start` | S9 Einheit geführt (Kraft, Haltung, Mobilität, Klettern): dieselbe Rückmeldung schrittweise je Übung mit Timer, Tonsignalen und Vibration (Skript `js/gefuehrt.js`, Fortschritt im Browser), gespeichert über `POST /einheit`; für Ausdauer zeigt die Adresse S3 |
 | GET/POST | `/checkin` | S4 Tages-Check-in mit Morgentest (`?datum=…`, nicht in der Zukunft); Formular bzw. Ampel auch oben in `/woche` |
 | GET/POST | `/schmerz` | S5 Schmerzereignis (`?datum=…`, `?einheit=…`) |
-| GET/POST | `/einstellungen` | S8 Athletenprofil (Link), Übungskatalog (Link, Hinweis auf Übungen mit defekten Links), Konto, Zeitzone, Passwort, Passkeys, Training (Timer-Signale der geführten Einheit an/aus), Kalender-Abgleich und -Erinnerung (`?bereich=erinnerung`), Morgen-Check-in „Hand rechts bis“ (`?bereich=checkin`), Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
+| GET/POST | `/einstellungen` | S8 Athletenprofil (Link), Übungskatalog (Link, Hinweis auf Übungen mit defekten Links), Konto, Zeitzone, Passwort, Passkeys, Training (Timer-Signale der geführten Einheit an/aus; Blockbilanz und Zielklärung mit Erinnerung, Vorlauf und Blocktermin unter `?bereich=blockreview`), Kalender-Abgleich und -Erinnerung (`?bereich=erinnerung`), Morgen-Check-in „Hand rechts bis“ (`?bereich=checkin`), Backup herunterladen, JSON-Export, Status Backup-Mail und Pre-Migration-Dumps, Schemastand und Migration, Verbindungen, Widerruf von Claude-Freigaben |
 | POST | `/passkey/register/options`, `/passkey/register` | Passkey anlegen (angemeldet, Header `X-CSRF-Token`; D-44) |
 | POST | `/passkey/login/options`, `/passkey/login` | Anmelden mit Passkey; Relying-Party-ID ist der Host aus `APP_URL` |
 | GET/POST | `/profil` | Athletenprofil (D-48): Abschnitte lesen und bearbeiten (`?abschnitt=…`), frühere Fassungen (`&verlauf=1`) |
 | GET | `/offline/token` | Frisches CSRF-Token für offline gepufferte Eingaben (nur für den Service Worker, D-45) |
 | GET | `/uebung` | S10 Übung aus dem Katalog (`?id=<slug>`, optional `&von=<Einheit>` für den Rückweg): Ausführung, Achtungspunkte, Fehlerquellen, Vorsicht, Progression, eingebettete Videos (YouTube über youtube-nocookie.com, Vimeo), Links mit Prüfstatus, Quellen, Fassungen. Nur diese Seite erlaubt per CSP `frame-src https://www.youtube-nocookie.com https://player.vimeo.com` |
 | GET | `/uebungen` | S10a Übungskatalog: Suche (`q`), Filter Kategorie (`kategorie`), archivierte (`archiv=1`); Einstieg aus S8 |
-| GET | `/verlauf` | S6 Verlauf: Wochenlast je Bereich und Schmerz je Ort über 8 Wochen, Tabelle |
+| GET | `/verlauf` | S6 Verlauf: Wochenlast je Bereich und Schmerz je Ort über 8 Wochen, Tabelle, Abschnitt „Blöcke“ (AP-15) |
+| GET | `/block` | S11 Blockseite (AP-15, `?id=…`, ohne id der aktive Block): Fälligkeiten, Zielklärung, Revisionen, Bilanz mit Kennzahlen, Fassungen, weitere Blöcke; nur lesen |
+| POST | `/erinnerung` | Quittierung des Overlays „Blockbilanz/Zielklärung fällig“ (AP-15): `eintrag[]` = `<kind>:<block_id>`, `bis` = `morgen` oder `woche`, CSRF; offline gepuffert. Das Overlay erscheint auf allen Seiten nach dem Login, solange Bilanz oder Zielklärung fällig und nicht quittiert sind |
 | GET | `/manifest.webmanifest` | Web-App-Manifest („Zum Startbildschirm“, `id` `/woche`); Icons unter `/app-icons/`, `/favicon.ico` (16/32/48) – statische Dateien, von Apache direkt ausgeliefert |
 | GET | `/health` | Zustand als JSON: PHP-Erweiterungen, Konfiguration, `var/` beschreibbar, Datenbank, Schemastand. `200` = in Ordnung, `503` = Handlungsbedarf. Enthält keine Secrets. |
 | POST | `/admin/migrate` | Führt ausstehende Migrationen aus, vorher verschlüsselter Pre-Migration-Dump nach `backups/` (die letzten 5 bleiben). Header `X-Migration-Secret` muss `MIGRATION_SECRET` entsprechen. `401` ohne Header, `403` bei falschem Secret, `409` wenn bereits eine Migration läuft oder die Datenbank neuer als der Code ist, `500` wenn der Dump fehlschlägt (dann keine Migration). |
 | GET | `/cron/backup-mail?key=…` | Backup per E-Mail für den Lima-City-Cronjob (`CRON_SECRET`); versendet nur nach Ablauf des Intervalls, `&force=1` sofort |
-| GET | `/cron/intervals-sync?key=…` | Spiegel Intervals.icu → MySQL (D-43): Aktivitäten und Wellness der letzten 14 Tage (`&tage=…` bis 400), entfernt dort gelöschte Aktivitäten; gleicht außerdem den CalDAV-Kalender ab (AP-11) und prüft einmal je 7 Tage bis zu 50 Links des Übungskatalogs (AP-16, Ergebnis unter `linkpruefung`, Audit `exercise_linkcheck`) |
+| GET | `/cron/intervals-sync?key=…` | Spiegel Intervals.icu → MySQL (D-43): Aktivitäten und Wellness der letzten 14 Tage (`&tage=…` bis 400), entfernt dort gelöschte Aktivitäten; gleicht außerdem den CalDAV-Kalender ab (AP-11) inklusive der Blocktermine für Bilanz und Zielklärung (AP-15, Ergebnis unter `kalender.blocktermine`) und prüft einmal je 7 Tage bis zu 50 Links des Übungskatalogs (AP-16, Ergebnis unter `linkpruefung`, Audit `exercise_linkcheck`) |
 | GET/POST | `/setup` | S0: legt den einzigen Benutzer an (verlangt `MIGRATION_SECRET`, D-34). Sobald ein Benutzer existiert: `404`. |
 | GET/POST | `/login` | S1: Anmeldung, Session 30 Tage gleitend. Nach 10 Fehlversuchen 5 min Sperre, jeder weitere Fehlversuch verdoppelt bis 24 h (D-33). |
 | POST | `/logout` | Abmelden (mit CSRF-Token) |
@@ -81,10 +83,13 @@ Maßgeblich ist das Konzept: [`docs/konzept/konzept-ki-personal-trainer.md`](doc
 | `get_session_detail` | `training:read` | Einheit mit `plan_json`, `actual_json`, Kurzsatz (`coach_summary`) und Begründung (`coach_rationale`), Rückmeldung, Schmerz, Aktivität |
 | `get_pain_history` | `training:read` | Schmerz je Ort mit Trend (Standard 56 Tage) |
 | `get_wellness_trend` | `training:read` | HRV, Ruhepuls, Schlaf, Check-in; Baseline 7/28 Tage |
-| `get_block` | `training:read` | aktueller Block mit Wochenstatus |
+| `get_block` | `training:read` | aktueller Block mit Wochenstatus, Reviews (Kurzliste) und Fälligkeiten |
+| `get_handover` | `training:read` | Übergabe zu Beginn jeder Planungssitzung (AP-15, D-74): aktiver Block, Zielklärung, zwei jüngste Bilanzen, Revisionen, Kennzahlen 4 Wochen gegen Blockmittel, `wochen_kurz`, Fälligkeiten, offene Fragen, Profilstand, Entwürfe; ≤ 8 000 Zeichen, mit `detail` die Volltexte |
+| `get_block_reviews` | `training:read` | Zielklärung, Revisionen und Bilanz eines Blocks mit Inhalt und Kennzahlen; mit `fassungen` alle Versionen samt Grund |
 | `get_athlete_profile` | `training:read` | Athletenprofil aus der Datenbank (D-48) je Abschnitt; optional ein Abschnitt, früherer Stand (`as_of`), Fassungen (`include_history`) |
-| `upsert_block` | `training:write` | Block anlegen/ändern (Voraussetzung für Wochenpläne) |
-| `write_week_plan` | `training:write` | Wochenplan schreiben, Ausdauer als Workout nach Intervals.icu; Pflicht: `focus` (Kurzsatz der Woche) und je Einheit außer Ruhetag `coach_summary` (≤ 200 Zeichen), dazu optional `coach_notes`/`coach_rationale` (≤ 1 500 Zeichen, D-56). Übungen ohne `exercise_id` → `warnungen`, unbekannte/archivierte ID → Fehler (D-66) |
+| `upsert_block` | `training:write` | Block anlegen/ändern (Voraussetzung für Wochenpläne); Antwort mit Fälligkeiten und `zielklaerung_fehlt`, Blocktermin im Kalender |
+| `write_block_review` | `training:write` | Revision, Blockbilanz oder Zielklärung als neue Fassung (AP-15, D-75): Status `entwurf`/`bestaetigt`, Schemaprüfung mit Pfad, `reason` ab Fassung 2, Kennzahlen vom Server; Zielklärung nur für Blöcke geplant/aktiv |
+| `write_week_plan` | `training:write` | Wochenplan schreiben, Ausdauer als Workout nach Intervals.icu; Pflicht: `focus` (Kurzsatz der Woche) und je Einheit außer Ruhetag `coach_summary` (≤ 200 Zeichen), dazu optional `coach_notes`/`coach_rationale` (≤ 1 500 Zeichen, D-56). Übungen ohne `exercise_id` → `warnungen`, unbekannte/archivierte ID → Fehler (D-66). Wochen nach dem Ende des aktiven Blocks ohne Folgeblock mit bestätigter Zielklärung → Fehler `blockwechsel_erforderlich` (AP-15, D-75) |
 | `update_session` | `training:write` | Einheit ändern (auch Kurzsatz und Begründung), Event nachziehen; Katalogprüfung wie `write_week_plan`, wenn `plan_json` geändert wird |
 | `get_morning_checks` | `training:read` | Morgen-Check-ins: Ampel mit Grund, Morgentest links/rechts, Wochenausgangswert, Warnzeichen/Abklärung, je Tag alle Werte (Standard 14 Tage) |
 | `update_athlete_profile` | `training:write` | Profilabschnitt ersetzen (neue Fassung, frühere bleiben erhalten) |
@@ -155,7 +160,7 @@ TEST_DB_HOST=127.0.0.1 TEST_DB_NAME=training_test TEST_DB_USER=… TEST_DB_PASSW
 
 Achtung: Die Integrationstests löschen alle Tabellen der Testdatenbank.
 
-Geführte Einheit (AP-14): Kern des Seitenskripts `public/js/gefuehrt.js` ohne Browser mit `node --test tests/js/*.test.cjs`; Browser-Durchlauf mit Playwright und gesteuerter Uhr mit `bash tests/e2e/run.sh` (startet die App auf einem freien Port – oder `E2E_PORT` – mit eigener `.env` gegen die Testdatenbank aus `TEST_DB_*`; Playwright lokal, global oder per `npm install --no-save --prefix tests/e2e playwright`, anderer Browser über `CHROME_PATH`). `run.sh` startet danach den Durchlauf des Übungskatalogs (`tests/e2e/uebung.e2e.cjs`: S3 → Übung, S9 „Ausführung“ und zurück, Übung ohne Netz). Beides läuft auch in der CI.
+Geführte Einheit (AP-14): Kern des Seitenskripts `public/js/gefuehrt.js` ohne Browser mit `node --test tests/js/*.test.cjs`; Browser-Durchlauf mit Playwright und gesteuerter Uhr mit `bash tests/e2e/run.sh` (startet die App auf einem freien Port – oder `E2E_PORT` – mit eigener `.env` gegen die Testdatenbank aus `TEST_DB_*`; Playwright lokal, global oder per `npm install --no-save --prefix tests/e2e playwright`, anderer Browser über `CHROME_PATH`). `run.sh` startet danach den Durchlauf des Übungskatalogs (`tests/e2e/uebung.e2e.cjs`: S3 → Übung, S9 „Ausführung“ und zurück, Übung ohne Netz). Zuletzt die Erinnerung an Bilanz und Zielklärung (`tests/e2e/erinnerung.e2e.cjs`: Overlay mit Fokus und inert bei 375 px, Quittieren, Karte „Block“, Blockseite S11 und S6 „Blöcke“; `E2E_SCREENSHOT_DIR` speichert Bildschirmfotos). Alles läuft auch in der CI.
 
 Lokal starten (ohne `.htaccess`): `.env` in `server/` anlegen (für `http://` ist `APP_URL=http://localhost:8080` möglich, dann ohne `Secure`-Cookies), Assets bauen mit `php bin/build-assets.php`, dann `php -S 127.0.0.1:8080 -t public bin/dev-router.php` (liefert vorhandene Dateien aus `public/` direkt aus). Datenbank einmalig mit `curl -X POST -H "X-Migration-Secret: …" http://127.0.0.1:8080/admin/migrate` migrieren.
 

@@ -1,6 +1,6 @@
 # Auftrag: Blockbilanz, Zielklärung und Übergabe (AP-15)
 
-Stand: 2026-09-29 · Auftraggeber: Athlet · Konzept: Fable (Projekt-Chat) · Umsetzung: Code-Instanz (Claude Code)
+Stand: 2026-09-29 (umgesetzt T1–T6, Abnahme offen) · Auftraggeber: Athlet · Konzept: Fable (Projekt-Chat) · Umsetzung: Code-Instanz (Claude Code)
 
 Dieses Dokument ist der Auftrag an die Code-Instanz und wird von ihr fortgeschrieben (Abschnitt 13). Versionsnummern der Anwendung legt die Code-Instanz fest. Nummern der Entscheidungen (E-nn) und offenen Punkte (O-nn) gelten nur in diesem Dokument; im Hauptkonzept `konzept-ki-personal-trainer.md` wird das Paket als AP-15 geführt, die Kernentscheidungen erhalten dort die nächsten freien D-Nummern (Abschnitt 10).
 
@@ -511,12 +511,20 @@ T5:
     - was: T5 legt keinen Navigationsbereich für S11 fest
       loesung: S11 gehört zum Bereich Verlauf (Zurück zu /verlauf#bloecke); Einstieg aus S2-Karte, S6, Overlay und Kalendertermin
 T6:
-  status: offen
-  datum: null
-  ergebnis: null
-  tests: null
-  abnahme: null
-  probleme_loesungen: []
+  status: erledigt
+  datum: 2026-09-29
+  ergebnis: >-
+    Hauptkonzept: AP-15 mit Statusblock, D-70 bis D-76, Abschnitte 3.3, 6 (Schritte 1, 2, 8, neuer Schritt 9), 7
+    (block_review, app_setting), 8.2/8.3, 10 (S2, S6, S8, S11, Overlay), 14 (Kapitel 10), 15, 17; datenmodell.md
+    (ER-Diagramm, Schema 24, Schemata); branding.md (S11, S2 ?state=erinnerung); README; CHANGELOG;
+    docs/regeln/trainerregeln.md Vorabkapitel 10; Prüfprotokoll AP-15. Code-Stand 0.30.1.
+  tests: gesamte Suite 303 Tests grün gegen MariaDB 10.11; Browser-Tests 14 + 4 + 3 grün
+  abnahme: Dokumente konsistent (Durchsicht); Abnahmen T2–T5 durch den Athleten offen
+  probleme_loesungen:
+    - was: Präfix R-UEB auch in Kapitel 9 (Übungskatalog, R-UEB-10 bis 14)
+      loesung: Nummern 01–06 überschneiden sich nicht; wie beauftragt übernommen, Hinweis im Kapitel 10
+    - was: "Abschnitt 10 des Auftrags nennt D-Einträge für E-01, E-02/E-03, E-05/E-06, E-08, E-09; E-21/E-22 kamen hinzu"
+      loesung: D-70 bis D-75 wie vorgesehen (E-22 in D-73), zusätzlich D-76 für E-21
 ```
 
 ## 14. Änderungsprotokoll dieses Dokuments
@@ -524,3 +532,10 @@ T6:
 | datum | wer | was |
 |---|---|---|
 | 2026-09-29 | Fable | Erstfassung nach Klärung E-01 bis E-09 mit dem Athleten |
+| 2026-09-29 | Code-Instanz | O-04 und O-05 mit dem Athleten entschieden (E-21, E-22); Umsetzung T1–T6 als ein Pull Request (Wunsch des Athleten) |
+| 2026-09-29 | Code-Instanz | T1 umgesetzt (Code-Stand 0.26.0, Schema 24) |
+| 2026-09-29 | Code-Instanz | T2 umgesetzt (0.27.0) |
+| 2026-09-29 | Code-Instanz | T3 umgesetzt (0.28.0); O-02 umgesetzt (Overlay bei wartender Quittierung ausgeblendet) |
+| 2026-09-29 | Code-Instanz | T4 umgesetzt (0.29.0); K-B2 korrigiert (08:00 MESZ = 06:00Z) |
+| 2026-09-29 | Code-Instanz | T5 umgesetzt (0.30.0) |
+| 2026-09-29 | Code-Instanz | T6 Dokumentation (0.30.1); Hauptkonzept D-70 bis D-76 (E-01 → D-70, E-02/E-03 → D-71, E-05 → D-72, E-06/E-22 → D-73, E-08 → D-74, E-09 → D-75, E-21 → D-76). Abnahmen durch den Athleten offen (Prüfprotokoll AP-15) |

@@ -7,6 +7,16 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ### Dokumentation
 - L-T1-07 Laursen/Buchheit, Science and Application of HIIT (2019), einsortiert: Gesamt-PDF und 34 Kapitel-PDFs; doppelt hochgeladene Kenney-Datei entfernt.
 
+## [0.30.1] – 2026-09-29
+
+AP-15 T6: Dokumentation zu Blockbilanz, Zielklärung und Übergabe.
+
+### Dokumentation
+- Hauptkonzept: D-70 bis D-76; Abschnitt 3.3 (System of Record), 6 (Wochenplanung beginnt mit `get_handover`, Revision als Datensatz, neuer Schritt 9 „Blockwechsel“), 7 (`block_review`, `app_setting`), 8.2/8.3 (neue Tools, Erweiterungen, Budget), 10 (S2-Karte, S6, S8, S11, Overlay), 14 (Kapitel 10), 15 (AP-15 mit Statusblock), 17.
+- `datenmodell.md` mit `block_review` im ER-Diagramm und Schema 24; `branding.md` mit S11 und dem Overlay-Zustand von S2; README (Endpunkte `/block`, `/erinnerung`, Tools, Tests).
+- `docs/regeln/trainerregeln.md`: Vorabkapitel 10 (R-UEB-01 bis R-UEB-06); die übrigen Kapitel folgen in AP-07.
+- Auftrag `docs/konzept/blockbilanz.md`: Entscheidungen E-21/E-22, Status T1–T6, Korrektur K-B2.
+
 ## [0.30.0] – 2026-09-29
 
 AP-15 T5: Blockseite und Blöcke im Verlauf.
