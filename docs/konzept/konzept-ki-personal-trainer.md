@@ -482,6 +482,7 @@ Regeln für fehlende Daten:
 - Zitierregel D-13 gilt in jedem Chat.
 - Bündelung und Budget: Projektwissen wird vollständig in jeden Chat geladen, solange es unter dem Kontextlimit bleibt; darüber (und beobachtet bereits ab etwa 13 Dateien) schaltet das Projekt in den Retrieval-Modus, in dem nur gefundene Passagen sichtbar sind. Daher: wenige Sammeldateien (je Bereich T1–T4 plus übergreifend und R, 4–7 Dateien; 7 seit D-79) statt vieler Einzelkarten; Gesamtbudget des Projektwissens inkl. Regeln, Profil und aktuellem Blockplan unter ca. 40 000 Tokens halten.
 - Erstellungsprozess (in eigenen Sitzungen, nicht im Trainingsprojekt): (1) PDF kapitelweise aufteilen (20–40 Seiten; für die vorhandenen Bücher erledigt, `docs/literatur/<block>/<ID>_kapitel/`, D-51); EPUB kapitelweise als Markdown mit Ansichts-PDF (D-71); (2) Extraktion je Kapitel mit Template und Regeln: nur Textinhalt, Seitenzahl je Aussage, Zahlen exakt mit Einheit, Modellschlüsse markiert, Lücken des Kapitels aufgelistet; (3) Prüfung: 3–5 Aussagen je Karte gegen das PDF, dann `konfidenz` setzen; (4) Synthesekarte je Thema über alle Quellen mit Widersprüchen und geltender Regel (Vorarbeit AP-07); (5) Ablage in `docs/wissen/`, Spiegelung ins Projektwissen. PDFs liegen lokal und dürfen zusätzlich im privaten Repo unter `docs/literatur/` liegen (D-31), nie im Projektwissen.
+- Erstellungsprozess: Auftrag `docs/konzept/wissenskarten.md` (Schritte (2)–(5), Extraktion, Gegenprüfung, Synthese, Lücken-Workflow).
 
 ## 13.2 Literaturkandidaten und -auswahl (AP-06)
 
@@ -3005,7 +3006,7 @@ teilschritte:
   - Beschaffung und Formatprüfung: teilweise (Stand 2026-09-29 – 109 Werke in 112 Dateien, Kapitel-PDFs für 11 Bücher, Kapitel-Markdown mit Ansichts-PDF für 4 EPUBs (L-T3-10, -19, -20, -21), D-51, D-71; offen nach 13.4 sind L-A01 in 8./9. Aufl., L-T3-16, L-T3-09 in der Neuauflage ab Erscheinen sowie L-T4-13, -17)
   - Literatur-Nachsteuerung L-T1-01/L-T3-08, HRV, EPUB: erledigt (D-70, D-71)
   - Primärquellen verifizieren: weitgehend erledigt (V-06, V-14 erledigt; V-07, V-15 teilweise, Rest nach Beschaffung)
-  - Karten-Template und Karten: offen
+  - Karten-Template und Karten: Auftrag docs/konzept/wissenskarten.md, U1/U2 in Arbeit
 probleme_loesungen:
   - datum: 2026-09-27
     was: Drei Literatur-Sitzungen (übergreifend, T1, T2) arbeiteten parallel vom selben Konzeptstand; alle vergaben D-21 ff. und V-11 ff.; T2 editierte das Konzept direkt
@@ -3737,3 +3738,4 @@ noch_zu_pruefen:
 | 2026-09-29 | Aktualisierte Übergabe T4 eingearbeitet (K-8, K-9): L-T4-32 Behm in den Kern (ausgewählt), neu L-T4-34 Nelson/Kokkonen, Stretching Anatomy (Stufe C, Übungskatalog), 13.3 um Freiwald, Alter, van der Poel ergänzt, Vokabular `uebungskatalog`, Q-21 (Repo wird wieder privat), V-21 erledigt; Commit „Literatur“ einsortiert – 19 Volltexte (L-T4-01 bis -06, -08, -10, -12, -14, -16, -19, -32, -34; L-R-10, -11, -14, -17, -21), Corrigenda L-T2-23/-24, neuer Ordner `t4-beweglichkeit/`, Kapitel-PDFs für L-T4-32 und L-T4-34; falsches Witvrouw-PDF und Dubletten entfernt; V-20 teilweise, V-23 erledigt; 13.4 und Stand (109 Werke). |
 | 2026-09-29 | L-T4-22 Witvrouw 2001 nicht aufgenommen (Entscheidung Athlet): Status `nicht_aufgenommen`, aus D-79-Kernliste, 13.4, Kartenzuschnitt AP-06 und Regelvorschlag D-79 (e) entfernt (Knie-Einzelbefund jetzt L-T4-23), 13.3 ergänzt. |
 | 2026-09-29 | Übergabe Lückenprüfung Standardwerke eingearbeitet (D-80): neu optional L-T1-16 Koop, L-T2-33 McGill, L-R-29 Brukner & Khan, L-R-30 GOTS-Manual, L-T4-35 Freiwald (aus 13.3 übernommen, K-8 revidiert), L-T4-36 Schleip/Wilke; L-A03 Hinweis Heimausrüstung (Kap. 17); 13.3 um sieben Werke ergänzt; Nachträge D-54, D-61, D-79; Q-22, V-24; 13.4 (sechs Bücher Prio 2), 13.2.6-Einleitung, AP-06. |
+| 2026-09-29 | Auftrag Wissenskarten (AP-06, Schritte 13.1 (2)–(5)) als `docs/konzept/wissenskarten.md` hinterlegt: Verweis in 13.1, AP-06 Teilschritt „Karten-Template und Karten“ auf U1/U2 in Arbeit. Keine neuen D-/Q-/V-IDs. |

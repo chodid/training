@@ -5,6 +5,7 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ## [Unreleased]
 
 ### Dokumentation
+- Auftrag Wissenskarten (AP-06, Schritte 13.1 (2)–(5)) als `docs/konzept/wissenskarten.md` hinterlegt; Verweis in Konzept 13.1, AP-06-Teilschritt „Karten-Template und Karten“ auf U1/U2 in Arbeit.
 - Übergabe Lückenprüfung Standardwerke eingearbeitet (D-80): sechs optionale Bücher (L-T1-16 Koop, L-T2-33 McGill, L-R-29 Brukner & Khan, L-R-30 GOTS-Manual, L-T4-35 Freiwald, L-T4-36 Schleip/Wilke), sieben geprüfte Werke in 13.3, Q-22, V-24, Hinweis Heimausrüstung bei L-A03.
 - L-T4-22 (Witvrouw 2001) nicht aufgenommen: Status `nicht_aufgenommen`, aus Kern, Beschaffungsliste, Kartenzuschnitt und Regelvorschlag entfernt; Knie-Einzelbefund jetzt L-T4-23.
 - Aktualisierte Übergabe T4 eingearbeitet: Behm 2025 (L-T4-32) im Kern, neu Stretching Anatomy (L-T4-34, Übungskatalog), 13.3 ergänzt, Q-21 – Repo wird wieder privat. 19 weitere Volltexte (T4, Block R) und die Corrigenda zu L-T2-23/-24 einsortiert, neuer Ordner `t4-beweglichkeit/` mit Kapitel-PDFs für L-T4-32 und L-T4-34; falsch zugeordnetes Witvrouw-PDF und Dubletten entfernt. Bestand 109 Werke.
