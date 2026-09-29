@@ -1502,6 +1502,8 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   verifikation: teilweise – Jahr/ISBN aus Händlerangabe; Auflage unklar (laut Händler „Ausgabe Nr. 6")
 - id: L-T3-15
   status: optional
+  datei: t3-klettern/L-T3-15_Anderson-2014_Rock-Climbers-Training-Manual.pdf
+  kapitel: t3-klettern/L-T3-15_kapitel/
   stufe: C
   typ: praxisbuch
   konfidenz: niedrig (D-31)
@@ -1511,8 +1513,8 @@ Evidenzlage laut beiden Reviews begrenzt (je ca. 11–12 Studien, kleine Stichpr
   themenfelder: [periodisierung, fingerkraft, kraftausdauer]
   zweck: Periodisierung (lineare Blockperiodisierung im Jahresplan), Hangboard- und Campusboard-Protokolle; Planungsvorlage neben L-T3-16
   einschraenkung: Stufe C (Praktiker, Eigenverlag) – nie alleiniger Beleg für Belastungsparameter (D-31); Periodisierungs- und Hangboard-Aussagen gegen L-T3-19, L-T3-18 und L-P01/L-P02 abgleichen
-  zugang: Kauf; Format prüfen (D-26, D-71)
-  verifikation: Händlerangaben (AbeBooks, Biblio) 2026-09-29
+  zugang: Scan (Internet Archive, 3. Druck 2015) mit Texterkennung, ohne Lesezeichen, vorhanden (2026-09-29); Druckseite = PDF-Seite − 2; im Scan steht das Glossar vor dem Literaturverzeichnis
+  verifikation: Impressum des Scans 2026-09-29 (© 2014 Fixed Pin Publishing, ISBN 978-0-9895156-1-0, LCCN 2013954868)
   bestaetigt: Athlet 2026-09-29 (Abschluss der Literatursuche)
 - id: L-T3-16
   status: ausgewaehlt (planungsvorlage, Stufe C)
@@ -2651,7 +2653,7 @@ Formatprüfung je Titel vor dem Kauf (V-13). EPUB ohne DRM ist zulässig (D-71).
 | 2 | T3 | L-T3-06 Climbing Medicine 2022 (bevorzugt) oder L-T3-07 Klettermedizin 2020 (Alternative) | Buch, eine Ausgabe (D-31) | Springer-Kapitel-PDF | | ✓ L-T3-06, Gesamt-PDF |
 | 2 | T3 | L-T3-19 Consuegra, The Science of Climbing Training (2023) | Buch | EPUB ohne DRM (D-71) | ersetzt L-T3-08 im Evidenzkern (D-70) | ✓ EPUB 2026-09-29, Kapitel als Markdown und Ansichts-PDF |
 | 2 | T3 | L-T3-16 Bechtel, Logical Progression, 2. Aufl. | Buch | DRM-freies EPUB oder PDF; Kindle ungeeignet | Stufe C, Planungsvorlage | ✓ PDF 2. Aufl., Kapitel-PDFs |
-| 2 | T3 | L-T3-15 Anderson/Anderson, The Rock Climber's Training Manual (2014) | Buch | durchsuchbares PDF oder EPUB ohne DRM (D-26, D-71) | Stufe C, optional; Entscheidung Athlet 2026-09-29 | offen |
+| 2 | T3 | L-T3-15 Anderson/Anderson, The Rock Climber's Training Manual (2014) | Buch | durchsuchbares PDF oder EPUB ohne DRM (D-26, D-71) | Stufe C, optional; Entscheidung Athlet 2026-09-29 | ✓ Scan mit Texterkennung, Kapitel-PDFs |
 | 2 | T3 | L-T3-10 Mobråten/Christophersen, The Climbing Bible | Buch | DRM-freies EPUB oder PDF; Kobo-EPUB (Adobe DRM) ungeeignet | Stufe C, Ideenfundus | ✓ EPUB ohne DRM 2026-09-29, Kapitel als Markdown und Ansichts-PDF |
 | 2 | T3 | L-T3-20 Mobråten/Christophersen, The Climbing Bible – Practical Exercises; L-T3-21 Christophersen, Managing Injuries | Buch | EPUB ohne DRM (D-71) | Stufe C; L-T3-21 vorläufig | ✓ beide EPUB 2026-09-29, Kapitel als Markdown und Ansichts-PDF |
 | 2 | T3 | L-T3-09 Hörst, Training for Climbing, 3. Aufl. 2016 | Buch | durchsuchbares PDF | Evidenzkern (D-70) | ✓ 3. Aufl., Scan mit Texterkennung, Kapitel-PDFs |
@@ -2687,7 +2689,7 @@ Formatprüfung je Titel vor dem Kauf (V-13). EPUB ohne DRM ist zulässig (D-71).
 | 2 | T1 | L-T1-16 Koop, Training Essentials for Ultrarunning, 2. Aufl. | Buch | Kindle ungeeignet (D-71); Hardcover beim Autor | Stufe C, optional | ✓ EPUB, Kapitel-Markdown und Ansichts-PDFs |
 | 2 | T4 | L-T4-36 Schleip/Wilke, Fascia in Sport and Movement, 2. Aufl. | Buch | DRM-freies PDF oder EPUB | Stufe C, optional | ✓ nur Kapitel-PDFs (Gesamt-PDF 159 MB) |
 
-Stand 2026-09-29: 117 Werke als Volltext vorhanden (D-51, D-71; L-T4-36 und L-R-29 nur als Kapitel-PDFs), Verzeichnis in `docs/literatur/README.md`. Vorhandene Ausgaben gelten, auf neuere Auflagen wird nicht gewartet (Nachtrag D-51). Die Literatursuche ist abgeschlossen (2026-09-29). Offen ist nur L-T3-15 Anderson (Buch, Stufe C, optional). Bei Bedarf: T4 15 Artikel; optionale Bücher L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-11.
+Stand 2026-09-29: 118 Werke als Volltext vorhanden (D-51, D-71; L-T4-36 und L-R-29 nur als Kapitel-PDFs), Verzeichnis in `docs/literatur/README.md`. Vorhandene Ausgaben gelten (Nachtrag D-51). Literatursuche und Beschaffung sind abgeschlossen (2026-09-29); kein Titel ist mehr offen. Bei Bedarf: T4 15 Artikel; optionale Bücher L-T1-11, L-T1-14, L-T2-05, L-T2-06, L-T3-11.
 
 # 14. Trainerregeln (Struktur; Inhalte in AP-07)
 
@@ -3009,7 +3011,7 @@ probleme_loesungen:
      - `docs/wissen/t3-klettern.md` ← L-T3-01, -02, -03, -06 (bzw. -07), -19, -09 (3. Aufl., Neuauflage nach Erscheinen); Stufe C L-T3-10 und L-T3-20 (Ideenfundus), L-T3-21 (Verletzungsmanagement, vorläufig), L-T3-16 und L-T3-15 (Planungsvorlagen Periodisierung) nur mit Kennzeichnung (D-31) (Karten: kletterspezifisches Krafttraining und Spezifitätsschema; Leistungsdiagnostik und Verlaufstests; Verletzungsprävention/Schmerz); L-T3-18 als Beleg für Hangboard-Protokolle, L-T3-05 mit konfidenz niedrig; Stufe-C-Quellen nur als Ideenfundus (D-31); Kennzeichnung „Evidenz: begrenzt"
      - `docs/wissen/r-reha-praevention.md` ← L-R-01 bis L-R-09, L-R-13 bis L-R-17, L-R-23 bis L-R-25 (Kern); optional L-R-10 bis L-R-12, L-R-18 bis L-R-22, L-R-26 bis L-R-28, L-R-29 und L-R-30 (Nachschlagewerke, nicht für Regeln, D-80); Pflichtabschnitt „Grenzen“ gemäß D-61 (e)
      - `docs/wissen/t4-beweglichkeit.md` ← L-T4-01 bis -06, -08, -10, -12, -14, -16, -17, -19 und Lehrbuch L-T4-32 (Kern), Verweise L-R-11 und L-T2-15; optional L-T4-07, -09, -11, -13, -15, -18, -20, -21, -23, -25 bis -31 und L-T4-36 (Stufe C, Faszienrolle-Hintergrund) (D-80); Übungskatalog L-T4-34 und weitere Übungsquellen aus Teil B nur als Ideenfundus (D-31); Pflichtabschnitt „Grenzen“: Dosis widersprüchlich, Hüftevidenz dünn (Einschätzung), kein Präventionseffekt, Wohlbefinden schwach belegt (L-T4-28)
-  4. Offene Punkte: V-07 Rest (Schwellen am Volltext L-P13, Entscheidung Q-13 in AP-07); V-15 Rest (L-T3-02 Wiederholungsbereiche, L-T3-12); V-17 (Seitenbezug L-T3-19, L-T3-10); Lizenz L-P15 vor Ablage prüfen; Bestätigung L-T3-21 durch den Athleten; V-18 bis V-23; Beschaffung L-T3-15; L-T3-17 bleibt Platzhalter (PubMed bei konkretem Bedarf); Skimo-Reviews ab 2021 bei Bedarf per PubMed (nicht beauftragt); Lizenz L-T2-15, L-T2-16 vor Ablage prüfen; Karten-Template (Schema: Kernaussage + Quelle + Seite + Stufe + konfidenz + Themenfeld); V-16 (Redundanz Hypertrophie-Ergänzung zu L-P08, Corrigendum L-T2-23); Lizenz L-T2-22, L-T2-23, L-T2-25 vor Ablage prüfen; Kartenerstellung nach Beschaffung.
+  4. Offene Punkte: V-07 Rest (Schwellen am Volltext L-P13, Entscheidung Q-13 in AP-07); V-15 Rest (L-T3-02 Wiederholungsbereiche, L-T3-12); V-17 (Seitenbezug L-T3-19, L-T3-10); Lizenz L-P15 vor Ablage prüfen; Bestätigung L-T3-21 durch den Athleten; V-18 bis V-23; L-T3-17 bleibt Platzhalter (PubMed bei konkretem Bedarf); Skimo-Reviews ab 2021 bei Bedarf per PubMed (nicht beauftragt); Lizenz L-T2-15, L-T2-16 vor Ablage prüfen; Karten-Template (Schema: Kernaussage + Quelle + Seite + Stufe + konfidenz + Themenfeld); V-16 (Redundanz Hypertrophie-Ergänzung zu L-P08, Corrigendum L-T2-23); Lizenz L-T2-22, L-T2-23, L-T2-25 vor Ablage prüfen; Kartenerstellung nach Beschaffung.
 - **Abhängigkeiten:** keine (Chat-Arbeit); Kartenerstellung erst nach Beschaffung.
 - **Abnahmekriterien:** Karten liegen in `docs/wissen/` und im Projekt-Wissen; jede Kernaussage hat Quelle mit Seite (EPUB ohne Seitenliste: Kapitel/Abschnitt, D-71) bzw. DOI/PMID und Evidenzstufe; V-06, V-07 (Literaturteil), V-14, V-15 erledigt; Gesamtbudget 13.1 eingehalten.
 - **Status:**
@@ -3028,7 +3030,7 @@ teilschritte:
   - Literaturauswahl T4 Beweglichkeit/Mobilität Teil A: erledigt (D-79), Teil B Übungsquellen erledigt (L-T4-34)
   - Lückenprüfung Standardwerke (en/de): erledigt (D-80)
   - Literatursuche insgesamt: abgeschlossen 2026-09-29 (Entscheidung Athlet; Q-22 entschieden, L-T3-15 aufgenommen, L-T4-35 entfallen)
-  - Beschaffung und Formatprüfung: erledigt bis auf L-T3-15 (Stand 2026-09-29 – 117 Werke, Kapitel-PDFs für 16 Bücher, Kapitel-Markdown mit Ansichts-PDF für 5 EPUBs, D-51, D-71; vorhandene Ausgaben gelten)
+  - Beschaffung und Formatprüfung: erledigt (Stand 2026-09-29 – 118 Werke, Kapitel-PDFs für 17 Bücher, Kapitel-Markdown mit Ansichts-PDF für 5 EPUBs, D-51, D-71; vorhandene Ausgaben gelten)
   - Literatur-Nachsteuerung L-T1-01/L-T3-08, HRV, EPUB: erledigt (D-70, D-71)
   - Primärquellen verifizieren: weitgehend erledigt (V-06, V-14 erledigt; V-07, V-15 teilweise, Rest nach Beschaffung)
   - Karten-Template und Karten: offen
@@ -3777,3 +3779,4 @@ noch_zu_pruefen:
 | 2026-09-29 | Übergabe Lückenprüfung Standardwerke eingearbeitet (D-80): neu optional L-T1-16 Koop, L-T2-33 McGill, L-R-29 Brukner & Khan, L-R-30 GOTS-Manual, L-T4-35 Freiwald (aus 13.3 übernommen, K-8 revidiert), L-T4-36 Schleip/Wilke; L-A03 Hinweis Heimausrüstung (Kap. 17); 13.3 um sieben Werke ergänzt; Nachträge D-54, D-61, D-79; Q-22, V-24; 13.4 (sechs Bücher Prio 2), 13.2.6-Einleitung, AP-06. |
 | 2026-09-29 | Vorhandene Ausgaben gelten (Nachtrag D-51, D-70; Entscheidung Athlet): L-A01 7. Aufl. nicht mehr vorläufig, keine Hörst-Neuauflage, L-T2-33 und L-R-30 in der 3. Aufl.; eingeordnet L-T3-16 (2. Aufl., Kapitel-PDFs), L-T2-33, L-R-30 (je Kapitel-PDFs), L-T1-16 (EPUB, Kapitel-Markdown), L-T4-36 (nur Kapitel-PDFs), L-T4-13, L-T4-17; Brukner Band 2 und Consuegra-Dublette entfernt; V-13, V-24, 13.4 (Stand 116 Werke), AP-06. |
 | 2026-09-29 | Literatursuche abgeschlossen (Entscheidung Athlet): L-T4-35 Freiwald nicht aufgenommen (nicht beschaffbar), L-T3-15 Anderson optional aufgenommen, Q-22 entschieden (Brukner Band 1 nicht aufnehmen), T4 Teil B mit L-T4-34 abgeschlossen; L-R-29 Brukner & Khan Vol. 1 Injuries in der 5. Aufl. 2017 eingeordnet (Scan mit eigener Texterkennung, 55 Kapitel-PDFs); D-80 Nachtrag, V-24 erledigt, 13.3, 13.4 (Stand 117 Werke), AP-06. |
+| 2026-09-29 | L-T3-15 Anderson, The Rock Climber's Training Manual eingeordnet (Scan mit Texterkennung, 19 Kapitel-PDFs); Beschaffung abgeschlossen, 13.4 ohne offene Titel (Stand 118 Werke). |
