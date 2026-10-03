@@ -5,6 +5,7 @@ Alle nennenswerten Änderungen werden hier dokumentiert. Format angelehnt an [Ke
 ## [Unreleased]
 
 ### Dokumentation
+- Modelltest Extraktion vorbereitet (`docs/extraktion/modelltest/`): 12 Einheiten in 4 Kategorien, gemeinsames Briefing, Aufträge, identischer Prompt je Modellinstanz, blinde Auswertung mit Goldstandard durch den Athleten.
 - AP-06 U2 (Extraktion) pausiert: Zwischenstand gesichert, Steuerung und Übergabe unter `docs/extraktion/steuerung/` (Wiederherstellungsskript, `UEBERGABE.md`).
 - Wissenskarten U2 vorbereitet: Kapitelauswahl der Bücher (99 Kapitel ohne Bezug zu Zweck/Profil nicht extrahiert, Grund je Kapitel), `lesemethode: markdown_epub` für EPUB-Quellen, Dateinamen je Kapiteldatei; Statustabellen lesen den Stand aus den Extraktionsdateien.
 - Wissenskarten U1 (Vorbereitung): neuer Ordner `docs/extraktion/` mit README (Statustabellen je Zieldatei, Quelle und Kapitel als Prüfdokument für Extraktion und Gegenprüfung; T4 als siebte Zieldatei), leerem Lückenregister `luecken.md` und Blockordnern wie `docs/literatur/`; Verweis im Prüfprotokoll AP-06.

@@ -16,6 +16,8 @@ zweck: Eine neue Claude-Code-Sitzung (Opus) stellt mit diesem Dokument die Umgeb
 4. Wenn T3 fertig ist: T3-Bericht an den Athleten geben (Abschnitt 6.1). Danach ohne Pause mit R und T4 weitermachen.
 5. Abschluss nach Abschnitt 7.
 
+**Modelltest vor der Fortsetzung (Entscheidung Athlet 2026-10-03):** Bevor U2 weiterläuft, vergleichen mehrere Modelle die Extraktion an 12 bereits extrahierten Einheiten. Die Modelle laufen in eigenen Instanzen, die Auswertung ist blind, den Goldstandard setzt der Athlet. Aufbau, Prompts und Bewertungsschema stehen in `docs/extraktion/modelltest/README.md`. Das Modell (und die Denktiefe) je Quellentyp für den Rest von U2 legt der Athlet nach dem Bericht fest (`docs/extraktion/modelltest/auswertung/bericht.md`). Bis dahin gilt „Opus, Denktiefe high“ (Abschnitt 4), und die Unteragenten bekommen das gewählte Modell im Parameter `model`.
+
 ## 1. Auftrag (Athlet, 2026-09-29) – verbindliche Arbeitsregeln
 
 Die Code-/Dokumentations-Instanz (Opus) führt AP-06 „Wissensbasis“, Teil Extraktion, aus. Maßgeblich ist `docs/konzept/wissenskarten.md`: Bei Widerspruch zum Hauptkonzept gilt für die Extraktion wissenskarten.md. Widersprüche werden dem Athleten gemeldet.
