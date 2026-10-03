@@ -12,13 +12,13 @@ Diese Nachricht ist nur die Vorbereitung. **Lies jetzt noch keine Datei, führe 
 
 Mehrere Instanzen haben dieselben 12 Buchkapitel bzw. Artikel nach demselben Briefing extrahiert. Jede Instanz hat einen Lauf-Buchstaben: `V`, `K`, `T`, `F`, `R`. Du bewertest alle Läufe **blind** am Original. Danach legst du mir als Athleten ausgewählte Stellen vor; meine Entscheidungen bilden den Goldstandard. Am Ende schreibst du einen Bericht mit einer Empfehlung je Quellentyp. Welcher Lauf zu welchem Modell gehört, erfährst du erst am Ende von mir.
 
-**Wo was liegt** (GitHub-Repo `chodid/training`, Grundlage Branch `claude/ecstatic-johnson-g3mxel`)
+**Wo was liegt** (GitHub-Repo `chodid/training`, **dein Branch `modelltest-auswertung`**; er enthält nur die Testunterlagen und die Eingabedateien)
 
 - Aufbau, Ablauf und **Bewertungsschema** (Urteile, Kennzahlen, Maßstab): `docs/extraktion/modelltest/README.md`, vor allem Abschnitte 4 und 5.
 - Regeln, nach denen extrahiert wurde: `docs/extraktion/modelltest/briefing.md`.
 - Einheiten mit Kategorie (erzählend, Scan, dichte Tabellen, Review mit vielen Kennzahlen): `docs/extraktion/modelltest/einheiten.md`. Dazu die Aufträge unter `docs/extraktion/modelltest/auftraege/`, mit Hinweisen zum Seitenbezug.
 - Originale: die Eingabedateien unter `docs/literatur/` (Pfade in `einheiten.md`).
-- Läufe: `docs/extraktion/modelltest/lauf-<X>/<EINHEIT>.md`. Sie können auf verschiedenen Remote-Branches liegen.
+- Läufe: `docs/extraktion/modelltest/lauf-<X>/<EINHEIT>.md` auf den Branches `modelltest-lauf-v`, `-k`, `-t`, `-f`, `-r`, je ein Lauf. Hat eine Instanz in einen anderen Arbeitsbranch gepusht, nenne ich dir dessen Namen.
 - Deine Ablage: `docs/extraktion/modelltest/auswertung/`.
 
 **Blindheit (verbindlich):**
@@ -29,9 +29,9 @@ Mehrere Instanzen haben dieselben 12 Buchkapitel bzw. Artikel nach demselben Bri
 **Phase A – Referenz und Urteile (nach „Go“)**
 
 1. Holen und einsammeln:
-   - `git fetch origin` (alle Branches).
-   - Grundlage `origin/claude/ecstatic-johnson-g3mxel` in deinen Arbeitsbranch übernehmen.
-   - Auf allen Remote-Branches nach `docs/extraktion/modelltest/lauf-*/` suchen, z. B. `git ls-tree -r --name-only <branch> docs/extraktion/modelltest/`. Fehlende Läufe mit `git checkout <branch> -- docs/extraktion/modelltest/lauf-<X>` übernehmen.
+   - Nur diese Branches holen: `git fetch origin modelltest-auswertung modelltest-lauf-v modelltest-lauf-k modelltest-lauf-t modelltest-lauf-f modelltest-lauf-r`, dazu gegebenenfalls die Branches, die ich dir nenne. **Keine anderen Branches holen oder lesen.**
+   - `modelltest-auswertung` auschecken (gibt deine Umgebung einen anderen Arbeitsbranch vor, diesen auf `origin/modelltest-auswertung` setzen).
+   - Je Lauf-Branch nur den Lauf-Ordner übernehmen: `git checkout origin/modelltest-lauf-<x> -- docs/extraktion/modelltest/lauf-<X>`.
    - Erwartet werden 5 Läufe × 12 Dateien. Fehlt etwas, mir melden und auf meine Antwort warten.
    - `poppler-utils` (pdftotext, pdftoppm) bei Bedarf installieren.
 2. README (Abschnitte 4, 5), Briefing und `einheiten.md` vollständig lesen.
@@ -74,6 +74,6 @@ Mehrere Instanzen haben dieselben 12 Buchkapitel bzw. Artikel nach demselben Bri
    - Hinweis, ob für ein günstigeres Modell eine echte Gegenprüfung (Stufe 2) sinnvoll wäre, weil es in der Hochrechnung knapp liegt.
    - Grenzen des Tests: kleine Stichprobe, ein Lauf je Modell, Auswertung durch ein Modell.
    - Die Entscheidung trifft der Athlet.
-5. Committen: nur `docs/extraktion/modelltest/auswertung/` und die eingesammelten `lauf-*`-Ordner. Nachricht `docs(modelltest): Auswertung`. Push wenn erlaubt nach `claude/ecstatic-johnson-g3mxel` (vorher `git pull --rebase`), sonst in deinen Arbeitsbranch; den Branch im Chat nennen.
+5. Committen: nur `docs/extraktion/modelltest/auswertung/` und die eingesammelten `lauf-*`-Ordner. Nachricht `docs(modelltest): Auswertung`. Push nach `modelltest-auswertung` (`git push origin HEAD:modelltest-auswertung`). Lässt deine Umgebung das nicht zu, in deinen Arbeitsbranch pushen und den Namen im Chat nennen.
 
 **Grenzen:** Keine Änderungen außerhalb von `docs/extraktion/modelltest/`. Keine Websuche, keine Pull Requests. Bei Unklarheiten im Ablauf mich fragen.

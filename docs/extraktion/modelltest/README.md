@@ -1,7 +1,7 @@
 ---
 titel: Modelltest Extraktion – Aufbau, Ablauf, Bewertungsschema
 stand: 2026-10-03 (vorbereitet; Start am Testtag 2026-10-04 auf „Go“ des Athleten)
-bezug: docs/extraktion/steuerung/UEBERGABE.md; docs/konzept/wissenskarten.md (Abschnitt 4)
+bezug: docs/extraktion/steuerung/UEBERGABE.md; docs/konzept/wissenskarten.md (Abschnitt 4) – beide nur auf dem Arbeitsbranch, nicht auf den Testbranches
 entscheidung: Athlet 2026-10-03 – 12 Einheiten (je 3 erzählend, Scan, dichte Tabellen, Reviews mit vielen Kennzahlen), mehrere Modelle in eigenen Instanzen, blinde Auswertung in einer eigenen Instanz, Goldstandard durch den Athleten an ausgewählten Stellen
 ---
 
@@ -20,8 +20,17 @@ Geprüft wird, welches Modell für die Extraktion (U2, Schritt 2 aus `wissenskar
 | `auftraege/<EINHEIT>.md` | Auftrag je Einheit (Eingabe, Kapitel, Seitenhinweis, Quelle, Ausgabe mit Platzhalter `<LAUF-CODE>`) |
 | `lauf-<CODE>/<EINHEIT>.md` | Ergebnisse je Lauf; die Kennung ist ein Buchstabe, kein Modellname |
 | `auswertung/` | Wird von der Auswertungs-Instanz angelegt: Referenz je Einheit, Urteile, Goldstandard, Bericht |
-| `PROMPT_EXTRAKTION.md` | Prompt für jede Extraktions-Instanz (identisch, nur `<LAUF-CODE>` einsetzen) |
-| `PROMPT_AUSWERTUNG.md` | Prompt für die Auswertungs-Instanz |
+| `PROMPT_EXTRAKTION.md`, `PROMPT_AUSWERTUNG.md` | Prompts für die Instanzen; nur auf dem Arbeitsbranch `claude/ecstatic-johnson-g3mxel`, nicht auf den Testbranches |
+
+**Branches (sauber, ohne Historie; Entscheidung Athlet 2026-10-03):**
+
+| Branch | Inhalt | wer schreibt |
+|---|---|---|
+| `modelltest-basis` | ein einziger Commit ohne Vorgeschichte: README, Briefing, Einheiten, Aufträge und die Eingabedateien der 12 Einheiten; keine Extraktionen, kein Konzept, keine Steuerung | niemand (Referenzstand) |
+| `modelltest-lauf-v`, `-k`, `-t`, `-f`, `-r` | Stand von `modelltest-basis`; je Lauf ein Branch | nur die Instanz des Laufs, nur `lauf-<CODE>/` |
+| `modelltest-auswertung` | Stand von `modelltest-basis` | nur die Auswertung: sammelt die `lauf-*`-Ordner der fünf Lauf-Branches ein, schreibt `auswertung/` |
+
+Die Testbranches enthalten keine Extraktionen außerhalb von `lauf-*`. Die vorhandenen Extraktionen liegen nur auf dem Arbeitsbranch und sind für die Instanzen tabu.
 
 Läufe: `V`, `K`, `T`, `F`, `R`. Welcher Lauf zu welchem Modell gehört, weiß nur der Athlet. Die Zuordnung steht nicht im Repo und wird der Auswertung erst nach dem Goldstandard genannt.
 
@@ -30,9 +39,9 @@ Läufe: `V`, `K`, `T`, `F`, `R`. Welcher Lauf zu welchem Modell gehört, weiß n
 1. **Vorbereitung (Athlet):** Jede Extraktions-Instanz bekommt `PROMPT_EXTRAKTION.md` mit ihrem Lauf-Code, die Auswertungs-Instanz bekommt `PROMPT_AUSWERTUNG.md`. Die Instanzen antworten nur „Bereit“ und laden noch nichts.
    - Denktiefe in allen Extraktions-Instanzen: **high**. Bei GPT ist das „reasoning effort: high“.
    - Die Auswertungs-Instanz läuft mit hoher Denktiefe und kann PDF-Seiten als Bild lesen.
-2. **Extraktion (nach „Go“):** Jede Instanz bearbeitet die 12 Einheiten, committet nur ihren Ordner `lauf-<CODE>/` und meldet im Chat das Laufprotokoll mit Kosten und Branch. Der Athlet sammelt die Kostenangaben.
+2. **Extraktion (nach „Go“):** Jede Instanz arbeitet auf ihrem Branch `modelltest-lauf-<code>`, bearbeitet die 12 Einheiten, committet nur ihren Ordner `lauf-<CODE>/` und meldet im Chat das Laufprotokoll mit Kosten und Branch. Der Athlet sammelt die Kostenangaben.
 3. **Auswertung Phase A (nach „Go“, wenn alle Läufe gepusht sind):**
-   - Die Läufe aus allen Remote-Branches einsammeln.
+   - Die Läufe von den fünf Lauf-Branches auf `modelltest-auswertung` einsammeln.
    - Die Form prüfen.
    - Je Einheit eine Referenz bilden: alle Aussagen der Läufe zusammenführen und jede am Original prüfen.
 4. **Phase B, Goldstandard:** Die Auswertung legt dem Athleten 30 Stellen vor: 15 zufällig gezogene und 15 der strittigsten. Gezeigt werden nur die konkurrierenden Fassungen, ohne Lauf-Kennung und ohne eigenes Urteil. Der Athlet entscheidet am PDF.

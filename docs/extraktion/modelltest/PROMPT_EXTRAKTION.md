@@ -14,7 +14,7 @@ Diese Nachricht ist nur die Vorbereitung. **Lies jetzt noch keine Datei, führe 
 
 Du extrahierst 12 Buchkapitel bzw. Artikel aus Fachliteratur in strukturierte Markdown-Dateien. Das ist Teil eines **blinden Modellvergleichs**: Andere Instanzen bearbeiten dieselben Einheiten, eine eigene Instanz bewertet alle Ergebnisse am Original-PDF. Es zählen Genauigkeit (Zahlen, Seitenangaben), Vollständigkeit, das Erkennen von Widersprüchen in der Quelle und die Einhaltung der Regeln, nicht die Geschwindigkeit.
 
-**Wo was liegt** (GitHub-Repo `chodid/training`, Branch `claude/ecstatic-johnson-g3mxel`)
+**Wo was liegt** (GitHub-Repo `chodid/training`, **dein Branch `modelltest-lauf-` + dein Lauf-Code als Kleinbuchstabe**, z. B. `modelltest-lauf-k`; er enthält nur die Testunterlagen und die Eingabedateien)
 
 - Regeln: `docs/extraktion/modelltest/briefing.md`. Vollständig lesen und befolgen. Es enthält Template, Feldregeln, Leseregeln, Abbruchregel und Rückgabeformat.
 - Einheiten: `docs/extraktion/modelltest/einheiten.md`, eine Liste der 12 Einheiten.
@@ -25,8 +25,9 @@ Du extrahierst 12 Buchkapitel bzw. Artikel aus Fachliteratur in strukturierte Ma
 **Ablauf nach „Go“**
 
 1. Arbeitsstand holen:
-   - `git fetch origin claude/ecstatic-johnson-g3mxel`.
-   - Diesen Stand als Grundlage auschecken: entweder direkt den Branch oder deinen vorgegebenen Arbeitsbranch auf diesen Stand setzen, z. B. `git checkout -B <dein-branch> origin/claude/ecstatic-johnson-g3mxel`.
+   - Nur deinen Branch holen: `git fetch origin modelltest-lauf-<code>` und auschecken, z. B. `git checkout -B modelltest-lauf-<code> origin/modelltest-lauf-<code>`. `<code>` ist dein Lauf-Code als Kleinbuchstabe.
+   - Gibt deine Umgebung einen anderen Arbeitsbranch vor, diesen auf denselben Stand setzen: `git checkout -B <arbeitsbranch> origin/modelltest-lauf-<code>`.
+   - **Keine anderen Branches holen, auschecken oder lesen.** Dein Arbeitsverzeichnis muss danach genau dem Stand deines Branches entsprechen; prüfe das mit `ls docs/extraktion/`. Dort darf nur `modelltest/` liegen. Liegt dort mehr, nicht weiterlesen und mich fragen.
    - Prüfen, ob `pdftotext`/`pdftoppm` vorhanden sind. Falls nicht und es möglich ist, `poppler-utils` installieren.
 2. `docs/extraktion/modelltest/briefing.md` und `docs/extraktion/modelltest/einheiten.md` vollständig lesen.
 3. Die 12 Einheiten bearbeiten, **jede mit frischem Kontext**:
@@ -48,7 +49,7 @@ Du extrahierst 12 Buchkapitel bzw. Artikel aus Fachliteratur in strukturierte Ma
 5. Commit und Push:
    - Nur den Ordner `docs/extraktion/modelltest/lauf-<LAUF-CODE>/` committen, mit der Nachricht `docs(modelltest): Lauf <LAUF-CODE> – 12 Extraktionen`.
    - **Kein Modell- oder Anbietername in der Commit-Nachricht**, auch keine Co-Authored-By-Zeile mit Modellnamen (blinder Vergleich).
-   - Push: wenn erlaubt nach `claude/ecstatic-johnson-g3mxel` (vorher `git pull --rebase origin claude/ecstatic-johnson-g3mxel`), sonst in deinen vorgegebenen Arbeitsbranch.
+   - Push nach `modelltest-lauf-<code>` (`git push origin HEAD:modelltest-lauf-<code>`). Lässt deine Umgebung das nicht zu, in deinen vorgegebenen Arbeitsbranch pushen und den Namen im Abschluss nennen.
 6. Abschluss **nur im Chat**, nicht im Repo:
    - (a) Branch und Commit-Hash.
    - (b) Je Einheit die Rückgabe laut Briefing: Pfad, Seiten und Lesemethode, Aussagen/unsicher/offene Stellen, Seitenbezug, Probleme.
