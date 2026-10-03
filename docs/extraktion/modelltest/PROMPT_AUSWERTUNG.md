@@ -64,13 +64,14 @@ Mehrere Instanzen haben dieselben 12 Buchkapitel bzw. Artikel nach demselben Bri
 1. Meine Entscheidungen mit deinen Urteilen vergleichen und die Übereinstimmung angeben.
    - Liegt sie unter 90 %, die Fehlerart bestimmen und die betroffenen Einträge derselben Art in allen Einheiten nachprüfen.
    - Abweichungen und Korrekturen dokumentieren in `auswertung/abgleich.md`.
-2. Kennzahlen nach README 5 je Lauf, gesamt und je Kategorie, berechnen. Nach `auswertung/kennzahlen.md`, mit Tabellen.
+2. Kennzahlen nach README 5 je Lauf, gesamt und je Kategorie, berechnen, **einschließlich der Hochrechnung der Kette Extraktion → Gegenprüfung (Kennzahlen 9–12)**. Den Prüfumfang je Einheit und Lauf aus der jeweiligen Extraktionsdatei bestimmen; den Zufallsanteil als Erwartungswert rechnen. Ergebnis nach `auswertung/kennzahlen.md`, mit Tabellen.
 3. Mich fragen: „Bitte Zuordnung der Lauf-Buchstaben zu den Modellen und die Laufprotokolle (Tokens, Dauer) nennen.“ Erst danach entblinden.
 4. Bericht nach `auswertung/bericht.md`:
    - Ergebnis je Kategorie.
    - Streuung zwischen zwei Läufen desselben Modells, falls vorhanden.
    - Kosten.
    - **Empfehlung je Quellentyp** (Modell und Denktiefe) nach dem Maßstab in README 5.
+   - Hinweis, ob für ein günstigeres Modell eine echte Gegenprüfung (Stufe 2) sinnvoll wäre, weil es in der Hochrechnung knapp liegt.
    - Grenzen des Tests: kleine Stichprobe, ein Lauf je Modell, Auswertung durch ein Modell.
    - Die Entscheidung trifft der Athlet.
 5. Committen: nur `docs/extraktion/modelltest/auswertung/` und die eingesammelten `lauf-*`-Ordner. Nachricht `docs(modelltest): Auswertung`. Push wenn erlaubt nach `claude/ecstatic-johnson-g3mxel` (vorher `git pull --rebase`), sonst in deinen Arbeitsbranch; den Branch im Chat nennen.

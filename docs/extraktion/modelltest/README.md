@@ -78,7 +78,28 @@ Läufe: `V`, `K`, `T`, `F`, `R`. Welcher Lauf zu welchem Modell gehört, weiß n
    - falsche `lesemethode`.
 8. **Kosten** (erst nach der Entblindung, Angaben aus dem Laufprotokoll): Tokens, Dauer, Unteragenten.
 
-**Maßstab für die Empfehlung:** Ein Modell gilt für eine Kategorie als ausreichend, wenn seine schwere Fehlerquote und seine Vollständigkeit innerhalb der Streuung liegen, die zwischen zwei Läufen desselben starken Modells auftritt. Die Streuung wird nach der Entblindung bestimmt. Die Entscheidung trifft der Athlet.
+**Hochrechnung der Kette Extraktion → Gegenprüfung** (Entscheidung Athlet 2026-10-03): In U2/U3 prüft immer ein festes, anderes Modell gegen (Gegenprüfung, eigener Lauf je Kapitel). Ihre Regeln sind hier übernommen, damit die Auswertung sie anwenden kann:
+
+- **Prüfumfang je Kapitel:**
+  - alle Aussagen mit Eintrag in `zahlen` oder mit `unsicher: true`;
+  - alle mit `typ: befund`, die Dosierung oder Schwellen betreffen;
+  - von den übrigen eine Zufallsauswahl von 20 %, mindestens 5.
+- **Prüfergebnisse:** `ok`, `stelle_falsch`, `zahl_falsch`, `sinn_verzerrt`, `nicht_gefunden`, `nicht_pruefbar`.
+- **Freigabe `nein`**, d. h. das Kapitel wird neu extrahiert und erneut geprüft: bei mindestens 2 `zahl_falsch`/`sinn_verzerrt` oder mindestens 1 `nicht_gefunden`. Bei Freigabe `ja` werden die gefundenen Fehler korrigiert.
+- **Grenze:** Die Gegenprüfung prüft nur, was in der Extraktion steht. Fehlende Inhalte ergänzt sie nicht.
+
+Die Urteile dieses Tests werden so zugeordnet: `zahl_falsch` → `zahl_falsch`; `sinn_falsch` → `sinn_verzerrt`; `nicht_im_text` → `nicht_gefunden`; `stelle_falsch` → `stelle_falsch`.
+
+Daraus folgen **je Lauf (gesamt und je Kategorie)** diese Kennzahlen:
+
+9. **Abgefangene Fehler:** Anteil der schweren Fehler, die im Prüfumfang liegen. Für den Zufallsanteil gilt der Erwartungswert: 20 % der schweren Fehler außerhalb des festen Umfangs bzw. der entsprechende Anteil bei der Mindestzahl 5.
+10. **Restfehler nach Gegenprüfung:** schwere Fehler, die voraussichtlich unentdeckt bleiben, je 100 Aussagen.
+11. **Quote Freigabe `nein`:** Anteil der Einheiten, die nach der Regel neu extrahiert werden müssten. Gerechnet wird mit den Fehlern im festen Prüfumfang; der Zufallsanteil geht als Erwartungswert ein. Das ist der Kostentreiber der Kette.
+12. **Vollständigkeit nach Gegenprüfung:** unverändert gleich Kennzahl 3.
+
+Eine echte Gegenprüfung aller Läufe (Stufe 2) wird nur angesetzt, wenn ein günstigeres Modell in der Hochrechnung knapp an der Vergleichsgröße liegt, und dann nur für dieses Modell. Darüber entscheidet der Athlet.
+
+**Maßstab für die Empfehlung:** Ein Modell gilt für eine Kategorie als ausreichend, wenn seine Restfehler nach Gegenprüfung (Kennzahl 10) und seine Vollständigkeit innerhalb der Streuung liegen und die Quote Freigabe `nein` die Kosten nicht über die des stärkeren Modells treibt; Vergleichsgröße ist die Streuung, die zwischen zwei Läufen desselben starken Modells auftritt. Die Streuung wird nach der Entblindung bestimmt. Die Entscheidung trifft der Athlet.
 
 ## 6. Für Extraktionsläufe
 
